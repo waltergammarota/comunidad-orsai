@@ -1,0 +1,89 @@
+POST http://orsai.test/api/contest_application/create?XDEBUG_SESSION_START=VSCODE
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="images[]"; filename="test.jpg";
+
+< ../../tests/fake-images/test.jpg
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="title";
+
+title
+--WebAppBoundary--
+--WebAppBoundary
+Content-Disposition: form-data; name="description";
+
+description
+--WebAppBoundary--
+-WebAppBoundary
+Content-Disposition: form-data; name="link";
+
+link
+--WebAppBoundary--
+
+--WebAppBoundary--
+-WebAppBoundary
+Content-Disposition: form-data; name="user_id";
+
+1
+--WebAppBoundary--
+
+--WebAppBoundary--
+--WebAppBoundary--
+-WebAppBoundary
+Content-Disposition: form-data; name="contest_id";
+
+1
+--WebAppBoundary--
+
+
+###
+POST http://orsai.test/api/users/register?XDEBUG_SESSION_START=VSCODE
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "mato",
+    "lastName": "gallardo",
+    "nickName": "matoG",
+    "country": "Argentina",
+    "email": "test3@gmail.com",
+    "password": "12345678"
+}
+
+###
+POST http://orsai.test/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "Fundacion Orsai"
+}
+
+###
+POST http://orsai.test/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+"email": "admin@gmail.com",
+"password": "test"
+}
+
+###
+POST http://orsai.test/api/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9vcnNhaS50ZXN0XC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTg2MTIwMDI1LCJleHAiOjE1ODYxMjM2MjUsIm5iZiI6MTU4NjEyMDAyNSwianRpIjoiMmMyekNwTWsxYWlYYkE3dCIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JT9NhNakabhM7V5NR6IH7WLN8cwFTvjRZNZmBAieKU4
+Accept: application/json
+
+
+###
+POST http://orsai.test/api/auth/refresh
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9vcnNhaS50ZXN0XC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTg2MTIwMDI1LCJleHAiOjE1ODYxMjM2MjUsIm5iZiI6MTU4NjEyMDAyNSwianRpIjoiMmMyekNwTWsxYWlYYkE3dCIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JT9NhNakabhM7V5NR6IH7WLN8cwFTvjRZNZmBAieKU4
+Accept: application/json
+
+###
