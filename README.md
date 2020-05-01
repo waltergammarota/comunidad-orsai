@@ -2,4 +2,6 @@ FUNDACION ORSAI
 
 1. git clone
 2. npm install
-3. php artisan queue:work >/dev/null 2>&1 &
+3. composer update
+4. php artisan storage:link
+5. php artisan queue:work >/dev/null 2>&1 &

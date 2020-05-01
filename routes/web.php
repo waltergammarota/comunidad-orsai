@@ -58,7 +58,7 @@ Route::get(
     '/registrarse',
     function () {
         return view('registrarse', ['title' => 'Registro de Usuario']);
-    },
+    }
 )->name('registrarse');
 
 Route::post(
