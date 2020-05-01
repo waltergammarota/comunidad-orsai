@@ -61,7 +61,7 @@
             @if (Auth::check())
                 <div id="menu_logueado">
                     <div id="menu_user_img">
-                        <img src="{{url($avatar)}}"
+                        <img src="{{$avatar? url($avatar):""}}"
                              alt="Imagen usuario">
                     </div>
                     <div id="menu_user_alias">

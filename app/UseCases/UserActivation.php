@@ -43,12 +43,15 @@ class UserActivation extends GenericUseCase
                 new TransactionRepository($this->userRepository),
                 new Mailer()
             );
-            if($sendWelcomePoints->execute()){
-                return $this->present($savedUser->getId(), $savedUser->getEmail());
+            if ($sendWelcomePoints->execute()) {
+                return $this->present(
+                    $savedUser->getId(),
+                    $savedUser->getEmail()
+                );
             }
             return false;
         }
-        throw new UserNotFoundException("User can not be activated", "10030", );
+        throw new UserNotFoundException("User can not be activated", "10030");
     }
 
     private function present($id, $email)
