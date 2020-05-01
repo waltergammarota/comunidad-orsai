@@ -62,8 +62,8 @@ header{
 	margin-right: 20px;
 }
 
-.logo img{ 
-	vertical-align: bottom; 
+.logo img{
+	vertical-align: bottom;
 	border: 0;
 }
 
@@ -229,7 +229,7 @@ code{
 
 .content.light p:nth-child(3n+3){ color: #666; }
 
-.content p.full:nth-child(odd), .content p.half:nth-child(odd), 
+.content p.full:nth-child(odd), .content p.half:nth-child(odd),
 .content p.full:nth-child(3n+3), .content p.half:nth-child(3n+3){
 	background: none;
 	padding: 0;
@@ -281,7 +281,7 @@ hr + .content:nth-child(odd) h2{
 	font-family: inherit;
 	color: #222;
 } */
-/* 
+/*
 .content textarea{
 	min-height: 80px;
 	width: 70%;
@@ -475,9 +475,9 @@ hr + .content:nth-child(odd) h2{
 	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
 }
 
-#examples.resizable{ 
-	background:#444; 
-	padding-bottom: 30px; 
+#examples.resizable{
+	background:#444;
+	padding-bottom: 30px;
 }
 
 #resizable.content{
@@ -588,7 +588,7 @@ hr + .content:nth-child(odd) h2{
 
 #sortable li:active, #sortable .ui-sortable-helper{ background: #eb3755; }
 
-#examples.tabs, #examples.accordion, #examples.autocomplete{	
+#examples.tabs, #examples.accordion, #examples.autocomplete{
 	padding: 5px 20px 20px 20px;
 	background-color: #333;
 }
@@ -601,9 +601,9 @@ hr + .content:nth-child(odd) h2{
 
 #tabs{ margin-bottom: 20px; }
 
-#tabs, #tabs-2, #accordion{ 
-	width: 600px; 
-	max-width:95%; 
+#tabs, #tabs-2, #accordion{
+	width: 600px;
+	max-width:95%;
 }
 
 #examples.tabs .ui-widget-content{ background-image: none; }
@@ -622,15 +622,15 @@ hr + .content:nth-child(odd) h2{
 #autocomplete:focus{ outline: none; }
 
 .ui-menu a{
-	-webkit-transition: none; 
-	-moz-transition: none; 
-	-o-transition: none; 
+	-webkit-transition: none;
+	-moz-transition: none;
+	-o-transition: none;
 	transition: none;
 }
 
 .ui-menu .mCSB_container{ padding: 2px; }
 
-.ui-menu .mCSB_scrollTools{ 
+.ui-menu .mCSB_scrollTools{
 	right: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -659,16 +659,16 @@ body.colorbox-demo #cboxContent, body.colorbox-demo #cboxContent p, body.colorbo
 	float: left;
 }
 
-.all-themes .content h2, .all-themes .content p, .all-themes .content hr{ 
+.all-themes .content h2, .all-themes .content p, .all-themes .content hr{
 	width: 240px;
-	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; 
+	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
 }
 
-.all-themes #content-m h2, .all-themes #content-m p, .all-themes #content-m hr, 
+.all-themes #content-m h2, .all-themes #content-m p, .all-themes #content-m hr,
 .all-themes #content-md h2, .all-themes #content-md p, .all-themes #content-md hr{ width: 270px; }
 
-.all-themes .content.expanded-content h2, .all-themes .content.expanded-content p, .all-themes .content.expanded-content hr, 
-.all-themes #content-m.expanded-content h2, .all-themes #content-m.expanded-content p, .all-themes #content-m.expanded-content hr, 
+.all-themes .content.expanded-content h2, .all-themes .content.expanded-content p, .all-themes .content.expanded-content hr,
+.all-themes #content-m.expanded-content h2, .all-themes #content-m.expanded-content p, .all-themes #content-m.expanded-content hr,
 .all-themes #content-md.expanded-content h2, .all-themes #content-md.expanded-content p, .all-themes #content-md.expanded-content hr{ width: 540px; }
 
 .max-height-example .content{
@@ -678,7 +678,7 @@ body.colorbox-demo #cboxContent, body.colorbox-demo #cboxContent p, body.colorbo
 
 .max-width-example{ min-width: 620px; }
 
-.max-width-example .content{ 
+.max-width-example .content{
 	height: auto;
 	width: auto;
 	max-width: 50%;
@@ -700,12 +700,12 @@ body.colorbox-demo #cboxContent, body.colorbox-demo #cboxContent p, body.colorbo
 .max-width-example .content ul li > a{
 	display: block;
 	padding: 20px;
-	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; 
+	-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
 	background: rgba(0,0,0,0.3);
 }
 
-.snap-scrolling-example .content{ 
-	height: auto; 
+.snap-scrolling-example .content{
+	height: auto;
 	width: 853px;
 }
 
@@ -757,10 +757,10 @@ body.colorbox-demo #cboxContent, body.colorbox-demo #cboxContent p, body.colorbo
 }
 
 .transitions .content{
-	-webkit-transition: all .6s ease-out; 
-	-moz-transition: all .6s ease-out; 
-	-o-transition: all .6s ease-out; 
-	transition: all .6s ease-out; 
+	-webkit-transition: all .6s ease-out;
+	-moz-transition: all .6s ease-out;
+	-o-transition: all .6s ease-out;
+	transition: all .6s ease-out;
 }
 
 

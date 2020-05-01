@@ -29,13 +29,14 @@ class UserRepository implements UserRepositoryInterface
             "country" => $user->getCountry(),
             "email" => $user->getEmail(),
             "email_verified_at" => $user->getEmailVerifiedAt(),
-            "password" => $user->getPassword(),
             "role"=> $user->getRole()
         ];
         $userModel = new User($userData);
         if ($user->getId() && $user->getId() > 0) {
             $userModel->id = $user->getId();
             $userModel->exists = true;
+        } else {
+            $userModel->password = $user->getPassword();
         }
         $userModel->save();
         return $this->mapDBUserPropsToUser($userModel);
@@ -82,6 +83,7 @@ class UserRepository implements UserRepositoryInterface
         $userData['email_verified_at'] = $userModel->email_verified_at;
         $userData['password'] = $userModel->password;
         $userData['created_at'] = $userModel->created_at;
+        $userData['updated_at'] = $userModel->updated_at;
         $userData['updated_at'] = $userModel->updated_at;
         $userData['role'] = $userModel->role;
         $user->updateData($userData);

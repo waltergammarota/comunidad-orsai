@@ -14,9 +14,9 @@ class FileRepository extends GenericRepository
         $images = [];
         if ($request->hasFile($type)) {
             $files = $request->file($type);
-            foreach ($files as $file) {
+            foreach ($files as $key => $file) {
                 $image = $this->saveToDisk($type, $file);
-                $this->saveImage($type, $image);
+                $this->saveImage($type, $image, $key);
                 array_push($images, $image);
             }
         }
@@ -26,9 +26,10 @@ class FileRepository extends GenericRepository
     /**
      * @param Model $type
      * @param ApplicationFile $image
+     * @param Int $key
      * @return mixed|void
      */
-    private function saveImage($type, ApplicationFile $image): void
+    private function saveImage($type, ApplicationFile $image, $key): void
     {
         $dbFile = new FileModel(
             [
@@ -38,7 +39,8 @@ class FileRepository extends GenericRepository
                 "extension" => $image->getExtension(),
                 "size" => $image->getSize(),
                 "height" => $image->getHeight(),
-                "width" => $image->getWidth()
+                "width" => $image->getWidth(),
+                'position' => $key
             ]
         );
         $dbFile->save();

@@ -20,7 +20,7 @@
                 <div class="input_err obligatorio">
                     <label class='oculto'>Nombre</label>
                     <input type="text" id="nom_us" name="nombre"
-                           placeholder="Nombre">
+                           placeholder="Nombre" value="{{old('nombre')}}">
                     @if ($errors->has('nombre'))
                         <span class="invalid-feedback">
                             <strong>{{$errors->first('nombre')}}</strong>
@@ -30,7 +30,7 @@
                 <div class="input_err obligatorio">
                     <label class='oculto'>Apellido</label>
                     <input type="text" id="ape_us" name="apellido"
-                           placeholder="Apellido">
+                           placeholder="Apellido" value="{{old('apellido')}}">
                     @if ($errors->has('apellido'))
                         <span class="invalid-feedback">
                             <strong>{{$errors->first('apellido')}}</strong>
@@ -40,7 +40,7 @@
                 <div class="input_err obligatorio">
                     <label class='oculto'>Correo Electrónico</label>
                     <input type="email" id="mail_us" name="email"
-                           placeholder="Correo Electrónico">
+                           placeholder="Correo Electrónico" value="{{old('email')}}">
                     @if ($errors->has('email'))
                         <span class="invalid-feedback">
                             <strong>{{$errors->first('email')}}</strong>
@@ -54,14 +54,14 @@
                             <option id="select_pais" value='ninguno' disabled
                                     selected hidden>Elegir...
                             </option>
-                            <option value='AR'>Argentina</option>
-                            <option value='BO'>Bolivia</option>
-                            <option value='BR'>Brasil</option>
-                            <option value='CL'>Chile</option>
-                            <option value='PY'>Paraguay</option>
-                            <option value='PE'>Perú</option>
-                            <option value='UY'>Uruguay</option>
-                            <option value='otro'>Otro</option>
+                            <option value='Argentina' {{old('pais') == 'Argentina'? "selected":""}}>Argentina</option>
+                            <option value='Bolivia' {{old('pais') == 'Bolivia'? "selected":""}}>Bolivia</option>
+                            <option value='Brasil' {{old('pais') == 'Brasil'? "selected":""}}>Brasil</option>
+                            <option value='Chile' {{old('pais') == 'Chile'? "selected":""}}>Chile</option>
+                            <option value='Paraguay' {{old('pais') == 'Paraguay'? "selected":""}}>Paraguay</option>
+                            <option value='Perú' {{old('pais') == 'Perú'? "selected":""}}>Perú</option>
+                            <option value='Uruguay' {{old('pais') == 'Uruguay'? "selected":""}}>Uruguay</option>
+                            <option value='otro' {{old('pais') == 'otro'? "selected":""}}>Otro</option>
                         </select>
                         @if ($errors->has('pais'))
                             <span class="invalid-feedback">
@@ -74,7 +74,7 @@
                 <div class="input_err obligatorio">
                     <label class='oculto'>Usuario</label>
                     <input type="text" id="usr" name="usuario"
-                           placeholder="Usuario">
+                           placeholder="Usuario" value="{{old('usuario')}}">
                     @if ($errors->has('usuario'))
                         <span class="invalid-feedback">
                             <strong>El nombre de usuario ya fue usado.  Elija otro.</strong>
@@ -111,7 +111,7 @@
                     Aceptación de <a href="{{url('terminos')}}"
                                      class="subrayado resaltado_amarillo text_bold">Términos
                         y condiciones</a> (RDGP)
-                    <input type="checkbox" id="cbox1" name="terminos" value="1">
+                    <input type="checkbox" id="cbox1" name="terminos" value="1"  {{old('terminos')? "checked":""}}>
                     @if ($errors->has('terminos'))
                         <span class="invalid-feedback">
                             <strong>Por favor, acepte los términos y condiciones</strong>

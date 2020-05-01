@@ -3,8 +3,10 @@
 namespace App\Exceptions;
 
 use App\Classes\UserException;
+use App\Classes\UserNotFoundException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Redirect;
 
 class Handler extends ExceptionHandler
 {
@@ -54,6 +56,10 @@ class Handler extends ExceptionHandler
         if ($exception instanceof UserException) {
             return UserExceptionHttp::returnErrorResponse($exception);
         }
+        if ($exception instanceof UserNotFoundException) {
+            return Redirect::to('reenviar-mail');
+        }
+
         if($this->isHttpException($exception) && $exception->getCode() == 404) {
             return response()->view('errors.404',[],404);
         }

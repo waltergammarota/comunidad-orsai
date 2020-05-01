@@ -27,14 +27,14 @@ class UserActivation extends GenericUseCase
     public function __construct($token, $userRepository)
     {
         $this->token = $token;
-        $this->welcomeAmount = 100;
+        $this->welcomeAmount = 750;
         $this->userRepository = $userRepository;
     }
 
     public function execute()
     {
         $user = $this->userRepository->findBytoken($this->token);
-        if ($user) {
+        if ($user && $user->getEmailVerifiedAt() == null) {
             $user->activateUser();
             $savedUser = $this->userRepository->save($user);
             $sendWelcomePoints = new WelcomePoints(
@@ -44,19 +44,20 @@ class UserActivation extends GenericUseCase
                 new Mailer()
             );
             if($sendWelcomePoints->execute()){
-                return $this->present($savedUser->getId());
+                return $this->present($savedUser->getId(), $savedUser->getEmail());
             }
             return false;
         }
-        throw new UserNotFoundException();
+        throw new UserNotFoundException("User can not be activated", "10030", );
     }
 
-    private function present($id)
+    private function present($id, $email)
     {
         return [
             "status" => "OK",
             "message" => "User {$id} was activated",
-            "userId" => $id
+            "userId" => $id,
+            "email" => $email
         ];
     }
 

@@ -21,6 +21,7 @@ class CreateTransactionsTable extends Migration
                 $table->unsignedBigInteger('to');
                 $table->enum('type', ['MINT','BURN', 'TRANSFER']);
                 $table->integer('amount');
+                $table->integer('cap_id')->nullable();
                 $table->text('data');
                 $table->timestamps();
                 $table->softDeletes();

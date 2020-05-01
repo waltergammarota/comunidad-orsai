@@ -20,7 +20,7 @@ class InsertTransactions extends Migration
             "from" => 1,
             "to" => 2,
             "type" => 'MINT',
-            "amount" => 100,
+            "amount" => 750,
             "data" => "welcome"
         ];
         $tx = new Transaction($params);

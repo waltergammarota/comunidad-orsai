@@ -74,7 +74,7 @@ class UserRegistration extends GenericUseCase
         if ($isUserDataComplete) {
             $updatedUser = $this->userRepository->save($this->user);
             $token = md5($updatedUser->getId().$updatedUser->getEmail().$updatedUser->getCreatedAt());
-            $this->mailer->sendActivationEmail($updatedUser->getEmail(), $token);
+            $this->mailer->sendActivationEmail($updatedUser->getEmail(),$updatedUser->getName(),$updatedUser->getLastName(), $token);
             return $this->present($updatedUser);
         }
         throw new UserException(

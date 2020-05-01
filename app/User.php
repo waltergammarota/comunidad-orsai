@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tests\TestCase;
 
 class User extends Authenticatable implements MustVerifyEmail,JWTSubject
 {
@@ -26,7 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
         'email',
         'password',
         'email_verified_at',
-        'role'
+        'role',
+        'avatar'
     ];
 
     /**
@@ -48,6 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function avatar() {
+        return $this->hasOne('App\Databases\FileModel','id', "avatar");
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -56,4 +60,5 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
     {
         return [];
     }
+
 }

@@ -66,6 +66,11 @@ Route::post(
     'Registration\RegistrationController@registerWeb'
 )->name('registrarse');
 
+Route::get(
+    '/activar/{token}',
+    'Registration\RegistrationController@activar'
+)->name('activar');
+
 
 Route::get(
     '/restablecer-clave',
@@ -75,6 +80,33 @@ Route::get(
 )->name('restablecer-clave');
 
 Route::get(
+    '/reset-password/{token}',
+    'Auth\LoginController@resetpasswordform'
+)->name('reset-password');
+
+Route::post(
+    '/reset-password',
+    'Auth\LoginController@createNewPassword'
+)->name('reset-password');
+
+Route::post(
+    '/restablecer-clave',
+    'Auth\LoginController@resetpassword'
+)->name('restablecer-clave');
+
+Route::get(
+    '/reenviar-mail',
+    function () {
+        return view('reenviar-mail-activacion');
+    }
+)->name('reenviar-mail');
+
+Route::post(
+    '/reenviar-mail',
+    'Registration\RegistrationController@reenviar'
+)->name('reenviar-mail');
+
+Route::get(
     '/terminos',
     function () {
         return view('terminos', ["title" => "Términos y condiciones"]);
@@ -82,9 +114,9 @@ Route::get(
 )->name('terminos');
 
 Route::get(
-    '/participantes',
-    'WebController@participantes'
-)->name('participantes');
+    '/concurso-finalizado',
+    'WebController@concurso_finalizado'
+)->name('concurso-finalizado');
 
 
 /* ACCESO RESTRINGIDO */
@@ -101,7 +133,7 @@ Route::middleware(['verified'])->group(
         )->name('perfil');
 
         Route::get(
-            '/postulacion/{id?}',
+            '/postulacion',
             'AccountController@show_postulacion'
         )->name('postulacion');
 
@@ -109,5 +141,129 @@ Route::middleware(['verified'])->group(
             '/postulacion',
             'AccountController@store_publicacion'
         );
+
+        Route::post(
+            '/profile/update',
+            'AccountController@profile_update'
+        );
+
+        Route::post(
+            '/profile/image',
+            'AccountController@profile_image'
+        );
+
+        Route::get(
+            '/propuesta/{id}',
+            'PropuestaController@show'
+        );
+
+        Route::post(
+            '/votar',
+            'PropuestaController@votar'
+        );
+
+        Route::get(
+            '/concurso',
+            'Contest\ContestController@index'
+        )->name("concurso");
+
+        Route::get('dashboard', 'Admin\AdminController@index')->name(
+            'dashboard'
+        );
+
+        Route::get('admin/usuarios', 'Admin\AdminController@usuarios')->name(
+            'dashboard'
+        );
+
+        Route::get(
+            'admin/usuarios-json',
+            'Admin\AdminController@usuarios_json'
+        )->name(
+            'dashboard'
+        );
+
+        Route::get(
+            'admin/transacciones',
+            'Admin\AdminController@transacciones'
+        )->name(
+            'dashboard'
+        );
+
+        Route::get(
+            'admin/transacciones-json',
+            'Admin\AdminController@transacciones_json'
+        )->name(
+            'dashboard'
+        );
+        Route::get(
+            'admin/postulaciones-json',
+            'Admin\AdminController@postulaciones_json'
+        )->name(
+            'dashboard'
+        );
+        Route::get(
+            'admin/postulaciones',
+            'Admin\AdminController@postulaciones'
+        )->name(
+            'dashboard'
+        );
+
+        Route::get(
+            'admin/concurso-json',
+            'Admin\AdminController@contest_json'
+        )->name(
+            'concurso-admin'
+        );
+        Route::get('admin/concurso', 'Admin\AdminController@concurso')->name(
+            'concurso-admin'
+        );
+
+        Route::post(
+            'admin/contest/approve',
+            'Contest\ContestController@approve'
+        )->name(
+            'concurso-activar'
+        );
+
+        Route::post(
+            'admin/application/approve',
+            'PropuestaController@approve'
+        )->name(
+            'concurso-activar'
+        );
+
+        Route::post(
+            'admin/application/reject',
+            'PropuestaController@reject'
+        )->name(
+            'concurso-activar'
+        );
+
+        Route::post(
+            'admin/application/winner',
+            'PropuestaController@winner'
+        )->name(
+            'concurso-ganador'
+        );
+
+        Route::get(
+            '/participantes/{orden?}',
+            'WebController@participantes'
+        )->name('participantes');
+
+        Route::get(
+            '/participantes/{orden?}/{limit}/{offset}',
+            'WebController@getMore'
+        )->name('participantes');
+
+        Route::get(
+            '/transacciones',
+            'AccountController@transacciones'
+        )->name('transacciones');
+
+        Route::get(
+            'perfil-usuario/{id}',
+            'AccountController@show_perfil_publico'
+        )->name('perfil-publico');
     }
 );

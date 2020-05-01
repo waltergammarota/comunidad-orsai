@@ -26,6 +26,7 @@ class CreateFilesTable extends Migration
                 $table->string('size');
                 $table->string('height')->default(0);
                 $table->string('width')->default(0);
+                $table->integer('position')->default(0);
                 $table->timestamps();
                 $table->softDeletes();
             }

@@ -16,19 +16,43 @@
     <section id="postulacion_js" class="contenedor form_postulacion">
         <form action="{{url('postulacion')}}" method="POST"
               enctype="multipart/form-data" id="cpa_form">
+            @isset($cap_id)
+                <input type="hidden" value="{{$cap_id}}" name="cap_id"/>
+            @else
+                <input type="hidden" value="0" name="cap_id"/>
+            @endif
             @csrf
             <div id="postulacion_form">
                 <div class="aclara">
-                    <span>Obligatorios</span>
+                    <span>Obligatorios</span>'
                 </div>
                 <div class="contenedor_campos">
                     <div class="inp_lf">
                         <div class="input_err">
                             <label>Título* <span
                                     class="ask_icon">(?)</span></label>
-
-                            <input type="text" name="title" class="obligatorio"
-                                   value="{{$title?? old('title') }}" id="title">'
+                            <div class="modal_asq oculto">
+                                <span class="close_asq">(x)</span>
+                                <div class="recuadro_black">
+                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
+                                        dla dlas dlkas dlkaj dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda. dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.
+                                    </p>
+                                </div>
+                            </div>
+                            <input type="text" name="title"
+                                   class="obligatorio"
+                                   value="{{$cap_title?? old('title') }}"
+                                   id="title">'
                             @if ($errors->has('title'))
                                 <span class="error">
                                     <strong>El campo título es obligatorio.</strong>
@@ -38,10 +62,29 @@
                         <div class="input_err">
                             <label>Descripción* <span
                                     class="ask_icon">(?)</span></label>
-                            <textarea name="description" id="text_area"
+                            <div class="modal_asq oculto">
+                                <span class="close_asq">(x)</span>
+                                <div class="recuadro_black">
+                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
+                                        dla dlas dlkas dlkaj dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda. dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.
+                                    </p>
+                                </div>
+                            </div>
+                            <textarea name="description"
+                                      id="text_area"
                                       cols="30" rows="10"
                                       maxlength="288"
-                                      class="obligatorio">{{old('description')}}</textarea>
+                                      class="obligatorio">{{$cap_description?? old('description')}}</textarea>
                             <span
                                 class="logo_sp_size">Caracteres restantes: <span
                                     id="cant_car">288</span></span>
@@ -56,103 +99,6 @@
                         <div class="input_err cont_in_field">
                             <label>Imagen principal (Logo)* <span
                                     class="ask_icon">(?)</span></label>
-                            <div class="cont_box">
-                                <div class="box">
-                                    <input type="file" name="logo[]"
-                                           id="file-1"
-                                           class="inputfile inputfile-3 obligatorio"
-                                           accept="image/*"/>
-
-                                    <label
-                                        for="file-1"><span>Adjuntar</span></label>
-                                </div>
-                                <span class="logo_sp_size" id="file-1-sp">Formato: 1024X1024px / JPG / PNG / 25MB</span>
-                                @if ($errors->has('logo'))
-                                    <span class="error">
-                                            <strong>El logo es obligatorio.</strong>
-                                        </span>
-                                @endif
-                            </div>
-                            <!-- <span class="error">hola este es un error</span> -->
-                        </div>
-                        <div class="input_err cont_in_field small_25">
-                            <label>Aplicaciones del logo* <a href="#"
-                                                             class="ask_icon">(?)</a></label>
-                            <div class="caja_boxes">
-                                <div class="cont_box">
-                                    <div class="box box_sm">
-                                        <input type="file" name="images[]"
-                                               id="file-2"
-                                               onchange="next_hno(this)"
-                                               class="inputfile inputfile-3 obligatorio"
-                                               accept="image/*"/>
-                                        <label
-                                            for="file-2"><span>&#x0002B;</span></label>
-                                    </div>
-                                </div>
-                                <div class="cont_box">
-                                    <div class="box">
-                                        <input type="file" name="images[]"
-                                               id="file-3"
-                                               onchange="next_hno(this)"
-                                               class="inputfile inputfile-3"
-                                               accept="image/*" disabled/>
-                                        <label
-                                            for="file-3"><span>&#x0002B;</span></label>
-                                    </div>
-                                </div>
-                                <div class="cont_box">
-                                    <div class="box">
-                                        <input type="file" name="images[]"
-                                               id="file-4"
-                                               onchange="next_hno(this)"
-                                               class="inputfile     inputfile-3"
-                                               accept="image/*" disabled/>
-                                        <label
-                                            for="file-4"><span>&#x0002B;</span></label>
-                                    </div>
-                                </div>
-                                <div class="cont_box">
-                                    <div class="box">
-                                        <input type="file" name="images[]"
-                                               id="file-5"
-                                               onchange="next_hno(this)"
-                                               class="inputfile     inputfile-3"
-                                               accept="image/*" disabled/>
-                                        <label
-                                            for="file-5"><span>&#x0002B;</span></label>
-                                    </div>
-                                </div>
-                                <div class="cont_box">
-                                    <div class="box">
-                                        <input type="file" name="images[]"
-                                               id="file-6"
-                                               onchange="next_hno(this)"
-                                               class="inputfile     inputfile-3"
-                                               accept="image/*" disabled/>
-                                        <label
-                                            for="file-6"><span>&#x0002B;</span></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="logo_sp_size" id="sp_aplicaciones">Formato: 1024X1024px / JPG / PNG / 25MB</span>
-                            @if ($errors->has('images.*') || $errors->has('images'))
-                                <span class="error">
-                                    <strong>Las aplicaciones de logo son obligatorias</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-                <div class="line_dashed"></div>
-                <div class="aclara">
-                    <span>Opcionales</span>
-                </div>
-                <div class="contenedor_campos">
-                    <div class="inp_lf">
-                        <div class="input_err input_op">
-                            <label class=''>Archivo PDF <span class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
@@ -173,7 +119,203 @@
                             </div>
                             <div class="cont_box">
                                 <div class="box">
-                                    <input type="file" name="" id="file-7"
+                                    <input type="file" name="logo[]"
+                                           id="file-1"
+                                           class="inputfile inputfile-3 obligatorio"
+                                           accept="image/*"/>
+                                    @if($cap_id > 0)
+                                        <label
+                                            for="file-1"><span>Cambiar Logo</span></label>
+                                        <img
+                                            src="{{url('storage/logo/'.$cap_logos[0]['file_name'].".".$cap_logos[0]['file_extension'])}}"/>
+                                    @else
+                                        <label
+                                            for="file-1"><span>Adjuntar</span></label>
+                                    @endif
+                                </div>
+                                <span class="logo_sp_size"
+                                      id="file-1-sp">Formato: 1024X1024px / JPG / PNG / 25MB</span>
+                                @if ($errors->has('logo'))
+                                    <span class="error">
+                                            <strong>El logo es obligatorio.</strong>
+                                        </span>
+                                @endif
+                            </div>
+                            <!-- <span class="error">hola este es un error</span> -->
+                        </div>
+                        <div
+                            class="input_err cont_in_field small_25">
+                            <label>Aplicaciones del logo* <a
+                                    href="#"
+                                    class="ask_icon">(?)</a></label>
+                            <div class="modal_asq oculto">
+                                <span class="close_asq">(x)</span>
+                                <div class="recuadro_black">
+                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
+                                        dla dlas dlkas dlkaj dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda. dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="caja_boxes">
+                                <div class="cont_box">
+                                    <div class="box box_sm">
+                                        <input type="file"
+                                               name="images[0]"
+                                               id="file-2"
+                                               onchange="next_hno(this)"
+                                               class="inputfile inputfile-3 obligatorio"
+                                               accept="image/*"/>
+                                        @if($cap_id > 0 && array_key_exists(0, $cap_images))
+                                            <label
+                                                for="file-2"><span>&#x0002B;</span></label>
+                                            <img
+                                                src="{{url('storage/images/'.$cap_images[0]['file_name'].".".$cap_images[0]['file_extension'])}}"/>
+                                        @else
+                                            <label
+                                                for="file-2"><span>&#x0002B;</span></label>
+                                        @endif
+
+                                    </div>
+                                </div>
+                                <div class="cont_box">
+                                    <div class="box">
+                                        <input type="file"
+                                               name="images[1]"
+                                               id="file-3"
+                                               onchange="next_hno(this)"
+                                               class="inputfile inputfile-3"
+                                               accept="image/*"
+                                        />
+                                        @if($cap_id > 0 && array_key_exists(1, $cap_images))
+                                            <label
+                                                for="file-3"><span>&#x0002B;</span></label>
+                                            <img
+                                                src="{{url('storage/images/'.$cap_images[1]['file_name'].".".$cap_images[1]['file_extension'])}}"/>
+                                        @else
+                                            <label
+                                                for="file-3"><span>&#x0002B;</span></label>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="cont_box">
+                                    <div class="box">
+                                        <input type="file"
+                                               name="images[2]"
+                                               id="file-4"
+                                               onchange="next_hno(this)"
+                                               class="inputfile     inputfile-3"
+                                               accept="image/*"
+                                        />
+                                        @if($cap_id > 0 && array_key_exists(2, $cap_images))
+                                            <label
+                                                for="file-4"><span>&#x0002B;</span></label>
+                                            <img
+                                                src="{{url('storage/images/'.$cap_images[2]['file_name'].".".$cap_images[2]['file_extension'])}}"/>
+                                        @else
+                                            <label
+                                                for="file-4"><span>&#x0002B;</span></label>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="cont_box">
+                                    <div class="box">
+                                        <input type="file"
+                                               name="images[3]"
+                                               id="file-5"
+                                               onchange="next_hno(this)"
+                                               class="inputfile     inputfile-3"
+                                               accept="image/*"
+                                        />
+                                        @if($cap_id > 0 && array_key_exists(3, $cap_images))
+                                            <label
+                                                for="file-5"><span>&#x0002B;</span></label>
+                                            <img
+                                                src="{{url('storage/images/'.$cap_images[3]['file_name'].".".$cap_images[3]['file_extension'])}}"/>
+                                        @else
+                                            <label
+                                                for="file-5"><span>&#x0002B;</span></label>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="cont_box">
+                                    <div class="box">
+                                        <input type="file"
+                                               name="images[4]"
+                                               id="file-6"
+                                               onchange="next_hno(this)"
+                                               class="inputfile     inputfile-3"
+                                               accept="image/*"
+                                        />
+                                        @if($cap_id > 0 && array_key_exists(4, $cap_images))
+                                            <label
+                                                for="file-6"><span>&#x0002B;</span></label>
+                                            <img
+                                                src="{{url('storage/images/'.$cap_images[4]['file_name'].".".$cap_images[4]['file_extension'])}}"/>
+                                        @else
+                                            <label
+                                                for="file-6"><span>&#x0002B;</span></label>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="logo_sp_size"
+                                  id="sp_aplicaciones">Formato: 1024X1024px / JPG / PNG / 25MB</span>
+                            @if ($errors->has('images.*') || $errors->has('images'))
+                                <span class="error">
+                                    <strong>Las aplicaciones de logo son obligatorias</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="line_dashed"></div>
+                <div class="aclara">
+                    <span>Opcionales</span>
+                </div>
+                <div class="contenedor_campos">
+                    <div class="inp_lf">
+                        <div class="input_err input_op">
+                            <label class=''>Archivo PDF <span
+                                    class="ask_icon">(?)</span></label>
+                            <div class="modal_asq oculto">
+                                <span class="close_asq">(x)</span>
+                                <div class="recuadro_black">
+                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
+                                        dla dlas dlkas dlkaj dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda. dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="modal_asq oculto">
+                                <span class="close_asq">(x)</span>
+                            </div>
+                            <div class="cont_box">
+                                <input type="hidden" id="pdf_deleted"
+                                       name="pdf_deleted"
+                                       value="0"/>
+                                <div class="box">
+                                    <input type="file" name="pdf[]"
+                                           id="file-7"
                                            class="inputfile inputfile-3"
                                            accept="application/pdf"/>
                                     <label for="file-7">
@@ -193,15 +335,52 @@
                         <div class="input_err input_op">
                             <label class=''>Link <span
                                     class="ask_icon">(?)</span></label>
+                            <div class="modal_asq oculto">
+                                <span class="close_asq">(x)</span>
+                                <div class="recuadro_black">
+                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
+                                        dla dlas dlkas dlkaj dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda. dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="modal_asq oculto">
+                                <span class="close_asq">(x)</span>
+                                <div class="recuadro_black">
+                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
+                                        dla dlas dlkas dlkaj dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda. dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.dajlkd asd jdklsajd ad alkjdal
+                                        dlask dla dla dlas dlkas dlkaj
+                                        dlkadjasljd
+                                        jdlskadjklasdja daklsdj askldjalskdj
+                                        alda.
+                                    </p>
+                                </div>
+                            </div>
                             <input type="text" name="link"
-                                   value="{{old('link')}}">
+                                   value="{{$cap_link ?? old('link')}}">
                         </div>
                     </div>
                 </div>
                 <div class="line_dashed"></div>
                 <div id="boton_submit">
-                    <button class="subrayado resaltado_amarillo text_bold"
-                            id="boton_postulacion">
+                    <button
+                        class="subrayado resaltado_amarillo text_bold"
+                        id="boton_postulacion">
                         Postularme
                     </button>
                 </div>
@@ -217,26 +396,56 @@
 @section('footer')
     <script>
 
-        // $('#boton_postulacion').click((event) => {
-        //     event.preventDefault();
-        //     const validations = [];
-        //     validations.push(validateTexts());
-        //     validations.push(validateLogo());
-        //     validations.push(validateAplicaciones());
-        //     if(validations.every((item) => item == true)) {
-        //         $('#cpa_form').submit();
-        //     }
-        // });
+            @if($cap_id > 0 && !empty($cap_pdfs))
+        const createPdfFileName = () => {
+                const box = $(".box");
+                const fileName = "{{$cap_pdfs[0]['file_original_name']}}";
+                const posicion = 6;
+                var change_span = box[posicion].getElementsByTagName("span");
+                var addclass_label = box[posicion].getElementsByTagName("label");
+                addclass_label[0].classList.add("seleccion");
+                change_span[0].innerHTML = fileName;
+                change_span[1].innerHTML = "";
+                var create_span = box[posicion].appendChild(document.createElement("span"));
+                create_span.className = "adj_span_del icon-trash-empty";
+                create_span.onclick = function () {
+                    var borrar_value = box[posicion].getElementsByTagName("input");
+                    borrar_value[0].value = "";
+                    change_span[0].innerHTML = "Adjuntar...";
+                    box[posicion].removeChild(create_span);
+                    addclass_label[0].classList.remove("seleccion");
+                    change_span[1].innerHTML = "&#x0002B;";
+                    $('#pdf_deleted').val(1);
+                };
+            };
+        $(document).ready(() => {
+            createPdfFileName();
+        });
+        @endif
+
+
+        $('#boton_postulacion').click((event) => {
+            event.preventDefault();
+            const validations = [];
+            validations.push(validateTexts());
+            @if($cap_id == 0)
+            validations.push(validateLogo());
+            //validations.push(validateAplicaciones());
+            @endif
+            if (validations.every((item) => item == true)) {
+                $('#cpa_form').submit();
+            }
+        });
+
 
         const validateAplicaciones = () => {
             const filesAplicaciones = $('input[name="images[]"]');
             const arrayFilesAplicaciones = filesAplicaciones.toArray();
-            console.log(arrayFilesAplicaciones);
             const areCompletedFileInputs = arrayFilesAplicaciones.every((item) => item.files.length > 0);
             if (areCompletedFileInputs) {
                 return true;
             }
-            createErrorMessage($('#sp_aplicaciones'), "Las aplicaciones de logo son obligatorias");
+            createErrorMessage($('#sp_aplicaciones'), "Las aplicaciones de logo son obligatorias", "errorMinis");
             return false;
         };
 
@@ -245,7 +454,7 @@
             if (inputLogo[0].files.length > 0) {
                 return true;
             }
-            createErrorMessage($('#file-1-sp'), "El logo es obligatorio");
+            createErrorMessage($('#file-1-sp'), "El logo es obligatorio", "errorLogo");
             return false;
         };
 
@@ -255,20 +464,24 @@
             if (titleElement.val() != "" && descriptionElement.val() != "") {
                 return true;
             }
-            if(titleElement.val() == "") {
-                createErrorMessage(titleElement, "El título es obligatorio");
+            if (titleElement.val() == "") {
+                createErrorMessage(titleElement, "El título es obligatorio", "errorTitle");
             }
-            if(descriptionElement.val() == "") {
-                createErrorMessage(descriptionElement, "El título es obligatorio");
+            if (descriptionElement.val() == "") {
+                createErrorMessage(descriptionElement, "El título es obligatorio", "errorDescription");
             }
             return false;
         };
 
-        function createErrorMessage(element, message) {
-            const errorElement = ` <span class="error">
+        function createErrorMessage(element, message, type) {
+            const cssClassName = `.${type}`;
+            const isAlreadyThere = $(cssClassName).find().length;
+            if (isAlreadyThere == 0) {
+                const errorElement = `<span class="error ${type}">
                                     <strong>${message}</strong>
                                 </span>`;
-            element.after(errorElement);
+                element.after(errorElement);
+            }
         }
 
 

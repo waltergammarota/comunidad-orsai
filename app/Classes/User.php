@@ -351,7 +351,7 @@ class User extends GenericClass
         $this->setCountry($userData['country']);
         $this->setEmail($userData['email']);
         $this->setEmailVerifiedAt($userData['email_verified_at']);
-        $this->setPassword($userData['password']);
+        $this->password = $userData['password'];
         $this->setCreatedAt($userData['created_at']);
         $this->setUpdatedAt($userData['updated_at']);
         $this->setId($userData['id']);

@@ -21,6 +21,7 @@ class Transaction extends Model
         'type',
         'amount',
         'data',
+        'cap_id'
     ];
 
     /**
@@ -51,5 +52,9 @@ class Transaction extends Model
     public function getToUser()
     {
         return $this->hasOne('App\User', 'id', "to");
+    }
+
+    public function capId() {
+        return $this->hasOne('App\Databases\ContestApplicationModel', 'id', 'cap_id');
     }
 }

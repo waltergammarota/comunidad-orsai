@@ -47,6 +47,11 @@ class ContestApplicationModel extends Model
         return $this->hasOne('App\User','id', "user_id");
     }
 
+    public function status()
+    {
+        return $this->hasMany('App\Databases\CpaLog','cap_id', "id")->orderBy('id', 'desc');
+    }
+
     public function contest()
     {
         return $this->hasOne('App\ContestModel','id', "contest_id");
@@ -54,17 +59,17 @@ class ContestApplicationModel extends Model
 
     public function logos()
     {
-        return $this->belongsToMany('App\Databases\FileModel','contest_applications_files', "cap_id", 'file_id')->withTimestamps()->where('type',null,'logo');
+        return $this->belongsToMany('App\Databases\FileModel','contest_applications_files', "cap_id", 'file_id')->withTimestamps()->where('type','=','logo');
     }
 
     public function images()
     {
-        return $this->belongsToMany('App\Databases\FileModel','contest_applications_files', "cap_id", 'file_id')->withTimestamps()->where('type',null,'image');
+        return $this->belongsToMany('App\Databases\FileModel','contest_applications_files', "cap_id", 'file_id')->withTimestamps()->where('type','=','image');
     }
 
     public function pdfs()
     {
-        return $this->belongsToMany('App\Databases\FileModel','contest_applications_files', "cap_id",'file_id')->withTimestamps()->where('type',null,'pdf');
+        return $this->belongsToMany('App\Databases\FileModel','contest_applications_files', "cap_id",'file_id')->withTimestamps()->where('type',"=",'pdf');
     }
 
 }

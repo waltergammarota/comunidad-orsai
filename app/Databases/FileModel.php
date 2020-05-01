@@ -23,6 +23,7 @@ class FileModel extends Model
         'size',
         'height',
         'width',
+        'position'
     ];
 
     /**

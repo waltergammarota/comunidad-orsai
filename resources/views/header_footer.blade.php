@@ -61,7 +61,7 @@
             @if (Auth::check())
                 <div id="menu_logueado">
                     <div id="menu_user_img">
-                        <img src="{{url('img/participantes/usuario.png')}}"
+                        <img src="{{url($avatar)}}"
                              alt="Imagen usuario">
                     </div>
                     <div id="menu_user_alias">
@@ -72,6 +72,9 @@
                     <div id="menu_logueado_desp" class="">
                         <div class="menu_black">
                             <ul>
+                                @if($role == "admin")
+                                    <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+                                @endif
                                 <li class="active"><a href="{{url('panel')}}">Panel</a>
                                 </li>
                                 <li><a href="{{url('perfil')}}">Perfil</a></li>

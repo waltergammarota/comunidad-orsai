@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3b74a4d2-a48d-4dab-8749-2a8d7bb1cc54" name="forsai">
+        <fileTransfer accessType="SFTP" host="159.65.102.102" port="22" sshConfigId="79443262-1e2d-40b0-931c-6aec9e8ff84a" sshConfig="forsai ssh">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

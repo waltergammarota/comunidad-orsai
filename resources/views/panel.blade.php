@@ -28,7 +28,8 @@
                 <span>Proporciona tus datos personales e indicanos cómo podemos ponernos en contacto con vos.</span>
             </div>
             <div>
-                <a href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</a>
+                <a href="{{url('perfil')}}"
+                   class="subrayado resaltado_amarillo">Editar</a>
             </div>
         </div>
         <div class="box_panel">
@@ -36,11 +37,23 @@
                 <span>Estado de postulación</span>
             </div>
             <div>
-                <span class="text_bold">No enviada</span>
+                @if($postulacion['id'] == 0)
+                    <span class="text_bold">No enviada</span>
+                @endif
+                @if($postulacion['id'] > 0)
+                    <span class="text_bold">
+                        Tienes una postulación en estado {{__("status_application.{$postulacion['status']}")}}
+                    </span>
+                @endif
             </div>
             <div>
-                <a href="registro_postulacion.html"
-                   class="subrayado resaltado_amarillo">Enviar</a>
+                @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
+                    <a href="{{url('postulacion')}}"
+                       class="subrayado resaltado_amarillo">Enviar</a>
+                    @else
+                    <a href="{{url('propuesta/'.$postulacion['id'])}}"
+                       class="subrayado resaltado_amarillo">Ver</a>
+                @endif
             </div>
         </div>
         <div class="box_panel">
@@ -51,12 +64,22 @@
                 <span>Tenes <strong>{{$cantidadTxs}}</strong> transacciones realizadas.</span>
             </div>
             <div>
-                <a href="#" class="subrayado resaltado_amarillo">Ver</a>
+                <a href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</a>
             </div>
         </div>
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>
+    </div>
+
+    <div id="acred_fichas_modal" class="popup">
+        <div class="contenedor modal_fichas">
+            <div>
+                <div id="texto_err">
+                    <span>Ya tenes disponibles <strong>{{$balance}}</strong> fichas</span>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

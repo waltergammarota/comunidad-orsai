@@ -24,6 +24,8 @@ class CreateContestApplicationsTable extends Migration
                 $table->string('link')->nullable();
                 $table->unsignedBigInteger('user_id');
                 $table->unsignedBigInteger('contest_id');
+                $table->integer('votes')->default(0);
+                $table->integer('views')->default(0);
                 $table->unsignedBigInteger('approved_by_user')->nullable();
                 $table->boolean('approved')->default(false);
                 $table->dateTime('approved_in')->nullable();

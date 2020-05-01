@@ -30,7 +30,7 @@ class WelcomePoints extends GenericUseCase
         TransactionRepository $transactionRepository,
         Mailer $mailer
     ) {
-        $welcomePointsAmount = 500;
+        $welcomePointsAmount = 750;
         $this->user = $to;
         $this->amount = $welcomePointsAmount;
         $this->userRepository = $userRepository;
@@ -74,7 +74,7 @@ class WelcomePoints extends GenericUseCase
      */
     private function sendWelcomePointsToUser(): Transaction
     {
-        $welcomeTag = "welcome";
+        $welcomeTag = "Puntos de Bienvenida";
         $from = $this->userRepository->getPoolUser();
         $type = "MINT";
         $transaction = new Transaction(

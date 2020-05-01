@@ -18,6 +18,7 @@ class ContestApplication extends GenericClass
     private $approved;
     private $approvedBy;
     private $approvedIn;
+    private $isWinner;
 
 
     public function __construct(Array $args = [])
@@ -173,5 +174,55 @@ class ContestApplication extends GenericClass
     {
         return $this->approvedBy;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
+
+    /**
+     * @param mixed $approved
+     */
+    public function setApproved($approved): void
+    {
+        $this->approved = $approved;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApprovedIn()
+    {
+        return $this->approvedIn;
+    }
+
+    /**
+     * @param mixed $approvedIn
+     */
+    public function setApprovedIn($approvedIn): void
+    {
+        $this->approvedIn = $approvedIn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsWinner()
+    {
+        return $this->isWinner;
+    }
+
+    /**
+     * @param mixed $isWinner
+     */
+    public function setIsWinner($isWinner): void
+    {
+        $this->isWinner = $isWinner;
+    }
+
+
 
 }

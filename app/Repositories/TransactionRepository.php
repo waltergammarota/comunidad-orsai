@@ -110,10 +110,9 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function getBalance(User $user)
     {
-        return DB::table('transactions')->where(
-            'from',
-            $user->getId()
-        )->groupBy('type')->sum('amount');
+        $ingreso = Transaction::where(["to" => $user->getId()])->sum("amount");
+        $egreso = Transaction::where(["from" => $user->getId()])->sum("amount");
+        return $ingreso - $egreso;
     }
 
     public function getCantidadTxs(User $user)
@@ -124,8 +123,12 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function getTotalSupply()
     {
-        $mintTotal = DB::table('transactions')->where('type', 'MINT')->sum('amount');
-        $burnTotal = DB::table('transactions')->where('type', 'BURN')->sum('amount');
+        $mintTotal = DB::table('transactions')->where('type', 'MINT')->sum(
+            'amount'
+        );
+        $burnTotal = DB::table('transactions')->where('type', 'BURN')->sum(
+            'amount'
+        );
         return $mintTotal - $burnTotal;
     }
 }
