@@ -16,12 +16,12 @@ Auth::routes(['verify' => true]);
 /* ACCESO PUBLICO */
 Route::get(
     '/',
-    'Webcontroller@index'
+    'WebController@index'
 )->name('home');
 
 Route::get(
     '/fundacion-orsai',
-    'Webcontroller@fundacion'
+    'WebController@fundacion'
 )->name('fundacion-orsai');
 
 Route::get(
@@ -32,7 +32,7 @@ Route::get(
 
 Route::get(
     '/donar',
-    'Webcontroller@donar'
+    'WebController@donar'
 )->name('donar');
 
 Route::get(
