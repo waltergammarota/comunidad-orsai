@@ -10,7 +10,6 @@ use App\Databases\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use function Sodium\compare;
 
 class WebController extends Controller
 {

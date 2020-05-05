@@ -43,7 +43,7 @@ class AccountController extends Controller
         $data = [];
         foreach ($provincias as $provincia) {
             $row['id'] = $provincia->id;
-            $row['pais'] = $provincia->idProvincia;
+            $row['pais'] = $provincia->pais;
             $row['nombre'] = utf8_encode($provincia->nombre);
             $data[] = $row;
         }
