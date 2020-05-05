@@ -97,7 +97,7 @@
 
                     <li class="nav-item">
                         <a href="{{url('admin/noticias')}}" class="nav-link">
-                            <i class="nav-icon fas fa-coins"></i>
+                            <i class="nav-icon fas fa-newspaper"></i>
                             <p>
                                 Noticias
                             </p>

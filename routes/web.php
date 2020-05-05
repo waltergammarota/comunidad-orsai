@@ -56,12 +56,12 @@ Route::get(
 
 Route::get(
     '/concurso-logo',
-    'Webcontroller@concurso'
+    'WebController@concurso'
 )->name('concurso-logo');
 
 Route::get(
     '/bases-concurso',
-    'Webcontroller@bases_concurso'
+    'WebController@bases_concurso'
 )->name('bases-concurso');
 
 Route::get(
@@ -76,15 +76,13 @@ Route::get(
 
 Route::get(
     '/logo',
-    'Webcontroller@logo'
+    'WebController@logo'
 )->name('logo');
 
 
 Route::get(
     '/ingresar',
-    function () {
-        return view('ingresar');
-    }
+    'WebController@ingresar'
 )->name('ingresar');
 
 
@@ -222,112 +220,113 @@ Route::middleware(['verified'])->group(
 
         Route::get('dashboard', 'Admin\AdminController@index')->name(
             'dashboard'
-        );
+        )->middleware('admin_role');
 
         Route::get('admin/noticias', 'Admin\ContenidoController@index')->name(
             'noticias'
-        );
+        )->middleware('admin_role');;
 
         Route::get('admin/noticias/crear', 'Admin\ContenidoController@create')->name(
             'noticias'
-        );
+        )->middleware('admin_role');
 
         Route::get('admin/noticias/{id}', 'Admin\ContenidoController@edit')->name(
             'noticias-edit'
-        );
+        )->middleware('admin_role');
 
 
 
         Route::post('admin/noticias/store', 'Admin\ContenidoController@store')->name(
             'noticias-store'
-        );
+        )->middleware('admin_role');
         Route::post('admin/noticias/update', 'Admin\ContenidoController@update')->name(
             'noticias-update'
-        );
+        )->middleware('admin_role');
 
         Route::get(
             'admin/noticias-json',
             'Admin\ContenidoController@noticias_json'
         )->name(
             'noticias-json'
-        );
+        )->middleware('admin_role');
 
         Route::get('admin/usuarios', 'Admin\AdminController@usuarios')->name(
             'dashboard'
-        );
+        )->middleware('admin_role');;
 
         Route::get(
             'admin/usuarios-json',
             'Admin\AdminController@usuarios_json'
         )->name(
-            'dashboard'
-        );
+            'usuarios-json'
+        )->middleware('admin_role');
 
         Route::get(
             'admin/transacciones',
             'Admin\AdminController@transacciones'
         )->name(
-            'dashboard'
-        );
+            'transacciones'
+        )->middleware('admin_role');
 
         Route::get(
             'admin/transacciones-json',
             'Admin\AdminController@transacciones_json'
         )->name(
-            'dashboard'
-        );
+            'transacciones-json'
+        )->middleware('admin_role');
+
         Route::get(
             'admin/postulaciones-json',
             'Admin\AdminController@postulaciones_json'
         )->name(
-            'dashboard'
-        );
+            'postulaciones-json'
+        )->middleware('admin_role');
+
         Route::get(
             'admin/postulaciones',
             'Admin\AdminController@postulaciones'
         )->name(
-            'dashboard'
-        );
+            'postulaciones'
+        )->middleware('admin_role');
 
         Route::get(
             'admin/concurso-json',
             'Admin\AdminController@contest_json'
         )->name(
             'concurso-admin'
-        );
+        )->middleware('admin_role');
+
         Route::get('admin/concurso', 'Admin\AdminController@concurso')->name(
             'concurso-admin'
-        );
+        )->middleware('admin_role');
 
         Route::post(
             'admin/contest/approve',
             'Contest\ContestController@approve'
         )->name(
             'concurso-activar'
-        );
+        )->middleware('admin_role');
 
         Route::post(
             'admin/application/approve',
             'PropuestaController@approve'
         )->name(
             'concurso-activar'
-        );
+        )->middleware('admin_role');
 
         Route::post(
             'admin/application/reject',
             'PropuestaController@reject'
         )->name(
             'concurso-activar'
-        );
+        )->middleware('admin_role');
 
         Route::post(
             'admin/application/winner',
             'PropuestaController@winner'
         )->name(
             'concurso-ganador'
-        );
-
-
+        )->middleware('admin_role');
 
 
         Route::get(

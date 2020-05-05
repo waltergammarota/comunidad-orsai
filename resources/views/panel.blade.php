@@ -19,7 +19,11 @@
         <div class="line_dashed"></div>
         @if($hasStarted)
             <div class="lets_start resaltado_amarillo">
-                <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
+                @if(Auth::user()->email_verified_at == null)
+                    <a href="{{url('panel')}}" class="">Empezá a poner fichas &raquo;</a>
+                @else
+                    <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
+                @endif
             </div>
         @endif
     </section>
@@ -32,8 +36,10 @@
                 <span>Proporciona tus datos personales e indicanos cómo podemos ponernos en contacto con vos.</span>
             </div>
             <div>
-                <a href="{{url('perfil')}}"
-                   class="subrayado resaltado_amarillo">Editar</a>
+                @if(Auth::user()->email_verified_at != null)
+                    <a href="{{url('perfil')}}"
+                       class="subrayado resaltado_amarillo">Editar</a>
+                @endif
             </div>
         </div>
         <div class="box_panel">
@@ -51,12 +57,14 @@
                 @endif
             </div>
             <div>
-                @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
-                    <a href="{{url('postulacion')}}"
-                       class="subrayado resaltado_amarillo">Enviar</a>
-                @else
-                    <a href="{{url('propuesta/'.$postulacion['id'])}}"
-                       class="subrayado resaltado_amarillo">Ver</a>
+                @if(Auth::user()->email_verified_at != null)
+                    @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
+                        <a href="{{url('postulacion')}}"
+                           class="subrayado resaltado_amarillo">Enviar</a>
+                    @else
+                        <a href="{{url('propuesta/'.$postulacion['id'])}}"
+                           class="subrayado resaltado_amarillo">Ver</a>
+                    @endif
                 @endif
             </div>
         </div>
@@ -68,7 +76,9 @@
                 <span>Tenes <strong>{{$cantidadTxs}}</strong> transacciones realizadas.</span>
             </div>
             <div>
-                <a href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</a>
+                @if(Auth::user()->email_verified_at != null)
+                    <a href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</a>
+                @endif
             </div>
         </div>
     </section>
@@ -85,6 +95,18 @@
             </div>
         </div>
     </div>
+    @if(Session::get('alert') == "activation_email" || Auth::user()->email_verified_at == null)
+        <div class="general_profile_msg popup top_msg">
+            <div class="contenedor msg_position_rel">
+                <div id="texto_exito">
+                    <span>Te falta validar el mail.</span>
+                </div>
+                <div class="cerrar">
+                    <span>X</span>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 @section('footer')
@@ -104,5 +126,16 @@
         modal_fichas.click(function () {
             modal_fichas.fadeOut('slow');
         })
+
+        if (document.getElementsByClassName("general_profile_msg")) {
+            var get_general_msg = document.getElementsByClassName("general_profile_msg");
+            for (var x = 0; x < get_general_msg.length; x++) {
+                get_general_msg[x].numerito = x;
+                var get_close_modal = get_general_msg[x].getElementsByClassName("cerrar")[0];
+                get_close_modal.onclick = function () {
+                    close(this.parentNode.parentNode);
+                }
+            }
+        }
     </script>
 @endsection

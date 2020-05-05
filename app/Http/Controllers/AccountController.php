@@ -33,12 +33,22 @@ class AccountController extends Controller
             $request->session()->flash('alert', 'profile_not_completed');
         }
         $data['paises'] = PaisModel::orderBy('peso', 'desc')->get();
-        $data['provincias'] = ProvinciaModel::all()->toJson();
+        $data['provincias'] = json_encode($this->getProvincias());
         $data['ciudades'] = json_encode($this->getCiudades());
         return view('perfil', $data);
     }
 
-
+    private function getProvincias() {
+        $provincias = ProvinciaModel::all();
+        $data = [];
+        foreach ($provincias as $provincia) {
+            $row['id'] = $provincia->id;
+            $row['pais'] = $provincia->idProvincia;
+            $row['nombre'] = utf8_encode($provincia->nombre);
+            $data[] = $row;
+        }
+        return $data;
+    }
     private function getCiudades()
     {
         $ciudades = CiudadModel::all();

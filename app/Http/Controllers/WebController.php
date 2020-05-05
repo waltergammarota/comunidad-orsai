@@ -25,6 +25,14 @@ class WebController extends Controller
         return view('restablecer-clave', $data);
     }
 
+    public function ingresar() {
+        if(Auth::check()) {
+            return Redirect::to('panel');
+        }
+        $data = $this->getUserData();
+        return view('ingresar', $data);
+    }
+
     public function reenviar_mail_activacion() {
         $data = $this->getUserData();
         $data['title'] = "Reenviar mail activación";
