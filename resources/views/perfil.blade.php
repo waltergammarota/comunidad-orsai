@@ -49,6 +49,7 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
+
             <form action="#">
                 <div class="input_err">
                     <label>Correo electrónico*</label>
@@ -61,6 +62,7 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
+
             <form action="#">
                 <div class="input_err">
                     <label>Nombre*</label>
@@ -87,7 +89,8 @@
                 <div class="input_err select">
                     <label class='oculto'>País</label>
                     <div class="in_sp editar">
-                        <p class="pais_select">Argentina</p>
+                        <p class="pais_select"
+                           id="selectedCountry">{{$country}}</p>
                         <span class="subrayado resaltado_amarillo ed_select">Editar</span>
 
                         <div class="arm_sel">
@@ -96,27 +99,56 @@
                                 <option id="select_pais" value='ninguno'
                                         disabled selected hidden>Elegir...
                                 </option>
-                                <option value='AR'>Argentina</option>
-                                <option value='BO'>Bolivia</option>
-                                <option value='BR'>Brasil</option>
-                                <option value='CL'>Chile</option>
-                                <option value='PY'>Paraguay</option>
-                                <option value='PE'>Perú</option>
-                                <option value='UY'>Uruguay</option>
-                                <option value='otro'>Otro</option>
+                                @foreach($paises as $pais)
+                                    <option
+                                        value='{{$pais->nombre}}'
+                                        {{strtolower(old('pais')) == strtolower($pais->nombre)? "selected":""}}
+                                        data-iso="{{$pais->iso}}"
+                                    >{{$pais->nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="line_dashed"></div>
                 </div>
             </form>
+
             <form action="#">
-                <div class="input_err">
-                    <label>Ciudad*</label>
-                    <div class="in_sp obligatorio editar">
-                        <input type="text" name="city" value="{{$city}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                <div class="input_err select">
+                    <label class='oculto'>Provincia/Estado</label>
+                    <div class="in_sp editar">
+                        <p class="pais_select"
+                           id="selectedProvincia">{{$provincia}}</p>
+                        <span class="subrayado resaltado_amarillo ed_select">Editar</span>
+
+                        <div class="arm_sel">
+                            <select name='provincia' id='provincias'
+                                    class=''>
+                                <option id="select_pais" value='ninguno'
+                                        disabled selected hidden>Elegir...
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line_dashed"></div>
+                </div>
+            </form>
+
+            <form action="#">
+                <div class="input_err select">
+                    <label class='oculto'>Ciudad/Barrio</label>
+                    <div class="in_sp editar">
+                        <p class="pais_select">{{$city}}</p>
+                        <span class="subrayado resaltado_amarillo ed_select">Editar</span>
+
+                        <div class="arm_sel">
+                            <select name='city' id='ciudades'
+                                    class=''>
+                                <option id="select_pais" value='ninguno'
+                                        disabled selected hidden>Elegir...
+                                </option>
+                            </select>
+                        </div>
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -124,6 +156,7 @@
 
         </div>
         <div class="form_right">
+
             <form action="#">
                 <div class="input_err">
                     <label>Fecha de nacimiento*</label>
@@ -157,6 +190,19 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
+
+            <form action="#">
+                <div class="input_err">
+                    <label>Whatsapp</label>
+                    <div class="in_sp editar">
+                        <input type="text" name="whatsapp" value="{{$whatsapp}}"
+                               disabled>
+                        <span class="subrayado resaltado_amarillo">Editar</span>
+                    </div>
+                    <div class="line_dashed"></div>
+                </div>
+            </form>
+
             <form action="#">
                 <div class="input_err">
                     <label>Facebook</label>
@@ -224,6 +270,74 @@
 @section('footer')
 
     <script>
+        const provincias = {!! $provincias !!};
+        const ciudades = {!! $ciudades !!};
+
+        const paisCombo = $("#pais_suscriptor");
+        const provinciasCombo = $("#provincias");
+        const citiesCombo = $("#ciudades");
+
+        paisCombo.change(function () {
+            const iso = $(this).children("option:selected").data('iso');
+            const options = filterProvincias(iso);
+            generateProvinciasOptions(options, $("#provincias"));
+        });
+
+        function filterCiudades(provId) {
+            return ciudades.filter((item) => {
+                return item.idProvincia == provId;
+            });
+        }
+
+        provinciasCombo.change(function () {
+            const provId = $(this).children("option:selected").data('prov');
+            const options = filterCiudades(provId);
+            generateProvinciasOptions(options, $("#ciudades"));
+        });
+
+        function filterProvincias(iso) {
+            return provincias.filter((item) => {
+                return item.pais == iso;
+            });
+        }
+
+        function generateProvinciasOptions(options, element) {
+            const html = options.map((item) => {
+                const nombre = item.nombre;
+                return `<option value="${nombre}" data-prov="${item.id}">
+                                       ${nombre}
+                                  </option>`;
+            });
+            const firstOption = `<option id="select_pais" value='ninguno'
+                                        disabled selected hidden>Elegir...
+                                </option>`;
+            element.empty();
+            element.append(firstOption);
+            element.append(html);
+        }
+
+        $(document).ready(function () {
+            const country = $("#selectedCountry").html();
+            const provincia = $("#selectedProvincia").html();
+            console.log(provincia.length);
+            if (country != null && country != "") {
+                const countryOptions = paisCombo.children(`option[value='${country}']`);
+                const iso = countryOptions.data('iso');
+                const provinciasOptions = filterProvincias(iso);
+                generateProvinciasOptions(provinciasOptions, provinciasCombo);
+                const provinciasIds = provinciasOptions.map(value => value.id);
+                const ciudadesOptions = ciudades.filter(item => provinciasIds.includes(item.idProvincia));
+                generateProvinciasOptions(ciudadesOptions, citiesCombo);
+            }
+            if (provincia != null && provincia != "" && provincia.length > 0) {
+                const provinciaOptions = provinciasCombo.children(`option[value='${provincia}']`);
+                const idProvincia = provinciaOptions.data('prov');
+                const ciudadesOptions = filterCiudades(idProvincia);
+                generateProvinciasOptions(ciudadesOptions, citiesCombo);
+            }
+
+        });
+
         if (document.getElementsByClassName("general_profile_msg")) {
             var get_general_msg = document.getElementsByClassName("general_profile_msg");
             for (var x = 0; x < get_general_msg.length; x++) {
@@ -260,9 +374,9 @@
             });
         }
 
-        function submit(element) {
+        function submit(element, _type) {
             console.log("submiteando");
-            const input = $(element).find('input');
+            const input = (_type == "select") ? $(element).find('select') : $(element).find('input');
             const value = input.val();
             const type = input.attr("name");
             update(type, value).then((response) => {
@@ -284,6 +398,7 @@
             });
 
         }
+
 
     </script>
 @endsection

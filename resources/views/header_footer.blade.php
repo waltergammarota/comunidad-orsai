@@ -1,7 +1,7 @@
 <nav>
     <div id="contenedor_logo_header">
         <div id="logo_header">
-            <a href="#">Necesitamos
+            <a href="{{url('logo')}}">Necesitamos
                 <span class="span_block">un logo</span>
             </a>
         </div>

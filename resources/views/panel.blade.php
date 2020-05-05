@@ -16,8 +16,12 @@
                 <span>Fichas <span class="span_block">para jugar</span></span>
             </div>
         </div>
-
         <div class="line_dashed"></div>
+        @if($hasStarted)
+            <div class="lets_start resaltado_amarillo">
+                <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
+            </div>
+        @endif
     </section>
     <section id="panel_user_info" class="contenedor">
         <div class="box_panel">
@@ -50,7 +54,7 @@
                 @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
                     <a href="{{url('postulacion')}}"
                        class="subrayado resaltado_amarillo">Enviar</a>
-                    @else
+                @else
                     <a href="{{url('propuesta/'.$postulacion['id'])}}"
                        class="subrayado resaltado_amarillo">Ver</a>
                 @endif
@@ -72,7 +76,7 @@
         <span>1</span>
     </div>
 
-    <div id="acred_fichas_modal" class="popup">
+    <div id="acred_fichas_modal" class="popup" style="display: none;">
         <div class="contenedor modal_fichas">
             <div>
                 <div id="texto_err">
@@ -84,5 +88,21 @@
 @endsection
 
 @section('footer')
+    <script>
 
+        const modal_fichas = $("#acred_fichas_modal");
+
+        $(document).ready(() => {
+            if (Cookies.get('available-points') != "true") {
+                Cookies.set('available-points', true);
+                modal_fichas.show();
+            } else {
+                modal_fichas.hide();
+            }
+        });
+
+        modal_fichas.click(function () {
+            modal_fichas.fadeOut('slow');
+        })
+    </script>
 @endsection

@@ -1,15 +1,12 @@
 @extends('admin.admin-template')
 
 @section('header')
-    <link rel="stylesheet"
-          href="{{url("admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
-    <link rel="stylesheet"
-          href="{{url("admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
+
 @endsection
 
 
 @section('name')
-    Usuarios
+    Concursos
 @endsection
 
 @section('content')
@@ -23,7 +20,7 @@
                     <th>Inicio</th>
                     <th>Fin</th>
                     <th>Activo</th>
-                    <th>Empezar</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
             </table>

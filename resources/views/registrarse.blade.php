@@ -40,7 +40,8 @@
                 <div class="input_err obligatorio">
                     <label class='oculto'>Correo Electrónico</label>
                     <input type="email" id="mail_us" name="email"
-                           placeholder="Correo Electrónico" value="{{old('email')}}">
+                           placeholder="Correo Electrónico"
+                           value="{{old('email')}}">
                     @if ($errors->has('email'))
                         <span class="invalid-feedback">
                             <strong>{{$errors->first('email')}}</strong>
@@ -54,14 +55,10 @@
                             <option id="select_pais" value='ninguno' disabled
                                     selected hidden>Elegir...
                             </option>
-                            <option value='Argentina' {{old('pais') == 'Argentina'? "selected":""}}>Argentina</option>
-                            <option value='Bolivia' {{old('pais') == 'Bolivia'? "selected":""}}>Bolivia</option>
-                            <option value='Brasil' {{old('pais') == 'Brasil'? "selected":""}}>Brasil</option>
-                            <option value='Chile' {{old('pais') == 'Chile'? "selected":""}}>Chile</option>
-                            <option value='Paraguay' {{old('pais') == 'Paraguay'? "selected":""}}>Paraguay</option>
-                            <option value='Perú' {{old('pais') == 'Perú'? "selected":""}}>Perú</option>
-                            <option value='Uruguay' {{old('pais') == 'Uruguay'? "selected":""}}>Uruguay</option>
-                            <option value='otro' {{old('pais') == 'otro'? "selected":""}}>Otro</option>
+                            @foreach($paises as $pais)
+                                <option
+                                    value='{{$pais->nombre}}' {{old('pais') == $pais->nombre? "selected":""}}>{{$pais->nombre}}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('pais'))
                             <span class="invalid-feedback">
@@ -106,12 +103,14 @@
                 </div>
             </div>
 
-            <div id="check_div" class="input_err obligatorio" style="padding-right: 0px !important;">
+            <div id="check_div" class="input_err obligatorio"
+                 style="padding-right: 0px !important;">
                 <label class="checkbox-container letra_chica text_bold">
                     Aceptación de <a href="{{url('terminos')}}"
                                      class="subrayado resaltado_amarillo text_bold">Términos
                         y condiciones</a> (RDGP)
-                    <input type="checkbox" id="cbox1" name="terminos" value="1"  {{old('terminos')? "checked":""}}>
+                    <input type="checkbox" id="cbox1" name="terminos"
+                           value="1" {{old('terminos')? "checked":""}}>
                     @if ($errors->has('terminos'))
                         <span class="invalid-feedback">
                             <strong>Por favor, acepte los términos y condiciones</strong>

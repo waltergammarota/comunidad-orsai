@@ -16,6 +16,19 @@ class InsertAdminUser extends Migration
     public function up()
     {
         $params = [
+            "name" => "pool",
+            "lastName" => "pool",
+            "userName" => "pool",
+            "country" => "Argentina",
+            "email" => "pool@gmail.com",
+            "role" => "admin",
+            "password" => password_hash("pool202@", PASSWORD_DEFAULT),
+            "email_verified_at" => now()
+        ];
+        $user = new User($params);
+        $user->save();
+
+        $params = [
             "name" => "system",
             "lastName" => "admin",
             "userName" => "admin",

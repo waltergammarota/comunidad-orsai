@@ -4,8 +4,11 @@
 namespace App\Http\Controllers;
 
 use App\Controllers\CreateContestApplicationController;
+use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
+use App\Databases\PaisModel;
+use App\Databases\ProvinciaModel;
 use App\Databases\Transaction;
 use App\Repositories\ContestApplicationRepository;
 use App\Repositories\ContestRepository;
@@ -29,20 +32,38 @@ class AccountController extends Controller
         if (!$this->isProfileCompleted()) {
             $request->session()->flash('alert', 'profile_not_completed');
         }
+        $data['paises'] = PaisModel::orderBy('peso', 'desc')->get();
+        $data['provincias'] = ProvinciaModel::all()->toJson();
+        $data['ciudades'] = json_encode($this->getCiudades());
         return view('perfil', $data);
+    }
+
+
+    private function getCiudades()
+    {
+        $ciudades = CiudadModel::all();
+        $data = [];
+        foreach ($ciudades as $ciudad) {
+            $row['id'] = $ciudad->id;
+            $row['idProvincia'] = $ciudad->idProvincia;
+            $row['nombre'] = utf8_encode($ciudad->nombre);
+            $data[] = $row;
+        }
+        return $data;
+
     }
 
     public function show_perfil_publico(Request $request)
     {
         $data = $this->getUserData();
         $user = User::find($request->route('id'));
-        if($user == null ) {
+        if ($user == null) {
             return Redirect::to('no-encontrado');
         }
         $data['user'] = $user;
         $avatar = $user->avatar()->first();
-        if($avatar != null) {
-            $data['avatar'] = url('storage/images/'.$avatar->name.".".$avatar->extension);
+        if ($avatar != null) {
+            $data['avatar'] = url('storage/images/' . $avatar->name . "." . $avatar->extension);
         } else {
             $data['avatar'] = url('img/participantes/participante.jpg');
         }
@@ -52,11 +73,18 @@ class AccountController extends Controller
     public function show_panel()
     {
         $data = $this->getUserData();
+        $data['hasStarted'] = ContestApplicationModel::find(1)->start_date < now();
         return view('panel', $data);
     }
 
     public function show_postulacion(Request $request)
     {
+        $contest = ContestModel::find(1);
+        if ($this->checkWinner(1) || $contest->end_date < now()) {
+            $data = $this->getUserData();
+            return view("concurso-finalizado", $data);
+        }
+
         $userData = $this->getUserData();
         $data = $userData;
         $postulacion = $this->findPostulacion(Auth::user()->id);
@@ -68,6 +96,11 @@ class AccountController extends Controller
         }
         $data = array_merge($userData, $postulacion);
         return view('postulacion', $data);
+    }
+
+    private function checkWinner($contestId)
+    {
+        return ContestApplicationModel::where(["is_winner" => 1, "contest_id" => $contestId])->count();
     }
 
     private function findPostulacion($userId)
@@ -115,7 +148,8 @@ class AccountController extends Controller
      * @return RedirectResponse
      */
     private function createNewCap(Request $request
-    ): RedirectResponse {
+    ): RedirectResponse
+    {
         $request->validate(
             [
                 'title' => 'required|min:1|max:255',
@@ -138,7 +172,13 @@ class AccountController extends Controller
         ];
         $cpa = new CreateContestApplicationController($data, $request);
         $id = $cpa->execute();
-        return Redirect::to("panel");
+        return Redirect::to("gracias");
+    }
+
+    public function gracias()
+    {
+        $data = $this->getUserData();
+        return view("gracias", $data);
     }
 
     private function isProfileCompleted()
@@ -171,11 +211,13 @@ class AccountController extends Controller
             'lastName',
             'userName',
             'country',
+            'provincia',
             'city',
             'birth_date',
             'profesion',
             'description',
             'facebook',
+            'whatsapp',
             'twitter',
             'instagram'
         ];
@@ -184,7 +226,7 @@ class AccountController extends Controller
             $user = Auth::user();
             $user->{$type} = $value;
             $user->save();
-            if($this->sendProfileExtraPoints()) {
+            if ($this->sendProfileExtraPoints()) {
                 return response()->json(['message' => "points profile completed"]);
             }
             return response()->json(['message' => "{$type} updated"]);
@@ -206,7 +248,7 @@ class AccountController extends Controller
                     "from" => 1,
                     "to" => $user->id,
                     "amount" => 250,
-                    "type"=> "MINT",
+                    "type" => "MINT",
                     "data" => $data
                 ]
             );

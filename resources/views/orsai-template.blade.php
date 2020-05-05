@@ -63,17 +63,17 @@
             <div class="contenedor">
                 <div id="links_footer">
                     <div id="logo_footer">
-                        <a href="#">Necesitamos un logo</a>
+                        <a href="{{url('logo')}}">Necesitamos un logo</a>
                     </div>
                     <div>
                         <ul>
-                            <li><a href="#">Inicio</a></li>
-                            <li><a href="#">Fundación</a></li>
-                            <li><a href="#">Concursos</a></li>
-                            <li><a href="#">Donaciones y fichas Estatuto</a>
+                            <li><a href="{{url('/')}}">Inicio</a></li>
+                            <li><a href="{{url('bases-concurso')}}">Bases del concurso</a></li>
+                            <li><a href="{{url('noticias')}}">Noticias</a></li>
+                            <li><a href="{{url('contacto')}}">Contacto</a>
                             </li>
-                            <li><a href="#">Plan a tres años</a></li>
-                            <li><a href="#">Contacto</a></li>
+                            <li><a href="{{url('terminos')}}">Términos y condiciones</a></li>
+                            <li><a href="{{'privacidad'}}">Privacidad</a></li>
                         </ul>
                     </div>
                 </div>

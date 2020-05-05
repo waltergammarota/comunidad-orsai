@@ -35,7 +35,7 @@ class PropuestaController extends Controller
                 "from" => $user->id
             ]
         )->sum('amount');
-        $data['related'] = ContestApplicationModel::inRandomOrder()
+        $data['related'] = ContestApplicationModel::inRandomOrder()->where("approved",1)
             ->whereNotIn('id', [$propuestaId])->limit(5)->with('logos')->get();
         return view('propuesta', $data);
     }

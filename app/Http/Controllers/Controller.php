@@ -13,6 +13,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class Controller extends BaseController
 {
@@ -45,13 +46,18 @@ class Controller extends BaseController
     protected function getCpasInfo()
     {
         $data = [];
-        if (Auth::check()) {
-            $data = [
-                "totalCpas" => (new CountContestApplication(1))->execute(),
-                "totalSupply" => (new TotalContestApplicationTokens())->execute(
-                )
-            ];
-        }
+        $data = [
+            "totalCpas" => (new CountContestApplication(1))->execute(),
+            "totalSupply" => (new TotalContestApplicationTokens())->execute()
+        ];
         return $data;
+    }
+
+    protected function isAdmin()
+    {
+        $user = Auth::user();
+        if ($user->role != "admin") {
+            return Redirect::to('panel');
+        }
     }
 }

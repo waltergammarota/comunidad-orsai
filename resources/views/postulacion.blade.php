@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="cont_box">
-                                <div class="box">
+                                <div class="box imageApp">
                                     <input type="file" name="logo[]"
                                            id="file-1"
                                            class="inputfile inputfile-3 obligatorio"
@@ -168,7 +168,7 @@
                             </div>
                             <div class="caja_boxes">
                                 <div class="cont_box">
-                                    <div class="box box_sm">
+                                    <div class="box box_sm imageApp">
                                         <input type="file"
                                                name="images[0]"
                                                id="file-2"
@@ -179,7 +179,7 @@
                                             <label
                                                 for="file-2"><span>&#x0002B;</span></label>
                                             <img
-                                                src="{{url('storage/images/'.$cap_images[0]['file_name'].".".$cap_images[0]['file_extension'])}}"/>
+                                                src="{{url('storage/images/'.$cap_images[0]['file_name'].".".$cap_images[0]['file_extension'])}}" />
                                         @else
                                             <label
                                                 for="file-2"><span>&#x0002B;</span></label>
@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
                                 <div class="cont_box">
-                                    <div class="box">
+                                    <div class="box imageApp">
                                         <input type="file"
                                                name="images[1]"
                                                id="file-3"
@@ -207,8 +207,8 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="cont_box">
-                                    <div class="box">
+                                <div class="cont_box" >
+                                    <div class="box imageApp">
                                         <input type="file"
                                                name="images[2]"
                                                id="file-4"
@@ -228,7 +228,7 @@
                                     </div>
                                 </div>
                                 <div class="cont_box">
-                                    <div class="box">
+                                    <div class="box imageApp">
                                         <input type="file"
                                                name="images[3]"
                                                id="file-5"
@@ -248,7 +248,7 @@
                                     </div>
                                 </div>
                                 <div class="cont_box">
-                                    <div class="box">
+                                    <div class="box imageApp">
                                         <input type="file"
                                                name="images[4]"
                                                id="file-6"
@@ -423,20 +423,50 @@
         });
         @endif
 
+        function borrarMensajesError() {
+            $('.error').hide();
+        }
+
 
         $('#boton_postulacion').click((event) => {
             event.preventDefault();
+            borrarMensajesError();
             const validations = [];
             validations.push(validateTexts());
             @if($cap_id == 0)
             validations.push(validateLogo());
-            //validations.push(validateAplicaciones());
             @endif
-            if (validations.every((item) => item == true)) {
+                const allValid =[...validations,...validateImages()];
+                console.log(allValid);
+            if (allValid.every((item) => item == true)) {
+                console.log("submit");
                 $('#cpa_form').submit();
             }
         });
 
+        const validateImages = () => {
+            const elements = $('.imageApp');
+            return elements.map((index, item) => {
+                const type = index == 0? "logo":"";
+                return validateImage($(item), type);
+            }).get();
+        }
+
+        const validateImage = (element, type) => {
+            const image = element.find('img');
+            if(image.length == 0) {
+                return true;
+            }
+            if(image[0].naturalHeight == 1024 && image[0].naturalWidth ==  1024) {
+                return true;
+            }
+            if(type == "logo")  {
+                createErrorMessage($('#file-1-sp'), "El logo debe ser 1024 x 1024", "errorLogo");
+            } else {
+                createErrorMessage($('#sp_aplicaciones'), "Las imágenes deben ser 1024 x 1024", "errorMinis");
+            }
+            return false;
+        }
 
         const validateAplicaciones = () => {
             const filesAplicaciones = $('input[name="images[]"]');

@@ -22,7 +22,7 @@ class InsertCpa extends Migration
             "title" => "Test de postulación",
             "description" => "test de descripción",
             "link" => "https://example.com",
-            "user_id" => 1,
+            "user_id" => 2,
             "contest_id" => 1,
         ];
         $cpa = new ContestApplicationModel($params);

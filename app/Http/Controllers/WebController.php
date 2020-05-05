@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 
 
 use App\Databases\ContestApplicationModel;
+use App\Databases\ContestModel;
 use App\Databases\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use function Sodium\compare;
 
 class WebController extends Controller
 {
@@ -17,37 +20,121 @@ class WebController extends Controller
         return view('index', $data);
     }
 
-    public function concurso_logo()
+    public function restablecer_clave() {
+        $data = $this->getUserData();
+        return view('restablecer-clave', $data);
+    }
+
+    public function reenviar_mail_activacion() {
+        $data = $this->getUserData();
+        $data['title'] = "Reenviar mail activación";
+        return view('reenviar-mail-activacion', $data);
+    }
+
+    public function terminos() {
+        $data = $this->getUserData();
+        $data['title'] = "Términos y condiciones";
+        return view('terminos', $data);
+    }
+
+    public function privacidad() {
+        $data = $this->getUserData();
+        $data['title'] = "Privacidad";
+        return view('privacidad', $data);
+    }
+    public function bases_concurso()
     {
         $data = $this->getUserData();
         return view('concurso-logo', $data);
     }
 
+    public function concurso()
+    {
+        $data = $this->getUserData();
+        $contest = ContestModel::find(1);
+        if ($contest->start_date >= now()) {
+            return view('concurso-logo', $data);
+        }
+        return Redirect::to('participantes');
+    }
+
     public function fundacion()
     {
         $data = $this->getUserData();
-        return view('fundacion-orsai', $data);
+        return view('fundacion.fundacion-orsai', $data);
     }
 
-    public function donar()
+    public function plan()
     {
         $data = $this->getUserData();
-        return view('donar', $data);
+        return view('fundacion.plan', $data);
+    }
+
+    public function consejo()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.consejo', $data);
+    }
+
+    public function donaciones()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.donaciones', $data);
+    }
+
+    public function historia()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.historia', $data);
+    }
+
+    public function areas()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.areas', $data);
     }
 
     public function participantes(Request $request)
     {
-        $userInfo = $this->getUserData();
-        $cpasInfo = $this->getCpasInfo();
-        $data = array_merge($userInfo, $cpasInfo);
-        $orden = $request->route('orden');
-        $data['propuestas'] = $this->getPropuestas($orden, 8,0, $request);
-        $data['orden'] = $orden;
-        $data['busqueda'] = $request->busqueda;
-        return view('participantes', $data);
+        $contest = ContestModel::find(1);
+        $hasWinner = $this->checkWinner(1);
+        if($contest->end_date < now()) {
+            $userInfo = $this->getUserData();
+            $cpasInfo = $this->getCpasInfo();
+            $data = array_merge($userInfo, $cpasInfo);
+            return view("concurso-finalizado", $data);
+        }
+        if($this->checkWinner(1) > 0) {
+            return Redirect::to('concurso');
+        }
+        if ($contest->start_date < now() && $contest->end_date >= now()) {
+            return $this->show_participantes($request);
+        }
+        return Redirect::to('concurso-logo');
+
     }
 
-    public function getMore(Request $request) {
+    private function checkWinner($contestId) {
+        return ContestApplicationModel::where(["is_winner"=> 1, "contest_id"=> $contestId])->count();
+    }
+
+    public function logo()
+    {
+        $contest = ContestModel::find(1);
+        if ($contest->start_date >= now()) {
+            $userInfo = $this->getUserData();
+            return Redirect::to('concurso-logo', compact('userInfo'));
+        }
+        if ($contest->start_date < now() && $contest->end_date >= now()) {
+            return Redirect::to('participantes');
+        }
+        if (ContestApplicationModel::where("is_winner", 1)->first()) {
+            return Redirect::to("concurso");
+        }
+    }
+
+    public function getMore(Request $request)
+    {
         $orden = $request->route('orden');
         $limit = $request->route('limit');
         $offset = $request->route('offset');
@@ -60,22 +147,22 @@ class WebController extends Controller
 
         switch ($orden) {
             case "buscar":
-                $propuestas = ContestApplicationModel::where('title','LIKE','%'.$request->busqueda.'%')->where('approved', 1)->with(
+                $propuestas = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('approved', 1)->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-vistos":
-                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('views','desc')->with(
+                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('views', 'desc')->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-recientes":
-                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('created_at','desc')->with(
+                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('created_at', 'desc')->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-votados":
-                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('votes','desc')->with(
+                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('votes', 'desc')->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
@@ -113,6 +200,22 @@ class WebController extends Controller
     {
         $userInfo = $this->getUserData();
         return view('concurso_finalizado', $userInfo);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show_participantes(Request $request)
+    {
+        $userInfo = $this->getUserData();
+        $cpasInfo = $this->getCpasInfo();
+        $data = array_merge($userInfo, $cpasInfo);
+        $orden = $request->route('orden');
+        $data['propuestas'] = $this->getPropuestas($orden, 8, 0, $request);
+        $data['orden'] = $orden;
+        $data['busqueda'] = $request->busqueda;
+        return view('participantes', $data);
     }
 
 

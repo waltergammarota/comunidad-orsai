@@ -1,10 +1,7 @@
 @extends('admin.admin-template')
 
 @section('header')
-    <link rel="stylesheet"
-          href="{{url("admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
-    <link rel="stylesheet"
-          href="{{url("admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
+
 @endsection
 
 

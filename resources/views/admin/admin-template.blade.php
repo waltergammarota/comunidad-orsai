@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="{{url("admin/plugins/summernote/summernote-bs4.css")}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{url("admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
+    <link rel="stylesheet" href="{{url("admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
     @yield('header')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -88,6 +91,15 @@
                             <i class="nav-icon fas fa-coins"></i>
                             <p>
                                 Transacciones
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{url('admin/noticias')}}" class="nav-link">
+                            <i class="nav-icon fas fa-coins"></i>
+                            <p>
+                                Noticias
                             </p>
                         </a>
                     </li>
@@ -182,14 +194,21 @@
 <script src="{{url("admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}"></script>
 <!-- AdminLTE App -->
 <script src="{{url("admin/dist/js/adminlte.js")}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->"
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{url("admin/dist/js/pages/dashboard.js")}}"></script>
-<script src="{{url("admin/plugins/pace-progress/pace.min.js")}}></script>
+<script src="{{url("admin/plugins/pace-progress/pace.min.js")}}"></script>
 
-<!-- AdminLTE for demo purposes -->
 <script src="{{url("admin/dist/js/demo.js")}}"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+<script
+    src="{{url("admin/plugins/datatables/jquery.dataTables.min.js")}}"></script>
+<script
+    src="{{url("admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
+<script
+    src="{{url("admin/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>
+<script
+    src="{{url("admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")}}"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
 @yield('footer')
 </body>
 </html>

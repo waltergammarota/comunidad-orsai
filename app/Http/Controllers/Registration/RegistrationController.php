@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Registration;
 
 use App\Classes\UserException;
+use App\Databases\PaisModel;
 use App\UseCases\UserActivation;
 use App\UseCases\UserRegistration;
 use App\User;
@@ -68,6 +69,7 @@ class RegistrationController extends Controller
         ];
         $this->createUserRegistrationUseCase($userData);
         $data = $this->createUser($userData);
+        $request->session()->flash('alert', 'activation_email');
         return redirect('/ingresar');
     }
 
@@ -120,5 +122,11 @@ class RegistrationController extends Controller
             $data = ["email" => $user->email];
             return view('reenviar-mail-activacion', $data);
         }
+    }
+
+
+    public function registrarse(Request $request) {
+        $paises = PaisModel::orderBy('peso','desc')->get();
+        return view('registrarse', compact('paises'));
     }
 }

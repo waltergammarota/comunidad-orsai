@@ -186,8 +186,7 @@ class ContestApplicationRepository extends GenericRepository
     public function countCpas($contestId)
     {
         return DB::table('contest_applications')->where(
-            "contest_id",
-            $contestId
+            ["contest_id" => $contestId, "approved" => 1]
         )->count();
     }
 

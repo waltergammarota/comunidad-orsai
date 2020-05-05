@@ -7,3 +7,7 @@ FUNDACION ORSAI
 5. php artisan migrate
 6. GRANT ALL PRIVILEGES ON *.* TO 'orsai'@'localhost' IDENTIFIED BY 'fundaxionOrsai2020';
 5. php artisan queue:work >/dev/null 2>&1 &
+
+PARA LANZAR LOS JOBS QUE ENVIAN MAILS
+php artisan queue:work
+php artisan queue:restart

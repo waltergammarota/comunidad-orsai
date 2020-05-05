@@ -25,15 +25,60 @@ Route::get(
 )->name('fundacion-orsai');
 
 Route::get(
-    '/concurso-logo',
-    'Webcontroller@concurso_logo'
-)->name('concurso-logo');
-
+    '/plan',
+    'WebController@plan'
+)->name('plan');
 
 Route::get(
-    '/donar',
-    'WebController@donar'
-)->name('donar');
+    '/consejo',
+    'WebController@consejo'
+)->name('consejo');
+
+Route::get(
+    '/areas',
+    'WebController@areas'
+)->name('areas');
+
+Route::get(
+    '/areas',
+    'WebController@areas'
+)->name('consejo');
+
+Route::get(
+    '/donaciones',
+    'WebController@donaciones'
+)->name('donaciones');
+
+Route::get(
+    '/historia',
+    'WebController@historia'
+)->name('historia');
+
+Route::get(
+    '/concurso-logo',
+    'Webcontroller@concurso'
+)->name('concurso-logo');
+
+Route::get(
+    '/bases-concurso',
+    'Webcontroller@bases_concurso'
+)->name('bases-concurso');
+
+Route::get(
+    '/noticias/{slug?}',
+    'ContenidoController@index'
+)->name('noticias');
+
+Route::get(
+    '/privacidad',
+    'WebController@privacidad'
+)->name('privacidad');
+
+Route::get(
+    '/logo',
+    'Webcontroller@logo'
+)->name('logo');
+
 
 Route::get(
     '/ingresar',
@@ -56,9 +101,7 @@ Route::get(
 
 Route::get(
     '/registrarse',
-    function () {
-        return view('registrarse', ['title' => 'Registro de Usuario']);
-    }
+    'Registration\RegistrationController@registrarse'
 )->name('registrarse');
 
 Route::post(
@@ -74,9 +117,7 @@ Route::get(
 
 Route::get(
     '/restablecer-clave',
-    function () {
-        return view('restablecer-clave');
-    }
+    'WebController@restablecer_clave'
 )->name('restablecer-clave');
 
 Route::get(
@@ -96,9 +137,7 @@ Route::post(
 
 Route::get(
     '/reenviar-mail',
-    function () {
-        return view('reenviar-mail-activacion');
-    }
+    'WebController@reenviar_mail_activacion'
 )->name('reenviar-mail');
 
 Route::post(
@@ -108,9 +147,7 @@ Route::post(
 
 Route::get(
     '/terminos',
-    function () {
-        return view('terminos', ["title" => "Términos y condiciones"]);
-    }
+    'WebController@terminos'
 )->name('terminos');
 
 Route::get(
@@ -118,6 +155,20 @@ Route::get(
     'WebController@concurso_finalizado'
 )->name('concurso-finalizado');
 
+Route::get(
+    '/participantes/{orden?}',
+    'WebController@participantes'
+)->name('participantes');
+
+Route::get(
+    '/participantes/{orden?}/{limit}/{offset}',
+    'WebController@getMore'
+)->name('participantes-more');
+
+Route::get(
+    '/concurso',
+    'Contest\ContestController@index'
+)->name("concurso");
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -142,6 +193,11 @@ Route::middleware(['verified'])->group(
             'AccountController@store_publicacion'
         );
 
+        Route::get(
+            '/gracias',
+            'AccountController@gracias'
+        );
+
         Route::post(
             '/profile/update',
             'AccountController@profile_update'
@@ -162,13 +218,38 @@ Route::middleware(['verified'])->group(
             'PropuestaController@votar'
         );
 
-        Route::get(
-            '/concurso',
-            'Contest\ContestController@index'
-        )->name("concurso");
+
 
         Route::get('dashboard', 'Admin\AdminController@index')->name(
             'dashboard'
+        );
+
+        Route::get('admin/noticias', 'Admin\ContenidoController@index')->name(
+            'noticias'
+        );
+
+        Route::get('admin/noticias/crear', 'Admin\ContenidoController@create')->name(
+            'noticias'
+        );
+
+        Route::get('admin/noticias/{id}', 'Admin\ContenidoController@edit')->name(
+            'noticias-edit'
+        );
+
+
+
+        Route::post('admin/noticias/store', 'Admin\ContenidoController@store')->name(
+            'noticias-store'
+        );
+        Route::post('admin/noticias/update', 'Admin\ContenidoController@update')->name(
+            'noticias-update'
+        );
+
+        Route::get(
+            'admin/noticias-json',
+            'Admin\ContenidoController@noticias_json'
+        )->name(
+            'noticias-json'
         );
 
         Route::get('admin/usuarios', 'Admin\AdminController@usuarios')->name(
@@ -246,15 +327,8 @@ Route::middleware(['verified'])->group(
             'concurso-ganador'
         );
 
-        Route::get(
-            '/participantes/{orden?}',
-            'WebController@participantes'
-        )->name('participantes');
 
-        Route::get(
-            '/participantes/{orden?}/{limit}/{offset}',
-            'WebController@getMore'
-        )->name('participantes');
+
 
         Route::get(
             '/transacciones',

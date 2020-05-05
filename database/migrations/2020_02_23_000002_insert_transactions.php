@@ -18,7 +18,7 @@ class InsertTransactions extends Migration
     {
         $params = [
             "from" => 1,
-            "to" => 2,
+            "to" => 3,
             "type" => 'MINT',
             "amount" => 750,
             "data" => "welcome"

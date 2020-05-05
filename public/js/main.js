@@ -171,7 +171,7 @@ function mostrarImagen(event) {
                 create_span.className = "icon-trash-empty";
                 create_span.onclick = function() {
                     if (img.src != "") {
-                        img[0].src = "";
+                        img[0].parentNode.removeChild(img[0]);
                         var get_algo = document.getElementById(get_id);
                         get_algo.value = "";
                         box[posicion].removeChild(create_span);
@@ -388,17 +388,7 @@ if (document.getElementById("quien_fichas_modal")) {
         }
     });
 }
-if (document.getElementById("acred_fichas_modal")) {
-    var acred_fichas_modal = document.getElementById("acred_fichas_modal");
-    var modal_fichas = document.getElementsByClassName("modal_fichas")[0];
-    open_modal(acred_fichas_modal);
-    acred_fichas_modal.onclick = function() {
-        close(acred_fichas_modal);
-    }
-    modal_fichas.onclick = function() {
-        close(acred_fichas_modal);
-    }
-};
+
 if (document.getElementById("menu_logueado")) {
     var menu_logueado = document.getElementById("menu_logueado");
     menu_logueado.onclick = function() {

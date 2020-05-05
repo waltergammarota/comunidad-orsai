@@ -62,6 +62,18 @@
             </div>
         </div>
     @endif
+    @if(Session::get('alert') == "activation_email")
+        <div class="general_profile_msg popup top_msg">
+            <div class="contenedor msg_position_rel">
+                <div id="texto_exito">
+                    <span>Te falta validar el mail.</span>
+                </div>
+                <div class="cerrar">
+                    <span>X</span>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 @section('footer')

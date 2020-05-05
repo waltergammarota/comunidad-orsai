@@ -13,7 +13,7 @@
                     class="fich">{{$totalSupply}}</strong> fichas en juego</span>
         </div>
     </section>
-
+    @if($totalCpas > 0)
     <section id="catalogo_logos" class="contenedor">
         <div class="cont_cat_partipantes">
             <div class="cat_partipantes">
@@ -62,6 +62,7 @@
             <span class="gris no_hay_logos" style="display: none;">No hay más logos para cargar</span>
         </div>
     </section>
+    @endif
     <div class="contenedor mg_100 number_page">
         <span>1</span>
     </div>

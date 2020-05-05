@@ -7,21 +7,17 @@ namespace App\Http\Controllers\Contest;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\WebController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ContestController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $concursoLogoId = 1;
         $contest = ContestModel::find($concursoLogoId);
-        if($contest->active) {
-            $userInfo = $this->getUserData();
-            $cpasInfo = $this->getCpasInfo();
-            $data = array_merge($userInfo, $cpasInfo);
-            return view("participantes", $data);
-        }
-
+        $minApplications = 25;
+        $userInfo = $this->getUserData();
         if(ContestApplicationModel::where("is_winner",1)->first()) {
             $userInfo = $this->getUserData();
             $data = array_merge($userInfo);
@@ -44,7 +40,12 @@ class ContestController extends Controller
             $data['instagram'] = $user->instagram;
             return view("logo-ganador", $data);
         }
-        $userInfo = $this->getUserData();
+
+        if($contest->active) {
+            $controller = new WebController();
+            return $controller->show_participantes($request);
+        }
+
         $data = array_merge($userInfo);
         return view("votacion-no-comenzada", $data);
     }

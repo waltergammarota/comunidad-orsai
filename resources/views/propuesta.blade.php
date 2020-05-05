@@ -8,12 +8,15 @@
             <div class="user_prop">
                 <div>
                     <p class="gris">Por
-                        <span>{{ucfirst($propuesta['owner']['name'])}}</span>
+                        <span><a
+                                href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">{{ucfirst($propuesta['owner']['name'])}}</a></span>
                     </p>
                 </div>
                 <div class="user_img">
-                    <img src="{{url('img/participantes/participante.jpg')}}"
-                         alt="Imagen usuario">
+                    <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
+                        <img src="{{url('img/participantes/participante.jpg')}}"
+                             alt="Imagen usuario">
+                    </a>
                 </div>
             </div>
         </div>
@@ -61,20 +64,21 @@
                     </div>
                 </div>
                 <div id="bt_votar">
-                        <form action="{{url('votar')}}" method="POST" id="form_votacion">
-                            <input type="hidden" name="cap_id"
-                                   value="{{$propuesta['id']}}"/>
-                            @csrf
-                            <div class="quantity">
-                                <input type="number" min="50" max="450" step="1"
-                                       value="50" name="vote" id="voteAmount">
-                            </div>
-                            <div id="bt_form_votar">
+                    <form action="{{url('votar')}}" method="POST" id="form_votacion">
+                        <input type="hidden" name="cap_id"
+                               value="{{$propuesta['id']}}"/>
+                        @csrf
+                        <div class="quantity">
+                            <input type="number" min="50" max="450" step="1"
+                                   value="50" name="vote" id="voteAmount">
+                        </div>
+                        <div id="bt_form_votar">
                             <span
                                 class="resaltado_amarillo subrayado text_bold">Poner fichas</span>
-                            </div>
-                        </form>
-                        <div id="pusiste_fichas" class="resaltado_gris"><span class="text_bold subrayado">Ya pusiste fichas</span><span class="icon-o"></span></div>
+                        </div>
+                    </form>
+                    <div id="pusiste_fichas" class="resaltado_gris"><span
+                            class="text_bold subrayado">Ya pusiste fichas</span><span class="icon-o"></span></div>
 
                 </div>
                 <div id="prop_info">
@@ -102,15 +106,15 @@
                                                  class="content pusieron_listas">
                                                 <ul id="ul_listas">
                                                     @foreach($txs as $tx)
-                                                    <li>
-                                                        <img
-                                                            src="{{url($tx->avatar)}}"
-                                                            alt="{{$tx->userName}}">
-                                                        <span
-                                                            class="nombre_puso">{{$tx->userName}}</span>
-                                                        <span
-                                                            class="fichas_puso">{{$tx->amount}}</span>
-                                                    </li>
+                                                        <li>
+                                                            <img
+                                                                src="{{url($tx->avatar)}}"
+                                                                alt="{{$tx->userName}}">
+                                                            <span
+                                                                class="nombre_puso">{{$tx->userName}}</span>
+                                                            <span
+                                                                class="fichas_puso">{{$tx->amount}}</span>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -225,7 +229,7 @@
             $('#form_votacion').hide();
         }
 
-        $("#closeModal").click(()=> {
+        $("#closeModal").click(() => {
             $("#err_msg").hide();
         })
 
@@ -233,9 +237,9 @@
             $("#texto_err").empty();
             $("#texto_err").append(`<span>${message}</span>`);
             $("#err_msg").show();
-            setTimeout(()=>{
+            setTimeout(() => {
                 $("#err_msg").hide();
-            },5000)
+            }, 5000)
         }
 
         $("#bt_form_votar").click(event => {
@@ -245,11 +249,11 @@
                 amount: $("#voteAmount").val()
             }).then(response => {
                 const data = response.data.totalVotes;
-                if(data.success) {
+                if (data.success) {
                     showAlert("Gracias por votar");
                     window.location.reload();
                 } else {
-                    if(data.available == 0) {
+                    if (data.available == 0) {
                         showAlert("Llegaste al límite de votaciones por propuesta");
                     } else {
                         showAlert("La cantidad es incorrecta.  El mínimo es 50 y el máximo 450 por propuesta");
@@ -258,7 +262,7 @@
                 $("#totalVotes").empty().append(data.totalVotes);
             }).catch(error => {
                 console.log(error);
-                 showAlert("Ha habido un error, intente más tarde");
+                showAlert("Ha habido un error, intente más tarde");
             });
         })
 

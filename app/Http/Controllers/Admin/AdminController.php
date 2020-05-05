@@ -14,18 +14,15 @@ use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
-    private function isAdmin()
-    {
-        $user = Auth::user();
-        if ($user->role != "admin") {
-            return Redirect::to('panel');
-        }
-    }
 
     public function index()
     {
         $this->isAdmin();
-        return view('admin.dashboard');
+        $totalUsers = User::count();
+        $totalTransactions = Transaction::count();
+        $totalApplication = ContestApplicationModel::count();
+        $totalViews = ContestApplicationModel::sum('views');
+        return view('admin.dashboard', compact('totalUsers','totalTransactions','totalApplication','totalViews'));
     }
 
     public function usuarios()
