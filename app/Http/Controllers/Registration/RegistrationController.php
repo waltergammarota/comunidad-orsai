@@ -126,7 +126,7 @@ class RegistrationController extends Controller
 
 
     public function registrarse(Request $request) {
-        $paises = PaisModel::orderBy('peso','desc')->get();
+        $paises = PaisModel::orderBy('peso','desc')->orderBy('nombre','asc')->get();
         return view('registrarse', compact('paises'));
     }
 }
