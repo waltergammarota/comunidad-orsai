@@ -110,7 +110,9 @@ class ContenidoController extends Controller
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images',$request);
         $imagesIds = $this->convertToIds($images);
-        $noticia->images()->sync($imagesIds);
+        if(count($imagesIds) > 0) {
+            $noticia->images()->sync($imagesIds);
+        }
         return Redirect::to('admin/noticias');
     }
 }

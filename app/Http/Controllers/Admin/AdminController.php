@@ -17,7 +17,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        $this->isAdmin();
         $totalUsers = User::count();
         $totalTransactions = Transaction::count();
         $totalApplication = ContestApplicationModel::count();
@@ -27,31 +26,26 @@ class AdminController extends Controller
 
     public function usuarios()
     {
-        $this->isAdmin();
         return view('admin.usuarios');
     }
 
     public function transacciones()
     {
-        $this->isAdmin();
         return view('admin.transacciones');
     }
 
     public function postulaciones()
     {
-        $this->isAdmin();
         return view('admin.postulaciones');
     }
 
     public function concurso()
     {
-        $this->isAdmin();
         return view('admin.concurso');
     }
 
     public function usuarios_json(Request $request)
     {
-        $this->isAdmin();
         $data = [
             'draw' => $request->query('draw'),
             "recordsTotal" =>  User::count(),
@@ -62,7 +56,6 @@ class AdminController extends Controller
 
     public function transacciones_json(Request $request)
     {
-        $this->isAdmin();
         $data = [
             'draw' => $request->query('draw'),
             "recordsTotal" =>  Transaction::count(),
@@ -87,7 +80,6 @@ class AdminController extends Controller
 
     public function contest_json(Request $request)
     {
-        $this->isAdmin();
         $data = [
             'draw' => $request->query('draw'),
             "recordsTotal" =>  ContestModel::count(),

@@ -9,6 +9,12 @@
 
         <div class="cont_noticias">
             @foreach($noticias['noticias'] as $key => $noticia)
+                @if($key % 2 == 0 && $key > 0)
+                    <div class="publicidad_noticias">
+                        <div></div>
+                    </div>
+                    <div class="line_dashed"></div>
+                @endif
                 <article>
                     <div class="cuerpo_texto">
                         <div>
@@ -30,12 +36,7 @@
                     </div>
                 </article>
                 <div class="line_dashed"></div>
-                @if($key % 2 == 0 && $key > 0)
-                    <div class="publicidad_noticias">
-                        <div></div>
-                    </div>
-                    <div class="line_dashed"></div>
-                @endif
+
             @endforeach
             <div id="controladores_participantes">
                 @if($noticias['previous'] > 0)

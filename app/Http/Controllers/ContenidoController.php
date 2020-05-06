@@ -25,10 +25,10 @@ class ContenidoController extends Controller
     private function getNoticias($page = 1) {
         $limit = 4;
         $offset = ($page - 1) * $limit;
-        $data['noticias'] = ContenidoModel::where(["tipo"=> "noticia","visible"=>1])->limit($limit)->offset($offset)->get();
+        $data['noticias'] = ContenidoModel::where(["tipo"=> "noticia","visible"=>1])->whereDate('fecha_publicacion', '<=', date('Y-m-d'))->limit($limit)->offset($offset)->get();
         $data['previous'] = $page - 1;
         $data['current_page'] = $page;
-        $data['next'] = ContenidoModel::where(["tipo"=> "noticia","visible"=>1])->limit($limit)->offset($page * $limit)->count() > 0? $page + 1: $page;
+        $data['next'] = ContenidoModel::where(["tipo"=> "noticia","visible"=>1])->whereDate('fecha_publicacion', '<=', date('Y-m-d'))->limit($limit)->offset($page * $limit)->count() > 0? $page + 1: $page;
         return $data;
     }
 }
