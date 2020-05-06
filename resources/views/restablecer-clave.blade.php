@@ -5,8 +5,8 @@
     <section id="intro" class="contenedor intro_gral">
         <div class="titulo">
             <span class="span_h1">Restablecer <span class="span_block">la contraseña.</span></span>
-            <h1 class="span_h2 texto_italica">Ingresá la dirección de correo
-                electrónico asociada a tu cuenta y te vamos a enviar un enlac
+            <h1 class="span_h2">Ingresá la dirección de correo
+                electrónico asociada a tu cuenta y te vamos a enviar un enlace
                 para restablecer tu contraseña.</h1>
         </div>
     </section>
@@ -23,7 +23,6 @@
                         <span>El email no fue encontrado.</span>
                     @endif
                 </div>
-                <div class="line_dashed"></div>
                 <div id="boton_submit">
                     <button class="subrayado resaltado_amarillo text_bold"
                             id="boton_rest">

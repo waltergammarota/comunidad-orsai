@@ -4,15 +4,15 @@
 @section('content')
     <section id="intro" class="contenedor intro_gral">
         <div>
-            <span class="span_h1">Gracias</span>
-            <h1 class="span_h2">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                elit, sed diam nonummy nibh euismod tincidunt.</h1>
+            <span class="span_h1">Gracias por tu propuesta.</span>
+            <h1 class="span_h2">Vamos a verificar que cumpla con los requisitos y nos ponemos en contacto.</h1>
+        </div>
+        <div class="line_dashed"></div> 
+        <div class="lets_start resaltado_amarillo">
+            <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
         </div>
     </section>
-
-    <section class="contenedor intro_gral">
-        <span class="span_h1 con_fin">Gracias por tu propuesta</span>
-    </section>
+ 
     <div class="contenedor mg_100 number_page">
         <span>1</span>
     </div>

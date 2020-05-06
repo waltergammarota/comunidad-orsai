@@ -7,9 +7,8 @@
             <h1>Registro <span class="span_block">de postulación</span></h1>
         </div>
         <div>
-            <p class="texto_italica span_h2">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy nibh.
+            <p class="span_h2">
+                Podés cargar tu propuesta de logo y sus características aquí.
             </p>
         </div>
     </section>
@@ -23,30 +22,15 @@
             @endif
             @csrf
             <div id="postulacion_form">
-                <div class="aclara">
-                    <span>Obligatorios</span>'
-                </div>
                 <div class="contenedor_campos">
                     <div class="inp_lf">
                         <div class="input_err">
-                            <label>Título* <span
+                            <label>Título * <span
                                     class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
-                                <div class="recuadro_black">
-                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
-                                        dla dlas dlkas dlkaj dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda. dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.
-                                    </p>
+                                <div class="recuadro_black"> 
+                                    <p>Ingresá el título de tu propuesta.</p>
                                 </div>
                             </div>
                             <input type="text" name="title"
@@ -60,23 +44,12 @@
                             @endif
                         </div>
                         <div class="input_err">
-                            <label>Descripción* <span
+                            <label>Descripción * <span
                                     class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
-                                        dla dlas dlkas dlkaj dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda. dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.
+                                    <p>Ingresá la descripción de tu propuesta, tiene que tener menos de 288 caracteres.
                                     </p>
                                 </div>
                             </div>
@@ -102,19 +75,7 @@
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
-                                        dla dlas dlkas dlkaj dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda. dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.
-                                    </p>
+                                    <p>Subí la imagen de tu logo.</p>
                                 </div>
                             </div>
                             <div class="cont_box">
@@ -133,8 +94,6 @@
                                             for="file-1"><span>Adjuntar</span></label>
                                     @endif
                                 </div>
-                                <span class="logo_sp_size"
-                                      id="file-1-sp">Formato: 1024X1024px / JPG / PNG / 25MB</span>
                                 @if ($errors->has('logo'))
                                     <span class="error">
                                             <strong>El logo es obligatorio.</strong>
@@ -151,18 +110,7 @@
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
-                                        dla dlas dlkas dlkaj dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda. dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.
+                                    <p>Subí hasta 5 adaptaciones de tu logo.</p>
                                     </p>
                                 </div>
                             </div>
@@ -268,8 +216,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <span class="logo_sp_size"
-                                  id="sp_aplicaciones">Formato: 1024X1024px / JPG / PNG / 25MB</span>
+                                <span class="logo_sp_size" id="file-1-sp">Formato: 1024x1024px - JPG/PNG - Hasta 25MB</span>
                             @if ($errors->has('images.*') || $errors->has('images'))
                                 <span class="error">
                                     <strong>Las aplicaciones de logo son obligatorias</strong>
@@ -277,11 +224,6 @@
                             @endif
                         </div>
                     </div>
-                </div>
-
-                <div class="line_dashed"></div>
-                <div class="aclara">
-                    <span>Opcionales</span>
                 </div>
                 <div class="contenedor_campos">
                     <div class="inp_lf">
@@ -291,18 +233,7 @@
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
-                                        dla dlas dlkas dlkaj dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda. dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.
+                                    <p>Podés enviar un PDF con más aplicaciones.
                                     </p>
                                 </div>
                             </div>
@@ -327,7 +258,7 @@
 
                                 </div>
                                 <span
-                                    class="logo_sp_size">Formato: PDF  25MB</span>
+                                    class="logo_sp_size">Formato: PDF - Hasta 25MB</span>
                             </div>
                         </div>
                     </div>
@@ -338,44 +269,17 @@
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
-                                        dla dlas dlkas dlkaj dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda. dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.
-                                    </p>
+                                    <p>Podés enviar un link a un sitio externo.</p>
                                 </div>
-                            </div>
-                            <div class="modal_asq oculto">
-                                <span class="close_asq">(x)</span>
-                                <div class="recuadro_black">
-                                    <p>dajlkd asd jdklsajd ad alkjdal dlask dla
-                                        dla dlas dlkas dlkaj dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda. dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.dajlkd asd jdklsajd ad alkjdal
-                                        dlask dla dla dlas dlkas dlkaj
-                                        dlkadjasljd
-                                        jdlskadjklasdja daklsdj askldjalskdj
-                                        alda.
-                                    </p>
-                                </div>
-                            </div>
+                            </div> 
                             <input type="text" name="link"
                                    value="{{$cap_link ?? old('link')}}">
                         </div>
                     </div>
                 </div>
+                <div class="aclara">
+                    <span>* = Obligatorios</span>'
+                </div> 
                 <div class="line_dashed"></div>
                 <div id="boton_submit">
                     <button

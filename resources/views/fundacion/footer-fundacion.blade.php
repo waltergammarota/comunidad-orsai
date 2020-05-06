@@ -31,4 +31,13 @@
         }
     });
 
+    if( $(window).width() > 991 ){
+        $(function() {
+            $('.mouse_over').hover(function() { 
+                $('.mouse_over_modal').fadeIn(); 
+            }, function() { 
+                $('.mouse_over_modal').fadeOut(); 
+            });
+        });
+    }
 </script>

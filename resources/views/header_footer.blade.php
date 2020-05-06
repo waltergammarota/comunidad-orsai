@@ -29,11 +29,6 @@
                     <li><a href="{{url('concurso-logo')}}">Concurso Logo</a>
                     </li>
                 @endif
-                @if (Route::currentRouteName() == 'donar')
-                    <li class="active"><a href="{{url('donar')}}">Donar</a></li>
-                @else
-                    <li><a href="{{url('donar')}}">Donar</a></li>
-                @endif
             </ul>
         </div>
         <div id="menu_reg">
