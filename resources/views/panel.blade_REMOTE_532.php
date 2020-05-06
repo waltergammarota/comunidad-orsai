@@ -28,7 +28,7 @@
         @endif
     </section>
     <section id="panel_user_info" class="contenedor">
-        <a href="{{url('perfil')}}" class="box_panel">
+        <div class="box_panel">
             <div>
                 <span>Información Personal</span>
             </div>
@@ -36,29 +36,19 @@
                 <span>Proporciona tus datos personales e indicanos cómo podemos ponernos en contacto con vos.</span>
             </div>
             <div>
-<<<<<<< HEAD
-                <span href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</span>
-=======
                 @if(Auth::user()->email_verified_at != null)
                     <a href="{{url('perfil')}}"
                        class="subrayado resaltado_amarillo">Editar</a>
                 @endif
->>>>>>> b5b9a78021efd64074ad52a4a72025f62075672a
             </div>
-        </a>
-        <a 
-            @if($postulacion['status'] == "draft" || $postulacion['id'] == 0) 
-                href="{{url('postulacion')}}" 
-            @else 
-                href="{{url('propuesta/'.$postulacion['id'])}}" 
-            @endif 
-            class="box_panel"> 
+        </div>
+        <div class="box_panel">
             <div>
                 <span>Estado de postulación</span>
             </div>
             <div>
                 @if($postulacion['id'] == 0)
-                    <span class="text_bold">Podés editar tu propuesta de logo y sus características aquí.</span>
+                    <span class="text_bold">No enviada</span>
                 @endif
                 @if($postulacion['id'] > 0)
                     <span class="text_bold">
@@ -67,14 +57,6 @@
                 @endif
             </div>
             <div>
-<<<<<<< HEAD
-                @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
-                    <span href="{{url('postulacion')}}"
-                       class="subrayado resaltado_amarillo">Enviar</span>
-                @else
-                    <span href="{{url('propuesta/'.$postulacion['id'])}}"
-                       class="subrayado resaltado_amarillo">Ver</span>
-=======
                 @if(Auth::user()->email_verified_at != null)
                     @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
                         <a href="{{url('postulacion')}}"
@@ -83,11 +65,10 @@
                         <a href="{{url('propuesta/'.$postulacion['id'])}}"
                            class="subrayado resaltado_amarillo">Ver</a>
                     @endif
->>>>>>> b5b9a78021efd64074ad52a4a72025f62075672a
                 @endif
             </div>
-        </a>
-        <a href="{{url('transacciones')}}"  class="box_panel">
+        </div>
+        <div class="box_panel">
             <div>
                 <span>Transacciones de créditos</span>
             </div>
@@ -95,15 +76,11 @@
                 <span>Tenes <strong>{{$cantidadTxs}}</strong> transacciones realizadas.</span>
             </div>
             <div>
-<<<<<<< HEAD
-                <span href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</span>
-=======
                 @if(Auth::user()->email_verified_at != null)
                     <a href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</a>
                 @endif
->>>>>>> b5b9a78021efd64074ad52a4a72025f62075672a
             </div>
-        </a>
+        </div>
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>

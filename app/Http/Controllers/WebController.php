@@ -10,7 +10,6 @@ use App\Databases\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use function Sodium\compare;
 
 class WebController extends Controller
 {
@@ -23,6 +22,14 @@ class WebController extends Controller
     public function restablecer_clave() {
         $data = $this->getUserData();
         return view('restablecer-clave', $data);
+    }
+
+    public function ingresar() {
+        if(Auth::check()) {
+            return Redirect::to('panel');
+        }
+        $data = $this->getUserData();
+        return view('ingresar', $data);
     }
 
     public function reenviar_mail_activacion() {

@@ -70,7 +70,9 @@ class RegistrationController extends Controller
         $this->createUserRegistrationUseCase($userData);
         $data = $this->createUser($userData);
         $request->session()->flash('alert', 'activation_email');
-        return redirect('/ingresar');
+        $usertoLogin = User::find($data['id']);
+        Auth::login($usertoLogin);
+        return redirect('/panel');
     }
 
     /**
@@ -126,7 +128,8 @@ class RegistrationController extends Controller
 
 
     public function registrarse(Request $request) {
-        $paises = PaisModel::orderBy('peso','desc')->orderBy('nombre','asc')->get();
-        return view('registrarse', compact('paises'));
+        $data = $this->getUserData();
+        $data['paises'] = PaisModel::orderBy('peso','desc')->orderBy('nombre','asc')->get();
+        return view('registrarse', $data);
     }
 }

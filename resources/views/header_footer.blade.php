@@ -50,7 +50,6 @@
                         <li><a href="{{url('registrarse')}}" class="gris">Registrarse</a>
                         </li>
                     @endif
-
                 </ul>
             @endif
             @if (Auth::check())
