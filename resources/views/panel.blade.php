@@ -36,14 +36,10 @@
                 <span>Proporciona tus datos personales e indicanos cómo podemos ponernos en contacto con vos.</span>
             </div>
             <div>
-<<<<<<< HEAD
-                <span href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</span>
-=======
                 @if(Auth::user()->email_verified_at != null)
-                    <a href="{{url('perfil')}}"
-                       class="subrayado resaltado_amarillo">Editar</a>
+                    <span href="{{url('perfil')}}"
+                       class="subrayado resaltado_amarillo">Editar</span>
                 @endif
->>>>>>> b5b9a78021efd64074ad52a4a72025f62075672a
             </div>
         </a>
         <a 
@@ -67,23 +63,14 @@
                 @endif
             </div>
             <div>
-<<<<<<< HEAD
-                @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
-                    <span href="{{url('postulacion')}}"
-                       class="subrayado resaltado_amarillo">Enviar</span>
-                @else
-                    <span href="{{url('propuesta/'.$postulacion['id'])}}"
-                       class="subrayado resaltado_amarillo">Ver</span>
-=======
                 @if(Auth::user()->email_verified_at != null)
                     @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
-                        <a href="{{url('postulacion')}}"
-                           class="subrayado resaltado_amarillo">Enviar</a>
+                        <span href="{{url('postulacion')}}"
+                           class="subrayado resaltado_amarillo">Enviar</span>
                     @else
-                        <a href="{{url('propuesta/'.$postulacion['id'])}}"
-                           class="subrayado resaltado_amarillo">Ver</a>
+                        <span href="{{url('propuesta/'.$postulacion['id'])}}"
+                           class="subrayado resaltado_amarillo">Ver</span>
                     @endif
->>>>>>> b5b9a78021efd64074ad52a4a72025f62075672a
                 @endif
             </div>
         </a>
@@ -95,13 +82,9 @@
                 <span>Tenes <strong>{{$cantidadTxs}}</strong> transacciones realizadas.</span>
             </div>
             <div>
-<<<<<<< HEAD
-                <span href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</span>
-=======
                 @if(Auth::user()->email_verified_at != null)
-                    <a href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</a>
+                    <span href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</span>
                 @endif
->>>>>>> b5b9a78021efd64074ad52a4a72025f62075672a
             </div>
         </a>
     </section>
