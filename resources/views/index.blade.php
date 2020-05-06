@@ -12,8 +12,8 @@
             <p>
                 Desde hoy, apostamos a contar buenas historias.
                 <span class="span_block">
-							<a href="#" class="subrayado resaltado_amarillo">(Quiero saber más).</a>
-						</span>
+					<a href="{{url('concurso-logo')}}" class="subrayado resaltado_amarillo">(Quiero saber más)</a>.
+				</span>
             </p>
         </div>
     </section>
@@ -29,11 +29,18 @@
                 <p class="subtitulo subrayado">Bien corto y al pie</p>
                 <ol>
                     <li>Completá la membresia desde
-                        <a href="#" class="subrayado resaltado_amarillo">este formulario.</a>
+                        <a href="{{url('registrarse')}}" class="subrayado resaltado_amarillo">este formulario.</a>
                     </li>
-                    <li>Suma fichas para valorar proyectos.</li>
+                    <li>Sumá <a href="{{url('donaciones')}}" class="subrayado resaltado_amarillo">fichas</a><sup>(1)</sup> para valorar proyectos.</li>
                     <li>Apostá a la narrativa en español.</li>
                 </ol>
+            </div>
+            <div class="nota">
+                <p>
+                    <sup>(1)</sup>
+                    Para concursar necesitás fichas que también te permiten valorar otras propuestas.
+                    <a href="{{url('donaciones')}}" class="subrayado resaltado_amarillo">Ver más acá</a>.
+                </p>
             </div>
         </article>
         <article>
@@ -45,25 +52,14 @@
             <div>
                 <p class="subtitulo subrayado">(Para diseñadores)</p>
                 <ol>
-                    <li>Completá la membresia desde
-                        <a href="#" class="subrayado resaltado_amarillo">este formulario.</a>
-                    </li>
                     <li>Revisá las
-                        <a href="#" class="subrayado resaltado_amarillo">bases y condiciones</a>
-                        del concurso.</li>
-                    <li>
-                        <a href="#" class="subrayado resaltado_amarillo">Proponé un logotipo</a>
-                        para la Fundación
-                        <sup>(1)</sup>.</li>
+                        <a href="{{url('bases-concurso')}}" class="subrayado resaltado_amarillo">bases y condiciones</a>
+                        del concurso.</li> 
+                    <li>Completá la membresia desde
+                        <a href="{{url('registrarse')}}" class="subrayado resaltado_amarillo">este formulario.</a>
+                    <li>Proponé un logotipo para la Fundación.</li>
                     <li>Difundir la propuesta en las redes.</li>
                 </ol>
-            </div>
-            <div class="nota">
-                <p>
-                    <sup>(1)</sup>
-                    Para concursar necesitás fichas que tambien te permiten valorar otras propuestas.
-                    <a href="#" class="subrayado resaltado_amarillo">Ver más acá.</a>
-                </p>
             </div>
         </article>
     </section>
@@ -79,49 +75,116 @@
         <section class="contenedor articles_historia">
             <div class="titulo">
                 <h2>¿Como llegamos
-                    <a href="#" class="subrayado">hasta acá?</a>
+                    <a href="{{url('fundacion-orsai')}}" class="subrayado">hasta acá?</a>
                 </h2>
             </div>
             <div class="contenedor_gral_hist">
                 <div class="contenedor_art_hist" style="left: 0px;">
                     <div class="owl-carousel items">
                         <article>
-                            <a href="#">
+                            <a href="{{url('historia')}}">
                                 <div>
                                     <span class="subrayado">Septiembre, 2003</span>
-                                    <h3>Nace el blog Orsai con cuentos semanales.</h3>
-                                    <!-- <p>En un garage de Sillicon Valley.</p> -->
+                                    <h3>Nace el blog Orsai con cuentos semestrales</h3> 
                                 </div>
                             </a>
                         </article>
                         <article>
-                            <a href="#">
+                            <a href="{{url('historia')}}">
                                 <div>
                                     <span class="subrayado">Noviembre, 2005</span>
-                                    <h3>Surge el primer libro en español surgido de un blog.</h3>
-                                    <!-- <p>A todo color.</p> -->
+                                    <h3>Surge el primer libro en español surgido de un blog.</h3> 
                                 </div>
                             </a>
                         </article>
                         <article>
-                            <a href="#">
+                            <a href="{{url('historia')}}">
                                 <div>
                                     <span class="subrayado">Julio, 2007</span>
-                                    <h3>Aparecen seis libros más de Orsai en diversos idiomas.</h3>
-                                    <!-- <p>Las calles de San Telmo ya no serán las mismas.</p> -->
+                                    <h3>Aparecen seis libros más de Orsai en diversos idiomas.</h3> 
                                 </div>
                             </a>
                         </article>
                         <article>
-                            <a href="#">
+                            <a href="{{url('historia')}}">
                                 <div>
-                                    <!-- falta este texto -->
-                                    <span class="subrayado">2011</span>
-                                    <h3>Sale Revista Bonsai</h3>
-                                    <p>Los más chicos tambien leen.</p>
+                                    <span class="subrayado">Septiembre, 2010</span>
+                                    <h3>Nace la Editorial Orsai, con sedes en Buenos Aires y Barcelona.</h3> 
                                 </div>
                             </a>
                         </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Enero, 2011</span>
+                                    <h3>Nace la primera temporada de la revista Orsai, sin publicidad.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Junio, 2011</span>
+                                    <h3>Nace la pizzería Orsai en Barcelona.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Julio, 2012</span>
+                                    <h3>Nace el bar Orsai en Buenos Aires.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Agosto, 2013</span>
+                                    <h3>Aparece la Casa de Estudios Orsai en Buenos Aires.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Febrero, 2014</span>
+                                    <h3>Se publica la revista infantil Bonsai.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Diciembre, 2015</span>
+                                    <h3>La Editorial Orsai produce eventos culturales.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Enero, 2017</span>
+                                    <h3>Nace la segunda temporada de la revista Orsai.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">Enero, 2019</span>
+                                    <h3>Aparecen los medios Orsai Digital y Podcast Orsai.</h3> 
+                                </div>
+                            </a>
+                        </article>
+                        <article>
+                            <a href="{{url('historia')}}">
+                                <div>
+                                    <span class="subrayado">2020</span>
+                                    <h3>Nace la Fundación Orsai.</h3> 
+                                </div>
+                            </a>
+                        </article> 
                     </div>
                 </div>
             </div>

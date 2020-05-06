@@ -24,7 +24,7 @@
         @endif
     </section>
     <section id="panel_user_info" class="contenedor">
-        <div class="box_panel">
+        <a href="{{url('perfil')}}" class="box_panel">
             <div>
                 <span>Información Personal</span>
             </div>
@@ -32,17 +32,22 @@
                 <span>Proporciona tus datos personales e indicanos cómo podemos ponernos en contacto con vos.</span>
             </div>
             <div>
-                <a href="{{url('perfil')}}"
-                   class="subrayado resaltado_amarillo">Editar</a>
+                <span href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</span>
             </div>
-        </div>
-        <div class="box_panel">
+        </a>
+        <a 
+            @if($postulacion['status'] == "draft" || $postulacion['id'] == 0) 
+                href="{{url('postulacion')}}" 
+            @else 
+                href="{{url('propuesta/'.$postulacion['id'])}}" 
+            @endif 
+            class="box_panel"> 
             <div>
                 <span>Estado de postulación</span>
             </div>
             <div>
                 @if($postulacion['id'] == 0)
-                    <span class="text_bold">No enviada</span>
+                    <span class="text_bold">Podés editar tu propuesta de logo y sus características aquí.</span>
                 @endif
                 @if($postulacion['id'] > 0)
                     <span class="text_bold">
@@ -52,15 +57,15 @@
             </div>
             <div>
                 @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
-                    <a href="{{url('postulacion')}}"
-                       class="subrayado resaltado_amarillo">Enviar</a>
+                    <span href="{{url('postulacion')}}"
+                       class="subrayado resaltado_amarillo">Enviar</span>
                 @else
-                    <a href="{{url('propuesta/'.$postulacion['id'])}}"
-                       class="subrayado resaltado_amarillo">Ver</a>
+                    <span href="{{url('propuesta/'.$postulacion['id'])}}"
+                       class="subrayado resaltado_amarillo">Ver</span>
                 @endif
             </div>
-        </div>
-        <div class="box_panel">
+        </a>
+        <a href="{{url('transacciones')}}"  class="box_panel">
             <div>
                 <span>Transacciones de créditos</span>
             </div>
@@ -68,9 +73,9 @@
                 <span>Tenes <strong>{{$cantidadTxs}}</strong> transacciones realizadas.</span>
             </div>
             <div>
-                <a href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</a>
+                <span href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</span>
             </div>
-        </div>
+        </a>
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>

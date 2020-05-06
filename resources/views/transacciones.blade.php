@@ -7,8 +7,8 @@
         <div class="info_per_left">
             <div class="">
                 <div id="links_back">
-                    <a href="panel_usuario.html">Panel de usuario</a>
-                    <a href="#">Transacciones de créditos</a>
+                    <a href="{{url('panel')}}">Panel de usuario</a>
+                    <span>Transacciones de créditos</span>
                 </div>
                 <div id="user_alias">
                     <h1>Transacciones <span
@@ -16,6 +16,10 @@
                 </div>
             </div>
         </div>
+        <!-- Necesito la variable $hasStarted --> 
+            <div class="lets_start resaltado_amarillo">
+                <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
+            </div> 
         <div class="tran_creditos">
             <div class="cont_tabla">
                 <table class="light-3 display" id="myTable">

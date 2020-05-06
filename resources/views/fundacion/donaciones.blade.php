@@ -21,12 +21,12 @@
                 <p>También podés usar tus fichas para recibir <strong>streaming en directo</strong> de cursos,
                     conferencias y espectáculos culturales producidos con las donaciones.</p><br/><br/>
                 <h3>Conseguir fichas sin donar</h3>
-                <p>En esta primera etapa, solo tenés que completar tu <a href="#" class="resaltado_amarillo">completar
-                        tu membresía</a> las primeras cien (100) fichas gratis. Una vez adentro, <strong>empezá a
+                <p>En esta primera etapa, solo tenés que completar tu <a href="{{url('registrarse')}}" class="resaltado_amarillo">completar
+                        tu membresía</a> las primeras setecientos cincuenta (750) fichas gratis. Una vez adentro, <strong>empezá a
                         apostar fuerte a la Fundación.</strong></p>
-                <p><a href="#" class="resaltado_amarillo">Durante 2020 tendremos varios concursos.</a> Abrimos el juego
+                <p>Durante 2020 tendremos varios concursos. Abrimos el juego
                     con uno que no requiere de tu dinero real. Para empezar, la Fundación necesita un logo, una
-                    identidad que la defina. Por eso muchos diseñadores están <a href="#" class="resaltado_amarillo">presentando
+                    identidad que la defina. Por eso muchos diseñadores están <a href="{{url('postulacion')}}" class="resaltado_amarillo">presentando
                         propuestas</a>. Desde ahora mismo, podés espiar los bocetos, uno por uno, y &laquo;ponerle
                     fichas&raquo; al logo que nos acompañará durante los próximos veinte años.</p><br/><br/>
                 <h3>Donar con los ojos cerrados</h3>

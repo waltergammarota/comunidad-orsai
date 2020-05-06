@@ -107,7 +107,7 @@
                         </div>
                         <div class="tiempo_fila elemento_invisible">
                             <div>
-                                <span>Marzo, <span class="span_block">2020</span></span>
+                                <span><span class="span_block">2020</span></span>
                             </div>
                             <div>
                                 <span>Nace la Fundación Orsai.</span>
