@@ -16,15 +16,13 @@
                     <div class="line_dashed"></div>
                 @endif
                 <article>
+                    <a href="{{url('noticias/'.$noticia->slug)}}">
                     <div class="cuerpo_texto">
                         <div>
-                            <h2 class="titulo_noticias">{{$noticia->title}}</h2>
-                            <span class="autor gris span_block">{{$noticia->autor}} <span
-                                    class="fecha_nota">{{$noticia->fecha_publicacion}}</span></span>
+                            <h2 class="titulo_noticias">{{$noticia->title}}</h2> 
                             <p>{{Str::limit($noticia->copete, 100)}}</p>
-                            <a class="text_bold subrayado resaltado_amarillo"
-                               href="{{url('noticias/'.$noticia->slug)}}">Leer
-                                noticia</a>
+                            <span class="text_bold subrayado resaltado_amarillo">Leer
+                                noticia</span>
                         </div>
                         <div class="img_noticia">
                             @php
@@ -33,7 +31,7 @@
                             @endphp
                             <img src="{{url($imageUrl)}}" alt="Imagen Noticia">
                         </div>
-                    </div>
+                    </div></a>
                 </article>
                 <div class="line_dashed"></div>
 

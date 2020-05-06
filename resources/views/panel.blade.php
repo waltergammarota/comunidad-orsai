@@ -18,11 +18,11 @@
         </div>
         <div class="line_dashed"></div>
         @if($hasStarted)
-            <div class="lets_start resaltado_amarillo">
+            <div class="lets_start_panel ">
                 @if(Auth::user()->email_verified_at == null)
-                    <a href="{{url('panel')}}" class="">Empezá a poner fichas &raquo;</a>
+                    <a href="{{url('panel')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
                 @else
-                    <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
+                    <a href="{{url('participantes')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
                 @endif
             </div>
         @endif
@@ -58,18 +58,27 @@
                 @endif
                 @if($postulacion['id'] > 0)
                     <span class="text_bold">
-                        Tienes una postulación en estado {{__("status_application.{$postulacion['status']}")}}
-                    </span>
+                        Tienes una postulación en estado   
+                        @if($postulacion['status'] == "approved")
+                            <strong class="resaltado_verde">{{__("status_application.{$postulacion['status']}")}}</strong>
+                        @else 
+                            @if($postulacion['status'] == "draft")
+                            <strong class="resaltado_rojo">{{__("status_application.{$postulacion['status']}")}}</strong>
+                            @endif
+                        @endif 
+                    </span> 
                 @endif
             </div>
             <div>
                 @if(Auth::user()->email_verified_at != null)
-                    @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
-                        <span href="{{url('postulacion')}}"
-                           class="subrayado resaltado_amarillo">Enviar</span>
+                    @if($postulacion['id'] == 0)
+                        <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Enviar</span>
                     @else
-                        <span href="{{url('propuesta/'.$postulacion['id'])}}"
-                           class="subrayado resaltado_amarillo">Ver</span>
+                        @if($postulacion['status'] == "draft")
+                            <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Modificar</span>
+                        @else
+                        <span href="{{url('propuesta/'.$postulacion['id'])}}" class="subrayado resaltado_amarillo">Ver</span>
+                        @endif
                     @endif
                 @endif
             </div>

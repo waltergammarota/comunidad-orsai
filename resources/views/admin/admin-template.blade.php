@@ -50,7 +50,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-            <img src="{{url('recursos/orsai_logo_footer.svg')}}" alt="AdminLTE Logo" class="brand-image elevation-3"
+            <img src="{{url('recursos/orsai_logo_footer.png')}}" alt="AdminLTE Logo" class="brand-image elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Dashboard</span>
         </a>

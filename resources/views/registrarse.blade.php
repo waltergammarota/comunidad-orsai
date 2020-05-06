@@ -8,8 +8,7 @@
         </div>
         <div>
             <p class="texto_italica">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy nibh.
+                En cuatro pasos simples serás miembro de la Fundación, y tendrás fichas para empezar a apostar a la cultura.
             </p>
         </div>
     </section>
@@ -107,8 +106,8 @@
                  style="padding-right: 0px !important;">
                 <label class="checkbox-container letra_chica text_bold">
                     Aceptación de <a href="{{url('terminos')}}"
-                                     class="subrayado resaltado_amarillo text_bold">Términos
-                        y condiciones</a> (RDGP)
+                                     class="subrayado resaltado_amarillo text_bold" target="_blank">Términos
+                        y condiciones</a>.
                     <input type="checkbox" id="cbox1" name="terminos"
                            value="1" {{old('terminos')? "checked":""}}>
                     @if ($errors->has('terminos'))
@@ -118,12 +117,7 @@
                     @endif
                     <span class="crear_check"></span>
                 </label>
-            </div>
-            <div id="captcha_div">
-                <div class="g-recaptcha" data-callback="recaptchaCallback"
-                     data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
-            </div>
-            <div class="line_dashed"></div>
+                
             <div id="boton_submit">
                 <button class="subrayado resaltado_amarillo text_bold"
                         id="botonito">
@@ -132,7 +126,12 @@
                 <!-- <div class="msg"></div>
                     <img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /> -->
             </div>
+            </div>
 
+            <div id="captcha_div">
+                <div class="g-recaptcha" data-callback="recaptchaCallback"
+                     data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
+            </div> 
 
         </form>
     </section>

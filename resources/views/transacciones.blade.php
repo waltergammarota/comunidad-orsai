@@ -15,10 +15,11 @@
                             class="span_block">de Créditos</span></h1>
                 </div>
             </div>
-        </div>
+        </div> 
+        <!-- Agregar acá la verificación si ya inició el concurso -->
         <!-- Necesito la variable $hasStarted --> 
-            <div class="lets_start resaltado_amarillo">
-                <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
+            <div class="lets_start ">
+                <a href="{{url('participantes')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
             </div> 
         <div class="tran_creditos">
             <div class="cont_tabla">
