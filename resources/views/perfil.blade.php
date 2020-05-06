@@ -6,8 +6,8 @@
         <div class="info_per_left">
             <div class="">
                 <div id="links_back">
-                    <a href="panel_usuario.html">Panel de usuario</a>
-                    <a href="#">Información personal</a>
+                    <a href="{{url('panel')}}">Panel de usuario</a>
+                    <span>Información personal</span>
                 </div>
                 <div id="user_alias">
                     <h1>Información <span class="span_block">personal</span>
@@ -236,11 +236,11 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
+        </div>
+
             <div class="info_per_nota">
                 <span class="subrayado">* Obligatorios para obtener créditos extra.</span>
             </div>
-        </div>
-
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>

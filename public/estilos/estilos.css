@@ -32,6 +32,12 @@ a:link a:visited, a:active {
 .resaltado_amarillo{
     background-color: #fafa00;
 }
+.resaltado_verde{
+    background-color: #00fa03;
+}
+.resaltado_rojo{
+    background-color: #fa00b2;
+}
 .subrayado{
     text-decoration-line: underline;
     /*text-underline-position: under;
@@ -541,13 +547,12 @@ header nav #desplegable div ul li{
     }
 }
 #intro p{
-    font-size:20px;
-    line-height: 36px;
-    margin-bottom:0;
-    margin-top:0;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 14px;
 }
 #intro p > a{
-    font-size: 18px;
+    font-size: 14px;
     display:inline-block;
     font-weight: 400;
     font-style: italic;
@@ -1605,9 +1610,9 @@ footer .sub_footer .sub_footer_ri ul li a{
 }
 
 #intro.intro_propuesta h1{
-    font-size:48px;
-    margin-bottom:0;
-    line-height:68px;
+    font-size: 38px;
+    margin-bottom: 10px;
+    line-height: 48px;
 }
 #intro.intro_propuesta .user_prop {
     position:relative;
@@ -1618,8 +1623,8 @@ footer .sub_footer .sub_footer_ri ul li a{
     vertical-align: top;
 }
 #intro.intro_propuesta .user_prop .user_img{
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     overflow: hidden;
     border-radius: 35px;
     border: 1px dashed #808080;
@@ -2576,14 +2581,13 @@ transform: translate(-50%, -50%);
 .form_reg form #boton_submit button:active{
     background-color:  #c2c20f;
 }
-.form_reg form .select .arm_sel select{
-
+.form_reg form .select .arm_sel select{ 
     background: none;
     border:none;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    padding:0 50px 0 20x;
+    padding:0 50px 0 10px;
     cursor:pointer;
     text-indent: 5px;
     color:#808080;
@@ -3113,7 +3117,7 @@ transform: translateX(-50%);
 
 .form_postulacion #postulacion_form #boton_submit button{
     border:0;
-    font-size:18px;
+    font-size:22px;
     cursor: pointer;
 }
 .form_postulacion #postulacion_form #boton_submit button:active{
@@ -3336,7 +3340,7 @@ ul li .li_texto + .li_texto {
 
 #intro.intro_gral{
     font-size:0;
-    margin-top:70px;
+    margin-top:45px;
     margin-bottom:70px;
 }
 
@@ -3364,14 +3368,15 @@ ul li .li_texto + .li_texto {
 }
 #intro.intro_gral .span_h1, .intro_gral .span_h1.con_fin {
     display:inline-block;
-    font-size:36px;
+    font-size:34px;
     font-weight: 700;
-    line-height: 48px;
-    margin-bottom:20px;
+    line-height: 36px;
+    margin-bottom:0;
 }
 
 #intro.intro_gral h1.span_h1{
     margin-bottom:10px;
+    margin-top:15px;
 }
 #intro.intro_gral .span_h1_extra_size{
     font-size:100px;
@@ -3397,9 +3402,9 @@ ul li .li_texto + .li_texto {
 #intro.intro_gral .cuerpo_texto .subtitulo{
     font-size:18px;
 }
-#intro.intro_gral .cuerpo_texto p{
-    font-size:16px;
-    line-height:20px;
+#intro.intro_gral .cuerpo_texto .texto{
+    font-size:14px;
+    line-height:26px;
     margin-bottom:20px;  
 }
 #intro.intro_gral .cuerpo_texto .line_dashed{
@@ -3497,6 +3502,9 @@ ul li .li_texto + .li_texto {
     margin-bottom:70px;
 }
 
+#intro.intro_gral.noticias .cont_noticias article a{
+    d
+}
 #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto{
     font-size:0;
 }
@@ -4057,18 +4065,19 @@ transform: translateY(100%);
 transform: translateY(-50%);
 }
 
-.lets_start{
-    width:100%;
+.lets_start{ 
+    margin:15px 0;
     height:45px;
     position: relative;
+    width:auto;
+    display:block;
 }
 .lets_start a{
-    font-size:20px;
+    font-size:16px;
     display:block;
+    font-weight: bold;
     text-align: center;
-    position: absolute;
-    width:100%;
-    top:50%; 
+    position: absolute;  
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -4076,6 +4085,21 @@ transform: translateY(-50%);
     -o-transform: translateY(-50%);
 }
 
+.lets_start_panel{ 
+    margin:0; 
+    position: relative;
+    width:auto;
+    display:block;
+}
+.lets_start_panel a{
+    width: 100%;
+    font-size: 16px;
+    padding: 5px 10px; 
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    position: relative;  
+}
 
 
 
@@ -5529,5 +5553,21 @@ margin-top:2px;
     margin: 20px 0;
     padding: 0%;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 20px;
 }
+
+/** breadcrumbs **/
+.breadcrumbs{
+    font-size:10px;
+} 
+.breadcrumbs a{
+    color:#808080;
+    position:relative;
+    display: inline-block;
+    margin-right:10px;
+    padding: 10px 0px 10px 0px;
+}
+.breadcrumbs a:not(:last-child)::after{
+    content:">";
+    position: absolute;
+    right:-12px;

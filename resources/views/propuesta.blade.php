@@ -7,16 +7,13 @@
             <h1>{{$propuesta['title']}}</h1>
             <div class="user_prop">
                 <div>
-                    <p class="gris">Por
-                        <span><a
-                                href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">{{ucfirst($propuesta['owner']['name'])}}</a></span>
-                    </p>
-                </div>
-                <div class="user_img">
-                    <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
-                        <img src="{{url('img/participantes/participante.jpg')}}"
-                             alt="Imagen usuario">
-                    </a>
+                    <div class="gris">
+                        <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
+                            <div class="user_img"> 
+                                <img src="{{url('img/participantes/participante.jpg')}}" alt="{{ucfirst($propuesta['owner']['name'])}}" /> 
+                            </div> {{ucfirst($propuesta['owner']['name'])}}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,7 +55,7 @@
                         <div>
                             @if($propuesta['link'] != "")
                                 <a href="{{$propuesta['link']}}"
-                                   class="subrayado gris">Link.opcional</a>
+                                   class="subrayado gris">{{$propuesta['link']}}</a>
                             @endif
                         </div>
                     </div>

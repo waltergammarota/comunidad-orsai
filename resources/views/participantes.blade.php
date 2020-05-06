@@ -4,10 +4,12 @@
 @section('content')
     <section id="intro" class="contenedor intro_gral">
         <div>
-            <span class="span_h1">Participantes</span>
-            <h1 class="span_h2">Lorem ipsum dolor sit amet, consectetuer
-                adipiscing elit, sed diam nonummy nibh euismod tincidunt.</h1>
-        </div>
+            <span class="span_h1">Postulaciones</span>
+            <h1 class="span_h2">Estas son todas las postulaciones que tenemos hasta la fecha.</h1> 
+        </div> 
+        <div class="lets_start"> 
+            <a href="{{url('bases-concurso')}}" class="resaltado_amarillo">Presentar mi propuesta &raquo;</a> 
+        </div> 
         <div>
             <span class="span_h2"><strong class="post">{{$totalCpas}}</strong> postulaciones presentadas / <strong
                     class="fich">{{$totalSupply}}</strong> fichas en juego</span>

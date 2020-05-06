@@ -279,8 +279,7 @@
                 </div>
                 <div class="aclara">
                     <span>* = Obligatorios</span>'
-                </div> 
-                <div class="line_dashed"></div>
+                </div>  
                 <div id="boton_submit">
                     <button
                         class="subrayado resaltado_amarillo text_bold"

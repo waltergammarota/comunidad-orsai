@@ -49,7 +49,7 @@
                     <p class="li_texto">El premio serán mil quinientos dólares  (en la moneda de residencia del autor, y al cambio oficial   de su país ese día) y se pagarán el 30 de abril a las 00:01,  exactamente un minuto después de que sea elegido el logo ganador.</p>
                 </li>                                
             </ul>
-            <a href="{{url('postulacion')}}" class="btn_postular_logo">Postulá tu logo</a>
+            <a href="{{url('postulacion')}}" class="btn_postular_logo">Postulá tu logo &raquo;</a>
         </div>
     </section>
     <div class="contenedor mg_100 number_page">
