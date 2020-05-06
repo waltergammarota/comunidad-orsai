@@ -37,8 +37,8 @@
             </div>
             <div>
                 @if(Auth::user()->email_verified_at != null)
-                    <a href="{{url('perfil')}}"
-                       class="subrayado resaltado_amarillo">Editar</a>
+                    <span href="{{url('perfil')}}"
+                       class="subrayado resaltado_amarillo">Editar</span>
                 @endif
             </div>
         </a>
@@ -65,11 +65,11 @@
             <div>
                 @if(Auth::user()->email_verified_at != null)
                     @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
-                        <a href="{{url('postulacion')}}"
-                           class="subrayado resaltado_amarillo">Enviar</a>
+                        <span href="{{url('postulacion')}}"
+                           class="subrayado resaltado_amarillo">Enviar</span>
                     @else
-                        <a href="{{url('propuesta/'.$postulacion['id'])}}"
-                           class="subrayado resaltado_amarillo">Ver</a>
+                        <span href="{{url('propuesta/'.$postulacion['id'])}}"
+                           class="subrayado resaltado_amarillo">Ver</span>
                     @endif
                 @endif
             </div>
@@ -83,7 +83,7 @@
             </div>
             <div>
                 @if(Auth::user()->email_verified_at != null)
-                    <a href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</a>
+                    <span href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</span>
                 @endif
             </div>
         </a>
