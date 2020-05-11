@@ -8,6 +8,7 @@ use App\Jobs\ProcessActivationMail;
 use App\Jobs\ProcessApproveMail;
 use App\Jobs\ProcessRejectMail;
 use App\Jobs\ProcessResetPasswordMail;
+use App\Jobs\ProcessSendContactData;
 use App\Jobs\ProcessWelcomePointsMail;
 use App\Mail\ApproveApplicationMail;
 use Illuminate\Support\Facades\Mail;
@@ -41,6 +42,16 @@ class Mailer
     public function sendApproveMail($email)
     {
         ProcessApproveMail::dispatch($email);
+        return true;
+    }
+
+    public function sendContactFormEmail($data) {
+        $email = $data['email'];
+        $name = $data['name'];
+        $lastName = $data['lastName'];
+        $subject = $data['subject'];
+        $mensaje = $data['mensaje'];
+        ProcessSendContactData::dispatch($email, $name, $lastName, $subject, $mensaje);
         return true;
     }
 

@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
+use App\Utils\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -19,36 +20,42 @@ class WebController extends Controller
         return view('index', $data);
     }
 
-    public function restablecer_clave() {
+    public function restablecer_clave()
+    {
         $data = $this->getUserData();
         return view('restablecer-clave', $data);
     }
 
-    public function ingresar() {
-        if(Auth::check()) {
+    public function ingresar()
+    {
+        if (Auth::check()) {
             return Redirect::to('panel');
         }
         $data = $this->getUserData();
         return view('ingresar', $data);
     }
 
-    public function reenviar_mail_activacion() {
+    public function reenviar_mail_activacion()
+    {
         $data = $this->getUserData();
         $data['title'] = "Reenviar mail activación";
         return view('reenviar-mail-activacion', $data);
     }
 
-    public function terminos() {
+    public function terminos()
+    {
         $data = $this->getUserData();
         $data['title'] = "Términos y condiciones";
         return view('terminos', $data);
     }
 
-    public function privacidad() {
+    public function privacidad()
+    {
         $data = $this->getUserData();
         $data['title'] = "Privacidad";
         return view('privacidad', $data);
     }
+
     public function bases_concurso()
     {
         $data = $this->getUserData();
@@ -105,13 +112,13 @@ class WebController extends Controller
     {
         $contest = ContestModel::find(1);
         $hasWinner = $this->checkWinner(1);
-        if($contest->end_date < now()) {
+        if ($contest->end_date < now()) {
             $userInfo = $this->getUserData();
             $cpasInfo = $this->getCpasInfo();
             $data = array_merge($userInfo, $cpasInfo);
             return view("concurso-finalizado", $data);
         }
-        if($this->checkWinner(1) > 0) {
+        if ($this->checkWinner(1) > 0) {
             return Redirect::to('concurso');
         }
         if ($contest->start_date < now() && $contest->end_date >= now()) {
@@ -121,16 +128,19 @@ class WebController extends Controller
 
     }
 
-    private function checkWinner($contestId) {
-        return ContestApplicationModel::where(["is_winner"=> 1, "contest_id"=> $contestId])->count();
+    private function checkWinner($contestId)
+    {
+        return ContestApplicationModel::where(["is_winner" => 1, "contest_id" => $contestId])->count();
     }
 
     public function logo()
     {
         $contest = ContestModel::find(1);
+        if (!Auth::check()) {
+            return Redirect::to('bases-concurso');
+        }
         if ($contest->start_date >= now()) {
-            $userInfo = $this->getUserData();
-            return Redirect::to('concurso-logo', compact('userInfo'));
+            return Redirect::to('concurso-logo');
         }
         if ($contest->start_date < now() && $contest->end_date >= now()) {
             return Redirect::to('participantes');
@@ -223,6 +233,29 @@ class WebController extends Controller
         $data['orden'] = $orden;
         $data['busqueda'] = $request->busqueda;
         return view('participantes', $data);
+    }
+
+    public function contacto(Request $request)
+    {
+        $data = $this->getUserData();
+
+        return view('contacto', $data);
+    }
+
+    public function contacto_send(Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "lastName" => "required",
+            "email" => "required",
+            "subject" => "required",
+            "mensaje" => "required",
+        ]);
+
+        $mailer = new Mailer();
+        $mailer->sendContactFormEmail($request->all());
+        $request->session()->flash('alert', 'contact_data_sent');
+        return Redirect::to('contacto');
     }
 
 

@@ -96,10 +96,19 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{url('admin/noticias')}}" class="nav-link">
+                        <a href="{{url('admin/contenidos/tipo/noticia')}}" class="nav-link">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
-                                Noticias
+                                Novedades
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{url('admin/contenidos/tipo/pagina')}}" class="nav-link">
+                            <i class="nav-icon fas fa-pager"></i>
+                            <p>
+                                Páginas
                             </p>
                         </a>
                     </li>

@@ -35,7 +35,7 @@ class PropuestaController extends Controller
                 "from" => $user->id
             ]
         )->sum('amount');
-        $data['related'] = ContestApplicationModel::inRandomOrder()->where("approved",1)
+        $data['related'] = ContestApplicationModel::inRandomOrder()->where("approved", 1)
             ->whereNotIn('id', [$propuestaId])->limit(5)->with('logos')->get();
         return view('propuesta', $data);
     }
@@ -88,6 +88,14 @@ class PropuestaController extends Controller
     private function findPropuesta($id)
     {
         return (new GetContestApplicationById($id))->execute();
+    }
+
+    public function eliminar(Request $request)
+    {
+        $capId = $request->id;
+        $cap = ContestApplicationModel::destroy($capId);
+        return response()->json(
+            ["success" => true, "message" => "Contest application removed"]);
     }
 
     public function approve(Request $request)

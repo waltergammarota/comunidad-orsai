@@ -2,6 +2,16 @@
 
 
 @section('content')
+    <style>
+        #panel_user_profile .select .in_sp .arm_sel {
+            display: block;
+        }
+        #boton_perfil {
+            font-size: 15px;
+            float: right;
+            cursor: pointer;
+        }
+    </style>
     <section id="intro" class="contenedor intro_gral panel info_personal">
         <div class="info_per_left">
             <div class="">
@@ -42,9 +52,7 @@
                 <div class="input_err">
                     <label>Usuario*</label>
                     <div class="in_sp obligatorio editar">
-                        <input type="text" name="userName" value="{{$username}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                        <input type="text" name="userName" value="{{$username}}" id="userName">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -54,10 +62,7 @@
                 <div class="input_err">
                     <label>Correo electrónico*</label>
                     <div class="in_sp obligatorio editar">
-                        <input type="email" name="email" value="{{$email}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo"
-                              style="display: none;">Editar</span>
+                        <input type="email" name="email" value="{{$email}}" disabled>
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -67,9 +72,7 @@
                 <div class="input_err">
                     <label>Nombre*</label>
                     <div class="in_sp obligatorio editar">
-                        <input type="text" name="name" value="{{$name}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                        <input type="text" name="name" value="{{$name}}" id="name">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -78,9 +81,7 @@
                 <div class="input_err">
                     <label>Apellido*</label>
                     <div class="in_sp obligatorio editar">
-                        <input type="text" name="lastName" value="{{$lastName}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                        <input type="text" name="lastName" value="{{$lastName}}" id="lastName">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -89,10 +90,6 @@
                 <div class="input_err select">
                     <label class='oculto'>País</label>
                     <div class="in_sp editar">
-                        <p class="pais_select"
-                           id="selectedCountry">{{$country}}</p>
-                        <span class="subrayado resaltado_amarillo ed_select">Editar</span>
-
                         <div class="arm_sel">
                             <select name='country' id='pais_suscriptor'
                                     class=''>
@@ -102,7 +99,7 @@
                                 @foreach($paises as $pais)
                                     <option
                                         value='{{$pais->nombre}}'
-                                        {{strtolower(old('pais')) == strtolower($pais->nombre)? "selected":""}}
+                                        {{strtolower($country) == strtolower($pais->nombre)? "selected":""}}
                                         data-iso="{{$pais->iso}}"
                                     >{{$pais->nombre}}</option>
                                 @endforeach
@@ -119,14 +116,21 @@
                     <div class="in_sp editar">
                         <p class="pais_select"
                            id="selectedProvincia">{{$provincia}}</p>
-                        <span class="subrayado resaltado_amarillo ed_select">Editar</span>
-
                         <div class="arm_sel">
                             <select name='provincia' id='provincias'
                                     class=''>
-                                <option id="select_pais" value='ninguno'
-                                        disabled selected hidden>Elegir...
-                                </option>
+                                @if($provincia == "")
+                                    <option id="select_pais" value='ninguno'
+                                            disabled selected hidden>Elegir...
+                                    </option>
+                                @endif
+                                @foreach($provinciasOptions as $prov)
+                                    <option
+                                        value='{{$prov->nombre}}'
+                                        {{strtolower($provincia) == strtolower($prov->nombre)? "selected":""}}
+                                        data-prov="{{$prov->id}}"
+                                    >{{$prov->nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -138,15 +142,21 @@
                 <div class="input_err select">
                     <label class='oculto'>Ciudad/Barrio</label>
                     <div class="in_sp editar">
-                        <p class="pais_select">{{$city}}</p>
-                        <span class="subrayado resaltado_amarillo ed_select">Editar</span>
-
                         <div class="arm_sel">
                             <select name='city' id='ciudades'
                                     class=''>
-                                <option id="select_pais" value='ninguno'
-                                        disabled selected hidden>Elegir...
-                                </option>
+                                @if($city == "")
+                                    <option id="select_pais" value='ninguno'
+                                            disabled selected hidden>Elegir...
+                                    </option>
+                                @endif
+                                @foreach($ciudadesOptions as $ciudad)
+                                    <option
+                                        value='{{$ciudad->nombre}}'
+                                        {{strtolower($city) == strtolower($ciudad->nombre)? "selected":""}}
+                                        data-prov="{{$ciudad->id}}"
+                                    >{{$ciudad->nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -162,8 +172,7 @@
                     <label>Fecha de nacimiento*</label>
                     <div class="in_sp obligatorio editar">
                         <input type="date" name="birth_date"
-                               value="{{$birthDate}}" disabled required>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                               value="{{$birthDate}}" id="birthDate">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -173,8 +182,7 @@
                     <label>Profesión*</label>
                     <div class="in_sp obligatorio editar">
                         <input type="text" name="profesion"
-                               value="{{$profesion}}" disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                               value="{{$profesion}}" id="profesion">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -184,8 +192,7 @@
                     <label>Descripción*</label>
                     <div class="in_sp obligatorio editar">
                         <input type="text" name="description"
-                               value="{{$description}}" disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                               value="{{$description}}" id="description">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -195,9 +202,7 @@
                 <div class="input_err">
                     <label>Whatsapp</label>
                     <div class="in_sp editar">
-                        <input type="text" name="whatsapp" value="{{$whatsapp}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                        <input type="number" name="whatsapp" value="{{$whatsapp}}" id="whatsapp">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -207,9 +212,7 @@
                 <div class="input_err">
                     <label>Facebook</label>
                     <div class="in_sp editar">
-                        <input type="text" name="facebook" value="{{$facebook}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                        <input type="text" name="facebook" value="{{$facebook}}" style="padding: 8px;" id="facebook">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -218,9 +221,7 @@
                 <div class="input_err">
                     <label>Twitter</label>
                     <div class="in_sp editar">
-                        <input type="text" name="twitter" value="{{$twitter}}"
-                               disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                        <input type="text" name="twitter" value="{{$twitter}}" style="padding: 5px;" id="twitter">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -230,17 +231,23 @@
                     <label>Instagram</label>
                     <div class="in_sp editar">
                         <input type="text" name="instagram"
-                               value="{{$instagram}}" disabled>
-                        <span class="subrayado resaltado_amarillo">Editar</span>
+                               value="{{$instagram}}" style="padding: 5px;" id="instagram">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
             </form>
+            <div id="boton_submit">
+                <button
+                    class="subrayado resaltado_amarillo text_bold"
+                    id="boton_perfil">
+                    Guardar
+                </button>
+            </div>
         </div>
 
-            <div class="info_per_nota">
-                <span class="subrayado">* Obligatorios para obtener créditos extra.</span>
-            </div>
+        <div class="info_per_nota">
+            <span class="subrayado">* Obligatorios para obtener créditos extra.</span>
+        </div>
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>
@@ -320,22 +327,6 @@
             const country = $("#selectedCountry").html();
             const provincia = $("#selectedProvincia").html();
             console.log(provincia.length);
-            if (country != null && country != "") {
-                const countryOptions = paisCombo.children(`option[value='${country}']`);
-                const iso = countryOptions.data('iso');
-                const provinciasOptions = filterProvincias(iso);
-                generateProvinciasOptions(provinciasOptions, provinciasCombo);
-                const provinciasIds = provinciasOptions.map(value => value.id);
-                const ciudadesOptions = ciudades.filter(item => provinciasIds.includes(item.idProvincia));
-                generateProvinciasOptions(ciudadesOptions, citiesCombo);
-            }
-            if (provincia != null && provincia != "" && provincia.length > 0) {
-                const provinciaOptions = provinciasCombo.children(`option[value='${provincia}']`);
-                const idProvincia = provinciaOptions.data('prov');
-                const ciudadesOptions = filterCiudades(idProvincia);
-                generateProvinciasOptions(ciudadesOptions, citiesCombo);
-            }
-
         });
 
         if (document.getElementsByClassName("general_profile_msg")) {
@@ -388,7 +379,48 @@
                 const get_modal_exito = document.getElementById("exito_msg");
                 const efecto1 = setTimeout(close(get_modal_exito), 600);
             });
+            window.location.reload();
         }
+
+        $("#boton_perfil").click(function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('userName', $("#userName").val());
+            formData.append('name', $("#name").val());
+            formData.append('lastName', $("#lastName").val());
+            formData.append('birth_date', $("#birthDate").val());
+            formData.append('profesion', $("#profesion").val());
+            formData.append('description', $("#description").val());
+            formData.append('whatsapp', $("#whatsapp").val());
+            formData.append('facebook', $("#facebook").val());
+            formData.append('twitter', $("#twitter").val());
+            formData.append('instagram', $("#instagram").val());
+            formData.append('country', $("#pais_suscriptor").val());
+            formData.append('provincia', $("#provincias").val());
+            formData.append('city', $("#ciudades").val());
+            $("#exito_msg").show();
+            const url = '{{url('/profile/update')}}';
+            axios({
+                url: url,
+                method: 'post',
+                data: formData,
+                headers: {
+                    'accept': 'application/json',
+                    'Accept-Language': 'en-US,en;q=0.8',
+                    'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+                }
+            }).then(response => {
+                const get_modal_exito = document.getElementById("exito_msg");
+                const efecto1 = setTimeout(close(get_modal_exito), 600);
+            }).catch((error) => {
+                console.log(error);
+                const get_modal_exito = document.getElementById("exito_msg");
+                const efecto1 = setTimeout(close(get_modal_exito), 600);
+            })
+            if($("#foto_perfil")[0].files.length > 0) {
+                submitImage();
+            }
+        });
 
         function update(type, value) {
             const url = '{{url('/profile/update')}}';

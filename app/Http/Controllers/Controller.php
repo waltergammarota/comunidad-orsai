@@ -39,6 +39,10 @@ class Controller extends BaseController
                 )
             );
             $data = $accountUC->execute();
+            session(['avatar' => $data['avatar']]);
+            session(['name' => $data['name']]);
+            session(['balance' => $data['balance']]);
+            session(['role' => $data['role']]);
         }
         return $data;
     }

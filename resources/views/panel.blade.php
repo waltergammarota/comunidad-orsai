@@ -19,11 +19,7 @@
         <div class="line_dashed"></div>
         @if($hasStarted)
             <div class="lets_start_panel ">
-                @if(Auth::user()->email_verified_at == null)
-                    <a href="{{url('panel')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
-                @else
-                    <a href="{{url('participantes')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
-                @endif
+                <a href="{{url('participantes')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
             </div>
         @endif
     </section>
@@ -36,21 +32,19 @@
                 <span>Proporciona tus datos personales e indicanos cómo podemos ponernos en contacto con vos.</span>
             </div>
             <div>
-                @if(Auth::user()->email_verified_at != null)
                     <span href="{{url('perfil')}}"
-                       class="subrayado resaltado_amarillo">Editar</span>
-                @endif
+                          class="subrayado resaltado_amarillo">Editar</span>
             </div>
         </a>
-        <a 
-            @if($postulacion['status'] == "draft" || $postulacion['id'] == 0) 
-                href="{{url('postulacion')}}" 
-            @else 
-                href="{{url('propuesta/'.$postulacion['id'])}}" 
-            @endif 
-            class="box_panel"> 
+        <a
+            @if($postulacion['status'] == "draft" || $postulacion['id'] == 0)
+            href="{{url('postulacion')}}"
+            @else
+            href="{{url('propuesta/'.$postulacion['id'])}}"
+            @endif
+            class="box_panel">
             <div>
-                <span>Estado de postulación</span>
+                <span>Mis postulaciones</span>
             </div>
             <div>
                 @if($postulacion['id'] == 0)
@@ -58,32 +52,33 @@
                 @endif
                 @if($postulacion['id'] > 0)
                     <span class="text_bold">
-                        Tienes una postulación en estado   
+                        Tienes una postulación en estado
                         @if($postulacion['status'] == "approved")
-                            <strong class="resaltado_verde">{{__("status_application.{$postulacion['status']}")}}</strong>
-                        @else 
+                            <strong
+                                class="resaltado_verde">{{__("status_application.{$postulacion['status']}")}}</strong>
+                        @else
                             @if($postulacion['status'] == "draft")
-                            <strong class="resaltado_rojo">{{__("status_application.{$postulacion['status']}")}}</strong>
+                                <strong
+                                    class="resaltado_rojo">{{__("status_application.{$postulacion['status']}")}}</strong>
                             @endif
-                        @endif 
-                    </span> 
+                        @endif
+                    </span>
                 @endif
             </div>
             <div>
-                @if(Auth::user()->email_verified_at != null)
-                    @if($postulacion['id'] == 0)
-                        <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Enviar</span>
+                @if($postulacion['id'] == 0)
+                    <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Enviar</span>
+                @else
+                    @if($postulacion['status'] == "draft")
+                        <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Modificar</span>
                     @else
-                        @if($postulacion['status'] == "draft")
-                            <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Modificar</span>
-                        @else
-                        <span href="{{url('propuesta/'.$postulacion['id'])}}" class="subrayado resaltado_amarillo">Ver</span>
-                        @endif
+                        <span href="{{url('propuesta/'.$postulacion['id'])}}"
+                              class="subrayado resaltado_amarillo">Ver</span>
                     @endif
                 @endif
             </div>
         </a>
-        <a href="{{url('transacciones')}}"  class="box_panel">
+        <a href="{{url('transacciones')}}" class="box_panel">
             <div>
                 <span>Transacciones de créditos</span>
             </div>
@@ -91,9 +86,7 @@
                 <span>Tenes <strong>{{$cantidadTxs}}</strong> transacciones realizadas.</span>
             </div>
             <div>
-                @if(Auth::user()->email_verified_at != null)
                     <span href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</span>
-                @endif
             </div>
         </a>
     </section>

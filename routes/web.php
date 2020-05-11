@@ -168,13 +168,24 @@ Route::get(
     'Contest\ContestController@index'
 )->name("concurso");
 
+Route::get(
+    '/contacto',
+    'WebController@contacto'
+)->name("contacto");
+
+Route::post(
+    '/contacto',
+    'WebController@contacto_send'
+)->name("contacto-send");
+
+
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
         Route::get(
             '/perfil',
             'AccountController@show_perfil'
-        )->name('perfil');
+        )->name('perfil')->middleware('email_verified');;
 
         Route::get(
             '/panel',
@@ -184,7 +195,7 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/postulacion',
             'AccountController@show_postulacion'
-        )->name('postulacion');
+        )->name('postulacion')->middleware('email_verified');
 
         Route::post(
             '/postulacion',
@@ -217,35 +228,38 @@ Route::middleware(['verified'])->group(
         );
 
 
-
         Route::get('dashboard', 'Admin\AdminController@index')->name(
             'dashboard'
         )->middleware('admin_role');
 
-        Route::get('admin/noticias', 'Admin\ContenidoController@index')->name(
+        Route::get('admin/contenidos/tipo/{type}', 'Admin\ContenidoController@index')->name(
+            'contenidos'
+        )->middleware('admin_role');
+
+        Route::get('admin/contenidos/crear/{type}', 'Admin\ContenidoController@create')->name(
             'noticias'
-        )->middleware('admin_role');;
-
-        Route::get('admin/noticias/crear', 'Admin\ContenidoController@create')->name(
-            'noticias'
         )->middleware('admin_role');
 
-        Route::get('admin/noticias/{id}', 'Admin\ContenidoController@edit')->name(
-            'noticias-edit'
+        Route::get('admin/contenidos/{id}', 'Admin\ContenidoController@edit')->name(
+            'contenidos-edit'
         )->middleware('admin_role');
 
 
-
-        Route::post('admin/noticias/store', 'Admin\ContenidoController@store')->name(
-            'noticias-store'
+        Route::post('admin/contenidos/store', 'Admin\ContenidoController@store')->name(
+            'contenidos-store'
         )->middleware('admin_role');
-        Route::post('admin/noticias/update', 'Admin\ContenidoController@update')->name(
+
+        Route::post('admin/contenidos/eliminar', 'Admin\ContenidoController@eliminar')->name(
+            'contenidos-eliminar'
+        )->middleware('admin_role');
+
+        Route::post('admin/contenidos/update', 'Admin\ContenidoController@update')->name(
             'noticias-update'
         )->middleware('admin_role');
 
         Route::get(
-            'admin/noticias-json',
-            'Admin\ContenidoController@noticias_json'
+            'admin/contenidos-json/{type}',
+            'Admin\ContenidoController@contenidos_json'
         )->name(
             'noticias-json'
         )->middleware('admin_role');
@@ -259,6 +273,20 @@ Route::middleware(['verified'])->group(
             'Admin\AdminController@usuarios_json'
         )->name(
             'usuarios-json'
+        )->middleware('admin_role');
+
+        Route::post(
+            'admin/usuarios/bloquear',
+            'Admin\AdminController@bloquear'
+        )->name(
+            'usuarios-bloquear'
+        )->middleware('admin_role');
+
+        Route::post(
+            'admin/usuarios/eliminar',
+            'Admin\AdminController@eliminar'
+        )->name(
+            'usuarios-eliminar'
         )->middleware('admin_role');
 
         Route::get(
@@ -300,6 +328,15 @@ Route::middleware(['verified'])->group(
             'concurso-admin'
         )->middleware('admin_role');
 
+        Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
+
+        Route::post(
+            'admin/contest/update',
+            'Contest\ContestController@update'
+        )->name(
+            'concurso-update'
+        )->middleware('admin_role');
+
         Route::post(
             'admin/contest/approve',
             'Contest\ContestController@approve'
@@ -312,6 +349,13 @@ Route::middleware(['verified'])->group(
             'PropuestaController@approve'
         )->name(
             'concurso-activar'
+        )->middleware('admin_role');
+
+        Route::post(
+            'admin/application/eliminar',
+            'PropuestaController@eliminar'
+        )->name(
+            'concurso-eliminar'
         )->middleware('admin_role');
 
         Route::post(
@@ -332,7 +376,7 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/transacciones',
             'AccountController@transacciones'
-        )->name('transacciones');
+        )->name('transacciones')->middleware('email_verified');
 
         Route::get(
             'perfil-usuario/{id}',
@@ -340,3 +384,8 @@ Route::middleware(['verified'])->group(
         )->name('perfil-publico');
     }
 );
+
+Route::get(
+    '/{slug}',
+    'ContenidoController@index'
+)->name("pagina");

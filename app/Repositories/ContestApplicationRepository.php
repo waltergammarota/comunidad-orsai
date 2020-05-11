@@ -221,6 +221,7 @@ class ContestApplicationRepository extends GenericRepository
     public function findApplicationByUser($userId, $contestId)
     {
         $cpaDB = $this->getCpaByUser($userId, $contestId);
+        $status = $cpaDB->status()->first()->status;
         if ($cpaDB) {
             return [
                 "cap_id" => $cpaDB->id,
@@ -229,7 +230,7 @@ class ContestApplicationRepository extends GenericRepository
                 "cap_link" => $cpaDB->link,
                 "cap_user_id" => $cpaDB->user_id,
                 "cap_contest_id" => $cpaDB->contest_id,
-                "cap_current_status" => CpaLog::where('cap_id', $cpaDB->id)->latest()->first()->status,
+                "cap_current_status" => $status,
                 "cap_approved" => $cpaDB->approved,
                 "cap_approvedBy" => $cpaDB->approved_by_user,
                 'cap_images' => $this->convertFiles(

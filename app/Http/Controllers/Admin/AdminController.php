@@ -54,13 +54,29 @@ class AdminController extends Controller
         return response()->json($data);
     }
 
+    public function bloquear(Request $request) {
+        $userId = $request->id;
+        $user = User::find($userId);
+        $user->blocked = 1;
+        $user->save();
+        $data = ["success" => true];
+        return response()->json($data);
+    }
+
+    public function eliminar(Request $request) {
+        $userId = $request->id;
+        $user = User::destroy($userId);
+        $data = ["success" => true];
+        return response()->json($data);
+    }
+
     public function transacciones_json(Request $request)
     {
         $data = [
             'draw' => $request->query('draw'),
             "recordsTotal" =>  Transaction::count(),
             "recordsFiltered" =>  Transaction::count(),
-            'data' => Transaction::with('getFromUser')->with('getToUser')->with('capId:id,title')->get()
+            'data' => Transaction::with('getFromUser')->with('getToUser')->with('capId:id,title')->orderBy('id','desc')->get()
         ];
         return response()->json($data);
     }

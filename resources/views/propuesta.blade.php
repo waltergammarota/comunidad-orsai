@@ -9,8 +9,9 @@
                 <div>
                     <div class="gris">
                         <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
-                            <div class="user_img"> 
-                                <img src="{{url('img/participantes/participante.jpg')}}" alt="{{ucfirst($propuesta['owner']['name'])}}" /> 
+                            <div class="user_img">
+                                <img src="{{url('img/participantes/participante.jpg')}}"
+                                     alt="{{ucfirst($propuesta['owner']['name'])}}"/>
                             </div> {{ucfirst($propuesta['owner']['name'])}}
                         </a>
                     </div>
@@ -66,8 +67,8 @@
                                value="{{$propuesta['id']}}"/>
                         @csrf
                         <div class="quantity">
-                            <input type="number" min="50" max="450" step="1"
-                                   value="50" name="vote" id="voteAmount">
+                            <input type="number" min="50" max="450" step="50"
+                                   value="50" name="vote" id="voteAmount" onchange="controlVoteInput(this);false;">
                         </div>
                         <div id="bt_form_votar">
                             <span
@@ -221,6 +222,18 @@
 
     <script>
 
+        function controlVoteInput(elem) {
+            if (elem.value < 50) {
+                showAlert("La cantidad es incorrecta.  El mínimo es 50 y el máximo 450 por propuesta");
+                elem.value = 50;
+            }
+            if (elem.value > 450) {
+                showAlert("La cantidad es incorrecta.  El mínimo es 50 y el máximo 450 por propuesta");
+                elem.value = 450;
+            }
+
+        }
+
         function stopVoting() {
             $('#pusiste_fichas').show();
             $('#form_votacion').hide();
@@ -250,8 +263,12 @@
                     showAlert("Gracias por votar");
                     window.location.reload();
                 } else {
+                    console.log(data);
                     if (data.available == 0) {
                         showAlert("Llegaste al límite de votaciones por propuesta");
+                    }
+                    else if (data.balance == 0) {
+                        showAlert("No te alcanzan las fichas");
                     } else {
                         showAlert("La cantidad es incorrecta.  El mínimo es 50 y el máximo 450 por propuesta");
                     }
@@ -259,14 +276,19 @@
                 $("#totalVotes").empty().append(data.totalVotes);
             }).catch(error => {
                 console.log(error);
-                showAlert("Ha habido un error, intente más tarde");
+                showAlert("La votación no ha comenzado");
             });
-        })
+        });
+
+        $("#form_votacion").submit(function (event) {
+            event.preventDefault();
+        });
 
         const votarCall = async () => {
+            const amount = $("#voteAmount").val();
             const response = await axios.post('{{url('votar')}}', {
                 cap_id: '{{$propuesta['id']}}',
-                amount: $("#voteAmount").val()
+                amount: amount
             });
             $("#totalVotes").empty().append(response.data.totalVotes);
         };

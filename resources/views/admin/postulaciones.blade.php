@@ -96,6 +96,35 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal fade" id="modal-eliminar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar postulación</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Desea eliminar esta postulación?</p>
+                    <input type="hidden" name="id" value="0" id="cap_id">
+                    <p id="capTitle"></p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success"
+                            id="eliminar-button">SI
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 @endsection
 
 @section('footer')
@@ -164,6 +193,9 @@
                                     </button>
                             &nbsp;<button type="button" class="btn btn-xs btn-warning ganador">
                                         <i class="fa fa-wine-glass"></i>
+                                    </button>
+                            <button type="button" class="btn btn-xs btn-danger eliminar">
+                                        <i class="fa fa-trash"></i>
                                     </button>`;
                         }
                     },
@@ -181,6 +213,15 @@
                 }).catch(error => {
                     alert("Ha ocurrido un error. Intente más tarde");
                 });
+            });
+
+            table.on('click', '.eliminar', function () {
+                const data = table.row($(this).parents('tr')).data();
+                const id = data.id;
+                $("#cap_id").val(id);
+                $("#capTitle").empty().append(`Titulo: ${data.title}`);
+                $('#modal-eliminar').modal('show');
+
             });
 
             table.on('click', '.rechazar', function () {
@@ -229,6 +270,21 @@
                 }).catch(error => {
                     alert("Ha ocurrido un error. Intente más tarde");
                     $("#postulacion").val(0);
+                });
+            });
+
+            $("#eliminar-button").click((event) => {
+                event.preventDefault();
+                const id = $("#cap_id").val();
+                axios.post('{{url('admin/application/eliminar')}}', {
+                    id: id
+                }).then(response => {
+                    alert("Postulación eliminada");
+                    table.ajax.reload();
+                    $('#modal-eliminar').modal('hide');
+                }).catch(error => {
+                    alert("Ha ocurrido un error. Intente más tarde");
+                    $('#modal-eliminar').modal('hide');
                 });
             });
 

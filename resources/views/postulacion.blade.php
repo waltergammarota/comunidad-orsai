@@ -29,7 +29,7 @@
                                     class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
-                                <div class="recuadro_black"> 
+                                <div class="recuadro_black">
                                     <p>Ingresá el título de tu propuesta.</p>
                                 </div>
                             </div>
@@ -271,7 +271,7 @@
                                 <div class="recuadro_black">
                                     <p>Podés enviar un link a un sitio externo.</p>
                                 </div>
-                            </div> 
+                            </div>
                             <input type="text" name="link"
                                    value="{{$cap_link ?? old('link')}}">
                         </div>
@@ -279,7 +279,7 @@
                 </div>
                 <div class="aclara">
                     <span>* = Obligatorios</span>'
-                </div>  
+                </div>
                 <div id="boton_submit">
                     <button
                         class="subrayado resaltado_amarillo text_bold"
@@ -368,7 +368,7 @@
             } else {
                 createErrorMessage($('#sp_aplicaciones'), "Las imágenes deben ser 1024 x 1024", "errorMinis");
             }
-            return false;
+            return true;
         }
 
         const validateAplicaciones = () => {

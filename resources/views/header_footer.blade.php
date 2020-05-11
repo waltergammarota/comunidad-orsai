@@ -55,18 +55,18 @@
             @if (Auth::check())
                 <div id="menu_logueado">
                     <div id="menu_user_img">
-                        <img src="{{$avatar? url($avatar):""}}"
+                        <img src="{{Session::get('avatar')}}"
                              alt="Imagen usuario">
                     </div>
                     <div id="menu_user_alias">
-        <span class="text_bold">{{ucfirst($name)?? ''}}<span
+        <span class="text_bold">{{ucfirst(Session::get('name'))}}<span
                 class="resaltado_amarillo icon-angle-down"></span></span>
-                        <span>{{$balance?? 0}} créditos</span>
+                        <span>{{Session::get('balance')}} créditos</span>
                     </div>
                     <div id="menu_logueado_desp" class="">
                         <div class="menu_black">
                             <ul>
-                                @if($role == "admin")
+                                @if(Session::get('role') == "admin")
                                     <li><a href="{{url('dashboard')}}">Dashboard</a></li>
                                 @endif
                                 <li class="active"><a href="{{url('panel')}}">Panel</a>

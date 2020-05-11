@@ -294,6 +294,7 @@ if (modal_image !== null) {
 };
 if (document.getElementById("bt_votar")) {
     jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up icon-angle-up"></div><div class="quantity-button quantity-down icon-angle-down"></div></div>').insertAfter('.quantity input');
+    const step = 50;
     jQuery('.quantity').each(function() {
         var spinner = jQuery(this),
             input = spinner.find('input[type="number"]'),
@@ -306,7 +307,13 @@ if (document.getElementById("bt_votar")) {
             if (oldValue >= max) {
                 var newVal = oldValue;
             } else {
-                var newVal = oldValue + 1;
+                var newVal = oldValue + step;
+            }
+            if(newVal < 50) {
+                newVal = 50;
+            }
+            if(newVal > 450) {
+                newVal = 450;
             }
             spinner.find("input").val(newVal);
             spinner.find("input").trigger("change");
@@ -316,7 +323,13 @@ if (document.getElementById("bt_votar")) {
             if (oldValue <= min) {
                 var newVal = oldValue;
             } else {
-                var newVal = oldValue - 1;
+                var newVal = oldValue - step;
+            }
+            if(newVal < 50) {
+                newVal = 50;
+            }
+            if(newVal > 450) {
+                newVal = 450;
             }
             spinner.find("input").val(newVal);
             spinner.find("input").trigger("change");
@@ -439,8 +452,8 @@ function mostrarImagen_2(event) {
             var img = cont_box.getElementsByTagName("img");
             img[0].src = event.target.result;
             var change_span = info_per_right.getElementsByTagName("span");
-            var guardar_span = document.createElement("span");
-            guardar_span.classList.add("resaltado_amarillo", "subrayado", "guardar_img");
+            //var guardar_span = document.createElement("span");
+            //guardar_span.classList.add("resaltado_amarillo", "subrayado", "guardar_img");
             if (!document.getElementsByClassName("guardar_img")[0]) {
                 cont_box.appendChild(guardar_span);
                 cont_box.getElementsByClassName("guardar_img")[0].innerHTML = "Guardar";

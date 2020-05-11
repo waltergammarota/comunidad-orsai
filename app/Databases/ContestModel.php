@@ -22,6 +22,8 @@ class ContestModel extends Model
         'name',
         'start_date',
         'end_date',
+        'votes_end_date',
+        'min_apps_qty'
     ];
 
     /**
@@ -39,6 +41,7 @@ class ContestModel extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
+        'votes_end_date' => 'datetime',
     ];
 
     /**
@@ -46,7 +49,6 @@ class ContestModel extends Model
      */
     public function owner()
     {
-        return $this->hasOne('App\User','id', "user_id");
+        return $this->hasOne('App\User', 'id', "user_id");
     }
-
 }

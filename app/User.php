@@ -22,11 +22,20 @@ class User extends Authenticatable implements JWTSubject
         'lastName',
         'userName',
         'country',
+        'provincia',
+        'city',
+        'birth_date',
+        'profesion',
+        'description',
+        'facebook',
+        'whatsapp',
+        'twitter',
+        'instagram',
         'email',
         'password',
         'email_verified_at',
         'role',
-        'avatar'
+        'avatar',
     ];
 
     /**

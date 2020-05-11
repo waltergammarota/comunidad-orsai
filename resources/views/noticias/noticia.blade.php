@@ -8,7 +8,7 @@
                 <div id="links_back">
                     <a href="{{url('noticias')}}">Noticias</a>
                     <span>General</span>
-                </div> 
+                </div>
             </div>
         </div>
         <div class="titulo">
@@ -24,7 +24,7 @@
                 <img src="{{url($imageUrl)}}" alt="{{$noticia->title}}">
             </div>
             <h2 class="subtitulo">{{$noticia->copete}}</h2>
-            <div class="texto">{{$noticia->texto}}</div>
+            <div class="texto">{!! $noticia->texto !!}</div>
         </div>
         <div class="publicidad_noticia">
             <div></div>

@@ -8,57 +8,66 @@ use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
 
 class ContenidoController extends Controller
 {
-    public function index() {
-        $this->isAdmin();
-        return view('admin.noticias');
+    public function index(Request $request) {
+        if($request->type == "pagina") {
+            $data['title'] = "Páginas";
+            $data['type'] = "pagina";
+            return view('admin.noticias',$data);
+        }
+        $data['title'] = "Noticias";
+        $data['type'] = "noticia";
+        return view('admin.noticias',$data);
     }
 
     public function edit(Request $request) {
-        $this->isAdmin();
         $id = $request->route('id');
-        $noticia = ContenidoModel::find($id);
-        $image = $noticia->images()->first();
+        $contenido = ContenidoModel::find($id);
+        $image = $contenido->images()->first();
+        $type = $contenido->tipo;
         $imageUrl = "";
         if($image) {
             $imageUrl = url('storage/images/'.$image->name.".".$image->extension);
         }
-        return view('admin.noticias-form',compact('noticia','imageUrl'));
+        return view('admin.noticias-form',compact('contenido','imageUrl', 'type'));
     }
 
-    public function noticias_json(Request $request) {
-        $this->isAdmin();
+    public function contenidos_json(Request $request) {
+        $tipo = $request->type;
         $data = [
             'draw' => $request->query('draw'),
-            "recordsTotal" =>  ContenidoModel::count(),
-            "recordsFiltered" =>  ContenidoModel::count(),
-            'data' => ContenidoModel::all()];
+            "recordsTotal" =>  ContenidoModel::where("tipo",$tipo)->count(),
+            "recordsFiltered" =>  ContenidoModel::where("tipo",$tipo)->count(),
+            'data' => ContenidoModel::where("tipo",$tipo)->get()];
         return response()->json($data);
     }
 
     public function create(Request $request) {
-        $this->isAdmin();
-        $noticia = null;
-        return view('admin.noticias-form',compact('noticia'));
+        $contenido = null;
+        $type = $request->type;
+        return view('admin.noticias-form',compact('contenido','type'));
     }
 
     public function store(Request $request) {
         $request->validate([
             "title" => "required",
+            "slug" => "required",
             "autor" => "required",
             "fecha_publicacion" => "required|date",
             "copete" => "required",
             "tipo" => "required",
             "texto" => "required",
-            'images' => 'array',
+            'images' => 'required|array',
             'images.*' => 'image|max:5120',
         ]);
 
-        $slug = str_replace(" ", "-", $request->title);
+        $slug = str_replace(" ", "-", $request->slug);
         $noticia = new ContenidoModel([
             "title"=> $request->title,
+            "slug"=> $slug,
             "autor"=> $request->autor,
             "fecha_publicacion"=> $request->fecha_publicacion,
             "copete"=> $request->copete,
@@ -74,7 +83,7 @@ class ContenidoController extends Controller
         $images = $fileRepo->getUploadedFiles('images',$request);
         $imagesIds = $this->convertToIds($images);
         $noticia->images()->sync($imagesIds);
-        return Redirect::to('admin/noticias');
+        return Redirect::to('admin/contenidos/'.$noticia->tipo);
     }
 
     private function convertToIds($images) {
@@ -88,6 +97,7 @@ class ContenidoController extends Controller
     public function update(Request $request) {
         $request->validate([
             "title" => "required",
+            "slug" => "required",
             "autor" => "required",
             "fecha_publicacion" => "required|date",
             "copete" => "required",
@@ -95,7 +105,7 @@ class ContenidoController extends Controller
             "texto" => "required",
         ]);
 
-        $slug = str_replace(" ", "-", $request->title);
+        $slug = str_replace(" ", "-", $request->slug);
         $noticia = ContenidoModel::find($request->id);
         $noticia->slug = $slug;
         $noticia->title = $request->title;
@@ -113,6 +123,13 @@ class ContenidoController extends Controller
         if(count($imagesIds) > 0) {
             $noticia->images()->sync($imagesIds);
         }
-        return Redirect::to('admin/noticias');
+        $type = $noticia->tipo;
+        return Redirect::to('admin/contenidos/tipo/'.$type);
+    }
+
+    public function eliminar(Request $request) {
+        $noticiaId = $request->id;
+        ContenidoModel::destroy($noticiaId);
+        return response()->json(["success" => true]);
     }
 }

@@ -25,7 +25,7 @@ class CreateNoticiasTable extends Migration
                 $table->date('fecha_publicacion');
                 $table->text('copete');
                 $table->enum('tipo', ['noticia', 'pagina']);
-                $table->text('texto');
+                $table->longText('texto');
                 $table->unsignedBigInteger('user_id');
                 $table->integer('visible')->default(0)->nullable();
                 $table->timestamps();
