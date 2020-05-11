@@ -166,7 +166,8 @@
                     {
                         "data": "link",
                         "render": function (data) {
-                            return data == null ? "" : data;
+                            const link = data.substring(0,17) + '...';
+                            return data == null ? "" : `<a href="${data}" target="_blank">${link}</a>`;
                         }
                     },
                     {
@@ -201,6 +202,8 @@
                     },
                 ]
             });
+
+
 
             table.on('click', '.aprobar', function () {
                 const data = table.row($(this).parents('tr')).data();
