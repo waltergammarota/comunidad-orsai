@@ -1,5 +1,6 @@
 FUNDACION ORSAI
 
+INSTALACION
 1. git clone
 2. npm install
 3. composer update
@@ -8,6 +9,8 @@ FUNDACION ORSAI
 6. GRANT ALL PRIVILEGES ON *.* TO 'orsai'@'localhost' IDENTIFIED BY 'fundaxionOrsai2020';
 5. php artisan queue:work >/dev/null 2>&1 &
 
-PARA LANZAR LOS JOBS QUE ENVIAN MAILS
-php artisan queue:work
+
+
+CADA VEZ QUE SE CAMBIA ALGO EN LOS MAILS
 php artisan queue:restart
+sudo systemctl restart mailing.service
