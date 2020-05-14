@@ -198,6 +198,7 @@ class WebController extends Controller
                     ["from" => Auth::user()->id, "cap_id" => $item->id]
                 )->count();
             }
+            $voted = 0;
             $row = [
                 "id" => $item->id,
                 "title" => $item->title,
