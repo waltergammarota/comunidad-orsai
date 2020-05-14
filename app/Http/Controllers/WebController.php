@@ -193,9 +193,11 @@ class WebController extends Controller
         $data = [];
         foreach ($propuestas as $item) {
             $user = $item->owner()->first();
-            $voted = Transaction::where(
-                ["from" => Auth::user()->id, "cap_id" => $item->id]
-            )->count();
+            if(Auth::check()) {
+                $voted = Transaction::where(
+                    ["from" => Auth::user()->id, "cap_id" => $item->id]
+                )->count();
+            }
             $row = [
                 "id" => $item->id,
                 "title" => $item->title,
