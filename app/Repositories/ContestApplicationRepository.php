@@ -192,11 +192,8 @@ class ContestApplicationRepository extends GenericRepository
 
     public function statusApplication($contestId, $userId)
     {
-        $cantidad = DB::table('contest_applications')->where(
-            [
-                "contest_id" => $contestId,
-                "user_id" => $userId
-            ]
+        $cantidad = ContestApplicationModel::where(
+            ["user_id" => $userId, "contest_id" => $contestId]
         )->count();
         if ($cantidad > 0) {
             $cpaDB = $this->getCpaByUser($userId, $contestId);
