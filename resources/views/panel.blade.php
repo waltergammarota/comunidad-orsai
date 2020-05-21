@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="line_dashed"></div>
-        @if($hasStarted)
+        @if($hasStarted && $emailWasValidated)
             <div class="lets_start_panel ">
                 <a href="{{url('participantes')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
             </div>

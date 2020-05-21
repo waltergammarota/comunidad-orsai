@@ -114,8 +114,6 @@
                 <div class="input_err select">
                     <label class='oculto'>Provincia/Estado</label>
                     <div class="in_sp editar">
-                        <p class="pais_select"
-                           id="selectedProvincia">{{$provincia}}</p>
                         <div class="arm_sel">
                             <select name='provincia' id='provincias'
                                     class=''>

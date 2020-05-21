@@ -86,6 +86,7 @@ class AccountController extends Controller
     {
         $data = $this->getUserData();
         $data['hasStarted'] = $this->hasStarted(1);
+        $data['emailWasValidated'] = Auth::user()->email_verified_at != null;
         return view('panel', $data);
     }
 
