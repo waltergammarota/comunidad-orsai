@@ -91,7 +91,7 @@ class AccountController extends Controller
 
     private function hasStarted($contestId)
     {
-        return ContestApplicationModel::find($contestId)->start_date < now();
+        return ContestModel::find($contestId)->start_date < now();
     }
 
     public function show_postulacion(Request $request)
