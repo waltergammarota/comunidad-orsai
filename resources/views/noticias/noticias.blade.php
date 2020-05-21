@@ -16,10 +16,10 @@
                     <div class="line_dashed"></div>
                 @endif
                 <article>
-                    <a href="{{url('noticias/'.$noticia->slug)}}">
+                    <a href="{{url('novedades/'.$noticia->slug)}}">
                     <div class="cuerpo_texto">
                         <div>
-                            <h2 class="titulo_noticias">{{$noticia->title}}</h2> 
+                            <h2 class="titulo_noticias">{{$noticia->title}}</h2>
                             <p>{{Str::limit($noticia->copete, 100)}}</p>
                             <span class="text_bold subrayado resaltado_amarillo">Leer
                                 noticia</span>

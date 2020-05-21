@@ -65,7 +65,10 @@ class AdminController extends Controller
 
     public function eliminar(Request $request) {
         $userId = $request->id;
-        $user = User::destroy($userId);
+        $user = User::find($userId);
+        $user->email = "deleted-".$user->email;
+        $user->save();
+        User::destroy($userId);
         $data = ["success" => true];
         return response()->json($data);
     }

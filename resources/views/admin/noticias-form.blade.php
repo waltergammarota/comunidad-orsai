@@ -24,7 +24,7 @@
             <form role="form" method="POST" action="{{url('admin/contenidos/update')}}" enctype="multipart/form-data">
                 <input type="hidden" value="{{$contenido->id}}" name="id">
                 @else
-                    <form role="form" method="POST" action="{{url('admin/noticias/store')}}"
+                    <form role="form" method="POST" action="{{url('admin/contenidos/store')}}"
                           enctype="multipart/form-data">
                         <input type="hidden" value="0" name="id">
                         @endif

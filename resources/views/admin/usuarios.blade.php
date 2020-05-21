@@ -91,18 +91,39 @@
 @endsection
 
 @section('footer')
-    <script
-        src="{{url("admin/plugins/datatables/jquery.dataTables.min.js")}}"></script>
-    <script
-        src="{{url("admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
-    <script
-        src="{{url("admin/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>
-    <script
-        src="{{url("admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")}}"></script>
-    <script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
+    <style>
+        button.dt-button.buttons-csv.buttons-html5 {
+            padding: 5px 15px;
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white
+        }
+        button.dt-button.buttons-excel.buttons-html5 {
+            padding: 5px 15px;
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script>
         $(function () {
             const table = $('#example2').DataTable({
+                "dom": 'Bfrtip',
+                "buttons": [
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+                ],
                 "paging": true,
                 "searching": true,
                 "ordering": true,

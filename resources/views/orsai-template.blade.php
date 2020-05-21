@@ -61,20 +61,20 @@
                         <ul>
                             <li><a href="{{url('/')}}">Inicio</a></li>
                             <li><a href="{{url('bases-concurso')}}">Bases del concurso</a></li>
-                            <li><a href="{{url('noticias')}}">Noticias</a></li>
+                            <li><a href="{{url('novedades')}}">Novedades</a></li>
                             <li><a href="{{url('contacto')}}">Contacto</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div id="links_redes">
-                    <span>Seguinos en redes</span> 
+                    <span>Seguinos en redes</span>
                     <ul>
                         <li><a href="http://twitter.com/fundacionorsai" target="_blank">Twitter</a></li>
                         <li><a href="https://instagram.com/fundacionorsai" target="_blank">Instagram</a></li>
                         <li><a href="https://facebook.com/fundacionorsai" target="_blank">Facebook</a></li>
                     </ul>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -89,7 +89,7 @@
         </div>
         <div class="sub_footer_ri">
             <div>
-                <ul> 
+                <ul>
                     <li><a href="{{url('terminos')}}">Terminos &amp; Condiciones</a></li>
                     <li><a href="{{url('privacidad')}}">Privacidad</a></li>
                 </ul>
@@ -124,8 +124,8 @@
     });
 
     if (document.getElementById("cookies_msg")) {
-        var get_aceptar_cookies = document.getElementById("btn_cookies"); 
-        get_aceptar_cookies.onclick = function () {  
+        var get_aceptar_cookies = document.getElementById("btn_cookies");
+        get_aceptar_cookies.onclick = function () {
             Cookies.set('approved-cookies', true);
             close(document.getElementById("cookies_msg"));
         };

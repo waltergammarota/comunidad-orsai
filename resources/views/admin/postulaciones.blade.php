@@ -128,16 +128,6 @@
 @endsection
 
 @section('footer')
-    <script
-        src="{{url("admin/plugins/datatables/jquery.dataTables.min.js")}}"></script>
-    <script
-        src="{{url("admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")}}"></script>
-    <script
-        src="{{url("admin/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>
-    <script
-        src="{{url("admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")}}"></script>
-    <script
-        src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
     <script>
         $(function () {
             const table = $('#myTable').DataTable({

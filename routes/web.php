@@ -64,10 +64,7 @@ Route::get(
     'WebController@bases_concurso'
 )->name('bases-concurso');
 
-Route::get(
-    '/noticias/{slug?}',
-    'ContenidoController@index'
-)->name('noticias');
+
 
 Route::get(
     '/privacidad',
@@ -384,6 +381,12 @@ Route::middleware(['verified'])->group(
         )->name('perfil-publico');
     }
 );
+
+Route::get(
+    '/novedades/{slug}',
+    'ContenidoController@index'
+)->name('novedades');
+
 
 Route::get(
     '/{slug}',

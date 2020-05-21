@@ -93,9 +93,6 @@
                         <div class="arm_sel">
                             <select name='country' id='pais_suscriptor'
                                     class=''>
-                                <option id="select_pais" value='ninguno'
-                                        disabled selected hidden>Elegir...
-                                </option>
                                 @foreach($paises as $pais)
                                     <option
                                         value='{{$pais->nombre}}'
@@ -119,16 +116,9 @@
                                     class=''>
                                 @if($provincia == "")
                                     <option id="select_pais" value='ninguno'
-                                            disabled selected hidden>Elegir...
+                                            selected hidden>Elegir...
                                     </option>
                                 @endif
-                                @foreach($provinciasOptions as $prov)
-                                    <option
-                                        value='{{$prov->nombre}}'
-                                        {{strtolower($provincia) == strtolower($prov->nombre)? "selected":""}}
-                                        data-prov="{{$prov->id}}"
-                                    >{{$prov->nombre}}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -145,16 +135,9 @@
                                     class=''>
                                 @if($city == "")
                                     <option id="select_pais" value='ninguno'
-                                            disabled selected hidden>Elegir...
+                                            selected hidden>Elegir...
                                     </option>
                                 @endif
-                                @foreach($ciudadesOptions as $ciudad)
-                                    <option
-                                        value='{{$ciudad->nombre}}'
-                                        {{strtolower($city) == strtolower($ciudad->nombre)? "selected":""}}
-                                        data-prov="{{$ciudad->id}}"
-                                    >{{$ciudad->nombre}}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -285,7 +268,9 @@
         paisCombo.change(function () {
             const iso = $(this).children("option:selected").data('iso');
             const options = filterProvincias(iso);
+            const cityOptions = filterCiudadesByCountry(iso);
             generateProvinciasOptions(options, $("#provincias"));
+            generateProvinciasOptions(options, $("#ciudades"));
         });
 
         function filterCiudades(provId) {
@@ -306,10 +291,11 @@
             });
         }
 
-        function generateProvinciasOptions(options, element) {
+        function generateProvinciasOptions(options, element, savedItem) {
             const html = options.map((item) => {
                 const nombre = item.nombre;
-                return `<option value="${nombre}" data-prov="${item.id}">
+                const selected = item.nombre == savedItem? "selected":"";
+                return `<option value="${nombre}" data-prov="${item.id}" ${selected}>
                                        ${nombre}
                                   </option>`;
             });
@@ -321,11 +307,7 @@
             element.append(html);
         }
 
-        $(document).ready(function () {
-            const country = $("#selectedCountry").html();
-            const provincia = $("#selectedProvincia").html();
-            console.log(provincia.length);
-        });
+
 
         if (document.getElementsByClassName("general_profile_msg")) {
             var get_general_msg = document.getElementsByClassName("general_profile_msg");
@@ -394,8 +376,8 @@
             formData.append('twitter', $("#twitter").val());
             formData.append('instagram', $("#instagram").val());
             formData.append('country', $("#pais_suscriptor").val());
-            formData.append('provincia', $("#provincias").val());
-            formData.append('city', $("#ciudades").val());
+            formData.append('provincia', $("#provincias").val() == null? '': $("#provincias").val());
+            formData.append('city', $("#ciudades").val() == null? '':$("#ciudades").val());
             $("#exito_msg").show();
             const url = '{{url('/profile/update')}}';
             axios({
@@ -428,6 +410,39 @@
             });
 
         }
+
+        function filterCiudadesByCountry(iso) {
+            const idsProvincias = filterProvincias(iso);
+            const provs = idsProvincias.map(item => {
+                return filterCiudades(item.id);
+            });
+            return provs.flat();
+
+        }
+
+        function getProvIdByName(provinciaName) {
+            const provincia =  provincias.find(item => {
+                return item.nombre.toLowerCase() == provinciaName.toLowerCase();
+            });
+            return provincia.id;
+        }
+
+        $(document).ready(function () {
+            const savedProvincia = '{{$provincia}}';
+            const savedCity = '{{$city}}';
+            const iso = $('#pais_suscriptor').children("option:selected").data('iso');
+            const options = filterProvincias(iso);
+            generateProvinciasOptions(options, $("#provincias"), savedProvincia);
+            if(savedProvincia == "null" || savedProvincia == '' || savedProvincia == null) {
+                const cityOptions1 = filterCiudadesByCountry(iso);
+                generateProvinciasOptions(cityOptions1, $("#ciudades"), savedCity);
+            } else {
+                const provId = getProvIdByName(savedProvincia);
+                const cityOptions2 = filterCiudades(provId);
+                generateProvinciasOptions(cityOptions2, $("#ciudades"), savedCity);
+            }
+
+        });
 
 
     </script>

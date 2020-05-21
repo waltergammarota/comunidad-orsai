@@ -15,7 +15,7 @@ class ContenidoController extends Controller
         $data = $this->getUserData();
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
-        if ($slug == "noticias") {
+        if ($slug == "novedades") {
             $data['noticias'] = $this->getNoticias($page);
             return view("noticias.noticias", $data);
         } else {
