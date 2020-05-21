@@ -218,8 +218,8 @@ class ContestApplicationRepository extends GenericRepository
     public function findApplicationByUser($userId, $contestId)
     {
         $cpaDB = $this->getCpaByUser($userId, $contestId);
-        $status = $cpaDB->status()->first()->status;
         if ($cpaDB) {
+            $status = $cpaDB->status()->first()->status;
             return [
                 "cap_id" => $cpaDB->id,
                 "cap_title" => $cpaDB->title,
