@@ -66,8 +66,7 @@ class ContestApplicationRepository extends GenericRepository
     ) {
         $contestApplicationDB = ContestApplicationModel::find($cpaId);
         $contestApplicationDB->title = $contestApplication->getTitle();
-        $contestApplicationDB->description = $contestApplication->getDescription(
-        );
+        $contestApplicationDB->description = $contestApplication->getDescription();
         $contestApplicationDB->link = $contestApplication->getLink();
         $images = $contestApplication->getImages();
         $logo = $contestApplication->getLogo();
@@ -172,7 +171,8 @@ class ContestApplicationRepository extends GenericRepository
         return $cpa;
     }
 
-    public function getDataFrom($id) {
+    public function getDataFrom($id)
+    {
         $cpaDB = $this->model->find($id);
         $data = $cpaDB->toArray();
         $data['logos'] = $cpaDB->logos()->orderBy('position')->get()->toArray();
@@ -185,9 +185,9 @@ class ContestApplicationRepository extends GenericRepository
 
     public function countCpas($contestId)
     {
-        return DB::table('contest_applications')->where(
-            ["contest_id" => $contestId, "approved" => 1]
-        )->count();
+        return ContestApplicationModel::where([
+            "contest_id" => $contestId, "approved" => 1
+        ])->count();
     }
 
     public function statusApplication($contestId, $userId)
@@ -282,6 +282,4 @@ class ContestApplicationRepository extends GenericRepository
         )->first();
         return $cpaDB;
     }
-
-
 }

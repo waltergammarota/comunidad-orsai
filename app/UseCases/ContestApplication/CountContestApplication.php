@@ -11,13 +11,17 @@ use App\Repositories\ContestApplicationRepository;
 use App\Repositories\UserRepository;
 use App\UseCases\GenericUseCase;
 
+/**
+ * @property ContestApplicationRepository $cpaRepo
+ */
 class CountContestApplication extends GenericUseCase
 {
     public function __construct($contestId)
     {
         $this->userRepo = new UserRepository();
         $this->cpaRepo = new ContestApplicationRepository(
-            new ContestApplicationModel(), $this->userRepo
+            new ContestApplicationModel(),
+            $this->userRepo
         );
         $this->contestId = $contestId;
     }
@@ -26,5 +30,4 @@ class CountContestApplication extends GenericUseCase
     {
         return $this->cpaRepo->countCpas($this->contestId);
     }
-
 }
