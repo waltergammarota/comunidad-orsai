@@ -83,15 +83,15 @@ class ContestController extends Controller
                 'name' => 'required|min:1|max:128',
                 'start_date' => 'required|date',
                 'votes_end_date' => 'required|date',
+                'end_upload_app' => 'required|date',
                 'end_date' => 'required|date',
                 'min_apps_qty' => 'required|integer',
             ]
         );
         $id = $request->id;
         $contest = ContestModel::find($id);
-        $contest->fill($request->all(['name', "start_date", "end_date", "votes_end_date", "min_apps_qty"]));
+        $contest->fill($request->all(['name', "start_date", "end_date", "votes_end_date", "min_apps_qty", "end_upload_app"]));
         $contest->save();
         return Redirect::to('admin/concurso');
-
     }
 }
