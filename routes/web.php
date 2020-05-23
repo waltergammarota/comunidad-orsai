@@ -263,7 +263,11 @@ Route::middleware(['verified'])->group(
 
         Route::get('admin/usuarios', 'Admin\AdminController@usuarios')->name(
             'dashboard'
-        )->middleware('admin_role');;
+        )->middleware('admin_role');
+
+        Route::get('admin/usuarios/editar/{id}', 'Admin\AdminController@edit')->name(
+            'editar-usuario'
+        )->middleware('admin_role');
 
         Route::get(
             'admin/usuarios-json',

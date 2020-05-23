@@ -56,11 +56,11 @@
                             <textarea name="description"
                                       id="text_area"
                                       cols="30" rows="10"
-                                      maxlength="288"
+                                      maxlength="280"
                                       class="obligatorio">{{$cap_description?? old('description')}}</textarea>
                             <span
                                 class="logo_sp_size">Caracteres restantes: <span
-                                    id="cant_car">288</span></span>
+                                    id="cant_car">280</span></span>
                             @if ($errors->has('description'))
                                 <span class="error">
                                     <strong>El campo descripción es obligatorio.</strong>

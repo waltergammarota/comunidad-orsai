@@ -16,7 +16,11 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Editar {{$type}}</h3>
+            @if($contenido)
+                <h3 class="card-title">Crear {{$type}}</h3>
+            @else
+                <h3 class="card-title">Editar {{$type}}</h3>
+            @endif
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -32,10 +36,12 @@
                         <input type="hidden" name="tipo" value="{{$type}}">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Título</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Título"
+                                <label for="exampleInputEmail1">Título (obligatorio)</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                       id="exampleInputEmail1" placeholder="Título"
                                        name="title"
                                        value="{{$contenido?$contenido->title:old('title')}}">
+                                @error('title') <span class="help-block">{{$message}}</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Slug</label>
@@ -43,16 +49,28 @@
                                        name="slug"
                                        value="{{$contenido?$contenido->slug:old('slug')}}">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Autor</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Autor"
-                                       name="autor"
-                                       value="{{$contenido?$contenido->autor:old('autor')}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Fecha publicación</label>
-                                <input type="date" class="form-control" id="exampleInputEmail1" name="fecha_publicacion"
-                                       value="{{$contenido?$contenido->fecha_publicacion->format('Y-m-d'):old('fecha_publicacion')}}">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Fecha publicación (obligatorio)</label>
+                                        <input type="date"
+                                               class="form-control @error('fecha_publicacion') is-invalid @enderror"
+                                               id="exampleInputEmail1" name="fecha_publicacion"
+                                               value="{{$contenido?$contenido->fecha_publicacion->format('Y-m-d'):old('fecha_publicacion')}}">
+                                        @error('fecha_publicacion') <span
+                                            class="help-block">{{$message}}</span> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Autor</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                               placeholder="Autor"
+                                               name="autor"
+                                               value="{{$contenido?$contenido->autor:old('autor')}}">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Copete</label>
@@ -60,9 +78,11 @@
                                           name="copete">{{$contenido?$contenido->copete:old('copete')}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Cuerpo</label>
-                                <textarea class="form-control" rows="10" placeholder="Cuerpo ..." id="summernote"
+                                <label for="exampleInputEmail1">Cuerpo (obligatorio)</label>
+                                <textarea class="form-control @error('texto') is-invalid @enderror" rows="10"
+                                          placeholder="Cuerpo ..." id="summernote"
                                           name="texto">{{$contenido?$contenido->texto:old('texto')}}</textarea>
+                                @error('texto') <span class="help-block">{{$message}}</span> @enderror
                             </div>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
@@ -135,10 +155,14 @@
         .kv-file-remove {
             display: none;
         }
+
+        .help-block {
+            color: #dc3545;
+        }
     </style>
     <script>
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#summernote').summernote({
                 tabsize: 2,
                 height: 200
@@ -151,7 +175,7 @@
             showUpload: false,
             deleteUrl: false,
             initialPreviewAsData: true,
-            @isset($imageUrl)
+            @if($imageUrl != '')
             initialPreview: [
                 "{{$imageUrl}}"
             ]

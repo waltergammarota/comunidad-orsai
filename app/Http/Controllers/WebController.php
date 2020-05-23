@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Databases\ContenidoModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
@@ -17,6 +18,7 @@ class WebController extends Controller
     public function index()
     {
         $data = $this->getUserData();
+        $data['novedades']= ContenidoModel::latest()->limit(2)->get();
         return view('index', $data);
     }
 

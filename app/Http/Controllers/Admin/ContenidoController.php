@@ -52,7 +52,8 @@ class ContenidoController extends Controller
     {
         $contenido = null;
         $type = $request->type;
-        return view('admin.noticias-form', compact('contenido', 'type'));
+        $imageUrl = '';
+        return view('admin.noticias-form', compact('contenido', 'type', 'imageUrl'));
     }
 
     public function store(Request $request)
@@ -62,7 +63,7 @@ class ContenidoController extends Controller
             "fecha_publicacion" => "required|date",
             "tipo" => "required",
             "texto" => "required",
-            'images' => 'required|array',
+            'images' => 'array',
             'images.*' => 'image|max:5120',
         ]);
         $slug = $this->generateSlug($request->slug, $request->title, 0);

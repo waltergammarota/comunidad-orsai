@@ -62,7 +62,6 @@ class AccountController extends Controller
             $data[] = $row;
         }
         return $data;
-
     }
 
     public function show_perfil_publico(Request $request)
@@ -87,6 +86,7 @@ class AccountController extends Controller
         $data = $this->getUserData();
         $data['hasStarted'] = $this->hasStarted(1);
         $data['emailWasValidated'] = Auth::user()->email_verified_at != null;
+        $data['endUploadAppDate'] = ContestModel::find(1)->end_upload_app < now();
         return view('panel', $data);
     }
 
@@ -113,6 +113,9 @@ class AccountController extends Controller
             return Redirect::to('postulacion');
         }
         $data = array_merge($userData, $postulacion);
+        if ($contest->end_upload_app < now()) {
+            return Redirect::to('panel');
+        }
         return view('postulacion', $data);
     }
 
@@ -165,9 +168,9 @@ class AccountController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    private function createNewCap(Request $request
-    ): RedirectResponse
-    {
+    private function createNewCap(
+        Request $request
+    ): RedirectResponse {
         $request->validate(
             [
                 'title' => 'required|min:1|max:255',
@@ -296,5 +299,4 @@ class AccountController extends Controller
         )->get();
         return view('transacciones', $data);
     }
-
 }

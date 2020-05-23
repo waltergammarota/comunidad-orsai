@@ -15,3 +15,4 @@ yarn-error.log
 .vscode
 data
 composer.lock
+orsai-local Session.sql
