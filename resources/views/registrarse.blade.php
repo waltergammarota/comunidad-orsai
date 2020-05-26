@@ -4,7 +4,7 @@
 @section('content')
     <section id="intro" class="contenedor intro_registro">
         <div>
-            <h1>Registro <span class="span_block">de usuario</span></h1>
+            <h1>Iniciar <span class="span_block">membrecia</span></h1>
         </div>
         <div>
             <p class="texto_italica">
@@ -117,6 +117,12 @@
                     @endif
                     <span class="crear_check"></span>
                 </label>
+            </div>
+
+            <div id="captcha_div">
+                <div class="g-recaptcha" data-callback="recaptchaCallback"
+                     data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
+            </div> 
                 
             <div id="boton_submit">
                 <button class="subrayado resaltado_amarillo text_bold"
@@ -126,12 +132,6 @@
                 <!-- <div class="msg"></div>
                     <img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /> -->
             </div>
-            </div>
-
-            <div id="captcha_div">
-                <div class="g-recaptcha" data-callback="recaptchaCallback"
-                     data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
-            </div> 
 
         </form>
     </section>

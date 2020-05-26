@@ -4,13 +4,9 @@
 @section('content')
     <section id="intro" class="contenedor intro_gral">
         <div>
-            <span class="span_h1">Gracias por tu propuesta.</span>
-            <h1 class="span_h2">Vamos a verificar que cumpla con los requisitos y nos ponemos en contacto.</h1>
-        </div>
-        <div class="line_dashed"></div> 
-        <div class="lets_start resaltado_amarillo">
-            <a href="{{url('participantes')}}" class="">Empezá a poner fichas &raquo;</a>
-        </div>
+            <span class="span_h1">¡Gracias por diseñar un logo para Fundación Orsai!</span>
+            <h1 class="span_h2">Queremos ser únicos e irrepetibles, así que vamos a chequear la originalidad de tu propuesta y luego te contamos cómo sigue todo esto.</h1>
+        </div> 
     </section>
  
     <div class="contenedor mg_100 number_page">

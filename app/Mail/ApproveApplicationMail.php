@@ -31,7 +31,7 @@ class ApproveApplicationMail extends Mailable
         $data = [
             "email" => $this->email,
         ];
-        return $this->subject('Su postulación a Orsai fue aprobada')->view(
+        return $this->subject('Ya estás participando del concurso')->view(
             'mails.approved-application',
             $data
         );

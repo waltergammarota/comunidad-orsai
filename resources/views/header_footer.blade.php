@@ -29,6 +29,8 @@
                     <li><a href="{{url('concurso-logo')}}">Concurso Logo</a>
                     </li>
                 @endif
+                    <li><a href="{{url('donar')}}">Donar</a>
+                    </li>
             </ul>
         </div>
         <div id="menu_reg">
@@ -61,7 +63,7 @@
                     <div id="menu_user_alias">
         <span class="text_bold">{{ucfirst(Session::get('name'))}}<span
                 class="resaltado_amarillo icon-angle-down"></span></span>
-                        <span>{{Session::get('balance')}} créditos</span>
+                        <span>{{Session::get('balance')}} fichas</span>
                     </div>
                     <div id="menu_logueado_desp" class="">
                         <div class="menu_black">

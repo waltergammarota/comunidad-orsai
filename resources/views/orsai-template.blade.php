@@ -70,7 +70,7 @@
                 <div id="links_redes">
                     <span>Seguinos en redes</span>
                     <ul>
-                        <li><a href="http://twitter.com/fundacionorsai" target="_blank">Twitter</a></li>
+                        <li><a href="https://twitter.com/fundacionorsai" target="_blank">Twitter</a></li>
                         <li><a href="https://instagram.com/fundacionorsai" target="_blank">Instagram</a></li>
                         <li><a href="https://facebook.com/fundacionorsai" target="_blank">Facebook</a></li>
                     </ul>

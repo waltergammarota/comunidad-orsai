@@ -6,17 +6,17 @@
     <div class="info_per_left">
         <div class="breadcrumbs">
             <div id="links_back">
-                <a href="{{url('noticias')}}">Noticias</a>
+                <a href="{{url('noticias')}}">Novedades</a>
                 <span>General</span>
             </div>
         </div>
     </div>
-    <div class="titulo">
-        <h1 class="span_h1">{{$noticia->title}}</h1>
-        <span class="autor gris span_block">{{$noticia->autor}} <span
-                class="fecha_nota">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span></span>
-    </div>
     <div class="cuerpo_texto texto_noticia">
+        <div class="titulo">
+            <h1 class="span_h1">{{$noticia->title}}</h1>
+            <span class="autor gris span_block">{{$noticia->autor}} <span
+                    class="fecha_nota">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span></span>
+        </div>
         @php
         $image = $noticia->images()->first();
         $imageUrl = "";
@@ -25,16 +25,15 @@
         }
         @endphp
         <div class="img_noticia">
-            @if($imageUrl)
+            @if($imageUrl)title
             <img src="{{url($imageUrl)}}" alt="{{$noticia->title}}">
             @endif
         </div>
         <h2 class="subtitulo">{{$noticia->copete}}</h2>
         <div class="texto">{!! $noticia->texto !!}</div>
-    </div>
-    <div class="publicidad_noticia">
-        <div></div>
-    </div>
+    </div> 
+        <div class="publicidad_noticia"> 
+        </div>
 </section>
 
 <div class="contenedor mg_100 number_page">

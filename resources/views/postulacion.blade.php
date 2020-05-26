@@ -25,12 +25,12 @@
                 <div class="contenedor_campos">
                     <div class="inp_lf">
                         <div class="input_err">
-                            <label>Título * <span
+                            <label>Nombre de tu propuesta * <span
                                     class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Ingresá el título de tu propuesta.</p>
+                                    <p>Elegí cómo querés que llamemos a tu logo.</p>
                                 </div>
                             </div>
                             <input type="text" name="title"
@@ -44,12 +44,12 @@
                             @endif
                         </div>
                         <div class="input_err">
-                            <label>Descripción * <span
+                            <label>Historia * <span
                                     class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Ingresá la descripción de tu propuesta, tiene que tener menos de 288 caracteres.
+                                    <p>Contanos cómo surgió a la idea, en qué te inspiraste, qué técnica elegiste para materializarla.
                                     </p>
                                 </div>
                             </div>
@@ -70,12 +70,12 @@
                     </div>
                     <div class="inp_rt">
                         <div class="input_err cont_in_field">
-                            <label>Imagen principal (Logo)* <span
+                            <label>Imagen de tu logo* <span
                                     class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Subí la imagen de tu logo.</p>
+                                    <p>Esta es la imagen más representativa de tu proyecto. Elegí una que transmita todo el concepto que pensaste.</p>
                                 </div>
                             </div>
                             <div class="cont_box">
@@ -104,13 +104,13 @@
                         </div>
                         <div
                             class="input_err cont_in_field small_25">
-                            <label>Aplicaciones del logo* <a
+                            <label>Aplicaciones* <a
                                     href="#"
                                     class="ask_icon">(?)</a></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Subí hasta 5 adaptaciones de tu logo.</p>
+                                    <p>Sugerí otras versiones de tu logo. Puede ser en blanco y negro.</p>
                                     </p>
                                 </div>
                             </div>
@@ -233,8 +233,7 @@
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Podés enviar un PDF con más aplicaciones.
-                                    </p>
+                                    <p>Adjuntá tu logo formato de alta calidad. Se considera al archivo digital como original de la obra.</p>
                                 </div>
                             </div>
                             <div class="modal_asq oculto">
@@ -264,12 +263,12 @@
                     </div>
                     <div class="inp_rt">
                         <div class="input_err input_op">
-                            <label class=''>Link <span
+                            <label class=''>Link (más info)<span
                                     class="ask_icon">(?)</span></label>
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Podés enviar un link a un sitio externo.</p>
+                                    <p>Dejá un enlace a tu sitio o portfolio así podemos ver más de lo que hacés.</p>
                                 </div>
                             </div>
                             <input type="text" name="link"
@@ -277,9 +276,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="aclara">
-                    <span>* = Obligatorios</span>'
-                </div>
+                <div class="aclara"> 
+                    <strong>*</strong> = <span class="subrayado">Obligatorios para postularse</span>
+                </div> 
                 <div id="boton_submit">
                     <button
                         class="subrayado resaltado_amarillo text_bold"

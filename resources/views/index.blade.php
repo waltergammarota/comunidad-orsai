@@ -9,10 +9,10 @@
             </h1>
         </div>
         <div>
-            <p>
+            <p class="index_bajada">
                 Desde hoy, apostamos a contar buenas historias.
                 <span class="span_block">
-					<a href="{{url('concurso-logo')}}" class="subrayado resaltado_amarillo">(Quiero saber más)</a>.
+					<a href="{{url('fundacion-orsai')}}" class="subrayado resaltado_amarillo">(Quiero saber más)</a>.
 				</span>
             </p>
         </div>
@@ -199,14 +199,24 @@
     <!-- novedades -->
 
     <div class="fondo_blanco">
-        <section class="contenedor articles_historia">
+        <section class="contenedor articles_novedades">
             <div class="titulo">
                 <h2>
                     <a href="{{url('novedades')}}" class="subrayado">Novedades</a>
                 </h2>
             </div>
-            <div class="contenedor_gral_hist">
+            <div class="contenedor_gral_hist"> 
                 @foreach($novedades as $novedad)
+                    <article class="articles_column">
+                        <a href="{{url('novedades/'.$novedad->slug)}}">
+                            <div class="cuerpo_texto">
+                                <div>
+                                    <h2 class="titulo_noticias">{{$novedad->title}}</h2> 
+                                    <span class="text_bold subrayado resaltado_amarillo">Ver más</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article> 
                 @endforeach
             </div>
         </section>
