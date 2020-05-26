@@ -40,7 +40,8 @@ class VoteAContestApplication extends GenericUseCase
     private function checkIfContestIsActive()
     {
         $contest = ContestModel::find($this->cap->contest_id);
-        return $contest->active == 1;
+        $cpas = ContestApplicationModel::where("contest_id", 1)->count();
+        return $contest->start_date <= now() && $cpas >= $contest->min_apps_qty && $contest->votes_end_date > now();
     }
 
     private function isVoterOwnerOf($userId)
@@ -55,22 +56,24 @@ class VoteAContestApplication extends GenericUseCase
     {
         $ingreso = Transaction::where(["to" => $userId])->sum("amount");
         $egreso = Transaction::where(["from" => $userId])->sum("amount");
-        $votesOnThisApplication = Transaction::where(["from" => $userId, "cap_id"=> $capId])->sum("amount");
+        $votesOnThisApplication = Transaction::where(["from" => $userId, "cap_id" => $capId])->sum("amount");
         $maxLimitPerApplication = 450;
         $minLimitPerApplication = 50;
-        if($votesOnThisApplication >= $maxLimitPerApplication) {
-            $output = ["success" => false, "totalVotes" => $this->cap->votes, "available" => 0];
+        $balance = $ingreso - $egreso;
+        if ($votesOnThisApplication >= $maxLimitPerApplication) {
+            $output = ["success" => false, "totalVotes" => $this->cap->votes, "available" => 0, "balance" => $balance];
             return $output;
         }
-        if($amount < $minLimitPerApplication || $amount > $maxLimitPerApplication) {
-            $output = ["success" => false, "totalVotes" => $this->cap->votes, "available" => 450 - $votesOnThisApplication];
+        if ($amount < $minLimitPerApplication || $amount > $maxLimitPerApplication) {
+            $output = ["success" => false, "totalVotes" => $this->cap->votes, "available" => $maxLimitPerApplication - $votesOnThisApplication, "balance" => $balance];
             return $output;
         }
-        if ($ingreso >= ($egreso + $amount)) {
+        $available = $maxLimitPerApplication - $votesOnThisApplication;
+        if ($ingreso >= ($egreso + $amount) && $available >= $amount) {
             $tx = new Transaction(
                 [
                     'from' => $userId,
-                    'to' => $this->cap->owner()->first()->id,
+                    'to' => 1,
                     'type' => 'Transfer',
                     'amount' => $amount,
                     'data' => "Voto a propuesta id {$capId}",
@@ -81,10 +84,11 @@ class VoteAContestApplication extends GenericUseCase
             $totalVotes = $this->cap->votes + $amount;
             $this->cap->votes = $totalVotes;
             $this->cap->save();
-            $output = ["success" => true, "totalVotes" => $totalVotes, "available" => 450 - $votesOnThisApplication];
+            $balance = $ingreso = ($egreso + $amount);
+            $output = ["success" => true, "totalVotes" => $totalVotes, "available" => 450 - $votesOnThisApplication, "balance" => $balance];
             return $output;
         }
-        $output = ["success" => false, "totalVotes" => $this->cap->votes, "available" => 450 - $votesOnThisApplication];
+        $output = ["success" => false, "totalVotes" => $this->cap->votes, "available" => 450 - $votesOnThisApplication, "balance" => $balance];
         return $output;
     }
 

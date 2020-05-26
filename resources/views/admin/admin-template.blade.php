@@ -12,7 +12,8 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet" href="{{url("admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}">
+    <link rel="stylesheet"
+          href="{{url("admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{url("admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
     <!-- JQVMap -->
@@ -59,7 +60,8 @@
         <div class="sidebar">
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
@@ -96,10 +98,19 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{url('admin/noticias')}}" class="nav-link">
+                        <a href="{{url('admin/contenidos/tipo/noticia')}}" class="nav-link">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
-                                Noticias
+                                Novedades
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{url('admin/contenidos/tipo/pagina')}}" class="nav-link">
+                            <i class="nav-icon fas fa-pager"></i>
+                            <p>
+                                Páginas
                             </p>
                         </a>
                     </li>
@@ -199,6 +210,7 @@
 <script src="{{url("admin/plugins/pace-progress/pace.min.js")}}"></script>
 
 <script src="{{url("admin/dist/js/demo.js")}}"></script>
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script
     src="{{url("admin/plugins/datatables/jquery.dataTables.min.js")}}"></script>
@@ -208,6 +220,15 @@
     src="{{url("admin/plugins/datatables-responsive/js/dataTables.responsive.min.js")}}"></script>
 <script
     src="{{url("admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")}}"></script>
+<script
+    src="{{url("admin/plugins/datatables-buttons/js/dataTables.buttons.min.js")}}"></script>
+<script
+    src="{{url("admin/plugins/datatables-buttons/js/buttons.flash.min.js")}}"></script>
+<script
+    src="{{url("admin/plugins/datatables-buttons/js/buttons.html5.min.js")}}"></script>
+<script
+    src="{{url("admin/plugins/datatables-buttons/js/buttons.colVis.min.js")}}"></script>
+
 <script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"></script>
 @yield('footer')
 </body>

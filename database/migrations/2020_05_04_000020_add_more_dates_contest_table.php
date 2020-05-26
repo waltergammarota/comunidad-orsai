@@ -33,7 +33,7 @@ class AddMoreDatesContestTable extends Migration
     public function down()
     {
         Schema::table(
-            'users',
+            'contests',
             function (Blueprint $table) {
                 $table->dropColumn('votes_end_date');
                 $table->dropColumn('min_apps_qty');

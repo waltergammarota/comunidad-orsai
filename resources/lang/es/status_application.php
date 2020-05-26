@@ -2,7 +2,7 @@
 
 return [
     "draft" => "borrador",
-    "sent" => "enviada",
+    "sent" => "en revisión",
     "approved" => "aprobada",
     "reject" => "rechazada"
 ];

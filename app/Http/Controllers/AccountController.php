@@ -33,13 +33,15 @@ class AccountController extends Controller
             $request->session()->flash('alert', 'profile_not_completed');
         }
         $data['paises'] = PaisModel::orderBy('peso', 'desc')->get();
-        $data['provincias'] = json_encode($this->getProvincias());
-        $data['ciudades'] = json_encode($this->getCiudades());
+        $data['provinciasOptions'] = ProvinciaModel::all();
+        $data['ciudadesOptions'] = CiudadModel::all();
+        $data['provincias'] = json_encode($this->getProvincias($data['provinciasOptions']));
+        $data['ciudades'] = json_encode($this->getCiudades($data['ciudadesOptions']));
         return view('perfil', $data);
     }
 
-    private function getProvincias() {
-        $provincias = ProvinciaModel::all();
+    private function getProvincias($provincias)
+    {
         $data = [];
         foreach ($provincias as $provincia) {
             $row['id'] = $provincia->id;
@@ -49,9 +51,9 @@ class AccountController extends Controller
         }
         return $data;
     }
-    private function getCiudades()
+
+    private function getCiudades($ciudades)
     {
-        $ciudades = CiudadModel::all();
         $data = [];
         foreach ($ciudades as $ciudad) {
             $row['id'] = $ciudad->id;
@@ -60,7 +62,6 @@ class AccountController extends Controller
             $data[] = $row;
         }
         return $data;
-
     }
 
     public function show_perfil_publico(Request $request)
@@ -83,8 +84,15 @@ class AccountController extends Controller
     public function show_panel()
     {
         $data = $this->getUserData();
-        $data['hasStarted'] = ContestApplicationModel::find(1)->start_date < now();
+        $data['hasStarted'] = $this->hasStarted(1);
+        $data['emailWasValidated'] = Auth::user()->email_verified_at != null;
+        $data['endUploadAppDate'] = ContestModel::find(1)->end_upload_app < now();
         return view('panel', $data);
+    }
+
+    private function hasStarted($contestId)
+    {
+        return ContestModel::find($contestId)->start_date < now();
     }
 
     public function show_postulacion(Request $request)
@@ -105,6 +113,9 @@ class AccountController extends Controller
             return Redirect::to('postulacion');
         }
         $data = array_merge($userData, $postulacion);
+        if ($contest->end_upload_app < now()) {
+            return Redirect::to('panel');
+        }
         return view('postulacion', $data);
     }
 
@@ -157,9 +168,9 @@ class AccountController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    private function createNewCap(Request $request
-    ): RedirectResponse
-    {
+    private function createNewCap(
+        Request $request
+    ): RedirectResponse {
         $request->validate(
             [
                 'title' => 'required|min:1|max:255',
@@ -215,7 +226,6 @@ class AccountController extends Controller
 
     public function profile_update(Request $request)
     {
-        $type = $request->type;
         $allowedTypes = [
             'name',
             'lastName',
@@ -231,17 +241,14 @@ class AccountController extends Controller
             'twitter',
             'instagram'
         ];
-        if (in_array($type, $allowedTypes)) {
-            $value = $request->value;
-            $user = Auth::user();
-            $user->{$type} = $value;
-            $user->save();
-            if ($this->sendProfileExtraPoints()) {
-                return response()->json(['message' => "points profile completed"]);
-            }
-            return response()->json(['message' => "{$type} updated"]);
+        $postData = $request->all($allowedTypes);
+        $user = Auth::user();
+        $user->fill($postData);
+        $user->save();
+        if ($this->sendProfileExtraPoints()) {
+            return response()->json(['message' => "points profile completed"]);
         }
-        return response()->json(['message' => "{$type} not supported"], 422);
+        return response()->json(['message' => "Some types are not supported"], 422);
     }
 
     private function sendProfileExtraPoints()
@@ -285,11 +292,11 @@ class AccountController extends Controller
     {
         $data = $this->getUserData();
         $user = Auth::user();
+        $data['hasStarted'] = $this->hasStarted(1);
         $data['txs'] = Transaction::where("from", $user->id)->orWhere(
             "to",
             $user->id
         )->get();
         return view('transacciones', $data);
     }
-
 }

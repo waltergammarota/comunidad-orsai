@@ -6,84 +6,98 @@
 
 
 @section('name')
-    @if($noticia)
-        Editar noticia
+    @if($contenido)
+        Editar {{$type}}
     @else
-        Crear noticia
+        Crear {{$type}}
     @endif
 @endsection
 
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Crear noticia</h3>
+            @if($contenido)
+                <h3 class="card-title">Crear {{$type}}</h3>
+            @else
+                <h3 class="card-title">Editar {{$type}}</h3>
+            @endif
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        @if($noticia)
-            <form role="form" method="POST" action="{{url('admin/noticias/update')}}" enctype="multipart/form-data">
-                <input type="hidden" value="{{$noticia->id}}" name="id">
+        @if($contenido)
+            <form role="form" method="POST" action="{{url('admin/contenidos/update')}}" enctype="multipart/form-data">
+                <input type="hidden" value="{{$contenido->id}}" name="id">
                 @else
-                    <form role="form" method="POST" action="{{url('admin/noticias/store')}}"
+                    <form role="form" method="POST" action="{{url('admin/contenidos/store')}}"
                           enctype="multipart/form-data">
                         <input type="hidden" value="0" name="id">
                         @endif
                         @csrf
-                        <input type="hidden" name="tipo" value="noticia">
+                        <input type="hidden" name="tipo" value="{{$type}}">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Título</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Título"
+                                <label for="exampleInputEmail1">Título (obligatorio)</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                       id="exampleInputEmail1" placeholder="Título"
                                        name="title"
-                                       value="{{$noticia?$noticia->title:old('title')}}">
+                                       value="{{$contenido?$contenido->title:old('title')}}">
+                                @error('title') <span class="help-block">{{$message}}</span> @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Autor</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Autor"
-                                       name="autor"
-                                       value="{{$noticia?$noticia->autor:old('autor')}}">
+                                <label for="exampleInputEmail1">Slug</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Slug"
+                                       name="slug"
+                                       value="{{$contenido?$contenido->slug:old('slug')}}">
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Fecha publicación</label>
-                                <input type="date" class="form-control" id="exampleInputEmail1" name="fecha_publicacion"
-                                       value="{{$noticia?$noticia->fecha_publicacion->format('Y-m-d'):old('fecha_publicacion')}}">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Fecha publicación (obligatorio)</label>
+                                        <input type="date"
+                                               class="form-control @error('fecha_publicacion') is-invalid @enderror"
+                                               id="exampleInputEmail1" name="fecha_publicacion"
+                                               value="{{$contenido?$contenido->fecha_publicacion->format('Y-m-d'):old('fecha_publicacion')}}">
+                                        @error('fecha_publicacion') <span
+                                            class="help-block">{{$message}}</span> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Autor</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                               placeholder="Autor"
+                                               name="autor"
+                                               value="{{$contenido?$contenido->autor:old('autor')}}">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Copete</label>
                                 <textarea class="form-control" rows="2" placeholder="Copete ..."
-                                          name="copete">{{$noticia?$noticia->copete:old('copete')}}</textarea>
+                                          name="copete">{{$contenido?$contenido->copete:old('copete')}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Cuerpo</label>
-                                <textarea class="form-control" rows="10" placeholder="Cuerpo ..."
-                                          name="texto">{{$noticia?$noticia->texto:old('texto')}}</textarea>
+                                <label for="exampleInputEmail1">Cuerpo (obligatorio)</label>
+                                <textarea class="form-control @error('texto') is-invalid @enderror" rows="10"
+                                          placeholder="Cuerpo ..." id="summernote"
+                                          name="texto">{{$contenido?$contenido->texto:old('texto')}}</textarea>
+                                @error('texto') <span class="help-block">{{$message}}</span> @enderror
                             </div>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
-                                       name="visible" {{$noticia && $noticia->visible?"checked":""}}>
+                                       name="visible" {{$contenido && $contenido->visible?"checked":""}}>
                                 <label class="form-check-label" for="exampleCheck1">Visible</label>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Imagen</label>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile"
-                                                       name="images[]" accept="image/*">
-                                                <label class="custom-file-label" for="exampleInputFile">Elija una
-                                                    imagen</label>
-                                            </div>
-                                        </div>
-                                        <br>
+                                        <input type="file" class="file" id="exampleInputFile"
+                                               name="images[]" accept="image/*" data-browse-on-zone-click="true"
+                                               data-msg-placeholder="Seleccione imagen..."
+                                        >
                                     </div>
-                                    @if($noticia)
-                                        <div class="col-md-2">
-                                            <img src="{{$imageUrl}}" alt="" class="img-fluid">
-                                            <br/>
-                                        </div>
-                                    @endif
-
                                 </div>
                             </div>
 
@@ -123,6 +137,51 @@
 
 @section('footer')
 
+
+    <link href="{{url('js/file-input/css/fileinput.css')}}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{url('js/file-input/themes/explorer-fas/theme.css')}}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="{{url('js/file-input/js/plugins/piexif.js')}}" type="text/javascript"></script>
+    <script src="{{url('js/file-input/js/plugins/sortable.js')}}" type="text/javascript"></script>
+    <script src="{{url('js/file-input/js/fileinput.js')}}" type="text/javascript"></script>
+    <script src="{{url('js/file-input/js/locales/fr.js')}}" type="text/javascript"></script>
+    <script src="{{url('js/file-input/js/locales/es.js')}}" type="text/javascript"></script>
+    <script src="{{url('js/file-input/themes/fas/theme.js')}}" type="text/javascript"></script>
+    <script src="{{url('js/file-input/themes/explorer-fas/theme.js')}}" type="text/javascript"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
+
+    <style>
+        .kv-file-remove {
+            display: none;
+        }
+
+        .help-block {
+            color: #dc3545;
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                tabsize: 2,
+                height: 200
+            });
+        });
+
+        $("#exampleInputFile").fileinput({
+            theme: 'fas',
+            language: 'es',
+            showUpload: false,
+            deleteUrl: false,
+            initialPreviewAsData: true,
+            @if($imageUrl != '')
+            initialPreview: [
+                "{{$imageUrl}}"
+            ]
+            @endif
+        });
+    </script>
 
 @endsection
 

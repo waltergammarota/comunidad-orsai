@@ -101,6 +101,7 @@ class TransactionRepository implements TransactionRepositoryInterface
         $welcomeTag = "welcome";
         return Transaction::where(
             [
+
                 "to" => $user->getId(),
                 "data" => $welcomeTag
             ]
@@ -123,12 +124,10 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function getTotalSupply()
     {
-        $mintTotal = DB::table('transactions')->where('type', 'MINT')->sum(
+        $totalVotes = DB::table('transactions')->where('type', 'TRANSFER')->sum(
             'amount'
         );
-        $burnTotal = DB::table('transactions')->where('type', 'BURN')->sum(
-            'amount'
-        );
-        return $mintTotal - $burnTotal;
+
+        return $totalVotes;
     }
 }

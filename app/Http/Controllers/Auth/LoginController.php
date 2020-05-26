@@ -60,8 +60,12 @@ class LoginController extends Controller
         );
         $credentials = $request->only('email', 'password');
         if ($this->guard()->attempt($credentials)) {
-            if (Auth::user()->email_verified_at) {
+            if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
                 return Redirect::to('participantes');
+            }
+            if(Auth::user()->blocked != 0) {
+                Auth::logout();
+                return Redirect::to('ingresar');
             }
             Auth::logout();
             return Redirect::to('reenviar-mail');

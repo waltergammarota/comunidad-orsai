@@ -66,8 +66,7 @@ class ContestApplicationRepository extends GenericRepository
     ) {
         $contestApplicationDB = ContestApplicationModel::find($cpaId);
         $contestApplicationDB->title = $contestApplication->getTitle();
-        $contestApplicationDB->description = $contestApplication->getDescription(
-        );
+        $contestApplicationDB->description = $contestApplication->getDescription();
         $contestApplicationDB->link = $contestApplication->getLink();
         $images = $contestApplication->getImages();
         $logo = $contestApplication->getLogo();
@@ -172,7 +171,8 @@ class ContestApplicationRepository extends GenericRepository
         return $cpa;
     }
 
-    public function getDataFrom($id) {
+    public function getDataFrom($id)
+    {
         $cpaDB = $this->model->find($id);
         $data = $cpaDB->toArray();
         $data['logos'] = $cpaDB->logos()->orderBy('position')->get()->toArray();
@@ -185,18 +185,15 @@ class ContestApplicationRepository extends GenericRepository
 
     public function countCpas($contestId)
     {
-        return DB::table('contest_applications')->where(
-            ["contest_id" => $contestId, "approved" => 1]
-        )->count();
+        return ContestApplicationModel::where([
+            "contest_id" => $contestId, "approved" => 1
+        ])->count();
     }
 
     public function statusApplication($contestId, $userId)
     {
-        $cantidad = DB::table('contest_applications')->where(
-            [
-                "contest_id" => $contestId,
-                "user_id" => $userId
-            ]
+        $cantidad = ContestApplicationModel::where(
+            ["user_id" => $userId, "contest_id" => $contestId]
         )->count();
         if ($cantidad > 0) {
             $cpaDB = $this->getCpaByUser($userId, $contestId);
@@ -222,6 +219,7 @@ class ContestApplicationRepository extends GenericRepository
     {
         $cpaDB = $this->getCpaByUser($userId, $contestId);
         if ($cpaDB) {
+            $status = $cpaDB->status()->first()->status;
             return [
                 "cap_id" => $cpaDB->id,
                 "cap_title" => $cpaDB->title,
@@ -229,7 +227,7 @@ class ContestApplicationRepository extends GenericRepository
                 "cap_link" => $cpaDB->link,
                 "cap_user_id" => $cpaDB->user_id,
                 "cap_contest_id" => $cpaDB->contest_id,
-                "cap_current_status" => CpaLog::where('cap_id', $cpaDB->id)->latest()->first()->status,
+                "cap_current_status" => $status,
                 "cap_approved" => $cpaDB->approved,
                 "cap_approvedBy" => $cpaDB->approved_by_user,
                 'cap_images' => $this->convertFiles(
@@ -284,6 +282,4 @@ class ContestApplicationRepository extends GenericRepository
         )->first();
         return $cpaDB;
     }
-
-
 }

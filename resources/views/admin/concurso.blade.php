@@ -18,6 +18,7 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Inicio</th>
+                    <th>Fin votación</th>
                     <th>Fin</th>
                     <th>Activo</th>
                     <th>Acciones</th>
@@ -56,6 +57,7 @@
                     {"data": "id"},
                     {"data": "name"},
                     {"data": "start_date"},
+                    {"data": "votes_end_date"},
                     {"data": "end_date"},
                     {
                         "data": "active",
@@ -67,15 +69,22 @@
                         "data": "actions",
                         "render": function (data, type, row, meta) {
                             if(row.active == 1) {
-                                return `<button type="button" class="btn btn-block btn-primary">Pausar</button>`;
+                                return `<button type="button" class="btn btn-primary pausar">Pausar</button>
+                                 <button type="button" class="btn btn-success editar">Editar</button>`;
                             }
-                            return `<button type="button" class="btn btn-block btn-primary">Activar</button>`;
+                            return `<button type="button" class="btn btn-primary pausar">activar</button>
+                                    <button type="button" class="btn btn-success editar">Editar</button>`;
                         }
                     }
                 ]
             });
 
-            table.on( 'click', 'button', function () {
+            table.on('click','.editar', function() {
+                const data = table.row($(this).parents('tr')).data();
+                window.location.href = `{{url('admin/contest/editar')}}/${data.id}`;
+            });
+
+            table.on( 'click', '.pausar', function () {
                 const data = table.row( $(this).parents('tr') ).data();
                 const id = data.id;
                 axios.post('{{url('admin/contest/approve')}}',{

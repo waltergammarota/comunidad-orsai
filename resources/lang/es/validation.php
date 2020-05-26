@@ -146,6 +146,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'title' => 'título',
+        'fecha_publicacion' => 'fecha publicación',
+        'texto' => 'cuerpo',
+    ],
+
+
 
 ];

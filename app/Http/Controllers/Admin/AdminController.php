@@ -21,12 +21,19 @@ class AdminController extends Controller
         $totalTransactions = Transaction::count();
         $totalApplication = ContestApplicationModel::count();
         $totalViews = ContestApplicationModel::sum('views');
-        return view('admin.dashboard', compact('totalUsers','totalTransactions','totalApplication','totalViews'));
+        return view('admin.dashboard', compact('totalUsers', 'totalTransactions', 'totalApplication', 'totalViews'));
     }
 
     public function usuarios()
     {
         return view('admin.usuarios');
+    }
+
+    public function edit(Request $request)
+    {
+        $userId = $request->route('id');
+        $user = User::find($userId);
+        return view('admin.usuarios-form', compact('user'));
     }
 
     public function transacciones()
@@ -50,7 +57,29 @@ class AdminController extends Controller
             'draw' => $request->query('draw'),
             "recordsTotal" =>  User::count(),
             "recordsFiltered" =>  User::count(),
-            'data' => User::all()];
+            'data' => User::all()
+        ];
+        return response()->json($data);
+    }
+
+    public function bloquear(Request $request)
+    {
+        $userId = $request->id;
+        $user = User::find($userId);
+        $user->blocked = $user->blocked == 0 ? 1 : 0;
+        $user->save();
+        $data = ["success" => true, "message" => $user->blocked == 1 ? "Usuario bloqueado" : "Usuario desbloqueado"];
+        return response()->json($data);
+    }
+
+    public function eliminar(Request $request)
+    {
+        $userId = $request->id;
+        $user = User::find($userId);
+        $user->email = "deleted-" . $user->email;
+        $user->save();
+        User::destroy($userId);
+        $data = ["success" => true];
         return response()->json($data);
     }
 
@@ -60,7 +89,7 @@ class AdminController extends Controller
             'draw' => $request->query('draw'),
             "recordsTotal" =>  Transaction::count(),
             "recordsFiltered" =>  Transaction::count(),
-            'data' => Transaction::with('getFromUser')->with('getToUser')->with('capId:id,title')->get()
+            'data' => Transaction::with('getFromUser')->with('getToUser')->with('capId:id,title')->orderBy('id', 'desc')->get()
         ];
         return response()->json($data);
     }
@@ -88,5 +117,4 @@ class AdminController extends Controller
         ];
         return response()->json($data);
     }
-
 }
