@@ -6,7 +6,7 @@
     <div class="info_per_left">
         <div class="breadcrumbs">
             <div id="links_back">
-                <a href="{{url('noticias')}}">Novedades</a>
+                <a href="{{url('novedades')}}">Novedades</a>
                 <span>General</span>
             </div>
         </div>
