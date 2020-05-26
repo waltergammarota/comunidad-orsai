@@ -64,6 +64,15 @@
             <span class="gris no_hay_logos" style="display: none;">No hay más logos para cargar</span>
         </div>
     </section>
+
+    @else 
+    <section id="catalogo_logos" class="contenedor no_iniciado">
+        <div class="cont_cat_partipantes">
+            <div class="cat_partipantes">
+                <p>El concurso inicia cuando haya 10 postulaciones.</p>
+            </div>
+        </div>
+    </section>
     @endif
     <div class="contenedor mg_100 number_page">
         <span>1</span>

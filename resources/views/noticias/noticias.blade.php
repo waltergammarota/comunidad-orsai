@@ -4,7 +4,7 @@
 @section('content')
 <section id="intro" class="contenedor intro_gral noticias ">
     <div class="titulo">
-        <h1 class="span_h1">Noticias</h1>
+        <h1 class="span_h1">Novedades</h1>
     </div>
 
     <div class="cont_noticias">
@@ -21,8 +21,7 @@
                     <div>
                         <h2 class="titulo_noticias">{{$noticia->title}}</h2>
                         <p>{{Str::limit($noticia->copete, 100)}}</p>
-                        <span class="text_bold subrayado resaltado_amarillo">Leer
-                            noticia</span>
+                        <span class="text_bold subrayado resaltado_amarillo">Ver más</span>
                     </div>
                     @php
                     $image = $noticia->images()->first();

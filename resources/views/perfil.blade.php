@@ -1,17 +1,7 @@
 @extends('orsai-template')
 
 
-@section('content')
-    <style>
-        #panel_user_profile .select .in_sp .arm_sel {
-            display: block;
-        }
-        #boton_perfil {
-            font-size: 15px;
-            float: right;
-            cursor: pointer;
-        }
-    </style>
+@section('content') 
     <section id="intro" class="contenedor intro_gral panel info_personal">
         <div class="info_per_left">
             <div class="">
@@ -50,7 +40,7 @@
         <div class="form_left">
             <form action="#">
                 <div class="input_err">
-                    <label>Usuario*</label>
+                    <label>Usuario<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
                         <input type="text" name="userName" value="{{$username}}" id="userName">
                     </div>
@@ -60,7 +50,7 @@
 
             <form action="#">
                 <div class="input_err">
-                    <label>Correo electrónico*</label>
+                    <label>Correo electrónico<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
                         <input type="email" name="email" value="{{$email}}" disabled>
                     </div>
@@ -70,7 +60,7 @@
 
             <form action="#">
                 <div class="input_err">
-                    <label>Nombre*</label>
+                    <label>Nombre<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
                         <input type="text" name="name" value="{{$name}}" id="name">
                     </div>
@@ -79,7 +69,7 @@
             </form>
             <form action="#">
                 <div class="input_err">
-                    <label>Apellido*</label>
+                    <label>Apellido<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
                         <input type="text" name="lastName" value="{{$lastName}}" id="lastName">
                     </div>
@@ -88,7 +78,7 @@
             </form>
             <form action="#">
                 <div class="input_err select">
-                    <label class='oculto'>País</label>
+                    <label class='oculto'>País<strong>*</strong></label>
                     <div class="in_sp editar">
                         <div class="arm_sel">
                             <select name='country' id='pais_suscriptor'
@@ -109,7 +99,7 @@
 
             <form action="#">
                 <div class="input_err select">
-                    <label class='oculto'>Provincia/Estado</label>
+                    <label class='oculto'>Provincia/Estado<strong>*</strong></label>
                     <div class="in_sp editar">
                         <div class="arm_sel">
                             <select name='provincia' id='provincias'
@@ -128,7 +118,7 @@
 
             <form action="#">
                 <div class="input_err select">
-                    <label class='oculto'>Ciudad/Barrio</label>
+                    <label class='oculto'>Ciudad/Barrio<strong>*</strong></label>
                     <div class="in_sp editar">
                         <div class="arm_sel">
                             <select name='city' id='ciudades'
@@ -150,7 +140,7 @@
 
             <form action="#">
                 <div class="input_err">
-                    <label>Fecha de nacimiento*</label>
+                    <label>Fecha de nacimiento<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
                         <input type="date" name="birth_date"
                                value="{{$birthDate}}" id="birthDate">
@@ -160,7 +150,7 @@
             </form>
             <form action="#">
                 <div class="input_err">
-                    <label>Profesión*</label>
+                    <label>Profesión<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
                         <input type="text" name="profesion"
                                value="{{$profesion}}" id="profesion">
@@ -170,7 +160,7 @@
             </form>
             <form action="#">
                 <div class="input_err">
-                    <label>Descripción*</label>
+                    <label>Descripción<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
                         <input type="text" name="description"
                                value="{{$description}}" id="description">
@@ -181,7 +171,7 @@
 
             <form action="#">
                 <div class="input_err">
-                    <label>Whatsapp</label>
+                    <label>Whatsapp<strong>*</strong></label>
                     <div class="in_sp editar">
                         <input type="number" name="whatsapp" value="{{$whatsapp}}" id="whatsapp">
                     </div>
@@ -191,7 +181,7 @@
 
             <form action="#">
                 <div class="input_err">
-                    <label>Facebook</label>
+                    <label>Facebook<strong>*</strong></label>
                     <div class="in_sp editar">
                         <input type="text" name="facebook" value="{{$facebook}}" style="padding: 8px;" id="facebook">
                     </div>
@@ -200,7 +190,7 @@
             </form>
             <form action="#">
                 <div class="input_err">
-                    <label>Twitter</label>
+                    <label>Twitter<strong>*</strong></label>
                     <div class="in_sp editar">
                         <input type="text" name="twitter" value="{{$twitter}}" style="padding: 5px;" id="twitter">
                     </div>
@@ -209,7 +199,7 @@
             </form>
             <form action="#">
                 <div class="input_err">
-                    <label>Instagram</label>
+                    <label>Instagram<strong>*</strong></label>
                     <div class="in_sp editar">
                         <input type="text" name="instagram"
                                value="{{$instagram}}" style="padding: 5px;" id="instagram">
@@ -217,18 +207,18 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
-            <div id="boton_submit">
-                <button
-                    class="subrayado resaltado_amarillo text_bold"
-                    id="boton_perfil">
-                    Guardar
-                </button>
-            </div>
+        </div>
+        <div class="info_per_nota">
+            <strong>*</strong> = <span class="subrayado">Obligatorios para obtener fichas extra.</span>
+        </div>
+        <div id="boton_submit">
+            <button
+                class="subrayado resaltado_amarillo text_bold"
+                id="boton_perfil">
+                Guardar
+            </button>
         </div>
 
-        <div class="info_per_nota">
-            <span class="subrayado">* Obligatorios para obtener créditos extra.</span>
-        </div>
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>

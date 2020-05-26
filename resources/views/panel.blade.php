@@ -28,62 +28,73 @@
             <span>Información Personal</span>
         </div>
         <div>
-            <span>Proporciona tus datos personales e indicanos cómo podemos ponernos en contacto con vos.</span>
+            <span>Queremos saber más de vos. Completá tu perfil para obtener más fichas gratis.</span>
         </div>
         <div>
             <span href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</span>
         </div>
-    </a>
-    <a @if($postulacion['status']=="draft" || $postulacion['id']==0) href="{{url('postulacion')}}" @else
-        href="{{url('propuesta/'.$postulacion['id'])}}" @endif class="box_panel">
-        <div>
-            <span>Mis postulaciones</span>
-        </div>
-        <div>
-            @if($endUploadAppDate)
-            <span class="text_bold">¡Ups llegaste tarde! La etapa de postulación ha finalizado</span>
-            @else
-            @if($postulacion['id'] == 0)
-            <span class="text_bold">Podés editar tu propuesta de logo y sus características aquí.</span>
-            @endif
+    </a> 
 
-            @if($postulacion['id'] > 0)
-            <span class="text_bold">
-                Tienes una postulación en estado
-                @if($postulacion['status'] == "approved")
-                <strong class="resaltado_verde">{{__("status_application.{$postulacion['status']}")}}</strong>
-                @else
-                @if($postulacion['status'] == "draft")
-                <strong class="resaltado_rojo">{{__("status_application.{$postulacion['status']}")}}</strong>
-                @endif
-                @endif
-            </span>
-            @endif
-            @endif
+        @if(!$endUploadAppDate)
+            @if($postulacion['status']=="draft" || $postulacion['id']==0)
+                <a href="{{url('postulacion')}}" class="box_panel">
+            @else 
+                <a href="{{url('propuesta/'.$postulacion['id'])}}" class="box_panel">
+            @endif  
+        @else
+            <div class="box_panel">
+        @endif
+                <div>
+                    <span>Mis postulaciones</span>
+                </div>
+                <div>
+                    @if($endUploadAppDate)
+                    <span class="text_bold">¡Ups llegaste tarde! La etapa de postulación ha finalizado</span>
+                    @else
+                        @if($postulacion['id'] == 0)
+                        <span class="text_bold">Si querés participar del Concurso de Logos subí una propuesta con todos los detalles necesarios.</span>
+                        @else 
+                            @if($postulacion['id'] > 0)
+                            <span class="text_bold">
+                                Tienes una postulación en estado
+                                @if($postulacion['status'] == "approved")
+                                <strong class="resaltado_verde">{{__("status_application.{$postulacion['status']}")}}</strong>
+                                @else
+                                @if($postulacion['status'] == "draft")
+                                <strong class="resaltado_rojo">{{__("status_application.{$postulacion['status']}")}}</strong>
+                                @endif
+                                @endif
+                            </span>
+                            @endif
+                        @endif
+                    @endif
 
-        </div>
-        <div>
-            @if($endUploadAppDate)
-            <br>
-            @else
-            @if($postulacion['id'] == 0)
-            <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Enviar</span>
-            @else
-            @if($postulacion['status'] == "draft")
-            <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Modificar</span>
-            @else
-            <span href="{{url('propuesta/'.$postulacion['id'])}}" class="subrayado resaltado_amarillo">Ver</span>
-            @endif
-            @endif
-            @endif
-        </div>
-    </a>
+                </div>
+                <div>
+                    @if($endUploadAppDate)
+                    <br>
+                    @else
+                    @if($postulacion['id'] == 0)
+                    <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Enviar</span>
+                    @else
+                    @if($postulacion['status'] == "draft")
+                    <span href="{{url('postulacion')}}" class="subrayado resaltado_amarillo">Modificar</span>
+                    @else
+                    <span href="{{url('propuesta/'.$postulacion['id'])}}" class="subrayado resaltado_amarillo">Ver</span>
+                    @endif
+                    @endif
+                    @endif
+                </div> 
+        @if(!$endUploadAppDate)
+        @else
+            </div>
+        @endif   
     <a href="{{url('transacciones')}}" class="box_panel">
         <div>
-            <span>Transacciones de créditos</span>
+            <span>Mis fichas</span>
         </div>
         <div>
-            <span>Tenes <strong>{{$cantidadTxs}}</strong> transacciones realizadas.</span>
+            <span>Acá podés controlar el movimiento de tus fichas.</span>
         </div>
         <div>
             <span href="{{url('transacciones')}}" class="subrayado resaltado_amarillo">Ver</span>
@@ -107,7 +118,7 @@
 <div class="general_profile_msg popup top_msg">
     <div class="contenedor msg_position_rel">
         <div id="texto_exito">
-            <span>Te falta validar el mail.</span>
+            <span>Necesitamos que confirmes el registro de tu correo electrónico.<br/>Revisá tu casilla y activá tu cuenta para recibir tus primeras fichas gratis.</span>
         </div>
         <div class="cerrar">
             <span>X</span>

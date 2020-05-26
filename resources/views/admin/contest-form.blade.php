@@ -35,30 +35,30 @@ Crear concurso
                         value="{{$contest?$contest->name:old('name')}}">
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Fecha inicio Concurso</label>
+                            <label for="exampleInputEmail1">Inicio del concurso</label>
                             <input type="date" class="form-control" id="exampleInputEmail1" name="start_date"
                                 value="{{$contest?$contest->start_date->format('Y-m-d'):old('start_date')}}">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Fecha Fin Votación</label>
-                            <input type="date" class="form-control" id="exampleInputEmail1" name="votes_end_date"
-                                value="{{$contest?$contest->votes_end_date->format('Y-m-d'):old('votes_end_date')}}">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Fecha Fin Concurso</label>
+                            <label for="exampleInputEmail1">Fin del concurso</label>
                             <input type="date" class="form-control" id="exampleInputEmail1" name="end_date"
                                 value="{{$contest?$contest->end_date->format('Y-m-d'):old('end_date')}}">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Fecha Fin Postulaciones</label>
+                            <label for="exampleInputEmail1">Fin de la votación</label>
+                            <input type="date" class="form-control" id="exampleInputEmail1" name="votes_end_date"
+                                value="{{$contest?$contest->votes_end_date->format('Y-m-d'):old('votes_end_date')}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Fin de las postulaciones</label>
                             <input type="date" class="form-control" id="exampleInputEmail1" name="end_upload_app"
                                 value="{{$contest?$contest->end_upload_app->format('Y-m-d'):old('end_upload_app')}}">
                         </div>

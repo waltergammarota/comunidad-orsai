@@ -31,6 +31,6 @@ class ActivationMail extends Mailable
     public function build()
     {
         $data = ["name" => $this->name, "lastname" => $this->lastname, "token" => $this->token];
-        return $this->subject('Activación de cuenta')->view('mails.activation-mail', $data);
+        return $this->subject('Activá tu cuenta para ser miembro de Fundación Orsai')->view('mails.activation-mail', $data);
     }
 }

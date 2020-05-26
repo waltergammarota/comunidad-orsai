@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <section id="intro" class="contenedor intro_gral">
+    <section class="contenedor intro_gral">
         <div class="grid_70">
             <span class="span_h1">{{$pagina->title}}</span>
             <h1>{{$pagina->copete}}</h1>

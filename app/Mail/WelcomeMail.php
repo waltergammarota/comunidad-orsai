@@ -38,8 +38,8 @@ class WelcomeMail extends Mailable
             "lastname" => $this->lastname,
             "amount" => $this->amount,
             "url" => $this->url
-        ];
-        return $this->subject('Bienvenida a Fundación Orsai')->view(
+        ]; 
+        return $this->subject('Bienvenido ' . $data['name'] . ' a Fundación Orsai')->view(
             'mails.puntos-bienvenida',
             $data
         );

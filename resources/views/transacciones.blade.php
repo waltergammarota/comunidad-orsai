@@ -8,11 +8,11 @@
             <div class="">
                 <div id="links_back">
                     <a href="{{url('panel')}}">Panel de usuario</a>
-                    <span>Transacciones de créditos</span>
+                    <span>Transacciones de fichas</span>
                 </div>
                 <div id="user_alias">
                     <h1>Transacciones <span
-                            class="span_block">de Créditos</span></h1>
+                            class="span_block">de fichas</span></h1>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Información</th>
-                        <th>Créditos</th>
+                        <th>Fichas</th>
                         <th>Fecha</th>
                     </tr>
                     </thead>

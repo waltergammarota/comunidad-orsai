@@ -33,7 +33,7 @@ class RejectApplicationMail extends Mailable
             "email" => $this->email,
             "comment" => $this->comment,
         ];
-        return $this->subject('Su postulación a Orsai fue rechazada')->view(
+        return $this->subject('Tu propuesta fue rechazada')->view(
             'mails.reject-application',
             $data
         );

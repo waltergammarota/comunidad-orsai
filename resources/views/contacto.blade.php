@@ -64,8 +64,7 @@
                 </form>
             </div>
         </div>
-        <div class="publicidad_noticia">
-            <div></div>
+        <div class="publicidad_noticia"> 
         </div>
     </section>
 
