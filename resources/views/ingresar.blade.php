@@ -34,8 +34,7 @@
                 </button>
                 <!-- <div class="msg"></div>
                     <img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /> -->
-            </div>
-            <div class="line_dashed"></div>
+            </div> 
             <div class="forg_pass">
                 <a href="{{url('restablecer-clave')}}"
                    class="subrayado resaltado_gris">No recuerdo la
