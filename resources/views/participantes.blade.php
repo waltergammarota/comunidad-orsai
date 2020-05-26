@@ -69,7 +69,7 @@
     <section id="catalogo_logos" class="contenedor no_iniciado">
         <div class="cont_cat_partipantes">
             <div class="cat_partipantes">
-                <p>El concurso inicia cuando haya 10 postulaciones.</p>
+                <p>El concurso todavía no comenzó.</p>
             </div>
         </div>
     </section>

@@ -2471,10 +2471,18 @@ transform: translate(-50%, -50%);
 .form_reg form .select select, .form_reg form .input_err input {
     width:100%;
     height:40px;
-    border:1px solid #808080;
+    border:0;
+    border-bottom:1px dashed #808080;
     text-indent: 10px;
     font-size:16px;
 }
+.form_reg form textarea { 
+    border: 0;
+    border-bottom:1px dashed #808080;
+    text-indent: 10px;
+    font-size:16px;
+}
+
 
 .form_reg form .input_err input::-webkit-input-placeholder { /* Edge */
     color: #777777;
