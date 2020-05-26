@@ -8,11 +8,10 @@
             <div class="">
                 <div id="links_back">
                     <a href="{{url('panel')}}">Panel de usuario</a>
-                    <span>Transacciones de fichas</span>
+                    <span>Mis fichas</span>
                 </div>
                 <div id="user_alias">
-                    <h1>Transacciones <span
-                            class="span_block">de fichas</span></h1>
+                    <h1>Mis fichas</h1>
                 </div>
             </div>
         </div>

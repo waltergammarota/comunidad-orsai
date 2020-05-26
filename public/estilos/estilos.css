@@ -2623,6 +2623,12 @@ transform: translate(-50%, -50%);
     -o-transform-origin: 0 0;
     transform-origin: 0 0;
 }
+.form_reg form .input_err{
+    padding-bottom: 30px;
+}
+#login_js .input_err{
+    padding-bottom: 10px;
+}
 .form_reg form .input_err:nth-child(even), .form_reg form .select{
     padding-left:35px;
 }
@@ -2655,7 +2661,8 @@ transform: translate(-50%, -50%);
 }
 .form_reg form .select .arm_sel select{ 
     background: none;
-    border:none;
+    border:0;
+    border-bottom: 1px dashed #808080;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -2680,8 +2687,7 @@ transform: translate(-50%, -50%);
 
 .form_reg form .select .arm_sel{
     position:relative;
-    background: #fff;
-    border:1px solid #808080;
+    background: #fff; 
     height:40px;
     cursor:pointer;
     margin-top:0px;
