@@ -276,9 +276,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="aclara"> 
+                <div class="aclara">
                     <strong>*</strong> = <span class="subrayado">Obligatorios para postularse</span>
-                </div> 
+                </div>
                 <div id="boton_submit">
                     <button
                         class="subrayado resaltado_amarillo text_bold"
@@ -365,7 +365,7 @@
             if(type == "logo")  {
                 createErrorMessage($('#file-1-sp'), "El logo debe ser 1024 x 1024", "errorLogo");
             } else {
-                createErrorMessage($('#sp_aplicaciones'), "Las imágenes deben ser 1024 x 1024", "errorMinis");
+                //createErrorMessage($('#sp_aplicaciones'), "Las imágenes deben ser 1024 x 1024", "errorMinis");
             }
             return true;
         }

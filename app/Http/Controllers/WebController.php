@@ -18,8 +18,33 @@ class WebController extends Controller
     public function index()
     {
         $data = $this->getUserData();
-        $data['novedades']= ContenidoModel::latest()->limit(2)->get();
+        $data['novedades']= $this->getLatestNews(2);
         return view('index', $data);
+    }
+
+    private function getLatestNews($qty) {
+        $novedades = ContenidoModel::where([
+            "visible" => 1,
+            "tipo" => "noticia"
+        ])->with('images')->latest()->limit($qty)->get();
+        $noticias = [];
+        foreach($novedades as $novedad) {
+            $row = new \stdClass();
+            $row->id = $novedad->id;
+            $row->slug = $novedad->slug;
+            $row->title = $novedad->title;
+            $row->autor = $novedad->autor;
+            $row->fecha_publicacion = $novedad->fecha_publicacion;
+            $row->copete = $novedad->copete;
+            $row->tipo = $novedad->tipo;
+            $row->texto = $novedad->texto;
+            $row->raw_images = $novedad->images()->get();
+            foreach($row->raw_images as $imagen) {
+                $row->imagenes[] = url('storage/images/' . $imagen->name . "." . $imagen->extension);
+            }
+            $noticias[] = $row;
+        }
+        return $noticias;
     }
 
     public function restablecer_clave()
