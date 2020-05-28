@@ -10,8 +10,13 @@
                     <div class="gris">
                         <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
                             <div class="user_img">
-                                <img src="{{url('img/participantes/participante.jpg')}}"
-                                     alt="{{ucfirst($propuesta['owner']['name'])}}"/>
+                                @if($avatar)
+                                    <img src="{{$avatar}}"
+                                         alt="{{ucfirst($propuesta['owner']['name'])}}"/>
+                                @else
+                                    <img src="{{url('img/participantes/participante.jpg')}}"
+                                         alt="{{ucfirst($propuesta['owner']['name'])}}"/>
+                                @endif
                             </div> {{ucfirst($propuesta['owner']['name'])}}
                         </a>
                     </div>
@@ -266,8 +271,7 @@
                     console.log(data);
                     if (data.available == 0) {
                         showAlert("Llegaste al límite de votaciones por propuesta");
-                    }
-                    else if (data.balance == 0) {
+                    } else if (data.balance == 0) {
                         showAlert("No te alcanzan las fichas");
                     } else {
                         showAlert("La cantidad es incorrecta.  El mínimo es 50 y el máximo 450 por propuesta");

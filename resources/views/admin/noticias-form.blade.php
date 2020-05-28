@@ -85,9 +85,14 @@
                                 @error('texto') <span class="help-block">{{$message}}</span> @enderror
                             </div>
                             <div class="form-check">
+                                @if($contenido)
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
-                                       name="visible" {{$contenido && $contenido->visible?"checked":""}}>
-                                <label class="form-check-label" for="exampleCheck1">Visible</label>
+                                       name="visible" {{$contenido->visible?"checked":""}}>
+                                    @else
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
+                                           name="visible" checked>
+                                @endif
+                                    <label class="form-check-label" for="exampleCheck1">Visible</label>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Imagen</label>

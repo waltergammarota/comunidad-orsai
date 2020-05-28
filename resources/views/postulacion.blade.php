@@ -276,9 +276,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="aclara"> 
+                <div class="aclara">
                     <strong>*</strong> = <span class="subrayado">Obligatorios para postularse</span>
-                </div> 
+                </div>
                 <div id="boton_submit">
                     <button
                         class="subrayado resaltado_amarillo text_bold"
@@ -363,9 +363,9 @@
                 return true;
             }
             if(type == "logo")  {
-                createErrorMessage($('#file-1-sp'), "El logo debe ser 1024 x 1024", "errorLogo");
+                //createErrorMessage($('#file-1-sp'), "El logo debe ser 1024 x 1024", "errorLogo");
             } else {
-                createErrorMessage($('#sp_aplicaciones'), "Las imágenes deben ser 1024 x 1024", "errorMinis");
+                //createErrorMessage($('#sp_aplicaciones'), "Las imágenes deben ser 1024 x 1024", "errorMinis");
             }
             return true;
         }
@@ -400,7 +400,7 @@
                 createErrorMessage(titleElement, "El título es obligatorio", "errorTitle");
             }
             if (descriptionElement.val() == "") {
-                createErrorMessage(descriptionElement, "El título es obligatorio", "errorDescription");
+                createErrorMessage(descriptionElement, "La descripción es obligatorio", "errorDescription");
             }
             return false;
         };
