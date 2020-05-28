@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Classes\User;
+use App\Databases\ContestApplicationModel;
 use App\Databases\Transaction;
 use Illuminate\Support\Facades\DB;
 
@@ -124,9 +125,7 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function getTotalSupply()
     {
-        $totalVotes = DB::table('transactions')->where('type', 'TRANSFER')->sum(
-            'amount'
-        );
+        $totalVotes = ContestApplicationModel::where("approved", 1)->sum("votes");
 
         return $totalVotes;
     }

@@ -22,7 +22,7 @@ class PropuestaController extends Controller
         $propuestaId = $request->route('id');
         $propuesta = $this->findPropuesta($propuestaId);
         $user = Auth::user();
-        if ($propuesta['current_status'] != "approved" && $user->role != "admin") {
+        if ($propuesta['current_status'] != "approved" && $user->role != "admin" && $propuesta['user_id'] != $user->id) {
             return Redirect::to('panel');
         }
         $this->addView($propuestaId, $request);

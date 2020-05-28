@@ -5,7 +5,8 @@
     <section id="intro" class="contenedor intro_gral panel">
         <div class="user_prop">
             <div id="user_img">
-                <img src="img/participantes/participante.jpg" alt="Imagen usuario">
+                <img src="{{$avatar}}"
+                     alt="{{'@'.ucfirst($username)}}">
             </div>
             <div id="user_alias">
                 <h1>{{'@'.ucfirst($username)}}</h1>
