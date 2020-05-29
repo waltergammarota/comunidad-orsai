@@ -2082,10 +2082,15 @@ transform: translateY(-50%);
 
 .global_prop .prop_logos #logo_lg{
     /* padding: 10px; */
+    min-height: 330px;
+    position: relative;
 }
 .global_prop .prop_logos #logo_lg img{
     cursor:pointer;
     border:1px solid #cccccc;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .global_prop .prop_logos #logo_sm{
     width:100%;
@@ -2096,13 +2101,18 @@ transform: translateY(-50%);
     width:30%;
     margin: 4% 1%;
     display: inline-block;
+    min-height: 98px;
+    position: relative;
     /* padding:10px; */
 
 }
 .global_prop .prop_logos #logo_sm div img{
     width:100%;
     border:1px solid #cccccc;
-    border-top:0px;
+    border-top:0px; 
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #back_listado{

@@ -22,9 +22,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Titulo</th>
-                    <th>Usuario</th>
-                    <th>Descripción</th>
-                    <th>Link</th>
+                    <th>Usuario</th> 
                     <th>Votos</th>
                     <th>Status</th>
                     <th>Fecha</th>
@@ -151,15 +149,7 @@
                         "render": function (data) {
                             return data == null ? "" : data.name + data.lastName;
                         }
-                    },
-                    {"data": "description"},
-                    {
-                        "data": "link",
-                        "render": function (data) {
-                            const link = data == null? "": data.substring(0,17) + '...';
-                            return data == null ? "" : `<a href="${data}" target="_blank">${link}</a>`;
-                        }
-                    },
+                    }, 
                     {
                         "data": "votes",
                         "render": function (data) {

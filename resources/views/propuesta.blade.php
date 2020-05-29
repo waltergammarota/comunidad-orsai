@@ -50,23 +50,23 @@
                     <p> {{$propuesta['description']}}
                         <br>
                     </p>
+                    @if(!empty($propuesta['pdfs']))
                     <div id="links_descarga">
                         <div>
-                            @if(!empty($propuesta['pdfs']))
                                 <a href="{{url('storage/pdf/'.$propuesta['pdfs'][0]['name'].".".$propuesta['pdfs'][0]['extension'])}}"
                                    class="subrayado gris" download>Descargar
                                     PDF</a>
-                            @endif
                         </div> 
                     </div>
+                    @endif
+                    @if($propuesta['link'] != "")
                     <div id="links_descarga"> 
                         <div>
-                            @if($propuesta['link'] != "")
                                 <a href="{{$propuesta['link']}}"
                                    class="subrayado gris">Más información</a>
-                            @endif
                         </div>
                     </div>
+                            @endif
                 </div>
                 <div id="bt_votar">
                     <form action="{{url('votar')}}" method="POST" id="form_votacion">
