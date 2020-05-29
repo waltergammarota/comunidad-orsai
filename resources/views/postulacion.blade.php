@@ -216,7 +216,7 @@
                                     </div>
                                 </div>
                             </div>
-                                <span class="logo_sp_size" id="file-1-sp">Formato: 1024x1024px - JPG/PNG - Hasta 25MB</span>
+                                <span class="logo_sp_size" id="file-1-sp">Formato Recomendado: 1024x1024px - Hasta 25MB</span>
                             @if ($errors->has('images.*') || $errors->has('images'))
                                 <span class="error">
                                     <strong>Las aplicaciones de logo son obligatorias</strong>

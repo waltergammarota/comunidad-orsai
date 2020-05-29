@@ -57,11 +57,13 @@
                                    class="subrayado gris" download>Descargar
                                     PDF</a>
                             @endif
-                        </div>
+                        </div> 
+                    </div>
+                    <div id="links_descarga"> 
                         <div>
                             @if($propuesta['link'] != "")
                                 <a href="{{$propuesta['link']}}"
-                                   class="subrayado gris">{{$propuesta['link']}}</a>
+                                   class="subrayado gris">Más información</a>
                             @endif
                         </div>
                     </div>

@@ -15,10 +15,10 @@
                                 <h3>{{Str::limit($item['user'], 20)}}</h3>
                             </div>
                             <div class="img_autor">
-                                @if($item['avatar'] != null)
+                                @if($item['avatar'] != null) 
                                     <img
-                                        src="{{$item['avatar']}}"
-                                        alt="">
+                                        
+                                        src="{{url('storage/images/'.$item['avatar']['name'].'.'.$item['avatar']['extension'])}}" alt="">
                                 @else
                                     <img
                                         src="{{url('img/participantes/usuario.png')}}"
