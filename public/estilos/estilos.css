@@ -2084,17 +2084,18 @@ transform: translateY(-50%);
     /* padding: 10px; */
     min-height: 330px;
     position: relative;
-}
+    border: 1px solid #cccccc;
+    overflow: hidden;
+} 
 .global_prop .prop_logos #logo_lg img{
     cursor:pointer;
-    border:1px solid #cccccc;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
 }
 .global_prop .prop_logos #logo_sm{
     width:100%;
-    /* border:1px solid #cccccc; */
+    border:1px solid #cccccc;
     font-size:0;
 }
 .global_prop .prop_logos #logo_sm div{
@@ -2103,12 +2104,13 @@ transform: translateY(-50%);
     display: inline-block;
     min-height: 98px;
     position: relative;
+    border: 1px solid #cccccc;
+    overflow: hidden;
     /* padding:10px; */
 
 }
 .global_prop .prop_logos #logo_sm div img{
-    width:100%;
-    border:1px solid #cccccc;
+    width:100%; 
     border-top:0px; 
     position: absolute;
     top: 50%;
