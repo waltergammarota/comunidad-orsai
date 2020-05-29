@@ -174,7 +174,7 @@ class AccountController extends Controller
         $request->validate(
             [
                 'title' => 'required|min:1|max:255',
-                'description' => 'required|min:1|max:64',
+                'description' => 'required|min:1|max:280',
                 'logo' => 'required|array|min:1|max:1',
                 'logo.*' => 'image|required|max:5120',
                 'images' => 'array',
