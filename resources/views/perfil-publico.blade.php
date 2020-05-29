@@ -14,7 +14,7 @@
         </div>
     </section>
 
-    <section id="panel_user_profile" class="contenedor">
+    <section id="panel_user_profile" class="contenedor profile_public">
         <div class="form_left">
             <div class="input_err">
                 <label>Usuario*</label>
@@ -22,14 +22,7 @@
                     <p>{{$user->userName}}</p>
                 </div>
                 <div class="line_dashed"></div>
-            </div>
-            <div class="input_err">
-                <label>Correo electrónico*</label>
-                <div class="in_sp obligatorio editar">
-                    <p>{{$user->email}}</p>
-                </div>
-                <div class="line_dashed"></div>
-            </div>
+            </div> 
             <div class="input_err">
                 <label>Nombre*</label>
                 <div class="in_sp obligatorio editar">

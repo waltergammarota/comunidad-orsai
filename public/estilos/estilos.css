@@ -33,10 +33,10 @@ a:link a:visited, a:active {
     background-color: #fafa00;
 }
 .resaltado_verde{
-    background-color: #00fa03;
+    background-color: #d2d2d2;
 }
 .resaltado_rojo{
-    background-color: #fa00b2;
+    background-color: #d2d2d2;
 }
 .subrayado{
     text-decoration-line: underline;
@@ -1494,16 +1494,19 @@ footer .sub_footer .sub_footer_ri ul li a{
 
 .contenedor_logos_participantes .logo_particantes .borde_logo .logo_img{
     width:100%;
+    min-height: 179px;
 }
 .contenedor_logos_participantes .logo_particantes .borde_logo .logo_img img{
-    width:100%;
-    height:100%;
+    width:100%; 
     object-fit: cover;
     -ms-transition: opacity 0.35s;
     transition: opacity 0.35s;
     -webkit-transition: opacity 0.35s;
     -moz-transition: opacity 0.35s;
-    -o-transition: opacity 0.35s;
+    -o-transition: opacity 0.35s; 
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 
@@ -1620,9 +1623,15 @@ footer .sub_footer .sub_footer_ri ul li a{
     display:inline-block;
 }
 .contenedor_logos_participantes .logo_particantes .borde_logo .cont_autor .img_autor{
-    width:20%;
+    width:30px;
+    height:30px;
+    border-radius: 50%;
     text-align: right;
     display:inline-block;
+    overflow: hidden;
+}
+.contenedor_logos_participantes .logo_particantes .borde_logo .cont_autor .img_autor img{ 
+    width:100%;
 }
 .contenedor_logos_participantes .logo_particantes .borde_logo .cont_autor .autor h2{
     font-size:15px;
@@ -1736,6 +1745,7 @@ transform: translateY(-50%); */
     width:100%;
     font-size:0;
     padding-top:50px;
+    margin-top:20px;
 }
 
 .global_prop .prop_datos #links_descarga div{
@@ -3884,10 +3894,10 @@ background-color: #f5f5f5;
 text-align: center; 
 }
 #err_msg > div div:nth-child(1) span{
-    font-size:16px;
+    font-size:14px;
     color:black;
     display:block;
-    text-align: left;
+    text-align: center;
     margin-bottom:20px;
 }
 #err_msg > div div:nth-child(2) span{
@@ -4458,6 +4468,9 @@ margin-bottom: 10px;
 display: none;
 }
 
+.profile_public .input_err .line_dashed{
+    display:block !important;
+}
 #panel_user_profile .select .in_sp .pais_select{
     display:inline-block;
     margin:0;
