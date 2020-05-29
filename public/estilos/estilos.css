@@ -2417,7 +2417,7 @@ transform: translate(-50%, -50%);
 .carrousel_cont_prop .logo_particantes .logo_img{
     display:inline-block; 
     height: 152px;
-    width: 152px;
+    width: 150px;
     position: relative;
     overflow: hidden;
 }
