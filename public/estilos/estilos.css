@@ -2410,9 +2410,22 @@ transform: translate(-50%, -50%);
 .carrousel_cont_prop .logo_particantes a{
     display:inline-block;
     border:1px solid #cccccc;
-    
+    height: 152px;
+    width: 152px;
+    position: relative;
 }
-
+.carrousel_cont_prop .logo_particantes .logo_img{
+    display:inline-block; 
+    height: 152px;
+    width: 152px;
+    position: relative;
+    overflow: hidden;
+}
+.carrousel_cont_prop .logo_particantes .logo_img img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
 @media (max-width:991px){
     .carrousel_cont_prop .logo_particantes{
         padding:5px;
