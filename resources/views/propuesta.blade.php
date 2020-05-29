@@ -10,9 +10,9 @@
                     <div class="gris">
                         <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
                             <div class="user_img">
-                                @if($avatar)
-                                    <img src="{{$avatar}}"
-                                         alt="{{ucfirst($propuesta['owner']['name'])}}"/>
+                                @if($user_avatar)
+                                    <img
+                                        src="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}" alt="{{ucfirst($propuesta['owner']['name'])}}">
                                 @else
                                     <img src="{{url('img/participantes/participante.jpg')}}"
                                          alt="{{ucfirst($propuesta['owner']['name'])}}"/>
@@ -56,11 +56,11 @@
                                 <a href="{{url('storage/pdf/'.$propuesta['pdfs'][0]['name'].".".$propuesta['pdfs'][0]['extension'])}}"
                                    class="subrayado gris" download>Descargar
                                     PDF</a>
-                        </div> 
+                        </div>
                     </div>
                     @endif
                     @if($propuesta['link'] != "")
-                    <div id="links_descarga"> 
+                    <div id="links_descarga">
                         <div>
                                 <a href="{{$propuesta['link']}}"
                                    class="subrayado gris">Más información</a>

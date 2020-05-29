@@ -28,6 +28,7 @@ class PropuestaController extends Controller
         $this->addView($propuestaId, $request);
         $data = $this->getUserData();
         $data['propuesta'] = $propuesta;
+        $data['user_avatar'] = User::find($propuesta['owner']['id'])->avatar()->first();
         $data['txs'] = $this->votes($propuestaId);
         $data['used'] = Transaction::where(
             [
