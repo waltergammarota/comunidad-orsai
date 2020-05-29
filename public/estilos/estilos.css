@@ -2094,8 +2094,7 @@ transform: translateY(-50%);
     transform: translateY(-50%);
 }
 .global_prop .prop_logos #logo_sm{
-    width:100%;
-    border:1px solid #cccccc;
+    width:100%; 
     font-size:0;
 }
 .global_prop .prop_logos #logo_sm div{
@@ -2106,6 +2105,7 @@ transform: translateY(-50%);
     position: relative;
     border: 1px solid #cccccc;
     overflow: hidden;
+    cursor:pointer;
     /* padding:10px; */
 
 }
