@@ -9,6 +9,7 @@ use App\Jobs\ProcessApproveMail;
 use App\Jobs\ProcessRejectMail;
 use App\Jobs\ProcessResetPasswordMail;
 use App\Jobs\ProcessSendContactData;
+use App\Jobs\ProcessSendMailToAdministrator;
 use App\Jobs\ProcessWelcomePointsMail;
 use App\Mail\ApproveApplicationMail;
 use Illuminate\Support\Facades\Mail;
@@ -39,9 +40,14 @@ class Mailer
         return true;
     }
 
-    public function sendApproveMail($email)
+    public function sendApproveMail($email, $cpaId)
     {
-        ProcessApproveMail::dispatch($email);
+        ProcessApproveMail::dispatch($email, $cpaId);
+        return true;
+    }
+
+    public function sendMailToAdministrator($email, $cpaId, $name, $lastName) {
+        ProcessSendMailToAdministrator::dispatch($email, $cpaId, $name, $lastName);
         return true;
     }
 

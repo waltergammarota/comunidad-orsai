@@ -156,6 +156,11 @@ Route::get(
 )->name('participantes');
 
 Route::get(
+    '/participantes/pagina/{page?}/{orden?}/',
+    'WebController@participantes'
+)->name('participantes-pagina');
+
+Route::get(
     '/participantes/{orden?}/{limit}/{offset}',
     'WebController@getMore'
 )->name('participantes-more');

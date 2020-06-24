@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', 'Propuesta')
 
 @section('content')
     <section id="intro" class="contenedor intro_propuesta">
@@ -173,12 +174,12 @@
                     <div class="owl-carousel items">
                         @foreach($related as $item)
                             <div class="logo_particantes">
-                                <a href="{{url('propuesta/'.$item->id)}}"> 
+                                <a href="{{url('propuesta/'.$item->id)}}">
                                     <div class="logo_img">
                                         <img
                                             src="{{url('storage/logo/'.$item['logos'][0]['name'].".".$item['logos'][0]['extension'])}}"
                                             alt="{{$item->title}}">
-                                    </div> 
+                                    </div>
                                 </a>
                             </div>
                         @endforeach

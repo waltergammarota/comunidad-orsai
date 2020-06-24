@@ -1,7 +1,8 @@
 @extends('orsai-template')
 
+@section('title', 'Perfil')
 
-@section('content') 
+@section('content')
     <section id="intro" class="contenedor intro_gral panel info_personal">
         <div class="info_per_left">
             <div class="">

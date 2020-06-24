@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', 'Inicio')
 
 @section('content')
     <section id="intro" class="contenedor home">
@@ -205,18 +206,18 @@
                     <a href="{{url('novedades')}}" class="subrayado">Novedades</a>
                 </h2>
             </div>
-            <div class="contenedor_gral_hist"> 
+            <div class="contenedor_gral_hist">
                 @foreach($novedades as $novedad)
                     <article class="articles_column">
                         <a href="{{url('novedades/'.$novedad->slug)}}">
                             <div class="cuerpo_texto">
                                 <div>
-                                    <h2 class="titulo_noticias">{{$novedad->title}}</h2> 
+                                    <h2 class="titulo_noticias">{{$novedad->title}}</h2>
                                     <span class="text_bold subrayado resaltado_amarillo">Ver más</span>
                                 </div>
                             </div>
                         </a>
-                    </article> 
+                    </article>
                 @endforeach
             </div>
         </section>

@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', 'Registrarse')
 
 @section('content')
     <section id="intro" class="contenedor intro_registro">
@@ -122,8 +123,8 @@
             <div id="captcha_div">
                 <div class="g-recaptcha" data-callback="recaptchaCallback"
                      data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
-            </div> 
-                
+            </div>
+
             <div id="boton_submit">
                 <button class="subrayado resaltado_amarillo text_bold"
                         id="botonito">

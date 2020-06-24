@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', ucfirst($pagina->title))
 
 @section('content')
 
@@ -7,8 +8,8 @@
         <div class="titulo tit_term">
             <h1 class="span_h1">{{$pagina->title}}</h1>
             <p><strong>{{$pagina->copete}}</strong></p>
-        </div>   
-        <div class="cuerpo_texto">  
+        </div>
+        <div class="cuerpo_texto">
             {!! $pagina->texto !!}
         </div>
     </section>

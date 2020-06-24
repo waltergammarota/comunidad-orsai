@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', 'Concurso finalizado')
 
 @section('content')
 <section id="intro" class="contenedor intro_gral">

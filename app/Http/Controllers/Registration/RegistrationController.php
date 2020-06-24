@@ -128,8 +128,13 @@ class RegistrationController extends Controller
 
 
     public function registrarse(Request $request) {
-        $data = $this->getUserData();
-        $data['paises'] = PaisModel::orderBy('peso','desc')->orderBy('nombre','asc')->get();
-        return view('registrarse', $data);
+        if(!Auth::check()) {
+            $data = $this->getUserData();
+            $data['paises'] = PaisModel::orderBy('peso','desc')->orderBy('nombre','asc')->get();
+            return view('registrarse', $data);
+        } else {
+            return Redirect::to("panel");
+        }
+
     }
 }
