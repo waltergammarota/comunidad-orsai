@@ -54,8 +54,7 @@
                     @if(!empty($propuesta['pdfs']))
                     <div id="links_descarga">
                         <div>
-                                <a href="{{url('storage/pdf/'.$propuesta['pdfs'][0]['name'].".".$propuesta['pdfs'][0]['extension'])}}"
-                                   class="subrayado gris" download>Descargar
+                                <a href="{{url('storage/pdf/'.$propuesta['pdfs'][0]['name'].".".$propuesta['pdfs'][0]['extension'])}}" target="_blank" class="subrayado gris">Descargar
                                     PDF</a>
                         </div>
                     </div>
@@ -63,7 +62,7 @@
                     @if($propuesta['link'] != "")
                     <div id="links_descarga">
                         <div>
-                                <a href="{{$propuesta['link']}}"
+                                <a href="{{$propuesta['link']}}" target="_blank"
                                    class="subrayado gris">Más información</a>
                         </div>
                     </div>

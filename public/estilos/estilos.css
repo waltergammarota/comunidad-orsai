@@ -554,7 +554,7 @@ header nav #desplegable div ul li{
         display:inline;
     }
 }
-#intro p{
+/* #intro p{
     font-size: 14px;
     line-height: 20px;
     margin-bottom: 14px;
@@ -564,7 +564,7 @@ header nav #desplegable div ul li{
     display:inline-block;
     font-weight: 400;
     font-style: italic;
-}
+} */
 .texto_noticia a{
     font-style: normal !important;
     text-decoration: underline;
@@ -598,7 +598,7 @@ header nav #desplegable div ul li{
     font-size: 18px;
     font-weight:700;
 }
-@media(max-width:768px){
+/* @media(max-width:768px){
     #intro h1{
         font-size:36px;
         line-height: 36px;
@@ -606,7 +606,7 @@ header nav #desplegable div ul li{
     #intro p{
         font-size:24px;
     }
-}
+} */
 
 
 .articles_adduser article{
@@ -692,6 +692,9 @@ header nav #desplegable div ul li{
     display: inline-block;
     vertical-align: top;
     padding-right: 20px;
+}
+.articles_novedades .titulo_noticias{
+    font-weight: 400;
 }
 /* Historia Orsai*/
 .articles_historia{
@@ -1107,13 +1110,21 @@ footer .sub_footer .sub_footer_ri ul li a{
 #catalogo_logos #cargar_mas span{
     user-select: none;
 }
-
-
 #catalogo_logos #cargar_mas .no_hay_logos{
     display:none;
     font-size:14px;
     margin-top:10px;
 }
+#catalogo_logos .pagination {
+    float: right;
+}
+#catalogo_logos .pagination ul > li {
+    list-style: none;
+    display: inline;
+}
+
+        
+    </style>
 .cont_cat_partipantes{
     font-size:0;
     padding-bottom:35px;
@@ -3481,9 +3492,9 @@ ul li .li_texto + .li_texto {
 }
 #intro.intro_gral .span_h1, .intro_gral .span_h1.con_fin {
     display:inline-block;
-    font-size:34px;
+    font-size:32px;
     font-weight: 700;
-    line-height: 36px;
+    line-height: 38px;
     margin-bottom:25px;
 }
 

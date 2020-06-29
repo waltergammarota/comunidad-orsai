@@ -26,7 +26,7 @@ class ProcessSendMailToAdministrator implements ShouldQueue
      */
     public function __construct($email, $cpaId, $name, $lastName)
     {
-        $this->administratorEmail = env('ADMINISTRATOR_EMAIL', 'kelsie.kutch3@ethereal.email');
+        $this->administratorEmail = env('ADMINISTRATOR_EMAIL', 'info@fundacionorsai.org.ar');
         $this->email = $email;
         $this->cpaId = $cpaId;
         $this->name = $name;

@@ -101,16 +101,6 @@
 @endsection
 
 @section('footer')
-    <style>
-        .pagination {
-            float: right;
-        }
-
-        ul > li {
-            list-style: none;
-            display: inline;
-        }
-    </style>
     <script>
         $({Counter: 0}).animate({
             Counter: $('.post').text()

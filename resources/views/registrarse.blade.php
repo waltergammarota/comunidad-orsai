@@ -5,7 +5,7 @@
 @section('content')
     <section id="intro" class="contenedor intro_registro">
         <div>
-            <h1>Iniciar <span class="span_block">membrecia</span></h1>
+            <h1>Iniciar <span class="span_block">membresía</span></h1>
         </div>
         <div>
             <p class="texto_italica">
