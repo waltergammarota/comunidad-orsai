@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', 'Contacto')
 
 @section('content')
     <section id="intro" class="contenedor intro_gral ">
@@ -64,7 +65,7 @@
                 </form>
             </div>
         </div>
-        <div class="publicidad_noticia"> 
+        <div class="publicidad_noticia">
         </div>
     </section>
 

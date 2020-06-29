@@ -17,7 +17,7 @@
         <script src="https://www.google.com/recaptcha/api.js" async
                 defer></script>
     @endif
-    <title>{{ $title ?? '' }}</title>
+    <title>@yield('title')</title>
     <meta name="description" content="Maximo 160 caracteres, la descripcion debe ser unica por cada pagina interna.">
 
     <!-- Facebook -->

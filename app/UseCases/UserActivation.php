@@ -4,6 +4,7 @@
 namespace App\UseCases;
 
 use App\Classes\User;
+use App\Classes\UserAlreadyVerifiedException;
 use App\Classes\UserException;
 use App\Classes\UserNotFoundException;
 use App\Repositories\TransactionRepository;
@@ -50,6 +51,9 @@ class UserActivation extends GenericUseCase
                 );
             }
             return false;
+        }
+        if ($user && $user->getEmailVerifiedAt() != null) {
+            throw new UserAlreadyVerifiedException();
         }
         throw new UserNotFoundException("User can not be activated", "10030");
     }

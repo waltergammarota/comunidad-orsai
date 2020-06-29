@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', 'Votación no comenzada')
 
 @section('content')
     <section id="intro" class="contenedor intro_gral ">

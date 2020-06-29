@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', 'Resetear password')
 
 @section('content')
     <section id="intro" class="contenedor intro_gral">

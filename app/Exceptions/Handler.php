@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Classes\UserAlreadyVerifiedException;
 use App\Classes\UserException;
 use App\Classes\UserNotFoundException;
 use App\Http\Controllers\Controller;
@@ -59,6 +60,10 @@ class Handler extends ExceptionHandler
         }
         if ($exception instanceof UserNotFoundException) {
             return Redirect::to('reenviar-mail');
+        }
+
+        if ($exception instanceof UserAlreadyVerifiedException) {
+            return Redirect::to('panel');
         }
 
         if ($this->isHttpException($exception)) {

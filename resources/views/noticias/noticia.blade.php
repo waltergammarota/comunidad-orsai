@@ -1,5 +1,6 @@
 @extends('orsai-template')
 
+@section('title', ucfirst($noticia->title))
 
 @section('content')
 <section id="intro" class="contenedor intro_gral ">
@@ -31,9 +32,9 @@
         </div>
         <h2 class="subtitulo">{{$noticia->copete}}</h2>
         <div class="texto">{!! $noticia->texto !!}</div>
-    </div> 
-        <div class="publicidad_noticia"> 
-        </div>
+    </div>
+    <div class="publicidad_noticia">
+    </div>
 </section>
 
 <div class="contenedor mg_100 number_page">

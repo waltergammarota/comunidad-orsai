@@ -190,6 +190,7 @@ class ContestApplicationRepository extends GenericRepository
         ])->count();
     }
 
+
     public function statusApplication($contestId, $userId)
     {
         $cantidad = ContestApplicationModel::where(

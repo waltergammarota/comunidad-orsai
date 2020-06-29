@@ -14,3 +14,10 @@ INSTALACION
 CADA VEZ QUE SE CAMBIA ALGO EN LOS MAILS
 php artisan queue:restart
 sudo systemctl restart mailing.service
+
+retry all jobs
+php artisan queue:retry all
+
+Configurar en .env el email del administrador
+
+

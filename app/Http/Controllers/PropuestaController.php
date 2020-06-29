@@ -96,7 +96,8 @@ class PropuestaController extends Controller
         $capId = $request->id;
         $cap = ContestApplicationModel::destroy($capId);
         return response()->json(
-            ["success" => true, "message" => "Contest application removed"]);
+            ["success" => true, "message" => "Contest application removed"]
+        );
     }
 
     public function approve(Request $request)
@@ -113,7 +114,8 @@ class PropuestaController extends Controller
             );
             $cpaLog->save();
             $owner = User::find($cpa->user_id);
-            $this->sendApproveMail($owner->email);
+            $this->sendApproveMail($owner->email, $cpa->id);
+            $this->sendMailToAdministrator($owner->email, $cpa->id, $owner->name, $owner->lastName);
             return response()->json(
                 ["status" => "ok", "message" => "Postulación aprobada"]
             );
@@ -172,11 +174,14 @@ class PropuestaController extends Controller
         $mailer->sendRejectEmail($email, $comment);
     }
 
-    private function sendApproveMail($email)
+    private function sendApproveMail($email,$cpaId)
     {
         $mailer = new Mailer();
-        $mailer->sendApproveMail($email);
+        $mailer->sendApproveMail($email,$cpaId);
     }
 
-
+    private function sendMailToAdministrator($email, $cpaId, $name, $lastName) {
+        $mailer = new Mailer();
+        $mailer->sendMailToAdministrator($email,$cpaId, $name, $lastName);
+    }
 }

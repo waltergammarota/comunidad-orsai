@@ -1,1 +1,1 @@
-select * from contests;
+select * from contests;  

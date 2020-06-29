@@ -18,17 +18,18 @@ class WebController extends Controller
     public function index()
     {
         $data = $this->getUserData();
-        $data['novedades']= $this->getLatestNews(2);
+        $data['novedades'] = $this->getLatestNews(2);
         return view('index', $data);
     }
 
-    private function getLatestNews($qty) {
+    private function getLatestNews($qty)
+    {
         $novedades = ContenidoModel::where([
             "visible" => 1,
             "tipo" => "noticia"
         ])->with('images')->latest()->limit($qty)->get();
         $noticias = [];
-        foreach($novedades as $novedad) {
+        foreach ($novedades as $novedad) {
             $row = new \stdClass();
             $row->id = $novedad->id;
             $row->slug = $novedad->slug;
@@ -39,7 +40,7 @@ class WebController extends Controller
             $row->tipo = $novedad->tipo;
             $row->texto = $novedad->texto;
             $row->raw_images = $novedad->images()->get();
-            foreach($row->raw_images as $imagen) {
+            foreach ($row->raw_images as $imagen) {
                 $row->imagenes[] = url('storage/images/' . $imagen->name . "." . $imagen->extension);
             }
             $noticias[] = $row;
@@ -148,11 +149,15 @@ class WebController extends Controller
         if ($this->checkWinner(1) > 0) {
             return Redirect::to('concurso');
         }
-        if ($contest->start_date < now() && $contest->end_date >= now()) {
+        if ($contest->start_date < now() && $contest->end_date >= now() && $this->areEnoughApplications($contest)) {
             return $this->show_participantes($request);
         }
-        return Redirect::to('concurso-logo');
+        return Redirect::to('bases-concurso');
+    }
 
+    private function areEnoughApplications($contest)
+    {
+        return ContestApplicationModel::where("approved", 1)->count() >= $contest->min_apps_qty;
     }
 
     private function checkWinner($contestId)
@@ -220,7 +225,7 @@ class WebController extends Controller
         $data = [];
         foreach ($propuestas as $item) {
             $user = $item->owner()->first();
-            if(Auth::check()) {
+            if (Auth::check()) {
                 $voted = Transaction::where(
                     ["from" => Auth::user()->id, "cap_id" => $item->id]
                 )->count();
@@ -259,10 +264,35 @@ class WebController extends Controller
         $cpasInfo = $this->getCpasInfo();
         $data = array_merge($userInfo, $cpasInfo);
         $orden = $request->route('orden');
-        $data['propuestas'] = $this->getPropuestas($orden, 8, 0, $request);
+        $page = $request->route('page') ? $request->route('page') : 1;
+        $total = $this->getTotal($orden, $request);
+        $limit = 8;
+        $offset = ($page - 1) * $limit;
+        $totalPages = ceil($total / $limit);
+        $data['total'] = $total;
+        $data['offset'] = $offset;
+        $data['limit'] = $limit;
+        $data['totalPages'] = $totalPages;
+        $data['current_page'] = $page;
+        $data['previous_page'] = $page - 1;
+        $data['next_page'] = ($page + 1) > $totalPages ? $totalPages : ($page + 1);
+        $data['propuestas'] = $this->getPropuestas($orden, $limit, $offset, $request);
         $data['orden'] = $orden;
         $data['busqueda'] = $request->busqueda;
         return view('participantes', $data);
+    }
+
+    private function getTotal($orden, $request)
+    {
+        switch ($orden) {
+            case "buscar":
+                $total = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('approved', 1)->count();
+                break;
+            default:
+                $total = ContestApplicationModel::where('approved', 1)->count();
+                break;
+        }
+        return $total;
     }
 
     public function contacto(Request $request)
@@ -287,6 +317,4 @@ class WebController extends Controller
         $request->session()->flash('alert', 'contact_data_sent');
         return Redirect::to('contacto');
     }
-
-
 }
