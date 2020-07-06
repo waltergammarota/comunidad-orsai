@@ -1,6 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Bases del concurso')
+@section('title', 'Bases del concurso | Fundación Orsai')
+@section('description', 'Bases del concurso Logo Fundación Orsai')
 
 @section('content')
 

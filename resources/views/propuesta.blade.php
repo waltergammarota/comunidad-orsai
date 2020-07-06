@@ -1,6 +1,28 @@
 @extends('orsai-template')
 
-@section('title', 'Propuesta')
+@section('title', 'Propuesta | Fundación Orsai')
+
+@section('description',ucfirst($propuesta['owner']['name'])." | Fundación Orsai")
+
+@section('facebook')
+    <!-- Facebook -->
+    <meta property="og:site_name" content="Fundación Orsai"/>
+    <meta property="og:url" content="{{url()->full()}}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{$propuesta['title']}}"/>
+    <meta property="og:description" content=" {{$propuesta['description']}}"/>
+    <meta property="og:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/>
+@endsection
+
+@section('twitter')
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="{{env('TWITTER_SITE', '@nytimes')}}"/>
+    <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@nytimes')}}"/>
+    <meta property="twitter:title" content="{{$propuesta['title']}}"/>
+    <meta property="twitter:description" content="{{$propuesta['description']}}"/>
+    <meta name="twitter:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/>
+@endsection
 
 @section('content')
     <section id="intro" class="contenedor intro_propuesta">
@@ -13,7 +35,8 @@
                             <div class="user_img">
                                 @if($user_avatar)
                                     <img
-                                        src="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}" alt="{{ucfirst($propuesta['owner']['name'])}}">
+                                        src="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"
+                                        alt="{{ucfirst($propuesta['owner']['name'])}}">
                                 @else
                                     <img src="{{url('img/participantes/participante.jpg')}}"
                                          alt="{{ucfirst($propuesta['owner']['name'])}}"/>
@@ -52,21 +75,22 @@
                         <br>
                     </p>
                     @if(!empty($propuesta['pdfs']))
-                    <div id="links_descarga">
-                        <div>
-                                <a href="{{url('storage/pdf/'.$propuesta['pdfs'][0]['name'].".".$propuesta['pdfs'][0]['extension'])}}" target="_blank" class="subrayado gris">Descargar
+                        <div id="links_descarga">
+                            <div>
+                                <a href="{{url('storage/pdf/'.$propuesta['pdfs'][0]['name'].".".$propuesta['pdfs'][0]['extension'])}}"
+                                   target="_blank" class="subrayado gris">Descargar
                                     PDF</a>
+                            </div>
                         </div>
-                    </div>
                     @endif
                     @if($propuesta['link'] != "")
-                    <div id="links_descarga">
-                        <div>
+                        <div id="links_descarga">
+                            <div>
                                 <a href="{{$propuesta['link']}}" target="_blank"
                                    class="subrayado gris">Más información</a>
+                            </div>
                         </div>
-                    </div>
-                            @endif
+                    @endif
                 </div>
                 <div id="bt_votar">
                     <form action="{{url('votar')}}" method="POST" id="form_votacion">

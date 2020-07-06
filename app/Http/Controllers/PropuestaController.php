@@ -137,6 +137,10 @@ class PropuestaController extends Controller
             $cpaLog->save();
             $cpaLog = new CpaLog(["status" => "draft", "cap_id" => $cpa->id]);
             $cpaLog->save();
+            $cpa->approved = 0;
+            $cpa->approved_by_user = null;
+            $cpa->approved_in = null;
+            $cpa->save();
             $owner = User::find($cpa->user_id);
             $this->sendRejectEmail($owner->email, $request->comment);
             return response()->json(

@@ -12,7 +12,7 @@ INSTALACION
 
 
 CADA VEZ QUE SE CAMBIA ALGO EN LOS MAILS
-php artisan queue:restart
+php artisan queue:restart 
 sudo systemctl restart mailing.service
 
 retry all jobs

@@ -1,6 +1,7 @@
 @extends('orsai-template')
 
 @section('title', ucfirst($noticia->title))
+@section('description', $noticia->copete)
 
 @section('content')
 <section id="intro" class="contenedor intro_gral ">

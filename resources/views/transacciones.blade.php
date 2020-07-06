@@ -1,6 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Mis transacciones')
+@section('title', 'Mis transacciones | Fundación Orsai')
+@section('description', 'Mis transacciones')
 
 @section('content')
     <section id="intro" class="contenedor intro_gral panel info_personal"
