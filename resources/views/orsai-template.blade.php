@@ -32,7 +32,7 @@
         <meta property="og:image" content="{{env('DEFAULT_IMAGE', 'https://via.placeholder.com/150')}}"/>
     @endif
 
-"
+
     @hasSection('twitter')
         @yield('twitter')
     @else
