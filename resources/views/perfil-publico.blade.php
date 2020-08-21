@@ -1,5 +1,7 @@
 @extends('orsai-template')
 
+@section('title', 'Perfil público | Fundación Orsai')
+@section('description', 'Perfil público')
 
 @section('content')
 <section id="intro" class="contenedor intro_gral panel">

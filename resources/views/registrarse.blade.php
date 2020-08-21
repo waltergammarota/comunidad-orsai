@@ -1,6 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Registrarse')
+@section('title', 'Registro | Fundación Orsai')
+@section('description', 'Registro')
 
 @section('content')
     <section id="intro" class="contenedor intro_registro">

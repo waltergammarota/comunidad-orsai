@@ -1,6 +1,7 @@
 @extends('orsai-template')
 
-@section('title', ucfirst($pagina->title))
+@section('title', ucfirst($pagina->title)." | Fundación Orsai")
+@section('description',$pagina->copete)
 
 @section('content')
 

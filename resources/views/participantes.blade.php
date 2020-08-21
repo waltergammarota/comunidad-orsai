@@ -101,6 +101,7 @@
 @endsection
 
 @section('footer')
+    
     <script>
         $({Counter: 0}).animate({
             Counter: $('.post').text()

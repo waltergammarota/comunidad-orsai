@@ -18,23 +18,33 @@
                 defer></script>
     @endif
     <title>@yield('title')</title>
-    <meta name="description" content="Maximo 160 caracteres, la descripcion debe ser unica por cada pagina interna.">
+    <meta name="description" content="@yield('description')">
 
-    <!-- Facebook -->
-    <meta property="og:site_name" content="Fundación Orsai"/>
-    <meta property="og:url" content="#"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="#"/>
-    <meta property="og:description" content="#"/>
-    <meta property="og:image" content="#"/>
+    @hasSection('facebook')
+        @yield('facebook')
+    @else
+        <!-- Facebook -->
+        <meta property="og:site_name" content="Fundación Orsai"/>
+        <meta property="og:url" content="{{url()->full()}}"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="@yield('title')"/>
+        <meta property="og:description" content="@yield('description')"/>
+        <meta property="og:image" content="{{env('DEFAULT_IMAGE', 'https://via.placeholder.com/150')}}"/>
+    @endif
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:site" content="#"/>
-    <meta name="twitter:creator" content="#"/>
-    <meta name="twitter:image" content="#"/>
-    <meta property="og:title" content="#"/>
-    <meta property="og:description" content="#"/>
+
+    @hasSection('twitter')
+        @yield('twitter')
+    @else
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:site" content="{{env('TWITTER_SITE', '@nytimes')}}"/>
+        <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@nytimes')}}"/>
+        <meta property="twitter:title" content="@yield('title')"/>
+        <meta property="twitter:description" content="@yield('description')"/>
+        <meta name="twitter:image" content="{{env('DEFAULT_IMAGE', 'https://via.placeholder.com/150')}}"/>
+    @endif
+
 
 </head>
 <body>

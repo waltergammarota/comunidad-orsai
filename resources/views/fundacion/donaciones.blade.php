@@ -1,5 +1,9 @@
 @extends('orsai-template')
 
+@section('title', 'Donaciones | Fundación Orsai')
+@section('description','Donaciones | Fundación Orsai')
+
+
 @section('content')
     <section class="contenedor sobre_fundacion">
         @include('fundacion.menu-fundacion',["activo" => "donaciones"])

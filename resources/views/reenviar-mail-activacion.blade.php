@@ -1,6 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Reenvío de mail')
+@section('title', 'Reenvío de mail | Fundación Orsai')
+@section('description', 'Reenvío de mail')
 
 @section('content')
     <section id="intro" class="contenedor intro_gral">

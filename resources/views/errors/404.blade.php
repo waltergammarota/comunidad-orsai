@@ -1,5 +1,8 @@
 @extends('orsai-template')
 
+@section('title', 'Not found | Fundación Orsai')
+@section('description', 'Not found page')
+
 
 @section('content')
     <section id="intro" class="contenedor intro_gral ">

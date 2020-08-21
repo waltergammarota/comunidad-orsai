@@ -1,5 +1,7 @@
 @extends('orsai-template')
 
+≈
+
 
 @section('content')
     <section class="contenedor sobre_fundacion">

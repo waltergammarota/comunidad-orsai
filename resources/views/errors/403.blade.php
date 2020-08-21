@@ -1,5 +1,8 @@
 @extends('orsai-template')
 
+@section('title', 'No autorizado | Fundación Orsai')
+@section('description', 'No autorizado')
+
 
 @section('content')
     <section id="intro" class="contenedor intro_gral ">
@@ -22,7 +25,5 @@
     </div>
 @endsection
 
-@section('footer')
 
-@endsection
 

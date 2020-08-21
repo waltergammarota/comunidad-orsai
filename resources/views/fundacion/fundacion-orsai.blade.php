@@ -1,5 +1,8 @@
 @extends('orsai-template')
 
+@section('title', 'Fundación Orsai')
+@section('description','Fundación Orsai')
+
 
 @section('content')
     <section class="contenedor sobre_fundacion">
