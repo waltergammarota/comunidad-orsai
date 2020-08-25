@@ -60,34 +60,6 @@
 
 <!-- footer -->
 <footer>
-    <div class="fondo_blanco">
-        <div class="footer_black">
-            <div class="contenedor">
-                <div id="links_footer">
-                    <div id="logo_footer">
-                        <a href="{{url('logo')}}">Necesitamos un logo</a>
-                    </div>
-                    <div>
-                        <ul>
-                            <li><a href="{{url('/')}}">Inicio</a></li>
-                            <li><a href="{{url('bases-concurso')}}">Bases del concurso</a></li>
-                            <li><a href="{{url('novedades')}}">Novedades</a></li>
-                            <li><a href="{{url('contacto')}}">Contacto</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="links_redes">
-                    <span>Seguinos en redes</span>
-                    <ul>
-                        <li><a href="https://twitter.com/fundacionorsai" target="_blank">Twitter</a></li>
-                        <li><a href="https://instagram.com/fundacionorsai" target="_blank">Instagram</a></li>
-                        <li><a href="https://facebook.com/fundacionorsai" target="_blank">Facebook</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="contenedor sub_footer">
         <div class="sub_footer_lf">
             <div>

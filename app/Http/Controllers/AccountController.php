@@ -2,7 +2,6 @@
 
 
 namespace App\Http\Controllers;
-
 use App\Controllers\CreateContestApplicationController;
 use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
@@ -32,12 +31,23 @@ class AccountController extends Controller
         if (!$this->isProfileCompleted()) {
             $request->session()->flash('alert', 'profile_not_completed');
         }
-        $data['paises'] = PaisModel::orderBy('peso', 'desc')->get();
+        $data['paises'] = $this->getPaises();
         $data['provinciasOptions'] = ProvinciaModel::all();
         $data['ciudadesOptions'] = CiudadModel::all();
         $data['provincias'] = json_encode($this->getProvincias($data['provinciasOptions']));
         $data['ciudades'] = json_encode($this->getCiudades($data['ciudadesOptions']));
         return view('perfil', $data);
+    }
+
+    private function getPaises() {
+        $paises = PaisModel::orderBy('peso', 'desc')->orderBy('nombre', 'asc')->get()->toArray();
+        return array_map(function($item) {
+            $row = new \stdClass();
+            $row->iso =  $item['iso'];
+            $row->nombre = utf8_encode($item['nombre']);
+            return $row;
+        }, $paises);
+
     }
 
     private function getProvincias($provincias)
