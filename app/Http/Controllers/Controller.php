@@ -7,6 +7,7 @@ use App\Repositories\UserRepository;
 use App\UseCases\Account\GetAccountInfo;
 use App\UseCases\ContestApplication\CountContestApplication;
 use App\UseCases\ContestApplication\TotalContestApplicationTokens;
+use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -63,5 +64,27 @@ class Controller extends BaseController
         if ($user->role != "admin") {
             return Redirect::to('panel');
         }
+    }
+
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    protected function checkReCaptcha(Request $request)
+    {
+        $recaptchaToken = $request->get('g-recaptcha-response');
+        $client = new Client();
+        $recaptchaResponse = $client->request('POST', "https://www.google.com/recaptcha/api/siteverify", [
+            'headers' => [
+                'Accept' => 'application/json'
+            ],
+            'form_params' => [
+                'secret' => env('CAPTCHA_SECRET'),
+                'response' => $recaptchaToken
+            ]
+        ]);
+        $status = json_decode($recaptchaResponse->getBody());
+        return $status;
     }
 }

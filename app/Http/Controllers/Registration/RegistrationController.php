@@ -47,6 +47,16 @@ class RegistrationController extends Controller
 
     public function registerWeb(Request $request)
     {
+
+        $minScore = 0.9;
+        $status = $this->checkReCaptcha($request);
+
+        if ($status->success == false || $status->score < $minScore) {
+            return Redirect::back()->withErrors([
+                "registrarse" => "Credenciales no válidas"
+            ])->withInput();
+        }
+
         $request->validate(
             [
                 'nombre' => 'required|max:255|min:1',
@@ -127,8 +137,11 @@ class RegistrationController extends Controller
     }
 
 
-    public function registrarse(Request $request) {
-        if(!Auth::check()) {
+    public function registrarse(Request $request)
+    {
+
+
+        if (!Auth::check()) {
             $data = $this->getUserData();
             $data['paises'] = $this->getPaises();
             return view('registrarse', $data);
@@ -138,11 +151,12 @@ class RegistrationController extends Controller
 
     }
 
-    private function getPaises() {
+    private function getPaises()
+    {
         $paises = PaisModel::orderBy('peso', 'desc')->orderBy('nombre', 'asc')->get()->toArray();
-        return array_map(function($item) {
+        return array_map(function ($item) {
             $row = new \stdClass();
-            $row->iso =  $item['iso'];
+            $row->iso = $item['iso'];
             $row->nombre = utf8_encode($item['nombre']);
             return $row;
         }, $paises);

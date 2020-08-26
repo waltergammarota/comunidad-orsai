@@ -652,6 +652,10 @@ function crear_span_error(insertar, mensaje) {
 if (document.getElementById("registro_js")) {
     var boton = document.getElementById("boton_susc");
 
+    function onSubmit(token) {
+        document.getElementById('registro-form').submit();
+    }
+
     function recaptchaCallback() {
         boton.removeAttribute('disabled');
     };
@@ -667,7 +671,7 @@ if (document.getElementById("registro_js")) {
     //     insertar.appendChild(create_span);
     // }
     boton.onclick = function() {
-        recaptchaCallback();
+        //recaptchaCallback();
         var get_one = [];
         var cont = 0
         for (var x = 0; x < get_input_cont.length; x++) {
