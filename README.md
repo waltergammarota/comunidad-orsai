@@ -20,4 +20,11 @@ php artisan queue:retry all
 
 Configurar en .env el email del administrador
 
+EN PRODUCCION
+php artisan queue:restart 
+sudo systemctl restart mailing-prod.service
+
+retry all jobs
+php artisan queue:retry all
+
 
