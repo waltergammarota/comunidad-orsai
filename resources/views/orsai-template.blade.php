@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{url('estilos/orsai-blade.css')}}">
     <script src="{{url('js/segment.js')}}"></script>
     <script src="{{url('js/ease.min.js')}}"></script>
-    @if (Route::currentRouteName() == 'registrarse' || Route::currentRouteName() == 'ingresar')
+    @if (Route::currentRouteName() == 'registrarse' || Route::currentRouteName() == 'ingresar' || Route::currentRouteName() == '/')
         <script src="https://www.google.com/recaptcha/api.js" async
                 defer></script>
     @endif
