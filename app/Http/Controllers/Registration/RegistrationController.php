@@ -48,7 +48,7 @@ class RegistrationController extends Controller
     public function registerWeb(Request $request)
     {
 
-        $minScore = 0.9;
+        $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
         $status = $this->checkReCaptcha($request);
 
         if ($status->success == false || $status->score < $minScore) {
