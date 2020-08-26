@@ -23,7 +23,7 @@
     @hasSection('facebook')
         @yield('facebook')
     @else
-        <!-- Facebook -->
+    <!-- Facebook -->
         <meta property="og:site_name" content="Fundación Orsai"/>
         <meta property="og:url" content="{{url()->full()}}"/>
         <meta property="og:type" content="article"/>
@@ -32,11 +32,23 @@
         <meta property="og:image" content="{{env('DEFAULT_IMAGE', 'https://via.placeholder.com/150')}}"/>
     @endif
 
+    @if(env('ORSAI_ENV') == 'production')
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176303994-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-176303994-1');
+        </script>
+    @endif
+
 
     @hasSection('twitter')
         @yield('twitter')
     @else
-        <!-- Twitter -->
+    <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:site" content="{{env('TWITTER_SITE', '@nytimes')}}"/>
         <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@nytimes')}}"/>
@@ -84,10 +96,14 @@
 <div id="cookies_msg" class="popup" style="display: none;">
     <div>
         <div class="contenedor">
-            <p>Utilizamos <strong>cookies</strong> para personalizar el contenido, adaptar y evaluar los anuncios y ofrecer una
-                experiencia más segura. Al navegar por el sitio web, aceptás el uso de cookies para recopilar información dentro y fuera de
-                Orsai. Leé nuestra <a href="{{url('privacidad')}}" target="_blank" class="subrayado text_bold">Política de cookies</a> de cookies para obtener más información o accedé a las Preferencias de cookies para administrar tu configuración</p>
-            <a  id="btn_cookies" class="subrayado resaltado_amarillo text_bold">Aceptar</a>
+            <p>Utilizamos <strong>cookies</strong> para personalizar el contenido, adaptar y evaluar los anuncios y
+                ofrecer una
+                experiencia más segura. Al navegar por el sitio web, aceptás el uso de cookies para recopilar
+                información dentro y fuera de
+                Orsai. Leé nuestra <a href="{{url('privacidad')}}" target="_blank" class="subrayado text_bold">Política
+                    de cookies</a> de cookies para obtener más información o accedé a las Preferencias de cookies para
+                administrar tu configuración</p>
+            <a id="btn_cookies" class="subrayado resaltado_amarillo text_bold">Aceptar</a>
         </div>
     </div>
 </div>
