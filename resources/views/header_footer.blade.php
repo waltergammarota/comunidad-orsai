@@ -1,36 +1,14 @@
 <nav>
     <div id="contenedor_logo_header">
         <div id="logo_header">
-            <a href="{{url('logo')}}">Necesitamos
-                <span class="span_block">un logo</span>
+            <a href="{{url('')}}">
+                <img src="{{url('recursos/comunidad-orsai.png')}}" alt="comunidad orsai" width="150">
             </a>
         </div>
     </div>
     <div id="desplegable" class="desplegable_cerrado">
         <div id="menu_pcpal">
             <ul>
-                @if (Route::currentRouteName() == 'home')
-                    <li class="active"><a href="/">Inicio</a></li>
-                @else
-                    <li><a href="/">Inicio</a></li>
-                @endif
-                @if (Route::currentRouteName() == 'fundacion-orsai')
-                    <li class="active"><a href="{{url('fundacion-orsai')}}">Fundación
-                            Orsai</a></li>
-                @else
-                    <li><a href="{{url('fundacion-orsai')}}">Fundación Orsai</a>
-                    </li>
-                @endif
-                @if (Route::currentRouteName() == 'concurso-logo')
-                    <li class="active"><a href="{{url('concurso-logo')}}">Concurso
-                            Logo</a>
-                    </li>
-                @else
-                    <li><a href="{{url('concurso-logo')}}">Concurso Logo</a>
-                    </li>
-                @endif
-                    <li><a href="{{url('donar')}}">Donar</a>
-                    </li>
             </ul>
         </div>
         <div id="menu_reg">
@@ -74,6 +52,7 @@
                                 <li class="active"><a href="{{url('panel')}}">Panel</a>
                                 </li>
                                 <li><a href="{{url('perfil')}}">Perfil</a></li>
+                                    <li><a href="{{url('novedades')}}">Blog</a></li>
                                 <li><a href="{{url('salir')}}">Cerrar sesión</a>
                                 </li>
                             </ul>

@@ -32,6 +32,20 @@
     <link rel="stylesheet" href="{{url("admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
     <link rel="stylesheet" href="{{url("admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
     @yield('header')
+
+
+    @if(env('ORSAI_ENV') == 'production')
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176303994-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-176303994-1');
+        </script>
+    @endif
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

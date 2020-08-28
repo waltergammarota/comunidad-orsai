@@ -10,7 +10,7 @@
    </div> -->
     </section>
     <section id="login_js" class="contenedor form_reg">
-        <form method="POST" action="{{url('ingresar')}}">
+        <form method="POST" action="{{url('ingresar')}}" id="ingresar-form">
             @csrf
             <div class="contenedor_campos">
                 <div class="input_err obligatorio">
@@ -30,7 +30,10 @@
                 </div>
             </div>
             <div id="boton_submit">
-                <button class="subrayado resaltado_amarillo text_bold"
+                <button class="subrayado resaltado_amarillo text_bold g-recaptcha"
+                        data-sitekey="{{env('CAPTCHA_SITE_KEY')}}"
+                        data-callback="onSubmit"
+                        data-action="submit"
                         id="boton_susc">
                     Ingresar
                 </button>
@@ -88,6 +91,10 @@
                     close(this.parentNode.parentNode);
                 }
             }
+        }
+
+        function onSubmit(token) {
+            document.getElementById('ingresar-form').submit();
         }
     </script>
 @endsection
