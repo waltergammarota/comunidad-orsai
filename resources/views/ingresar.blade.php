@@ -40,14 +40,14 @@
                 <!-- <div class="msg"></div>
                     <img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /> -->
             </div>
+            <div class="wan_reg">
+                <a href="registrarse" class="subrayado resaltado_gris">Quiero
+                    registrarme</a>
+            </div>
             <div class="forg_pass">
                 <a href="{{url('restablecer-clave')}}"
                    class="subrayado resaltado_gris">No recuerdo la
                     contraseña</a>
-            </div>
-            <div class="wan_reg">
-                <a href="registrarse" class="subrayado resaltado_gris">Quiero
-                    registrarme</a>
             </div>
         </form>
     </section>

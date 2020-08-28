@@ -149,6 +149,7 @@ a:link a:visited, a:active {
 header{
     width:100%;
     position:relative;
+    border-bottom: 1px solid #dcdcdc;
 }
 header nav{
     font-size:0;
@@ -168,7 +169,7 @@ header nav #contenedor_logo_header #logo_header{
 header nav #contenedor_logo_header #logo_header a{
     display:block;
     color: #808080;
-    padding:10px 15px 10px 15px;
+    padding:10px 0 10px 0;
 }
 header nav #desplegable div ul{
     text-align:left;
@@ -952,8 +953,8 @@ footer .footer_black #links_registro #links_registro_a .form_w50 input{
 }
 
 footer .sub_footer{
-    padding-top:20px;
-    padding-bottom:15px;
+    padding-top:0;
+    padding-bottom:0;
     font-size:0;
 }
 
@@ -962,6 +963,9 @@ footer .sub_footer .sub_footer_lf, footer .sub_footer .sub_footer_ri{
 }
 footer .sub_footer .sub_footer_lf{
     width:50%;
+}
+footer .sub_footer .sub_footer_lf img{
+    width:90px;
 }
 footer .sub_footer .sub_footer_ri{
     width:50%;
@@ -5295,9 +5299,11 @@ margin-top:2px;
 #login_js.form_reg form .forg_pass, #login_js.form_reg form .wan_reg{
     height:40px;
 }
+#login_js.form_reg form .wan_reg{
+    margin:30px 0 0 0;
+}
 
 #login_js.form_reg form .forg_pass, #login_js.form_reg form .line_dashed{
-    margin:30px 0;
     height: 1px;
 }
 
@@ -5708,3 +5714,4 @@ margin-top:2px;
 .no_iniciado p{
     font-size:24px;
 }
+.grecaptcha-badge { visibility: hidden; }
