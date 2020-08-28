@@ -27,7 +27,7 @@
         }
         @endphp
         <div class="img_noticia">
-            @if($imageUrl)title
+            @if($imageUrl)
             <img src="{{url($imageUrl)}}" alt="{{$noticia->title}}">
             @endif
         </div>
