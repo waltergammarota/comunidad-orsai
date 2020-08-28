@@ -13,10 +13,10 @@
             <div id="user_alias">
                 <h1>{{'@'.ucfirst($username)}}</h1>
             </div>
-            <div id="user_fichas">
+<!--             <div id="user_fichas">
                 <span>{{$balance}}</span>
                 <span>Fichas <span class="span_block">para jugar</span></span>
-            </div>
+            </div> -->
         </div>
         <div class="line_dashed"></div>
     </section>
@@ -45,7 +45,7 @@
                       class="subrayado resaltado_amarillo">Ver</span>
             </div>
         </a>
-
+<!-- 
         <a href="{{url('transacciones')}}" class="box_panel">
             <div>
                 <span>Mis fichas</span>
@@ -57,7 +57,7 @@
                 <span href="{{url('transacciones')}}"
                       class="subrayado resaltado_amarillo">Ver</span>
             </div>
-        </a>
+        </a> -->
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>
