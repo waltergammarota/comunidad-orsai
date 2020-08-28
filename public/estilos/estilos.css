@@ -3685,8 +3685,14 @@ ul li .li_texto + .li_texto {
 #intro.intro_gral.noticias .cont_noticias .noticia_image .img_noticia{
     width:30%;
     display: inline-block;
+    overflow: hidden;
+    max-height: 175px;
+}
+#intro.intro_gral.noticias .cont_noticias .noticia_image .img_noticia img{
+    width:100%;
 }
 #intro.intro_gral.noticias .cont_noticias .noticia_image .cuerpo_texto{
+    vertical-align: top;
     width:68%;
     display: inline-block;
     padding-left:2%;
