@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\User;
+use GuzzleHttp\Client;
 use App\Utils\Mailer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 
 class LoginController extends Controller
@@ -58,12 +58,21 @@ class LoginController extends Controller
                 'password' => 'required|min:2|max:64',
             ]
         );
+        $status = $this->checkReCaptcha($request);
+
+        $minScore = env('CAPTCHA_MIN_SCORE',0.9);
+        if ($status->success == false || $status->score < $minScore) {
+            return Redirect::back()->withErrors([
+                "login" => "Credenciales no válidas"
+            ])->withInput();
+        }
+
         $credentials = $request->only('email', 'password');
         if ($this->guard()->attempt($credentials)) {
             if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
-                return Redirect::to('participantes');
+                return Redirect::to('novedades');
             }
-            if(Auth::user()->blocked != 0) {
+            if (Auth::user()->blocked != 0) {
                 Auth::logout();
                 return Redirect::to('ingresar');
             }
@@ -115,7 +124,7 @@ class LoginController extends Controller
     public function resetpasswordform(Request $request)
     {
         $token = $request->route('token');
-        if($token) {
+        if ($token) {
             $user = User::where('remember_token', $token)->first();
             $user->password = Str::random(8);
             $user->save();
@@ -148,5 +157,6 @@ class LoginController extends Controller
         )->withInput();
 
     }
+
 
 }

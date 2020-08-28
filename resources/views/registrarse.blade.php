@@ -15,7 +15,7 @@
         </div>
     </section>
     <section id="registro_js" class="contenedor form_reg">
-        <form action="registrarse" method="POST">
+        <form action="registrarse" method="POST" id="registro-form">
             @csrf
             <div class="contenedor_campos">
                 <div class="input_err obligatorio">
@@ -121,14 +121,12 @@
                 </label>
             </div>
 
-            <div id="captcha_div">
-                <div class="g-recaptcha" data-callback="recaptchaCallback"
-                     data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
-            </div>
-
             <div id="boton_submit">
-                <button class="subrayado resaltado_amarillo text_bold"
-                        id="botonito">
+                <button class="subrayado resaltado_amarillo text_bold g-recaptcha"
+                        data-sitekey="{{env('CAPTCHA_SITE_KEY')}}"
+                        data-callback="onSubmit"
+                        data-action="submit"
+                        id="boton_susc">
                     Registrarme
                 </button>
                 <!-- <div class="msg"></div>
@@ -149,9 +147,10 @@
             if ($(this).val()) {
                 $(this).css('font-style', 'normal');
                 return $(this).css('color', 'black');
-            } else {
-                // // $(this).css('font-style', 'italic');
-                // return $(this).css('color', '#808080');
             }
         });
+
+        function onSubmit(token) {
+            document.getElementById('registro-form').submit();
+        }
 @endsection

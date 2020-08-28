@@ -16,66 +16,13 @@ Auth::routes(['verify' => true]);
 /* ACCESO PUBLICO */
 Route::get(
     '/',
-    'WebController@index'
+    'WebController@ingresar'
 )->name('home');
-
-Route::get(
-    '/fundacion-orsai',
-    'WebController@fundacion'
-)->name('fundacion-orsai');
-
-Route::get(
-    '/plan',
-    'WebController@plan'
-)->name('plan');
-
-Route::get(
-    '/consejo',
-    'WebController@consejo'
-)->name('consejo');
-
-Route::get(
-    '/areas',
-    'WebController@areas'
-)->name('areas');
-
-Route::get(
-    '/areas',
-    'WebController@areas'
-)->name('consejo');
-
-Route::get(
-    '/donaciones',
-    'WebController@donaciones'
-)->name('donaciones');
-
-Route::get(
-    '/historia',
-    'WebController@historia'
-)->name('historia');
-
-Route::get(
-    '/concurso-logo',
-    'WebController@concurso'
-)->name('concurso-logo');
-
-Route::get(
-    '/bases-concurso',
-    'WebController@bases_concurso'
-)->name('bases-concurso');
-
-
 
 Route::get(
     '/privacidad',
     'WebController@privacidad'
 )->name('privacidad');
-
-Route::get(
-    '/logo',
-    'WebController@logo'
-)->name('logo');
-
 
 Route::get(
     '/ingresar',
@@ -146,31 +93,6 @@ Route::get(
 )->name('terminos');
 
 Route::get(
-    '/concurso-finalizado',
-    'WebController@concurso_finalizado'
-)->name('concurso-finalizado');
-
-Route::get(
-    '/participantes/{orden?}',
-    'WebController@participantes'
-)->name('participantes');
-
-Route::get(
-    '/participantes/pagina/{page?}/{orden?}/',
-    'WebController@participantes'
-)->name('participantes-pagina');
-
-Route::get(
-    '/participantes/{orden?}/{limit}/{offset}',
-    'WebController@getMore'
-)->name('participantes-more');
-
-Route::get(
-    '/concurso',
-    'Contest\ContestController@index'
-)->name("concurso");
-
-Route::get(
     '/contacto',
     'WebController@contacto'
 )->name("contacto");
@@ -195,16 +117,6 @@ Route::middleware(['verified'])->group(
         )->name('perfil');
 
         Route::get(
-            '/postulacion',
-            'AccountController@show_postulacion'
-        )->name('postulacion')->middleware('email_verified');
-
-        Route::post(
-            '/postulacion',
-            'AccountController@store_publicacion'
-        );
-
-        Route::get(
             '/gracias',
             'AccountController@gracias'
         );
@@ -218,17 +130,6 @@ Route::middleware(['verified'])->group(
             '/profile/image',
             'AccountController@profile_image'
         );
-
-        Route::get(
-            '/propuesta/{id}',
-            'PropuestaController@show'
-        );
-
-        Route::post(
-            '/votar',
-            'PropuestaController@votar'
-        );
-
 
         Route::get('dashboard', 'Admin\AdminController@index')->name(
             'dashboard'
@@ -245,7 +146,6 @@ Route::middleware(['verified'])->group(
         Route::get('admin/contenidos/{id}', 'Admin\ContenidoController@edit')->name(
             'contenidos-edit'
         )->middleware('admin_role');
-
 
         Route::post('admin/contenidos/store', 'Admin\ContenidoController@store')->name(
             'contenidos-store'
@@ -378,7 +278,6 @@ Route::middleware(['verified'])->group(
             'concurso-ganador'
         )->middleware('admin_role');
 
-
         Route::get(
             '/transacciones',
             'AccountController@transacciones'
@@ -388,16 +287,18 @@ Route::middleware(['verified'])->group(
             'perfil-usuario/{id}',
             'AccountController@show_perfil_publico'
         )->name('perfil-publico');
+
+        Route::get(
+            '/novedades/{slug}',
+            'ContenidoController@index'
+        )->name('novedades');
+
+
+        Route::get(
+            '/{slug}',
+            'ContenidoController@index'
+        )->name("pagina");
+
     }
 );
 
-Route::get(
-    '/novedades/{slug}',
-    'ContenidoController@index'
-)->name('novedades');
-
-
-Route::get(
-    '/{slug}',
-    'ContenidoController@index'
-)->name("pagina");

@@ -9,7 +9,6 @@ use App\Controllers\CreateContestController;
 use GuzzleHttp\Client;
 use App\Repositories\UserRepository;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Faker\Factory;
 
 class ContestApplicationApiTest extends TestCase
