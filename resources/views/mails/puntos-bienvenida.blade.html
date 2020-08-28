@@ -61,7 +61,7 @@
                         Para darte la bienvenida <strong>Comunidad Orsai</strong> te regala las primeras {{$amount}} fichas.</p> <br/>
                     <p style="text-align: center; margin: 2px; font-size: 15px"> Si querés sumar más fichas completá tu perfil, las vas a necesitar para cuando toque apostar fuerte.</p>  
                     <a href="https://beta.fundacionorsai.org/panel" target="_blank"
-                       style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Quiero más fichas</a>
+                       style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Quiero más fichas</a>
                 </div>
             </td>
         </tr>

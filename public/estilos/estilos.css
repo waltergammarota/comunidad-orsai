@@ -4674,10 +4674,14 @@ display: none;
     font-weight: 700;
     padding-top:10px;
 }
-.info_per_left{
+.info_per_breadcrumb{
     display:block;
     width:80%;
     margin:auto;
+}
+.info_per_left{
+    display:inline-block;
+    width:50%; 
 }
 .info_per_right{
     width:50%;

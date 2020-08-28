@@ -49,7 +49,7 @@
                     <p style="text-align: center; margin: 2px; font-size: 15px">Creador: {{$name}} {{$lastName}}</p>
                     <p style="text-align: center; margin: 2px; font-size: 15px">Email: {{$email}}</p>
                     <a href="{{url("propuesta/{$cpaId}")}}" target="_blank"
-                       style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Ver
+                       style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Ver
                         la propuesta</a>
                 </div>
             </td>
@@ -60,7 +60,7 @@
                     style="color: black; margin-left:15px; margin-right:15px; border-top: 2px dashed #808080; text-align: center; font-family: 'Space Mono', monospace;">
                     <p style="text-align: center; font-size: 15px">¿Querés ver lo que hicieron otros artistas?</p>
                     <a href="{{url('participantes')}}" target="_blank"
-                       style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Mirá
+                       style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Mirá
                         acá</a>
                 </div>
             </td>

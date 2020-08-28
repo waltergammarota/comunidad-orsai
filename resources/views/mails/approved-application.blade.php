@@ -46,7 +46,7 @@
             <td style="padding-bottom:20px;">
                 <div style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Space Mono', monospace;">
                     <p style="text-align: center; margin: 2px; font-size: 15px">Después de un exhaustivo chequeo tu logo ya está participando del concurso. Compartilo ahora con tus amigos de todo el mundo y ¡sumá fichas para ganar!</p>
-                    <a href="{{url("propuesta/{$cpaId}")}}" target="_blank" style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Ver mi propuesta</a>
+                    <a href="{{url("propuesta/{$cpaId}")}}" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Ver mi propuesta</a>
                 </div>
             </td>
         </tr>
@@ -55,7 +55,7 @@
                 <div
                     style="color: black; margin-left:15px; margin-right:15px; border-top: 2px dashed #808080; text-align: center; font-family: 'Space Mono', monospace;">
                     <p style="text-align: center; font-size: 15px">¿Querés ver lo que hicieron otros artistas?</p>
-                    <a href="{{url('participantes')}}" target="_blank" style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Mirá acá</a>
+                    <a href="{{url('participantes')}}" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Mirá acá</a>
                 </div>
             </td>
         </tr>
