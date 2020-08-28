@@ -1,7 +1,7 @@
 <nav>
     <div id="contenedor_logo_header">
         <div id="logo_header">
-            <a href="{{url('')}}">
+            <a href="{{url('novedades')}}">
                 <img src="{{url('recursos/comunidad-orsai.png')}}" alt="comunidad orsai" width="150">
             </a>
         </div>
@@ -52,7 +52,7 @@
                                 <li class="active"><a href="{{url('panel')}}">Panel</a>
                                 </li>
                                 <li><a href="{{url('perfil')}}">Perfil</a></li>
-                                    <li><a href="{{url('novedades')}}">Blog</a></li>
+                                    <li><a href="{{url('novedades')}}">Novedades</a></li>
                                 <li><a href="{{url('salir')}}">Cerrar sesión</a>
                                 </li>
                             </ul>

@@ -25,6 +25,14 @@
         style="width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
         <tr bgcolor="#fffefe">
             <td style="text-align: center; padding: 0; padding-top:20px;">
+                <a href="http://beta.fundacionorsai.org/"
+                   style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
+                    <img src="{{url('recursos/comunidad-orsai.png')}}" width="100" alt="Comunidad Orsai">
+                </a>
+            </td>
+        </tr>
+        <tr bgcolor="#fffefe">
+            <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="#"
                    style="border:1px dashed black; padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
                     INFO DE CONTACTO
@@ -37,7 +45,7 @@
             <td style="padding: 0; text-align: center; width: 600px;"
                 bgcolor="#fffefe">
                 <h1 style="margin-bottom:0;font-weight: 400; font-size:36px; line-height: 38px;">
-                    <span style="font-weight: 700; display:block;">Fundación Orsai</span>
+                    <span style="font-weight: 700; display:block;">Comunidad Orsai</span>
                 </h1>
             </td>
         </tr>

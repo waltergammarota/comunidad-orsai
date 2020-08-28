@@ -33,6 +33,19 @@
             </div>
         </a>
 
+        <a href="{{url('novedades')}}" class="box_panel">
+            <div>
+                <span>Novedades</span>
+            </div>
+            <div>
+                <span>De qué se trata todo esto</span>
+            </div>
+            <div>
+                <span href="{{url('novedades')}}"
+                      class="subrayado resaltado_amarillo">Ver</span>
+            </div>
+        </a>
+
         <a href="{{url('transacciones')}}" class="box_panel">
             <div>
                 <span>Mis fichas</span>
@@ -43,15 +56,6 @@
             <div>
                 <span href="{{url('transacciones')}}"
                       class="subrayado resaltado_amarillo">Ver</span>
-            </div>
-        </a>
-
-        <a href="{{url('novedades')}}" class="box_panel">
-            <div>
-                <span>Novedades</span>
-            </div>
-            <div>
-                <span>Acá podés controlar el movimiento de tus fichas.</span>
             </div>
         </a>
     </section>

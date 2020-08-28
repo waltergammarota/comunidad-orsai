@@ -46,9 +46,13 @@
             </div>
             <div class="forg_pass">
                 <a href="{{url('restablecer-clave')}}"
-                   class="subrayado resaltado_gris">No recuerdo la
+                   class="subrayado resaltado_gris">Olvidé la
                     contraseña</a>
             </div>
+            <div id="recaptcha_legal" class="input_err obligatorio"> 
+                <p class="recaptcha_legal-container letra_chica"><small><br>
+Este sitio está protegido por reCAPTCHA y se aplican la <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a> y los <a href="https://policies.google.com/terms" target="_blank">Términos de servicio</a> de Google.</small></p>
+            </div>  
         </form>
     </section>
     <div class="contenedor mg_100 number_page">

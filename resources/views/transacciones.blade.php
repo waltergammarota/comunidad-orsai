@@ -18,12 +18,12 @@
             </div>
         </div>
         <!-- Agregar acá la verificación si ya inició el concurso -->
-        <!-- Necesito la variable $hasStarted -->
+        <!-- Necesito la variable $hasStarted --><!-- 
         @if($hasStarted)
             <div class="lets_start ">
                 <a href="{{url('participantes')}}" class="resaltado_amarillo">Empezá a poner fichas &raquo;</a>
             </div>
-        @endif
+        @endif -->
         <div class="tran_creditos">
             <div class="cont_tabla">
                 <table class="light-3 display" id="myTable">

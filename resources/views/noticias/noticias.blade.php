@@ -4,10 +4,7 @@
 @section('description', 'Noticias')
 
 @section('content')
-    <section id="intro" class="contenedor intro_gral noticias ">
-        <div class="titulo">
-            <h1 class="span_h1">Novedades</h1>
-        </div>
+    <section id="intro" class="contenedor intro_gral noticias "> 
 
         <div class="cont_noticias">
             @foreach($noticias['noticias'] as $key => $noticia)
@@ -17,30 +14,27 @@
                     </div>
                     <div class="line_dashed"></div>
                 @endif
-                <article>
-                    <a href="{{url('novedades/'.$noticia->slug)}}">
-                        <div class="cuerpo_texto">
-                            <div>
-                                <h2 class="titulo_noticias">{{$noticia->title}}</h2>
-                                <p>{{Str::limit($noticia->copete, 100)}}</p>
-                                <span class="text_bold subrayado resaltado_amarillo">Ver más</span>
+                @php
+                    $image = $noticia->images()->first();
+                    $imageUrl = "";
+                    if($image) {
+                    $imageUrl = 'storage/images/'.$image->name.".".$image->extension;
+                    }
+                @endphp
+                <article  @if($imageUrl) class="noticia_image" @endif>
+                    <a href="{{url('novedades/'.$noticia->slug)}}"> 
+                        @if($imageUrl)
+                            <div class="img_noticia">
+                                <img src="{{url($imageUrl)}}" alt="Imagen Noticia">
                             </div>
-                            @php
-                                $image = $noticia->images()->first();
-                                $imageUrl = "";
-                                if($image) {
-                                $imageUrl = 'storage/images/'.$image->name.".".$image->extension;
-                                }
-                            @endphp
-                            @if($imageUrl)
-                                <div class="img_noticia">
-                                    <img src="{{url($imageUrl)}}" alt="Imagen Noticia">
-                                </div>
-                            @endif
+                        @endif 
+                        <div class="cuerpo_texto">  
+                                <h2 class="titulo_noticias">{{$noticia->title}}</h2>
+                                <p>{{Str::limit($noticia->copete, 100)}}</p> 
+                                <span class="date_noticia">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span> 
                         </div>
                     </a>
-                </article>
-                <div class="line_dashed"></div>
+                </article> 
 
             @endforeach
             <div id="controladores_participantes">

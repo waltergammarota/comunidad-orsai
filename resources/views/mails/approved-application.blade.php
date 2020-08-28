@@ -26,8 +26,8 @@
         <tr bgcolor="#fffefe">
             <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="http://beta.fundacionorsai.org/"
-                   style="border:1px dashed black; padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    NECESITAMOS UN LOGO
+                   style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
+                    <img src="{{url('recursos/comunidad-orsai.png')}}" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr>
@@ -68,27 +68,12 @@
         </tr>
         <tr>
             <td style="height:25px;"></td>
-        </tr>
-        <tr bgcolor="#000000">
-            <td style="text-align: center;">
-                <div style="font-size:14px;">
-                    <a href="https://twitter.com/fundacionorsai"
-                       style="text-decoration: none; margin-top:20px; margin-bottom:20px; padding:5px 5px; display: inline-block;text-align: center; color:#808080;">Twitter</a>
-                    <span style="color: #808080;">/</span>
-                    <a href="https://www.instagram.com/fundacionorsai/"
-                       style="text-decoration: none; margin-top:20px; margin-bottom:20px; padding:5px 5px; display: inline-block;text-align: center; color:#808080;">Instagram</a>
-                    <span style="color: #808080;">/</span>
-                    <a href="https://www.facebook.com/fundacionorsai"
-                       style="text-decoration: none; margin-top:20px; margin-bottom:20px; padding:5px 5px; display: inline-block;text-align: center; color:#808080;">Facebook</a>
-                </div>
-            </td>
-        </tr>
+        </tr> 
         <tr>
             <td style="text-align: center; ">
                 <div
                     style="font-size:14px; width:120px; padding-top:12px; overflow: hidden; margin:0 auto;">
-                    <img style="width:100%;" src="{{url('recursos/orsai_logo_footer.png')}}"
-                         alt="Logo Orsai">
+                    <img style="width:90px;" src="{{url('recursos/orsai_logo_footer.png')}}" alt="Orsai" width="90">
                 </div>
                 <div>
                     <p style="font-size:13px; margin:0; margin-top:5px; color:#808080;">

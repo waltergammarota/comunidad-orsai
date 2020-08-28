@@ -30,7 +30,7 @@ a:link a:visited, a:active {
     color: #808080 !important;
 }
 .resaltado_amarillo{
-    background-color: #fafa00;
+    background-color: #ffed00;
 }
 .resaltado_verde{
     background-color: #d2d2d2;
@@ -96,9 +96,7 @@ a:link a:visited, a:active {
     overflow: hidden;
 }
 
-.contenedor{
-    padding-left: 15px;
-    padding-right: 15px;
+.contenedor{ 
     max-width: 768px;
     width: 100%;
     margin: 0 auto
@@ -218,12 +216,14 @@ header nav #desplegable div ul li{
 }
 @media (max-width:380px){
     header #abrir {
-        right:10px;
+        right:20px;
+        top:35px;
     }
 }
 @media (min-width:380px) and (max-width:768px){
     header #abrir {
         right:25px;
+        top:30px;
     }
 }
 @media (max-width:992px){
@@ -253,7 +253,7 @@ header nav #desplegable div ul li{
         transition:background-color 0.35s;
     }
     header nav #desplegable ul li:hover{
-        background-color: #fafa00;
+        background-color: #ffed00;
     }
     header nav #desplegable ul li a{
         /* background-color: blue; */
@@ -267,8 +267,7 @@ header nav #desplegable div ul li{
         -moz-text-decoration-line: underline;
         font-weight: 700;
     }
-    header nav #desplegable #menu_reg{
-        text-align: left;
+    header nav #desplegable #menu_reg{ 
         vertical-align: top;
     }
     header nav #desplegable #menu_reg #menu_logueado{
@@ -317,7 +316,7 @@ header nav #desplegable div ul li{
         padding-left:10px;
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li a:hover{
-        background-color: #fafa00;
+        background-color: #ffed00;
         -ms-transition: background-color 0.35s;
         transition: background-color 0.35s;
     }
@@ -431,7 +430,7 @@ header nav #desplegable div ul li{
         width:120px;
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li a:hover{
-        background-color: #fafa00;
+        background-color: #ffed00;
         -ms-transition: background-color 0.3s;
         transition: background-color 0.3s;
     }
@@ -569,7 +568,7 @@ header nav #desplegable div ul li{
 .texto_noticia a{
     font-style: normal !important;
     text-decoration: underline;
-    background: #fafa00;
+    background: #ffed00;
 }
 #panel_user_profile .select .in_sp .arm_sel {
     display: block;
@@ -2477,10 +2476,9 @@ transform: translate(-50%, -50%);
     text-align: left !important;
     padding-left:5px;
 }
-#intro.intro_registro{
-    margin-top:70px;
-    margin-bottom:20px;
-    padding-right:70px;
+#intro.intro_registro{ 
+    padding-left:70px;
+    margin:40px 0 50px 0;
 }
 #intro.intro_registro h1{
     font-size: 36px;
@@ -2510,11 +2508,11 @@ transform: translate(-50%, -50%);
 }
 
 .form_reg form #check_div{
-    width:50%;
-    display:inline-block;
-    height:50px;
+    width:100%;
+    display:inline-block; 
     vertical-align: top;
-
+    margin:0;
+    padding:0 ;
 }
 
 .form_reg form .select select, .form_reg form .input_err input {
@@ -2593,15 +2591,14 @@ transform: translate(-50%, -50%);
     font-size:13px;
 }
 .form_reg form #check_div{
-    float: right;
+    float: left;
 }
 
 
 .form_reg form #check_div .checkbox-container{
     display: block;
     position: relative;
-    padding-left: 25px;
-    margin-bottom: 20px;
+    padding-left: 25px; 
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -2688,14 +2685,11 @@ transform: translate(-50%, -50%);
     padding:0;
     padding-left:35px;
 }
-
-.form_reg form #check_div{
-    padding-left:35px;
-}
+ 
 .form_reg form #boton_submit{
-    margin-top:20px;
+    margin:20px 0;
     display: block;
-    width: 170px;
+    width: 100%;
 }
 
 .form_reg form #boton_submit button{
@@ -2704,6 +2698,7 @@ transform: translate(-50%, -50%);
     cursor: pointer;
     padding:5px 0;
     font-weight:700;
+    width:100%;
 }
 .form_reg form #boton_submit button:active{
     background-color:  #c2c20f;
@@ -2780,8 +2775,25 @@ transform: translate(-50%, -50%);
 .form_reg form .select .arm_sel select {
     background: transparent;
 }
+#recaptcha_legal{
+    width:100%;
+    padding:0;
+}
+#recaptcha_legal p{
+    font-size:11px;
+}
+#recaptcha_legal p a{
+    text-decoration: underline;
+}
 
 @media(max-width:768px){
+    #intro.intro_gral.panel .user_prop #user_alias{ 
+        top: 25%;
+    }
+    #intro.intro_gral.panel .user_prop #user_fichas{ 
+        width: 100%;
+        position: relative;
+    }
     #intro.intro_registro h1{
         font-size: 42px;
     }
@@ -3614,7 +3626,10 @@ ul li .li_texto + .li_texto {
         width:100%;
     }
     #intro.intro_gral .cuerpo_texto.texto_noticia{
-        width:70%;
+        width:80%;
+        margin:auto;
+        position:relative;
+        display: block;
     }
     #intro.intro_gral .publicidad_noticia{
         width:30%;
@@ -3629,36 +3644,66 @@ ul li .li_texto + .li_texto {
     margin-bottom:70px;
 }
 
-#intro.intro_gral.noticias .cont_noticias article a{
+#intro.intro_gral.noticias .cont_noticias article {
+    border-bottom:1px solid #e7e7e7;
+    margin-bottom:40px;
+    padding-bottom:10px;
+}
+#intro.intro_gral.noticias .cont_noticias article a:hover .titulo_noticias{ 
+    background-size: 100% 88%; 
+}
+#intro.intro_gral.noticias .cont_noticias article .titulo_noticias{
+  background-image: linear-gradient(120deg, #ffeb04 0%, #ffeb04 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.4em;
+  background-position: 0 100%;
+  transition: background-size 0.25s ease-in;
 }
 #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto{
     font-size:0;
 }
 #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto h2{
+    font-size:24px;
+    line-height: 28px;
     margin-top:0;
     margin-bottom:0;
 }
-#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div:nth-child(1) {
+#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto p{
+    font-size:16px;
+    line-height: 22px; 
+}
+#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto span{
+    font-size:12px;
+}
+#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto{
     font-size:14px;
-    width:60%;
+    width:100%;
     display: inline-block;
     padding-right:30px;
     /* vertical-align: top; */
 }
-#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div a{
+#intro.intro_gral.noticias .cont_noticias .noticia_image .img_noticia{
+    width:30%;
+    display: inline-block;
+}
+#intro.intro_gral.noticias .cont_noticias .noticia_image .cuerpo_texto{
+    width:68%;
+    display: inline-block;
+    padding-left:2%;
+}
+#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto a{
     display:inline-block;
     margin-top:10px;
 }
-#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div:nth-child(2) {
+#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto .image {
     display: inline-block;
     width:40%;
     padding-left:30px;
     vertical-align: top;
-    max-height:150px;
-    overflow: hidden;
+    max-height:150px; 
 }
 
-#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div:nth-child(2) img{
+#intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div img{
     width:100%;
 
 }
@@ -3706,22 +3751,31 @@ ul li .li_texto + .li_texto {
     cursor: context-menu;
 }
 @media (max-width:768px){
+
+    #intro.intro_gral.noticias .cont_noticias .noticia_image .img_noticia{
+        margin-bottom:20px;
+    }
+    #intro.intro_gral.noticias .cont_noticias .noticia_image .img_noticia,
+    #intro.intro_gral.noticias .cont_noticias .noticia_image .cuerpo_texto{
+        width:100%;
+        padding:0;
+    }
     #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto{
         margin-bottom:20px;
         position:relative;
     }
-    #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div:nth-child(1) {
+    #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div {
         width:100%;
         padding-right:0px;
     }
-    #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div:nth-child(1) a{
+    #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div a{
         position: absolute;
         bottom: -15px;
         left:50%;
         -webkit-transform: translateX(-50%);
         -moz-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
+        transform: translateX(-50%);
     }
     #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div:nth-child(2) {
         width:100%;
@@ -4259,7 +4313,7 @@ transform: translateY(-50%);
     display:inline-block;
     vertical-align: top;
     margin-bottom:10px;
-
+    min-height:220px;
     padding:25px;
     border:2px dashed transparent;
     border-bottom:2px dashed  #e6e6e6;
@@ -4318,6 +4372,13 @@ transform: translateY(-50%);
     margin-bottom:0;
 }
 @media (max-width:546px){
+    #intro.intro_gral.panel .user_prop #user_alias{ 
+        top: 25%;
+    }
+    #intro.intro_gral.panel .user_prop #user_fichas{ 
+        width: 100%;
+        position: relative;
+    }
     #intro.intro_gral.panel .user_prop #user_fichas{
         top:auto;
         right: auto;
@@ -4614,8 +4675,9 @@ display: none;
     padding-top:10px;
 }
 .info_per_left{
-    display:inline-block;
-    width:50%;
+    display:block;
+    width:80%;
+    margin:auto;
 }
 .info_per_right{
     width:50%;
@@ -4678,6 +4740,18 @@ display: none;
 transform: translateX(-50%); */
 }
 @media(max-width:768px){
+    #login_js.form_reg form{
+        width: 100% !important;
+    }
+    .forg_pass, .wan_reg{
+        width:100% !important;
+    }
+    .forg_pass a, .wan_reg a{
+        float:left !important;
+    }
+    .contenedor {
+        padding:0 15px;
+    }
     .info_per_left{
         width:100%;
     }
@@ -5300,7 +5374,18 @@ margin-top:2px;
     height:40px;
 }
 #login_js.form_reg form .wan_reg{
-    margin:30px 0 0 0;
+    display: inline-block;
+    margin:0;
+    width:50%;
+    float:left;
+}
+#login_js.form_reg form .forg_pass{
+    display: inline-block;
+    margin:0;
+    width:50%;
+}
+#login_js.form_reg form .forg_pass a{
+    float:right;
 }
 
 #login_js.form_reg form .forg_pass, #login_js.form_reg form .line_dashed{
