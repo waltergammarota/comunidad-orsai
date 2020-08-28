@@ -6,13 +6,8 @@
 @section('content')
     <section id="intro" class="contenedor intro_registro">
         <div>
-            <h1>Iniciar <span class="span_block">membresía</span></h1>
-        </div>
-        <div>
-            <p class="texto_italica">
-                En cuatro pasos simples serás miembro de la Fundación, y tendrás fichas para empezar a apostar a la cultura.
-            </p>
-        </div>
+            <h1>Registro</h1>
+        </div> 
     </section>
     <section id="registro_js" class="contenedor form_reg">
         <form action="registrarse" method="POST" id="registro-form">
@@ -120,7 +115,10 @@
                     <span class="crear_check"></span>
                 </label>
             </div>
-
+            <div id="recaptcha_legal" class="input_err obligatorio"> 
+                <p class="recaptcha_legal-container letra_chica"><small><br>
+Este sitio está protegido por reCAPTCHA y se aplican la <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a> y los <a href="https://policies.google.com/terms" target="_blank">Términos de servicio</a> de Google.</small></p>
+            </div>
             <div id="boton_submit">
                 <button class="subrayado resaltado_amarillo text_bold g-recaptcha"
                         data-sitekey="{{env('CAPTCHA_SITE_KEY')}}"

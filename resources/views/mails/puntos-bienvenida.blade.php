@@ -25,9 +25,9 @@
         style="width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
         <tr bgcolor="#fffefe">
             <td style="text-align: center; padding: 0; padding-top:20px;">
-                <a href="#"
-                   style="border:1px dashed black; padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    NECESITAMOS UN LOGO
+                <a href="http://beta.fundacionorsai.org/"
+                   style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
+                    <img src="{{url('recursos/comunidad-orsai.png')}}" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr>
@@ -47,10 +47,7 @@
                 <div
                     style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Space Mono', monospace;">
                     <p style="text-align: center; margin: 2px; font-size: 15px">
-                        Activaste tu cuenta con el correo electrónico {{$email}}.</p><br/>
-                    <p style="text-align: center; margin: 2px; font-size: 15px">
-                        Ahora que sos miembro fundador de la Fundación Orsai entrá y enterate de qué se trata todo esto.
-                    </p>
+                        Activaste tu cuenta con el correo electrónico {{$email}}.</p> 
                 </div>
             </td>
         </tr>
@@ -61,7 +58,7 @@
                     <p style="color: #808080; text-decoration-line: underline;text-align: center;">
                          La casa invita</p>
                     <p style="text-align: center; margin: 2px; font-size: 15px">
-                        Para darte la bienvenida <strong>Fundación Orsai</strong> te regala las primeras {{$amount}} fichas.</p> <br/>
+                        Para darte la bienvenida <strong>Comunidad Orsai</strong> te regala las primeras {{$amount}} fichas.</p> <br/>
                     <p style="text-align: center; margin: 2px; font-size: 15px"> Si querés sumar más fichas completá tu perfil, las vas a necesitar para cuando toque apostar fuerte.</p>  
                     <a href="https://beta.fundacionorsai.org/panel" target="_blank"
                        style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Quiero más fichas</a>
@@ -77,21 +74,7 @@
         </tr>
         <tr>
             <td style="height:25px;"></td>
-        </tr>
-        <tr bgcolor="#000000">
-            <td style="text-align: center;">
-                <div style="font-size:14px;">
-                    <a href="https://twitter.com/fundacionorsai"
-                       style="text-decoration: none; margin-top:20px; margin-bottom:20px; padding:5px 5px; display: inline-block;text-align: center; color:#808080;">Twitter</a>
-                    <span style="color: #808080;">/</span>
-                    <a href="https://www.instagram.com/fundacionorsai/"
-                       style="text-decoration: none; margin-top:20px; margin-bottom:20px; padding:5px 5px; display: inline-block;text-align: center; color:#808080;">Instagram</a>
-                    <span style="color: #808080;">/</span>
-                    <a href="https://www.facebook.com/fundacionorsai"
-                       style="text-decoration: none; margin-top:20px; margin-bottom:20px; padding:5px 5px; display: inline-block;text-align: center; color:#808080;">Facebook</a>
-                </div>
-            </td>
-        </tr>
+        </tr> 
         <tr>
             <td style="text-align: center; ">
                 <div

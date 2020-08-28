@@ -33,9 +33,7 @@
         </div>
         <h2 class="subtitulo">{{$noticia->copete}}</h2>
         <div class="texto">{!! $noticia->texto !!}</div>
-    </div>
-    <div class="publicidad_noticia">
-    </div>
+    </div> 
 </section>
 
 <div class="contenedor mg_100 number_page">

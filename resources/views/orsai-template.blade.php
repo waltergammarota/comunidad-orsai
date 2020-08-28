@@ -84,8 +84,7 @@
         <div class="sub_footer_ri">
             <div>
                 <ul>
-                    <li><a href="{{url('terminos')}}">Terminos &amp; Condiciones</a></li>
-                    <li><a href="{{url('privacidad')}}">Privacidad</a></li>
+                    <li><a href="{{url('terminos')}}">Terminos &amp; Condiciones</a></li> 
                 </ul>
             </div>
         </div>
