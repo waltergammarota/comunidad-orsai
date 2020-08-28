@@ -5,7 +5,7 @@
 
 @section('content')
 <section id="intro" class="contenedor intro_gral ">
-    <div class="info_per_left">
+    <div class="info_per_breadcrumb">
         <div class="breadcrumbs">
             <div id="links_back">
                 <a href="{{url('novedades')}}">Novedades</a>

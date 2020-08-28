@@ -63,7 +63,7 @@
                         Cliquea en el link abajo para restablecer tu clave.
                     </p>
                     <a href="{{$token}}" target="_blank"
-                       style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Link</a>
+                       style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Link</a>
                 </div>
             </td>
         </tr>

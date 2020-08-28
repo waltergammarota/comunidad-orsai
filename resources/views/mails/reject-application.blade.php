@@ -54,7 +54,7 @@
                     <p style="text-align: center; margin: 2px; font-size: 15px">
                         ¡No te rindas! <br/>
                     </p>
-                    <a href="https://beta.fundacionorsai.org/panel" target="_blank" style="background-color:#fafa00; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Volver a intentar</a>
+                    <a href="https://beta.fundacionorsai.org/panel" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Volver a intentar</a>
 
                 </div>
             </td>
