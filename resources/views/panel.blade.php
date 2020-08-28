@@ -63,7 +63,7 @@
         <span>1</span>
     </div>
 
-    <div id="acred_fichas_modal" class="popup" style="display: none;">
+<!--     <div id="acred_fichas_modal" class="popup" style="display: none;">
         <div class="contenedor modal_fichas">
             <div>
                 <div id="texto_err">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     @if(Session::get('alert') == "activation_email" || Auth::user()->email_verified_at == null)
         <div class="general_profile_msg popup top_msg">
             <div class="contenedor msg_position_rel">
@@ -87,7 +87,7 @@
 @endsection
 
 @section('footer')
-    <script>
+    <script>/*
         const modal_fichas = $("#acred_fichas_modal");
 
         $(document).ready(() => {
@@ -102,6 +102,7 @@
         modal_fichas.click(function () {
             modal_fichas.fadeOut('slow');
         })
+        */
 
         if (document.getElementsByClassName("general_profile_msg")) {
             var get_general_msg = document.getElementsByClassName("general_profile_msg");
