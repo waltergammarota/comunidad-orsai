@@ -1,6 +1,6 @@
 @extends('orsai-template')
 
-@section('title', 'Reenvío de mail | Fundación Orsai')
+@section('title', 'Reenvío de mail | Comunidad Orsai')
 @section('description', 'Reenvío de mail')
 
 @section('content')

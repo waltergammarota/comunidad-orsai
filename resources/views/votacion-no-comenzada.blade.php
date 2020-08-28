@@ -1,6 +1,6 @@
 @extends('orsai-template')
 
-@section('title', 'Votación no comenzada | Fundación Orsai')
+@section('title', 'Votación no comenzada | Comunidad Orsai')
 @section('description', 'Votación no comenzada')
 
 @section('content')

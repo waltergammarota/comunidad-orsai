@@ -1,6 +1,6 @@
 @extends('orsai-template')
 
-@section('title', 'Noticias | Fundación Orsai')
+@section('title', 'Noticias | Comunidad Orsai')
 @section('description', 'Noticias')
 
 @section('content')

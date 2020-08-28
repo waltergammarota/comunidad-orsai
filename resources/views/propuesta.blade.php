@@ -1,8 +1,8 @@
 @extends('orsai-template')
 
-@section('title', 'Propuesta | Fundación Orsai')
+@section('title', 'Propuesta | Comunidad Orsai')
 
-@section('description',ucfirst($propuesta['owner']['name'])." | Fundación Orsai")
+@section('description',ucfirst($propuesta['owner']['name'])." | Comunidad Orsai")
 
 @section('facebook')
     <!-- Facebook -->

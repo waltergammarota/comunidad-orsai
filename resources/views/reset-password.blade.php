@@ -1,6 +1,6 @@
 @extends('orsai-template')
 
-@section('title', 'Resetear password | Fundación Orsai')
+@section('title', 'Resetear password | Comunidad Orsai')
 @section('description', 'Resetear password')
 
 @section('content')

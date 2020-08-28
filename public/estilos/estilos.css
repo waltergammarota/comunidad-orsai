@@ -3581,7 +3581,7 @@ ul li .li_texto + .li_texto {
     vertical-align: top;
 }
 .cuerpo_texto, .publicidad_noticia{
-    font-size:0;
+    font-size:14px;
     display:inline-block;
 }
 
