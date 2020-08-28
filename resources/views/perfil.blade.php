@@ -226,7 +226,7 @@
         <span>1</span>
     </div>
 
-    @if(Session::get('alert') == "profile_not_completed")
+<!--     @if(Session::get('alert') == "profile_not_completed")
         <div class="general_profile_msg popup top_msg">
             <div class="contenedor msg_position_rel">
                 <div id="texto_exito">
@@ -237,7 +237,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif -->
 <div id="exito_msg" class="popup">
     <div>
         <div id="texto_exito">
