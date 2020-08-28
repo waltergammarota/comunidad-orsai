@@ -24,12 +24,12 @@
         @yield('facebook')
     @else
     <!-- Facebook -->
-        <meta property="og:site_name" content="Fundación Orsai"/>
+        <meta property="og:site_name" content="Comunidad Orsai"/>
         <meta property="og:url" content="{{url()->full()}}"/>
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="@yield('title')"/>
         <meta property="og:description" content="@yield('description')"/>
-        <meta property="og:image" content="{{env('DEFAULT_IMAGE', 'https://via.placeholder.com/150')}}"/>
+        <meta property="og:image" content="{{url('recursos/comunidad-orsai-share.png')}}"/>
     @endif
 
     @if(env('ORSAI_ENV') == 'production')
@@ -50,13 +50,15 @@
     @else
     <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image"/>
-        <meta name="twitter:site" content="{{env('TWITTER_SITE', '@nytimes')}}"/>
-        <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@nytimes')}}"/>
+        <meta name="twitter:site" content="{{env('TWITTER_SITE', '@comunidadorsai')}}"/>
+        <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@comunidadorsai')}}"/>
         <meta property="twitter:title" content="@yield('title')"/>
         <meta property="twitter:description" content="@yield('description')"/>
-        <meta name="twitter:image" content="{{env('DEFAULT_IMAGE', 'https://via.placeholder.com/150')}}"/>
+        <meta name="twitter:image" content="{{url('recursos/comunidad-orsai-share.png')}}"/>
     @endif
 
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{url('recursos/favicon-apple.png')}}">
+  <link rel="shortcut icon" href="{{url('recursos/favicon.ico')}}">
 
 </head>
 <body>
@@ -85,6 +87,7 @@
             <div>
                 <ul>
                     <li><a href="{{url('terminos')}}">Terminos &amp; Condiciones</a></li> 
+                    <li><a href="{{url('privacidad')}}">Privacidad</a></li> 
                 </ul>
             </div>
         </div>

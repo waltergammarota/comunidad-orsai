@@ -1,7 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Términos | Fundación Orsai')
-@section('description', 'Términos')
+@section('title', 'Términos y condiciones | Comunidad Orsai')
+@section('description', 'Términos y condiciones')
 
 
 @section('content')
@@ -10,7 +10,7 @@
             <h1 class="span_h1">Términos y <span class="span_block">condiciones</span></h1>
         </div>
         <div class="cuerpo_texto">
-            <p>Los presentes Términos y Condiciones (en adelante «las boludeces estas») constituyen las reglas de uso del sitio de la Fundación Orsai (en adelante «el coso») que regirán la relación con los usuarios (en adelante denominados «los giles»).</p>
+            <p>Los presentes Términos y Condiciones (en adelante «las boludeces estas») constituyen las reglas de uso del sitio de la Comunidad Orsai (en adelante «el coso») que regirán la relación con los usuarios (en adelante denominados «los giles»).</p>
             <p>El aprovechamiento que los giles hagan del coso será lícito solo cuando lo hagan dentro del marco legal de las boludeces estas.</p>
         </div>
         <h4 class="tit">Aceptación de las boludeces estas</h4>

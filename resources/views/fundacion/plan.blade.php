@@ -1,7 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Plan | Fundación Orsai')
-@section('description','Plan | Fundación Orsai')
+@section('title', 'Plan | Comunidad Orsai')
+@section('description','Plan | Comunidad Orsai')
 
 
 @section('content')
