@@ -238,7 +238,6 @@
             </div>
         </div>
     @endif
-@endsection
 <div id="exito_msg" class="popup">
     <div>
         <div id="texto_exito">
@@ -246,6 +245,7 @@
         </div>
     </div>
 </div>
+@endsection
 
 @section('footer')
 

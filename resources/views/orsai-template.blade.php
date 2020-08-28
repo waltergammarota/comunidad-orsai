@@ -29,7 +29,9 @@
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="@yield('title')"/>
         <meta property="og:description" content="@yield('description')"/>
+        <meta property="og:image:alt" content="Comunidad Orsai"/>
         <meta property="og:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
+      <!--   <meta property="og:app_id" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/> -->
     @endif
 
     @if(env('ORSAI_ENV') == 'production')
@@ -54,7 +56,7 @@
         <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@comunidadorsai')}}"/>
         <meta property="twitter:title" content="@yield('title')"/>
         <meta property="twitter:description" content="@yield('description')"/>
-        <meta name="twitter:image" content="{{url('recursos/comunidad-orsai-share.png')}}"/>
+        <meta name="twitter:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
     @endif
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{url('recursos/favicon-apple.png')}}">
