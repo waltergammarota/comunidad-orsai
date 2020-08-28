@@ -149,6 +149,7 @@ a:link a:visited, a:active {
 header{
     width:100%;
     position:relative;
+    border-bottom: 1px solid #dcdcdc;
 }
 header nav{
     font-size:0;
@@ -168,7 +169,7 @@ header nav #contenedor_logo_header #logo_header{
 header nav #contenedor_logo_header #logo_header a{
     display:block;
     color: #808080;
-    padding:10px 15px 10px 15px;
+    padding:10px 0 10px 0;
 }
 header nav #desplegable div ul{
     text-align:left;
