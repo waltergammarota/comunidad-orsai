@@ -33,7 +33,7 @@ class ResetPasswordMail extends Mailable
             "email" => $this->email,
             "token" => $this->token,
         ];
-        return $this->subject('Restablecimiento de clave')->view(
+        return $this->subject('Restablecé tu contraseña')->view(
             'mails.reset-password',
             $data
         );
