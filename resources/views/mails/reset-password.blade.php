@@ -38,7 +38,7 @@
                 bgcolor="#fffefe">
                 <h1 style="margin-bottom:0;font-weight: 400; font-size:36px; line-height: 38px;">
                     Restablecimiento de clave
-                    <span style="font-weight: 700; display:block;">Fundación Orsai</span>
+                    <span style="font-weight: 700; display:block;">Comunidad Orsai</span>
                 </h1>
             </td>
         </tr>

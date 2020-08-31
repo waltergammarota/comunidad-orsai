@@ -49,7 +49,7 @@
                     <p style="text-align: center; margin: 2px; font-size: 15px">
                         Activaste tu cuenta con el correo electrónico {{$email}}.</p> 
                         <p style="text-align: center; margin: 2px; font-size: 15px">
-                    <a href="https://beta.fundacionorsai.org/panel" target="_blank"
+                    <a href="https://comunidadorsai.org/panel" target="_blank"
                        style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Ingresá</a></p>
                 </div>
             </td>
