@@ -76,7 +76,7 @@
         <div class="general_profile_msg popup top_msg">
             <div class="contenedor msg_position_rel">
                 <div id="texto_exito">
-                    <span>Necesitamos que confirmes el registro de tu correo electrónico.<br/>Revisá tu casilla y activá tu cuenta para recibir tus primeras fichas gratis.</span>
+                    <span>Necesitamos que confirmes el registro de tu correo electrónico.<br/>Revisá tu casilla y activá tu cuenta.</span>
                 </div>
                 <div class="cerrar">
                     <span>X</span>
