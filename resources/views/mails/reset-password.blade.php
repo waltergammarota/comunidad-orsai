@@ -37,8 +37,7 @@
             <td style="padding: 0; text-align: center; width: 600px;"
                 bgcolor="#fffefe">
                 <h1 style="margin-bottom:0;font-weight: 400; font-size:36px; line-height: 38px;">
-                    Restablecimiento de clave
-                    <span style="font-weight: 700; display:block;">Comunidad Orsai</span>
+                    ¿Olvidaste la contraseña?
                 </h1>
             </td>
         </tr>
@@ -48,25 +47,15 @@
                 <div
                     style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Space Mono', monospace;">
                     <p style="text-align: center; margin: 2px; font-size: 15px">
-                        Se solicitó un restablecimiento de clave
+                        No será la primera ni la última vez. Hacé clic en el botón para configurar una nueva contraseña y enviaremos un mensaje a la dirección de correo electrónico asociada a tu cuenta. 
                     </p>
-                </div>
-            </td>
-        </tr>
-        <tr bgcolor="#fffefe" style="padding-top:20px;">
-            <td>
-                <div
-                    style="color: black; margin-left:15px; margin-right:15px; border-top: 2px dashed #808080; text-align: center; font-family: 'Space Mono', monospace;">
-                    <p style="color: #808080; text-decoration-line: underline;text-align: center;">
-                        Bien corto y al pie</p>
                     <p style="text-align: center; margin: 2px; font-size: 15px">
-                        Cliquea en el link abajo para restablecer tu clave.
-                    </p>
                     <a href="{{$token}}" target="_blank"
-                       style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Link</a>
+                       style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Restablecer contraseña</a>
+                    </p>
                 </div>
             </td>
-        </tr>
+        </tr> 
         <tr bgcolor="#fffefe">
             <td style="height:40px;">
                 <div style="width:100%; color:#808080; text-align: right;">
