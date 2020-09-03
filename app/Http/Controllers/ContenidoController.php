@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Databases\ContenidoModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class ContenidoController extends Controller
@@ -13,6 +14,10 @@ class ContenidoController extends Controller
     public function index(Request $request)
     {
         $data = $this->getUserData();
+        $emailWasValidated = Auth::user()->email_verified_at != null;
+        if(!$emailWasValidated) {
+            return Redirect::to('panel');
+        }
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
         if ($slug == "novedades") {

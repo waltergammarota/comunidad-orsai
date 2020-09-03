@@ -13,7 +13,7 @@
             <div id="user_alias">
                 <h1>{{'@'.ucfirst($username)}}</h1>
             </div>
-<!--             <div id="user_fichas">
+        <!--             <div id="user_fichas">
                 <span>{{$balance}}</span>
                 <span>Fichas <span class="span_block">para jugar</span></span>
             </div> -->
@@ -32,20 +32,21 @@
                 <span href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</span>
             </div>
         </a>
-
-        <a href="{{url('novedades')}}" class="box_panel">
-            <div>
-                <span>Novedades</span>
-            </div>
-            <div>
-                <span>De qué se trata todo esto</span>
-            </div>
-            <div>
+        @if($emailWasValidated)
+            <a href="{{url('novedades')}}" class="box_panel">
+                <div>
+                    <span>Novedades</span>
+                </div>
+                <div>
+                    <span>De qué se trata todo esto</span>
+                </div>
+                <div>
                 <span href="{{url('novedades')}}"
                       class="subrayado resaltado_amarillo">Ver</span>
-            </div>
-        </a>
-<!-- 
+                </div>
+            </a>
+    @endif
+    <!--
         <a href="{{url('transacciones')}}" class="box_panel">
             <div>
                 <span>Mis fichas</span>
@@ -63,7 +64,7 @@
         <span>1</span>
     </div>
 
-<!--     <div id="acred_fichas_modal" class="popup" style="display: none;">
+    <!--     <div id="acred_fichas_modal" class="popup" style="display: none;">
         <div class="contenedor modal_fichas">
             <div>
                 <div id="texto_err">
