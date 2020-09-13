@@ -1,0 +1,7 @@
+:root {
+    /* Change primary font */
+    --font-family-primary: 'Space mono';
+    --palette-primary-500: black;
+    /* Remove round corners */
+    --round-corners: 0px;
+}

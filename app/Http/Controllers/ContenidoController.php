@@ -7,7 +7,9 @@ namespace App\Http\Controllers;
 use App\Databases\ContenidoModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Nowakowskir\JWT\TokenDecoded;
 
 class ContenidoController extends Controller
 {
@@ -15,7 +17,7 @@ class ContenidoController extends Controller
     {
         $data = $this->getUserData();
         $emailWasValidated = Auth::user()->email_verified_at != null;
-        if(!$emailWasValidated) {
+        if (!$emailWasValidated) {
             return Redirect::to('panel');
         }
         $slug = $request->route('slug');
@@ -28,13 +30,41 @@ class ContenidoController extends Controller
             if ($contenido == null) {
                 abort(404);
             }
-            if($contenido->tipo == "noticia") {
+            $data['coral_token'] = $this->generateToken();
+            if ($contenido->tipo == "noticia") {
                 $data['noticia'] = $contenido;
                 return view("noticias.noticia", $data);
             }
+
             $data['pagina'] = $contenido;
             return view("pagina-template", $data);
         }
+    }
+
+    private function generateToken()
+    {
+        $key = env("CORAL_SECRET");
+        $user = Auth::user();
+        if ($user->coral_token == "") {
+            $id = DB::select(DB::raw('SELECT UUID() as id'));
+            if(count($id) > 0) {
+                $user->coral_token = $id[0]->id;
+                $user->save();
+            }
+        }
+        $email = $user->email;
+        $username = $user->name ." ". $user->lastname;
+        $coral_token = $user->coral_token;
+        $payload = [
+            "user" => [
+                "id" => $coral_token,
+                "email" => $email,
+                "username" => $username,
+                "role" => "COMMENTER"
+            ]
+        ];
+        $tokenDecoded = new TokenDecoded(['alg' => 'HS256'], $payload);
+        return $tokenDecoded->encode($key);
     }
 
     private function getNoticias($page = 1)

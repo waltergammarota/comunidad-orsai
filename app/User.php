@@ -36,6 +36,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at',
         'role',
         'avatar',
+        'coral_token'
     ];
 
     /**
