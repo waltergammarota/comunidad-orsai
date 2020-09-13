@@ -54,7 +54,7 @@
                 Coral.createStreamEmbed({
                     id: "coral_thread",
                     autoRender: true,
-                    rootURL: 'http://localhost:3000',
+                    rootURL: '{{env('CORAL_URL')}}',
                     storyID: '{{$noticia->slug}}',
                     storyURL: '{{url()->current()}}',
                     accessToken: '{{$coral_token}}'
