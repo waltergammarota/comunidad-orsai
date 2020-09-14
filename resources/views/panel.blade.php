@@ -26,7 +26,7 @@
                 <span>Información Personal</span>
             </div>
             <div>
-                <span>Queremos saber más de vos. Completá tu perfil para obtener más fichas gratis.</span>
+                <span>Queremos saber más de vos.</span>
             </div>
             <div>
                 <span href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</span>
