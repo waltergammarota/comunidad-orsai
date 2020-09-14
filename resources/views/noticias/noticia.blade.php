@@ -54,7 +54,7 @@
     <script type="text/javascript">
         (function () {
             var d = document, s = d.createElement('script');
-            s.src = '{{env('CORAL_URL')}}/assets/js/embed.js';
+            s.src = '{{env('CORAL_URL')}}assets/js/embed.js';
             s.async = false;
             s.defer = true;
             s.onload = function () {
