@@ -96,7 +96,7 @@ a:link a:visited, a:active {
     overflow: hidden;
 }
 
-.contenedor{ 
+.contenedor{
     max-width: 768px;
     width: 100%;
     margin: 0 auto
@@ -140,7 +140,7 @@ a:link a:visited, a:active {
 
 .mg_100{
     margin-bottom:100px;
-} 
+}
 header{
     width:100%;
     position:relative;
@@ -264,7 +264,7 @@ header nav #desplegable div ul li{
         -moz-text-decoration-line: underline;
         font-weight: 700;
     }
-    header nav #desplegable #menu_reg{ 
+    header nav #desplegable #menu_reg{
         vertical-align: top;
     }
     header nav #desplegable #menu_reg #menu_logueado{
@@ -2473,7 +2473,7 @@ transform: translate(-50%, -50%);
     text-align: left !important;
     padding-left:5px;
 }
-#intro.intro_registro{ 
+#intro.intro_registro{
     padding-left:70px;
     margin:40px 0 50px 0;
 }
@@ -2506,7 +2506,7 @@ transform: translate(-50%, -50%);
 
 .form_reg form #check_div{
     width:100%;
-    display:inline-block; 
+    display:inline-block;
     vertical-align: top;
     margin:0;
     padding:0 ;
@@ -2595,7 +2595,7 @@ transform: translate(-50%, -50%);
 .form_reg form #check_div .checkbox-container{
     display: block;
     position: relative;
-    padding-left: 25px; 
+    padding-left: 25px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -2682,7 +2682,7 @@ transform: translate(-50%, -50%);
     padding:0;
     padding-left:35px;
 }
- 
+
 .form_reg form #boton_submit{
     margin:20px 0;
     display: block;
@@ -2784,10 +2784,10 @@ transform: translate(-50%, -50%);
 }
 
 @media(max-width:768px){
-    #intro.intro_gral.panel .user_prop #user_alias{ 
+    #intro.intro_gral.panel .user_prop #user_alias{
         top: 25%;
     }
-    #intro.intro_gral.panel .user_prop #user_fichas{ 
+    #intro.intro_gral.panel .user_prop #user_fichas{
         width: 100%;
         position: relative;
     }
@@ -3646,8 +3646,8 @@ ul li .li_texto + .li_texto {
     margin-bottom:40px;
     padding-bottom:10px;
 }
-#intro.intro_gral.noticias .cont_noticias article a:hover .titulo_noticias{ 
-    background-size: 100% 88%; 
+#intro.intro_gral.noticias .cont_noticias article a:hover .titulo_noticias{
+    background-size: 100% 88%;
 }
 #intro.intro_gral.noticias .cont_noticias article .titulo_noticias{
   background-image: linear-gradient(120deg, #ffeb04 0%, #ffeb04 100%);
@@ -3667,7 +3667,7 @@ ul li .li_texto + .li_texto {
 }
 #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto p{
     font-size:16px;
-    line-height: 22px; 
+    line-height: 22px;
 }
 #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto span{
     font-size:12px;
@@ -3703,7 +3703,7 @@ ul li .li_texto + .li_texto {
     width:40%;
     padding-left:30px;
     vertical-align: top;
-    max-height:150px; 
+    max-height:150px;
 }
 
 #intro.intro_gral.noticias .cont_noticias article .cuerpo_texto div img{
@@ -4375,10 +4375,10 @@ transform: translateY(-50%);
     margin-bottom:0;
 }
 @media (max-width:546px){
-    #intro.intro_gral.panel .user_prop #user_alias{ 
+    #intro.intro_gral.panel .user_prop #user_alias{
         top: 25%;
     }
-    #intro.intro_gral.panel .user_prop #user_fichas{ 
+    #intro.intro_gral.panel .user_prop #user_fichas{
         width: 100%;
         position: relative;
     }
@@ -4684,7 +4684,7 @@ display: none;
 }
 .info_per_left{
     display:inline-block;
-    width:50%; 
+    width:50%;
 }
 .info_per_right{
     width:50%;
@@ -5807,3 +5807,7 @@ margin-top:2px;
     font-size:24px;
 }
 .grecaptcha-badge { visibility: hidden; }
+
+#coral_thread {
+    margin-top: 120px;
+}
