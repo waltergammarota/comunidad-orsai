@@ -5,3 +5,12 @@
     /* Remove round corners */
     --round-corners: 0px;
 }
+.coral-tabBar span{
+   font-family: 'Space mono';
+}
+.coral-viewerBox{
+	display: none;
+}
+.coral-emailNotifications{
+	display: none;
+}

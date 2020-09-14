@@ -7,13 +7,7 @@
     <section id="intro" class="contenedor intro_gral noticias "> 
 
         <div class="cont_noticias">
-            @foreach($noticias['noticias'] as $key => $noticia)
-                @if($key % 2 == 0 && $key > 0)
-                    <div class="publicidad_noticias">
-                        <div></div>
-                    </div>
-                    <div class="line_dashed"></div>
-                @endif
+            @foreach($noticias['noticias'] as $key => $noticia) 
                 @php
                     $image = $noticia->images()->first();
                     $imageUrl = "";
