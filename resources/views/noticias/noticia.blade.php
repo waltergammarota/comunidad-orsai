@@ -3,6 +3,13 @@
 @section('title', ucfirst($noticia->title))
 @section('description', $noticia->copete)
 
+@section('coral')
+    <meta name="title" content="{{ $noticia->title }}"/>
+    <meta name="description" content="{{ $noticia->copete }}"/>
+    <meta name="author" content="{{ $noticia->autor }}"/>
+    <meta name="publication_date" content="{{ $noticia->created_at }}"/>
+@endsection
+
 @section('content')
     <section id="intro" class="contenedor intro_gral ">
         <div class="info_per_breadcrumb">
@@ -47,7 +54,7 @@
     <script type="text/javascript">
         (function () {
             var d = document, s = d.createElement('script');
-            s.src = 'http://localhost:3000/assets/js/embed.js';
+            s.src = '{{env('CORAL_URL')}}/assets/js/embed.js';
             s.async = false;
             s.defer = true;
             s.onload = function () {
