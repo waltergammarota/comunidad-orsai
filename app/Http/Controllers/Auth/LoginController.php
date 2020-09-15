@@ -60,7 +60,7 @@ class LoginController extends Controller
         );
         $status = $this->checkReCaptcha($request);
 
-        $minScore = env('CAPTCHA_MIN_SCORE',0.9);
+        $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
         if ($status->success == false || $status->score < $minScore) {
             return Redirect::back()->withErrors([
                 "login" => "Credenciales no válidas"
@@ -126,6 +126,9 @@ class LoginController extends Controller
         $token = $request->route('token');
         if ($token) {
             $user = User::where('remember_token', $token)->first();
+            if ($user === null) {
+                return Redirect::to('restablecer-clave')->withErrors(['token' => 'Token expirado o inválido']);
+            }
             $user->password = Str::random(8);
             $user->save();
         }
