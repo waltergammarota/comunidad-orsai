@@ -44,7 +44,7 @@
                 <div class="input_err">
                     <label>Usuario<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
-                        <input type="text" name="userName" value="{{$username}}" id="userName">
+                        <input type="text" name="userName" value="{{$username}}" id="userName" disabled>
                     </div>
                     <div class="line_dashed"></div>
                 </div>

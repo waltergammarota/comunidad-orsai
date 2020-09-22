@@ -102,7 +102,7 @@
             <div id="check_div" class="input_err obligatorio"
                  style="padding-right: 0px !important;">
                 <label class="checkbox-container letra_chica text_bold">
-                    Aceptación de <a href="{{url('terminos')}}"
+                    Aceptación de <a href="{{url('terminos-y-condiciones')}}"
                                      class="subrayado resaltado_amarillo text_bold" target="_blank">Términos
                         y condiciones</a>.
                     <input type="checkbox" id="cbox1" name="terminos"

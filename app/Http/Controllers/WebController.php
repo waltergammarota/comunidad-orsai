@@ -288,6 +288,11 @@ class WebController extends Controller
         return view('contacto', $data);
     }
 
+    public function terminos(Request $request)
+    {
+        return Redirect::to('terminos-y-condiciones');
+    }
+
     public function contacto_send(Request $request)
     {
         $request->validate([
