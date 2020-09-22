@@ -69,13 +69,6 @@
             <div class="line_dashed"></div>
         </div>
         <div class="input_err">
-            <label>Descripción*</label>
-            <div class="in_sp obligatorio editar">
-                <p>{{$user->description}}</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>
-        <div class="input_err">
             <label>Facebook</label>
             <div class="in_sp editar">
                 <p>{{$user->facebook}}</p>

@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <section id="intro" class="contenedor intro_gral ">
+    <section id="novedad" class="contenedor intro_gral ">
         <div class="info_per_breadcrumb">
             <div class="breadcrumbs">
                 <div id="links_back">

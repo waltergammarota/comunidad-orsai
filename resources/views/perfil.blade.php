@@ -159,18 +159,7 @@
                     </div>
                     <div class="line_dashed"></div>
                 </div>
-            </form>
-            <form action="#">
-                <div class="input_err">
-                    <label>Descripción<strong>*</strong></label>
-                    <div class="in_sp obligatorio editar">
-                        <input type="text" name="description"
-                               value="{{$description}}" id="description">
-                    </div>
-                    <div class="line_dashed"></div>
-                </div>
-            </form>
-
+            </form> 
             <form action="#">
                 <div class="input_err">
                     <label>Whatsapp<strong>*</strong></label>

@@ -17,19 +17,13 @@ Auth::routes(['verify' => true]);
 Route::get(
     '/',
     'WebController@ingresar'
-)->name('home');
-
-Route::get(
-    '/privacidad',
-    'WebController@privacidad'
-)->name('privacidad');
+)->name('home'); 
 
 Route::get(
     '/ingresar',
     'WebController@ingresar'
 )->name('ingresar');
-
-
+ 
 Route::post(
     '/ingresar',
     'Auth\LoginController@authenticate'
@@ -85,12 +79,7 @@ Route::get(
 Route::post(
     '/reenviar-mail',
     'Registration\RegistrationController@reenviar'
-)->name('reenviar-mail');
-
-Route::get(
-    '/terminos',
-    'WebController@terminos'
-)->name('terminos');
+)->name('reenviar-mail'); 
 
 Route::get(
     '/contacto',

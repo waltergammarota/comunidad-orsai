@@ -8,14 +8,16 @@
 
         <div class="cont_noticias">
             @foreach($noticias['noticias'] as $key => $noticia) 
+                                
                 @php
                     $image = $noticia->images()->first();
                     $imageUrl = "";
                     if($image) {
-                    $imageUrl = 'storage/images/'.$image->name.".".$image->extension;
-                    }
+                        $imageUrl = 'storage/images/'.$image->name.".".$image->extension;
+                    }  
                 @endphp
-                <article  @if($imageUrl) class="noticia_image" @endif>
+
+                <article class="noticia @if($imageUrl) noticia_image @endif @if($key === 0)noticia_first @endif" >
                     <a href="{{url('novedades/'.$noticia->slug)}}"> 
                         @if($imageUrl)
                             <div class="img_noticia">
@@ -24,7 +26,7 @@
                         @endif 
                         <div class="cuerpo_texto">  
                                 <h2 class="titulo_noticias">{{$noticia->title}}</h2>
-                                <p>{{Str::limit($noticia->copete, 100)}}</p> 
+                                <p>{{$noticia->copete}}</p> 
                                 <span class="date_noticia">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span> 
                         </div>
                     </a>
