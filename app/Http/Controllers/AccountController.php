@@ -235,7 +235,7 @@ class AccountController extends Controller
         $allowedTypes = [
             'name',
             'lastName',
-            'userName',
+            /*'userName',*/
             'country',
             'provincia',
             'city',
