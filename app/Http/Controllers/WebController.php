@@ -68,21 +68,7 @@ class WebController extends Controller
         $data = $this->getUserData();
         $data['title'] = "Reenviar mail activación";
         return view('reenviar-mail-activacion', $data);
-    }
-
-    public function terminos()
-    {
-        $data = $this->getUserData();
-        $data['title'] = "Términos y condiciones";
-        return view('terminos', $data);
-    }
-
-    public function privacidad()
-    {
-        $data = $this->getUserData();
-        $data['title'] = "Privacidad";
-        return view('privacidad', $data);
-    }
+    } 
 
     public function bases_concurso()
     {

@@ -151,8 +151,7 @@ class AccountController extends Controller
     {
         $data = [
             "id" => $request->cap_id,
-            "title" => $request->title,
-            "description" => $request->description,
+            "title" => $request->title, 
             "link" => $request->link,
             "user_id" => Auth::user()->id,
             "contest_id" => 1,
@@ -183,8 +182,7 @@ class AccountController extends Controller
     ): RedirectResponse {
         $request->validate(
             [
-                'title' => 'required|min:1|max:255',
-                'description' => 'required|min:1|max:280',
+                'title' => 'required|min:1|max:255', 
                 'logo' => 'required|array|min:1|max:1',
                 'logo.*' => 'image|required|max:5120',
                 'images' => 'array',
@@ -195,8 +193,7 @@ class AccountController extends Controller
         );
 
         $data = [
-            "title" => $request->title,
-            "description" => $request->description,
+            "title" => $request->title, 
             "link" => $request->link,
             "user_id" => Auth::user()->id,
             "contest_id" => 1,
@@ -220,8 +217,7 @@ class AccountController extends Controller
             "email",
             "lastName",
             "city",
-            "profesion",
-            "description"
+            "profesion", 
         ];
         $attr = Arr::where(
             $userData,
@@ -244,8 +240,7 @@ class AccountController extends Controller
             'provincia',
             'city',
             'birth_date',
-            'profesion',
-            'description',
+            'profesion', 
             'facebook',
             'whatsapp',
             'twitter',

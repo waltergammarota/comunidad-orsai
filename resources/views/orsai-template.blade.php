@@ -62,8 +62,8 @@
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{url('recursos/favicon-apple.png')}}">
   <link rel="shortcut icon" href="{{url('recursos/favicon.ico')}}">
 
-</head>
-<body>
+</head> 
+<body class="page">
 
 <div class="fondo_blanco">
     <header class="contenedor">
@@ -88,8 +88,8 @@
         <div class="sub_footer_ri">
             <div>
                 <ul>
-                    <li><a href="{{url('terminos')}}">Terminos &amp; Condiciones</a></li> 
-                    <li><a href="{{url('privacidad')}}">Privacidad</a></li> 
+                    <li><a href="{{url('terminos-y-condiciones')}}">Terminos &amp; Condiciones</a></li> 
+                    <li><a href="{{url('politica-de-privacidad')}}">Privacidad</a></li> 
                 </ul>
             </div>
         </div>
