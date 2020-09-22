@@ -9,6 +9,11 @@
             <h1 class="span_h2">Ingresá la dirección de correo
                 electrónico asociada a tu cuenta y te vamos a enviar un enlace
                 para restablecer tu contraseña.</h1>
+            @if($errors->has("token"))
+                <span class="span_h2" style="background-color: red">
+                <strong>Tu token expiró o es inválido. Vuelve a ingresar tu email para restablecerla.</strong>
+            </span>
+            @endif
         </div>
     </section>
     <div class="contenedor form_reg">
@@ -55,12 +60,12 @@
 
 @section('footer')
     <script>
-        if (document.getElementsByClassName("general_profile_msg")){
+        if (document.getElementsByClassName("general_profile_msg")) {
             var get_general_msg = document.getElementsByClassName("general_profile_msg");
-            for (var x = 0; x < get_general_msg.length; x++){
-                get_general_msg[x].numerito=x;
+            for (var x = 0; x < get_general_msg.length; x++) {
+                get_general_msg[x].numerito = x;
                 var get_close_modal = get_general_msg[x].getElementsByClassName("cerrar")[0];
-                get_close_modal.onclick = function(){
+                get_close_modal.onclick = function () {
                     close(this.parentNode.parentNode);
                 }
             }

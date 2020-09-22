@@ -47,13 +47,13 @@ class ContenidoController extends Controller
         $user = Auth::user();
         if ($user->coral_token == "") {
             $id = DB::select(DB::raw('SELECT UUID() as id'));
-            if(count($id) > 0) {
+            if (count($id) > 0) {
                 $user->coral_token = $id[0]->id;
                 $user->save();
             }
         }
         $email = $user->email;
-        $username = $user->name ." ". $user->lastname;
+        $username = $user->name . " " . $user->lastname;
         $coral_token = $user->coral_token;
         $payload = [
             "user" => [
