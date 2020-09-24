@@ -17,13 +17,13 @@ Auth::routes(['verify' => true]);
 Route::get(
     '/',
     'WebController@ingresar'
-)->name('home'); 
+)->name('home');
 
 Route::get(
     '/ingresar',
     'WebController@ingresar'
 )->name('ingresar');
- 
+
 Route::post(
     '/ingresar',
     'Auth\LoginController@authenticate'
@@ -79,7 +79,7 @@ Route::get(
 Route::post(
     '/reenviar-mail',
     'Registration\RegistrationController@reenviar'
-)->name('reenviar-mail'); 
+)->name('reenviar-mail');
 
 Route::get(
     '/contacto',
@@ -127,6 +127,11 @@ Route::middleware(['verified'])->group(
         Route::get('admin/contenidos/tipo/{type}', 'Admin\ContenidoController@index')->name(
             'contenidos'
         )->middleware('admin_role');
+
+        Route::post('admin/contenidos/deleteImage', 'Admin\ContenidoController@deleteImage')->name(
+            'deleteImage'
+        )->middleware('admin_role');
+
 
         Route::get('admin/contenidos/crear/{type}', 'Admin\ContenidoController@create')->name(
             'noticias'
@@ -290,4 +295,10 @@ Route::middleware(['verified'])->group(
 
     }
 );
+
+
+Route::get(
+    '/{slug}',
+    'ContenidoController@index'
+)->name("pagina");
 

@@ -25,6 +25,9 @@
                     <th>Slug</th>
                     <th>Fecha publicación</th>
                     <th>Visible</th>
+                    @if($type === "pagina")
+                        <th>Pública</th>
+                    @endif
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -78,16 +81,26 @@
                 "responsive": true,
                 "ajax": "{{url("admin/contenidos-json/$type")}}",
                 "columns": [
-                    { "data": "id" },
-                    { "data": "title" },
-                    { "data": "slug" },
-                    { "data": "fecha_publicacion" },
+                    {"data": "id"},
+                    {"data": "title"},
+                    {"data": "slug"},
+                    {"data": "fecha_publicacion"},
                     {
                         "data": "visible",
                         "render": function (data) {
-                            return data == 1? "SI":"NO"
+                            return data == 1 ? "SI" : "NO"
                         }
                     },
+
+                        @if($type === "pagina")
+                    {
+                        "data": "publica",
+                        "render": function (data) {
+                            return data == 1 ? "SI" : "NO"
+                        }
+                    },
+                        @endif
+
                     {
                         "data": "acciones",
                         "render": function (data) {
@@ -116,7 +129,7 @@
                 $("#modal-eliminar").modal('show');
             });
 
-            $("#eliminar-button").click(function(event)  {
+            $("#eliminar-button").click(function (event) {
                 event.preventDefault();
                 const id = $(".novedadId").val();
                 axios.post('{{url('admin/contenidos/eliminar')}}', {

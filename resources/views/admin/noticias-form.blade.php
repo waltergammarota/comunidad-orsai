@@ -1,7 +1,7 @@
 @extends('admin.admin-template')
 
 @section('header')
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
@@ -17,9 +17,9 @@
     <div class="card card-primary">
         <div class="card-header">
             @if($contenido)
-                <h3 class="card-title">Crear {{$type}}</h3>
-            @else
                 <h3 class="card-title">Editar {{$type}}</h3>
+            @else
+                <h3 class="card-title">Crear {{$type}}</h3>
             @endif
         </div>
         <!-- /.card-header -->
@@ -34,7 +34,9 @@
                         @endif
                         @csrf
                         <input type="hidden" name="tipo" value="{{$type}}">
+
                         <div class="card-body">
+
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Título (obligatorio)</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
@@ -43,13 +45,16 @@
                                        value="{{$contenido?$contenido->title:old('title')}}">
                                 @error('title') <span class="help-block">{{$message}}</span> @enderror
                             </div>
+
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Slug</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Slug"
                                        name="slug"
                                        value="{{$contenido?$contenido->slug:old('slug')}}">
                             </div>
+
                             <div class="row">
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Fecha publicación (obligatorio)</label>
@@ -61,8 +66,8 @@
                                             class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-8">
 
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Autor</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1"
@@ -72,11 +77,13 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Copete</label>
                                 <textarea class="form-control" rows="2" placeholder="Copete ..."
                                           name="copete">{{$contenido?$contenido->copete:old('copete')}}</textarea>
                             </div>
+
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Cuerpo (obligatorio)</label>
                                 <textarea class="form-control @error('texto') is-invalid @enderror" rows="10"
@@ -84,16 +91,7 @@
                                           name="texto">{{$contenido?$contenido->texto:old('texto')}}</textarea>
                                 @error('texto') <span class="help-block">{{$message}}</span> @enderror
                             </div>
-                            <div class="form-check">
-                                @if($contenido)
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
-                                       name="visible" {{$contenido->visible?"checked":""}}>
-                                    @else
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
-                                           name="visible" checked>
-                                @endif
-                                    <label class="form-check-label" for="exampleCheck1">Visible</label>
-                            </div>
+
                             <div class="form-group">
                                 <label for="exampleInputFile">Imagen</label>
                                 <div class="row">
@@ -106,6 +104,33 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Visible por los usuarios</label>
+                                <div class="form-check">
+                                    @if($contenido)
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
+                                               name="visible" {{$contenido->visible?"checked":""}}>
+                                    @else
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
+                                               name="visible" checked>
+                                    @endif
+                                    <label class="form-check-label" for="exampleCheck1">Visible</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Pública o privada</label>
+                                <div class="form-check">
+                                    @if($contenido)
+                                        <input type="checkbox" class="form-check-input" id="publicaCheck" value="1"
+                                               name="publica" {{$contenido->publica?"checked":""}}>
+                                    @else
+                                        <input type="checkbox" class="form-check-input" id="publicaCheck" value="1"
+                                               name="publica">
+                                    @endif
+                                    <label class="form-check-label" for="exampleCheck1">Publica</label>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
 
@@ -157,15 +182,20 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 
     <style>
-        .kv-file-remove {
+        .close.fileinput-remove {
             display: none;
         }
-
         .help-block {
             color: #dc3545;
         }
     </style>
     <script>
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $(document).ready(function () {
             $('#summernote').summernote({
@@ -178,12 +208,16 @@
             theme: 'fas',
             language: 'es',
             showUpload: false,
-            deleteUrl: false,
+            deleteUrl: "/admin/contenidos/deleteImage",
             initialPreviewAsData: true,
             @if($imageUrl != '')
             initialPreview: [
                 "{{$imageUrl}}"
+            ],
+            initialPreviewConfig: [
+                {caption: "{{$imageUrl}}", key: "{{$imageKey}}"}
             ]
+
             @endif
         });
     </script>

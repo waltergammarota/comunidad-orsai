@@ -26,7 +26,8 @@ class ContenidoModel extends Model
         'tipo',
         'texto',
         'user_id',
-        'visible'
+        'visible',
+        'publica'
     ];
 
     /**
@@ -50,12 +51,12 @@ class ContenidoModel extends Model
      */
     public function owner()
     {
-        return $this->hasOne('App\User','id', "user_id");
+        return $this->hasOne('App\User', 'id', "user_id");
     }
 
     public function images()
     {
-        return $this->belongsToMany('App\Databases\FileModel','contenido_files', "contenido_id", 'file_id')->withTimestamps()->where('type','=','image');
+        return $this->belongsToMany('App\Databases\FileModel', 'contenido_files', "contenido_id", 'file_id')->withTimestamps()->where('type', '=', 'image')->withPivot('id');
     }
 
 }

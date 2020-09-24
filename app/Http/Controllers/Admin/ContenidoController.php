@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -31,10 +32,12 @@ class ContenidoController extends Controller
         $image = $contenido->images()->first();
         $type = $contenido->tipo;
         $imageUrl = "";
+        $imageKey = "";
         if ($image) {
+            $imageKey = $image->pivot->id;
             $imageUrl = url('storage/images/' . $image->name . "." . $image->extension);
         }
-        return view('admin.noticias-form', compact('contenido', 'imageUrl', 'type'));
+        return view('admin.noticias-form', compact('contenido', 'imageUrl', 'type', 'imageKey'));
     }
 
     public function contenidos_json(Request $request)
@@ -77,7 +80,8 @@ class ContenidoController extends Controller
             "texto" => $request->texto,
             "slug" => $slug,
             "user_id" => Auth::user()->id,
-            "visible" => $request->visible
+            "visible" => $request->visible,
+            "publica" => $request->publica
         ]);
         $noticia->save();
         $fileRepo = new FileRepository();
@@ -92,11 +96,11 @@ class ContenidoController extends Controller
         $auxSlug = $slug == null || $slug == '' ? $title : $slug;
         $slug = str_replace(" ", "-", $auxSlug);
         $qty = ContenidoModel::where("slug", $slug)->count();
-        $ownerSlugId = $qty > 0? ContenidoModel::where("slug", $slug)->first()->id: 0;
+        $ownerSlugId = $qty > 0 ? ContenidoModel::where("slug", $slug)->first()->id : 0;
         if ($qty == 0) {
             return $slug;
         }
-        if($qty == 1 && $id == $ownerSlugId) {
+        if ($qty == 1 && $id == $ownerSlugId) {
             return $slug;
         }
         return "{$slug}-{$qty}";
@@ -132,6 +136,7 @@ class ContenidoController extends Controller
         $noticia->texto = $request->texto;
         $noticia->user_id = Auth::user()->id;
         $noticia->visible = $request->visible;
+        $noticia->publica = $request->publica;
         $noticia->save();
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
@@ -141,6 +146,14 @@ class ContenidoController extends Controller
         }
         $type = $noticia->tipo;
         return Redirect::to('admin/contenidos/tipo/' . $type);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $imageId = $request->key;
+        DB::table('contenido_files')->where('id', $imageId)->delete();
+        echo json_encode(["message" => $imageId]);
+
     }
 
     public function eliminar(Request $request)

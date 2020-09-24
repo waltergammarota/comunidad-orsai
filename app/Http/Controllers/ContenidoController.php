@@ -16,10 +16,13 @@ class ContenidoController extends Controller
     public function index(Request $request)
     {
         $data = $this->getUserData();
-        $emailWasValidated = Auth::user()->email_verified_at != null;
-        if (!$emailWasValidated) {
-            return Redirect::to('panel');
+        if (Auth::check()) {
+            $emailWasValidated = Auth::user()->email_verified_at != null;
+            if (!$emailWasValidated) {
+                return Redirect::to('panel');
+            }
         }
+
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
         if ($slug == "novedades") {
@@ -27,7 +30,7 @@ class ContenidoController extends Controller
             return view("noticias.noticias", $data);
         } else {
             $contenido = ContenidoModel::where(["slug" => $slug, "visible" => 1])->first();
-            if ($contenido == null) {
+            if ($contenido == null || ($contenido->publica == 0 && !Auth::check()) ) {
                 abort(404);
             }
             $data['coral_token'] = $this->generateToken();
@@ -44,27 +47,30 @@ class ContenidoController extends Controller
     private function generateToken()
     {
         $key = env("CORAL_SECRET");
-        $user = Auth::user();
-        if ($user->coral_token == "") {
-            $id = DB::select(DB::raw('SELECT UUID() as id'));
-            if (count($id) > 0) {
-                $user->coral_token = $id[0]->id;
-                $user->save();
+        if(Auth::check()) {
+            $user = Auth::user();
+            if ($user->coral_token == "") {
+                $id = DB::select(DB::raw('SELECT UUID() as id'));
+                if (count($id) > 0) {
+                    $user->coral_token = $id[0]->id;
+                    $user->save();
+                }
             }
+            $email = $user->email;
+            $username = $user->name . " " . $user->lastname;
+            $coral_token = $user->coral_token;
+            $payload = [
+                "user" => [
+                    "id" => $coral_token,
+                    "email" => $email,
+                    "username" => $username,
+                    "role" => "COMMENTER"
+                ]
+            ];
+            $tokenDecoded = new TokenDecoded(['alg' => 'HS256'], $payload);
+            return $tokenDecoded->encode($key);
         }
-        $email = $user->email;
-        $username = $user->name . " " . $user->lastname;
-        $coral_token = $user->coral_token;
-        $payload = [
-            "user" => [
-                "id" => $coral_token,
-                "email" => $email,
-                "username" => $username,
-                "role" => "COMMENTER"
-            ]
-        ];
-        $tokenDecoded = new TokenDecoded(['alg' => 'HS256'], $payload);
-        return $tokenDecoded->encode($key);
+        return "";
     }
 
     private function getNoticias($page = 1)

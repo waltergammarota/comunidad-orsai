@@ -4,35 +4,35 @@
 @section('description', 'Noticias')
 
 @section('content')
-    <section id="intro" class="contenedor intro_gral noticias "> 
+    <section id="intro" class="contenedor intro_gral noticias ">
 
         <div class="cont_noticias">
-            @foreach($noticias['noticias'] as $key => $noticia) 
-                                
+            @foreach($noticias['noticias'] as $key => $noticia)
+
                 @php
                     $image = $noticia->images()->first();
                     $imageUrl = "";
                     if($image) {
                         $imageUrl = 'storage/images/'.$image->name.".".$image->extension;
-                    }  
+                    }
                 @endphp
 
                 <article class="noticia @if($imageUrl) noticia_image @endif @if($key === 0)noticia_first @endif" >
-                    <a href="{{url('novedades/'.$noticia->slug)}}"> 
+                    <a href="{{url('novedades/'.$noticia->slug)}}">
                         @if($imageUrl)
                             <div class="img_noticia">
                                 <img src="{{url($imageUrl)}}" alt="Imagen Noticia">
                             </div>
-                        @endif 
-                        <div class="cuerpo_texto">  
+                        @endif
+                        <div class="cuerpo_texto">
                                 <h2 class="titulo_noticias">{{$noticia->title}}</h2>
-                                <p>{{$noticia->copete}}</p> 
-                                <span class="date_noticia">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span> 
+                                <p>{{$noticia->copete}}</p>
+                                <span class="date_noticia">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span>
                         </div>
                     </a>
-                </article> 
-
+                </article>
             @endforeach
+
             <div id="controladores_participantes">
                 @if($noticias['previous'] > 0)
                     <div id="bt_left" class="desactivado">
