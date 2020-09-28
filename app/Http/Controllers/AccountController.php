@@ -227,7 +227,7 @@ class AccountController extends Controller
                 }
             }
         );
-        return count($attr) >= 6;
+        return count($attr) >= 5;
     }
 
     public function profile_update(Request $request)
@@ -259,7 +259,7 @@ class AccountController extends Controller
     private function sendProfileExtraPoints()
     {
         $user = Auth::user();
-        $data = "Puntos Perfil Completo";
+        $data = "Perfil Completo";
         $tx = Transaction::where(
             ["to" => $user->id, "type" => "MINT", "data" => $data]
         )->count();

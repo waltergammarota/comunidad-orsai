@@ -13,10 +13,10 @@
             <div id="user_alias">
                 <h1>{{'@'.ucfirst($username)}}</h1>
             </div>
-        <!--             <div id="user_fichas">
+              <div id="user_fichas">
                 <span>{{$balance}}</span>
-                <span>Fichas <span class="span_block">para jugar</span></span>
-            </div> -->
+                <span>Fichas</span>
+            </div> 
         </div>
         <div class="line_dashed"></div>
     </section>
@@ -77,7 +77,7 @@
         <div class="general_profile_msg popup top_msg">
             <div class="contenedor msg_position_rel">
                 <div id="texto_exito">
-                    <span>Necesitamos que confirmes el registro de tu correo electrónico.<br/>Revisá tu casilla y activá tu cuenta.</span>
+                    <span>Necesitamos que confirmes el registro. <br/>Revisá tu mail, y no olvides mirar en spam o promociones. Puede tardar algunos minutos.</span>
                 </div>
                 <div class="cerrar">
                     <span>X</span>
