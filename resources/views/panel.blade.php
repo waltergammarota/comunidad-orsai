@@ -46,7 +46,7 @@
                 </div>
             </a>
     @endif
-    <!--
+    
         <a href="{{url('transacciones')}}" class="box_panel">
             <div>
                 <span>Mis fichas</span>
@@ -58,13 +58,13 @@
                 <span href="{{url('transacciones')}}"
                       class="subrayado resaltado_amarillo">Ver</span>
             </div>
-        </a> -->
+        </a>
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>
     </div>
 
-    <!--     <div id="acred_fichas_modal" class="popup" style="display: none;">
+         <div id="acred_fichas_modal" class="popup" style="display: none;">
         <div class="contenedor modal_fichas">
             <div>
                 <div id="texto_err">
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     @if(Session::get('alert') == "activation_email" || Auth::user()->email_verified_at == null)
         <div class="general_profile_msg popup top_msg">
             <div class="contenedor msg_position_rel">

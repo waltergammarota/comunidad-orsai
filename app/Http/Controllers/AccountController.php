@@ -259,7 +259,7 @@ class AccountController extends Controller
     private function sendProfileExtraPoints()
     {
         $user = Auth::user();
-        $data = "Perfil Completo";
+        $data = "Información personal completa";
         $tx = Transaction::where(
             ["to" => $user->id, "type" => "MINT", "data" => $data]
         )->count();

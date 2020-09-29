@@ -8,8 +8,9 @@
     </div>
     <div id="desplegable" class="desplegable_cerrado">
         <div id="menu_pcpal">
-            <ul>
-            </ul>
+           {{--  <ul>
+                <li><a href="{{url('novedades')}}">Novedades</a></li>
+            </ul> --}}
         </div>
         <div id="menu_reg">
             @if (!Auth::check())
