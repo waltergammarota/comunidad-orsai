@@ -19,8 +19,7 @@
         <div class="card-body">
             <table id="example2" class="table table-bordered table-hover">
                 <thead>
-                <tr>
-                    <th>Id</th>
+                <tr> 
                     <th>Título</th>
                     <th>Slug</th>
                     <th>Fecha publicación</th>
@@ -80,9 +79,34 @@
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url("admin/contenidos-json/$type")}}",
-                "columns": [
-                    {"data": "id"},
-                    {"data": "title"},
+                "language": {
+                    "paginate": {
+                        "first": "Primera",
+                        "last": "Última",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "search": "Buscar:",
+                    "processing": "Procesando...",
+                    "loadingRecords": "Cargando....",
+                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ entradas",
+                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">'+
+                      '<option value="10">10</option>'+
+                      '<option value="20">20</option>'+
+                      '<option value="30">30</option>'+
+                      '<option value="40">40</option>'+
+                      '<option value="50">50</option>'+
+                      '<option value="-1">Todas</option>'+
+                      '</select> entradas',
+                
+                },
+                "columns": [ 
+                    {"data": "title",
+                        "render": function (data) {
+                            return '<a href="#" class="editar">'+data+'</a>';
+                        }
+
+                    },
                     {"data": "slug"},
                     {"data": "fecha_publicacion"},
                     {

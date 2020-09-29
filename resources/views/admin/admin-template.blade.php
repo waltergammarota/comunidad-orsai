@@ -64,7 +64,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="{{url('panel')}}" class="brand-link">
+        <a href="{{url('dashboard')}}" class="brand-link">
             <img src="{{url('recursos/comunidad-orsai-blank.png')}}" alt="AdminLTE Logo" class="brand-image"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Dashboard</span>
@@ -155,7 +155,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('dashboard')}}">Dashboard</a></li>
                             <li class="breadcrumb-item active">@yield('name')</li>
                         </ol>
                     </div><!-- /.col -->
@@ -174,10 +174,9 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2020 <a href="https://amplifica.com.ar">Amplifica</a>.</strong>
-        All rights reserved.
+        <strong>&copy; 2020 <a href="https://amplifica.agency">Amplifica</a></strong>
         <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.0.4
+            <b>Version</b> 0.1
         </div>
     </footer>
 

@@ -12,6 +12,7 @@
             </div>
             <div id="user_alias">
                 <h1>{{'@'.ucfirst($username)}}</h1>
+                <a href="{{url('perfil-usuario')}}/{{$session_user_id}}" class="ver_perfil">Ver Perfil</a>
             </div>
               <div id="user_fichas">
                 <span>{{$balance}}</span>

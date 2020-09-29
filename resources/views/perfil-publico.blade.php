@@ -16,30 +16,16 @@
 </section>
 
 <section id="panel_user_profile" class="contenedor profile_public">
-    <div class="form_left">
+    <div class="form_left"> 
         <div class="input_err">
-            <label>Usuario*</label>
+            <label>Nombre y Apellido</label>
             <div class="in_sp obligatorio editar">
-                <p>{{$user->userName}}</p>
+                <p>{{$user->name}} {{$user->lastName}}</p>
             </div>
             <div class="line_dashed"></div>
-        </div>
+        </div>  
         <div class="input_err">
-            <label>Nombre*</label>
-            <div class="in_sp obligatorio editar">
-                <p>{{$user->name}}</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>
-        <div class="input_err">
-            <label>Apellido*</label>
-            <div class="in_sp obligatorio editar">
-                <p>{{$user->lastName}}</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>
-        <div class="input_err">
-            <label>Ciudad*</label>
+            <label>Ciudad</label>
             <div class="in_sp obligatorio editar">
                 <p>{{$user->city}}</p>
             </div>
@@ -55,19 +41,13 @@
     </div>
     <div class="form_right">
         <div class="input_err">
-            <label>Fecha de nacimiento*</label>
-            <div class="in_sp obligatorio editar">
-                <p>29/12/1982</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>
-        <div class="input_err">
-            <label>Profesión*</label>
+            <label>Profesión</label>
             <div class="in_sp obligatorio editar">
                 <p>{{$user->profesion}}</p>
             </div>
             <div class="line_dashed"></div>
         </div>
+        @if (!empty($user->facebook))
         <div class="input_err">
             <label>Facebook</label>
             <div class="in_sp editar">
@@ -75,6 +55,8 @@
             </div>
             <div class="line_dashed"></div>
         </div>
+        @endif
+        @if (!empty($user->twitter))
         <div class="input_err">
             <label>Twitter</label>
             <div class="in_sp editar">
@@ -82,6 +64,8 @@
             </div>
             <div class="line_dashed"></div>
         </div>
+        @endif
+        @if (!empty($user->instagram))
         <div class="input_err">
             <label>Instagram</label>
             <div class="in_sp editar">
@@ -89,6 +73,7 @@
             </div>
             <div class="line_dashed"></div>
         </div>
+        @endif
     </div>
 
 </section>

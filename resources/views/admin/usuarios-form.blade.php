@@ -57,7 +57,7 @@ Ver Usuario
                             <label for="exampleInputEmail1">Usuario</label>
                             <input type="text" class="form-control @error('userName') is-invalid @enderror"
                                 id="exampleInputEmail1" placeholder="Usuario" name="userName"
-                                value="{{$user?$user->lastName:old('userName')}}" disabled>
+                                value="{{$user?$user->userName:old('userName')}}" disabled>
                             @error('userName') <span class="help-block">{{$message}}</span> @enderror
                         </div>
                     </div>

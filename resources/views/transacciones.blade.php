@@ -30,7 +30,7 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Información</th>
+                        <th>Descripción</th>
                         <th>Fichas</th>
                         <th>Fecha</th>
                     </tr>

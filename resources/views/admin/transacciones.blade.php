@@ -20,7 +20,7 @@
                     <th>Destino</th>
                     <th>Tipo</th>
                     <th>Monto</th>
-                    <th>Postulacion</th>
+                    <th>Descripción</th>
                     <th>Fecha</th>
                 </tr>
                 </thead>
@@ -51,6 +51,27 @@
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url('admin/transacciones-json')}}",
+                "language": {
+                    "paginate": {
+                        "first": "Primera",
+                        "last": "Última",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "search": "Buscar:",
+                    "processing": "Procesando...",
+                    "loadingRecords": "Cargando....",
+                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ transacciones",
+                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">'+
+                      '<option value="10">10</option>'+
+                      '<option value="20">20</option>'+
+                      '<option value="30">30</option>'+
+                      '<option value="40">40</option>'+
+                      '<option value="50">50</option>'+
+                      '<option value="-1">Todas</option>'+
+                      '</select> transacciones',
+                
+                },
                 "columns": [
                     { "data": "id" },
                     { "data": "get_from_user.name" },

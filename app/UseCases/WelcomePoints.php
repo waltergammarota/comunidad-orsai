@@ -74,7 +74,7 @@ class WelcomePoints extends GenericUseCase
      */
     private function sendWelcomePointsToUser(): Transaction
     {
-        $welcomeTag = "Puntos de Bienvenida";
+        $welcomeTag = "Bienvenida";
         $from = $this->userRepository->getPoolUser();
         $type = "MINT";
         $transaction = new Transaction(
