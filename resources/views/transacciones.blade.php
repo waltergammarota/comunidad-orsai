@@ -41,7 +41,7 @@
                             <td>{{$tx->id}}</td>
                             <td>{{$tx->data}}</td>
                             <td>{{$tx->amount}}</td>
-                            <td>{{$tx->created_at}}</td>
+                            <td>{{ date('j/m/Y', strtotime($tx->created_at)) }}</td>
                         </tr>
                     @endforeach
                     </tbody>

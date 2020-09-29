@@ -53,7 +53,7 @@
                 <span>Mis fichas</span>
             </div>
             <div>
-                <span>Acá podés controlar el movimiento de tus fichas.</span>
+                <span>Acá podés verificar los movimientos de tus fichas .</span>
             </div>
             <div>
                 <span href="{{url('transacciones')}}"
