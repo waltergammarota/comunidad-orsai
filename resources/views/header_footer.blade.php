@@ -51,8 +51,7 @@
                                     <li><a href="{{url('dashboard')}}">Dashboard</a></li>
                                 @endif
                                 <li class="active"><a href="{{url('panel')}}">Panel</a>
-                                </li>
-                                <li><a href="{{url('perfil')}}">Perfil</a></li>
+                                </li> 
                                     <li><a href="{{url('novedades')}}">Novedades</a></li>
                                 <li><a href="{{url('salir')}}">Cerrar sesión</a>
                                 </li>
