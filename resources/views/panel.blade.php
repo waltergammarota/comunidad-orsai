@@ -60,7 +60,7 @@
             </div>
         </a>
     
-        <a href="{{url('novedades')}}/sistema-fichas" class="box_panel">
+        <a href="{{url('novedades')}}/sistema-de-fichas" class="box_panel">
             <div>
                 <span>Ya somos más de {{$totalusers}}</span>
             </div>
@@ -68,7 +68,7 @@
                 <span>Los primeros 15.000 registrados serán llamados "socios fundadores".</span>
             </div>
             <div>
-                <span href="{{url('novedades')}}/sistema-fichas"
+                <span href="{{url('novedades')}}/sistema-de-fichas"
                       class="subrayado resaltado_amarillo">Saber más</span>
             </div>
         </a>
