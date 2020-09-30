@@ -10,7 +10,6 @@
             <div class="titulo tit_term">
                 <h1 class="span_h1">{{$pagina->title}}</h1>
             </div>
-            <div class="copete"><p>{{$pagina->copete}}</p></div>
             @php
                 $image = $pagina->images()->first();
                 $imageUrl = "";
@@ -23,6 +22,7 @@
                     <img src="{{url($imageUrl)}}" alt="{{$pagina->title}}">
                 @endif
             </div> 
+            <div class="copete"><p>{{$pagina->copete}}</p></div>
             <div class="texto">
                 {!! $pagina->texto !!}
             </div>
