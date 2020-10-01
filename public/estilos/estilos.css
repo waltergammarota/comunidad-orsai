@@ -273,7 +273,7 @@ header nav #desplegable div ul li{
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_user_img{
         width: 35px;
-        height:35px; 
+        height:35px;
         border-radius: 25px;
         border:1px solid #999;
         overflow: hidden;
@@ -3584,18 +3584,18 @@ ul li .li_texto + .li_texto {
     font-size:34px;
     font-weight: 400;
     line-height: 34px;
-    margin-bottom:15px; 
-} 
+    margin-bottom:15px;
+}
 #page .cuerpo_texto .copete{
     font-size:20px;
     line-height:24px;
     font-weight:700;
-} 
+}
 #page .cuerpo_texto .texto{
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 20px;
-} 
+}
 #page .cuerpo_texto .line_dashed{
     margin-bottom:20px;
 }
@@ -3655,7 +3655,7 @@ ul li .li_texto + .li_texto {
     font-size:34px;
     font-weight: 400;
     line-height: 34px;
-    margin-bottom:25px; 
+    margin-bottom:25px;
 }
 
 #novedad.intro_gral h1.span_h1{
@@ -3757,7 +3757,7 @@ ul li .li_texto + .li_texto {
 @media (max-width: 991px){
     #intro.intro_gral .cuerpo_texto{
         width:100%;
-    } 
+    }
     #intro.intro_gral .publicidad_noticia{
         width:100%;
         padding-left:0px;
@@ -3861,7 +3861,7 @@ ul li .li_texto + .li_texto {
     display: inline-block;
     overflow: hidden;
     max-height: 175px;
-} 
+}
 #intro.intro_gral.noticias .cont_noticias .noticia_first .cuerpo_texto{
     vertical-align: top;
     width:100%;
@@ -5571,7 +5571,7 @@ margin-top:2px;
 }
 
 #login_js.form_reg form .forg_pass, #login_js.form_reg form .line_dashed{
-    height: 1px;
+    height: 11px;
 }
 
 
