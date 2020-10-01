@@ -14,10 +14,10 @@
                 <h1>{{'@'.ucfirst($username)}}</h1>
                 <a href="{{url('perfil-usuario')}}/{{$session_user_id}}" class="ver_perfil">Ver Perfil</a>
             </div>
-              <div id="user_fichas">
+            <div id="user_fichas">
                 <span>{{$balance}}</span>
                 <span>Fichas</span>
-            </div> 
+            </div>
         </div>
         <div class="line_dashed"></div>
     </section>
@@ -46,7 +46,7 @@
                       class="subrayado resaltado_amarillo">Ver</span>
                 </div>
             </a>
-    @endif
+        @endif
         <a href="{{url('transacciones')}}" class="box_panel">
             <div>
                 <span>Mis fichas</span>
@@ -59,7 +59,7 @@
                       class="subrayado resaltado_amarillo">Ver</span>
             </div>
         </a>
-    
+
         <a href="{{url('novedades')}}/sistema-de-fichas" class="box_panel">
             <div>
                 <span>Ya somos más de {{$totalusers}}</span>
@@ -77,7 +77,7 @@
         <span>1</span>
     </div>
 
-         <div id="acred_fichas_modal" class="popup" style="display: none;">
+    <div id="acred_fichas_modal" class="popup" style="display: none;">
         <div class="contenedor modal_fichas">
             <div>
                 <div id="texto_err">

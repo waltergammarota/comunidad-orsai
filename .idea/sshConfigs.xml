@@ -2,7 +2,9 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="159.65.102.102" id="79443262-1e2d-40b0-931c-6aec9e8ff84a" port="22" customName="forsai ssh" nameFormat="CUSTOM" username="root" />
+      <sshConfig authType="PASSWORD" host="159.65.102.102" id="2cfae476-f7d7-40c0-a96e-94d6f460a6c4" port="22" customName="orsai prod" nameFormat="CUSTOM" username="root">
+        <option name="customName" value="orsai prod" />
+      </sshConfig>
     </configs>
   </component>
 </project>

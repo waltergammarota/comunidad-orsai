@@ -2,6 +2,7 @@
 
 
 namespace App\Http\Controllers;
+
 use App\Controllers\CreateContestApplicationController;
 use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
@@ -39,11 +40,12 @@ class AccountController extends Controller
         return view('perfil', $data);
     }
 
-    private function getPaises() {
+    private function getPaises()
+    {
         $paises = PaisModel::orderBy('peso', 'desc')->orderBy('nombre', 'asc')->get()->toArray();
-        return array_map(function($item) {
+        return array_map(function ($item) {
             $row = new \stdClass();
-            $row->iso =  $item['iso'];
+            $row->iso = $item['iso'];
             $row->nombre = utf8_encode($item['nombre']);
             return $row;
         }, $paises);
@@ -152,7 +154,7 @@ class AccountController extends Controller
     {
         $data = [
             "id" => $request->cap_id,
-            "title" => $request->title, 
+            "title" => $request->title,
             "link" => $request->link,
             "user_id" => Auth::user()->id,
             "contest_id" => 1,
@@ -180,10 +182,11 @@ class AccountController extends Controller
      */
     private function createNewCap(
         Request $request
-    ): RedirectResponse {
+    ): RedirectResponse
+    {
         $request->validate(
             [
-                'title' => 'required|min:1|max:255', 
+                'title' => 'required|min:1|max:255',
                 'logo' => 'required|array|min:1|max:1',
                 'logo.*' => 'image|required|max:5120',
                 'images' => 'array',
@@ -194,7 +197,7 @@ class AccountController extends Controller
         );
 
         $data = [
-            "title" => $request->title, 
+            "title" => $request->title,
             "link" => $request->link,
             "user_id" => Auth::user()->id,
             "contest_id" => 1,
@@ -218,7 +221,7 @@ class AccountController extends Controller
             "email",
             "lastName",
             "city",
-            "profesion", 
+            "profesion",
         ];
         $attr = Arr::where(
             $userData,
@@ -241,7 +244,7 @@ class AccountController extends Controller
             'provincia',
             'city',
             'birth_date',
-            'profesion', 
+            'profesion',
             'facebook',
             'whatsapp',
             'twitter',
