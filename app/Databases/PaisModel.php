@@ -6,6 +6,9 @@ namespace App\Databases;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static orderBy(string $string, string $string1)
+ */
 class PaisModel extends Model
 {
 

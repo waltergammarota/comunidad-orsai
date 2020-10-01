@@ -159,7 +159,7 @@
                     </div>
                     <div class="line_dashed"></div>
                 </div>
-            </form> 
+            </form>
             <form action="#">
                 <div class="input_err">
                     <label>Whatsapp<strong>*</strong></label>
@@ -215,7 +215,7 @@
         <span>1</span>
     </div>
 
-<!--     @if(Session::get('alert') == "profile_not_completed")
+    <!--     @if(Session::get('alert') == "profile_not_completed")
         <div class="general_profile_msg popup top_msg">
             <div class="contenedor msg_position_rel">
                 <div id="texto_exito">
@@ -227,13 +227,13 @@
             </div>
         </div>
     @endif -->
-<div id="exito_msg" class="popup">
-    <div>
-        <div id="texto_exito">
-            <span>Guardando</span>
+    <div id="exito_msg" class="popup">
+        <div>
+            <div id="texto_exito">
+                <span>Guardando</span>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @section('footer')
@@ -257,7 +257,7 @@
         function filterCiudades(provId) {
             return ciudades.filter((item) => {
                 return item.idProvincia == provId;
-            });
+            }).sort(sortComparer);
         }
 
         provinciasCombo.change(function () {
@@ -269,13 +269,23 @@
         function filterProvincias(iso) {
             return provincias.filter((item) => {
                 return item.pais == iso;
-            });
+            }).sort(sortComparer);
+
+        }
+        function sortComparer(a, b) {
+            if(a.nombre > b.nombre) {
+                return 1;
+            }
+            if(a.nombre < b.nombre) {
+                return -1;
+            }
+            return 0;
         }
 
         function generateProvinciasOptions(options, element, savedItem) {
             const html = options.map((item) => {
                 const nombre = item.nombre;
-                const selected = item.nombre == savedItem? "selected":"";
+                const selected = item.nombre == savedItem ? "selected" : "";
                 return `<option value="${nombre}" data-prov="${item.id}" ${selected}>
                                        ${nombre}
                                   </option>`;
@@ -287,7 +297,6 @@
             element.append(firstOption);
             element.append(html);
         }
-
 
 
         if (document.getElementsByClassName("general_profile_msg")) {
@@ -343,7 +352,7 @@
             window.location.reload();
         }
 
-        $("#boton_perfil").click(function(event) {
+        $("#boton_perfil").click(function (event) {
             event.preventDefault();
             const formData = new FormData();
             formData.append('userName', $("#userName").val());
@@ -357,8 +366,8 @@
             formData.append('twitter', $("#twitter").val());
             formData.append('instagram', $("#instagram").val());
             formData.append('country', $("#pais_suscriptor").val());
-            formData.append('provincia', $("#provincias").val() == null? '': $("#provincias").val());
-            formData.append('city', $("#ciudades").val() == null? '':$("#ciudades").val());
+            formData.append('provincia', $("#provincias").val() == null ? '' : $("#provincias").val());
+            formData.append('city', $("#ciudades").val() == null ? '' : $("#ciudades").val());
             $("#exito_msg").show();
             const url = '{{url('/profile/update')}}';
             axios({
@@ -378,7 +387,7 @@
                 const get_modal_exito = document.getElementById("exito_msg");
                 const efecto1 = setTimeout(close(get_modal_exito), 600);
             })
-            if($("#foto_perfil")[0].files.length > 0) {
+            if ($("#foto_perfil")[0].files.length > 0) {
                 submitImage();
             }
         });
@@ -402,7 +411,7 @@
         }
 
         function getProvIdByName(provinciaName) {
-            const provincia =  provincias.find(item => {
+            const provincia = provincias.find(item => {
                 return item.nombre.toLowerCase() == provinciaName.toLowerCase();
             });
             return provincia.id;
@@ -414,7 +423,7 @@
             const iso = $('#pais_suscriptor').children("option:selected").data('iso');
             const options = filterProvincias(iso);
             generateProvinciasOptions(options, $("#provincias"), savedProvincia);
-            if(savedProvincia == "null" || savedProvincia == '' || savedProvincia == null) {
+            if (savedProvincia == "null" || savedProvincia == '' || savedProvincia == null) {
                 const cityOptions1 = filterCiudadesByCountry(iso);
                 generateProvinciasOptions(cityOptions1, $("#ciudades"), savedCity);
             } else {
