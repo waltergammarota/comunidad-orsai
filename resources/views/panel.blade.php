@@ -47,17 +47,29 @@
                 </div>
             </a>
     @endif
-    
         <a href="{{url('transacciones')}}" class="box_panel">
             <div>
                 <span>Mis fichas</span>
             </div>
             <div>
-                <span>Acá podés verificar los movimientos de tus fichas .</span>
+                <span>Acá podés verificar los movimientos de tus fichas.</span>
             </div>
             <div>
                 <span href="{{url('transacciones')}}"
                       class="subrayado resaltado_amarillo">Ver</span>
+            </div>
+        </a>
+    
+        <a href="{{url('novedades')}}/sistema-de-fichas" class="box_panel">
+            <div>
+                <span>Ya somos más de {{$totalusers}}</span>
+            </div>
+            <div>
+                <span>Los primeros 15.000 registrados serán llamados "socios fundadores".</span>
+            </div>
+            <div>
+                <span href="{{url('novedades')}}/sistema-de-fichas"
+                      class="subrayado resaltado_amarillo">Saber más</span>
             </div>
         </a>
     </section>
