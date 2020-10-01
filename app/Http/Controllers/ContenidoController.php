@@ -25,12 +25,12 @@ class ContenidoController extends Controller
 
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
-        if ($slug == "novedades") {
+        if ($slug == "novedades" && Auth::check()) {
             $data['noticias'] = $this->getNoticias($page);
             return view("noticias.noticias", $data);
         } else {
             $contenido = ContenidoModel::where(["slug" => $slug, "visible" => 1])->first();
-            if ($contenido == null || ($contenido->publica == 0 && !Auth::check()) ) {
+            if ($contenido == null || ($contenido->publica == 0 && !Auth::check())) {
                 abort(404);
             }
             $data['coral_token'] = $this->generateToken();
@@ -47,7 +47,7 @@ class ContenidoController extends Controller
     private function generateToken()
     {
         $key = env("CORAL_SECRET");
-        if(Auth::check()) {
+        if (Auth::check()) {
             $user = Auth::user();
             if ($user->coral_token == "") {
                 $id = DB::select(DB::raw('SELECT UUID() as id'));

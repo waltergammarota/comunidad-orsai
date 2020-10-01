@@ -19,7 +19,7 @@ class AddingPublicViewToContent extends Migration
         Schema::table(
             'contenidos',
             function (Blueprint $table) {
-                $table->integer('publica')->default(0)->after('visible');
+                $table->integer('publica')->default(0)->after('visible')->nullable();
             }
         );
     }

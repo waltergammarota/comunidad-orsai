@@ -59,7 +59,7 @@ class TransactionRepositoryTest extends TestCase
     {
         $amount = 100;
         $type = "MINT";
-        $welcomeTag = "welcome";
+        $welcomeTag = "Fichas de bienvenida";
         $transaction = new Transaction(
             $this->userFrom,
             $this->userTo,

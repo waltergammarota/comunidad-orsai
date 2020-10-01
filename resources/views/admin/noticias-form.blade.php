@@ -128,7 +128,7 @@
                                         <input type="checkbox" class="form-check-input" id="publicaCheck" value="1"
                                                name="publica">
                                     @endif
-                                    <label class="form-check-label" for="exampleCheck1">Publica</label>
+                                    <label class="form-check-label" for="publicaCheck">Publica</label>
                                 </div>
                             </div>
                         </div>

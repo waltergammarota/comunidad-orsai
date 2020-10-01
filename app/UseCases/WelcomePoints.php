@@ -22,7 +22,7 @@ class WelcomePoints extends GenericUseCase
 
     private $user;
     private $amount;
-
+    private $welcomeTag;
 
     public function __construct(
         User $to,
@@ -36,6 +36,7 @@ class WelcomePoints extends GenericUseCase
         $this->userRepository = $userRepository;
         $this->transactionRepository = $transactionRepository;
         $this->mailer = $mailer;
+        $this->welcomeTag = "Fichas de Bienvenida";
     }
 
     public function execute()
@@ -65,7 +66,7 @@ class WelcomePoints extends GenericUseCase
 
     private function hasReceivedWelcomePoints(User $user)
     {
-        return $this->transactionRepository->findWelcomeTransactions($user) > 0;
+        return $this->transactionRepository->findWelcomeTransactions($user, $this->welcomeTag) > 0;
     }
 
 
@@ -74,7 +75,6 @@ class WelcomePoints extends GenericUseCase
      */
     private function sendWelcomePointsToUser(): Transaction
     {
-        $welcomeTag = "Fichas de bienvenida";
         $from = $this->userRepository->getPoolUser();
         $type = "MINT";
         $transaction = new Transaction(
@@ -82,7 +82,7 @@ class WelcomePoints extends GenericUseCase
             $this->user,
             $this->amount,
             $type,
-            $welcomeTag
+            $this->welcomeTag
         );
         $savedTransaction = $this->transactionRepository->save(
             $transaction

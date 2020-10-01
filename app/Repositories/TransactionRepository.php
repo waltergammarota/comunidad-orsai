@@ -97,9 +97,8 @@ class TransactionRepository implements TransactionRepositoryInterface
      * @param User $user
      * @return mixed
      */
-    public function findWelcomeTransactions(User $user)
+    public function findWelcomeTransactions(User $user, $welcomeTag = "Fichas de bienvenida")
     {
-        $welcomeTag = "welcome";
         return Transaction::where(
             [
 

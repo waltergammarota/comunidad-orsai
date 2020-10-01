@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Databases\ContenidoModel;
 use App\Http\Controllers\Controller;
 use App\Repositories\FileRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Route;
 
 class ContenidoController extends Controller
 {
@@ -56,7 +56,8 @@ class ContenidoController extends Controller
         $contenido = null;
         $type = $request->type;
         $imageUrl = '';
-        return view('admin.noticias-form', compact('contenido', 'type', 'imageUrl'));
+        $now = Carbon::now()->format('Y-m-d');
+        return view('admin.noticias-form', compact('contenido', 'type', 'imageUrl', 'now'));
     }
 
     public function store(Request $request)
