@@ -81,20 +81,11 @@ Route::post(
     'Registration\RegistrationController@reenviar'
 )->name('reenviar-mail');
 
-Route::get(
-    '/contacto',
-    'WebController@contacto'
-)->name("contacto");
-
-Route::post(
-    '/contacto',
-    'WebController@contacto_send'
-)->name("contacto-send");
 
 Route::get(
     '/restablecer-clave',
     'WebController@restablecer_clave'
-)->name('restablecer-clave'); 
+)->name('restablecer-clave');
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -290,7 +281,7 @@ Route::middleware(['verified'])->group(
             '/novedades/{slug}',
             'ContenidoController@index'
         )->name('novedades');
- 
+
         Route::get(
             '/{slug}',
             'ContenidoController@index'

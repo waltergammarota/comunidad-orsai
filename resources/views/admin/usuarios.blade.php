@@ -6,14 +6,14 @@
 
 
 @section('name')
-Usuarios
+    Usuarios
 @endsection
 
 @section('content')
-<div class="card">
-    <div class="card-body">
-        <table id="example2" class="table table-bordered table-hover">
-            <thead>
+    <div class="card">
+        <div class="card-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
@@ -22,100 +22,109 @@ Usuarios
                     <th>Email</th>
                     <th>Validado</th>
                     <th>País</th>
+                    <th>Provincia</th>
+                    <th>Ciudad</th>
                     <th>Bloqueado</th>
                     <th>Acciones</th>
+                    <th>Nombre usuario</th>
+                    <th>Profesión</th>
+                    <th>Rol</th>
+                    <th>Twitter</th>
+                    <th>Facebook</th>
+                    <th>Whatsapp</th>
+                    <th>Instagram</th>
                 </tr>
-            </thead>
-        </table>
-    </div>
-    <!-- /.card-body -->
-</div>
-
-<div class="modal fade" id="modal-bloquear">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Bloquear usuario</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="block-message"></p>
-                <p class="usuarioData"></p>
-                <input type="hidden" name="id" value="0" class="usuarioId">
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
-                </button>
-                <button type="button" class="btn btn-success" id="bloquear-button">SI
-                </button>
-            </div>
+                </thead>
+            </table>
         </div>
-        <!-- /.modal-content -->
+        <!-- /.card-body -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
 
-<div class="modal fade" id="modal-eliminar">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Eliminar usuario</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="modal fade" id="modal-bloquear">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Bloquear usuario</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="block-message"></p>
+                    <p class="usuarioData"></p>
+                    <input type="hidden" name="id" value="0" class="usuarioId">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" id="bloquear-button">SI
+                    </button>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Desea eliminar al usuario?</p>
-                <p class="usuarioData"></p>
-                <input type="hidden" name="id" value="0" class="usuarioId">
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
-                </button>
-                <button type="button" class="btn btn-success" id="eliminar-button">SI
-                </button>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
+
+    <div class="modal fade" id="modal-eliminar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar usuario</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Desea eliminar al usuario?</p>
+                    <p class="usuarioData"></p>
+                    <input type="hidden" name="id" value="0" class="usuarioId">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" id="eliminar-button">SI
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection
 
 @section('footer')
-<style>
-    button.dt-button.buttons-csv.buttons-html5 {
-        padding: 5px 15px;
-        background-color: #007bff;
-        border-color: #007bff;
-        color: white
-    }
+    <style>
+        button.dt-button.buttons-csv.buttons-html5 {
+            padding: 5px 15px;
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white
+        }
 
-    button.dt-button.buttons-excel.buttons-html5 {
-        padding: 5px 15px;
-        background-color: #28a745;
-        border-color: #28a745;
-        color: white
-    }
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script>
-    $(function () {
+        button.dt-button.buttons-excel.buttons-html5 {
+            padding: 5px 15px;
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script>
+        $(function () {
             const table = $('#example2').DataTable({
                 "dom": 'Bfrtip',
                 "buttons": [
                     {
                         extend: 'csvHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]
                         }
                     },
                 ],
@@ -137,15 +146,15 @@ Usuarios
                     "processing": "Procesando...",
                     "loadingRecords": "Cargando....",
                     "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ usuarios",
-                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">'+
-                      '<option value="10">10</option>'+
-                      '<option value="20">20</option>'+
-                      '<option value="30">30</option>'+
-                      '<option value="40">40</option>'+
-                      '<option value="50">50</option>'+
-                      '<option value="-1">Todos</option>'+
-                      '</select> Usuarios',
-                
+                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
+                        '<option value="10">10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">Todos</option>' +
+                        '</select> Usuarios',
+
                 },
                 "columns": [
                     {"data": "id"},
@@ -159,6 +168,8 @@ Usuarios
                         }
                     },
                     {"data": "country"},
+                    {"data": "provincia", "visible": false},
+                    {"data": "city", "visible": false},
                     {
                         "data": function (data) {
                             return (data.blocked == 0) ? "NO" : "SI";
@@ -176,8 +187,15 @@ Usuarios
                                         <i class="fa fa-trash"></i>
                                     </button>`;
                         }
-                    }
-                ]
+                    },
+                    {"data": "userName", "visible": false},
+                    {"data": "profesion", "visible": false},
+                    {"data": "role", "visible": false},
+                    {"data": "twitter", "visible": false},
+                    {"data": "facebook", "visible": false},
+                    {"data": "whatsapp", "visible": false},
+                    {"data": "instagram", "visible": false},
+                ],
             });
 
             table.on('click', '.bloquear', function () {
@@ -185,7 +203,7 @@ Usuarios
                 const data = table.row(row).data();
                 const id = data.id;
                 const message = $(".block-message");
-                if(data.blocked == 0) {
+                if (data.blocked == 0) {
                     message.empty().append("Desea bloquear al usuario");
                 } else {
                     message.empty().append("Desea desbloquear al usuario");
@@ -193,7 +211,7 @@ Usuarios
                 $(".usuarioId").val(id);
                 $(".usuarioData").empty().append(`Email: ${data.email}`);
                 $('#modal-bloquear').modal('show');
-                
+
             });
 
             table.on('click', '.eliminar', function () {
@@ -245,5 +263,5 @@ Usuarios
             });
 
         });
-</script>
+    </script>
 @endsection

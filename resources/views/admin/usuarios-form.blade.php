@@ -81,7 +81,7 @@ Ver Usuario
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">city</label>
+                            <label for="exampleInputEmail1">Ciudad</label>
                             <input type="text" class="form-control @error('provincia') is-invalid @enderror"
                                 id="exampleInputEmail1" placeholder="provincia" name="provincia"
                                 value="{{$user?$user->provincia:old('provincia')}}" disabled>
