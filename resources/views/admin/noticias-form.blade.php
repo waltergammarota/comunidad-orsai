@@ -140,11 +140,11 @@
                             </button>
                             @if($contenido)
                                 @if($contenido->tipo == "pagina")
-                                    <a href="{{url('')}}/{{$contenido->slug}}"
-                                       class="btn btn-primary float-right" style="margin-right: 10px;">Preview</a>
+                                    <a href="{{url('')}}/{{$contenido->slug}}" target="_blank"
+                                       class="btn btn-primary float-right" style="margin-right: 10px;">Ver Página</a>
                                 @else
-                                    <a href="{{url('novedades')}}/{{$contenido->slug}}"
-                                       class="btn btn-primary float-right" style="margin-right: 10px;">Preview</a>
+                                    <a href="{{url('novedades')}}/{{$contenido->slug}}" target="_blank"
+                                       class="btn btn-primary float-right" style="margin-right: 10px;">Ver Novedad</a>
                                 @endif
                             @endif
                         </div>

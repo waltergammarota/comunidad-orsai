@@ -13,6 +13,8 @@
         <form method="POST" action="{{url('ingresar')}}" id="ingresar-form">
             @csrf
             <div class="contenedor_campos">
+{{--                 <h1>Ya somos {{$totalusers}}</h1>
+                <p>Los primeros 15.000 registrados serán llamados "socios fundadores".</p> --}}
                 <div class="input_err obligatorio">
                 <!-- <label class='oculto'>Correo Electrónico</label> -->
                     <input type="email" id="mail_us" name="email"

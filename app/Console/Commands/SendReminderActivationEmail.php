@@ -49,7 +49,7 @@ class SendReminderActivationEmail extends Command
                 "email" => $user->email,
                 "name" => $user->name,
                 "lastName" => $user->lastName,
-                "subject" => "No te olvides registrarte",
+                "subject" => "Activá tu cuenta para ser miembro de la Comunidad",
                 "mensaje" => "Registrate",
                 "token" => $token
             ];

@@ -365,6 +365,7 @@ header nav #desplegable div ul li{
     header nav #desplegable #menu_pcpal{
         width:70%;
         vertical-align: top;
+        text-align:right;
     }
     header nav #desplegable #menu_reg{
         width:30%;
@@ -2557,6 +2558,16 @@ transform: translate(-50%, -50%);
 .form_reg form .contenedor_campos{
     margin-bottom:15px;
 }
+.form_reg form .contenedor_campos h1{
+    font-size: 40px;
+    padding:0;
+    margin:0;
+}
+.form_reg form .contenedor_campos p{
+    font-size: 16px; 
+    padding:0;
+    margin:0 0 20px 0;
+}
 .form_reg form .input_err .pass{
     width:100%;
     display:inline-block;
@@ -4407,6 +4418,7 @@ transform: translateY(100%);
 #intro.intro_gral.panel .user_prop #user_alias h1{
     font-weight: 700;
     margin:0;
+    text-transform: lowercase;
     font-size:28px;
 }
 

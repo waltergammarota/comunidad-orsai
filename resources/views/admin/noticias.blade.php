@@ -149,9 +149,11 @@
                 const id = data.id;
                 const slug = data.slug;
                 @if($type == "pagina")
-                    window.location.href = `{{url('')}}/${slug}`;
+                    target_href = `{{url('')}}/${slug}`;
+                    window.open(target_href, '_blank');
                 @else
-                    window.location.href = `{{url('novedades')}}/${slug}`;
+                    target_href = `{{url('novedades')}}/${slug}`;
+                    window.open(target_href, '_blank');
                 @endif
             });
 

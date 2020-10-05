@@ -20,7 +20,7 @@ class ContenidoController extends Controller
             $data['type'] = "pagina";
             return view('admin.noticias', $data);
         }
-        $data['title'] = "Noticias";
+        $data['title'] = "Novedades";
         $data['type'] = "noticia";
         return view('admin.noticias', $data);
     }

@@ -44,7 +44,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Camio a Rol administrador</h4>
+                    <h4 class="modal-title">Cambio de rol Administrador</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -57,7 +57,7 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
                     </button>
-                    <button type="button" class="btn btn-success" id="admin-button">SI
+                    <button type="button" class="btn btn-success" id="admin-button">Sí
                     </button>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
                     </button>
-                    <button type="button" class="btn btn-success" id="bloquear-button">SI
+                    <button type="button" class="btn btn-success" id="bloquear-button">Sí
                     </button>
                 </div>
             </div>
@@ -102,14 +102,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Desea eliminar al usuario? Esto implica que el usuario se borra del sistema.</p>
+                    <p>Desea eliminar al usuario? Esto implica que el usuario se borra del sistema y las.</p>
                     <p class="usuarioData"></p>
                     <input type="hidden" name="id" value="0" class="usuarioId">
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
                     </button>
-                    <button type="button" class="btn btn-success" id="eliminar-button">SI
+                    <button type="button" class="btn btn-success" id="eliminar-button">Sí
                     </button>
                 </div>
             </div>

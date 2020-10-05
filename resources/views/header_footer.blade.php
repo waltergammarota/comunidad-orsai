@@ -7,11 +7,15 @@
         </div>
     </div>
     <div id="desplegable" class="desplegable_cerrado">
-        <div id="menu_pcpal">
-           {{--  <ul>
-                <li><a href="{{url('novedades')}}">Novedades</a></li>
-            </ul> --}}
-        </div>
+                <div id="menu_pcpal">
+                    @if (Auth::check())
+                     <ul> 
+                      {{--   <li><a href="{{url('comunidad-orsai')}}">Comunidad Orsai</a></li>
+                        <li><a href="{{url('novedades')}}">Novedades</a></li>
+                        <li><a href="{{url('donar')}}">Donar</a></li> --}}
+                    </ul>
+                    @endif
+                </div>
         <div id="menu_reg">
             @if (!Auth::check())
                 <ul>

@@ -9,6 +9,7 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
 use App\Utils\Mailer;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -60,6 +61,7 @@ class WebController extends Controller
             return Redirect::to('panel');
         }
         $data = $this->getUserData();
+        $data['totalusers'] = User::count();
         return view('ingresar', $data);
     }
 
