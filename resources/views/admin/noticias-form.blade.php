@@ -135,7 +135,18 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success float-right">Guardar</button>
+                            <button type="submit" class="btn btn-success float-right">
+                                Guardar
+                            </button>
+                            @if($contenido)
+                                @if($contenido->tipo == "pagina")
+                                    <a href="{{url('')}}/{{$contenido->slug}}"
+                                       class="btn btn-primary float-right" style="margin-right: 10px;">Preview</a>
+                                @else
+                                    <a href="{{url('novedades')}}/{{$contenido->slug}}"
+                                       class="btn btn-primary float-right" style="margin-right: 10px;">Preview</a>
+                                @endif
+                            @endif
                         </div>
                     </form>
     </div>
@@ -185,6 +196,7 @@
         .close.fileinput-remove {
             display: none;
         }
+
         .help-block {
             color: #dc3545;
         }

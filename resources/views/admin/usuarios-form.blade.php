@@ -82,10 +82,10 @@ Ver Usuario
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Ciudad</label>
-                            <input type="text" class="form-control @error('provincia') is-invalid @enderror"
+                            <input type="text" class="form-control @error('city') is-invalid @enderror"
                                 id="exampleInputEmail1" placeholder="provincia" name="provincia"
-                                value="{{$user?$user->provincia:old('provincia')}}" disabled>
-                            @error('provincia') <span class="help-block">{{$message}}</span> @enderror
+                                value="{{$user?$user->city:old('city')}}" disabled>
+                            @error('city') <span class="help-block">{{$message}}</span> @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -108,28 +108,28 @@ Ver Usuario
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Profesion</label>
+                            <label for="exampleInputEmail1">Rol</label>
+                            <input type="text" class="form-control @error('role') is-invalid @enderror"
+                                id="exampleInputEmail1" placeholder="Rol" name="role"
+                                value="{{$user?$user->role:old('role')}}" disabled>
+                            @error('role') <span class="help-block">{{$message}}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Descripción</label>
                             <input type="text" class="form-control @error('description') is-invalid @enderror"
-                                id="exampleInputEmail1" placeholder="Profesión" name="profesion"
+                                id="exampleInputEmail1" placeholder="Descripción" name="twitter"
                                 value="{{$user?$user->description:old('description')}}" disabled>
                             @error('description') <span class="help-block">{{$message}}</span> @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Rol</label>
-                            <input type="text" class="form-control @error('role') is-invalid @enderror"
-                                id="exampleInputEmail1" placeholder="Rol" name="role"
-                                value="{{$user?$user->description:old('role')}}" disabled>
-                            @error('role') <span class="help-block">{{$message}}</span> @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
                             <label for="exampleInputEmail1">Twitter</label>
-                            <input type="text" class="form-control @error('description') is-invalid @enderror"
-                                id="exampleInputEmail1" placeholder="Twitter" name="twitter"
-                                value="{{$user?$user->description:old('twitter')}}" disabled>
+                            <input type="text" class="form-control @error('twitter') is-invalid @enderror"
+                                   id="exampleInputEmail1" placeholder="Twitter" name="twitter"
+                                   value="{{$user?$user->twitter:old('twitter')}}" disabled>
                             @error('twitter') <span class="help-block">{{$message}}</span> @enderror
                         </div>
                     </div>
@@ -138,7 +138,7 @@ Ver Usuario
                             <label for="exampleInputEmail1">Facebook</label>
                             <input type="text" class="form-control @error('facebook') is-invalid @enderror"
                                 id="exampleInputEmail1" placeholder="Facebook" name="facebook"
-                                value="{{$user?$user->description:old('facebook')}}" disabled>
+                                value="{{$user?$user->facebook:old('facebook')}}" disabled>
                             @error('facebook') <span class="help-block">{{$message}}</span> @enderror
                         </div>
                     </div>
@@ -147,7 +147,7 @@ Ver Usuario
                             <label for="exampleInputEmail1">Whatsapp</label>
                             <input type="text" class="form-control @error('whatsapp') is-invalid @enderror"
                                 id="exampleInputEmail1" placeholder="Whatsapp" name="whatsapp"
-                                value="{{$user?$user->description:old('whatsapp')}}" disabled>
+                                value="{{$user?$user->whatsapp:old('whatsapp')}}" disabled>
                             @error('whatsapp') <span class="help-block">{{$message}}</span> @enderror
                         </div>
                     </div>
@@ -156,7 +156,7 @@ Ver Usuario
                             <label for="exampleInputEmail1">Instagram</label>
                             <input type="text" class="form-control @error('instagram') is-invalid @enderror"
                                 id="exampleInputEmail1" placeholder="Instagram" name="instagram"
-                                value="{{$user?$user->description:old('instagram')}}" disabled>
+                                value="{{$user?$user->instagram:old('instagram')}}" disabled>
                             @error('instagram') <span class="help-block">{{$message}}</span> @enderror
                         </div>
                     </div>

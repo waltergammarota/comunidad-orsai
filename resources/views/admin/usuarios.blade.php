@@ -25,10 +25,10 @@
                     <th>Provincia</th>
                     <th>Ciudad</th>
                     <th>Bloqueado</th>
+                    <th>Rol</th>
                     <th>Acciones</th>
                     <th>Nombre usuario</th>
                     <th>Profesión</th>
-                    <th>Rol</th>
                     <th>Twitter</th>
                     <th>Facebook</th>
                     <th>Whatsapp</th>
@@ -40,11 +40,37 @@
         <!-- /.card-body -->
     </div>
 
+    <div class="modal fade" id="modal-admin">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Camio a Rol administrador</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="admin-message"></p>
+                    <p class="usuarioData"></p>
+                    <input type="hidden" name="id" value="0" class="usuarioId">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" id="admin-button">SI
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <div class="modal fade" id="modal-bloquear">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Bloquear usuario</h4>
+                    <h4 class="modal-title">Bloqueo de usuario</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,13 +96,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Eliminar usuario</h4>
+                    <h4 class="modal-title">Eliminación de usuario</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Desea eliminar al usuario?</p>
+                    <p>Desea eliminar al usuario? Esto implica que el usuario se borra del sistema.</p>
                     <p class="usuarioData"></p>
                     <input type="hidden" name="id" value="0" class="usuarioId">
                 </div>
@@ -118,13 +144,13 @@
                     {
                         extend: 'csvHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17]
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17]
                         }
                     },
                 ],
@@ -175,6 +201,7 @@
                             return (data.blocked == 0) ? "NO" : "SI";
                         }
                     },
+                    { "data": "role"},
                     {
                         "data": function (data, type, row, meta) {
                             return `<button type="button" class="btn  btn-xs btn-primary editar" data-row="${meta.row}">
@@ -183,6 +210,9 @@
                                     <button type="button" class="btn  btn-xs btn-warning bloquear" data-row="${meta.row}" >
                                         <i class="fa fa-times-circle"></i>
                                     </button>
+                                    <button type="button" class="btn  btn-xs btn-success admin" data-row="${meta.row}" >
+                                        <i class="fa fa-user-circle"></i>
+                                    </button>
                                     <button type="button" class="btn  btn-xs btn-danger eliminar" data-row="${meta.row}">
                                         <i class="fa fa-trash"></i>
                                     </button>`;
@@ -190,12 +220,27 @@
                     },
                     {"data": "userName", "visible": false},
                     {"data": "profesion", "visible": false},
-                    {"data": "role", "visible": false},
                     {"data": "twitter", "visible": false},
                     {"data": "facebook", "visible": false},
                     {"data": "whatsapp", "visible": false},
                     {"data": "instagram", "visible": false},
                 ],
+            });
+
+            table.on('click', '.admin', function () {
+                const row = $(this).data('row');
+                const data = table.row(row).data();
+                const id = data.id;
+                const message = $(".admin-message");
+                if (data.role === "admin") {
+                    message.empty().append("Desea quitar el rol de Administrador a este usuario?");
+                } else {
+                    message.empty().append("Desea ascender a este usuario a Administrador?");
+                }
+                $(".usuarioId").val(id);
+                $(".usuarioData").empty().append(`Email: ${data.email}`);
+                $('#modal-admin').modal('show');
+
             });
 
             table.on('click', '.bloquear', function () {
@@ -204,9 +249,9 @@
                 const id = data.id;
                 const message = $(".block-message");
                 if (data.blocked == 0) {
-                    message.empty().append("Desea bloquear al usuario");
+                    message.empty().append("Desea bloquear al usuario? Esto implica que el usuario no podrá ingresar al sistema");
                 } else {
-                    message.empty().append("Desea desbloquear al usuario");
+                    message.empty().append("Desea desbloquear al usuario? Esto implica que el usuario podrá ingresar al sistema");
                 }
                 $(".usuarioId").val(id);
                 $(".usuarioData").empty().append(`Email: ${data.email}`);
@@ -220,7 +265,7 @@
                 const id = data.id;
                 $(".usuarioId").val(id);
                 $(".usuarioData").empty().append(`Email: ${data.email}`);
-                $('#modal-bloquear').modal('show');
+                $('#modal-eliminar').modal('show');
             });
 
             table.on('click', '.editar', function () {
@@ -235,6 +280,22 @@
                 const id = $(".usuarioId").val();
                 $('#modal-bloquear').modal('hide');
                 axios.post('{{url('admin/usuarios/bloquear')}}', {
+                    id: id,
+                }).then(response => {
+                    alert(response.data.message);
+                    table.ajax.reload();
+                    $(".usuarioId").val(0);
+                }).catch(error => {
+                    alert("Ha ocurrido un error. Intente más tarde");
+                    $(".usuarioId").val(0);
+                });
+            });
+
+            $("#admin-button").click((event) => {
+                event.preventDefault();
+                const id = $(".usuarioId").val();
+                $('#modal-admin').modal('hide');
+                axios.post('{{url('admin/usuarios/ascender')}}', {
                     id: id,
                 }).then(response => {
                     alert(response.data.message);
@@ -264,4 +325,9 @@
 
         });
     </script>
+    <style>
+        table#example2 {
+            font-size: 12px;
+        }
+    </style>
 @endsection

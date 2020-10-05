@@ -19,7 +19,7 @@
         <div class="card-body">
             <table id="example2" class="table table-bordered table-hover">
                 <thead>
-                <tr> 
+                <tr>
                     <th>Título</th>
                     <th>Slug</th>
                     <th>Fecha publicación</th>
@@ -75,6 +75,7 @@
                 "paging": true,
                 "searching": true,
                 "ordering": true,
+                "order": [[2, "desc"]],
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
@@ -90,20 +91,21 @@
                     "processing": "Procesando...",
                     "loadingRecords": "Cargando....",
                     "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ entradas",
-                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">'+
-                      '<option value="10">10</option>'+
-                      '<option value="20">20</option>'+
-                      '<option value="30">30</option>'+
-                      '<option value="40">40</option>'+
-                      '<option value="50">50</option>'+
-                      '<option value="-1">Todas</option>'+
-                      '</select> entradas',
-                
+                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
+                        '<option value="10">10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">Todas</option>' +
+                        '</select> entradas',
+
                 },
-                "columns": [ 
-                    {"data": "title",
+                "columns": [
+                    {
+                        "data": "title",
                         "render": function (data) {
-                            return '<a href="#" class="editar">'+data+'</a>';
+                            return '<a href="#" class="editar">' + data + '</a>';
                         }
 
                     },
@@ -133,10 +135,24 @@
                                     </button>
                                     <button type="button" class="btn btn-xs btn-danger eliminar">
                                         <i class="fa fa-trash"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-primary link">
+                                        <i class="fa fa-eye"></i>
                                     </button>`;
                         }
                     },
                 ]
+            });
+
+            table.on('click', '.link', function () {
+                const data = table.row($(this).parents('tr')).data();
+                const id = data.id;
+                const slug = data.slug;
+                @if($type == "pagina")
+                    window.location.href = `{{url('')}}/${slug}`;
+                @else
+                    window.location.href = `{{url('novedades')}}/${slug}`;
+                @endif
             });
 
             table.on('click', '.editar', function () {

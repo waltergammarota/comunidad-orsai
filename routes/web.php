@@ -171,6 +171,13 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::post(
+            'admin/usuarios/ascender',
+            'Admin\AdminController@ascender'
+        )->name(
+            'usuarios-ascender'
+        )->middleware('admin_role');
+
+        Route::post(
             'admin/usuarios/bloquear',
             'Admin\AdminController@bloquear'
         )->name(

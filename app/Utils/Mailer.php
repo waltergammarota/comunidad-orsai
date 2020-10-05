@@ -10,6 +10,7 @@ use App\Jobs\ProcessRejectMail;
 use App\Jobs\ProcessResetPasswordMail;
 use App\Jobs\ProcessSendContactData;
 use App\Jobs\ProcessSendMailToAdministrator;
+use App\Jobs\ProcessSendReminderActivationEmail;
 use App\Jobs\ProcessWelcomePointsMail;
 use App\Mail\ApproveApplicationMail;
 use Illuminate\Support\Facades\Mail;
@@ -59,6 +60,16 @@ class Mailer
         $mensaje = $data['mensaje'];
         ProcessSendContactData::dispatch($email, $name, $lastName, $subject, $mensaje);
         return true;
+    }
+
+    public function sendReminderActivationEmail($data) {
+        $email = $data['email'];
+        $name = $data['name'];
+        $lastName = $data['lastName'];
+        $subject = $data['subject'];
+        $mensaje = $data['mensaje'];
+        $token = $data['token'];
+        ProcessSendReminderActivationEmail::dispatch($email, $name, $lastName, $subject, $mensaje, $token);
     }
 
 }

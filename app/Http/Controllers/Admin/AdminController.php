@@ -60,6 +60,16 @@ class AdminController extends Controller
         return response()->json($data);
     }
 
+    public function ascender(Request $request)
+    {
+        $userId = $request->id;
+        $user = User::find($userId);
+        $user->role = $user->role == "admin" ? "user" : "admin";
+        $user->save();
+        $data = ["success" => true, "message" => $user->role == "admin" ? "Usuario fue ascendido a admin" : "Usuario no es más admin"];
+        return response()->json($data);
+    }
+
     public function bloquear(Request $request)
     {
         $userId = $request->id;

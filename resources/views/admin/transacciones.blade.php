@@ -70,18 +70,28 @@
                       '<option value="50">50</option>'+
                       '<option value="-1">Todas</option>'+
                       '</select> transacciones',
-                
+
                 },
                 "columns": [
                     { "data": "id" },
                     { "data": "get_from_user.name" },
                     { "data": "get_to_user.name" },
-                    { "data": "type" },
+                    { "data": "type",
+                        "render": function(data) {
+                            switch (data) {
+                                case "MINT":
+                                    return "Emisión";
+                                    break;
+                                case "BURN":
+                                    return "Quemado";
+                                    break;
+                                case "TRANSFER":
+                                    return "Transferencia";
+                                    breack;
+                            }
+                        }},
                     { "data": "amount" },
-                    { "data": "capId",
-                        "render": function ( data ) {
-                            return data == null ? "" :data.title;
-                    }},
+                    { "data": "data" },
                     { "data": "created_at" }
                 ]
             });

@@ -47,7 +47,7 @@ class ContenidoController extends Controller
             'draw' => $request->query('draw'),
             "recordsTotal" => ContenidoModel::where("tipo", $tipo)->count(),
             "recordsFiltered" => ContenidoModel::where("tipo", $tipo)->count(),
-            'data' => ContenidoModel::where("tipo", $tipo)->get()];
+            'data' => ContenidoModel::where("tipo", $tipo)->orderBy("fecha_publicacion", "desc")->get()];
         return response()->json($data);
     }
 
@@ -146,7 +146,7 @@ class ContenidoController extends Controller
             $noticia->images()->sync($imagesIds);
         }
         $type = $noticia->tipo;
-        return Redirect::to('admin/contenidos/tipo/' . $type);
+        return Redirect::to('admin/contenidos/' . $request->id);
     }
 
     public function deleteImage(Request $request)
