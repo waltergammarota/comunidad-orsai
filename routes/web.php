@@ -87,9 +87,41 @@ Route::get(
     'WebController@restablecer_clave'
 )->name('restablecer-clave');
 
+
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
-    function () {
+    function () { 
+
+        Route::get(
+            '/fundacion',
+            'WebController@fundacion'
+        )->name('fundacion');
+
+        Route::get(
+            '/fundacion/plan',
+            'WebController@plan'
+        )->name('plan');
+
+        Route::get(
+            '/fundacion/consejo',
+            'WebController@consejo'
+        )->name('consejo');
+
+        Route::get(
+            '/fundacion/areas',
+            'WebController@areas'
+        )->name('areas');
+
+        Route::get(
+            '/fundacion/donaciones',
+            'WebController@donaciones'
+        )->name('donaciones');
+
+        Route::get(
+            '/fundacion/historia',
+            'WebController@historia'
+        )->name('historia');
+
         Route::get(
             '/perfil',
             'AccountController@show_perfil'
@@ -292,7 +324,7 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/{slug}',
             'ContenidoController@index'
-        )->name("pagina");
+        )->name("pagina"); 
 
     }
 );

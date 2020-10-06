@@ -9,11 +9,14 @@
     <div id="desplegable" class="desplegable_cerrado">
                 <div id="menu_pcpal">
                     @if (Auth::check())
-                     <ul> 
-                      {{--   <li><a href="{{url('comunidad-orsai')}}">Comunidad Orsai</a></li>
-                        <li><a href="{{url('novedades')}}">Novedades</a></li>
-                        <li><a href="{{url('donar')}}">Donar</a></li> --}}
-                    </ul>
+                        @if(Session::get('role') == "admin")
+                         <ul> 
+                            <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
+                            <li><a href="{{url('novedades')}}">Novedades</a></li>
+                            <li><a href="{{url('concursos')}}">Concursos</a></li>
+                            <li><a href="{{url('donar')}}">Donar</a></li>
+                        </ul>
+                        @endif
                     @endif
                 </div>
         <div id="menu_reg">

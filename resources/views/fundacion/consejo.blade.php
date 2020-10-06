@@ -1,8 +1,6 @@
-@extends('orsai-template')
-
-≈
-
-
+@extends('orsai-template') 
+@section('title', 'Consejo en Fundación Orsai | Comunidad Orsai')
+@section('description','Consejo en Fundación Orsai  | Comunidad Orsai')
 @section('content')
     <section class="contenedor sobre_fundacion">
         @include('fundacion.menu-fundacion',["activo" => "consejo"])

@@ -13,16 +13,16 @@
         <form method="POST" action="{{url('ingresar')}}" id="ingresar-form">
             @csrf
             <div class="contenedor_campos">
-{{--                 <h1>Ya somos {{$totalusers}}</h1>
-                <p>Los primeros 15.000 registrados serán llamados "socios fundadores".</p> --}}
-                <div class="input_err obligatorio">
-                <!-- <label class='oculto'>Correo Electrónico</label> -->
+                <h1>Ya somos {{$totalusers}}</h1>
+                <p>Los primeros 15.000 registrados serán llamados "socios fundadores".</p>
+            </div>
+            <div class="contenedor_campos">
+                <div class="input_err obligatorio"> 
                     <input type="email" id="mail_us" name="email"
                            placeholder="Correo Electrónico"
                            value="{{ old('email') }}">
                 </div>
-                <div class="input_err obligatorio">
-                    <!-- <label class='oculto'>Contraseña</label> -->
+                <div class="input_err obligatorio"> 
                     <input type="password" id="ps" name="password" placeholder="Contraseña" value="">
                     @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
                         <span class="invalid-feedback">

@@ -18,7 +18,7 @@
                 <br/>
                 <div class="box_border">
                     <p>Desde 2020, la Fundación Orsai y su comunidad le ponemos fichas a la mejor narrativa en español. Podemos hacerlo porque hace más de quince años que apostamos a contar historias.</p><br/>
-                    <a href="{{url('historia')}}" class="resaltado_amarillo">Ir a Historia &raquo;</a>
+                    <a href="{{url('fundacion/historia')}}" class="resaltado_amarillo">Ir a Historia &raquo;</a>
                 </div>
             </article>
         </div>

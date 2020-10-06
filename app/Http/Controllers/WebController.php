@@ -91,7 +91,7 @@ class WebController extends Controller
     public function fundacion()
     {
         $data = $this->getUserData();
-        return view('fundacion.fundacion-orsai', $data);
+        return view('fundacion.fundacion', $data);
     }
 
     public function plan()
