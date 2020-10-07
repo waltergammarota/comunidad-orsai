@@ -87,10 +87,13 @@ Route::get(
     'WebController@restablecer_clave'
 )->name('restablecer-clave');
 
+Route::get('cuenta-desactivada',
+    'PreferenciasController@cuenta_desactivada'
+)->name('cuenta-desactivada');
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
-    function () { 
+    function () {
 
         Route::get(
             '/fundacion',
@@ -131,6 +134,46 @@ Route::middleware(['verified'])->group(
             '/panel',
             'AccountController@show_panel'
         )->name('perfil');
+
+        Route::post(
+            '/guardar-configuracion-preferencias',
+            'PreferenciasController@guardar_configuracion_preferencias'
+        )->name('guardar-configuracion-preferencias');
+
+        Route::post(
+            '/guardar-configuracion-notificaciones',
+            'NotificacionesController@guardar_configuracion_notificaciones'
+        )->name('guardar-configuracion-notificaciones');
+
+        Route::post(
+            '/confirmar-desactivar-cuenta',
+            'PreferenciasController@borrar_cuenta'
+        )->name('confirmar-desactivar-cuenta');
+
+        Route::get(
+            '/confirmar-desactivar-cuenta',
+            'PreferenciasController@confirmar_desactivar_cuenta'
+        )->name('confirmar-desactivar-cuenta');
+
+        Route::get(
+            '/desactivar-cuenta',
+            'PreferenciasController@desactivar_cuenta'
+        )->name('desactivar-cuenta');
+
+        Route::get(
+            '/configuracion-preferencias-generales',
+            'PreferenciasController@configurar_preferencias'
+        )->name('configurar-preferencias');
+
+        Route::get(
+            '/configuracion-privacidad',
+            'PreferenciasController@configurar_privacidad'
+        )->name('configuracion-privacidad');
+
+        Route::get(
+            '/configuracion-notificaciones',
+            'NotificacionesController@configurar_notificaciones'
+        )->name('configuracion-notificaciones');
 
         Route::get(
             '/gracias',
@@ -324,10 +367,11 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/{slug}',
             'ContenidoController@index'
-        )->name("pagina"); 
+        )->name("pagina");
 
     }
 );
+
 
 
 Route::get(

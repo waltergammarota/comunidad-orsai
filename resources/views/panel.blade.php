@@ -72,6 +72,59 @@
                       class="subrayado resaltado_amarillo">Saber más</span>
             </div>
         </a>
+
+        <a href="{{url('configuracion-notificaciones')}}" class="box_panel">
+            <div>
+                <span>Notificaciones</span>
+            </div>
+            <div>
+                <span>Podrás configurar tus preferencias para recibir nuestras notificaciones</span>
+            </div>
+            <div>
+                <span href="{{url('configuracion-notificaciones')}}"
+                      class="subrayado resaltado_amarillo">Configurar</span>
+            </div>
+        </a>
+
+        <a href="{{url('configuracion-preferencias-generales')}}" class="box_panel">
+            <div>
+                <span>Preferencias generales</span>
+            </div>
+            <div>
+                <span>Podrás configurar tus preferencias</span>
+            </div>
+            <div>
+                <span href="{{url('configuracion-preferencias-generales')}}"
+                      class="subrayado resaltado_amarillo">Configurar</span>
+            </div>
+        </a>
+
+        <a href="{{url('configuracion-privacidad')}}" class="box_panel">
+            <div>
+                <span>Privacidad</span>
+            </div>
+            <div>
+                <span>Podrás configurar tus preferencias de privacidad</span>
+            </div>
+            <div>
+                <span href="{{url('configuracion-privacidad')}}"
+                      class="subrayado resaltado_amarillo">Configurar</span>
+            </div>
+        </a>
+
+        <a href="{{url('desactivar-cuenta')}}" class="box_panel">
+            <div>
+                <span>Desactivar cuenta</span>
+            </div>
+            <div>
+                <span>Necesitás desactivar tu cuenta?</span>
+            </div>
+            <div>
+                <span href="{{url('desactivar-cuenta')}}"
+                      class="subrayado resaltado_amarillo">Desactivar</span>
+            </div>
+        </a>
+
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>

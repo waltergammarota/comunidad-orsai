@@ -31,7 +31,7 @@
         <meta property="og:description" content="@yield('description')"/>
         <meta property="og:image:alt" content="Comunidad Orsai"/>
         <meta property="og:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
-      <!--   <meta property="og:app_id" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/> -->
+    <!--   <meta property="og:app_id" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/> -->
     @endif
 
     @if(env('ORSAI_ENV') == 'production')
@@ -39,7 +39,11 @@
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176303994-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
             gtag('js', new Date());
 
             gtag('config', 'UA-176303994-1');
@@ -58,11 +62,11 @@
         <meta property="twitter:description" content="@yield('description')"/>
         <meta name="twitter:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
     @endif
+    @yield('header')
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{url('recursos/favicon-apple.png')}}">
-  <link rel="shortcut icon" href="{{url('recursos/favicon.ico')}}">
-
-</head> 
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{url('recursos/favicon-apple.png')}}">
+    <link rel="shortcut icon" href="{{url('recursos/favicon.ico')}}">
+</head>
 <body class="page">
 
 <div class="fondo_blanco">
@@ -88,8 +92,8 @@
         <div class="sub_footer_ri">
             <div>
                 <ul>
-                    <li><a href="{{url('terminos-y-condiciones')}}">Terminos &amp; Condiciones</a></li> 
-                    <li><a href="{{url('politica-de-privacidad')}}">Política de privacidad</a></li> 
+                    <li><a href="{{url('terminos-y-condiciones')}}">Terminos &amp; Condiciones</a></li>
+                    <li><a href="{{url('politica-de-privacidad')}}">Política de privacidad</a></li>
                 </ul>
             </div>
         </div>
@@ -104,7 +108,8 @@
                 ofrecer una
                 experiencia más segura. Al navegar por el sitio web, aceptás el uso de cookies para recopilar
                 información dentro y fuera de
-                Orsai. Leé nuestra <a href="{{url('politica-de-privacidad')}}" target="_blank" class="subrayado text_bold">Política
+                Orsai. Leé nuestra <a href="{{url('politica-de-privacidad')}}" target="_blank"
+                                      class="subrayado text_bold">Política
                     de cookies</a> de cookies para obtener más información o accedé a las Preferencias de cookies para
                 administrar tu configuración</p>
             <a id="btn_cookies" class="subrayado resaltado_amarillo text_bold">Aceptar</a>

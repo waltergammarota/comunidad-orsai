@@ -16,18 +16,11 @@
 </section>
 
 <section id="panel_user_profile" class="contenedor profile_public">
-    <div class="form_left"> 
+    <div class="form_left">
         <div class="input_err">
-            <label>Nombre y Apellido</label>
+            <label>Nombre y apellido</label>
             <div class="in_sp obligatorio editar">
                 <p>{{$user->name}} {{$user->lastName}}</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>  
-        <div class="input_err">
-            <label>Ciudad</label>
-            <div class="in_sp obligatorio editar">
-                <p>{{$user->city}}</p>
             </div>
             <div class="line_dashed"></div>
         </div>
@@ -41,39 +34,19 @@
     </div>
     <div class="form_right">
         <div class="input_err">
+            <label>Nombre de usuario</label>
+            <div class="in_sp obligatorio editar">
+                <p>{{$user->userName}}</p>
+            </div>
+            <div class="line_dashed"></div>
+        </div>
+        <div class="input_err">
             <label>Profesión</label>
             <div class="in_sp obligatorio editar">
-                <p>{{$user->profesion}}</p>
+                <p>{{$user->profesion}}&nbsp;</p>
             </div>
             <div class="line_dashed"></div>
         </div>
-        @if (!empty($user->facebook))
-        <div class="input_err">
-            <label>Facebook</label>
-            <div class="in_sp editar">
-                <p>{{$user->facebook}}</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>
-        @endif
-        @if (!empty($user->twitter))
-        <div class="input_err">
-            <label>Twitter</label>
-            <div class="in_sp editar">
-                <p>{{$user->twitter}}</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>
-        @endif
-        @if (!empty($user->instagram))
-        <div class="input_err">
-            <label>Instagram</label>
-            <div class="in_sp editar">
-                <p>{{$user->instagram}}</p>
-            </div>
-            <div class="line_dashed"></div>
-        </div>
-        @endif
     </div>
 
 </section>

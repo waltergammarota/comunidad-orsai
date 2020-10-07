@@ -28,3 +28,19 @@ retry all jobs
 php artisan queue:retry all
 
 
+EN BETA
+para arrancar los procesos
+sudo supervisorctl restart all
+para parar todos los procesos 
+sudo supervisorctl stop all
+
+para editar el proceso
+sudo vim laravel-worker.conf
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start all
+
+
+
+
+
