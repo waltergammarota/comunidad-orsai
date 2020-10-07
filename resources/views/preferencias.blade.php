@@ -36,7 +36,7 @@
                                 @foreach($idiomas as $idiomaOpcion)
                                     <option
                                         value='{{$idiomaOpcion}}'
-                                        {{strtolower($preferencias->idioma) == strtolower($idiomaOpcion)? "selected":""}}
+                                        {{$preferencias && strtolower($preferencias->idioma) == strtolower($idiomaOpcion)? "selected":""}}
                                     >{{$idiomaOpcion}}</option>
                                 @endforeach
                             </select>
@@ -56,7 +56,7 @@
                                 @foreach($monedas as $monedaOpcion)
                                     <option
                                         value='{{$monedaOpcion}}'
-                                        {{strtolower($preferencias->moneda) == strtolower($monedaOpcion)? "selected":""}}
+                                        {{$preferencias && strtolower($preferencias->moneda) == strtolower($monedaOpcion)? "selected":""}}
                                     >{{$monedaOpcion}}</option>
                                 @endforeach
                             </select>
@@ -80,7 +80,7 @@
                                 @foreach($pagos as $pagoOpcion)
                                     <option
                                         value='{{$pagoOpcion}}'
-                                        {{strtolower($preferencias->pago) == strtolower($pagoOpcion)? "selected":""}}
+                                        {{$preferencias && strtolower($preferencias->pago) == strtolower($pagoOpcion)? "selected":""}}
                                     >{{$pagoOpcion}}</option>
                                 @endforeach
                             </select>
@@ -100,7 +100,7 @@
                                 @foreach($zonas as $key => $zonaOpcion)
                                     <option
                                         value='{{$key}}'
-                                        {{strtolower($preferencias->zona) == strtolower($key)? "selected":""}}
+                                        {{$preferencias && strtolower($preferencias->zona) == strtolower($key)? "selected":""}}
                                     >{{$zonaOpcion}}</option>
                                 @endforeach
                             </select>

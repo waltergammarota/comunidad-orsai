@@ -37,6 +37,7 @@ class PreferenciasController extends Controller
         $preferencia->moneda = $request->moneda;
         $preferencia->pago = $request->pago;
         $preferencia->zona = $request->zona;
+        $preferencia->user_id = $user->id;
         $preferencia->save();
         echo json_encode(['success'=> true, 'msg'=> 'Preferencias guardadas']);
     }
