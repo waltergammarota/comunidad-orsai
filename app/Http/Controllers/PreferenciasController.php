@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 
-use App\PreferenciasModel;
+use App\Databases\PreferenciasModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
