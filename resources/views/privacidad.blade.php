@@ -13,10 +13,10 @@
             <div class="">
                 <div id="links_back">
                     <a href="{{url('panel')}}">Panel de usuario</a>
-                    <span>Configuración de privacidad</span>
+                    <span>Privacidad</span>
                 </div>
                 <div id="user_alias">
-                    <h1>Configuración de <span class="span_block">privacidad</span>
+                    <h1>Privacidad</span>
                     </h1>
                 </div>
             </div>
@@ -24,19 +24,31 @@
     </section>
 
     <section class="contenedor intro_gral">
-        <div>
-            <ul>
-                <li>
-                    Nuestros términos y condiciones: <a href="{{url('terminos-y-condiciones')}}" class="subrayado">Ver</a>
-                </li>
-                <li>
-                    Nuestra política de privacidad: <a href="{{url('politica-de-privacidad')}}" class="subrayado">Ver</a>
-                </li>
-                <li>
-                    Nuestra política de cookies: <a href="{{url('politica-de-cookies')}}" class="subrayado">Ver</a>
-                </li>
-            </ul>
-        </div>
+
+                    
+            <div id="check_div" class="input_err obligatorio" style="padding-right: 0px !important;">
+                <label class="checkbox-container letra_chica text_bold"> 
+                    <input type="checkbox" id="cbox1" name="plataforma" class="cb cb1" value="1" checked disabled>  
+                      <a href="{{url('terminos-y-condiciones')}}" target="_blank" class="subrayado resaltado_amarillo">Términos y condiciones</a>
+                      <span class="crear_check"></span>
+                </label> 
+            </div> 
+            <br/>
+            <div id="check_div" class="input_err obligatorio " style="padding-right: 0px !important;">
+                <label class="checkbox-container letra_chica text_bold"> 
+                    <input type="checkbox" id="cbox1" name="plataforma" class="cb cb1" value="1" checked disabled>  
+                      <a href="{{url('politica-de-privacidad')}}" target="_blank" class="subrayado resaltado_amarillo">Política de privacidad</a>
+                      <span class="crear_check"></span>
+                </label> 
+            </div> 
+            <br/>
+            <div id="check_div" class="input_err obligatorio" style="padding-right: 0px !important;">
+                <label class="checkbox-container letra_chica text_bold"> 
+                    <input type="checkbox" id="cbox1" name="plataforma" class="cb cb1" value="1" checked disabled>  
+                      <a href="{{url('politica-de-cookies')}}" target="_blank" class="subrayado resaltado_amarillo">Política de cookies</a>
+                      <span class="crear_check"></span>
+                </label> 
+            </div> 
 
     </section>
     <div class="contenedor mg_100 number_page">

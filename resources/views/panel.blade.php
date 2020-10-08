@@ -12,7 +12,7 @@
             </div>
             <div id="user_alias">
                 <h1>{{'@'.ucfirst($username)}}</h1>
-                <a href="{{url('perfil-usuario')}}/{{$session_user_id}}" class="ver_perfil">Ver Perfil</a>
+                <a href="{{url('perfil-usuario')}}/{{$session_user_id}}" class="ver_perfil">Ver perfil público</a>
             </div>
             <div id="user_fichas">
                 <span>{{$balance}}</span>
@@ -21,7 +21,22 @@
         </div>
         <div class="line_dashed"></div>
     </section>
+
+
     <section id="panel_user_info" class="contenedor">
+
+        <div href="{{url('novedades')}}/sistema-de-fichas" class="box_panel_full">
+            <div>
+                <strong>Ya somos {{$totalusers}}</strong>
+            </div>
+            <div>
+                <span>Los primeros 15.000 registrados serán llamados "socios fundadores".</span>
+            </div>
+            <div>
+                <a href="{{url('novedades')}}/sistema-de-fichas" class="subrayado resaltado_amarillo">Saber más</a>
+            </div>
+        </div>
+
         <a href="{{url('perfil')}}" class="box_panel">
             <div>
                 <span>Información Personal</span>
@@ -60,25 +75,12 @@
             </div>
         </a>
 
-        <a href="{{url('novedades')}}/sistema-de-fichas" class="box_panel">
-            <div>
-                <span>Ya somos {{$totalusers}}</span>
-            </div>
-            <div>
-                <span>Los primeros 15.000 registrados serán llamados "socios fundadores".</span>
-            </div>
-            <div>
-                <span href="{{url('novedades')}}/sistema-de-fichas"
-                      class="subrayado resaltado_amarillo">Saber más</span>
-            </div>
-        </a>
-
         <a href="{{url('configuracion-notificaciones')}}" class="box_panel">
             <div>
                 <span>Notificaciones</span>
             </div>
             <div>
-                <span>Podrás configurar tus preferencias para recibir nuestras notificaciones</span>
+                <span>Configurá las preferencias de notificación.</span>
             </div>
             <div>
                 <span href="{{url('configuracion-notificaciones')}}"
@@ -91,7 +93,7 @@
                 <span>Preferencias generales</span>
             </div>
             <div>
-                <span>Podrás configurar tus preferencias</span>
+                <span>Indicanos tu idioma, moneda y zona horaria.</span>
             </div>
             <div>
                 <span href="{{url('configuracion-preferencias-generales')}}"
@@ -104,7 +106,7 @@
                 <span>Privacidad</span>
             </div>
             <div>
-                <span>Podrás configurar tus preferencias de privacidad</span>
+                <span>Verificá que hacemos con tus datos.</span>
             </div>
             <div>
                 <span href="{{url('configuracion-privacidad')}}"
@@ -112,18 +114,14 @@
             </div>
         </a>
 
-        <a href="{{url('desactivar-cuenta')}}" class="box_panel">
+        <div class="desactive"> 
             <div>
-                <span>Desactivar cuenta</span>
+                <span>¿Necesitás desactivar tu cuenta?</span>
             </div>
             <div>
-                <span>Necesitás desactivar tu cuenta?</span>
+                <a href="{{url('desactivar-cuenta')}}" class="subrayado resaltado_amarillo">Hacelo ahora</a>
             </div>
-            <div>
-                <span href="{{url('desactivar-cuenta')}}"
-                      class="subrayado resaltado_amarillo">Desactivar</span>
-            </div>
-        </a>
+        </div>
 
     </section>
     <div class="contenedor mg_100 number_page">

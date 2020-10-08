@@ -13,18 +13,20 @@
                 </div>
             </div>
         </div>
-        <div class="cuerpo_texto texto_noticia">
+        <div class="cuerpo_texto">
             <div class="titulo">
-                <h1 class="span_h1">Querés desactivar tu cuenta</h1>
+                <h1 class="span_h1">¿Querés desactivar tu cuenta?</h1>
                 <span class="autor gris span_block"></span>
             </div>
             <div class="texto">
-                Las fichas asociadas a esta cuenta van a desaparecer. <br>
-                No vas a poder acceder a la información de la cuenta. <br>
+                <ul>
+                    <li>Las fichas asociadas a tu usuario van a desaparecer.</li>
+                    <li>No vas a poder acceder más a la cuenta.</li>
+                </ul>  
                 <br>
-                Cancelar: <a href="{{url('panel')}}" class="subrayado">Me quiero quedar, saquenme de aquí</a>
+                <a href="{{url('panel')}}" class="resaltado_amarillo">Me quiero quedar, saquenme de aquí.</a>
                 <br><br>
-                Desactivar mi cuenta: <a href="{{url('confirmar-desactivar-cuenta')}}" class="subrayado">Me quiero ir</a>
+                <a href="{{url('confirmar-desactivar-cuenta')}}" class="resaltado_rojo">Quiero desactivar mi cuenta.</a>
             </div>
         </div>
 

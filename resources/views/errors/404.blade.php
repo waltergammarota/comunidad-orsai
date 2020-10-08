@@ -12,10 +12,8 @@
                 buscando.</h1>
             <span class="gris codigo_error">Código de error: 404</span>
         </div>
-        <div class="error_links">
-            <div><a href="{{url('registrarse')}}" class="subrayado resaltado_amarillo text_bold">Registrarme</a>
-            </div>
-            <div><a href="{{url('/')}}" class="subrayado resaltado_amarillo text_bold">Inicio</a>
+        <div class="error_links"> 
+            <div><a href="{{url('/')}}" class="subrayado resaltado_amarillo text_bold">Ir al inicio</a>
             </div>
         </div>
     </section>

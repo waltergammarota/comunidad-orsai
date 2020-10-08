@@ -17,8 +17,8 @@ class PreferenciasController extends Controller
         $data = $this->getUserData();
         $data['preferencias'] = PreferenciasModel::where('user_id', $data['session_user_id'])->first();
         $data['idiomas'] = ["Español", "Inglés"];
-        $data['monedas'] = ["Pesos", "Dólares Estadounidenses"];
-        $data['pagos'] = ["Mercado Pago", "Paypal"];
+        $data['monedas'] = ["Peso Argentino (ARS)", "Dólar Americano (USD)", "Euro (EUR)"];
+        $data['pagos'] = ["Mercado Pago Argentina", "Paypal"];
         $data['zonas'] = timezone_identifiers_list();
         return View('preferencias', $data);
     }

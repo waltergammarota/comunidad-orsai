@@ -30,13 +30,31 @@ a:link a:visited, a:active {
     color: #808080 !important;
 }
 .resaltado_amarillo{
-    background-color: #ffed00;
+    background: #ffed00;
+}
+.resaltado_amarillo_anim{ 
+    background:none;
+    background-image: linear-gradient(120deg, #ffed00 0%, #ffed00 100%) !important;
+    background-repeat: no-repeat;
+    background-size: 100% 0.4em;
+    background-position: 0 100%;
+    transition: background-size 0.25s ease-in;
 }
 .resaltado_verde{
     background-color: #d2d2d2;
 }
-.resaltado_rojo{
-    background-color: #d2d2d2;
+.resaltado_rojo{ 
+    background:none;
+    background-image: linear-gradient(120deg, #ff5252 0%, #ff5252 100%) !important;
+    background-repeat: no-repeat;
+    background-size: 100% 0.4em;
+    background-position: 0 100%;
+    transition: background-size 0.25s ease-in;
+}
+.resaltado_amarillo_anim:hover,
+.resaltado_verde:hover,
+.resaltado_rojo:hover{ 
+    background-size: 100% 88%;
 }
 .subrayado{
     text-decoration-line: underline;
@@ -44,6 +62,8 @@ a:link a:visited, a:active {
     */font-weight: 400;
     -moz-text-decoration-line: underline;
 }
+ 
+
 .resaltado_gris{
     background-color: rgb(192, 192, 192);
 }
@@ -2805,7 +2825,72 @@ transform: translate(-50%, -50%);
     text-decoration: underline;
 }
 
-@media(max-width:768px){
+/* Panel */
+
+.desactive span{
+    font-size:12px;
+    color:#888;
+}
+.desactive a{
+    font-size:12px; 
+    color:#888;
+    cursor:pointer;
+}
+/* Panel Notificaciones */
+.checkbox_toggle {
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: block; 
+}
+.checkbox_toggle > input {
+  display: none;
+}
+.checkbox_toggle  span {
+  color: #6A759B;
+  font-size:16px; 
+}
+.checkbox_toggle  i {
+  display: inline-block;
+  width: 32px;
+  height: 20px;
+  border-radius: 20px;
+  vertical-align: middle;
+  -webkit-transition: .25s .09s;
+  transition: .25s .09s;
+  position: relative;
+  background: #deeff7;
+}
+.checkbox_toggle  i:after {
+  content: " ";
+  display: block;
+  width: 16px;
+  height: 16px;
+  top: 1px;
+  left: 2px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.5);
+  -webkit-transition: .15s;
+  transition: .15s;
+}
+.checkbox_toggle  > input:checked + i {
+  background: #ffed00;
+}
+.checkbox_toggle  > input:checked + i + span {
+  color: #29316b;
+}
+.checkbox_toggle  > input:checked + i:after {
+  -webkit-transform: translateX(12px);
+          transform: translateX(12px);
+}
+
+#boton_notificaciones {
+    float: left;
+    cursor: pointer;
+}
+
+@media(max-width:768px){ 
     #intro.intro_gral.panel .user_prop #user_alias{
         top: 25%;
     }
@@ -2863,7 +2948,7 @@ transform: translate(-50%, -50%);
     }
     .form_reg form #boton_submit button{
         width:100%;
-        height:40px;
+        height:40px; 
     }
     .form_reg form .input_err:nth-child(even), .form_reg form .select{
         padding-left:0px !important;
@@ -4515,16 +4600,29 @@ transform: translateY(-50%);
 
 }
 
+#panel_user_info .box_panel_full{
+    width:calc(100%);
+    font-size:16px;
+    display:inline-block;
+    vertical-align: top;
+    margin-bottom:10px;
+    min-height:80px;
+    padding:10px 25px 25px 25px;
+    border:2px dashed transparent;
+    border-bottom:2px dashed  #e6e6e6;
+    -ms-transition: border 0.2s;
+    transition: border 0.2s;
+}
 
 
 
 #panel_user_info .box_panel:nth-child(odd){
     /* padding-right:35px; */
-    margin-right:20px;
+    margin-left:20px;
 }
 #panel_user_info .box_panel:nth-child(even){
     /* padding-left:35px; */
-    margin-left:20px;
+    margin-right:20px;
 }
 #panel_user_info .box_panel > div:nth-child(1){
     font-size:24px;
@@ -4585,8 +4683,15 @@ transform: translateY(-50%);
     #intro.intro_gral.panel .user_prop #user_fichas span:nth-child(2) {
         width:120px;
     }
+
 }
 @media (max-width:768px){
+    #panel_user_info .box_panel:nth-child(even){
+        margin:0;
+    } 
+    #panel_user_info .box_panel:nth-child(odd){ 
+        margin:0;
+    }  
     #intro.intro_gral.panel{
         margin-bottom:10px;
     }
@@ -4595,12 +4700,6 @@ transform: translateY(-50%);
     }
     #panel_user_info .box_panel{
         width:100%;
-    }
-    #panel_user_info .box_panel:nth-child(odd){
-        padding-right:0px;
-    }
-    #panel_user_info .box_panel:nth-child(even){
-        padding-left:0px;
     }
 
     #panel_user_info .box_panel > div:nth-child(1){

@@ -13,10 +13,10 @@
             <div class="">
                 <div id="links_back">
                     <a href="{{url('panel')}}">Panel de usuario</a>
-                    <span>Información personal</span>
+                    <span>Preferencias generales</span>
                 </div>
                 <div id="user_alias">
-                    <h1>Información <span class="span_block">personal</span>
+                    <h1>Preferencias generales</span>
                     </h1>
                 </div>
             </div>

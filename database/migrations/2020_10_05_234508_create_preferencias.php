@@ -19,7 +19,7 @@ class CreatePreferencias extends Migration
             $table->integer('plataforma')->default(0);
             $table->integer('correo')->default(0);
             $table->string('idioma')->default('Español');
-            $table->string('moneda')->default('Pesos');
+            $table->string('moneda')->default('Peso Argentino (ARS)');
             $table->string('pago')->default('Paypal');
             $table->string('zona')->nullable();
             $table->timestamps();
