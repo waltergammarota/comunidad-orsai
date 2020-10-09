@@ -92,49 +92,23 @@ Route::get('cuenta-desactivada',
 )->name('cuenta-desactivada');
 
 
-// CONCURSOS
-Route::get(
-    '/bases-concurso',
-    'WebController@bases_concurso'
-)->name('bases-concurso');
-
-Route::get(
-    '/concursos',
-    'Contest\ContestController@index'
-)->name("concursos");
-
-// TODO ESTO TIENE QUE ESTAR SIN SESIÓN???
-Route::get(
-    '/concurso-finalizado',
-    'WebController@concurso_finalizado'
-)->name('concurso-finalizado');
-
-Route::get(
-    '/participantes/{orden?}',
-    'WebController@participantes'
-)->name('participantes');
-
-Route::get(
-    '/participantes/pagina/{page?}/{orden?}/',
-    'WebController@participantes'
-)->name('participantes-pagina');
-
-Route::get(
-    '/participantes/{orden?}/{limit}/{offset}',
-    'WebController@getMore'
-)->name('participantes-more');
-
-
-
-//CONCURSOS
-
-
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
 
         // CONCURSOS
+
+        Route::get(
+            '/bases-concurso',
+            'WebController@bases_concurso'
+        )->name('bases-concurso');
+
+        Route::get(
+            '/concursos',
+            'Contest\ContestController@index'
+        )->name("concursos");
+
         Route::get(
             '/propuesta/{id}',
             'PropuestaController@show'
@@ -154,6 +128,26 @@ Route::middleware(['verified'])->group(
             '/postulacion',
             'AccountController@store_publicacion'
         );
+
+        Route::get(
+            '/concurso-finalizado',
+            'WebController@concurso_finalizado'
+        )->name('concurso-finalizado');
+
+        Route::get(
+            '/participantes/{orden?}',
+            'WebController@participantes'
+        )->name('participantes');
+
+        Route::get(
+            '/participantes/pagina/{page?}/{orden?}/',
+            'WebController@participantes'
+        )->name('participantes-pagina');
+
+        Route::get(
+            '/participantes/{orden?}/{limit}/{offset}',
+            'WebController@getMore'
+        )->name('participantes-more');
 
         //CONCURSOS
 

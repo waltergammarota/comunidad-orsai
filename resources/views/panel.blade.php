@@ -49,6 +49,7 @@
                 <span href="{{url('perfil')}}" class="subrayado resaltado_amarillo">Editar</span>
             </div>
         </a>
+
         @if($emailWasValidated)
             <a href="{{url('novedades')}}" class="box_panel">
                 <div>
@@ -62,67 +63,134 @@
                       class="subrayado resaltado_amarillo">Ver</span>
                 </div>
             </a>
-        @endif
-        <a href="{{url('transacciones')}}" class="box_panel">
-            <div>
-                <span>Mis fichas</span>
-            </div>
-            <div>
-                <span>Acá podés verificar los movimientos de tus fichas.</span>
-            </div>
-            <div>
+
+            @if(!$endUploadAppDate)
+                @if($postulacion['status']=="draft" || $postulacion['id']==0)
+                    <a href="{{url('postulacion')}}" class="box_panel">
+                        @else
+                            <a href="{{url('propuesta/'.$postulacion['id'])}}" class="box_panel">
+                                @endif
+                                @else
+                                    <div class="box_panel">
+                                        @endif
+                                        <div>
+                                            <span>Mis postulaciones</span>
+                                        </div>
+                                        <div>
+                                            @if($endUploadAppDate)
+                                                <span class="text_bold">¡Ups llegaste tarde! La etapa de postulación ha finalizado</span>
+                                            @else
+                                                @if($postulacion['id'] == 0)
+                                                    <span class="text_bold">Si querés participar del Concurso de Logos subí una propuesta con todos los detalles necesarios.</span>
+                                                @else
+                                                    @if($postulacion['id'] > 0)
+                                                        <span class="text_bold">
+                                                        Tienes una postulación en estado
+                                                            @switch($postulacion['status'])
+                                                                @case("approved")
+                                                                <strong
+                                                                    class="resaltado_verde">{{__("status_application.{$postulacion['status']}")}}</strong>
+                                                                @break
+                                                                @case("draft")
+                                                                <strong
+                                                                    class="resaltado_rojo">{{__("status_application.{$postulacion['status']}")}}</strong>
+                                                                @break
+                                                                @case("sent")
+                                                                <strong
+                                                                    class="resaltado_rojo">{{__("status_application.{$postulacion['status']}")}}</strong>
+                                                                @break
+                                                            @endswitch
+                                                    </span>
+                                                    @endif
+                                                @endif
+                                            @endif
+
+                                        </div>
+                                        <div>
+                                            @if($endUploadAppDate)
+                                                <br>
+                                            @else
+                                                @if($postulacion['id'] == 0)
+                                                    <span href="{{url('postulacion')}}"
+                                                          class="subrayado resaltado_amarillo">Enviar</span>
+                                                @else
+                                                    @if($postulacion['status'] == "draft")
+                                                        <span href="{{url('postulacion')}}"
+                                                              class="subrayado resaltado_amarillo">Modificar</span>
+                                                    @else
+                                                        <span href="{{url('propuesta/'.$postulacion['id'])}}"
+                                                              class="subrayado resaltado_amarillo">Ver</span>
+                                                    @endif
+                                                @endif
+                                            @endif
+                                        </div>
+                                        @if(!$endUploadAppDate)
+                                        @else
+                                    </div>
+                                @endif
+
+                                @endif
+                                <a href="{{url('transacciones')}}" class="box_panel">
+                                    <div>
+                                        <span>Mis fichas</span>
+                                    </div>
+                                    <div>
+                                        <span>Acá podés verificar los movimientos de tus fichas.</span>
+                                    </div>
+                                    <div>
                 <span href="{{url('transacciones')}}"
                       class="subrayado resaltado_amarillo">Ver</span>
-            </div>
-        </a>
+                                    </div>
+                                </a>
 
-        <a href="{{url('configuracion-notificaciones')}}" class="box_panel">
-            <div>
-                <span>Notificaciones</span>
-            </div>
-            <div>
-                <span>Configurá las preferencias de notificación.</span>
-            </div>
-            <div>
+                                <a href="{{url('configuracion-notificaciones')}}" class="box_panel">
+                                    <div>
+                                        <span>Notificaciones</span>
+                                    </div>
+                                    <div>
+                                        <span>Configurá las preferencias de notificación.</span>
+                                    </div>
+                                    <div>
                 <span href="{{url('configuracion-notificaciones')}}"
                       class="subrayado resaltado_amarillo">Configurar</span>
-            </div>
-        </a>
+                                    </div>
+                                </a>
 
-        <a href="{{url('configuracion-preferencias-generales')}}" class="box_panel">
-            <div>
-                <span>Preferencias generales</span>
-            </div>
-            <div>
-                <span>Indicanos tu idioma, moneda y zona horaria.</span>
-            </div>
-            <div>
+                                <a href="{{url('configuracion-preferencias-generales')}}" class="box_panel">
+                                    <div>
+                                        <span>Preferencias generales</span>
+                                    </div>
+                                    <div>
+                                        <span>Indicanos tu idioma, moneda y zona horaria.</span>
+                                    </div>
+                                    <div>
                 <span href="{{url('configuracion-preferencias-generales')}}"
                       class="subrayado resaltado_amarillo">Configurar</span>
-            </div>
-        </a>
+                                    </div>
+                                </a>
 
-        <a href="{{url('configuracion-privacidad')}}" class="box_panel">
-            <div>
-                <span>Privacidad</span>
-            </div>
-            <div>
-                <span>Verificá que hacemos con tus datos.</span>
-            </div>
-            <div>
+                                <a href="{{url('configuracion-privacidad')}}" class="box_panel">
+                                    <div>
+                                        <span>Privacidad</span>
+                                    </div>
+                                    <div>
+                                        <span>Verificá que hacemos con tus datos.</span>
+                                    </div>
+                                    <div>
                 <span href="{{url('configuracion-privacidad')}}"
                       class="subrayado resaltado_amarillo">Configurar</span>
-            </div>
-        </a>
+                                    </div>
+                                </a>
 
-        <div class="desactive">
-            <div>
-                <span>¿Necesitás desactivar tu cuenta?</span>
-            </div>
-            <div>
-                <a href="{{url('desactivar-cuenta')}}" class="subrayado resaltado_amarillo">Hacelo ahora</a>
-            </div>
-        </div>
+                                <div class="desactive">
+                                    <div>
+                                        <span>¿Necesitás desactivar tu cuenta?</span>
+                                    </div>
+                                    <div>
+                                        <a href="{{url('desactivar-cuenta')}}" class="subrayado resaltado_amarillo">Hacelo
+                                            ahora</a>
+                                    </div>
+                                </div>
 
     </section>
     <div class="contenedor mg_100 number_page">

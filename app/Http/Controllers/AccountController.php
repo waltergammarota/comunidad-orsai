@@ -155,6 +155,7 @@ class AccountController extends Controller
         $data = [
             "id" => $request->cap_id,
             "title" => $request->title,
+            "description" => $request->description,
             "link" => $request->link,
             "user_id" => Auth::user()->id,
             "contest_id" => 1,
@@ -199,6 +200,7 @@ class AccountController extends Controller
         $data = [
             "title" => $request->title,
             "link" => $request->link,
+            "description" => $request->description,
             "user_id" => Auth::user()->id,
             "contest_id" => 1,
         ];
