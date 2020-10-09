@@ -66,6 +66,7 @@
 
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{url('recursos/favicon-apple.png')}}">
     <link rel="shortcut icon" href="{{url('recursos/favicon.ico')}}">
+    @yield('coral')
 </head>
 <body class="page">
 

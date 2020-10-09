@@ -8,6 +8,7 @@
     <meta name="description" content="{{ $noticia->copete }}"/>
     <meta name="author" content="{{ $noticia->autor }}"/>
     <meta name="publication_date" content="{{ $noticia->created_at }}"/>
+    <link rel="canonical" href="{{url()->full()}}" />
 @endsection
 
 @section('content')
@@ -23,7 +24,7 @@
         <div class="cuerpo_texto texto_noticia">
             <div class="titulo">
                 <h1 class="span_h1">{{$noticia->title}}</h1>
-                <span class="autor gris span_block">{{$noticia->autor}} 
+                <span class="autor gris span_block">{{$noticia->autor}}
                     <span class="fecha_nota">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span></span>
             </div>
             @php
@@ -37,7 +38,7 @@
                 @if($imageUrl)
                     <img src="{{url($imageUrl)}}" alt="{{$noticia->title}}">
                 @endif
-            </div> 
+            </div>
             <div class="copete"><p>{{$noticia->copete}}</p></div>
             <div class="texto">{!! $noticia->texto !!}</div>
             <div id="coral_thread"></div>

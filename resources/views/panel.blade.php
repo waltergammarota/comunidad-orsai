@@ -4,6 +4,7 @@
 @section('description', 'Panel de Administración')
 
 @section('content')
+
     <section id="intro" class="contenedor intro_gral panel">
         <div class="user_prop">
             <div id="user_img">
@@ -114,7 +115,7 @@
             </div>
         </a>
 
-        <div class="desactive"> 
+        <div class="desactive">
             <div>
                 <span>¿Necesitás desactivar tu cuenta?</span>
             </div>
