@@ -57,7 +57,7 @@ class ContenidoController extends Controller
                 }
             }
             $email = $user->email;
-            $username = $user->name . " " . $user->lastname;
+            $username = $user->name . " " . $user->lastName;
             $coral_token = $user->coral_token;
             $payload = [
                 "user" => [
