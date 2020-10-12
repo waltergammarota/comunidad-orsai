@@ -46,8 +46,9 @@
             $('#example2').DataTable({
                 "paging": true,
                 "searching": true,
-                "ordering": true,
                 "info": true,
+                "ordering": true,
+                "order": [[6, "desc"]],
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url('admin/transacciones-json')}}",

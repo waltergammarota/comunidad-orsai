@@ -97,9 +97,14 @@ class AdminController extends Controller
             'draw' => $request->query('draw'),
             "recordsTotal" =>  Transaction::count(),
             "recordsFiltered" =>  Transaction::count(),
-            'data' => Transaction::with('getFromUser')->with('getToUser')->with('capId:id,title')->orderBy('id', 'desc')->get()
+            'data' => $this->getTransaccionesSimples()
         ];
         return response()->json($data);
+    }
+
+    private function getTransaccionesSimples() {
+        $txs = Transaction::with('getFromUser:id,name,lastName')->with('getToUser:id,name,lastName')->with('capId:id,title')->orderBy('id', 'desc')->get();
+        return $txs;
     }
 
 

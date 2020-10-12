@@ -43,7 +43,7 @@ class Transaction extends Model
      */
     public function getFromUser()
     {
-        return $this->hasOne('App\User','id', "from");
+        return $this->hasOne('App\User','id', "from")->withTrashed();
     }
 
     /**
@@ -51,7 +51,7 @@ class Transaction extends Model
      */
     public function getToUser()
     {
-        return $this->hasOne('App\User', 'id', "to");
+        return $this->hasOne('App\User', 'id', "to")->withTrashed();
     }
 
     public function capId() {
