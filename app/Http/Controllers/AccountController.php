@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use GuzzleHttp\Client;
 
 class AccountController extends Controller
 {
@@ -256,10 +257,44 @@ class AccountController extends Controller
         $user = Auth::user();
         $user->fill($postData);
         $user->save();
+        $this->updateUserNameInCoral($user);
         if ($this->sendProfileExtraPoints()) {
             return response()->json(['message' => "points profile completed"]);
         }
         return response()->json(['message' => "Some types are not supported"], 422);
+    }
+
+    private function updateUserNameInCoral($user)
+    {
+        $client = new Client();
+        try {
+            $endpoint = env('CORAL_AUTH_URL' );
+            $response = $client->post($endpoint,
+                ["json" => [
+                    'email' => env('CORAL_ADMIN_USER' ),
+                    'password' => env('CORAL_ADMIN_PASSWORD' )
+                ]]);
+            $token = json_decode($response->getBody());
+            $endpointGraphQL = env('CORAL_GRAPHQL_URL' );
+            $cambiarNombreResponse = $client->post($endpointGraphQL,
+                [
+                    "headers" => [
+                        "Authorization" => "Bearer {$token->token}",
+                        "Content-Type" => "application/json"
+                    ],
+                    "json" => [
+                        "query" => 'mutation($id:ID!,$name:String!,$clientMutationId:String!){updateUserUsername(input:{userID:$id,username:$name,clientMutationId:$clientMutationId}){user{id username}}}',
+                        "variables" => [
+                            "id" => $user->coral_token,
+                            "name" => "{$user->name} {$user->lastName}",
+                            "clientMutationId" => "1"
+                        ]
+                    ]
+                ]
+            );
+        } catch (\Exception $error) {
+            return $error;
+        }
     }
 
     private function sendProfileExtraPoints()

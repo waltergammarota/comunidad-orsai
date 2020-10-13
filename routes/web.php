@@ -92,6 +92,9 @@ Route::get('cuenta-desactivada',
 )->name('cuenta-desactivada');
 
 
+Route::get('scraper',
+    'ContenidoController@scraper'
+)->name('scraper');
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(

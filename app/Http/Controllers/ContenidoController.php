@@ -83,4 +83,14 @@ class ContenidoController extends Controller
         $data['next'] = ContenidoModel::where(["tipo" => "noticia", "visible" => 1])->whereDate('fecha_publicacion', '<=', date('Y-m-d'))->limit($limit)->offset($page * $limit)->count() > 0 ? $page + 1 : $page;
         return $data;
     }
+
+    public function scraper(Request $request)
+    {
+        echo '<html>
+  <head>
+    <link rel="canonical" href="https://example.com/page" />
+  </head>
+  <body></body></html>';
+    }
+
 }
