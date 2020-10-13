@@ -42,7 +42,7 @@
                 </li>
                 <li>
                     <p class="li_titulo subrayado">Elección del logo ganador</p>
-                    <p class="li_texto">El logotipo ganador será decidido por la    comunidad de la Fundación Orsai a pleno. Todos los miembros    registrados podrán <a href="{{url('donaciones')}}" class="subrayado resaltado_amarillo">&#x000AB;ponerle fichas&#x000BB;</a> a los  logotipos presentados, desde el 1 de abril a las 00:01 y     hasta el 29 de abril a las 23:59(<sup>*</sup>). El logotipo     más fichado será el ganador. Un minuto después, la web de   Fundación Orsai tendrá &#x02500;por fin&#x02500; una  identidad.</p>
+                    <p class="li_texto">El logotipo ganador será decidido por la    comunidad de la Fundación Orsai a pleno. Todos los miembros    registrados podrán &#x000AB;ponerle fichas&#x000BB; a los  logotipos presentados, desde el 1 de abril a las 00:01 y     hasta el 29 de abril a las 23:59(<sup>*</sup>). El logotipo     más fichado será el ganador. Un minuto después, la web de   Fundación Orsai tendrá &#x02500;por fin&#x02500; una  identidad.</p>
                 </li>
                 <li>
                     <p class="li_titulo subrayado">Premio y reconocimientos</p>

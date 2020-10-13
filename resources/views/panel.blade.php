@@ -12,7 +12,7 @@
                      alt="{{'@'.ucfirst($username)}}">
             </div>
             <div id="user_alias">
-                <h1>{{'@'.ucfirst($username)}}</h1>
+                <h1>{{Auth::user()->name}} {{Auth::user()->lastName}}</h1>
                 <a href="{{url('perfil-usuario')}}/{{$session_user_id}}" class="ver_perfil">Ver perfil público</a>
             </div>
             <div id="user_fichas">
@@ -63,7 +63,8 @@
                       class="subrayado resaltado_amarillo">Ver</span>
                 </div>
             </a>
-
+ 
+            @if(Session::get('role') == "admin")
             @if(!$endUploadAppDate)
                 @if($postulacion['status']=="draft" || $postulacion['id']==0)
                     <a href="{{url('postulacion')}}" class="box_panel">
@@ -78,14 +79,14 @@
                                         </div>
                                         <div>
                                             @if($endUploadAppDate)
-                                                <span class="text_bold">¡Ups llegaste tarde! La etapa de postulación ha finalizado</span>
+                                                <span>¡Ups llegaste tarde! La etapa de postulación ha finalizado</span>
                                             @else
                                                 @if($postulacion['id'] == 0)
-                                                    <span class="text_bold">Si querés participar del Concurso de Logos subí una propuesta con todos los detalles necesarios.</span>
+                                                    <span>Si querés participar del Concurso de Logo subí una propuesta con todos los detalles necesarios.</span>
                                                 @else
                                                     @if($postulacion['id'] > 0)
-                                                        <span class="text_bold">
-                                                        Tienes una postulación en estado
+                                                        <span>
+                                                        Tenés una postulación
                                                             @switch($postulacion['status'])
                                                                 @case("approved")
                                                                 <strong
@@ -128,6 +129,7 @@
                                         @else
                                     </div>
                                 @endif
+            @endif
 
                                 @endif
                                 <a href="{{url('transacciones')}}" class="box_panel">

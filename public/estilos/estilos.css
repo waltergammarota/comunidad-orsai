@@ -423,7 +423,7 @@ header nav #desplegable div ul li{
         border-left: 7px solid transparent;
         border-right: 7px solid transparent;
         border-bottom: 7px solid black;
-        top:0px;
+        top:2px;
         left:10px;
         -webkit-transform: translateY(-100%);
         -moz-transform: translateY(-100%);
@@ -4502,8 +4502,7 @@ transform: translateY(100%);
 }
 #intro.intro_gral.panel .user_prop #user_alias h1{
     font-weight: 700;
-    margin:0;
-    text-transform: lowercase;
+    margin:0; 
     font-size:28px;
 }
 
@@ -6100,4 +6099,325 @@ margin-top:2px;
 
 .marginTop10 {
     margin-top: 10px;
+}
+
+
+/** Notificaicones **/
+
+.notification-box{ 
+    display: inline-block;
+    width: 50px; 
+    position: relative;
+    top:5px;
+}
+.bell-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: #f8f8f8;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: flex;
+  cursor:pointer;
+}
+.bell-icon svg {
+  margin: auto;
+  position: relative;
+  right: 2%;
+  width: 80%;
+  height: 80%;
+  stroke: rgba(0, 0, 0, 0.75);
+}
+.bell-icon .bell-icon__group {
+  -webkit-transform-origin: 50% 2px;
+          transform-origin: 50% 2px;
+  -webkit-transform: rotate(-8deg);
+          transform: rotate(-8deg);
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+.bell-icon .bell-icon__ball {
+  -webkit-transform-origin: 50% 2px;
+          transform-origin: 50% 2px;
+  -webkit-transform: translateX(-6.5%);
+          transform: translateX(-6.5%);
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+.bell-icon:focus, .bell-icon:hover {
+  outline: none;
+  box-shadow: 0 0 12px -8px rgba(0, 0, 0, 0.6);
+}
+.bell-icon:focus .bell-icon__group, .bell-icon:hover .bell-icon__group {
+  -webkit-animation: animateGroup 2.3s;
+          animation: animateGroup 2.3s;
+}
+.bell-icon:focus .bell-icon__ball, .bell-icon:hover .bell-icon__ball {
+  -webkit-animation: animateBall 2.3s;
+          animation: animateBall 2.3s;
+}
+.bell-icon:focus .notification-amount, .bell-icon:hover .notification-amount {
+  opacity: 1;
+  visibility: visible;
+}
+.bell-icon:focus .notification-amount::before, .bell-icon:hover .notification-amount::before {
+  -webkit-animation-name: bounce;
+          animation-name: bounce;
+  -webkit-animation-delay: 450ms;
+          animation-delay: 450ms;
+}
+
+.notification-amount {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  width: 25px;
+  height: 25px;
+  color: white;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center; 
+  font-size: 11px;
+}
+.notification-amount span {
+  position: relative;
+}
+.notification-amount::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background-color: #f72918;
+  border-radius: 50%;
+  z-index: 0;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-animation-duration: 800ms;
+          animation-duration: 800ms;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+@-webkit-keyframes animateGroup {
+  0%,
+  100% {
+    -webkit-transform: rotate(-8deg);
+            transform: rotate(-8deg);
+  }
+  17.542% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  35.084% {
+    -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+  }
+  48.2405% {
+    -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+  }
+  57.0115% {
+    -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+  }
+  64.9054% {
+    -webkit-transform: rotate(8deg);
+            transform: rotate(8deg);
+  }
+  74.5535% {
+    -webkit-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+  }
+  78.939% {
+    -webkit-transform: rotate(-7deg);
+            transform: rotate(-7deg);
+  }
+}
+
+@keyframes animateGroup {
+  0%,
+  100% {
+    -webkit-transform: rotate(-8deg);
+            transform: rotate(-8deg);
+  }
+  17.542% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  35.084% {
+    -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+  }
+  48.2405% {
+    -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+  }
+  57.0115% {
+    -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+  }
+  64.9054% {
+    -webkit-transform: rotate(8deg);
+            transform: rotate(8deg);
+  }
+  74.5535% {
+    -webkit-transform: rotate(-15deg);
+            transform: rotate(-15deg);
+  }
+  78.939% {
+    -webkit-transform: rotate(-7deg);
+            transform: rotate(-7deg);
+  }
+}
+@-webkit-keyframes animateBall {
+  0%,
+  100% {
+    -webkit-transform: translateX(-6.5%);
+            transform: translateX(-6.5%);
+  }
+  17.542% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  21.9275% {
+    -webkit-transform: translateX(-1%);
+            transform: translateX(-1%);
+  }
+  35.084% {
+    -webkit-transform: translateX(11%);
+            transform: translateX(11%);
+  }
+  48.2405% {
+    -webkit-transform: translateX(-11%);
+            transform: translateX(-11%);
+  }
+  52.626% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  59.6428% {
+    -webkit-transform: translateX(10%);
+            transform: translateX(10%);
+  }
+  68.4138% {
+    -webkit-transform: translateX(-11%);
+            transform: translateX(-11%);
+  }
+  78.939% {
+    -webkit-transform: translateX(11%);
+            transform: translateX(11%);
+  }
+  85.9558% {
+    -webkit-transform: translateX(-11%);
+            transform: translateX(-11%);
+  }
+}
+@keyframes animateBall {
+  0%,
+  100% {
+    -webkit-transform: translateX(-6.5%);
+            transform: translateX(-6.5%);
+  }
+  17.542% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  21.9275% {
+    -webkit-transform: translateX(-1%);
+            transform: translateX(-1%);
+  }
+  35.084% {
+    -webkit-transform: translateX(11%);
+            transform: translateX(11%);
+  }
+  48.2405% {
+    -webkit-transform: translateX(-11%);
+            transform: translateX(-11%);
+  }
+  52.626% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+  }
+  59.6428% {
+    -webkit-transform: translateX(10%);
+            transform: translateX(10%);
+  }
+  68.4138% {
+    -webkit-transform: translateX(-11%);
+            transform: translateX(-11%);
+  }
+  78.939% {
+    -webkit-transform: translateX(11%);
+            transform: translateX(11%);
+  }
+  85.9558% {
+    -webkit-transform: translateX(-11%);
+            transform: translateX(-11%);
+  }
+}
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  14% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+  28% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  42% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+  70% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes bounce {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  14% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+  28% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  42% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+  }
+  70% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }

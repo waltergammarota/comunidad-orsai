@@ -5,11 +5,11 @@
 @section('content')
     <section id="intro" class="contenedor intro_gral">
         <div>
-            <span class="span_h1">Postulaciones</span>
+            <span class="span_h1">Concurso de logo Fundación Orsai</span>
             <h1 class="span_h2">Estas son todas las postulaciones que tenemos hasta la fecha.</h1>
         </div>
         <div class="lets_start">
-            <a href="{{url('bases-concurso')}}" class="resaltado_amarillo">Presentar mi propuesta &raquo;</a>
+            <a href="{{url('bases-concurso')}}" class="resaltado_amarillo">Presentar mi postulación &raquo;</a>
         </div>
         <div>
             <span class="span_h2"><strong class="post">{{$totalCpas}}</strong> postulaciones presentadas / <strong
