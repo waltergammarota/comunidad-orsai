@@ -96,16 +96,17 @@ Route::get('scraper',
     'ContenidoController@scraper'
 )->name('scraper');
 
+Route::get(
+    '/bases-concurso',
+    'WebController@bases_concurso'
+)->name('bases-concurso');
+
+
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
 
         // CONCURSOS
-
-        Route::get(
-            '/bases-concurso',
-            'WebController@bases_concurso'
-        )->name('bases-concurso');
 
         Route::get(
             '/concursos',
