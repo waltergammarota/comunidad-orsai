@@ -264,8 +264,7 @@ header nav #desplegable div ul li{
     header nav #desplegable ul{
         padding-left:0px;
     }
-    header nav #desplegable ul li{
-        padding:5px 0px 5px 0px;
+    header nav #desplegable ul li{ 
         -ms-transition:background-color 0.35s;
         transition:background-color 0.35s;
     }
@@ -319,8 +318,7 @@ header nav #desplegable div ul li{
         display:inline-block;
         margin-left:10px;
     }
-    header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp{
-        padding-left:40px;
+    header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp{ 
         max-height:0;
         overflow: hidden;
         -ms-transition: max-height 0.35s ease;
@@ -328,10 +326,7 @@ header nav #desplegable div ul li{
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp.menu_logueado_abierto{
         max-height: 450px;
-    }
-    header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li{
-        padding-left:10px;
-    }
+    } 
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li a:hover{
         background-color: #ffed00;
         -ms-transition: background-color 0.35s;
@@ -402,8 +397,7 @@ header nav #desplegable div ul li{
         left:0;
         z-index: 100;
         max-height: 0;
-        overflow: hidden;
-
+        overflow: hidden; 
         -ms-transition: max-height 0.35s ease-out;
         transition: max-height 0.35s ease-out;
     }
@@ -2506,8 +2500,7 @@ transform: translate(-50%, -50%);
     padding-left:5px;
 }
 #intro.intro_registro{
-    padding-left:70px;
-    margin:40px 0 50px 0;
+    margin-bottom: 0;
 }
 #intro.intro_registro h1{
     font-size: 36px;
@@ -3535,7 +3528,15 @@ transform: translateY(100%);
     display:block;
 }
 
+/* Paso a paso */
+.cuerpo_texto p{
+    font-size:18px;
+    line-height:24px;
+    margin-bottom:20px;
+}
+.cuerpo_texto p{
 
+} 
 #bases{
     list-style-type: none;
     margin: 0;
@@ -6064,14 +6065,18 @@ margin-top:2px;
 .sin_reg .sin_registros{
     text-align: center;
 }
-.btn_postular_logo{
-    background: yellow;
-    margin: 20px 0;
+.btn_postular_logo{ 
+    background: #ffed00; 
     padding: 0%;
     font-weight: 600;
     font-size: 20px;
 }
-
+.volver{
+    display: inline-block; 
+    margin-top:40px;
+    background: #ebebeb; 
+    font-size: 14px;
+}
 /** breadcrumbs **/
 .breadcrumbs{
     font-size:10px;

@@ -1,7 +1,7 @@
 <nav>
     <div id="contenedor_logo_header">
         <div id="logo_header">
-            <a href="{{url('novedades')}}">
+            <a href="{{url('panel')}}">
                 <img src="{{url('recursos/comunidad-orsai.png')}}" alt="Comunidad orsai" width="150">
             </a>
         </div>
@@ -9,14 +9,14 @@
     <div id="desplegable" class="desplegable_cerrado">
                 <div id="menu_pcpal">
                     @if (Auth::check())
+                        <ul> 
                         @if(Session::get('role') == "admin")
-                         <ul> 
-                            <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
+                            <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li> 
+                            <li><a href="{{url('donar')}}">Donar</a></li> 
+                        @endif  
                             <li><a href="{{url('novedades')}}">Novedades</a></li>
-                            <li><a href="{{url('concursos')}}">Concursos</a></li>
-                            <li><a href="{{url('donar')}}">Donar</a></li>
-                        </ul>
-                        @endif
+                            <li><a href="{{url('concursos')}}">Concurso</a></li> 
+                        </ul> 
                     @endif
                 </div>
         <div id="menu_reg">

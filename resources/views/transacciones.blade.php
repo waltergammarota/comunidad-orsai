@@ -29,7 +29,7 @@
                 <table class="light-3 display" id="myTable">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>ID</th>
                         <th>Descripción</th>
                         <th>Fichas</th>
                         <th>Fecha</th>

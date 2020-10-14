@@ -11,7 +11,7 @@
     <meta property="og:type" content="article"/>
     <meta property="og:title" content="{{$propuesta['title']}}"/>
     <meta property="og:description" content=" {{$propuesta['description']}}"/>
-    <meta property="og:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/>
+{{--     <meta property="og:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/> --}}
 @endsection
 
 @section('twitter')
@@ -21,7 +21,7 @@
     <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@nytimes')}}"/>
     <meta property="twitter:title" content="{{$propuesta['title']}}"/>
     <meta property="twitter:description" content="{{$propuesta['description']}}"/>
-    <meta name="twitter:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/>
+{{--     <meta name="twitter:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/> --}}
 @endsection
 
 @section('content')

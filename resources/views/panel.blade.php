@@ -50,21 +50,8 @@
             </div>
         </a>
 
-        @if($emailWasValidated)
-            <a href="{{url('novedades')}}" class="box_panel">
-                <div>
-                    <span>Novedades</span>
-                </div>
-                <div>
-                    <span>De qué se trata todo esto</span>
-                </div>
-                <div>
-                <span href="{{url('novedades')}}"
-                      class="subrayado resaltado_amarillo">Ver</span>
-                </div>
-            </a>
- 
-            @if(Session::get('role') == "admin")
+        @if($emailWasValidated) 
+  
             @if(!$endUploadAppDate)
                 @if($postulacion['status']=="draft" || $postulacion['id']==0)
                     <a href="{{url('postulacion')}}" class="box_panel">
@@ -82,7 +69,7 @@
                                                 <span>¡Ups llegaste tarde! La etapa de postulación ha finalizado</span>
                                             @else
                                                 @if($postulacion['id'] == 0)
-                                                    <span>Si querés participar del Concurso de Logo subí una propuesta con todos los detalles necesarios.</span>
+                                                    <span>Si querés participar del Concurso de logo subí una propuesta con todos los detalles necesarios.</span>
                                                 @else
                                                     @if($postulacion['id'] > 0)
                                                         <span>
@@ -128,8 +115,7 @@
                                         @if(!$endUploadAppDate)
                                         @else
                                     </div>
-                                @endif
-            @endif
+                                @endif 
 
                                 @endif
                                 <a href="{{url('transacciones')}}" class="box_panel">

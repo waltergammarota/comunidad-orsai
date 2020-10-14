@@ -76,7 +76,7 @@ class VoteAContestApplication extends GenericUseCase
                     'to' => 1,
                     'type' => 'Transfer',
                     'amount' => $amount,
-                    'data' => "Voto a propuesta id {$capId}",
+                    'data' => "Fichas a propuesta ID {$capId}",
                     'cap_id' => $this->cap->id,
                 ]
             );
