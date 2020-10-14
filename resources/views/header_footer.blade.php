@@ -9,7 +9,7 @@
     <div id="desplegable" class="desplegable_cerrado">
                 <div id="menu_pcpal">
                     @if (Auth::check())
-                        <ul> 
+                            <ul> 
                         @if(Session::get('role') == "admin")
                             <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li> 
                             <li><a href="{{url('donar')}}">Donar</a></li> 
