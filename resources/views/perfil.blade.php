@@ -39,6 +39,7 @@
     </section>
 
     <section id="panel_user_profile" class="contenedor">
+
         <div class="form_left">
             <form action="#">
                 <div class="input_err">
@@ -215,18 +216,6 @@
         <span>1</span>
     </div>
 
-    <!--     @if(Session::get('alert') == "profile_not_completed")
-        <div class="general_profile_msg popup top_msg">
-            <div class="contenedor msg_position_rel">
-                <div id="texto_exito">
-                    <span>Suma más fichas completando todo tu perfil.</span>
-                </div>
-                <div class="cerrar">
-                    <span>X</span>
-                </div>
-            </div>
-        </div>
-    @endif -->
     <div id="exito_msg" class="popup">
         <div>
             <div id="texto_exito">
