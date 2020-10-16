@@ -242,7 +242,6 @@ class AccountController extends Controller
         $allowedTypes = [
             'name',
             'lastName',
-            /*'userName',*/
             'country',
             'provincia',
             'city',
@@ -271,14 +270,14 @@ class AccountController extends Controller
     {
         $client = new Client();
         try {
-            $endpoint = env('CORAL_AUTH_URL' );
+            $endpoint = env('CORAL_AUTH_URL');
             $response = $client->post($endpoint,
                 ["json" => [
-                    'email' => env('CORAL_ADMIN_USER' ),
-                    'password' => env('CORAL_ADMIN_PASSWORD' )
+                    'email' => env('CORAL_ADMIN_USER'),
+                    'password' => env('CORAL_ADMIN_PASSWORD')
                 ]]);
             $token = json_decode($response->getBody());
-            $endpointGraphQL = env('CORAL_GRAPHQL_URL' );
+            $endpointGraphQL = env('CORAL_GRAPHQL_URL');
             $cambiarNombreResponse = $client->post($endpointGraphQL,
                 [
                     "headers" => [
@@ -347,5 +346,61 @@ class AccountController extends Controller
             $user->id
         )->get();
         return view('transacciones', $data);
+    }
+
+    public function notificaciones()
+    {
+        $data = $this->getUserData();
+        return view('notificaciones', $data);
+    }
+
+    public function notificacion(Request $request)
+    {
+        $data = $this->getUserData();
+        $user = Auth::user();
+        $id = $request->id;
+        $notification = $user->notifications->where('id', $id)->first();
+        $data['notification'] = $notification->data;
+        $autor = User::find($notification->data['author']);
+        $data['autor'] = "{$autor->name} {$autor->lastName}";
+        return view('notificacion', $data);
+    }
+
+    public function notificaciones_json(Request $request)
+    {
+        $user = Auth::user();
+        $data['notificaciones'] = [];
+        $notificaciones = $user->notifications;
+        foreach ($notificaciones as $notification) {
+            $rowData = $notification->data;
+            $row['title'] = $rowData['title'];
+            $row['subject'] = $rowData['subject'];
+            $author = User::find($rowData['author']);
+            $row['autor'] = "{$author->name} {$author->lastName}";
+            $row['deliver_time'] = $rowData['deliver_time'];
+            $row['id'] = $notification->id;
+            $row['readed'] = $notification->read_at == null ? 'NO' : 'SI';
+            $data['notificaciones'][] = $row;
+        }
+        $data = [
+            'draw' => $request->query('draw'),
+            "recordsTotal" => count($notificaciones),
+            "recordsFiltered" => count($data['notificaciones']),
+            'data' => $data['notificaciones']
+        ];
+
+        return response()->json($data);
+    }
+
+    public function notificaciones_markAsRead(Request $request)
+    {
+        $user = Auth::user();
+        $notificationsReaded = $request->ids;
+        foreach($user->unreadNotifications as $notification) {
+            if(in_array($notification->id, $notificationsReaded)) {
+                $notification->markAsRead();
+            }
+        }
+        response()->json(["message" => "notifications marked as read"]);
     }
 }

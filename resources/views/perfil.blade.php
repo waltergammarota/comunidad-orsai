@@ -69,12 +69,6 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
-            <style>
-                #lastName:invalid {
-                    border: 2px dashed red;
-                }
-                }
-            </style>
             <form action="#">
                 <div class="input_err">
                     <label>Apellido<strong>*</strong></label>

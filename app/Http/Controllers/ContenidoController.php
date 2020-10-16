@@ -84,13 +84,4 @@ class ContenidoController extends Controller
         return $data;
     }
 
-    public function scraper(Request $request)
-    {
-        echo '<html>
-  <head>
-    <link rel="canonical" href="https://example.com/page" />
-  </head>
-  <body></body></html>';
-    }
-
 }
