@@ -32,8 +32,9 @@ class Controller extends BaseController
     {
         $data = [];
         if (Auth::check()) {
+            $user = Auth::user();
             $accountUC = new GetAccountInfo(
-                Auth::user()->id,
+                $user->id,
                 new UserRepository(),
                 new TransactionRepository(
                     new UserRepository()
@@ -44,8 +45,13 @@ class Controller extends BaseController
             session(['name' => $data['name']]);
             session(['balance' => $data['balance']]);
             session(['role' => $data['role']]);
+            $data['notifications'] = $this->getNotifications($user);
         }
         return $data;
+    }
+
+    private function getNotifications($user) {
+        return $user->unreadNotifications->take(3);
     }
 
     protected function getCpasInfo()

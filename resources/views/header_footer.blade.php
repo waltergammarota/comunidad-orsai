@@ -7,18 +7,18 @@
         </div>
     </div>
     <div id="desplegable" class="desplegable_cerrado">
-                <div id="menu_pcpal">
-                    @if (Auth::check())
-                        @if(Session::get('role') == "admin")
-                         <ul> 
-                            <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
-                            <li><a href="{{url('novedades')}}">Novedades</a></li>
-                            <li><a href="{{url('concursos')}}">Concursos</a></li>
-                            <li><a href="{{url('donar')}}">Donar</a></li>
-                        </ul>
-                        @endif
-                    @endif
-                </div>
+        <div id="menu_pcpal">
+            @if (Auth::check())
+                @if(Session::get('role') == "admin")
+                    <ul>
+                        <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
+                        <li><a href="{{url('novedades')}}">Novedades</a></li>
+                        <li><a href="{{url('concursos')}}">Concursos</a></li>
+                        <li><a href="{{url('donar')}}">Donar</a></li>
+                    </ul>
+                @endif
+            @endif
+        </div>
         <div id="menu_reg">
             @if (!Auth::check())
                 <ul>
@@ -42,6 +42,22 @@
             @endif
             @if (Auth::check())
                 <div id="menu_logueado">
+                    <div id="menu_user_img" style="margin-right:10px;">
+                        <img src="https://img.icons8.com/cotton/2x/appointment-reminders.png"
+                             alt="Imagen usuario">
+                    </div>
+                    <div id="menu_logueado_desp" class="">
+                        <div class="menu_black">
+                            <ul>
+                                @foreach($notifications as $notification)
+                                    <li><a href="{{url('notificacion')}}/{{$notification->id}}">{{Str::limit($notification->data['subject'],20)}}</a></li>
+                                @endforeach
+                                <li><a href="{{url('notificaciones')}}">Ver todas</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="menu_logueado">
                     <div id="menu_user_img">
                         <img src="{{Session::get('avatar')}}"
                              alt="Imagen usuario">
@@ -49,7 +65,7 @@
                     <div id="menu_user_alias">
         <span class="text_bold">{{ucfirst(Session::get('name'))}}<span
                 class="resaltado_amarillo icon-angle-down"></span></span>
-                         <span>{{Session::get('balance')}} fichas</span>
+                        <span>{{Session::get('balance')}} fichas</span>
                     </div>
                     <div id="menu_logueado_desp" class="">
                         <div class="menu_black">
@@ -58,8 +74,8 @@
                                     <li><a href="{{url('dashboard')}}">Dashboard</a></li>
                                 @endif
                                 <li class="active"><a href="{{url('panel')}}">Panel</a>
-                                </li> 
-                                    <li><a href="{{url('novedades')}}">Novedades</a></li>
+                                </li>
+                                <li><a href="{{url('novedades')}}">Novedades</a></li>
                                 <li><a href="{{url('salir')}}">Cerrar sesión</a>
                                 </li>
                             </ul>

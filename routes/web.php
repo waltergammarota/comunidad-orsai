@@ -13,6 +13,7 @@
 
 Auth::routes(['verify' => true]);
 
+
 /* ACCESO PUBLICO */
 Route::get(
     '/',
@@ -155,8 +156,6 @@ Route::middleware(['verified'])->group(
         //CONCURSOS
 
 
-
-
         Route::get(
             '/fundacion',
             'WebController@fundacion'
@@ -251,6 +250,63 @@ Route::middleware(['verified'])->group(
             '/profile/image',
             'AccountController@profile_image'
         );
+
+        // NOTIFICACIONES
+        Route::get('admin/notificaciones', 'Admin\NotificacionesController@index')->name(
+            'notificaciones'
+        )->middleware('admin_role');
+
+        Route::get('admin/notificaciones/crear', 'Admin\NotificacionesController@create')->name(
+            'notificaciones-crear'
+        )->middleware('admin_role');
+
+        Route::get('admin/notificaciones/{id}', 'Admin\NotificacionesController@edit')->name(
+            'notificaciones-edit'
+        )->middleware('admin_role');
+
+        Route::post('admin/notificaciones/store', 'Admin\NotificacionesController@store')->name(
+            'notificaciones-store'
+        )->middleware('admin_role');
+
+        Route::post('admin/notificaciones/eliminar', 'Admin\NotificacionesController@eliminar')->name(
+            'notificaciones-eliminar'
+        )->middleware('admin_role');
+
+        Route::post('admin/notificaciones/update', 'Admin\NotificacionesController@update')->name(
+            'notificaciones-update'
+        )->middleware('admin_role');
+
+        Route::get(
+            'admin/notificaciones-json',
+            'Admin\NotificacionesController@notificaciones_json'
+        )->name(
+            'notificaciones-json'
+        )->middleware('admin_role');
+
+        Route::get(
+            'notificaciones-json',
+            'AccountController@notificaciones_json'
+        )->name(
+            'user-notificaciones-json'
+        );
+
+        Route::get(
+            '/notificaciones',
+            'AccountController@notificaciones'
+        )->name('notificaciones')->middleware('email_verified');
+
+        Route::post(
+            '/notificaciones/mark-as-read',
+            'AccountController@notificaciones_markAsRead'
+        )->name('notificaciones')->middleware('email_verified');
+
+        Route::get(
+            '/notificacion/{id}',
+            'AccountController@notificacion'
+        )->name('notificacion')->middleware('email_verified');
+
+        // END OF NOTIFICACIONES
+
 
         Route::get('dashboard', 'Admin\AdminController@index')->name(
             'dashboard'
@@ -416,6 +472,7 @@ Route::middleware(['verified'])->group(
             'AccountController@transacciones'
         )->name('transacciones')->middleware('email_verified');
 
+
         Route::get(
             'perfil-usuario/{id}',
             'AccountController@show_perfil_publico'
@@ -431,9 +488,9 @@ Route::middleware(['verified'])->group(
             'ContenidoController@index'
         )->name("pagina");
 
+
     }
 );
-
 
 
 Route::get(
