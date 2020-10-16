@@ -1141,12 +1141,14 @@ footer .sub_footer .sub_footer_ri ul li a{
     font-size:14px;
     margin-top:10px;
 }
-#catalogo_logos .pagination {
-    float: right;
+#catalogo_logos .pagination { 
+    list-style:none;
+    display: block;
+    width:100%;
 }
-#catalogo_logos .pagination ul > li {
+#catalogo_logos .pagination .page-item {
     list-style: none;
-    display: inline;
+    display: inline-block;
 }
 
 
@@ -1558,6 +1560,8 @@ footer .sub_footer .sub_footer_ri ul li a{
         margin-bottom:10px;
     }
     .contenedor_logos_participantes .logo_particantes .borde_logo .logo_img{
+        position:relative;
+        overflow: hidden;
         border:2px solid #cccccc;
     }
 }
@@ -4385,7 +4389,7 @@ transform: translateY(100%);
     padding-right:30px;
 }
 #quien_fichas .contenedor_quien_fichas .quien_fichas_header span{
-    border-bottom:2px dashed white;
+    border-bottom: 1px solid #333;
     color:white;
     display:block;
     padding-bottom:15px;

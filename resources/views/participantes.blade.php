@@ -56,7 +56,7 @@
 
             <div id="add_content" class="contenedor_logos_participantes">
 
-                @include('propuestas', ["propuestas" => $propuestas])
+                @include('propuestas', ["propuestas" => $propuestas]) 
 
             </div>
 
@@ -81,8 +81,8 @@
                                                  href="{{url("participantes/pagina/{$next_page}/{$orden}")}}">></a></li>
                     @endif
                 </ul>
-                {{--            <span class="resaltado_amarillo subrayado">Cargar más</span>--}}
-                {{--            <span class="gris no_hay_logos" style="display: none;">No hay más logos para cargar</span>--}}
+            {{--     <span class="resaltado_amarillo subrayado">Cargar más</span>
+                <span class="gris no_hay_logos" style="display: none;">No hay más logos para cargar</span> --}}
             </div>
         </section>
 
@@ -144,8 +144,8 @@
             }
         }
 
-        const limit = 8;
-        let offset = 8;
+        const limit = 20;
+        let offset = 20;
         let noMore = 0;
         const orden = "{{$orden}}";
 
@@ -162,7 +162,34 @@
                 }
             });
         }
+/*
+$(window).scroll(function() {
+  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 600) {
+    getMore();
+  }
+});
 
+$(window).scroll(function() {
+
+  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 600) {
+
+    if (cant_agrega >= 3 || cant_agrega == "no hay mas") {
+        if (!document.getElementsByClassName("no_hay_logos")[0]) {
+            var get_cargar_mas = document.getElementById("cargar_mas");
+            var no_hay_mas = document.createElement("span");
+            no_hay_mas.innerHTML = "No hay más logos para cargar";
+            no_hay_mas.classList.add("gris", "no_hay_logos");
+            $(get_cargar_mas).append(no_hay_mas);
+            $(no_hay_mas).fadeIn(1000).css("display", "block");
+        }
+    }else{
+    cant_agrega++;    
+    $(".p_op").fadeIn(1000).css("display", "inline-block");
+
+    $('#add_content').append('');
+    }
+  }
+});*/
 
     </script>
 @endsection
