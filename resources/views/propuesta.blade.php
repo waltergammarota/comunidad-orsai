@@ -6,12 +6,13 @@
 
 @section('facebook')
     <!-- Facebook -->
-    <meta property="og:site_name" content="Fundación Orsai"/>
+    <meta property="og:site_name" content="Comunidad Orsai"/>
     <meta property="og:url" content="{{url()->full()}}"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="{{$propuesta['title']}}"/>
-    <meta property="og:description" content=" {{$propuesta['description']}}"/>
-{{--     <meta property="og:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/> --}}
+    <meta property="og:title" content="Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane."/>{{-- 
+    <meta property="og:description" content=" {{$propuesta['description']}}"/> --}}
+    <meta property="og:image:alt" content="Comunidad Orsai"/>
+    <meta property="og:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
 @endsection
 
 @section('twitter')
@@ -71,7 +72,7 @@
             </div>
             <div class="prop_datos">
                 <div class="descripcion">
-                    <p> {{$propuesta['description']}}
+                    <p>{{$propuesta['description']}}
                         <br>
                     </p>
                     @if(!empty($propuesta['pdfs']))
@@ -135,14 +136,14 @@
                                                  class="content pusieron_listas">
                                                 <ul id="ul_listas">
                                                     @foreach($txs as $tx)
-                                                        <li>
+                                                        <li><a href="{{url('perfil-usuario')}}/{{$tx->id}}" target="_blank">
                                                             <img
                                                                 src="{{url($tx->avatar)}}"
                                                                 alt="{{$tx->userName}}">
                                                             <span
                                                                 class="nombre_puso">{{$tx->userName}}</span>
                                                             <span
-                                                                class="fichas_puso">{{$tx->amount}}</span>
+                                                                class="fichas_puso">{{$tx->amount}}</span></a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -164,21 +165,14 @@
                                 <span class="gris">Compartir:</span>
                             </div>
                             <div class="prop_info_share">
-                                <span
-                                    class="twitter subrayado resaltado_amarillo"
-                                    title="compartir esta propuesta por Twitter">Twitter</span>
-                                <span
-                                    class="facebook subrayado resaltado_amarillo"
-                                    title="compartir esta propuesta por Facebook">Facebook</span>
-                                <span
-                                    class="whatsapp_share subrayado resaltado_amarillo"><a
-                                        href="whatsapp://send?text=https://orsai.piensamono.com/propuesta.html"
-                                        data-action="share/whatsapp/share"
-                                        title="compartir esta propuesta por whatsapp">Whatsapp</a></span>
-                                <span class="subrayado resaltado_amarillo"><a
-                                        href="mailto:?subject=Votá esta propuesta de logo&amp;body=Esta es una propuesta de logo para la Fundación Orsai, Votala.
-                                    https://orsai.piensamono.com/propuesta.html"
-                                        title="compartir esta propuesta por email">Email</a></span>
+
+                                <span><a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}" title="Compartí esta propuesta" target="_blank" class="share-fb subrayado resaltado_amarillo" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;">Facebook</a></span>
+
+                                <span><a href="https://twitter.com/intent/tweet?text=Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane.&amp;url={{url()->full()}}&amp;lang=es" title="Twittear esta propuesta" class="share-tw subrayado resaltado_amarillo" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;">Twitter</a></span><br/>
+
+                               <span><a href="whatsapp://send?text=Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane. – {{url()->full()}}" data-action="share/whatsapp/share" class="share-wa subrayado resaltado_amarillo">WhatsApp</a></span>
+ 
+                                <span class="subrayado resaltado_amarillo"><a href="mailto:?subject=#&amp;body=#" title="compartir esta propuesta por email">Email</a></span>
                             </div>
                         </div>
                     </div>
@@ -322,7 +316,8 @@
         };
     </script>
     <script src="{{url('owlcarousel/js/owl.carousel.js')}}"></script>
-    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script>
+    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script> 
+    <link rel="stylesheet" href="{{url('custom/jquery.mCustomScrollbar.css')}}">
     <script>
         $(document).ready(function () {
             $(".owl-carousel").owlCarousel();

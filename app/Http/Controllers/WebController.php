@@ -179,7 +179,7 @@ class WebController extends Controller
         return view("propuestas", $data);
     }
 
-    private function getPropuestas($orden, $limit = 8, $offset = 0, $request = false)
+    private function getPropuestas($orden, $limit = 20, $offset = 0, $request = false)
     {
 
         switch ($orden) {
@@ -254,7 +254,7 @@ class WebController extends Controller
         $orden = $request->route('orden');
         $page = $request->route('page') ? $request->route('page') : 1;
         $total = $this->getTotal($orden, $request);
-        $limit = 8;
+        $limit = 20;
         $offset = ($page - 1) * $limit;
         $totalPages = ceil($total / $limit);
         $data['total'] = $total;

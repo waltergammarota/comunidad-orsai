@@ -61,12 +61,13 @@ class PropuestaController extends Controller
         $txs = Transaction::where("cap_id", $propuestaId)->orderBy(
             'created_at',
             'desc'
-        )->limit(10)->get();
+        )->get();
         $data = [];
         foreach ($txs as $tx) {
             $user = $tx->getFromUser()->first();
             $avatar = $user->avatar()->first();
             $row = new \stdClass();
+            $row->id = $user->id;
             $row->userName = $user->userName;
             $row->avatar = $avatar ? 'storage/images/' . $avatar->name . "." . $avatar->extension : 'img/participantes/participante.jpg';
             $row->amount = $tx->amount;
