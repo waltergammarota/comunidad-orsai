@@ -73,7 +73,7 @@
                 <div class="input_err">
                     <label>Apellido<strong>*</strong></label>
                     <div class="in_sp obligatorio editar">
-                        <input type="text" name="lastName" value="{{$lastName}}" id="lastName">
+                        <input type="text" name="lastName" value="{{$lastName}}" id="lastName" minlength="3" required>
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -384,6 +384,10 @@
                 const efecto1 = setTimeout(close(get_modal_exito), 600);
             }).catch((error) => {
                 console.log(error);
+                if(error.response.data.message == "Nombre y Apellido deben ser mayores a 3 caracteres") {
+                    alert("Apellido y Nombre deben ser mayores a 3 letras");
+                }
+
                 const get_modal_exito = document.getElementById("exito_msg");
                 const efecto1 = setTimeout(close(get_modal_exito), 600);
             })
