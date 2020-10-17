@@ -256,6 +256,9 @@ class AccountController extends Controller
         $postData = $request->all($allowedTypes);
         $user = Auth::user();
         $user->fill($postData);
+        if (strlen($user->name) <= 3 || strlen($user->lastName) <= 3) {
+            return response()->json(['message' => "Nombre y Apellido deben ser mayores a 3 caracteres"], 422);
+        }
         $user->save();
         $this->updateUserNameInCoral($user);
         if ($this->sendProfileExtraPoints()) {

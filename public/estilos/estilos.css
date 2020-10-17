@@ -32,7 +32,7 @@ a:link a:visited, a:active {
 .resaltado_amarillo{
     background: #ffed00;
 }
-.resaltado_amarillo_anim{ 
+.resaltado_amarillo_anim{
     background:none;
     background-image: linear-gradient(120deg, #ffed00 0%, #ffed00 100%) !important;
     background-repeat: no-repeat;
@@ -43,7 +43,7 @@ a:link a:visited, a:active {
 .resaltado_verde{
     background-color: #d2d2d2;
 }
-.resaltado_rojo{ 
+.resaltado_rojo{
     background:none;
     background-image: linear-gradient(120deg, #ff5252 0%, #ff5252 100%) !important;
     background-repeat: no-repeat;
@@ -53,7 +53,7 @@ a:link a:visited, a:active {
 }
 .resaltado_amarillo_anim:hover,
 .resaltado_verde:hover,
-.resaltado_rojo:hover{ 
+.resaltado_rojo:hover{
     background-size: 100% 88%;
 }
 .subrayado{
@@ -62,7 +62,7 @@ a:link a:visited, a:active {
     */font-weight: 400;
     -moz-text-decoration-line: underline;
 }
- 
+
 
 .resaltado_gris{
     background-color: rgb(192, 192, 192);
@@ -264,7 +264,7 @@ header nav #desplegable div ul li{
     header nav #desplegable ul{
         padding-left:0px;
     }
-    header nav #desplegable ul li{ 
+    header nav #desplegable ul li{
         -ms-transition:background-color 0.35s;
         transition:background-color 0.35s;
     }
@@ -318,7 +318,7 @@ header nav #desplegable div ul li{
         display:inline-block;
         margin-left:10px;
     }
-    header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp{ 
+    header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp{
         max-height:0;
         overflow: hidden;
         -ms-transition: max-height 0.35s ease;
@@ -326,7 +326,7 @@ header nav #desplegable div ul li{
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp.menu_logueado_abierto{
         max-height: 450px;
-    } 
+    }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li a:hover{
         background-color: #ffed00;
         -ms-transition: background-color 0.35s;
@@ -397,7 +397,7 @@ header nav #desplegable div ul li{
         left:0;
         z-index: 100;
         max-height: 0;
-        overflow: hidden; 
+        overflow: hidden;
         -ms-transition: max-height 0.35s ease-out;
         transition: max-height 0.35s ease-out;
     }
@@ -1141,7 +1141,7 @@ footer .sub_footer .sub_footer_ri ul li a{
     font-size:14px;
     margin-top:10px;
 }
-#catalogo_logos .pagination { 
+#catalogo_logos .pagination {
     list-style:none;
     display: block;
     width:100%;
@@ -2829,7 +2829,7 @@ transform: translate(-50%, -50%);
     color:#888;
 }
 .desactive a{
-    font-size:12px; 
+    font-size:12px;
     color:#888;
     cursor:pointer;
 }
@@ -2837,14 +2837,14 @@ transform: translate(-50%, -50%);
 .checkbox_toggle {
   font-size: 1.2rem;
   cursor: pointer;
-  display: block; 
+  display: block;
 }
 .checkbox_toggle > input {
   display: none;
 }
 .checkbox_toggle  span {
   color: #6A759B;
-  font-size:16px; 
+  font-size:16px;
 }
 .checkbox_toggle  i {
   display: inline-block;
@@ -2887,7 +2887,7 @@ transform: translate(-50%, -50%);
     cursor: pointer;
 }
 
-@media(max-width:768px){ 
+@media(max-width:768px){
     #intro.intro_gral.panel .user_prop #user_alias{
         top: 25%;
     }
@@ -2945,7 +2945,7 @@ transform: translate(-50%, -50%);
     }
     .form_reg form #boton_submit button{
         width:100%;
-        height:40px; 
+        height:40px;
     }
     .form_reg form .input_err:nth-child(even), .form_reg form .select{
         padding-left:0px !important;
@@ -3540,7 +3540,7 @@ transform: translateY(100%);
 }
 .cuerpo_texto p{
 
-} 
+}
 #bases{
     list-style-type: none;
     margin: 0;
@@ -4507,7 +4507,7 @@ transform: translateY(100%);
 }
 #intro.intro_gral.panel .user_prop #user_alias h1{
     font-weight: 700;
-    margin:0; 
+    margin:0;
     font-size:28px;
 }
 
@@ -4692,10 +4692,10 @@ transform: translateY(-50%);
 @media (max-width:768px){
     #panel_user_info .box_panel:nth-child(even){
         margin:0;
-    } 
-    #panel_user_info .box_panel:nth-child(odd){ 
+    }
+    #panel_user_info .box_panel:nth-child(odd){
         margin:0;
-    }  
+    }
     #intro.intro_gral.panel{
         margin-bottom:10px;
     }
@@ -6069,16 +6069,16 @@ margin-top:2px;
 .sin_reg .sin_registros{
     text-align: center;
 }
-.btn_postular_logo{ 
-    background: #ffed00; 
+.btn_postular_logo{
+    background: #ffed00;
     padding: 0%;
     font-weight: 600;
     font-size: 20px;
 }
 .volver{
-    display: inline-block; 
+    display: inline-block;
     margin-top:40px;
-    background: #ebebeb; 
+    background: #ebebeb;
     font-size: 14px;
 }
 /** breadcrumbs **/
@@ -6115,9 +6115,9 @@ margin-top:2px;
 
 /** Notificaicones **/
 
-.notification-box{ 
+.notification-box{
     display: inline-block;
-    width: 50px; 
+    width: 50px;
     position: relative;
     top:5px;
 }
@@ -6201,7 +6201,7 @@ margin-top:2px;
   -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;
-    justify-content: center; 
+    justify-content: center;
   font-size: 11px;
 }
 .notification-amount span {
@@ -6406,31 +6406,42 @@ margin-top:2px;
             transform: scale(1);
   }
 }
+
 @keyframes bounce {
-  0% {
-    -webkit-transform: scale(0);
-            transform: scale(0);
-  }
-  14% {
-    -webkit-transform: scale(1.15);
-            transform: scale(1.15);
-  }
-  28% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  42% {
-    -webkit-transform: scale(1.15);
-            transform: scale(1.15);
-  }
-  70% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  } 
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    14% {
+        -webkit-transform: scale(1.15);
+        transform: scale(1.15);
+    }
+    28% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    42% {
+        -webkit-transform: scale(1.15);
+        transform: scale(1.15);
+    }
+    70% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
 iframe.note-video-clip {
-    width: 100% !important; 
+    width: 100% !important;
+}
+
+input#lastName:invalid:focus {
+    color: red;
+}
+
+input#name:invalid:focus {
+    color: red;
 }
