@@ -51,7 +51,7 @@ class checkNotificaciones extends Command
             $notification->save();
             $this->sendPlatformNotifications($notification);
             $this->sendMailNotifications($notification);
-            $notification->status = 0;
+            $notification->status = 2;
             $notification->save();
         }
     }
