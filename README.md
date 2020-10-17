@@ -47,7 +47,6 @@ sudo vim /etc/crontab
 * * * * * cd /var/www/beta.comunidadorsai.org && php artisan schedule:run >> /dev/null 2>&1
 crontab -l
 check
-journalctl _COMM=cron
-
+journalctl -u cron.service -f
 
 
