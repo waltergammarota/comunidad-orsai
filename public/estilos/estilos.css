@@ -186,8 +186,7 @@ header nav #contenedor_logo_header #logo_header a{
     color: #808080;
     padding:10px 0 10px 0;
 }
-header nav #desplegable div ul{
-    text-align:left;
+header nav #desplegable div ul{ 
     font-size:14px;
 }
 header nav #desplegable ul li:hover{
@@ -290,6 +289,10 @@ header nav #desplegable div ul li{
         position: relative;
         top:0px;
     }
+    header nav #desplegable #menu_reg #menu_notifications{
+        position: relative;
+        top:0px;
+    }
     header nav #desplegable #menu_reg #menu_logueado #menu_user_img{
         width: 35px;
         height:35px;
@@ -328,6 +331,21 @@ header nav #desplegable div ul li{
         max-height: 450px;
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li a:hover{
+        background-color: #ffed00;
+        -ms-transition: background-color 0.35s;
+        transition: background-color 0.35s;
+    }
+
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box{
+        max-height:0;
+        overflow: hidden;
+        -ms-transition: max-height 0.35s ease;
+        transition: max-height 0.35s ease;
+    }
+    header nav #desplegable #menu_reg #menu_logueado #menu_notifications_box.menu_notifications_box_abierto{
+        max-height: 450px;
+    }
+    header nav #desplegable #menu_reg #menu_logueado #menu_notifications_box ul li a:hover{
         background-color: #ffed00;
         -ms-transition: background-color 0.35s;
         transition: background-color 0.35s;
@@ -378,18 +396,22 @@ header nav #desplegable div ul li{
         width:80%;
     }
     header nav #desplegable #menu_pcpal{
-        width:70%;
+        width:65%;
         vertical-align: top;
-        text-align:right;
+        text-align:left;
     }
     header nav #desplegable #menu_reg{
-        width:30%;
+        width:35%;
         text-align: right;
     }
     header nav #desplegable #menu_reg #menu_logueado{
         position: relative;
         top:5px;
     }
+    header nav #desplegable #menu_reg #menu_notifications{
+        position: relative;
+        top:5px;
+    } 
 
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp{
         position: absolute;
@@ -422,16 +444,84 @@ header nav #desplegable div ul li{
         -webkit-transform: translateY(-100%);
         -moz-transform: translateY(-100%);
         -ms-transform: translateY(-100%);
-    transform: translateY(-100%);
-    z-index: 2000;
+        transform: translateY(-100%);
+        z-index: 2000;
+    }
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box{
+        position: absolute;
+        top:35px;
+        left:0;
+        z-index: 100;
+        max-height: 0;
+        overflow: hidden;
+        -ms-transition: max-height 0.35s ease-out;
+        transition: max-height 0.35s ease-out;
+    }
+    header nav #desplegable #menu_reg #menu_notifications:hover #menu_notifications_box{
+        max-height: 400px;
+    }
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box .menu_white{
+        background-color: #fbfbfb;
+        border:1px solid #333;
+        position:relative;
+        margin-top:9px;
+    }
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box .menu_white::after{
+        content:"";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid black;
+        top:-1px;
+        left:10px;
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        transform: translateY(-100%);
+        z-index: 2000;
+    }
+    header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp .menu_white ul li a{
+        color:#000;
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul{
-        padding:12px 10px;
+        padding:4px;
         margin:0;
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li{
         display: block;
         text-align: left;
+    }
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box .menu_white ul li a{
+        width:227px;
+    }
+    header nav #desplegable #menu_notifications #menu_notifications_box .menu_white ul{
+        text-align: left;
+        padding: 4px;
+        margin: 0;
+    }
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box ul li a{ 
+        font-size:12px;
+        display: inline-block;  
+        padding: 5px 0px;
+        padding-left:10px;
+    }
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box ul li a:hover{
+        background-color: #ffed00;
+        -ms-transition: background-color 0.3s;
+        transition: background-color 0.3s;
+    }
+    header nav #desplegable #menu_reg #menu_notifications #menu_notifications_box ul li a:hover{
+        color:black;
+        font-weight: 400;
+        -ms-transition: color 0.3s;
+        transition: color 0.3s;
+    } 
+
+
+    header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp .menu_black ul li a{
+        width:120px;
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li a{
         color:white;
@@ -439,7 +529,6 @@ header nav #desplegable div ul li{
         display: inline-block;
         padding: 5px 0px;
         padding-left:10px;
-        width:120px;
     }
     header nav #desplegable #menu_reg #menu_logueado #menu_logueado_desp ul li a:hover{
         background-color: #ffed00;
@@ -503,9 +592,7 @@ header nav #desplegable div ul li{
         right:-2px;
         position: absolute;
     }
-    header nav #desplegable div ul{
-        display:inline-block;
-        text-align:center;
+    header nav #desplegable div ul{  
         font-size:14px;
     }
     header nav #desplegable div ul li{
@@ -6105,21 +6192,82 @@ margin-top:2px;
 #coral_thread {
     margin-top: 120px;
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 .marginTop10 {
     margin-top: 10px;
 }
-
+ 
 
 /** Notificaicones **/
+.btn_readed{
+    display: inline-block;
+    background:#ccc;
+    font-size:14px;
+    padding:5px;
+    margin-bottom:20px;
+}
+.btn_readed:hover{
+    background: #ffed00;
+}
+.box_notifications .resaltado_amarillo .box_notification_title{
+    font-weight: 800;
+}
+.box_notification{
+    border:1px solid #000;
+    padding:10px 10px;
+    position:relative;
+    width: 100%;
+}
+.box_notification .box_notification_read{
+    width:3%; 
+    display: inline-block;
+    position:relative;
+    vertical-align: top;
+}
+.box_notification .box_notification_data{
+    width:95%;
+    display: inline-block;
+    position:relative;
+}
+
+.box_notification .box_notification_title{
+    font-size:14px;
+    font-weight: 400;
+    margin:0;
+    padding:0;
+}
+.box_notification .box_notification_author{
+    font-size:12px;
+    margin:0;
+}
+.box_notification .box_notification_date{
+    font-size:11px;
+    margin:0;
+}
+.notif_message{
+    border-bottom:1px solid #888;
+    padding-bottom:5px;
+}
+.notif_message .notif_subject{
+    font-weight:800;
+    font-size: 14px;
+    display: block;
+}
+.notif_message .notif_author{ 
+    display: block;
+}
+.notif_config{
+
+}
+.notif_viewall{
+
+}
+
 
 .notification-box{
     display: inline-block;
-    width: 50px;
-    position: relative;
-    top:5px;
+    width: 40px;
+    position: relative; 
+    margin-right: 8px;
 }
 .bell-icon {
   position: relative;
@@ -6179,16 +6327,14 @@ margin-top:2px;
   opacity: 1;
   visibility: visible;
 }
-.bell-icon:focus .notification-amount::before, .bell-icon:hover .notification-amount::before {
+.bell-icon:focus .notification-amount::before, .notification-amount::before {
   -webkit-animation-name: bounce;
           animation-name: bounce;
   -webkit-animation-delay: 450ms;
           animation-delay: 450ms;
 }
 
-.notification-amount {
-  opacity: 0;
-  visibility: hidden;
+.notification-amount { 
   position: absolute;
   top: 5%;
   right: 5%;

@@ -420,6 +420,23 @@ if (document.getElementById("menu_logueado")) {
     }
 }
 
+if (document.getElementById("menu_notifications_box")) {
+    var menu_notifications = document.getElementById("menu_notifications_box");
+    menu_notifications.onclick = function() {
+        var menu_notifications_desp = document.getElementById("menu_notifications_box");
+        if (menu_notifications_desp.classList.contains("menu_notifications_box_abierto")) {
+            var get_icon_menu = menu_notifications.getElementsByTagName("span")[0].getElementsByClassName("icon-angle-up")[0];
+            get_icon_menu.classList.remove("icon-angle-up");
+            get_icon_menu.classList.add("icon-angle-down");
+            menu_notifications_desp.classList.remove("menu_notifications_box_abierto");
+        } else {
+            var get_icon_menu = menu_notifications.getElementsByTagName("span")[0].getElementsByClassName("icon-angle-down")[0];
+            get_icon_menu.classList.remove("icon-angle-down");
+            get_icon_menu.classList.add("icon-angle-up");
+            menu_notifications_desp.classList.add("menu_notifications_box_abierto");
+        };
+    }
+}
 function init_2() {
     var inputFile_2 = document.getElementsByClassName("inputfile_per");
     for (var x = 0; x < inputFile_2.length; x++) {

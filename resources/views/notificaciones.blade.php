@@ -21,9 +21,53 @@
                     <h1>Mis notificaciones</h1>
                 </div>
             </div>
+        </div> 
+         
+
+        <div class="box_notifications">
+            <a href="#" class="btn_readed">Marcar como leídas</a>
+            @foreach($notifications as $notification)
+                <article class="box_notification resaltado_amarillo" >
+                    <a href="{{url('notificacion')}}/{{$notification->id}}">
+                        <div class="box_notification_read">
+                            <input type="checkbox">
+                        </div>
+                        <div class="box_notification_data">
+                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2> 
+                                <p class="box_notification_author">{{$notification->data['author']}}</p>
+                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span> 
+
+                        </div>
+                    </a>
+                </article>
+                <article class="box_notification" >
+                    <a href="{{url('notificacion')}}/{{$notification->id}}">
+                        <div class="box_notification_read">
+                            <input type="checkbox">
+                        </div>
+                        <div class="box_notification_data">
+                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2> 
+                                <p class="box_notification_author">{{$notification->data['author']}}</p>
+                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span> 
+
+                        </div>
+                    </a>
+                </article>
+                <article class="box_notification" >
+                    <a href="{{url('notificacion')}}/{{$notification->id}}">
+                        <div class="box_notification_read">
+                            <input type="checkbox">
+                        </div>
+                        <div class="box_notification_data">
+                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2> 
+                                <p class="box_notification_author">{{$notification->data['author']}}</p>
+                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span> 
+
+                        </div>
+                    </a>
+                </article>
+            @endforeach  
         </div>
-        <!-- Agregar acá la verificación si ya inició el concurso -->
-        <!-- Necesito la variable $hasStarted -->
         <div class="tran_creditos">
             <div class="cont_tabla">
 
