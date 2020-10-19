@@ -5,8 +5,13 @@ namespace App\UseCases;
 
 use App\Classes\User;
 use App\Classes\UserException;
+use App\Databases\NotificacionModel;
+use App\Databases\PreferenciasModel;
+use App\Notifications\GenericNotification;
 use App\Repositories\UserRepository;
 use App\Utils\Mailer;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 /**
  * Class UserRegistration
@@ -73,14 +78,53 @@ class UserRegistration extends GenericUseCase
         $this->user->setRole('user');
         if ($isUserDataComplete) {
             $updatedUser = $this->userRepository->save($this->user);
-            $token = md5($updatedUser->getId().$updatedUser->getEmail().$updatedUser->getCreatedAt());
-            $this->mailer->sendActivationEmail($updatedUser->getEmail(),$updatedUser->getName(),$updatedUser->getLastName(), $token);
+            $token = md5($updatedUser->getId() . $updatedUser->getEmail() . $updatedUser->getCreatedAt());
+            $this->mailer->sendActivationEmail($updatedUser->getEmail(), $updatedUser->getName(), $updatedUser->getLastName(), $token);
+            $this->setDefaultPreferences($updatedUser);
+            $this->sendWelcomeNotification($updatedUser->getId());
             return $this->present($updatedUser);
         }
         throw new UserException(
             $this->badParametersMessage,
             $this->badParametersCode
         );
+    }
+
+    private function setDefaultPreferences($user)
+    {
+        $hasPreferencias = PreferenciasModel::where('user_id', $user->getId())->count();
+        if($hasPreferencias == 0) {
+            $preferencia = new PreferenciasModel([
+                "plataforma" => 1,
+                "correo" => 1,
+                "idioma" => "Español",
+                "moneda" => "Peso Argentino (ARS)",
+                "pago" => "Mercado Pago Argentina",
+                "zona" => "America/Argentina/Buenos_Aires",
+            ]);
+            $preferencia->user_id = $user->getId();
+            $preferencia->save();
+        }
+    }
+
+    private function sendWelcomeNotification($userId)
+    {
+        $user = \App\User::find($userId);
+        $notification = new NotificacionModel([
+            "subject" => "Bienvenido a Comunidad Orsai",
+            "title" => "Bienvenido a Comunidad Orsai",
+            "description" => "Hola {$user->name} {$user->lastName}, bienvenido a esta gran comunidad",
+            "deliver_time" => Carbon::now(),
+            "button_url" => "",
+            "button_text" => "",
+            "database" => 1,
+            "users" => json_encode([$user->id]),
+            "template" => "default",
+            "status" => 0,
+            "user_id" => 1
+        ]);
+        Notification::send($user, new GenericNotification($notification));
+
     }
 
     /**

@@ -39,6 +39,7 @@ sudo vim laravel-worker.conf
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start all
+sudo supervisorctl restart all
 
 
 scheduler

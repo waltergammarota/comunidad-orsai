@@ -17,7 +17,7 @@ class PreferenciasModel extends Model
         "idioma",
         "moneda",
         "pago",
-        "zona"
+        "zona",
     ];
 
     protected $hidden = [];

@@ -6,6 +6,7 @@ use App\User;
 use App\Utils\Mailer;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class SendReminderActivationEmail extends Command
 {
@@ -40,7 +41,8 @@ class SendReminderActivationEmail extends Command
      */
     public function handle()
     {
-        $users = User::where("email_verified_at", null)->where("created_at","<=", Carbon::now()->subDays(5))->get();
+        $lastId = $this->getLastId();
+        $users = User::where("email_verified_at", null)->where("created_at", "<=", Carbon::now()->subDays(5))->where('id', '>', $lastId)->get();
         $array = [];
         $mailer = new Mailer();
         foreach ($users as $user) {
@@ -55,7 +57,23 @@ class SendReminderActivationEmail extends Command
             ];
             $mailer->sendReminderActivationEmail($data);
             array_push($array, $user->email);
+            $lastId = $user->id;
         }
+        DB::table('activation_control')
+            ->updateOrInsert(
+                [
+                    'user_id' => $lastId,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
         $this->info(json_encode($array));
+
+    }
+
+    private function getLastId()
+    {
+        $row = DB::table('activation_control')->latest()->first();
+        $this->info(json_encode($row));
+        return $row == null ? 0 : $row->user_id;
     }
 }
