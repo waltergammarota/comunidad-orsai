@@ -20,11 +20,11 @@ class GenericMail extends Mailable
 
     public function __construct($notification)
     {
-        $this->subjectInfo = $notification['subject'];
-        $this->title = $notification['title'];
-        $this->description = $notification['description'];
-        $this->button_url = $notification['button_url'];
-        $this->button_text = $notification['button_text'];
+        $this->subjectInfo = $notification->subject;
+        $this->title = $notification->title;
+        $this->description = $notification->description;
+        $this->button_url = $notification->button_url;
+        $this->button_text = $notification->button_text;
     }
 
     /**
@@ -34,17 +34,11 @@ class GenericMail extends Mailable
      */
     public function build()
     {
-//        $data = [
-//            "title" => $this->title,
-//            "description" => $this->description,
-//            "button_url" => $this->button_url,
-//            "button_text" => $this->button_text
-//        ];
         $data = [
-            "title" => "titulo",
-            "description" => "description",
-            "button_url" => "button_url",
-            "button_text" => "button_text"
+            "title" => $this->title,
+            "description" => $this->description,
+            "button_url" => $this->button_url,
+            "button_text" => $this->button_text,
         ];
         return $this->subject($this->subjectInfo)->view('mails.generic-mail', $data);
     }

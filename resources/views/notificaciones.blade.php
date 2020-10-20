@@ -21,8 +21,8 @@
                     <h1>Mis notificaciones</h1>
                 </div>
             </div>
-        </div> 
-         
+        </div>
+
 
         <div class="box_notifications">
             <a href="#" class="btn_readed">Marcar como leídas</a>
@@ -33,9 +33,9 @@
                             <input type="checkbox">
                         </div>
                         <div class="box_notification_data">
-                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2> 
+                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2>
                                 <p class="box_notification_author">{{$notification->data['author']}}</p>
-                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span> 
+                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span>
 
                         </div>
                     </a>
@@ -46,9 +46,9 @@
                             <input type="checkbox">
                         </div>
                         <div class="box_notification_data">
-                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2> 
+                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2>
                                 <p class="box_notification_author">{{$notification->data['author']}}</p>
-                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span> 
+                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span>
 
                         </div>
                     </a>
@@ -59,14 +59,14 @@
                             <input type="checkbox">
                         </div>
                         <div class="box_notification_data">
-                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2> 
+                                <h2 class="box_notification_title">{{$notification->data['title']}}</h2>
                                 <p class="box_notification_author">{{$notification->data['author']}}</p>
-                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span> 
+                                <span class="box_notification_date">{{$notification->data['deliver_time']}}</span>
 
                         </div>
                     </a>
                 </article>
-            @endforeach  
+            @endforeach
         </div>
         <div class="tran_creditos">
             <div class="cont_tabla">
@@ -237,8 +237,6 @@
 
             }
         });
-
-
     </script>
 @endsection
 

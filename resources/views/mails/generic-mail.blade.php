@@ -45,7 +45,7 @@
             <td style="padding-bottom:20px;">
                 <div
                     style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Space Mono', monospace;">
-                    <p style="text-align: center; margin: 2px; font-size: 15px">{{$description}}</p>
+                    <p style="text-align: center; margin: 2px; font-size: 15px">{!! $description !!}</p>
                     <a href="{{$button_url}}" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">{{$button_text}}</a>
                     </p>
                 </div>

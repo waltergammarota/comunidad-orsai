@@ -53,7 +53,7 @@ class GenericMailNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            "subject" => $this->genericMailNotification->subjectInfo,
+            "subjectInfo" => $this->genericMailNotification->subject,
             "title" => $this->genericMailNotification->title,
             "description" => $this->genericMailNotification->description,
             "button_url" => $this->genericMailNotification->button_url,
