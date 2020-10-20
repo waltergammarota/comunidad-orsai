@@ -15,12 +15,11 @@
         </div>
         <div class="cuerpo_texto texto_noticia">
             <div class="titulo">
-                <h1 class="span_h1">{{$notification['subject']}}</h1>
+                <h1 class="span_h1">{{$notification['title']}}</h1>
                 <span class="autor gris span_block">{{$autor}}
                     <span
-                        class="fecha_nota">{{ date('j/m/Y G:i', strtotime($notification['deliver_time'])) }}</span></span>
-            </div>
-            <div class="copete"><p>{{$notification['title']}}</p></div>
+                        class="fecha_nota">{{ date('j/m/Y G:i', strtotime($notification['deliver_time'])) }} HS.</span></span>
+            </div> 
             <div class="texto">{!!$notification['description']!!}</div>
             @if($notification['button_url'] != '')
                 <div id="boton_submit">

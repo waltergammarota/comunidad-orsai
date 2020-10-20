@@ -36,33 +36,11 @@
 
         .tran_creditos .cont_tabla table tbody tr td:not(:last-child) {
             border-right: 0px !important;
-        }
-
-        table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th, table.dataTable.display tbody tr:first-child td {
-            border-top: 1px solid black !important;
-        }
-
-        table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
-            border-top: 1px solid black !important;
-        }
-
-        .tran_creditos .cont_tabla table tbody tr, tbody tr td:last-child {
-            border-right: 1px solid black;
-        }
-
-        .tran_creditos .cont_tabla table tbody tr, tbody tr td:first-child {
-            border-left: 1px solid black;
-        }
-
+        } 
         button.dt-button {
             margin-bottom: 20px !important;
             display: none !important;
-        }
-
-        .btn_readed {
-            cursor: pointer;
-        }
-
+        } 
         .resaltado_amarillo {
             background-color: #ffed00 !important;
         }
@@ -112,15 +90,7 @@
 @section('footer')
     <link rel="stylesheet"
           href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <style>
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-            background: none !important;
-            border: transparent !important;
-            text-decoration-line: underline !important;
-            font-weight: 700;
-            font-size: 15px;
-            color: black;
-        }
+    <style> 
 
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
             background: none !important;
@@ -177,6 +147,13 @@
                 "responsive": true,
                 "ajax": "{{url('notificaciones-json')}}",
                 "language": {
+                    select: {
+                        rows: {
+                            _: "| %d notificaciones selecionadas",
+                            0: "",
+                            1: "| 1 notificación selecionada"
+                        }
+                    },
                     "paginate": {
                         "first": "Primera",
                         "last": "Última",
@@ -187,7 +164,7 @@
                     "search": "Buscar:",
                     "processing": "Procesando...",
                     "loadingRecords": "Cargando....",
-                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ transacciones",
+                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ notificaciones",
                     "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
                         '<option value="10">10</option>' +
                         '<option value="20">20</option>' +
@@ -240,36 +217,36 @@
                 dom: 'Bfrtip',
                 buttons: [
                     {
-                        text: 'Marcar como leída',
-                        className: 'btn_readed',
-                        action: function (e, dt, node, config) {
-                            markAsRead();
-                        }
-                    },
-                    {
-                        text: 'Marcar como NO leída',
-                        className: 'btn_readed',
+                        text: '<span class="icon-mail"></span>',
+                        className: 'btn_notif tooltip-read',
                         action: function (e, dt, node, config) {
                             markAsNotRead();
                         }
                     },
                     {
-                        text: 'Marcar todas como leídas',
-                        className: 'btn_readed',
+                        text: '<span class="icon-envelope-open-o"></span>',
+                        className: 'btn_notif tooltip-noread',
+                        action: function (e, dt, node, config) {
+                            markAsRead();
+                        }
+                    },
+                    {
+                        text: '<span class="icon-envelope-open"></span>',
+                        className: 'btn_notif tooltip-readall',
                         action: function (e, dt, node, config) {
                             markAllAsRead();
                         }
                     },
                     {
-                        text: 'Borrar',
-                        className: 'btn_readed',
+                        text: '<span class="icon-trash-empty"></span>',
+                        className: 'btn_notif tooltip-trash',
                         action: function (e, dt, node, config) {
                             deleteNotification();
                         }
                     }
                 ],
                 initComplete: function (settings, json) {
-                    $(".btn_readed").removeClass("dt-button");
+                    $(".btn_notif").removeClass("dt-button");
                 },
                 "rowCallback": function (row, data) {
                     if (data.readed == "NO") {

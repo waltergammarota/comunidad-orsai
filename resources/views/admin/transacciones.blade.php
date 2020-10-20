@@ -19,7 +19,7 @@
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Tipo</th>
-                    <th>Monto</th>
+                    <th>Fichas</th>
                     <th>Descripción</th>
                     <th>Fecha</th>
                 </tr>
