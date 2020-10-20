@@ -129,6 +129,19 @@
         if (Cookies.get('approved-cookies') != "true") {
             $("#cookies_msg").show();
         }
+
+        const bell = $('.notification-amount');
+        axios.get('{{url('notificaciones/counter')}}')
+            .then(response => {
+                const amount = response.data.amount;
+                bell.empty();
+                bell.append(`<span>${amount}</span>`);
+                if (amount > 0) {
+                    bell.css('visibility', 'visible');
+                }
+            }).catch(error => {
+            console.log(error);
+        });
     });
 
     if (document.getElementById("cookies_msg")) {
@@ -138,6 +151,8 @@
             close(document.getElementById("cookies_msg"));
         };
     }
+
+
 </script>
 @yield('footer')
 </body>

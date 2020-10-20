@@ -2,6 +2,11 @@
 
 @section('header')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        h3.card-title.danger {
+            background-color: red;
+    }
+    </style>
 @endsection
 
 
@@ -17,7 +22,11 @@
     <div class="card card-primary">
         <div class="card-header">
             @if($notificacion)
-                <h3 class="card-title">Editar Notificación</h3>
+                @if($errors->any())
+                    <h3 class="card-title danger">{{$errors->first()}}</h3>
+                @else
+                    <h3 class="card-title">Editar Notificación</h3>
+                @endif
             @else
                 <h3 class="card-title">Crear Notificación</h3>
             @endif

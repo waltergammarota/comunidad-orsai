@@ -11,8 +11,8 @@
             @if (Auth::check())
                 <ul>
                     @if(Session::get('role') == "admin")
-                            <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
-                            <li><a href="{{url('donar')}}">Donar</a></li>
+                        <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
+                        <li><a href="{{url('donar')}}">Donar</a></li>
                     @endif
                     <li><a href="{{url('novedades')}}">Novedades</a></li>
                     <li><a href="{{url('concursos')}}">Concursos</a></li>
@@ -42,39 +42,47 @@
             @endif
             @if (Auth::check())
                 <div id="menu_notifications">
-                    
+
                     <div class="notification-box">
-                            <a href="{{url('notificaciones')}}">
-                        <div class="bell-icon" tabindex="0">
-                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px" height="30px" viewBox="0 0 50 30" enable-background="new 0 0 50 30" xml:space="preserve">
+                        <a href="{{url('notificaciones')}}">
+                            <div class="bell-icon" tabindex="0">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px"
+                                     height="30px" viewBox="0 0 50 30" enable-background="new 0 0 50 30"
+                                     xml:space="preserve">
                                 <g class="bell-icon__group">
-                                  <path class="bell-icon__ball" id="ball" fill-rule="evenodd" stroke-width="1.5" clip-rule="evenodd" fill="none" stroke="#currentColor" stroke-miterlimit="10" d="M28.7,25 c0,1.9-1.7,3.5-3.7,3.5s-3.7-1.6-3.7-3.5s1.7-3.5,3.7-3.5S28.7,23,28.7,25z"/>
-                                  <path class="bell-icon__shell" id="shell" fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" stroke="#currentColor" stroke-width="2" stroke-miterlimit="10" d="M35.9,21.8c-1.2-0.7-4.1-3-3.4-8.7c0.1-1,0.1-2.1,0-3.1h0c-0.3-4.1-3.9-7.2-8.1-6.9c-3.7,0.3-6.6,3.2-6.9,6.9h0 c-0.1,1-0.1,2.1,0,3.1c0.6,5.7-2.2,8-3.4,8.7c-0.4,0.2-0.6,0.6-0.6,1v1.8c0,0.2,0.2,0.4,0.4,0.4h22.2c0.2,0,0.4-0.2,0.4-0.4v-1.8 C36.5,22.4,36.3,22,35.9,21.8L35.9,21.8z"/>
+                                    <path class="bell-icon__ball" id="ball" fill-rule="evenodd" stroke-width="1.5"
+                                          clip-rule="evenodd" fill="none" stroke="#currentColor" stroke-miterlimit="10"
+                                          d="M28.7,25 c0,1.9-1.7,3.5-3.7,3.5s-3.7-1.6-3.7-3.5s1.7-3.5,3.7-3.5S28.7,23,28.7,25z"/>
+                                    <path class="bell-icon__shell" id="shell" fill-rule="evenodd" clip-rule="evenodd"
+                                          fill="#FFFFFF" stroke="#currentColor" stroke-width="2" stroke-miterlimit="10"
+                                          d="M35.9,21.8c-1.2-0.7-4.1-3-3.4-8.7c0.1-1,0.1-2.1,0-3.1h0c-0.3-4.1-3.9-7.2-8.1-6.9c-3.7,0.3-6.6,3.2-6.9,6.9h0 c-0.1,1-0.1,2.1,0,3.1c0.6,5.7-2.2,8-3.4,8.7c-0.4,0.2-0.6,0.6-0.6,1v1.8c0,0.2,0.2,0.4,0.4,0.4h22.2c0.2,0,0.4-0.2,0.4-0.4v-1.8 C36.5,22.4,36.3,22,35.9,21.8L35.9,21.8z"/>
                                 </g>
                                 </svg>
-                                @if (count($notifications) != 0)
-                                    <div class="notification-amount">
-                                    <span>{{count($notifications)}}</span>
-                                    </div>
-                                @endif
-                        </div>
-                            </a>
+                                <div class="notification-amount">
+                                    <span>1</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                     <div id="menu_notifications_box" class="">
                         <div class="menu_white">
-                            <ul> 
+                            <ul>
                                 @if (count($notifications) != 0)
                                     @foreach($notifications as $notification)
                                         <li class="notif_message">
                                             <a href="{{url('notificacion')}}/{{$notification->id}}">
-                                            <span class="notif_subject">{{Str::limit($notification->data['subject'],70)}}</span>
-                                            <span class="notif_author">{{$notification->data['author']}}</span>
+                                                <span
+                                                    class="notif_subject">{{Str::limit($notification->data['subject'],70)}}</span>
+                                                <span class="notif_author">{{$notification->data['author']}}</span>
                                             </a>
                                         </li>
-                                    @endforeach  
+                                    @endforeach
                                 @endif
-                                    <li class="notif_config"><a href="{{url('configuracion-notificaciones')}}"><span class="icon-cog"></span> Preferencias</a></li>
-                                    <li class="notif_viewall"><a href="{{url('notificaciones')}}"><span class="icon-mail"></span> Ver todas</a></li>
+                                <li class="notif_config"><a href="{{url('configuracion-notificaciones')}}"><span
+                                            class="icon-cog"></span> Preferencias</a></li>
+                                <li class="notif_viewall"><a href="{{url('notificaciones')}}"><span
+                                            class="icon-mail"></span> Ver todas</a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,7 +93,8 @@
                              alt="Imagen usuario">
                     </div>
                     <div id="menu_user_alias">
-                        <span class="text_bold">{{'@'.$username}} <span class="resaltado_amarillo icon-angle-down"></span></span>
+                        <span class="text_bold">{{'@'.$username}} <span
+                                class="resaltado_amarillo icon-angle-down"></span></span>
                         <span>{{Session::get('balance')}} fichas</span>
                     </div>
                     <div id="menu_logueado_desp" class="">

@@ -292,6 +292,11 @@ Route::middleware(['verified'])->group(
         );
 
         Route::get(
+            '/notificaciones/counter',
+            'AccountController@notificaciones_counter'
+        )->name('notificaciones')->middleware('email_verified');
+
+        Route::get(
             '/notificaciones',
             'AccountController@notificaciones'
         )->name('notificaciones')->middleware('email_verified');
@@ -300,6 +305,16 @@ Route::middleware(['verified'])->group(
             '/notificaciones/mark-as-read',
             'AccountController@notificaciones_markAsRead'
         )->name('notificaciones')->middleware('email_verified');
+
+        Route::post(
+            '/notificaciones/markallasreaded',
+            'AccountController@markAllAsReaded'
+        )->name('mark-all-as-readed')->middleware('email_verified');
+
+        Route::post(
+            '/notificaciones/delete',
+            'AccountController@delete_notifications'
+        )->name('delete-notificaciones')->middleware('email_verified');
 
         Route::get(
             '/notificacion/{id}',

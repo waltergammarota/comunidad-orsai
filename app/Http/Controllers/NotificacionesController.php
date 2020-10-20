@@ -26,7 +26,6 @@ class NotificacionesController extends Controller
         $preferencia->save();
 
         return Redirect::to('configuracion-notificaciones');
-
-
     }
+
 }

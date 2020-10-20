@@ -9,10 +9,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 
-
 class AdminController extends Controller
 {
-
     public function index()
     {
         $totalUsers = User::count();
@@ -102,7 +100,8 @@ class AdminController extends Controller
         return response()->json($data);
     }
 
-    private function getTransaccionesSimples() {
+    private function getTransaccionesSimples()
+    {
         $txs = Transaction::with('getFromUser:id,name,lastName')->with('getToUser:id,name,lastName')->with('capId:id,title')->orderBy('id', 'desc')->get();
         return $txs;
     }

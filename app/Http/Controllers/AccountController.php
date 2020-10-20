@@ -17,6 +17,7 @@ use App\Repositories\UserRepository;
 use App\UseCases\ContestApplication\EditContestApplication;
 use App\UseCases\ContestApplication\GetContestApplicationByUser;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -96,11 +97,12 @@ class AccountController extends Controller
 
     public function show_panel()
     {
-        $data = $this->getUserData();
+        $data = [];
         $data['hasStarted'] = $this->hasStarted(1);
         $data['emailWasValidated'] = Auth::user()->email_verified_at != null;
         $data['endUploadAppDate'] = ContestModel::find(1)->end_upload_app < now();
         $data['totalusers'] = User::count();
+        $data = array_merge($data, $this->getUserData());
         return view('panel', $data);
     }
 
@@ -356,14 +358,21 @@ class AccountController extends Controller
 
     public function notificacion(Request $request)
     {
-        $data = $this->getUserData();
         $user = Auth::user();
         $id = $request->id;
         $notification = $user->notifications->where('id', $id)->first();
+        $user->unreadNotifications->where('id', $id)->markAsRead();
         $data['notification'] = $notification->data;
         $autor = User::find($notification->data['author']);
         $data['autor'] = "{$autor->name} {$autor->lastName}";
+        $data = array_merge($data, $this->getUserData());
         return view('notificacion', $data);
+    }
+
+    public function notificaciones_counter()
+    {
+        $user = Auth::user();
+        return response()->json(["amount" => $user->unreadNotifications->count()]);
     }
 
     public function notificaciones_json(Request $request)
@@ -377,7 +386,7 @@ class AccountController extends Controller
             $row['subject'] = $rowData['subject'];
             $author = User::find($rowData['author']);
             $row['autor'] = "{$author->name} {$author->lastName}";
-            $row['deliver_time'] = $rowData['deliver_time'];
+            $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->toDateTimeString();
             $row['id'] = $notification->id;
             $row['readed'] = $notification->read_at == null ? 'NO' : 'SI';
             $data['notificaciones'][] = $row;
@@ -392,15 +401,34 @@ class AccountController extends Controller
         return response()->json($data);
     }
 
+    public function markAllasReaded()
+    {
+        $user = Auth::user();
+        foreach ($user->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+        return response()->json(["message" => "All notifications marked as read"]);
+    }
+
     public function notificaciones_markAsRead(Request $request)
     {
         $user = Auth::user();
         $notificationsReaded = $request->ids;
-        foreach($user->unreadNotifications as $notification) {
-            if(in_array($notification->id, $notificationsReaded)) {
+        foreach ($user->unreadNotifications as $notification) {
+            if (in_array($notification->id, $notificationsReaded)) {
                 $notification->markAsRead();
             }
         }
-        response()->json(["message" => "notifications marked as read"]);
+        return response()->json(["message" => "notifications marked as read"]);
+    }
+
+    public function delete_notifications(Request $request)
+    {
+        $user = Auth::user();
+        $notificationsToDelete = $request->ids;
+        foreach ($notificationsToDelete as $id) {
+            $user->notifications->where('id', $id)->first()->delete();
+        }
+        return response()->json(["message" => "notifications deleted"]);
     }
 }

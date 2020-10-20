@@ -46,8 +46,14 @@ class Controller extends BaseController
             session(['balance' => $data['balance']]);
             session(['role' => $data['role']]);
             $data['notifications'] = $this->getNotifications($user);
+            $data['unreadNotifications'] = $this->getUnreadNotificationsTotal($user);
         }
         return $data;
+    }
+
+    private function getUnreadNotificationsTotal($user) {
+        $notis = $user->unreadNotifications;
+        return $user->unreadNotifications->count();
     }
 
     private function getNotifications($user) {

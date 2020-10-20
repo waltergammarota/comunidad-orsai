@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Databases\ContenidoModel;
 use App\Databases\NotificacionModel;
 use App\Http\Controllers\Controller;
-use App\Repositories\FileRepository;
 use Carbon\Carbon;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class NotificacionesController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $data['title'] = "Notificaciones";
         return view('admin.notificaciones', $data);
@@ -74,7 +71,7 @@ class NotificacionesController extends Controller
         ];
         $notificacion = new NotificacionModel($datos);
         $notificacion->save();
-        return Redirect::to('admin/notificaciones/' . $notificacion->id);
+        return Redirect::to('admin/notificaciones');
     }
 
 
@@ -107,9 +104,14 @@ class NotificacionesController extends Controller
         ];
 
         $notificacion = NotificacionModel::find($request->id);
-        $notificacion->fill($datos);
-        $notificacion->save();
-        return Redirect::to('admin/notificaciones/' . $request->id);
+        if ($notificacion->status == 0) {
+            $notificacion->fill($datos);
+            $notificacion->save();
+            return Redirect::to('admin/notificaciones');
+        }
+        return Redirect::back()->withErrors([
+                "notificacion" => "Notificación ya fue ejecutada, no se puede modificar"
+            ])->withInput();
     }
 
     public function deleteImage(Request $request)
@@ -117,16 +119,22 @@ class NotificacionesController extends Controller
         $imageId = $request->key;
         DB::table('contenido_files')->where('id', $imageId)->delete();
         echo json_encode(["message" => $imageId]);
-
     }
 
     public function eliminar(Request $request)
     {
         $notificacionId = $request->id;
         $notificacion = NotificacionModel::find($notificacionId);
+
         if ($notificacion != null && $notificacion->status == 0) {
             NotificacionModel::destroy($notificacionId);
             return response()->json(["success" => true]);
+        }
+
+        if ($notificacion != null && $notificacion->status > 0) {
+            NotificacionModel::destroy($notificacionId);
+            DB::table('notifications')->where('data->id',$notificacionId)->delete();
+            return response()->json(['success'=> true]);
         }
         return response()->json(["success" => false]);
     }

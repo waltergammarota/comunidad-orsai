@@ -105,7 +105,6 @@ class ContenidoController extends Controller
             return $slug;
         }
         return "{$slug}-{$qty}";
-
     }
 
     private function convertToIds($images)
@@ -154,7 +153,6 @@ class ContenidoController extends Controller
         $imageId = $request->key;
         DB::table('contenido_files')->where('id', $imageId)->delete();
         echo json_encode(["message" => $imageId]);
-
     }
 
     public function eliminar(Request $request)
