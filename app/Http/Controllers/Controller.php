@@ -7,6 +7,7 @@ use App\Repositories\UserRepository;
 use App\UseCases\Account\GetAccountInfo;
 use App\UseCases\ContestApplication\CountContestApplication;
 use App\UseCases\ContestApplication\TotalContestApplicationTokens;
+use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -51,13 +52,22 @@ class Controller extends BaseController
         return $data;
     }
 
-    private function getUnreadNotificationsTotal($user) {
-        $notis = $user->unreadNotifications;
+    private function getUnreadNotificationsTotal($user)
+    {
         return $user->unreadNotifications->count();
     }
 
-    private function getNotifications($user) {
-        return $user->unreadNotifications->take(3);
+    private function getNotifications($user)
+    {
+        $rows = [];
+        foreach ($user->unreadNotifications->take(3) as $notificacion) {
+            $row['asunto'] = $notificacion->data['subject'];
+            $autor = User::find($notificacion->data['author']);
+            $row['autor'] = "{$autor->name} {$autor->lastName}";
+            $row['id'] = $notificacion->id;
+            $rows[] = $row;
+        }
+        return $rows;
     }
 
     protected function getCpasInfo()

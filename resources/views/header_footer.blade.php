@@ -71,10 +71,10 @@
                                 @if (count($notifications) != 0)
                                     @foreach($notifications as $notification)
                                         <li class="notif_message">
-                                            <a href="{{url('notificacion')}}/{{$notification->id}}">
+                                            <a href="{{url('notificacion')}}/{{$notification['id']}}">
                                                 <span
-                                                    class="notif_subject">{{Str::limit($notification->data['subject'],70)}}</span>
-                                                <span class="notif_author">{{$notification->data['author']}}</span>
+                                                    class="notif_subject">{{Str::limit($notification['asunto'],70)}}</span>
+                                                <span class="notif_author">{{$notification['autor']}}</span>
                                             </a>
                                         </li>
                                     @endforeach
