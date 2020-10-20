@@ -302,6 +302,11 @@ Route::middleware(['verified'])->group(
         )->name('notificaciones')->middleware('email_verified');
 
         Route::post(
+            '/notificaciones/mark-as-not-read',
+            'AccountController@notificaciones_markAsNotRead'
+        )->name('notificaciones')->middleware('email_verified');
+
+        Route::post(
             '/notificaciones/mark-as-read',
             'AccountController@notificaciones_markAsRead'
         )->name('notificaciones')->middleware('email_verified');

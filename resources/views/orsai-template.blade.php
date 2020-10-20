@@ -129,7 +129,18 @@
         if (Cookies.get('approved-cookies') != "true") {
             $("#cookies_msg").show();
         }
+        updateNotifications();
+    });
 
+    if (document.getElementById("cookies_msg")) {
+        var get_aceptar_cookies = document.getElementById("btn_cookies");
+        get_aceptar_cookies.onclick = function () {
+            Cookies.set('approved-cookies', true);
+            close(document.getElementById("cookies_msg"));
+        };
+    }
+
+    function updateNotifications() {
         const bell = $('.notification-amount');
         axios.get('{{url('notificaciones/counter')}}')
             .then(response => {
@@ -142,16 +153,7 @@
             }).catch(error => {
             console.log(error);
         });
-    });
-
-    if (document.getElementById("cookies_msg")) {
-        var get_aceptar_cookies = document.getElementById("btn_cookies");
-        get_aceptar_cookies.onclick = function () {
-            Cookies.set('approved-cookies', true);
-            close(document.getElementById("cookies_msg"));
-        };
     }
-
 
 </script>
 @yield('footer')

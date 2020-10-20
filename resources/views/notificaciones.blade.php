@@ -206,7 +206,6 @@
                     },
                     {
                         "data": function (data) {
-                            console.log(data);
                             return `<article class="box_notification no-border">
                     <a href="{{url('notificacion')}}/${data.id}">
                         <div class="box_notification_data">
@@ -241,10 +240,17 @@
                 dom: 'Bfrtip',
                 buttons: [
                     {
-                        text: 'Marcar como leídas',
+                        text: 'Marcar como leída',
                         className: 'btn_readed',
                         action: function (e, dt, node, config) {
                             markAsRead();
+                        }
+                    },
+                    {
+                        text: 'Marcar como NO leída',
+                        className: 'btn_readed',
+                        action: function (e, dt, node, config) {
+                            markAsNotRead();
                         }
                     },
                     {
@@ -266,7 +272,6 @@
                     $(".btn_readed").removeClass("dt-button");
                 },
                 "rowCallback": function (row, data) {
-                    console.log(row, data);
                     if (data.readed == "NO") {
                         $(row).addClass("resaltado_amarillo");
                     } else {
@@ -278,6 +283,7 @@
             function markAllAsRead() {
                 axios.post('{{url('notificaciones/markallasreaded')}}', {}).then(response => {
                     myTable.ajax.reload();
+                    updateNotifications();
                 }).catch(error => {
                     alert("Ha ocurrido un error. Intente más tarde");
                 });
@@ -297,11 +303,34 @@
                         ids: notifications
                     }).then(response => {
                         myTable.ajax.reload();
+                        updateNotifications();
                     }).catch(error => {
                         alert("Ha ocurrido un error. Intente más tarde");
                     });
 
                 }
+            }
+
+            function markAsNotRead() {
+                const indexes = myTable.rows({selected: true});
+                const rows = indexes.map(item => {
+                    return myTable.rows(item).data().toArray();
+                });
+                if (rows.length > 0) {
+                    const notifications = rows[0].map(item => {
+                        return item.id;
+                    });
+                    axios.post('{{url('notificaciones/mark-as-not-read')}}', {
+                        ids: notifications
+                    }).then(response => {
+                        myTable.ajax.reload();
+                        updateNotifications();
+                    }).catch(error => {
+                        alert("Ha ocurrido un error. Intente más tarde");
+                    });
+
+                }
+
             }
 
             function markAsRead() {
@@ -317,6 +346,7 @@
                         ids: notifications
                     }).then(response => {
                         myTable.ajax.reload();
+                        updateNotifications();
                     }).catch(error => {
                         alert("Ha ocurrido un error. Intente más tarde");
                     });

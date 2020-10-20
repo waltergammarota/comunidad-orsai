@@ -410,6 +410,18 @@ class AccountController extends Controller
         return response()->json(["message" => "All notifications marked as read"]);
     }
 
+    public function notificaciones_markAsNotRead(Request $request)
+    {
+        $user = Auth::user();
+        $notificationsReaded = $request->ids;
+        foreach ($user->notifications as $notification) {
+            if (in_array($notification->id, $notificationsReaded)) {
+                $notification->update(['read_at' => null]);
+            }
+        }
+        return response()->json(["message" => "notifications marked as not read"]);
+    }
+
     public function notificaciones_markAsRead(Request $request)
     {
         $user = Auth::user();
