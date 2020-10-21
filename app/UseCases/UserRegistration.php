@@ -111,9 +111,9 @@ class UserRegistration extends GenericUseCase
     {
         $user = \App\User::find($userId);
         $notification = new NotificacionModel([
-            "subject" => "¡Bienvenidx a la Comunidad Orsai! Qué lindo verte por acá.",
-            "title" => "Bienvenidx, ya sos parte de la Comunidad Orsai.",
-            "description" => "Hola {$user->name} {$user->lastName}, bienvenido a esta gran comunidad",
+            "subject" => "¡Ya sos parte de la Comunidad Orsai!",
+            "title" => "Epa, ya sos parte de la Comunidad Orsai.",
+            "description" => "<p>Hola, acá Hernan. Si estás leyendo esto es porque <strong>ya estás adentro de la Comunidad Orsai</strong>.</p><p><strong>La casa invita tus primeras fichas.<strong> Primero tenés que completar este formulario y automáticamente recibís <strong>250 fichas gratis</strong>. Si querés saber para qué sirven y cómo conseguir más fichas en el futuro, <a href='https://comunidadorsai.org/novedades/sistema-de-fichas'>acá</a> te cuento un poco más de qué se trata.</p><p>Espoiler: con tus fichas vas a poder valorar <strong>los proyectos culturales de la Fundación Orsai</strong>. Mientras tanto, tenemos un <a href='https://comunidadorsai.org/concursos'>Concurso de Logo</a> en el que ya están corriendo las apuestas.</p><p>Una más: los días miércoles voy a dar novedades. Vas a recibir una notificación como esta, pero si te perdiste algo podés leerlas a todas <a href='https://comunidadorsai.org/novedades'> acá</a>.</p><p>¡Nos vemos!</p>",
             "deliver_time" => Carbon::now(),
             "button_url" => "",
             "button_text" => "",
