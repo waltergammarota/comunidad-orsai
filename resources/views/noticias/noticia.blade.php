@@ -39,7 +39,7 @@
                     <img src="{{url($imageUrl)}}" alt="{{$noticia->title}}">
                 @endif
             </div>
-            <div class="copete"><p>{!! $noticia->copete !!}</p></div>
+            <div class="copete">{!! $noticia->copete !!}</div>
             <div class="texto">{!! $noticia->texto !!}</div>
             <div id="coral_thread"></div>
         </div>

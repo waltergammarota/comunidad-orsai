@@ -22,7 +22,7 @@
                     <img src="{{url($imageUrl)}}" alt="{{$pagina->title}}">
                 @endif
             </div> 
-            <div class="copete"><p>{{$pagina->copete}}</p></div>
+            <div class="copete">{!! $pagina->copete !!}}</div>
             <div class="texto">
                 {!! $pagina->texto !!}
             </div>
