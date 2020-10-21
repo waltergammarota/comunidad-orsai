@@ -8,16 +8,16 @@
     </div>
     <div id="desplegable" class="desplegable_cerrado">
         <div id="menu_pcpal">
-            @if (Auth::check())
                 <ul>
+                    <li><a href="{{url('novedades')}}">Novedades</a></li>
+            @if (Auth::check())
                     @if(Session::get('role') == "admin")
                         <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
                         <li><a href="{{url('donar')}}">Donar</a></li>
                     @endif
-                    <li><a href="{{url('novedades')}}">Novedades</a></li>
                     <li><a href="{{url('concursos')}}">Concursos</a></li>
-                </ul>
             @endif
+                </ul>
         </div>
         <div id="menu_reg">
             @if (!Auth::check())
@@ -40,8 +40,7 @@
                     @endif
                 </ul>
             @endif
-            @if (Auth::check())
-                    @if(Session::get('role') == "admin")
+            @if (Auth::check()) 
                 <div id="menu_notifications">
 
                     <div class="notification-box">
@@ -87,8 +86,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-                    @endif
+                </div> 
                 <div id="menu_logueado">
                     <div id="menu_user_img">
                         <img src="{{Session::get('avatar')}}"

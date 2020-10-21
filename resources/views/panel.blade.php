@@ -28,7 +28,7 @@
 
         <div href="{{url('novedades')}}/sistema-de-fichas" class="box_panel_full">
             <div>
-                <strong>Ya somos {{$totalusers}}</strong>
+                <strong>Ya somos {{$totalusers}} socios activos.</strong>
             </div>
             <div>
                 <span>Los primeros 15.000 registrados serán llamados "socios fundadores".</span>

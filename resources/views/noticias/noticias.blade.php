@@ -1,7 +1,7 @@
 @extends('orsai-template')
 
 @section('title', 'Novedades | Comunidad Orsai')
-@section('description', 'Noticias')
+@section('description', 'Entrá a descubrir lo que la Fundación Orsai tiene entre manos.')
 
 @section('content')
     <section id="intro" class="contenedor intro_gral noticias ">
@@ -17,7 +17,7 @@
                     }
                 @endphp
 
-                <article class="noticia @if($imageUrl) noticia_image @endif @if($key === 0)noticia_first @endif" >
+                <article class="noticia @if($imageUrl) noticia_image @endif noticia_first" >
                     <a href="{{url('novedades/'.$noticia->slug)}}">
                         @if($imageUrl)
                             <div class="img_noticia">
@@ -26,7 +26,7 @@
                         @endif
                         <div class="cuerpo_texto">
                                 <h2 class="titulo_noticias">{{$noticia->title}}</h2>
-                                <p>{{$noticia->copete}}</p>
+                                <p>{!! $noticia->copete !!}</p>
                                 <span class="date_noticia">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span>
                         </div>
                     </a>

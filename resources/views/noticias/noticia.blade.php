@@ -1,7 +1,7 @@
 @extends('orsai-template')
 
 @section('title', ucfirst($noticia->title))
-@section('description', $noticia->copete)
+@section('description', $noticia->title)
 
 @section('coral')
     <meta name="title" content="{{ $noticia->title }}"/>
@@ -39,7 +39,7 @@
                     <img src="{{url($imageUrl)}}" alt="{{$noticia->title}}">
                 @endif
             </div>
-            <div class="copete"><p>{{$noticia->copete}}</p></div>
+            <div class="copete"><p>{!! $noticia->copete !!}</p></div>
             <div class="texto">{!! $noticia->texto !!}</div>
             <div id="coral_thread"></div>
         </div>

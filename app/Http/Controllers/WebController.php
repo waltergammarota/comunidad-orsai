@@ -61,7 +61,7 @@ class WebController extends Controller
             return Redirect::to('panel');
         }
         $data = $this->getUserData();
-        $data['totalusers'] = User::count();
+        $data['totalusers'] = User::where('email_verified_at','!=', null)->count();
         return view('ingresar', $data);
     }
 

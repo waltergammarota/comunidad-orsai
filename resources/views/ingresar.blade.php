@@ -1,7 +1,7 @@
 @extends('orsai-template')
 
 @section('title', 'Comunidad Orsai')
-@section('description', 'Ingresar')
+@section('description', 'Una apuesta a la narrativa para contar buenas historias que trasciendan la pantalla.')
 
 @section('content')
     <section id="intro" class="contenedor intro_registro ingresar_login_tit">
@@ -24,11 +24,6 @@
                 </div>
                 <div class="input_err obligatorio"> 
                     <input type="password" id="ps" name="password" placeholder="Contraseña" value="">
-                    @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
-                        <span class="invalid-feedback">
-                            <strong>Credenciales no válidas.</strong>
-                        </span>
-                    @endif
                 </div>
             </div>
             <div id="boton_submit">
@@ -39,6 +34,13 @@
                         id="boton_susc">
                     Ingresar
                 </button>
+                @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
+                    <p class="invalid-feedback">
+                        <strong>Uy, algo salió mal.</strong>
+                        <span>Revisá que tu correo y contraseña estén bien escritos.</span> 
+                        <span>Si no pudiste ingresar, <a href="{{url('preguntas-frecuentes')}}">acá</a> te ayudamos a resolverlo.</span>  
+                    </p>
+                @endif
                 <!-- <div class="msg"></div>
                     <img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /> -->
             </div>

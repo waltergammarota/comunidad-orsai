@@ -1,6 +1,7 @@
 @extends('orsai-template')
 
 @section('title', 'Participantes')
+@section('description', 'Participá de los concursos y convertite en un apostador serial de proyectos culturales.')
 
 @section('content')
     <section id="intro" class="contenedor intro_gral">

@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $totalUsers = User::count();
+        $totalUsers = User::where('email_verified_at','!=', null)->count();
         $totalTransactions = Transaction::count();
         $totalApplication = ContestApplicationModel::count();
         $totalViews = ContestApplicationModel::sum('views');

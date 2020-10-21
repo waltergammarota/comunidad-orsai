@@ -1,7 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Perfil público | Comunidad Orsai')
-@section('description', 'Perfil público')
+@section('title', 'Perfil público de '.$user->userName.' | Comunidad Orsai')
+@section('description', $user->userName)
 
 @section('content')
 <section id="intro" class="contenedor intro_gral panel">

@@ -111,8 +111,8 @@ class UserRegistration extends GenericUseCase
     {
         $user = \App\User::find($userId);
         $notification = new NotificacionModel([
-            "subject" => "Bienvenido a Comunidad Orsai",
-            "title" => "Bienvenido a Comunidad Orsai",
+            "subject" => "¡Bienvenidx a la Comunidad Orsai! Qué lindo verte por acá.",
+            "title" => "Bienvenidx, ya sos parte de la Comunidad Orsai.",
             "description" => "Hola {$user->name} {$user->lastName}, bienvenido a esta gran comunidad",
             "deliver_time" => Carbon::now(),
             "button_url" => "",

@@ -81,7 +81,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Copete</label>
                                 <textarea class="form-control" rows="2" placeholder="Copete ..."
-                                          name="copete">{{$contenido?$contenido->copete:old('copete')}}</textarea>
+                                          name="copete" id="summernote2">{{$contenido?$contenido->copete:old('copete')}}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -211,6 +211,10 @@
 
         $(document).ready(function () {
             $('#summernote').summernote({
+                tabsize: 2,
+                height: 200
+            });
+            $('#summernote2').summernote({
                 tabsize: 2,
                 height: 200
             });

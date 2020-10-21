@@ -25,13 +25,16 @@ class ContenidoController extends Controller
 
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
-        if ($slug == "novedades" && Auth::check()) {
+        if ($slug == "novedades") {
             $data['noticias'] = $this->getNoticias($page);
             return view("noticias.noticias", $data);
         } else {
             $contenido = ContenidoModel::where(["slug" => $slug, "visible" => 1])->first();
-            if ($contenido == null || ($contenido->publica == 0 && !Auth::check())) {
+            if ($contenido == null) {
                 abort(404);
+            }
+            if (($contenido->publica == 0 && !Auth::check())) {
+                return Redirect::to('ingresar');
             }
             $data['coral_token'] = $this->generateToken();
             if ($contenido->tipo == "noticia") {

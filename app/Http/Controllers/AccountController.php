@@ -101,7 +101,7 @@ class AccountController extends Controller
         $data['hasStarted'] = $this->hasStarted(1);
         $data['emailWasValidated'] = Auth::user()->email_verified_at != null;
         $data['endUploadAppDate'] = ContestModel::find(1)->end_upload_app < now();
-        $data['totalusers'] = User::count();
+        $data['totalusers'] = User::where('email_verified_at','!=', null)->count();
         $data = array_merge($data, $this->getUserData());
         return view('panel', $data);
     }

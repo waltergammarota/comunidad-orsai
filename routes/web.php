@@ -500,11 +500,6 @@ Route::middleware(['verified'])->group(
         )->name('perfil-publico');
 
         Route::get(
-            '/novedades/{slug}',
-            'ContenidoController@index'
-        )->name('novedades');
-
-        Route::get(
             '/{slug}',
             'ContenidoController@index'
         )->name("pagina");
@@ -512,6 +507,11 @@ Route::middleware(['verified'])->group(
 
     }
 );
+
+Route::get(
+    '/novedades/{slug}',
+    'ContenidoController@index'
+)->name('novedades');
 
 
 Route::get(
