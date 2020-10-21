@@ -224,14 +224,14 @@
                         }
                     },
                     {
-                        text: '<span class="icon-envelope-open-o"></span>',
+                        text: '<span class="icon-mail-open-regular"></span>',
                         className: 'btn_notif tooltip-noread',
                         action: function (e, dt, node, config) {
                             markAsRead();
                         }
                     },
                     {
-                        text: '<span class="icon-envelope-open"></span>',
+                        text: '<span class="icon-mail-open"></span>',
                         className: 'btn_notif tooltip-readall',
                         action: function (e, dt, node, config) {
                             markAllAsRead();
