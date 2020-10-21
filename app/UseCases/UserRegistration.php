@@ -81,7 +81,7 @@ class UserRegistration extends GenericUseCase
             $token = md5($updatedUser->getId() . $updatedUser->getEmail() . $updatedUser->getCreatedAt());
             $this->mailer->sendActivationEmail($updatedUser->getEmail(), $updatedUser->getName(), $updatedUser->getLastName(), $token);
             $this->setDefaultPreferences($updatedUser);
-            $this->sendWelcomeNotification($updatedUser->getId());
+            //$this->sendWelcomeNotification($updatedUser->getId());
             return $this->present($updatedUser);
         }
         throw new UserException(
