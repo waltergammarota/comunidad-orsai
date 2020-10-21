@@ -54,9 +54,9 @@
                     <p class="li_texto">Escuchamos dudas, y a veces las respondemos, en los comentarios del posteo en donde anunciamos este concurso.</p>
                 </li>
             </ul>
-            <p>
+      {{--       <p>
                 <a href="{{url('postulacion')}}" class="btn_postular_logo">Postulá tu logo &raquo;</a>
-            </p>
+            </p> --}}
             <p>
                 <a href="{{url('concursos')}}" class="volver">&laquo; Volver al concurso</a>
             </p> 

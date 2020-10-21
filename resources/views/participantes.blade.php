@@ -8,9 +8,12 @@
             <span class="span_h1">Concurso de logo Fundación Orsai</span>
             <h1 class="span_h2">Estas son todas las postulaciones, hay tiempo de ponerle fichas hasta el miércoles 28 de octubre al mediodía de Argentina.</h1>
         </div> 
-       {{--  <div class="lets_start">
+{{--         <div class="lets_start">
             <a href="{{url('bases-concurso')}}" class="resaltado_amarillo">Presentar mi postulación &raquo;</a>
-        </div>  --}}
+        </div>   --}}        
+        <div class="lets_start">
+            <a href="{{url('bases-concurso')}}" class="resaltado_amarillo">Ver Bases del concurso &raquo;</a>
+        </div>  
         <div>
             <span class="span_h2"><strong class="post">{{$totalCpas}}</strong> postulaciones presentadas / <strong
                     class="fich">{{$totalSupply}}</strong> fichas en juego</span>

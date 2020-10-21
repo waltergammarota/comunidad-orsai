@@ -207,7 +207,7 @@
     @endif
     <div class="contenedor">
         <div id="back_listado">
-            <a href="{{url('participantes')}}"
+            <a href="{{url('concursos')}}"
                class="subrayado resaltado_amarillo">Volver</a>
         </div>
     </div>
