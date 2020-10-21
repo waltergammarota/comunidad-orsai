@@ -41,6 +41,7 @@
                 </ul>
             @endif
             @if (Auth::check())
+                    @if(Session::get('role') == "admin")
                 <div id="menu_notifications">
 
                     <div class="notification-box">
@@ -87,6 +88,7 @@
                         </div>
                     </div>
                 </div>
+                    @endif
                 <div id="menu_logueado">
                     <div id="menu_user_img">
                         <img src="{{Session::get('avatar')}}"

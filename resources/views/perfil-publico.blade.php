@@ -10,7 +10,7 @@
             <img src="{{$avatar}}" alt="Imagen usuario">
         </div>
         <div id="user_alias">
-            <h1>{{"@".$user->userName}}</h1>
+            <h1>{{$user->name}} {{$user->lastName}}</h1>
         </div>
     </div>
 </section>

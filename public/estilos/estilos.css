@@ -6406,7 +6406,12 @@ tbody tr td {
     margin-top: 10px;
 }
 
-/** Notificaicones **/ 
+/** Notificaicones **/
+.dt-buttons{
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #e3e3e3;
+}
 .btn_notif {
     cursor: pointer;
     display: inline-block; 
@@ -6414,7 +6419,7 @@ tbody tr td {
     outline:0;
     font-size: 16px;
     padding: 10px;
-    margin: 0 10px 20px 0; 
+    margin: 0 10px 5px 0; 
     position:relative;
     border-radius: 50%;
 }
