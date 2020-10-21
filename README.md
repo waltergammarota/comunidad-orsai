@@ -50,4 +50,5 @@ crontab -l
 check
 journalctl -u cron.service -f
 
-
+en prod
+* * * * * cd /var/www/comunidadorsai-prod && php artisan schedule:run >> /dev/null 2>&1
