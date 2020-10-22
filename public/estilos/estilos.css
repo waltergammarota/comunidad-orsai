@@ -4849,13 +4849,8 @@ ul li .li_texto + .li_texto {
 #intro.intro_gral.panel .user_prop #user_alias {
     display: inline-block;
     vertical-align: top;
-    margin-left: 10px;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translatey(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    margin: 0 10px;
+    position: relative; 
 }
 #intro.intro_gral.panel .user_prop #user_alias h1 {
     font-weight: 700;
@@ -6899,4 +6894,16 @@ input#lastName:invalid:focus {
 
 input#name:invalid:focus {
     color: red;
+}
+.user_label{
+    font-size: 13px;
+    border-radius: 5px;
+    display: block;
+    width: 122px;
+    padding: 0 5px;
+    margin-top: 5px;
+}
+.socio_fundador{
+    background: #c6c6c6;
+    color: #000;
 }

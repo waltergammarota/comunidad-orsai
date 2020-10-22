@@ -15,6 +15,7 @@
                 <h1>{{Auth::user()->name}} {{Auth::user()->lastName}}</h1>
                 <a href="{{url('perfil-usuario')}}/{{$session_user_id}}" class="ver_perfil">Ver perfil público</a>
             </div>
+            {{-- <div class="user_label socio_fundador"><span>Socio Fundador</span></div> --}}
             <div id="user_fichas">
                 <span>{{$balance}}</span>
                 <span>Fichas</span>

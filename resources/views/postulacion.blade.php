@@ -51,7 +51,7 @@
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Contanos cómo surgió a la idea, en qué te inspiraste, qué técnica elegiste para materializarla.
+                                    <p>Contanos cómo surgió la idea, en qué te inspiraste, qué técnica elegiste para materializarla.
                                     </p>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
                             <div class="modal_asq oculto">
                                 <span class="close_asq">(x)</span>
                                 <div class="recuadro_black">
-                                    <p>Adjuntá tu logo formato de alta calidad. Se considera al archivo digital como original de la obra.</p>
+                                    <p>Adjuntá tu trabajo en formato de alta calidad. Se considera al archivo digital como el original.</p>
                                 </div>
                             </div>
                             <div class="modal_asq oculto">

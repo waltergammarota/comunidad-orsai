@@ -11,7 +11,9 @@
         </div>
         <div id="user_alias">
             <h1>{{$user->name}} {{$user->lastName}}</h1>
+            {{-- <div class="user_label socio_fundador"><span>Socio Fundador</span></div> --}}
         </div>
+
     </div>
 </section>
 
