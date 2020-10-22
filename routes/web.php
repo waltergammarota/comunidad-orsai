@@ -102,6 +102,11 @@ Route::get(
     'WebController@bases_concurso'
 )->name('bases-concurso');
 
+Route::get(
+    '/concursos',
+    'Contest\ContestController@index'
+)->name("concursos");
+
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -109,10 +114,6 @@ Route::middleware(['verified'])->group(
 
         // CONCURSOS
 
-        Route::get(
-            '/concursos',
-            'Contest\ContestController@index'
-        )->name("concursos");
 
         Route::get(
             '/propuesta/{id}',

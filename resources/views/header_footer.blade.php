@@ -10,13 +10,13 @@
         <div id="menu_pcpal">
                 <ul>
                     <li><a href="{{url('novedades')}}">Novedades</a></li>
-            @if (Auth::check())
-                    @if(Session::get('role') == "admin")
-                        <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
-                        <li><a href="{{url('donar')}}">Donar</a></li>
-                    @endif
                     <li><a href="{{url('concursos')}}">Concursos</a></li>
-            @endif
+                    @if (Auth::check())
+                            @if(Session::get('role') == "admin")
+                                <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
+                                <li><a href="{{url('donar')}}">Donar</a></li>
+                            @endif
+                    @endif
                 </ul>
         </div>
         <div id="menu_reg">
