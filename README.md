@@ -53,4 +53,4 @@ journalctl -u cron.service -f
 en prod
 * * * * * cd /var/www/comunidadorsai-prod && php artisan schedule:run >> /dev/null 2>&1
 
-mysqldump -u orsai -pfundaxionOrsai2020 --databases comunidadorsai-prod > backup-prod-22102020.sql
+mysqldump -u orsai -pfundaxionOrsai2020 --databases comunidadorsai-prod > backup-prod-22102020b.sql

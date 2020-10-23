@@ -129,7 +129,9 @@
         if (Cookies.get('approved-cookies') != "true") {
             $("#cookies_msg").show();
         }
-        updateNotifications();
+        @if(Auth::check())
+           updateNotifications();
+        @endif
     });
 
     if (document.getElementById("cookies_msg")) {
