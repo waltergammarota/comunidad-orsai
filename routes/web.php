@@ -44,7 +44,7 @@ Route::get(
 Route::post(
     '/registrarse',
     'Registration\RegistrationController@registerWeb'
-)->name('registrarse');
+)->name('registrarse-post');
 
 Route::get(
     '/activar/{token}',
@@ -92,10 +92,6 @@ Route::get('cuenta-desactivada',
     'PreferenciasController@cuenta_desactivada'
 )->name('cuenta-desactivada');
 
-
-Route::get('scraper',
-    'ContenidoController@scraper'
-)->name('scraper');
 
 Route::get(
     '/bases-concurso',

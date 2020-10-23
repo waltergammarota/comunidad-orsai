@@ -47,16 +47,7 @@ class RegistrationController extends Controller
 
     public function registerWeb(Request $request)
     {
-
-        $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
-        $status = $this->checkReCaptcha($request);
-
-        if ($status->success == false || $status->score < $minScore) {
-            return Redirect::back()->withErrors([
-                "registrarse" => "Credenciales no válidas"
-            ])->withInput();
-        }
-
+        $nada = "nada";
         $request->validate(
             [
                 'nombre' => 'required|max:255|min:1',
@@ -77,6 +68,15 @@ class RegistrationController extends Controller
             'country' => $request->pais,
             'password' => $request->password,
         ];
+
+        $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
+        $status = $this->checkReCaptcha($request);
+
+        if ($status->success == false || $status->score < $minScore) {
+            return Redirect::back()->withErrors([
+                "registrarse" => "Credenciales no válidas"
+            ])->withInput();
+        }
         $this->createUserRegistrationUseCase($userData);
         $data = $this->createUser($userData);
         $request->session()->flash('alert', 'activation_email');
@@ -139,7 +139,6 @@ class RegistrationController extends Controller
 
     public function registrarse(Request $request)
     {
-
 
         if (!Auth::check()) {
             $data = $this->getUserData();
