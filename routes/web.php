@@ -36,15 +36,15 @@ Route::get(
     'Auth\LoginController@logout'
 )->name('salir');
 
-Route::get(
-    '/registrarse',
-    'Registration\RegistrationController@registrarse'
-)->name('registrarse');
-
-Route::post(
-    '/registrarse',
-    'Registration\RegistrationController@registerWeb'
-)->name('registrarse-post');
+//Route::get(
+//    '/registrarse',
+//    'Registration\RegistrationController@registrarse'
+//)->name('registrarse');
+//
+//Route::post(
+//    '/registrarse',
+//    'Registration\RegistrationController@registerWeb'
+//)->name('registrarse-post');
 
 Route::get(
     '/activar/{token}',
