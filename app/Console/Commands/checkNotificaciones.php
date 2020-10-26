@@ -65,8 +65,10 @@ class checkNotificaciones extends Command
                 $preferencias = PreferenciasModel::where('plataforma', 1)->with('owner')->get();
                 foreach ($preferencias as $preferencia) {
                     $user = $preferencia->owner;
-                    $this->info(json_encode(["user" => $user->id]));
-                    Notification::send($user, new GenericNotification($notification));
+                    if ($user != null) {
+                        $this->info(json_encode(["user" => $user->id]));
+                        Notification::send($user, new GenericNotification($notification));
+                    }
                 }
             }
         }
@@ -81,7 +83,7 @@ class checkNotificaciones extends Command
                 $preferencias = PreferenciasModel::where('correo', 1)->with('owner')->get();
                 foreach ($preferencias as $preferencia) {
                     $user = $preferencia->owner;
-                    if ($user->email_verified_at != null) {
+                    if ($user != null && $user->email_verified_at != null) {
                         $this->info(json_encode(["user" => $user->id]));
                         Notification::send($user, new GenericMailNotification($notification));
                     }
