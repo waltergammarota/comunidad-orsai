@@ -72,16 +72,19 @@ class checkNotificaciones extends Command
         }
     }
 
-    private function sendMailNotifications($notification) {
-        if($notification->mail == 1) {
+    private function sendMailNotifications($notification)
+    {
+        if ($notification->mail == 1) {
             $listUsers = json_decode($notification->users);
-            if(count($listUsers) == 1 && $listUsers[0] == 0) {
+            if (count($listUsers) == 1 && $listUsers[0] == 0) {
                 $this->info(json_encode(["notification_id" => $notification->id, "users" => "all", "type" => "mail"]));
                 $preferencias = PreferenciasModel::where('correo', 1)->with('owner')->get();
-                foreach($preferencias as $preferencia) {
+                foreach ($preferencias as $preferencia) {
                     $user = $preferencia->owner;
-                    $this->info(json_encode(["user" => $user->id]));
-                    Notification::send($user, new GenericMailNotification($notification));
+                    if ($user->email_verified_at != null) {
+                        $this->info(json_encode(["user" => $user->id]));
+                        Notification::send($user, new GenericMailNotification($notification));
+                    }
                 }
             }
         }
