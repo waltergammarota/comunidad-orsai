@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Nowakowskir\JWT\TokenDecoded;
 
 class ContenidoController extends Controller
@@ -31,6 +32,7 @@ class ContenidoController extends Controller
         } else {
             $contenido = ContenidoModel::where(["slug" => $slug, "visible" => 1])->first();
             if ($contenido == null) {
+                session(['last_values' =>  $data]);
                 abort(404);
             }
             if (($contenido->publica == 0 && !Auth::check())) {
