@@ -62,6 +62,10 @@ class WebController extends Controller
         }
         $data = $this->getUserData();
         $data['totalusers'] = User::where('email_verified_at','!=', null)->count();
+        if(!session()->has('last_visited'))
+        {
+            session(['last_visited' => url()->previous()]);
+        }
         return view('ingresar', $data);
     }
 
@@ -89,9 +93,9 @@ class WebController extends Controller
     }
 
     public function fundacion()
-    {  
-        $data = $this->getUserData(); 
-        return view('fundacion.fundacion', $data); 
+    {
+        $data = $this->getUserData();
+        return view('fundacion.fundacion', $data);
     }
 
     public function plan()

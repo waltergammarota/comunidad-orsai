@@ -2906,9 +2906,9 @@ input[type="number"] {
     color:#f00;
     font-weight: 300;
 }
-.invalid-feedback span a{ 
+.invalid-feedback span a{
     text-decoration:underline;
-    color:#f00; 
+    color:#f00;
 }
 .form_reg form .input_err label {
     width: 100%;
@@ -4850,7 +4850,7 @@ ul li .li_texto + .li_texto {
     display: inline-block;
     vertical-align: top;
     margin: 0 10px;
-    position: relative; 
+    position: relative;
 }
 #intro.intro_gral.panel .user_prop #user_alias h1 {
     font-weight: 700;
@@ -6014,7 +6014,7 @@ transform: translateX(-50%); */
     margin-bottom: 35px;
 }
 .tran_creditos .cont_tabla {
-    width: 100%; 
+    width: 100%;
     text-align: center;
     display: inline-block;
 }
@@ -6424,18 +6424,18 @@ tbody tr td {
 }
 .btn_notif {
     cursor: pointer;
-    display: inline-block; 
+    display: inline-block;
     border:none;
     outline:0;
     font-size: 16px;
     padding: 10px;
-    margin: 0 10px 5px 0; 
+    margin: 0 10px 5px 0;
     position:relative;
     border-radius: 50%;
 }
 .btn_notif:hover {
     background: #ffed00;
-} 
+}
 .tooltip-read:hover:before{
     opacity: 1;
     display: block;
@@ -6450,7 +6450,7 @@ tbody tr td {
     content: "Marcar como no leída";
     position: absolute;
     background: rgb(60 60 60 / 90%);
-}  
+}
 .tooltip-noread:hover:before{
     opacity: 1;
     display: block;
@@ -6465,7 +6465,7 @@ tbody tr td {
     content: "Marcar como leída";
     position: absolute;
     background: rgb(60 60 60 / 90%);
-}  
+}
 .tooltip-readall:hover:before{
     opacity: 1;
     display: block;
@@ -6480,7 +6480,7 @@ tbody tr td {
     content: "Marcar todas como leídas";
     position: absolute;
     background: rgb(60 60 60 / 90%);
-}  
+}
 .tooltip-trash:hover:before{
     opacity: 1;
     display: block;
@@ -6495,13 +6495,13 @@ tbody tr td {
     content: "Eliminar";
     position: absolute;
     background: rgb(60 60 60 / 90%);
-}  
+}
 .dataTables_info{
     font-size:11px;
 }
 .dataTables_paginate a,
 .paginate_button,
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
     font-size:11px;
     cursor:hand;
@@ -6906,4 +6906,8 @@ input#name:invalid:focus {
 .socio_fundador{
     background: #c6c6c6;
     color: #000;
+}
+
+#mail_us:invalid {
+   color: red;
 }

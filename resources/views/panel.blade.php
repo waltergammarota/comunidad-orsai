@@ -12,10 +12,12 @@
                      alt="{{'@'.ucfirst($username)}}">
             </div>
             <div id="user_alias">
-                <h1>{{Auth::user()->name}} {{Auth::user()->lastName}}</h1>
+                <h1>{{$user->name}} {{$user->lastName}}</h1>
                 <a href="{{url('perfil-usuario')}}/{{$session_user_id}}" class="ver_perfil">Ver perfil público</a>
             </div>
-            {{-- <div class="user_label socio_fundador"><span>Socio Fundador</span></div> --}}
+            @if($user->id < 15000)
+                 <div class="user_label socio_fundador"><span>Socio Fundador</span></div>
+            @endif
             <div id="user_fichas">
                 <span>{{$balance}}</span>
                 <span>Fichas</span>
@@ -51,8 +53,8 @@
             </div>
         </a>
 
-        @if($emailWasValidated) 
-  
+        @if($emailWasValidated)
+
             @if(!$endUploadAppDate)
                 @if($postulacion['status']=="draft" || $postulacion['id']==0)
                     <a href="{{url('postulacion')}}" class="box_panel">
@@ -116,7 +118,7 @@
                                         @if(!$endUploadAppDate)
                                         @else
                                     </div>
-                                @endif 
+                                @endif
 
                                 @endif
                                 <a href="{{url('transacciones')}}" class="box_panel">

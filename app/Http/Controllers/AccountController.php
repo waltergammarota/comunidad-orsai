@@ -102,6 +102,7 @@ class AccountController extends Controller
         $data['emailWasValidated'] = Auth::user()->email_verified_at != null;
         $data['endUploadAppDate'] = ContestModel::find(1)->end_upload_app < now();
         $data['totalusers'] = User::where('email_verified_at','!=', null)->count();
+        $data['user'] = Auth::user();
         $data = array_merge($data, $this->getUserData());
         return view('panel', $data);
     }
@@ -386,7 +387,7 @@ class AccountController extends Controller
             $row['subject'] = $rowData['subject'];
             $author = User::find($rowData['author']);
             $row['autor'] = "{$author->name} {$author->lastName}";
-            $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->toDateTimeString();
+            $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i')." HS";
             $row['id'] = $notification->id;
             $row['readed'] = $notification->read_at == null ? 'NO' : 'SI';
             $data['notificaciones'][] = $row;

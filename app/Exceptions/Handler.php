@@ -70,7 +70,8 @@ class Handler extends ExceptionHandler
             $code = $exception->getStatusCode();
             switch ($code) {
                 case 404:
-                    return response()->view('errors.404', [], 404);
+                    $data = session('last_values');
+                    return response()->view('errors.404', $data, 404);
                     break;
                 case 403:
                     return Redirect::to('panel');

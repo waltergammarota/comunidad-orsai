@@ -40,7 +40,7 @@
                     @endif
                 </ul>
             @endif
-            @if (Auth::check()) 
+            @if (Auth::check())
                 <div id="menu_notifications">
 
                     <div class="notification-box">
@@ -67,7 +67,7 @@
                     </div>
                     <div id="menu_notifications_box" class="">
                         <div class="menu_white">
-                            <ul> 
+                            <ul>
                                 @if (count($notifications) != 0)
                                     @foreach($notifications as $notification)
                                         <li class="notif_message">
@@ -77,16 +77,16 @@
                                                 <span class="notif_author">{{$notification['autor']}}</span>
                                             </a>
                                         </li>
-                                    @endforeach  
+                                    @endforeach
                                 @endif
                                 <li class="notif_viewall"><a href="{{url('notificaciones')}}"><span
                                             class="icon-mail"></span> Ver todas</a></li>
                                 <li class="notif_config"><a href="{{url('configuracion-notificaciones')}}"><span
-                                            class="icon-cog"></span> Preferencias</a></li> 
+                                            class="icon-cog"></span> Preferencias</a></li>
                             </ul>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <div id="menu_logueado">
                     <div id="menu_user_img">
                         <img src="{{Session::get('avatar')}}"
