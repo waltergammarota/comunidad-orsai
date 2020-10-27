@@ -48,7 +48,8 @@ class CleanFakeEmails extends Command
             "nedoz.com",
             "mozej.com",
             "mohmal.im",
-            "nic58.com"
+            "nic58.com",
+            "nedoz.com"
         ];
         foreach ($emails as $email) {
             $users = User::where('email', 'like', "%{$email}")->get();
