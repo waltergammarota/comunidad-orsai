@@ -80,7 +80,7 @@
                         <input type="password" id="ps" name="password">
                         @if ($errors->has('password'))
                             <span class="invalid-feedback">
-                            <strong>Revise las claves.  Al menos 8 caracteres.</strong>
+                            <strong>Las claves deben tener al menos 8 caracteres.</strong>
                         </span>
                         @endif
                     </div>
@@ -92,7 +92,7 @@
                                name="confirmPassword">
                         @if ($errors->has('confirmPassword'))
                             <span class="invalid-feedback">
-                            <strong>Revise las claves.  Al menos 8 caracteres.</strong>
+                            <strong>Las claves deben tener al menos 8 caracteres.</strong>
                         </span>
                         @endif
                     </div>
@@ -109,7 +109,7 @@
                            value="1" {{old('terminos')? "checked":""}}>
                     @if ($errors->has('terminos'))
                         <span class="invalid-feedback">
-                            <strong>Por favor, acepte los términos y condiciones</strong>
+                            <strong>Por favor, aceptá los términos y condiciones.</strong>
                         </span>
                     @endif
                     <span class="crear_check"></span>

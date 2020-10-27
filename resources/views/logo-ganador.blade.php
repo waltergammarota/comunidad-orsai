@@ -4,17 +4,18 @@
 @section('description', 'Ganador de concurso')
 
 @section('content')
-    <section id="intro" class="contenedor intro_gral ganador">
+    <section id="intro" class="contenedor intro_gral concurso_ganador">
         <div class="titulo">
-            <h1 class="">Habemus logo</h1>
-            <span class="span_block">Este es el veridicto final del jurado popular. Agradecemos a todos los diseñadores que quemaron sus neuronas para crear una imagen que identifique a la Fundación Orsai.</span>
+            <h1 class="span_h1">Nuevo logo de ComunidadOrsai.org, la primera gran apuesta de la fase beta</h1>
+            <p class="texto"><strong>Una lavada de cara.</strong> Les presentamos en sociedad el <strong>logo que identificará a la web de la Comunidad Orsai</strong> de ahora en más. A partir de hoy podemos mostrar una imagen (un poquito) más respetable ante el mundo.</p>
+            <p class="texto">Este es el logo que la comunidad eligió:</p>
         </div>
-        <div id="logo_ganador">
+        <div id="logo_concurso_ganador">
             <div id="logo_lg_ganador">
                 <img src="{{$logo}}" alt="Imagen Logo large">
             </div>
         </div>
-        <div id="cv_ganador">
+        <div id="cv_concurso_ganador">
             <div class="datos_pcpales">
                 <div id="user_img">
                     <img src="{{$avatar}}" alt="Imagen usuario">
@@ -24,9 +25,10 @@
                 </div>
                 <div id="fichas_asignadas">
                     <div>
-                        <span>Fichas asignadas:</span>
-                        <span class="resaltado_amarillo">{{$votes}}</span>
+                        <span class="fichas_finales">{{$votes}}1231231</span>
+                        <span>Fichas</span>
                     </div>
+                    <span id="btn_ver_quien" class="resaltado_amarillo">Ver</span>
                 </div>
             </div>
             <div class="datos_contacto">
@@ -49,14 +51,16 @@
     </section>
 
     <section id="what_next" class="contenedor">
-        <div class="next_preview">
-            <h2>Y ahora... ¿qué sigue?</h2>
-            <p class="span_block">Para subsistir el proyecto de la <strong class="subrayado resaltado_amarillo text_regular">Fundación Orsai</strong> requerirá la colaboración de toda la comunidad. Necesitamos un séquito de creativos solidarios que nos acompañen para seguir contando buenas historias. <strong>Si querés saber más de lo que viene ¡unite!</strong></p>
-        </div>
-        <div class="next_join">
-            <h3 class="text_bold">¿Querés ser parte del juego?</h3>
-            <a href="#" target="_blank" class="subrayado resaltado_amarillo text_bold">Empezar a jugar</a>
-        </div>
+        <div class="next_preview"> 
+            <p class="span_block"><strong>Agradecemos</strong> a {{$name}} {{$lastName}} y al resto de los postulantes que llevaron sus neuronas al extremo poniendo su arte al servicio de esta comunidad. A todos los socios que apostaron y fueron fundamentales para que todo esto pasara en el <strong>primer Concurso de la Fundación Orsai</strong>. </p>
+            <ul>
+                <li>315 logos presentados</li>
+                <li>15.581 socios apostaron</li>
+                <li>218.3610 fichas en juego</li>
+            </ul>
+            <p><strong>No hay premio consuelo.</strong> Si bien la plata ya fue transferida al ganador, todas las obras merecen ser apreciadas. Vayan a dar una vuelta por este museo virtual que las aloja y contemplen el arte en su sentido más puro.</p>
+            <a href="#" class="subrayado resaltado_amarillo">Ir a galería</a>
+        </div> 
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>

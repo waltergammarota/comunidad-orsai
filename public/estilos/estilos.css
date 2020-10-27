@@ -3682,7 +3682,6 @@ input[type="number"] {
     border-top: 2px dashed #e6e6e6;
     height: 25px;
     margin-top: 40px;
-    margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {
@@ -4097,7 +4096,6 @@ ul li .li_texto + .li_texto {
     line-height: 34px;
     margin-bottom: 25px;
 }
-
 #novedad.intro_gral h1.span_h1 {
     margin-bottom: 10px;
     margin-top: 15px;
@@ -5539,21 +5537,30 @@ transform: translateX(-50%); */
 #panel_user_profile form .select .arm_sel select {
     background: transparent;
 }
-
-#intro.intro_gral.ganador {
-    margin-bottom: 20px;
+ 
+.concurso_ganador #btn_ver_quien{
+    font-size:14px;
 }
-#intro.intro_gral.ganador .titulo h1 {
-    font-size: 36px;
-    font-weight: 700;
+#intro.intro_gral.concurso_ganador .titulo h1 {
+    display: inline-block;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 34px;
+    margin-bottom: 25px;
 }
-#intro.intro_gral.ganador .titulo span {
+#intro.intro_gral.concurso_ganador .titulo span {
     font-size: 18px;
 }
-.ganador #logo_ganador {
+
+#intro.intro_gral.concurso_ganador .texto {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+.concurso_ganador #logo_concurso_ganador {
     position: relative;
 }
-.ganador #logo_ganador #logo_lg_ganador {
+.concurso_ganador #logo_concurso_ganador #logo_lg_ganador {
     width: 100%;
     border: 1px solid #cccccc;
     max-height: 400px;
@@ -5561,17 +5568,17 @@ transform: translateX(-50%); */
     text-align: center;
     margin-bottom: 20px;
 }
-.ganador #logo_ganador #logo_lg_ganador img {
+.concurso_ganador #logo_concurso_ganador #logo_lg_ganador img {
     height: 400px;
 }
 @media (max-width: 435px) {
-    .ganador #logo_ganador #logo_lg_ganador img {
+    .concurso_ganador #logo_concurso_ganador #logo_lg_ganador img {
         width: 100%;
         height: auto;
     }
 }
 
-.ganador #logo_ganador:after {
+.concurso_ganador #logo_concurso_ganador:after {
     content: "Ganador";
     font-size: 16px;
     color: black;
@@ -5588,17 +5595,17 @@ transform: translateX(-50%); */
     height: 55px;
 }
 @media (max-width: 550px) {
-    .ganador #logo_ganador:after {
+    .concurso_ganador #logo_concurso_ganador:after {
         right: 25px;
     }
 }
 
-.ganador #cv_ganador {
+.concurso_ganador #cv_concurso_ganador {
     width: 100%;
     background-color: #ebebeb;
     padding: 35px 45px;
 }
-.ganador #cv_ganador .datos_pcpales {
+.concurso_ganador #cv_concurso_ganador .datos_pcpales {
     font-size: 14px;
     display: inline-block;
     position: relative;
@@ -5606,17 +5613,17 @@ transform: translateX(-50%); */
     padding-bottom: 15px;
     border-bottom: 2px solid black;
 }
-.ganador #cv_ganador .datos_pcpales div {
+.concurso_ganador #cv_concurso_ganador .datos_pcpales div {
     display: inline-block;
 }
-.ganador #cv_ganador .datos_pcpales #user_img {
-    width: 35px;
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #user_img {
+    width: 35px;-
     height: 35px;
     border-radius: 35px;
     font-size: 0;
     overflow: hidden;
 }
-.ganador #cv_ganador .datos_pcpales #user_img img {
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #user_img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -5626,7 +5633,7 @@ transform: translateX(-50%); */
     margin: 0;
 }
 @media (max-width: 540px) {
-    .ganador #cv_ganador .datos_pcpales #user_img {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #user_img {
         width: 100px;
         height: 100px;
         border-radius: 70px;
@@ -5634,13 +5641,13 @@ transform: translateX(-50%); */
         margin: 0 auto;
     }
 }
-.ganador #cv_ganador .datos_pcpales #user_alias {
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #user_alias {
     height: 35px;
     vertical-align: top;
     position: relative;
     width: 300px;
 }
-.ganador #cv_ganador .datos_pcpales #user_alias span {
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #user_alias span {
     display: inline-block;
     position: absolute;
     top: 50%;
@@ -5651,50 +5658,44 @@ transform: translateX(-50%); */
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-.ganador #cv_ganador .datos_pcpales #fichas_asignadas {
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas {
     width: 250px;
     height: 35px;
-    vertical-align: top;
     text-align: right;
     position: absolute;
     right: 0;
 }
-.ganador #cv_ganador .datos_pcpales #fichas_asignadas div {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    margin-top: 2px;
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas div {
+    position: relative;
+    width: 100%; 
+    right: 0;  
 }
-.ganador #cv_ganador .datos_pcpales #fichas_asignadas div span:first-child {
-    font-size: 12px;
-}
-.ganador #cv_ganador .datos_pcpales #fichas_asignadas div span:last-child {
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas .fichas_finales {
     font-size: 20px;
     vertical-align: middle;
 }
+.concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas #btn_ver_quien {
+    display: inline-block;
+}
 
-.ganador #cv_ganador .datos_contacto {
+
+.concurso_ganador #cv_concurso_ganador .datos_contacto {
     margin-top: 25px;
     width: 100%;
 }
-.ganador #cv_ganador .datos_contacto div {
+.concurso_ganador #cv_concurso_ganador .datos_contacto div {
     width: 50%;
     display: inline-block;
     vertical-align: top;
 }
-.ganador #cv_ganador .datos_contacto div ul {
+.concurso_ganador #cv_concurso_ganador .datos_contacto div ul {
     list-style-type: none;
     padding: 0;
     overflow: hidden;
     font-size: 0px;
     width: 100%;
 }
-.ganador #cv_ganador .datos_contacto div ul li {
+.concurso_ganador #cv_concurso_ganador .datos_contacto div ul li {
     display: inline-block;
     width: 100%;
     font-size: 14px;
@@ -5726,29 +5727,29 @@ transform: translateX(-50%); */
 }
 
 @media (max-width: 400px) {
-    .ganador #cv_ganador,
+    .concurso_ganador #cv_concurso_ganador,
     #what_next .next_join {
         padding: 25px 15px;
     }
 }
 @media (max-width: 344px) {
-    .ganador #cv_ganador .datos_pcpales #fichas_asignadas {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas {
         height: auto;
     }
 }
 @media (max-width: 540px) {
-    .ganador #cv_ganador .datos_pcpales #user_img {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #user_img {
         width: 100px;
         height: 100px;
         border-radius: 70px;
         display: block;
         margin: 0 auto;
     }
-    .ganador #cv_ganador .datos_pcpales #user_alias {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #user_alias {
         width: 100%;
         text-align: center;
     }
-    .ganador #cv_ganador .datos_pcpales #user_alias span {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #user_alias span {
         position: static;
         display: block;
         width: 100%;
@@ -5757,13 +5758,13 @@ transform: translateX(-50%); */
         -ms-transform: translateY(0%);
         transform: translateY(0%);
     }
-    .ganador #cv_ganador .datos_pcpales #fichas_asignadas {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas {
         width: 100%;
         display: block;
         text-align: center;
         position: static;
     }
-    .ganador #cv_ganador .datos_pcpales #fichas_asignadas div {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas div {
         margin-top: 0;
         position: static;
         -webkit-transform: translateY(0%);
@@ -5771,34 +5772,34 @@ transform: translateX(-50%); */
         -ms-transform: translateY(0%);
         transform: translateY(0%);
     }
-    .ganador #cv_ganador .datos_pcpales #fichas_asignadas div span:first-child {
+    .concurso_ganador #cv_concurso_ganador .datos_pcpales #fichas_asignadas div span:first-child {
         font-size: 16px;
     }
-    .ganador #cv_ganador .datos_contacto {
+    .concurso_ganador #cv_concurso_ganador .datos_contacto {
         display: inline-block;
         width: 100%;
         text-align: left;
     }
-    .ganador #cv_ganador .datos_contacto div {
+    .concurso_ganador #cv_concurso_ganador .datos_contacto div {
         width: 100%;
         margin: 0 auto;
         text-align: left;
     }
-    .ganador #cv_ganador .datos_contacto div ul li {
+    .concurso_ganador #cv_concurso_ganador .datos_contacto div ul li {
         font-size: 16px;
         padding-top: 15px;
     }
 }
 
 @media (max-width: 768px) {
-    #intro.intro_gral.ganador,
+    #intro.intro_gral.concurso_ganador,
     #what_next {
         max-width: 600px;
     }
 }
 
 @media (min-width: 991px) {
-    #intro.intro_gral.ganador,
+    #intro.intro_gral.concurso_ganador,
     #what_next {
         max-width: 600px;
     }
