@@ -17,7 +17,7 @@ class CreateNotificacionesTable extends Migration
             $table->bigIncrements('id');
             $table->text('subject')->nullable();
             $table->text('title')->nullable();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamp('deliver_time')->nullable();
             $table->string('button_url')->nullable();
             $table->string('button_text')->nullable();
