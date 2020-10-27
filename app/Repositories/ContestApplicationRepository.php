@@ -209,7 +209,7 @@ class ContestApplicationRepository extends GenericRepository
     private function getCurrentStatus($cap_id)
     {
         $status = CpaLog::where("cap_id", $cap_id)->orderBy(
-            'created_at',
+            'id',
             'desc'
         )->first()->status;
 
