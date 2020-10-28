@@ -135,7 +135,7 @@
         function goto(location) {
             switch (location) {
                 case "mas_votado":
-                    window.location = '{{url('aarticipantes/mas-votados')}}';
+                    window.location = '{{url('participantes/mas-votados')}}';
                     break;
                 case "mas_visto":
                     window.location = '{{url('participantes/mas-vistos')}}';
