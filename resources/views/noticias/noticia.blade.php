@@ -8,7 +8,7 @@
     <meta name="description" content="{{ $noticia->copete }}"/>
     <meta name="author" content="{{ $noticia->autor }}"/>
     <meta name="publication_date" content="{{ $noticia->created_at }}"/>
-    <link rel="canonical" href="{{url()->full()}}" />
+    <link rel="canonical" href="{{url()->full()}}"/>
 @endsection
 
 @section('content')
@@ -52,23 +52,25 @@
 @endsection
 
 @section('footer')
-    <script type="text/javascript">
-        (function () {
-            var d = document, s = d.createElement('script');
-            s.src = '{{env('CORAL_URL')}}assets/js/embed.js';
-            s.async = false;
-            s.defer = true;
-            s.onload = function () {
-                Coral.createStreamEmbed({
-                    id: "coral_thread",
-                    autoRender: true,
-                    rootURL: '{{env('CORAL_URL')}}',
-                    storyID: '{{$noticia->slug}}',
-                    storyURL: '{{url()->current()}}',
-                    accessToken: '{{$coral_token}}'
-                });
-            };
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
+    @if(Auth::check())
+        <script type="text/javascript">
+            (function () {
+                var d = document, s = d.createElement('script');
+                s.src = '{{env('CORAL_URL')}}assets/js/embed.js';
+                s.async = false;
+                s.defer = true;
+                s.onload = function () {
+                    Coral.createStreamEmbed({
+                        id: "coral_thread",
+                        autoRender: true,
+                        rootURL: '{{env('CORAL_URL')}}',
+                        storyID: '{{$noticia->slug}}',
+                        storyURL: '{{url()->current()}}',
+                        accessToken: '{{$coral_token}}'
+                    });
+                };
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    @endif
 @endsection

@@ -94,6 +94,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
+        session()->forget('last_visited');
         return redirect('/ingresar');
     }
 
