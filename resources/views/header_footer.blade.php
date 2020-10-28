@@ -2,7 +2,7 @@
     <div id="contenedor_logo_header">
         <div id="logo_header">
             <a href="{{url('panel')}}">
-                <img src="{{url('recursos/comunidad-orsai.png')}}" alt="Comunidad orsai" width="150">
+                <img src="{{url('recursos/comunidad-orsai-new.png')}}" alt="Comunidad Orsai" width="150">
             </a>
         </div>
     </div>
