@@ -4868,16 +4868,32 @@ ul li .li_texto + .li_texto {
     transform: translateY(-50%);
 }
 
-.lets_start {
+.lets_start,.lets_end {
     margin: 15px 0;
     height: 45px;
     position: relative;
     width: auto;
     display: block;
 }
+.lets_end a{
+    position:relative;
+    font-size: 12px;
+    display: block-inline;
+    padding: 5px 0;
+    margin-top: 10px; 
+    text-align: center;
+    position: absolute;
+    text-decoration: underline;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
 .lets_start a {
+    position:relative;
     font-size: 16px;
-    display: block;
+    display: block-inline;
     padding: 5px 0;
     margin-top: 10px;
     font-weight: bold;
@@ -5538,6 +5554,18 @@ transform: translateX(-50%); */
     background: transparent;
 }
  
+.concurso_finalizado{
+    display: block;
+    width:100%;
+    font-size:14px;
+}
+.ver_ganador{
+    font-size: 18px;
+    display: block; 
+    padding: 10px 5px;
+    margin: 15px 0;
+    font-weight: bold;
+}
 .concurso_ganador #btn_ver_quien{
     font-size:14px;
 }
