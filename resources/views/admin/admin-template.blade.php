@@ -65,7 +65,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{url('dashboard')}}" class="brand-link">
-            <img src="{{url('recursos/comunidad-orsai-blank.png')}}" alt="AdminLTE Logo" class="brand-image"
+            <img src="{{url('recursos/comunidad-orsai-blank-new.png')}}" alt="AdminLTE Logo" class="brand-image"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Dashboard</span>
         </a>
