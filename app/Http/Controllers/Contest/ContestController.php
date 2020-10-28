@@ -47,6 +47,7 @@ class ContestController extends Controller
             $data['avatar'] = url('img/participantes/usuario.png');
         }
         $user = $propuesta->owner()->first();
+        $data['propuestaID'] = $propuesta->id;
         $data['userName'] = $user->userName;
         $data['votes'] = $propuesta->votes;
         $data['name'] = $user->name;

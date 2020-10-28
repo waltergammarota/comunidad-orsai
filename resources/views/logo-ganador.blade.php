@@ -6,8 +6,8 @@
 @section('content')
     <section id="intro" class="contenedor intro_gral concurso_ganador">
         <div class="titulo">
-            <h1 class="span_h1">Nuevo logo de ComunidadOrsai.org, la primera gran apuesta de la fase beta</h1>
-            <p class="texto"><strong>Una lavada de cara.</strong> Les presentamos en sociedad el <strong>logo que identificará a la web de la Comunidad Orsai</strong> de ahora en más. A partir de hoy podemos mostrar una imagen (un poquito) más respetable ante el mundo.</p>
+            <h1 class="span_h1">Hay un nuevo logo para la fase beta de ComunidadOrsai.org</h1>
+            <p class="texto">Les presentamos en sociedad el logo que identificará a la web de la Comunidad Orsai hasta el próximo concurso. La propuesta ganadora se lleva un pozo de 2.000 USD.</p>
             <p class="texto">Este es el logo que la comunidad eligió:</p>
         </div>
         <div id="logo_concurso_ganador">
@@ -15,6 +15,7 @@
                 <img src="{{$logo}}" alt="Imagen Logo large">
             </div>
         </div>
+            <a href="{{url('propuesta/'.$propuestaID)}}" class="vermas_ganador resaltado_amarillo">Ver propuesta completa</a>
         <div id="cv_concurso_ganador">
             <div class="datos_pcpales">
                 <div id="user_img">
@@ -53,14 +54,14 @@
 
     <section id="what_next" class="contenedor">
         <div class="next_preview">
-            <p class="span_block"><strong>Agradecemos</strong> a {{$name}} {{$lastName}} y al resto de los postulantes que llevaron sus neuronas al extremo poniendo su arte al servicio de esta comunidad. A todos los socios que apostaron y fueron fundamentales para que todo esto pasara en el <strong>primer Concurso de la Fundación Orsai</strong>. </p>
+            <p class="span_block"><strong>Agradecemos</strong> a {{$name}} {{$lastName}} y al resto de los postulantes que enviaron propuestas. También agradecemos a todos los socios que apostaron y que sugirieron cambios en la modalidad del concurso (anotamos todas las sugerencias).</p>
             <ul>
                 <li>{{$totalesPresentados}} logos presentados</li>
                 <li>{{$totalSociosApostadores}} socios apostaron</li>
                 <li>{{$totalDeFichasEnJuego}} fichas en juego</li>
             </ul>
-            <p><strong>No hay premio consuelo.</strong> Si bien la plata ya fue transferida al ganador, todas las obras merecen ser apreciadas. Vayan a dar una vuelta por este museo virtual que las aloja y contemplen el arte en su sentido más puro.</p>
-            <a href="{{url('concursos')}}" class="subrayado resaltado_amarillo">Ir a galería</a>
+            <p>Si bien solo hubo un postulante ganador, todas las obras merecen ser apreciadas. Desde hoy, pueden dar una vuelta por este museo virtual.</p>
+            <a href="{{url('concursos')}}" class="subrayado resaltado_amarillo">Galería online</a>
         </div>
     </section>
     <div class="contenedor mg_100 number_page">

@@ -5641,6 +5641,15 @@ transform: translateX(-50%); */
     padding-bottom: 15px;
     border-bottom: 2px solid black;
 }
+.vermas_ganador{
+    font-size: 14px;
+    text-align:center;
+    display: block;
+    position: relative;
+    width: 100%; 
+    margin:10px 0;
+    padding:10px 0; 
+}
 .concurso_ganador #cv_concurso_ganador .datos_pcpales div {
     display: inline-block;
 }

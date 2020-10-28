@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
     <section class="contenedor">
         <div class="global_prop">
             <div class="prop_logos">
