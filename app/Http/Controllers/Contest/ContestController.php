@@ -62,8 +62,8 @@ class ContestController extends Controller
         return view("logo-ganador", $data);
     }
 
-    private function getTotalSociosApostadores($propuestaId) {
-        $txs = Transaction::where('cap_id', $propuestaId)->groupBy('from')->get();
+    private function getTotalSociosApostadores() {
+        $txs = Transaction::where('type', 'TRANSFER')->where('from','>', 1)->groupBy('from')->get();
         return count($txs);
     }
 
