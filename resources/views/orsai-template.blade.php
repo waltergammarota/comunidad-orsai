@@ -30,8 +30,8 @@
         <meta property="og:title" content="@yield('title')"/>
         <meta property="og:description" content="@yield('description')"/>
         <meta property="og:image:alt" content="Comunidad Orsai"/>
-        <meta property="og:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
-    <!--   <meta property="og:app_id" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/> -->
+        <meta property="og:image" content="{{url('recursos/comunidad-orsai-share-new.jpg')}}"/>
+    <!--   <meta property="og:app_id" content="{{url('recursos/comunidad-orsai-share-new.jpg')}}"/> -->
     @endif
 
     @if(env('ORSAI_ENV') == 'production')
