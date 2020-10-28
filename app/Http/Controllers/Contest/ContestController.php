@@ -57,9 +57,14 @@ class ContestController extends Controller
         $data['instagram'] = $user->instagram;
         $data['txs'] = Transaction::where('cap_id', $propuesta->id)->inRandomOrder()->take(10)->get();
         $data['totalesPresentados'] = ContestApplicationModel::whereNotNull('approved_in')->count();
-        $data['totalSociosApostadores'] = Transaction::where('type','TRANSFER')->where('from','>','1')->groupBy('from')->count();
+        $data['totalSociosApostadores'] = $this->getTotalSociosApostadores($propuesta->id);
         $data['totalDeFichasEnJuego'] = (new TransactionRepository(new UserRepository()))->getTotalSupply($contestId);
         return view("logo-ganador", $data);
+    }
+
+    private function getTotalSociosApostadores($propuestaId) {
+        $txs = Transaction::where('cap_id', $propuestaId)->groupBy('from')->get();
+        return count($txs);
     }
 
     public function approve(Request $request)
