@@ -80,7 +80,7 @@ class ContenidoController extends Controller
 
     private function getNoticias($page = 1)
     {
-        $limit = 4;
+        $limit = 10;
         $offset = ($page - 1) * $limit;
         $data['noticias'] = ContenidoModel::where(["tipo" => "noticia", "visible" => 1])->whereDate('fecha_publicacion', '<=', date('Y-m-d'))->limit($limit)->offset($offset)->orderBy('fecha_publicacion', 'desc')->get();
         $data['previous'] = $page - 1;
