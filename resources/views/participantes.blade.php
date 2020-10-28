@@ -36,7 +36,7 @@
                     </div>
                     <ul class="">
                         <li id="random"
-                            {{($orden == null)? "class=activo":""}} onclick="goto('random');">
+                            {{($orden == null || $orden == 'random')? "class=activo":""}} onclick="goto('random');">
                             <span class="subrayado">Random</span>
                         </li>
                         <li id="mas_votado"
@@ -135,7 +135,7 @@
         function goto(location) {
             switch (location) {
                 case "mas_votado":
-                    window.location = '{{url('participantes/mas-votados')}}';
+                    window.location = '{{url('aarticipantes/mas-votados')}}';
                     break;
                 case "mas_visto":
                     window.location = '{{url('participantes/mas-vistos')}}';

@@ -143,9 +143,6 @@ class WebController extends Controller
             $data = array_merge($userInfo, $cpasInfo);
             return view("concurso-finalizado", $data);
         }
-        if ($this->checkWinner(1) > 0) {
-            return Redirect::to('concurso');
-        }
         if ($contest->start_date < now() && $contest->end_date >= now() && $this->areEnoughApplications($contest)) {
             return $this->show_participantes($request);
         }
