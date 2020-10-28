@@ -9,7 +9,8 @@
     <meta property="og:site_name" content="Comunidad Orsai"/>
     <meta property="og:url" content="{{url()->full()}}"/>
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane."/>{{-- 
+    <meta property="og:title"
+          content="Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane."/>{{--
     <meta property="og:description" content=" {{$propuesta['description']}}"/> --}}
     <meta property="og:image:alt" content="Comunidad Orsai"/>
     <meta property="og:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
@@ -22,7 +23,7 @@
     <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@nytimes')}}"/>
     <meta property="twitter:title" content="{{$propuesta['title']}}"/>
     <meta property="twitter:description" content="{{$propuesta['description']}}"/>
-{{--     <meta name="twitter:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/> --}}
+    {{--     <meta name="twitter:image" content="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"/> --}}
 @endsection
 
 @section('content')
@@ -93,24 +94,27 @@
                         </div>
                     @endif
                 </div>
+
                 <div id="bt_votar">
-                    <form action="{{url('votar')}}" method="POST" id="form_votacion">
-                        <input type="hidden" name="cap_id"
-                               value="{{$propuesta['id']}}"/>
-                        @csrf
-                        <div class="quantity">
-                            <input type="number" min="50" max="450" step="50"
-                                   value="50" name="vote" id="voteAmount" onchange="controlVoteInput(this);false;">
-                        </div>
-                        <div id="bt_form_votar">
+                    @if(!$hasVotingEnded)
+                        <form action="{{url('votar')}}" method="POST" id="form_votacion">
+                            <input type="hidden" name="cap_id"
+                                   value="{{$propuesta['id']}}"/>
+                            @csrf
+                            <div class="quantity">
+                                <input type="number" min="50" max="450" step="50"
+                                       value="50" name="vote" id="voteAmount" onchange="controlVoteInput(this);false;">
+                            </div>
+                            <div id="bt_form_votar">
                             <span
                                 class="resaltado_amarillo subrayado text_bold">Poner fichas</span>
-                        </div>
-                    </form>
-                    <div id="pusiste_fichas" class="resaltado_gris"><span
-                            class="text_bold subrayado">Ya pusiste fichas</span><span class="icon-o"></span></div>
-
+                            </div>
+                        </form>
+                        <div id="pusiste_fichas" class="resaltado_gris"><span
+                                class="text_bold subrayado">Ya pusiste fichas</span><span class="icon-o"></span></div>
+                    @endif
                 </div>
+
                 <div id="prop_info">
                     <div>
                         <div>
@@ -136,14 +140,15 @@
                                                  class="content pusieron_listas">
                                                 <ul id="ul_listas">
                                                     @foreach($txs as $tx)
-                                                        <li><a href="{{url('perfil-usuario')}}/{{$tx->id}}" target="_blank">
-                                                            <img
-                                                                src="{{url($tx->avatar)}}"
-                                                                alt="{{$tx->userName}}">
-                                                            <span
-                                                                class="nombre_puso">{{$tx->userName}}</span>
-                                                            <span
-                                                                class="fichas_puso">{{$tx->amount}}</span></a>
+                                                        <li><a href="{{url('perfil-usuario')}}/{{$tx->id}}"
+                                                               target="_blank">
+                                                                <img
+                                                                    src="{{url($tx->avatar)}}"
+                                                                    alt="{{$tx->userName}}">
+                                                                <span
+                                                                    class="nombre_puso">{{$tx->userName}}</span>
+                                                                <span
+                                                                    class="fichas_puso">{{$tx->amount}}</span></a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -166,13 +171,23 @@
                             </div>
                             <div class="prop_info_share">
 
-                                <span><a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}" title="Compartí esta propuesta" target="_blank" class="share-fb subrayado resaltado_amarillo" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;">Facebook</a></span>
+                                <span><a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}"
+                                         title="Compartí esta propuesta" target="_blank"
+                                         class="share-fb subrayado resaltado_amarillo"
+                                         onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;">Facebook</a></span>
 
-                                <span><a href="https://twitter.com/intent/tweet?text=Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane.&amp;url={{url()->full()}}&amp;lang=es" title="Twittear esta propuesta" class="share-tw subrayado resaltado_amarillo" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;">Twitter</a></span><br/>
+                                <span><a
+                                        href="https://twitter.com/intent/tweet?text=Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane.&amp;url={{url()->full()}}&amp;lang=es"
+                                        title="Twittear esta propuesta" class="share-tw subrayado resaltado_amarillo"
+                                        onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;">Twitter</a></span><br/>
 
-                               <span><a href="whatsapp://send?text=Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane. – {{url()->full()}}" data-action="share/whatsapp/share" class="share-wa subrayado resaltado_amarillo">WhatsApp</a></span>
- 
-                                <span class="subrayado resaltado_amarillo"><a href="mailto:?subject=#&amp;body=#" title="compartir esta propuesta por email">Email</a></span>
+                                <span><a
+                                        href="whatsapp://send?text=Esta postulación está participando del Concurso de Logo para la Fundación Orsai. Entrá ahora y ponele fichas si querés que gane. – {{url()->full()}}"
+                                        data-action="share/whatsapp/share"
+                                        class="share-wa subrayado resaltado_amarillo">WhatsApp</a></span>
+
+                                <span class="subrayado resaltado_amarillo"><a href="mailto:?subject=#&amp;body=#"
+                                                                              title="compartir esta propuesta por email">Email</a></span>
                             </div>
                         </div>
                     </div>
@@ -316,7 +331,7 @@
         };
     </script>
     <script src="{{url('owlcarousel/js/owl.carousel.js')}}"></script>
-    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script> 
+    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script>
     <link rel="stylesheet" href="{{url('custom/jquery.mCustomScrollbar.css')}}">
     <script>
         $(document).ready(function () {

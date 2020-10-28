@@ -3,7 +3,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Contest;
 use App\Databases\ContestApplicationModel;
+use App\Databases\ContestModel;
 use App\Databases\CpaLog;
 use App\Databases\Transaction;
 use App\UseCases\ContestApplication\VoteAContestApplication;
@@ -38,7 +40,14 @@ class PropuestaController extends Controller
         )->sum('amount');
         $data['related'] = ContestApplicationModel::inRandomOrder()->where("approved", 1)
             ->whereNotIn('id', [$propuestaId])->limit(5)->with('logos')->get();
+        $data['hasVotingEnded'] = $this->hasVotingEnded();
         return view('propuesta', $data);
+    }
+
+    private function hasVotingEnded($contestId = 1)
+    {
+        $contest = ContestModel::find($contestId);
+        return $contest->votes_end_date < now();
     }
 
     private function addView($propuestaId, $request)
@@ -179,14 +188,15 @@ class PropuestaController extends Controller
         $mailer->sendRejectEmail($email, $comment);
     }
 
-    private function sendApproveMail($email,$cpaId)
+    private function sendApproveMail($email, $cpaId)
     {
         $mailer = new Mailer();
-        $mailer->sendApproveMail($email,$cpaId);
+        $mailer->sendApproveMail($email, $cpaId);
     }
 
-    private function sendMailToAdministrator($email, $cpaId, $name, $lastName) {
+    private function sendMailToAdministrator($email, $cpaId, $name, $lastName)
+    {
         $mailer = new Mailer();
-        $mailer->sendMailToAdministrator($email,$cpaId, $name, $lastName);
+        $mailer->sendMailToAdministrator($email, $cpaId, $name, $lastName);
     }
 }

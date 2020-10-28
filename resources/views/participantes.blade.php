@@ -6,19 +6,21 @@
 @section('content')
     <section id="intro" class="contenedor intro_gral">
         <div>
-           {{--  @if(!$ )  concurso finalizado--}}
-            <span class="concurso_finalizado resaltado_gris">Concurso finalizado.</span> 
-        {{--   @endif --}}
+            @if($isContestFinished )
+                <span class="concurso_finalizado resaltado_gris">Concurso finalizado.</span>
+            @endif
             <h1 class="span_h1">Concurso de logo Fundación Orsai</h1>
-           {{--  @if(!$ ) concurso finalizado --}}
-                <p class="span_h2">Estas son todas las postulaciones, hay tiempo de ponerle fichas hasta el miércoles 28 de octubre al mediodía de Argentina.</p>
-          {{--   @else --}}
+            @if($hasWinner )
                 <a href="{{url('concurso/ganador/1')}}" class="ver_ganador resaltado_amarillo">Ver Ganador &raquo;</a>
-          {{--   @endif --}}
-        </div>      
+            @else
+                <p class="span_h2">Estas son todas las postulaciones, hay tiempo de ponerle fichas hasta el miércoles 28
+                    de
+                    octubre al mediodía de Argentina.</p>
+            @endif
+        </div>
         <div class="lets_end">
-            <a href="{{url('bases-concurso')}}" class="resaltado_gris">Ver Bases del concurso &raquo;</a> 
-        </div>   
+            <a href="{{url('bases-concurso')}}" class="resaltado_gris">Ver Bases del concurso &raquo;</a>
+        </div>
         <div>
             <span class="span_h2"><strong class="post">{{$totalCpas}}</strong> postulaciones presentadas / <strong
                     class="fich">{{$totalSupply}}</strong> fichas en juego</span>
@@ -64,7 +66,7 @@
 
             <div id="add_content" class="contenedor_logos_participantes">
 
-                @include('propuestas', ["propuestas" => $propuestas]) 
+                @include('propuestas', ["propuestas" => $propuestas])
 
             </div>
 
@@ -88,7 +90,7 @@
                         <li class="page-item"><a class="page-link"
                                                  href="{{url("participantes/pagina/{$next_page}/{$orden}")}}">></a></li>
                     @endif
-                </ul> 
+                </ul>
             </div>
         </section>
 
@@ -107,7 +109,7 @@
 @endsection
 
 @section('footer')
-    
+
     <script>
         $({Counter: 0}).animate({
             Counter: $('.post').text()
@@ -168,34 +170,35 @@
                 }
             });
         }
-/*
-$(window).scroll(function() {
-  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 600) {
-    getMore();
-  }
-});
 
-$(window).scroll(function() {
+        /*
+        $(window).scroll(function() {
+          if ($(window).scrollTop() >= $(document).height() - $(window).height() - 600) {
+            getMore();
+          }
+        });
 
-  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 600) {
+        $(window).scroll(function() {
 
-    if (cant_agrega >= 3 || cant_agrega == "no hay mas") {
-        if (!document.getElementsByClassName("no_hay_logos")[0]) {
-            var get_cargar_mas = document.getElementById("cargar_mas");
-            var no_hay_mas = document.createElement("span");
-            no_hay_mas.innerHTML = "No hay más logos para cargar";
-            no_hay_mas.classList.add("gris", "no_hay_logos");
-            $(get_cargar_mas).append(no_hay_mas);
-            $(no_hay_mas).fadeIn(1000).css("display", "block");
-        }
-    }else{
-    cant_agrega++;    
-    $(".p_op").fadeIn(1000).css("display", "inline-block");
+          if ($(window).scrollTop() >= $(document).height() - $(window).height() - 600) {
 
-    $('#add_content').append('');
-    }
-  }
-});*/
+            if (cant_agrega >= 3 || cant_agrega == "no hay mas") {
+                if (!document.getElementsByClassName("no_hay_logos")[0]) {
+                    var get_cargar_mas = document.getElementById("cargar_mas");
+                    var no_hay_mas = document.createElement("span");
+                    no_hay_mas.innerHTML = "No hay más logos para cargar";
+                    no_hay_mas.classList.add("gris", "no_hay_logos");
+                    $(get_cargar_mas).append(no_hay_mas);
+                    $(no_hay_mas).fadeIn(1000).css("display", "block");
+                }
+            }else{
+            cant_agrega++;
+            $(".p_op").fadeIn(1000).css("display", "inline-block");
+
+            $('#add_content').append('');
+            }
+          }
+        });*/
 
     </script>
 @endsection

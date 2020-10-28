@@ -276,7 +276,19 @@ class WebController extends Controller
         $data['propuestas'] = $this->getPropuestas($orden, $limit, $offset, $request);
         $data['orden'] = $orden;
         $data['busqueda'] = $request->busqueda;
+        $contestId = 1;
+        $data['isContestFinished'] = $this->isContestFinished($contestId);
+        $data['hasWinner'] = $this->hasWinner($contestId);
         return view('participantes', $data);
+    }
+
+    private function isContestFinished($contestId) {
+        $contest = ContestModel::find($contestId);
+        return $contest->end_date < now();
+    }
+
+    private function hasWinner($contestId) {
+       return ContestApplicationModel::where('contest_id', $contestId)->where('is_winner', 1)->count();
     }
 
     private function getTotal($orden, $request)
