@@ -501,6 +501,11 @@ Route::middleware(['verified'])->group(
             'ContenidoController@index'
         )->name("pagina");
 
+        // CONTEST WINNER ROUTE
+        Route::get(
+            '/concurso/ganador/{contest_id}',
+            'Contest\ContestController@show_winner'
+        )->name("concurso-ganador");
 
     }
 );

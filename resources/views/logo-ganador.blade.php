@@ -25,10 +25,11 @@
                 </div>
                 <div id="fichas_asignadas">
                     <div>
-                        <span class="fichas_finales">{{$votes}}1231231</span>
+                        <span class="fichas_finales">{{$votes}}</span>
                         <span>Fichas</span>
                     </div>
-                    <span id="btn_ver_quien" class="resaltado_amarillo">Ver</span>
+{{--                    TODO IMPLEMENTAR LISTA YA EXISTE VARIABLE TXS CON 10 EN RANDOM--}}
+{{--                    <span id="btn_ver_quien" class="resaltado_amarillo">Ver</span>--}}
                 </div>
             </div>
             <div class="datos_contacto">
@@ -51,16 +52,16 @@
     </section>
 
     <section id="what_next" class="contenedor">
-        <div class="next_preview"> 
+        <div class="next_preview">
             <p class="span_block"><strong>Agradecemos</strong> a {{$name}} {{$lastName}} y al resto de los postulantes que llevaron sus neuronas al extremo poniendo su arte al servicio de esta comunidad. A todos los socios que apostaron y fueron fundamentales para que todo esto pasara en el <strong>primer Concurso de la Fundación Orsai</strong>. </p>
             <ul>
-                <li>315 logos presentados</li>
-                <li>15.581 socios apostaron</li>
-                <li>218.3610 fichas en juego</li>
+                <li>{{$totalesPresentados}} logos presentados</li>
+                <li>{{$totalSociosApostadores}} socios apostaron</li>
+                <li>{{$totalDeFichasEnJuego}} fichas en juego</li>
             </ul>
             <p><strong>No hay premio consuelo.</strong> Si bien la plata ya fue transferida al ganador, todas las obras merecen ser apreciadas. Vayan a dar una vuelta por este museo virtual que las aloja y contemplen el arte en su sentido más puro.</p>
-            <a href="#" class="subrayado resaltado_amarillo">Ir a galería</a>
-        </div> 
+            <a href="{{url('concursos')}}" class="subrayado resaltado_amarillo">Ir a galería</a>
+        </div>
     </section>
     <div class="contenedor mg_100 number_page">
         <span>1</span>

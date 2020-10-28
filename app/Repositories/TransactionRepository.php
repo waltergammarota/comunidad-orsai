@@ -122,9 +122,9 @@ class TransactionRepository implements TransactionRepositoryInterface
         );
     }
 
-    public function getTotalSupply()
+    public function getTotalSupply($contestId = 1)
     {
-        $totalVotes = ContestApplicationModel::where("approved", 1)->sum("votes");
+        $totalVotes = ContestApplicationModel::where("approved", $contestId)->sum("votes");
 
         return $totalVotes;
     }
