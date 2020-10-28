@@ -101,6 +101,7 @@ class Contest extends GenericClass
     public function isActive()
     {
         if ($this->active == true) {
+            $dateCorregida = $this->endDate;
             $difference = $dateCorregida->diffInSeconds(Carbon::now());
             return $difference > 0;
         }
