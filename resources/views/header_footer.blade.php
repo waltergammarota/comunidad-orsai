@@ -101,9 +101,6 @@
                         <div class="menu_black">
                             <ul>
                                 @if(Session::get('role') == "admin")
-                                    @if (Route::currentRouteName() == 'dashboard')
-                                        <li class="active"><a href="{{url('dashboard')}}">Dashboard</a></li>
-                                    @else
                                         <li><a href="{{url('dashboard')}}">Dashboard</a></li>
                                     @endif
                                 @endif
