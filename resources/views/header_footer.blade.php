@@ -30,14 +30,14 @@
                         <li class="li_dotted"><a href="{{url('ingresar')}}">Ingresar</a>
                         </li>
                     @endif
-                    @if (Route::currentRouteName() == 'registrarse')
-                        <li class="active"><a href="{{url('registrarse')}}"
-                                              class="gris">Registrarse</a>
-                        </li>
-                    @else
-                        <li><a href="{{url('registrarse')}}" class="gris">Registrarse</a>
-                        </li>
-                    @endif
+{{--                    @if (Route::currentRouteName() == 'registrarse')--}}
+{{--                        <li class="active li_dotted"><a href="{{url('registrarse')}}"--}}
+{{--                                              class="gris">Registrarse</a>--}}
+{{--                        </li>--}}
+{{--                    @else--}}
+{{--                        <li><a href="{{url('registrarse')}}" class="gris">Registrarse</a>--}}
+{{--                        </li>--}}
+{{--                    @endif--}}
                 </ul>
             @endif
             @if (Auth::check())

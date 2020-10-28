@@ -17,12 +17,12 @@
                 <p>Los primeros 15.000 registrados serán llamados "socios fundadores".</p>
             </div>
             <div class="contenedor_campos">
-                <div class="input_err obligatorio"> 
+                <div class="input_err obligatorio">
                     <input type="email" id="mail_us" name="email"
                            placeholder="Correo Electrónico"
                            value="{{ old('email') }}">
                 </div>
-                <div class="input_err obligatorio"> 
+                <div class="input_err obligatorio">
                     <input type="password" id="ps" name="password" placeholder="Contraseña" value="">
                 </div>
             </div>
@@ -37,26 +37,26 @@
                 @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
                     <p class="invalid-feedback">
                         <strong>Uy, algo salió mal.</strong>
-                        <span>Revisá que tu correo y contraseña estén bien escritos.</span> 
-                        <span>Si no pudiste ingresar, <a href="{{url('preguntas-frecuentes')}}">acá</a> te ayudamos a resolverlo.</span>  
+                        <span>Revisá que tu correo y contraseña estén bien escritos.</span>
+                        <span>Si no pudiste ingresar, <a href="{{url('preguntas-frecuentes')}}">acá</a> te ayudamos a resolverlo.</span>
                     </p>
                 @endif
                 <!-- <div class="msg"></div>
                     <img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /> -->
             </div>
             <div class="wan_reg">
-                <a href="registrarse" class="subrayado resaltado_gris">Quiero
-                    registrarme</a>
+{{--                <a href="registrarse" class="subrayado resaltado_gris">Quiero--}}
+{{--                    registrarme</a>--}}
             </div>
             <div class="forg_pass">
                 <a href="{{url('restablecer-clave')}}"
                    class="subrayado resaltado_gris">Olvidé la
                     contraseña</a>
             </div>
-            <div id="recaptcha_legal" class="input_err obligatorio"> 
+            <div id="recaptcha_legal" class="input_err obligatorio">
                 <p class="recaptcha_legal-container letra_chica"><small><br>
 Este sitio está protegido por reCAPTCHA y se aplican la <a href="https://policies.google.com/privacy" target="_blank">Política de privacidad</a> y los <a href="https://policies.google.com/terms" target="_blank">Términos de servicio</a> de Google.</small></p>
-            </div>  
+            </div>
         </form>
     </section>
     <div class="contenedor mg_100 number_page">
