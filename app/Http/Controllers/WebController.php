@@ -62,12 +62,14 @@ class WebController extends Controller
         }
         $data = $this->getUserData();
         $data['totalusers'] = User::where('email_verified_at','!=', null)->count();
+        print_r(session()->get('last_visited'));
         if(!session()->has('last_visited'))
         {
             $urlPrevious = url()->previous();
             $urlBase = url()->to('/');
             if(($urlPrevious != $urlBase . '/ingresar') && (substr($urlPrevious, 0, strlen($urlBase)) === $urlBase)) {
-                session(['last_visited' => url()->previous()]);
+                print_r($urlPrevious);
+                session(['last_visited' => $urlPrevious]);
             }
 
         }

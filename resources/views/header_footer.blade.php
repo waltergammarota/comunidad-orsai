@@ -8,16 +8,16 @@
     </div>
     <div id="desplegable" class="desplegable_cerrado">
         <div id="menu_pcpal">
-                <ul>
-                    <li><a href="{{url('novedades')}}">Novedades</a></li>
-                    <li><a href="{{url('concursos')}}">Concursos</a></li>
-                    @if (Auth::check())
-                            @if(Session::get('role') == "admin")
-                                <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
-                                <li><a href="{{url('donar')}}">Donar</a></li>
-                            @endif
+            <ul>
+                <li><a href="{{url('novedades')}}">Novedades</a></li>
+                <li><a href="{{url('concursos')}}">Concursos</a></li>
+                @if (Auth::check())
+                    @if(Session::get('role') == "admin")
+                        <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
+                        <li><a href="{{url('donar')}}">Donar</a></li>
                     @endif
-                </ul>
+                @endif
+            </ul>
         </div>
         <div id="menu_reg">
             @if (!Auth::check())
@@ -30,14 +30,14 @@
                         <li class="li_dotted"><a href="{{url('ingresar')}}">Ingresar</a>
                         </li>
                     @endif
-{{--                    @if (Route::currentRouteName() == 'registrarse')--}}
-{{--                        <li class="active li_dotted"><a href="{{url('registrarse')}}"--}}
-{{--                                              class="gris">Registrarse</a>--}}
-{{--                        </li>--}}
-{{--                    @else--}}
-{{--                        <li><a href="{{url('registrarse')}}" class="gris">Registrarse</a>--}}
-{{--                        </li>--}}
-{{--                    @endif--}}
+                    {{--                    @if (Route::currentRouteName() == 'registrarse')--}}
+                    {{--                        <li class="active li_dotted"><a href="{{url('registrarse')}}"--}}
+                    {{--                                              class="gris">Registrarse</a>--}}
+                    {{--                        </li>--}}
+                    {{--                    @else--}}
+                    {{--                        <li><a href="{{url('registrarse')}}" class="gris">Registrarse</a>--}}
+                    {{--                        </li>--}}
+                    {{--                    @endif--}}
                 </ul>
             @endif
             @if (Auth::check())
@@ -101,13 +101,23 @@
                         <div class="menu_black">
                             <ul>
                                 @if(Session::get('role') == "admin")
-                                    <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+                                    @if (Route::currentRouteName() == 'dashboard')
+                                        <li class="active"><a href="{{url('dashboard')}}">Dashboard</a></li>
+                                    @else
+                                        <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+                                    @endif
                                 @endif
-                                <li class="active"><a href="{{url('panel')}}">Panel</a>
-                                </li>
-                                <li><a href="{{url('novedades')}}">Novedades</a></li>
-                                <li><a href="{{url('salir')}}">Cerrar sesión</a>
-                                </li>
+                                @if (Route::currentRouteName() == 'panel')
+                                    <li class="active"><a href="{{url('panel')}}">Panel</a></li>
+                                @else
+                                    <li><a href="{{url('panel')}}">Panel</a></li>
+                                @endif
+                                @if (Route::currentRouteName() == 'novedades')
+                                    <li class="active"><a href="{{url('novedades')}}">Novedades</a></li>
+                                @else
+                                    <li><a href="{{url('novedades')}}">Novedades</a></li>
+                                @endif
+                                <li><a href="{{url('salir')}}">Cerrar sesión</a></li>
                             </ul>
                         </div>
                     </div>
