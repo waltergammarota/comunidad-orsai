@@ -102,7 +102,6 @@
                             <ul>
                                 @if(Session::get('role') == "admin")
                                         <li><a href="{{url('dashboard')}}">Dashboard</a></li>
-                                    @endif
                                 @endif
                                 @if (Route::currentRouteName() == 'perfil')
                                     <li class="active"><a href="{{url('panel')}}">Panel</a></li>
