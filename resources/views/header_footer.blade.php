@@ -108,7 +108,7 @@
                                 @else
                                     <li><a href="{{url('panel')}}">Panel</a></li>
                                 @endif
-                                @if (Route::currentRouteName() == 'novedades')
+                                @if (Route::currentRouteName() == 'pagina')
                                     <li class="active"><a href="{{url('novedades')}}">Novedades</a></li>
                                 @else
                                     <li><a href="{{url('novedades')}}">Novedades</a></li>
