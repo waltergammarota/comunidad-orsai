@@ -70,17 +70,19 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if ($this->guard()->attempt($credentials)) {
             if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
-                if(session('last_visited') != null) {
-                    $lastVisited = session('last_visited');
-                    session()->forget('last_visited');
-                    return Redirect::to($lastVisited);
-                }
+//                if(session('last_visited') != null) {
+//                    $lastVisited = session('last_visited');
+//                    session()->forget('last_visited');
+//                    return Redirect::to($lastVisited);
+//                }
                 return Redirect::to('novedades');
             }
             if (Auth::user()->blocked != 0) {
+                session()->forget('last_visited');
                 Auth::logout();
                 return Redirect::to('ingresar');
             }
+            session()->forget('last_visited');
             Auth::logout();
             return Redirect::to('reenviar-mail');
         }
@@ -93,8 +95,8 @@ class LoginController extends Controller
 
     public function logout()
     {
-        Auth::logout();
         session()->forget('last_visited');
+        Auth::logout();
         return redirect('/ingresar');
     }
 

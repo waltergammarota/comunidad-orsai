@@ -83,11 +83,11 @@ class RegistrationController extends Controller
         $usertoLogin = User::find($data['id']);
         Auth::login($usertoLogin);
 
-        if(session('last_visited') != null) {
-            $lastVisited = session('last_visited');
-            session()->forget('last_visited');
-            return Redirect::to($lastVisited);
-        }
+//        if(session('last_visited') != null) {
+//            $lastVisited = session('last_visited');
+//            session()->forget('last_visited');
+//            return Redirect::to($lastVisited);
+//        }
 
         return redirect('/panel');
     }
