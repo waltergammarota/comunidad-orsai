@@ -60,7 +60,7 @@
         <meta name="twitter:creator" content="{{env('TWITTER_CREATOR', '@comunidadorsai')}}"/>
         <meta property="twitter:title" content="@yield('title')"/>
         <meta property="twitter:description" content="@yield('description')"/>
-        <meta name="twitter:image" content="{{url('recursos/comunidad-orsai-share.jpg')}}"/>
+        <meta name="twitter:image" content="{{url('recursos/comunidad-orsai-share-new.jpg')}}"/>
     @endif
     @yield('header')
 
