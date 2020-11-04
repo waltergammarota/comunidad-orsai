@@ -23,7 +23,7 @@
                             <select class="form-control" id="comboDestino" name="opcion">
                                 <option value="0" selected>Todos los usuarios</option>
                                 <option value="1">Lista de usuarios</option>
-{{--                                <option value="2">Grupo de usuarios</option>--}}
+                                {{--                                <option value="2">Grupo de usuarios</option>--}}
                             </select>
                         </div>
                     </div>
@@ -73,25 +73,27 @@
         </div>
         <!-- /.card-body -->
     </div>
- <div class="card card-primary">
-     <div class="card-header">
-         <h3 class="card-title">Dispersiones de fichas</h3>
-     </div>
-     <div class="card-body">
-         <table id="example2" class="table table-bordered table-hover">
-             <thead>
-             <tr>
-                 <th>Emisor</th>
-                 <th>Destinatarios</th>
-                 <th>Puntos</th>
-                 <th>Usuarios</th>
-                 <th>Descripción</th>
-                 <th>Fecha</th>
-             </tr>
-             </thead>
-         </table>
-     </div>
- </div>
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Dispersiones de fichas</h3>
+        </div>
+        <div class="card-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th>Destinatarios</th>
+                    <th>Puntos</th>
+                    <th>Usuarios</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 @endsection
 
 @section('footer')
@@ -138,7 +140,7 @@
                 "searching": true,
                 "info": true,
                 "ordering": true,
-                "order": [[5, "desc"]],
+                "order": [[7, "desc"]],
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url('admin/show-logs')}}",
@@ -153,23 +155,25 @@
                     "processing": "Procesando...",
                     "loadingRecords": "Cargando....",
                     "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ transacciones",
-                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">'+
-                        '<option value="10">10</option>'+
-                        '<option value="20">20</option>'+
-                        '<option value="30">30</option>'+
-                        '<option value="40">40</option>'+
-                        '<option value="50">50</option>'+
-                        '<option value="-1">Todas</option>'+
+                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
+                        '<option value="10">10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">Todas</option>' +
                         '</select> transacciones',
 
                 },
                 "columns": [
-                    { "data": "emisor" },
-                    { "data": "destinatarios" },
-                    { "data": "puntos" },
-                    { "data": "usuarios" },
+                    {"data": "emisor"},
+                    {"data": "destinatarios"},
+                    {"data": "puntos"},
+                    {"data": "usuarios"},
+                    {"data": "tipo"},
                     {"data": "description"},
-                    { "data": "created_at" }
+                    {"data": "total_puntos"},
+                    {"data": "created_at"}
                 ]
             });
         });

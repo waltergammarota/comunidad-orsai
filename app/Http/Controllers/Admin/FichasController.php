@@ -48,6 +48,7 @@ class FichasController extends Controller
 
     private function sendToUsers($users, $amount, $data, $type)
     {
+        $sum = 0;
         foreach ($users as $userId) {
             $amountAux = $amount;
             $user = User::find($userId);
@@ -56,7 +57,7 @@ class FichasController extends Controller
                     $balance = $user->getBalance();
                     $amountAux = $amount <= $balance ? $amount : $balance;
                 }
-                if($amountAux == 0 || $user->email_verified_at == null) {
+                if ($amountAux == 0 || $user->email_verified_at == null) {
                     continue;
                 }
                 $tx = new Transaction([
@@ -64,9 +65,10 @@ class FichasController extends Controller
                     "to" => $user->id,
                     "data" => $data,
                     "type" => $type,
-                    "amount" => $amountAux >= 0? $amountAux: 0
+                    "amount" => $amountAux >= 0 ? $amountAux : 0
                 ]);
                 $tx->save();
+                $sum += $amountAux;
             }
         }
         $log = new FichasLog([
@@ -74,6 +76,8 @@ class FichasController extends Controller
             'destinatarios' => json_encode($users),
             'cantidad_puntos' => $amount,
             'cantidad_users' => count($users),
+            'total_puntos' => $sum,
+            'tipo' => $type == 'mint'? 'entregar': 'quitar',
             'description' => $data
         ]);
         $log->save();
@@ -82,7 +86,7 @@ class FichasController extends Controller
     private function sendAllUsers($amount, $data, $type)
     {
         $idPool = 1;
-        $users =User::select('id')->where('email_verified_at', '!=', 'null')->where('id', '>', $idPool)->get();
+        $users = User::select('id')->where('email_verified_at', '!=', 'null')->where('id', '>', $idPool)->get();
         $sum = 0;
         foreach ($users as $user) {
             $amountAux = $amount;
@@ -90,7 +94,7 @@ class FichasController extends Controller
                 $balance = $user->getBalance();
                 $amountAux = $amount <= $balance ? $amount : $balance;
             }
-            if($amountAux == 0 ) {
+            if ($amountAux == 0) {
                 continue;
             }
             $tx = new Transaction([
@@ -98,16 +102,18 @@ class FichasController extends Controller
                 "to" => $user->id,
                 "data" => $data,
                 "type" => $type,
-                "amount" => $amountAux >= 0? $amountAux: 0
+                "amount" => $amountAux >= 0 ? $amountAux : 0
             ]);
             $tx->save();
-            $sum += $amount;
+            $sum += $amountAux;
         }
         $log = new FichasLog([
             'user_id' => Auth::user()->id,
             'destinatarios' => 'Todos',
             'cantidad_puntos' => $amount,
-            'cantidad_users' => User::count(),
+            'cantidad_users' => count($users),
+            'total_puntos' => $sum,
+            'tipo' => $type == 'mint'? 'entrega': 'quitar',
             'description' => $data
         ]);
         $log->save();
@@ -119,7 +125,7 @@ class FichasController extends Controller
         $users = User::where('name', 'like', $search)->orWhere('lastName', 'like', $search)->orWhere('email', 'like', $search)->take(10)->get();
         $options = [];
         foreach ($users as $user) {
-            if($user->email_verified_at != null ) {
+            if ($user->email_verified_at != null) {
                 $row = ['id' => $user->id, 'text' => "{$user->name} {$user->lastName} - {$user->email}"];
                 array_push($options, $row);
             }
@@ -139,6 +145,8 @@ class FichasController extends Controller
                 "puntos" => $log->cantidad_puntos,
                 "usuarios" => $log->cantidad_users,
                 "description" => $log->description,
+                "total_puntos" => $log->total_puntos,
+                "tipo" => $log->tipo,
                 "created_at" => $log->created_at->format('d/m/Y H:i'),
             ];
             array_push($data, $row);
