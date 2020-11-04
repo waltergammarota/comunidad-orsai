@@ -3,6 +3,11 @@
 @section('title', 'Perfil | Comunidad Orsai')
 @section('description', 'Perfil')
 
+@section('header')
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{url("admin/plugins/fontawesome-free/css/all.min.css")}}">
+@endsection
+
 @section('content')
     <section id="intro" class="contenedor intro_gral panel info_personal">
         <div class="info_per_left">
@@ -78,7 +83,9 @@
                     </div>
                     <div class="line_dashed"></div>
                 </div>
+                <a href="{{url('contacto')}}">Si tu país o provincia no está presente? Escríbenos</a>
             </form>
+
             <form action="#">
                 <div class="input_err select">
                     <label class='oculto'>País<strong>*</strong></label>
@@ -261,11 +268,12 @@
             }).sort(sortComparer);
 
         }
+
         function sortComparer(a, b) {
-            if(a.nombre > b.nombre) {
+            if (a.nombre > b.nombre) {
                 return 1;
             }
-            if(a.nombre < b.nombre) {
+            if (a.nombre < b.nombre) {
                 return -1;
             }
             return 0;
@@ -373,7 +381,7 @@
                 const efecto1 = setTimeout(close(get_modal_exito), 600);
             }).catch((error) => {
                 console.log(error);
-                if(error.response.data.message == "Nombre y Apellido deben ser mayores a 3 caracteres") {
+                if (error.response.data.message == "Nombre y Apellido deben ser mayores a 3 caracteres") {
                     alert("Apellido y Nombre deben ser mayores a 3 letras");
                 }
                 const get_modal_exito = document.getElementById("exito_msg");

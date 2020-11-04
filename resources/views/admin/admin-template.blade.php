@@ -103,8 +103,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('admin/transacciones')}}" class="nav-link">
+                        <a href="{{url('admin/gestion-fichas')}}" class="nav-link">
                             <i class="nav-icon fas fa-coins"></i>
+                            <p>
+                                Gestión de fichas
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{url('admin/transacciones')}}" class="nav-link">
+                            <i class="nav-icon fas fa-exchange-alt"></i>
                             <p>
                                 Transacciones
                             </p>

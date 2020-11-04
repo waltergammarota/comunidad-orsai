@@ -409,6 +409,47 @@ Route::middleware(['verified'])->group(
             'transacciones'
         )->middleware('admin_role');
 
+        // GESTION DE FICHAS
+        Route::get(
+            'admin/gestion-fichas',
+            'Admin\FichasController@index'
+        )->name(
+            'gestion-fichas'
+        )->middleware('admin_role');
+
+        Route::get(
+            'admin/search-users',
+            'Admin\FichasController@search_users'
+        )->name(
+            'gestion-fichas'
+        )->middleware('admin_role');
+
+        Route::get(
+            '/contacto',
+            'WebController@contacto'
+        )->name("contacto");
+
+        Route::get(
+            '/admin/show-logs',
+            'Admin\FichasController@show_logs'
+        )->name("fichas-logs");
+
+        Route::post(
+            'admin/gestion-fichas',
+            'Admin\FichasController@send'
+        )->name(
+            'send-fichas'
+        )->middleware('admin_role');
+
+        // END OF GESTION DE FICHAS
+
+        Route::get(
+            'admin/transacciones/{userId}/json',
+            'Admin\AdminController@transaccionesPorUsuario'
+        )->name(
+            'transacciones'
+        )->middleware('admin_role');
+
         Route::get(
             'admin/transacciones-json',
             'Admin\AdminController@transacciones_json'
@@ -506,6 +547,14 @@ Route::middleware(['verified'])->group(
             '/concurso/ganador/{contest_id}',
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
+
+
+        Route::get(
+            'admin/{slug}',
+            function() {
+                abort(404);
+            }
+        )->middleware('admin_role');
 
     }
 );

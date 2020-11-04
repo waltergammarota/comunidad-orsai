@@ -18,6 +18,7 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>Balance</th>
                     <th>Fecha nac</th>
                     <th>Email</th>
                     <th>Validado</th>
@@ -144,13 +145,13 @@
                     {
                         extend: 'csvHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18]
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18]
                         }
                     },
                 ],
@@ -186,22 +187,15 @@
                     {"data": "id"},
                     {"data": "name"},
                     {"data": "lastName"},
+                    {"data": "balance"},
                     {"data": "birth_date"},
                     {"data": "email"},
-                    {
-                        "data": function (data) {
-                            return (data.email_verified_at != null) ? "SI" : "NO";
-                        }
-                    },
-                    {"data": "country"},
+                    {"data": "validado"},
+                    {"data": "pais"},
                     {"data": "provincia", "visible": false},
-                    {"data": "city", "visible": false},
-                    {
-                        "data": function (data) {
-                            return (data.blocked == 0) ? "NO" : "SI";
-                        }
-                    },
-                    { "data": "role"},
+                    {"data": "ciudad", "visible": false},
+                    {"data": "bloqueado"},
+                    { "data": "rol"},
                     {
                         "data": function (data, type, row, meta) {
                             return `<button type="button" class="btn  btn-xs btn-primary editar" data-row="${meta.row}">
@@ -218,7 +212,7 @@
                                     </button>`;
                         }
                     },
-                    {"data": "userName", "visible": false},
+                    {"data": "usuario", "visible": false},
                     {"data": "profesion", "visible": false},
                     {"data": "twitter", "visible": false},
                     {"data": "facebook", "visible": false},

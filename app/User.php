@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Databases\Transaction;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
@@ -71,6 +72,14 @@ class User extends Authenticable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getBalance() {
+
+        $entrada = Transaction::where('to', $this->id)->whereIn('type', ['TRANSFER', 'MINT'])->sum('amount');
+        $salida = Transaction::where('from', $this->id)->whereIn('type', ['TRANSFER'])->sum('amount');
+        $quemados = Transaction::where('to', $this->id)->whereIn('type', ['BURN'])->sum('amount');
+        return $entrada - $salida - $quemados;
     }
 
 }
