@@ -14,6 +14,7 @@
                 <div id="user_alias">
                     <h1>¿Qué notificaciones queres recibir?</span>
                     </h1>
+                    <p>Siempre te vamos a contar las novedades más recientes de Fundación Orsai, pero podés elegir qué es lo que más te interesa saber. </p>
                 </div>
             </div>
         </div>
@@ -25,14 +26,14 @@
             <div class="contenedor_campos">
                 <div id="check_div" class="obligatorio"
                      style="padding-right: 0px !important;"> 
-
-
+ 
                     <label class="checkbox-container letra_chica checkbox_toggle"> 
                         <input type="checkbox" id="cbox1" name="plataforma" class="cb cb1"
                                value="1" {{$preferencias && $preferencias->plataforma == 1? 'checked': ''}}> 
                           <i></i> 
-                          <span>Novedades en la plataforma</span> 
+                          <span>Notificaciones en la plataforma</span> 
                     </label> 
+                    <span class="notif_detail">Recibir en el sitio anuncios, últimas novedades y actividad de tu cuenta.</span>
                 </div>
  
 
@@ -43,8 +44,9 @@
                         <input type="checkbox" id="cbox1" name="correo" class="cb cb1"
                                value="1" {{$preferencias && $preferencias->correo == 1? 'checked': ''}}> 
                           <i></i> 
-                          <span>Envios al correo electrónico</span> 
+                          <span>Notificaciones por correo electrónico</span> 
                     </label> 
+                    <span class="notif_detail">Recibir en tu casilla de correo anuncios, últimas novedades y otras cosas similares.</span>
                 </div>
                 <br/>
                 <br/>

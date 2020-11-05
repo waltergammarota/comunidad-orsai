@@ -24,8 +24,12 @@
         <div class="cuerpo_texto texto_noticia">
             <div class="titulo">
                 <h1 class="span_h1">{{$noticia->title}}</h1>
-                <span class="autor gris span_block">{{$noticia->autor}}
-                    <span class="fecha_nota">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span></span>
+                <div class="autor gris span_block">{{$noticia->autor}} <span class="fecha_nota">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span></div>
+                <div class="share-social">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}" title="Compartir novedad" target="_blank" class="share-fb" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"><i class="icon-facebook"></i></a>
+                    <a href="https://twitter.com/intent/tweet?text={{$noticia->title}}&amp;url={{url()->full()}}&amp;lang=es" title="Twittear novedad" class="share-tw" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"><i class="icon-twitter"></i></a>
+                    <a href="whatsapp://send?text={{$noticia->title}} – {{url()->full()}}" data-action="share/whatsapp/share" title="Compartir novedad" class="share-wa"><i class="icon-whatsapp"></i></a>
+                </div>
             </div>
             @php
                 $image = $noticia->images()->first();

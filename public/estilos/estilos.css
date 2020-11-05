@@ -6949,3 +6949,41 @@ input#name:invalid:focus {
 #mail_us:invalid {
    color: red;
 }
+.perfil_tip{
+    font-size:13px;
+    margin-bottom:30px;
+    padding-bottom:20px;
+    border-bottom:1px solid #000;
+}
+.notif_detail{
+    display: block;
+    position: relative;
+    font-size:13px;
+    margin:0px 0 20px 0;
+    padding:10px 0 20px 0;
+    color:#aaa;
+    border-bottom:1px solid #aaa;
+}
+.page_description{
+    font-size:16px;
+    margin-bottom:60px;
+}
+.autor{
+    margin-bottom:20px;
+}
+.share-social{
+    font-size:18px; 
+    display: inline-block;
+}
+.share-social a{ 
+    border-radius:20px;
+    background:#f8f8f8;
+    padding:5px;
+}
+.share-social a:hover{
+    background: #ffed00;
+}
+.novedad_data{
+    position: relative;
+    width:100%;
+}
