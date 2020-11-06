@@ -94,7 +94,12 @@
             <div>
                 <ul>
                     <li><a href="{{url('terminos-y-condiciones')}}">Términos &amp; Condiciones</a></li>
-                    <li><a href="{{url('politica-de-privacidad')}}">Política de privacidad</a></li>
+                    <li><a href="{{url('politica-de-privacidad')}}">Política de privacidad</a></li> 
+                    <li><a href="{{url('politica-de-cookies')}}">Política de cookies</a></li>
+                </ul>
+                <ul> 
+                    <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
+                    <li><a href="{{url('contacto')}}">Contacto</a></li>
                 </ul>
             </div>
         </div>

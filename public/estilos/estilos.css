@@ -1248,6 +1248,7 @@ footer .sub_footer {
     padding-top: 0;
     padding-bottom: 0;
     font-size: 0;
+    max-width: 960px;
 }
 
 footer .sub_footer .sub_footer_lf,
@@ -1255,13 +1256,13 @@ footer .sub_footer .sub_footer_ri {
     display: inline-block;
 }
 footer .sub_footer .sub_footer_lf {
-    width: 50%;
+    width: 40%;
 }
 footer .sub_footer .sub_footer_lf img {
     width: 90px;
 }
 footer .sub_footer .sub_footer_ri {
-    width: 50%;
+    width: 60%;
     margin-top: 15px;
     vertical-align: top;
     text-align: right;
