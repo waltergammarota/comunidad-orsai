@@ -6,7 +6,8 @@
 @section('content')
     <section id="intro" class="contenedor intro_gral ">
         <div class="titulo">
-            <h1 class="span_h1">Formulario contacto</h1>
+            <h1 class="span_h1">Sin pelos en la lengua.</h1>
+            <p class="page_description">No somos perfectos ni queremos serlo: decinos dónde ves una tuerca floja así podemos ajustarla. Tu comentario, sugerencia o lo que quieras decirnos nos ayudan a mejorar la experiencia en Comunidad Orsai.</p>
         </div>
         <div class="cuerpo_texto texto_noticia">
             <div class="contenedor form_reg">

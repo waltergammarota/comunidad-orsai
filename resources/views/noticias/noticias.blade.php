@@ -26,10 +26,20 @@
                         @endif
                         <div class="cuerpo_texto">
                                 <h2 class="titulo_noticias">{{$noticia->title}}</h2>
-                                <p>{!! $noticia->copete !!}</p>
-                                <span class="date_noticia">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span>
+                                <p>{!! $noticia->copete !!}</p>  
                         </div>
                     </a>
+                        <div class="cuerpo_texto"> 
+                                <div class="novedad_data">
+                                    <div class="share-social">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{url('novedades/'.$noticia->slug)}}" title="Compartir novedad" target="_blank" class="share-fb" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"><i class="icon-facebook"></i></a>
+                                        <a href="https://twitter.com/intent/tweet?text={{$noticia->title}}&amp;url={{url('novedades/'.$noticia->slug)}}&amp;lang=es" title="Twittear novedad" class="share-tw" onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"><i class="icon-twitter"></i></a>
+                                        <a href="whatsapp://send?text={{$noticia->title}} – {{url('novedades/'.$noticia->slug)}}" title="Compartir novedad"  data-action="share/whatsapp/share" class="share-wa"><i class="icon-whatsapp"></i></a>
+                                    </div>
+                                    <span class="date_noticia">{{$noticia->fecha_publicacion->format("d/m/Y")}}</span>
+                                </div>
+
+                        </div>
                 </article>
             @endforeach
 

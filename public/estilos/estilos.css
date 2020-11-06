@@ -1248,6 +1248,7 @@ footer .sub_footer {
     padding-top: 0;
     padding-bottom: 0;
     font-size: 0;
+    max-width: 960px;
 }
 
 footer .sub_footer .sub_footer_lf,
@@ -1255,13 +1256,13 @@ footer .sub_footer .sub_footer_ri {
     display: inline-block;
 }
 footer .sub_footer .sub_footer_lf {
-    width: 50%;
+    width: 40%;
 }
 footer .sub_footer .sub_footer_lf img {
     width: 90px;
 }
 footer .sub_footer .sub_footer_ri {
-    width: 50%;
+    width: 60%;
     margin-top: 15px;
     vertical-align: top;
     text-align: right;
@@ -6948,4 +6949,54 @@ input#name:invalid:focus {
 
 #mail_us:invalid {
    color: red;
+}
+.perfil_tip{
+    font-size:13px;
+    margin-bottom:30px;
+    padding-bottom:20px;
+    border-bottom:1px solid #000;
+}
+.notif_detail{
+    display: block;
+    position: relative;
+    font-size:13px;
+    margin:0px 0 20px 0;
+    padding:10px 0 20px 0;
+    color:#aaa;
+    border-bottom:1px solid #aaa;
+}
+.page_description{
+    font-size:16px;
+    margin-bottom:60px;
+}
+.autor{
+    margin-bottom:20px;
+}
+.share-social{
+    font-size:18px; 
+    display: inline-block;
+}
+.share-social a{ 
+    border-radius:20px;
+    background:#f8f8f8;
+    padding:5px;
+}
+.share-social a:hover{
+    background: #ffed00;
+}
+.novedad_data{
+    position: relative;
+    width:100%;
+}
+#coral_thread_anonimo{
+    background:#f8f8f8;
+    min-height:40px;
+    text-align:center; 
+    padding:40px 60px;
+}
+#coral_thread_anonimo p{  
+    font-size:16px; 
+}
+#coral_thread_anonimo a{  
+    font-size:18px; 
 }

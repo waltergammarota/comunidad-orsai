@@ -83,7 +83,6 @@
                     </div>
                     <div class="line_dashed"></div>
                 </div>
-                <a href="{{url('contacto')}}">Si tu país o provincia no está presente? Escríbenos</a>
             </form>
 
             <form action="#">
@@ -143,6 +142,7 @@
                     </div>
                     <div class="line_dashed"></div>
                 </div>
+                <p class="perfil_tip">¿No encontrás tu país, provincia o ciudad? <br/>Completá <a href="{{url('contacto')}}" class="resaltado_amarillo">este formulario</a>.</p>
             </form>
 
         </div>

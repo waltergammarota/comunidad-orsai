@@ -126,7 +126,7 @@
                 <tr>
                     <th>Emisor</th>
                     <th>Destinatarios</th>
-                    <th>Puntos</th>
+                    <th>Fichas</th>
                     <th>Usuarios</th>
                     <th>Tipo</th>
                     <th>Descripción</th>
