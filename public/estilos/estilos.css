@@ -6987,3 +6987,15 @@ input#name:invalid:focus {
     position: relative;
     width:100%;
 }
+#coral_thread_anonimo{
+    background:#f8f8f8;
+    min-height:40px;
+    text-align:center; 
+    padding:40px 60px;
+}
+#coral_thread_anonimo p{  
+    font-size:16px; 
+}
+#coral_thread_anonimo a{  
+    font-size:18px; 
+}

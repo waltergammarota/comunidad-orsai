@@ -45,7 +45,15 @@
             </div>
             <div class="copete">{!! $noticia->copete !!}</div>
             <div class="texto">{!! $noticia->texto !!}</div>
-            <div id="coral_thread"></div>
+
+             @if(Auth::check())
+                <div id="coral_thread"></div>
+            @else
+                <div id="coral_thread_anonimo">
+                    <p>Este sitio no es apto para anónimos. Si querés dejar un comentario, primero tenés que dar la cara.</p>
+                    <a href="{{url('ingresar')}}">Ingresar</a>
+                </div>
+            @endif
         </div>
 
     </section>
@@ -75,6 +83,6 @@
                 };
                 (d.head || d.body).appendChild(s);
             })();
-        </script>
+        </script>  
     @endif
 @endsection
