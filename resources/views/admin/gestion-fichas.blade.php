@@ -23,11 +23,12 @@
                             <select class="form-control" id="comboDestino" name="opcion">
                                 <option value="0" selected>Todos los usuarios</option>
                                 <option value="1">Lista de usuarios</option>
-                                {{--                                <option value="2">Grupo de usuarios</option>--}}
+                                <option value="2">Filtro de usuarios</option>
                             </select>
                         </div>
                     </div>
-
+                </div>
+                <div class="row">
                     <div class="col-md-12" id="inputUsuarios">
                         <div class="form-group">
                             <label for="comboUsuarios">Usuarios</label>
@@ -35,6 +36,48 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row" id="filtrosUsuarios">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="comboPais">Pais</label>
+                            <select name="filters[country][]" id="comboPais" class="form-control"
+                                    multiple="multiple" autocomplete="off"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="comboProvincia">Provincia</label>
+                            <select name="filters[provincia][]" id="comboProvincia" class="form-control"
+                                    multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="comboCiudad">Ciudad</label>
+                            <select name="filters[city][]" id="comboCity" class="form-control"
+                                    multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="comboCiudad">Fichas</label>
+                            <select name="filters[operacion]" id="operacion" class="form-control">
+                                <option value="0">---</option>
+                                <option value="1">=</option>
+                                <option value="2">></option>
+                                <option value="3"><</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="balance">Cantidad</label>
+                            <input type="number" name="filters[balance]" step="1" min="0" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -67,12 +110,12 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">
-                    Guardar
+                    Enviar Puntos
                 </button>
             </form>
         </div>
-        <!-- /.card-body -->
     </div>
+
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Dispersiones de fichas</h3>
@@ -88,6 +131,7 @@
                     <th>Tipo</th>
                     <th>Descripción</th>
                     <th>Total</th>
+                    <th>Filtros</th>
                     <th>Fecha</th>
                 </tr>
                 </thead>
@@ -105,19 +149,76 @@
             const comboUsuarios = $('#comboUsuarios');
             const inputUsuarios = $('#inputUsuarios');
 
+            const filtros = $('#filtrosUsuarios');
+            const comboPais = $('#comboPais');
+            const comboProvincia = $("#comboProvincia");
+            const comboCity = $('#comboCity');
+
+            comboCity.select2({
+                ajax: {
+                    url: '{{url('admin/search-ciudades')}}',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                        }
+                        return query;
+                    }
+                },
+                placeholder: 'Elija ciudades',
+                minimumInputLength: 3,
+                delay: 250,
+                language: 'es'
+            });
+
+            comboProvincia.select2({
+                ajax: {
+                    url: '{{url('admin/search-provincias')}}',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                        }
+                        return query;
+                    }
+                },
+                placeholder: 'Elija provincias',
+                minimumInputLength: 3,
+                delay: 250,
+                language: 'es'
+            });
+
+            comboPais.select2({
+                ajax: {
+                    url: '{{url('admin/search-paises')}}',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                        }
+                        return query;
+                    }
+                },
+                placeholder: 'Elija países',
+                minimumInputLength: 3,
+                delay: 250,
+                language: 'es'
+            });
             $('#comboDestino').change(function () {
                 const option = $(this).children("option:selected").val();
                 console.log(option);
                 if (option == 0) {
                     inputUsuarios.hide();
+                    filtros.hide();
                 }
                 if (option == 1) {
                     inputUsuarios.show();
+                    filtros.hide()
                 }
                 if (option == 2) {
                     inputUsuarios.hide();
+                    filtros.show();
                 }
             });
+
+
             comboUsuarios.select2({
                 ajax: {
                     url: '{{url('admin/search-users')}}',
@@ -134,13 +235,14 @@
                 language: 'es'
             });
             inputUsuarios.hide();
+            filtros.hide();
 
             $('#example2').DataTable({
                 "paging": true,
                 "searching": true,
                 "info": true,
                 "ordering": true,
-                "order": [[7, "desc"]],
+                "order": [[8, "desc"]],
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url('admin/show-logs')}}",
@@ -173,6 +275,7 @@
                     {"data": "tipo"},
                     {"data": "description"},
                     {"data": "total_puntos"},
+                    {"data": "filtros"},
                     {"data": "created_at"}
                 ]
             });

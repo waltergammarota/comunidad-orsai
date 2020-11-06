@@ -24,6 +24,7 @@ class FichasLog extends Model
         'cantidad_users',
         'description',
         'total_puntos',
+        'filtros',
         'tipo'
     ];
 

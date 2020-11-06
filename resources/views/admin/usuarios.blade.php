@@ -10,37 +10,141 @@
 @endsection
 
 @section('content')
-    <div class="card">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Usuarios</h3>
+        </div>
         <div class="card-body">
-            <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Balance</th>
-                    <th>Fecha nac</th>
-                    <th>Email</th>
-                    <th>Validado</th>
-                    <th>País</th>
-                    <th>Provincia</th>
-                    <th>Ciudad</th>
-                    <th>Bloqueado</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
-                    <th>Nombre usuario</th>
-                    <th>Profesión</th>
-                    <th>Twitter</th>
-                    <th>Facebook</th>
-                    <th>Whatsapp</th>
-                    <th>Instagram</th>
-                </tr>
-                </thead>
-            </table>
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-md-12">
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                        Búsqueda avanzada
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="row" id="filtrosUsuarios">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="comboPais">Pais</label>
+                                                <select name="filters[country][]" id="comboPais" class="form-control"
+                                                        multiple="multiple" autocomplete="off"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="comboProvincia">Provincia</label>
+                                                <select name="filters[provincia][]" id="comboProvincia"
+                                                        class="form-control"
+                                                        multiple="multiple"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="comboCiudad">Ciudad</label>
+                                                <select name="filters[city][]" id="comboCity" class="form-control"
+                                                        multiple="multiple"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="comboCiudad">Fichas</label>
+                                                <select name="filters[operacion]" id="operacion" class="form-control">
+                                                    <option value="0">---</option>
+                                                    <option value="1">=</option>
+                                                    <option value="2">></option>
+                                                    <option value="3"><</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="balance">Cantidad</label>
+                                                <input type="number" name="filters[balance]" step="1" min="0"
+                                                       class="form-control" id="balance">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="balance">Profesión</label>
+                                                <input type="text" name="filters[profesion]" placeholder="Profesión"
+                                                       class="form-control" id="profesion">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="balance">Fecha Nacimiento - desde</label>
+                                                <input type="date" name="filters[birth_date][start]"
+                                                       placeholder="Fecha desde"
+                                                       class="form-control" id="startDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="balance">Fecha Nacimiento - hasta</label>
+                                                <input type="date" name="filters[birth_date][end]"
+                                                       placeholder="Fecha hasta"
+                                                       class="form-control" id="endDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary float-right"
+                                                    onclick="getData()">
+                                                Buscar Usuarios
+                                            </button>
+                                            <button type="submit" class="btn btn-success float-right"
+                                                    style="margin-right: 10px;">
+                                                Exportar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Balance</th>
+                            <th>Fecha nac</th>
+                            <th>Email</th>
+                            <th>Validado</th>
+                            <th>País</th>
+                            <th>Provincia</th>
+                            <th>Ciudad</th>
+                            <th>Bloqueado</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                            <th>Nombre usuario</th>
+                            <th>Profesión</th>
+                            <th>Twitter</th>
+                            <th>Facebook</th>
+                            <th>Whatsapp</th>
+                            <th>Instagram</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
         <!-- /.card-body -->
     </div>
-
     <div class="modal fade" id="modal-admin">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -121,40 +225,67 @@
 @endsection
 
 @section('footer')
-    <style>
-        button.dt-button.buttons-csv.buttons-html5 {
-            padding: 5px 15px;
-            background-color: #007bff;
-            border-color: #007bff;
-            color: white
-        }
-
-        button.dt-button.buttons-excel.buttons-html5 {
-            padding: 5px 15px;
-            background-color: #28a745;
-            border-color: #28a745;
-            color: white
-        }
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <link href="{{url('admin/plugins/select2/css/select2.min.css')}}" rel="stylesheet"/>
+    <script src="{{url('admin/plugins/select2/js/select2.full.js')}}"></script>
+    <script src="{{url('admin/plugins/select2/js/i18n/es.js')}}"></script>
     <script>
         $(function () {
-            const table = $('#example2').DataTable({
-                "dom": 'Bfrtip',
-                "buttons": [
-                    {
-                        extend: 'csvHtml5',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18]
+
+            const filtros = $('#filtrosUsuarios');
+            const comboPais = $('#comboPais');
+            const comboProvincia = $("#comboProvincia");
+            const comboCity = $('#comboCity');
+
+            comboCity.select2({
+                ajax: {
+                    url: '{{url('admin/search-ciudades')}}',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
                         }
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18]
+                        return query;
+                    }
+                },
+                placeholder: 'Elija ciudades',
+                minimumInputLength: 3,
+                delay: 250,
+                language: 'es'
+            });
+
+            comboProvincia.select2({
+                ajax: {
+                    url: '{{url('admin/search-provincias')}}',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
                         }
-                    },
-                ],
+                        return query;
+                    }
+                },
+                placeholder: 'Elija provincias',
+                minimumInputLength: 3,
+                delay: 250,
+                language: 'es'
+            });
+
+            comboPais.select2({
+                ajax: {
+                    url: '{{url('admin/search-paises')}}',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                        }
+                        return query;
+                    }
+                },
+                placeholder: 'Elija países',
+                minimumInputLength: 3,
+                delay: 250,
+                language: 'es'
+            });
+
+            const options = {
                 "paging": true,
                 "searching": true,
                 "ordering": true,
@@ -195,7 +326,7 @@
                     {"data": "provincia", "visible": false},
                     {"data": "ciudad", "visible": false},
                     {"data": "bloqueado"},
-                    { "data": "rol"},
+                    {"data": "rol"},
                     {
                         "data": function (data, type, row, meta) {
                             return `<button type="button" class="btn  btn-xs btn-primary editar" data-row="${meta.row}">
@@ -219,7 +350,9 @@
                     {"data": "whatsapp", "visible": false},
                     {"data": "instagram", "visible": false},
                 ],
-            });
+            };
+
+            const table = $('#example2').DataTable(options);
 
             table.on('click', '.admin', function () {
                 const row = $(this).data('row');
@@ -318,6 +451,24 @@
             });
 
         });
+
+        function getData() {
+            const params = {};
+            params.paises = $('#comboPais').val();
+            params.provincias = $('#comboProvincia').val();
+            params.ciudades = $('#comboCity').val();
+            params.operacion = $('#operacion').val();
+            params.balance = $('#balance').val();
+            params.profesion = $('#profesion').val();
+            params.startDate = $('#startDate').val();
+            params.endDate = $('#endDate').val();
+
+            const queryParams = new URLSearchParams(params).toString();
+            const newUrl = `{{url('admin/usuarios-json')}}?${queryParams}`;
+
+            $('#example2').DataTable().ajax.url(newUrl).load();
+
+        }
     </script>
     <style>
         table#example2 {

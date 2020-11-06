@@ -60,7 +60,7 @@ class AdminController extends Controller
 
     public function usuarios_json(Request $request)
     {
-        $users = DB::select(DB::raw('select u.id,
+        $sqlQuery = 'select u.id,
                u.name,
                u.lastName,
                u.birth_date,
@@ -100,12 +100,30 @@ class AdminController extends Controller
             where users.deleted_at is null
             group by users.id) x3
                      on x2.id = x3.id
-                 join users u on u.id = x1.id'));
+                 join users u on u.id = x1.id WHERE 1=1';
+        $filters = $request->all();
+        if (array_key_exists('paises', $filters) && $filters['paises'] != null) {
+            $paises = explode(',', $filters['paises']);
+            $paisesQuotes = array_map(function ($item) {
+                return '"' . $item . '"';
+            }, $paises);
+            $sqlQuery .= (count($paises) > 0) ? " AND country IN (" . implode(",", $paisesQuotes) . ") " : "";
+        }
+        if (array_key_exists('provincias', $filters) && $filters['provincias'] != null) {
+            $provincias = explode(',', $filters['provincias']);
+            $provinciasQuotes = array_map(function ($item) {
+                return '"' . $item . '"';
+            }, $provincias);
+            $sqlQuery .= (count($provincias) > 0) ? " AND provincia IN (" . implode(",", $provinciasQuotes) . ")" : "";
+        }
+        dd($sqlQuery);
+        $users = DB::select(DB::raw($sqlQuery));
+
         $data = [
             'draw' => $request->query('draw'),
             "recordsTotal" => User::count(),
             "recordsFiltered" => User::count(),
-            'data' => $users
+            'data' => $users,
         ];
         return response()->json($data);
     }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\FichasLog;
+use App\Databases\PaisModel;
+use App\Databases\ProvinciaModel;
 use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -12,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
 
 class FichasController extends Controller
@@ -46,6 +50,120 @@ class FichasController extends Controller
         return Redirect::to('admin/gestion-fichas');
     }
 
+    private function sendToListUsers($filters, $amount, $data, $type)
+    {
+        $countries = array_key_exists('country', $filters) ? $filters['country'] : [];
+        $provincias = array_key_exists('provincia', $filters) ? $filters['provincia'] : [];
+        $cities = array_key_exists('city', $filters) ? $filters['city'] : [];
+        $operacion = array_key_exists('operacion', $filters) ? $filters['operacion'] : 0;
+        $balance = array_key_exists('balance', $filters) ? $filters['balance'] : 0;
+        $users = User::where('email_verified_at', '!=', null);
+        if (count($countries) > 0) {
+            $users->whereIn('country', $countries);
+        }
+        if (count($provincias) > 0) {
+            $users->whereIn('provincia', $provincias);
+        }
+        if (count($cities) > 0) {
+            $users->whereIn('city', $cities);
+        }
+        $filteredUsers = $users->get();
+        $finalUsers = [];
+        $sum = 0;
+        foreach ($filteredUsers as $user) {
+            $amountAux = $amount;
+            $saldo = $user->getBalance();
+            if ($operacion == 0) {
+                if ($type == 'burn') {
+                    $balance = $saldo();
+                    $amountAux = $amount <= $balance ? $amount : $balance;
+                }
+                $tx = new Transaction([
+                    "from" => 1,
+                    "to" => $user->id,
+                    "data" => $data,
+                    "type" => $type,
+                    "amount" => $amountAux >= 0 ? $amountAux : 0
+                ]);
+                $tx->save();
+                $sum += $amountAux;
+                $finalUsers[] = $user->id;
+            }
+            if ($operacion == 1) {
+                if ($saldo == $balance) {
+                    if ($type == 'burn') {
+                        $balance = $saldo;
+                        $amountAux = $amount <= $balance ? $amount : $balance;
+                    }
+                    $tx = new Transaction([
+                        "from" => 1,
+                        "to" => $user->id,
+                        "data" => $data,
+                        "type" => $type,
+                        "amount" => $amountAux >= 0 ? $amountAux : 0
+                    ]);
+                    $tx->save();
+                    $sum += $amountAux;
+                    $finalUsers[] = $user->id;
+                }
+            }
+            if ($operacion == 2) {
+                if ($saldo > $balance) {
+                    if ($type == 'burn') {
+                        $balance = $saldo;
+                        $amountAux = $amount <= $balance ? $amount : $balance;
+                    }
+                    $tx = new Transaction([
+                        "from" => 1,
+                        "to" => $user->id,
+                        "data" => $data,
+                        "type" => $type,
+                        "amount" => $amountAux >= 0 ? $amountAux : 0
+                    ]);
+                    $tx->save();
+                    $sum += $amountAux;
+                    $finalUsers[] = $user->id;
+                }
+            }
+
+            if ($operacion == 3) {
+                if ($saldo < $balance) {
+                    if ($type == 'burn') {
+                        $balance = $saldo;
+                        $amountAux = $amount <= $balance ? $amount : $balance;
+                    }
+                    $tx = new Transaction([
+                        "from" => 1,
+                        "to" => $user->id,
+                        "data" => $data,
+                        "type" => $type,
+                        "amount" => $amountAux >= 0 ? $amountAux : 0
+                    ]);
+                    $tx->save();
+                    $sum += $amountAux;
+                    $finalUsers[] = $user->id;
+                }
+            }
+        }
+        $log = new FichasLog([
+            'user_id' => Auth::user()->id,
+            'destinatarios' => Str::substr(json_encode($finalUsers), 0, 256),
+            'cantidad_puntos' => $amount,
+            'cantidad_users' => count($finalUsers),
+            'total_puntos' => $sum,
+            'tipo' => $type == 'mint' ? 'entregar' : 'quitar',
+            'description' => $data,
+            'filtros' => json_encode([
+                "paises" => $countries,
+                "provincias" => $provincias,
+                "ciudades" => $cities,
+                "operacion" => $operacion,
+                "balance" => $balance
+            ])
+        ]);
+        $log->save();
+    }
+
     private function sendToUsers($users, $amount, $data, $type)
     {
         $sum = 0;
@@ -77,7 +195,7 @@ class FichasController extends Controller
             'cantidad_puntos' => $amount,
             'cantidad_users' => count($users),
             'total_puntos' => $sum,
-            'tipo' => $type == 'mint'? 'entregar': 'quitar',
+            'tipo' => $type == 'mint' ? 'entregar' : 'quitar',
             'description' => $data
         ]);
         $log->save();
@@ -113,7 +231,7 @@ class FichasController extends Controller
             'cantidad_puntos' => $amount,
             'cantidad_users' => count($users),
             'total_puntos' => $sum,
-            'tipo' => $type == 'mint'? 'entrega': 'quitar',
+            'tipo' => $type == 'mint' ? 'entrega' : 'quitar',
             'description' => $data
         ]);
         $log->save();
@@ -133,6 +251,43 @@ class FichasController extends Controller
         return response()->json(["results" => $options]);
     }
 
+    public function search_paises(Request $request)
+    {
+        $search = '%' . $request->search . '%';
+        $paises = PaisModel::where('nombre', 'like', $search)->get();
+        $options = [];
+        foreach ($paises as $pais) {
+            $row = ['id' => $pais->nombre, 'text' => "{$pais->nombre}"];
+            array_push($options, $row);
+        }
+        return response()->json(["results" => $options]);
+    }
+
+    public function search_provincias(Request $request)
+    {
+        $search = '%' . $request->search . '%';
+        $provincias = ProvinciaModel::where('nombre', 'like', $search)->get();
+        $options = [];
+        foreach ($provincias as $provincia) {
+            $row = ['id' => $provincia->nombre, 'text' => "{$provincia->nombre}"];
+            array_push($options, $row);
+        }
+        return response()->json(["results" => $options]);
+    }
+
+    public function search_ciudades(Request $request)
+    {
+        $search = '%' . $request->search . '%';
+        $ciudades = CiudadModel::where('nombre', 'like', $search)->get();
+        $options = [];
+        foreach ($ciudades as $ciudad) {
+            $row = ['id' => $ciudad->nombre, 'text' => "{$ciudad->nombre}"];
+            array_push($options, $row);
+        }
+        return response()->json(["results" => $options]);
+    }
+
+
     public function show_logs(Request $request)
     {
         $logs = FichasLog::all();
@@ -147,6 +302,7 @@ class FichasController extends Controller
                 "description" => $log->description,
                 "total_puntos" => $log->total_puntos,
                 "tipo" => $log->tipo,
+                "filtros" => $log->filtros,
                 "created_at" => $log->created_at->format('d/m/Y H:i'),
             ];
             array_push($data, $row);

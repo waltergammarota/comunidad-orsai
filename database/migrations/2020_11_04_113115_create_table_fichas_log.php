@@ -22,6 +22,7 @@ class CreateTableFichasLog extends Migration
             $table->text('description');
             $table->string('tipo');
             $table->bigInteger('total_puntos')->default(0);
+            $table->longText('filtros')->default('');
             $table->timestamps();
             $table->softDeletes();
         });

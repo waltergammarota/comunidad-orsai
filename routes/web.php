@@ -418,6 +418,27 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::get(
+            'admin/search-paises',
+            'Admin\FichasController@search_paises'
+        )->name(
+            'search-paises'
+        )->middleware('admin_role');
+
+        Route::get(
+            'admin/search-provincias',
+            'Admin\FichasController@search_provincias'
+        )->name(
+            'search-provincias'
+        )->middleware('admin_role');
+
+        Route::get(
+            'admin/search-ciudades',
+            'Admin\FichasController@search_ciudades'
+        )->name(
+            'search-ciudades'
+        )->middleware('admin_role');
+
+        Route::get(
             'admin/search-users',
             'Admin\FichasController@search_users'
         )->name(
