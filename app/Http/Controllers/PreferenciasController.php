@@ -80,7 +80,7 @@ class PreferenciasController extends Controller
     public function confirmar_desactivar_cuenta()
     {
         $data = $this->getUserData();
-        return View('confirmar-desactivar-cuenta');
+        return View('confirmar-desactivar-cuenta', $data);
     }
 
     public function borrar_cuenta(Request $request)
