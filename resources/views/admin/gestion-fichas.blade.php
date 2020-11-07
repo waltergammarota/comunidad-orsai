@@ -76,6 +76,29 @@
                             <input type="number" name="filters[balance]" step="1" min="0" class="form-control">
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="balance">Profesión</label>
+                            <input type="text" name="filters[profesion]" placeholder="Profesión"
+                                   class="form-control" id="profesion">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="balance">Fecha Nacimiento - desde</label>
+                            <input type="date" name="filters[birth_date][start]"
+                                   placeholder="Fecha desde"
+                                   class="form-control" id="startDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="balance">Fecha Nacimiento - hasta</label>
+                            <input type="date" name="filters[birth_date][end]"
+                                   placeholder="Fecha hasta"
+                                   class="form-control" id="endDate">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">

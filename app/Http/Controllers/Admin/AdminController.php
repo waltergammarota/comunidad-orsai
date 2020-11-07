@@ -116,13 +116,35 @@ class AdminController extends Controller
             }, $provincias);
             $sqlQuery .= (count($provincias) > 0) ? " AND provincia IN (" . implode(",", $provinciasQuotes) . ")" : "";
         }
-        dd($sqlQuery);
+        if (array_key_exists('profesion', $filters) && $filters['profesion'] != null) {
+            $sqlQuery .= " AND profesion like '%{$filters['profesion']}%'";
+        }
+        if (array_key_exists('startDate', $filters) && $filters['startDate'] != null) {
+            $sqlQuery .= " AND birth_date >= '{$filters['startDate']}'";
+        }
+        if (array_key_exists('endDate', $filters) && $filters['endDate'] != null) {
+            $sqlQuery .= " AND birth_date < '{$filters['endDate']}'";
+        }
+        if (array_key_exists('operacion', $filters) && $filters['operacion'] > 0) {
+            $operacion = $filters['operacion'];
+            $balance = array_key_exists('balance', $filters) && $filters['balance'] != null? $filters['balance'] : 0;
+            if ($operacion == 1) {
+                $sqlQuery .= " AND (ingreso - egreso - quemado) = {$balance}";
+            }
+            if ($operacion == 2) {
+                $sqlQuery .= " AND (ingreso - egreso - quemado) > {$balance}";
+            }
+            if ($operacion == 3) {
+                $sqlQuery .= " AND (ingreso - egreso - quemado) < {$balance}";
+            }
+        }
+
         $users = DB::select(DB::raw($sqlQuery));
 
         $data = [
             'draw' => $request->query('draw'),
-            "recordsTotal" => User::count(),
-            "recordsFiltered" => User::count(),
+            "recordsTotal" => count($users),
+            "recordsFiltered" => count($users),
             'data' => $users,
         ];
         return response()->json($data);

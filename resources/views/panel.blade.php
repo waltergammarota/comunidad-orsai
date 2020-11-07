@@ -212,22 +212,7 @@
 @endsection
 
 @section('footer')
-    <script>/*
-        const modal_fichas = $("#acred_fichas_modal");
-
-        $(document).ready(() => {
-            if (Cookies.get('available-points') != "true") {
-                Cookies.set('available-points', true);
-                modal_fichas.show();
-            } else {
-                modal_fichas.hide();
-            }
-        });
-
-        modal_fichas.click(function () {
-            modal_fichas.fadeOut('slow');
-        })
-        */
+    <script>
 
         if (document.getElementsByClassName("general_profile_msg")) {
             var get_general_msg = document.getElementsByClassName("general_profile_msg");

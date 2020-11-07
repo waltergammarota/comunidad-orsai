@@ -58,6 +58,9 @@ class FichasController extends Controller
         $operacion = array_key_exists('operacion', $filters) ? $filters['operacion'] : 0;
         $balance = array_key_exists('balance', $filters) ? $filters['balance'] : 0;
         $users = User::where('email_verified_at', '!=', null);
+        $profesion = array_key_exists('profesion', $filters) ? $filters['profesion']: "";
+        $startDate = array_key_exists('start', $filters['birth_date']) ? $filters['birth_date']['start'] : "";
+        $endDate = array_key_exists('end', $filters['birth_date']) ? $filters['birth_date']['end'] : "";
         if (count($countries) > 0) {
             $users->whereIn('country', $countries);
         }
@@ -66,6 +69,15 @@ class FichasController extends Controller
         }
         if (count($cities) > 0) {
             $users->whereIn('city', $cities);
+        }
+        if($profesion != "") {
+            $users->where('profesion','like',"%{$profesion}%");
+        }
+        if($startDate != "") {
+            $users->where("birth_date",">=",$startDate);
+        }
+        if($endDate != "") {
+            $users->where("birth_date","<",$endDate);
         }
         $filteredUsers = $users->get();
         $finalUsers = [];
@@ -158,7 +170,10 @@ class FichasController extends Controller
                 "provincias" => $provincias,
                 "ciudades" => $cities,
                 "operacion" => $operacion,
-                "balance" => $balance
+                "balance" => $balance,
+                "profesion" => $profesion,
+                "desde" => $startDate,
+                "hasta" => $endDate
             ])
         ]);
         $log->save();
@@ -257,10 +272,10 @@ class FichasController extends Controller
         $paises = PaisModel::where('nombre', 'like', $search)->get();
         $options = [];
         foreach ($paises as $pais) {
-            $row = ['id' => $pais->nombre, 'text' => "{$pais->nombre}"];
+            $row = ['id' => utf8_encode($pais->nombre), 'text' => utf8_encode($pais->nombre)];
             array_push($options, $row);
         }
-        return response()->json(["results" => $options]);
+        return response()->json(["results" => $options],);
     }
 
     public function search_provincias(Request $request)
@@ -269,7 +284,7 @@ class FichasController extends Controller
         $provincias = ProvinciaModel::where('nombre', 'like', $search)->get();
         $options = [];
         foreach ($provincias as $provincia) {
-            $row = ['id' => $provincia->nombre, 'text' => "{$provincia->nombre}"];
+            $row = ['id' => utf8_encode($provincia->nombre), 'text' => utf8_encode($provincia->nombre)];
             array_push($options, $row);
         }
         return response()->json(["results" => $options]);
@@ -281,7 +296,7 @@ class FichasController extends Controller
         $ciudades = CiudadModel::where('nombre', 'like', $search)->get();
         $options = [];
         foreach ($ciudades as $ciudad) {
-            $row = ['id' => $ciudad->nombre, 'text' => "{$ciudad->nombre}"];
+            $row = ['id' => utf8_encode($ciudad->nombre), 'text' => utf8_encode($ciudad->nombre)];
             array_push($options, $row);
         }
         return response()->json(["results" => $options]);

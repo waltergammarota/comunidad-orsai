@@ -44,7 +44,7 @@ class Controller extends BaseController
             $data = $accountUC->execute();
             session(['avatar' => $data['avatar']]);
             session(['name' => $data['name']]);
-            session(['balance' => $data['balance']]);
+            session(['balance' => $user->getBalance()]);
             session(['role' => $data['role']]);
             $data['notifications'] = $this->getNotifications($user);
             $data['unreadNotifications'] = $this->getUnreadNotificationsTotal($user);

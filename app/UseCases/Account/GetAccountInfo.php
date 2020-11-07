@@ -22,17 +22,17 @@ class GetAccountInfo extends GenericUseCase
         $this->userRepo = $userRepo;
         $this->txRepo = $txRepo;
         $this->user = $this->userRepo->find($userId);
-        $this->cpaRepo = new ContestApplicationRepository(new ContestApplicationModel(),$this->userRepo);
+        $this->cpaRepo = new ContestApplicationRepository(new ContestApplicationModel(), $this->userRepo);
     }
 
     public function execute()
     {
         $user = Auth::user();
         $image = $user->avatar()->first();
-        $imageUrl = $image? url('storage/images/'.$image->name.".".$image->extension):url('img/participantes/participante.jpg');
+        $imageUrl = $image ? url('storage/images/' . $image->name . "." . $image->extension) : url('img/participantes/participante.jpg');
         $data = [
             'session_user_id' => Auth::user()->id,
-            'balance' => $this->txRepo->getBalance($this->user),
+            'balance' => $user->getBalance(),
             'cantidadTxs' => $this->txRepo->getCantidadTxs($this->user),
             'username' => $this->user->getUserName(),
             'email' => $this->user->getEmail(),

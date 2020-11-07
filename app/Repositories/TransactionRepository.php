@@ -111,9 +111,10 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     public function getBalance(User $user)
     {
-        $ingreso = Transaction::where(["to" => $user->getId()])->sum("amount");
-        $egreso = Transaction::where(["from" => $user->getId()])->sum("amount");
-        return $ingreso - $egreso;
+        $ingreso = Transaction::where(["to" => $user->getId()])->whereIn('type',['MINT','TRANSFER'])->sum("amount");
+        $egreso = Transaction::where(["from" => $user->getId()])->whereIn('type',['TRANSFER'])->sum("amount");
+        $quemado = Transaction::where(['to' => $user->getId()])->whereIn('type','BURN')->sum("amount");
+        return $ingreso - $egreso - $quemado;
     }
 
     public function getCantidadTxs(User $user)

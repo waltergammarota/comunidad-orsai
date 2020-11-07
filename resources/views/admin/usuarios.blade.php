@@ -100,10 +100,6 @@
                                                     onclick="getData()">
                                                 Buscar Usuarios
                                             </button>
-                                            <button type="submit" class="btn btn-success float-right"
-                                                    style="margin-right: 10px;">
-                                                Exportar
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -225,14 +221,28 @@
 @endsection
 
 @section('footer')
+    <style>
+        button.dt-button.buttons-csv.buttons-html5 {
+            padding: 5px 15px;
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white
+        }
+
+        button.dt-button.buttons-excel.buttons-html5 {
+            padding: 5px 15px;
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white
+        }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <link href="{{url('admin/plugins/select2/css/select2.min.css')}}" rel="stylesheet"/>
     <script src="{{url('admin/plugins/select2/js/select2.full.js')}}"></script>
     <script src="{{url('admin/plugins/select2/js/i18n/es.js')}}"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.21/api/processing().js"></script>
     <script>
         $(function () {
-
-            const filtros = $('#filtrosUsuarios');
             const comboPais = $('#comboPais');
             const comboProvincia = $("#comboProvincia");
             const comboCity = $('#comboCity');
@@ -286,13 +296,32 @@
             });
 
             const options = {
+                "dom": 'Bfrtip',
+                "buttons": [
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17],
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17],
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18]
+                        }
+                    },
+                ],
                 "paging": true,
                 "searching": true,
                 "ordering": true,
+                "order": [[0, 'desc']],
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url('admin/usuarios-json')}}",
+                "processing": true,
                 "language": {
                     "paginate": {
                         "first": "Primera",
@@ -312,6 +341,7 @@
                         '<option value="50">50</option>' +
                         '<option value="-1">Todos</option>' +
                         '</select> Usuarios',
+                    "emptyTable": "No se han encontrado usuarios",
 
                 },
                 "columns": [
@@ -450,6 +480,7 @@
                 });
             });
 
+            $('#collapseOne').collapse('toggle');
         });
 
         function getData() {
@@ -466,7 +497,9 @@
             const queryParams = new URLSearchParams(params).toString();
             const newUrl = `{{url('admin/usuarios-json')}}?${queryParams}`;
 
-            $('#example2').DataTable().ajax.url(newUrl).load();
+            const table = $('#example2').DataTable();
+            table.processing(true);
+            table.ajax.url(newUrl).load();
 
         }
     </script>
