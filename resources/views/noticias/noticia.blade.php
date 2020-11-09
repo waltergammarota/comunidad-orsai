@@ -50,7 +50,7 @@
                 <div id="coral_thread"></div>
             @else
                 <div id="coral_thread_anonimo">
-                    <p>Este sitio no es apto para anónimos. Si querés dejar un comentario, primero tenés que dar la cara.</p>
+                    <p>La Comunidad Orsai es 62% más divertida si te logueaste.</p>
                     <a href="{{url('ingresar')}}">Ingresar</a>
                 </div>
             @endif
