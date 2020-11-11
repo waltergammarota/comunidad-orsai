@@ -275,7 +275,7 @@ class FichasController extends Controller
             $row = ['id' => utf8_encode($pais->nombre), 'text' => utf8_encode($pais->nombre)];
             array_push($options, $row);
         }
-        return response()->json(["results" => $options],);
+        return response()->json(["results" => $options]);
     }
 
     public function search_provincias(Request $request)
