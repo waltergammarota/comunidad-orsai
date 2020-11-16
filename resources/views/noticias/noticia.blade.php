@@ -83,6 +83,6 @@
                 };
                 (d.head || d.body).appendChild(s);
             })();
-        </script>  
+        </script>
     @endif
 @endsection

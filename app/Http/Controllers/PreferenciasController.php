@@ -25,13 +25,11 @@ class PreferenciasController extends Controller
 
     private function getAllTimeZonesByCountry($country, &$countries)
     {
-
         foreach (\DateTimeZone::listIdentifiers($country) as $zoneLabel) {
             $currentTimeInZone = new \DateTime("now", new \DateTimeZone($zoneLabel));
             $currentTimeDiff = $currentTimeInZone->format('P');
             $countries[$zoneLabel] = "(GMT {$currentTimeDiff}) {$zoneLabel}";
         }
-
     }
 
     private function getAllTimeZones()
