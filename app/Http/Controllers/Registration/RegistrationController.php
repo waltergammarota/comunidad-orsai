@@ -146,7 +146,6 @@ class RegistrationController extends Controller
 
     public function registrarse(Request $request)
     {
-
         if (!Auth::check()) {
             $data = $this->getUserData();
             $data['paises'] = $this->getPaises();
@@ -154,7 +153,6 @@ class RegistrationController extends Controller
         } else {
             return Redirect::to("panel");
         }
-
     }
 
     private function getPaises()
@@ -166,6 +164,5 @@ class RegistrationController extends Controller
             $row->nombre = utf8_encode($item['nombre']);
             return $row;
         }, $paises);
-
     }
 }

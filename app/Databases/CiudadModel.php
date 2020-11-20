@@ -3,12 +3,10 @@
 
 namespace App\Databases;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 class CiudadModel extends Model
 {
-
     protected $table = 'aux_ciudades';
 
     /**
@@ -40,6 +38,4 @@ class CiudadModel extends Model
     {
         return utf8_decode($value);
     }
-
-
 }

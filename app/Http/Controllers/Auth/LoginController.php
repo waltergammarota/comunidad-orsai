@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 
-
 class LoginController extends Controller
 {
     /*
@@ -166,8 +165,5 @@ class LoginController extends Controller
                 "token" => "Token inválido"
             ]
         )->withInput();
-
     }
-
-
 }

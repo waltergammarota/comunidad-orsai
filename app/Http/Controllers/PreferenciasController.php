@@ -41,7 +41,6 @@ class PreferenciasController extends Controller
         }
 
         return $list;
-
     }
 
     public function guardar_configuracion_preferencias(Request $request)

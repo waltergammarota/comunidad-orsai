@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\Contest;
 
-
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
@@ -33,7 +32,8 @@ class ContestController extends Controller
         return view("votacion-no-comenzada", $data);
     }
 
-    public function show_winner(Request $request) {
+    public function show_winner(Request $request)
+    {
         $contestId = $request->contest_id;
         $userInfo = $this->getUserData();
         $data = array_merge($userInfo);
@@ -62,8 +62,9 @@ class ContestController extends Controller
         return view("logo-ganador", $data);
     }
 
-    private function getTotalSociosApostadores() {
-        $txs = Transaction::where('type', 'TRANSFER')->where('from','>', 1)->groupBy('from')->get();
+    private function getTotalSociosApostadores()
+    {
+        $txs = Transaction::where('type', 'TRANSFER')->where('from', '>', 1)->groupBy('from')->get();
         return count($txs);
     }
 

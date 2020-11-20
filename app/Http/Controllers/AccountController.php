@@ -27,7 +27,6 @@ use GuzzleHttp\Client;
 
 class AccountController extends Controller
 {
-
     public function show_perfil(Request $request)
     {
         $data = $this->getUserData();
@@ -51,7 +50,6 @@ class AccountController extends Controller
             $row->nombre = utf8_encode($item['nombre']);
             return $row;
         }, $paises);
-
     }
 
     private function getProvincias($provincias)
@@ -101,7 +99,7 @@ class AccountController extends Controller
         $data['hasStarted'] = $this->hasStarted(1);
         $data['emailWasValidated'] = Auth::user()->email_verified_at != null;
         $data['endUploadAppDate'] = ContestModel::find(1)->end_upload_app < now();
-        $data['totalusers'] = User::where('email_verified_at','!=', null)->count();
+        $data['totalusers'] = User::where('email_verified_at', '!=', null)->count();
         $data['user'] = Auth::user();
         $data = array_merge($data, $this->getUserData());
         return view('panel', $data);
@@ -187,8 +185,7 @@ class AccountController extends Controller
      */
     private function createNewCap(
         Request $request
-    ): RedirectResponse
-    {
+    ): RedirectResponse {
         $request->validate(
             [
                 'title' => 'required|min:1|max:255',
@@ -274,14 +271,17 @@ class AccountController extends Controller
         $client = new Client();
         try {
             $endpoint = env('CORAL_AUTH_URL');
-            $response = $client->post($endpoint,
+            $response = $client->post(
+                $endpoint,
                 ["json" => [
                     'email' => env('CORAL_ADMIN_USER'),
                     'password' => env('CORAL_ADMIN_PASSWORD')
-                ]]);
+                ]]
+            );
             $token = json_decode($response->getBody());
             $endpointGraphQL = env('CORAL_GRAPHQL_URL');
-            $cambiarNombreResponse = $client->post($endpointGraphQL,
+            $cambiarNombreResponse = $client->post(
+                $endpointGraphQL,
                 [
                     "headers" => [
                         "Authorization" => "Bearer {$token->token}",
@@ -387,7 +387,7 @@ class AccountController extends Controller
             $row['subject'] = $rowData['subject'];
             $author = User::find($rowData['author']);
             $row['autor'] = "{$author->name} {$author->lastName}";
-            $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i')." HS";
+            $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i') . " HS";
             $row['id'] = $notification->id;
             $row['readed'] = $notification->read_at == null ? 'NO' : 'SI';
             $data['notificaciones'][] = $row;

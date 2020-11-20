@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class PropuestaController extends Controller
 {
-
     public function show(Request $request)
     {
         $propuestaId = $request->route('id');

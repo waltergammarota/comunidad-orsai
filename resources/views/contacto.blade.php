@@ -7,7 +7,9 @@
     <section id="intro" class="contenedor intro_gral ">
         <div class="titulo">
             <h1 class="span_h1">Sin pelos en la lengua.</h1>
-            <p class="page_description">No somos perfectos ni queremos serlo: decinos dónde ves una tuerca floja así podemos ajustarla. Tu comentario, sugerencia o lo que quieras decirnos nos ayudan a mejorar la experiencia en Comunidad Orsai.</p>
+            <p class="page_description">No somos perfectos ni queremos serlo: decinos dónde ves una tuerca floja así
+                podemos ajustarla. Tu comentario, sugerencia o lo que quieras decirnos nos ayudan a mejorar la
+                experiencia en Comunidad Orsai.</p>
         </div>
         <div class="cuerpo_texto texto_noticia">
             <div class="contenedor form_reg">
@@ -19,20 +21,20 @@
                             <label class="oculto">Nombre</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre"
                                    name="name"
-                                   value="{{old('name')}}">
+                                   value="{{$name}}">
                         </div>
                         <div class="input_err obligatorio">
                             <label class="checkbox-container letra_chica text_bold">Apellido</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Apellido"
                                    name="lastName"
-                                   value="{{old('lastName')}}">
+                                   value="{{$lastName}}">
                         </div>
 
                         <div class="input_err obligatorio" style="width: 100% !important;padding-right: 0px;">
                             <label class="oculto">Email</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"
                                    name="email"
-                                   value="{{old('email')}}">
+                                   value="{{$email}}">
                         </div>
                     </div>
                     <div class="contenedor_campos">

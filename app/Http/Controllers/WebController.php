@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Databases\ContenidoModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
@@ -61,7 +60,7 @@ class WebController extends Controller
             return Redirect::to('panel');
         }
         $data = $this->getUserData();
-        $data['totalusers'] = User::where('email_verified_at','!=', null)->count();
+        $data['totalusers'] = User::where('email_verified_at', '!=', null)->count();
 //        if(!session()->has('last_visited'))
 //        {
 //            $urlPrevious = url()->previous();
@@ -187,7 +186,6 @@ class WebController extends Controller
 
     private function getPropuestas($orden, $limit = 20, $offset = 0, $request = false)
     {
-
         switch ($orden) {
             case "buscar":
                 $propuestas = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('approved', 1)->with(
@@ -279,13 +277,15 @@ class WebController extends Controller
         return view('participantes', $data);
     }
 
-    private function isContestFinished($contestId) {
+    private function isContestFinished($contestId)
+    {
         $contest = ContestModel::find($contestId);
         return $contest->end_date < now();
     }
 
-    private function hasWinner($contestId) {
-       return ContestApplicationModel::where('contest_id', $contestId)->where('is_winner', 1)->count();
+    private function hasWinner($contestId)
+    {
+        return ContestApplicationModel::where('contest_id', $contestId)->where('is_winner', 1)->count();
     }
 
     private function getTotal($orden, $request)

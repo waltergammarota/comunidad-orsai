@@ -133,7 +133,7 @@ class NotificacionesController extends Controller
 
         if ($notificacion != null && $notificacion->status > 0) {
             NotificacionModel::destroy($notificacionId);
-            DB::table('notifications')->where('data->id',$notificacionId)->delete();
+            DB::table('notifications')->where('data->id', $notificacionId)->delete();
             return response()->json(['success'=> true]);
         }
         return response()->json(["success" => false]);

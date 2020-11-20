@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Databases\CiudadModel;
-use App\Databases\ContestApplicationModel;
-use App\Databases\ContestModel;
 use App\Databases\FichasLog;
 use App\Databases\PaisModel;
 use App\Databases\ProvinciaModel;
@@ -13,10 +11,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
 
 class FichasController extends Controller
 {
@@ -70,14 +66,14 @@ class FichasController extends Controller
         if (count($cities) > 0) {
             $users->whereIn('city', $cities);
         }
-        if($profesion != "") {
-            $users->where('profesion','like',"%{$profesion}%");
+        if ($profesion != "") {
+            $users->where('profesion', 'like', "%{$profesion}%");
         }
-        if($startDate != "") {
-            $users->where("birth_date",">=",$startDate);
+        if ($startDate != "") {
+            $users->where("birth_date", ">=", $startDate);
         }
-        if($endDate != "") {
-            $users->where("birth_date","<",$endDate);
+        if ($endDate != "") {
+            $users->where("birth_date", "<", $endDate);
         }
         $filteredUsers = $users->get();
         $finalUsers = [];
@@ -330,5 +326,4 @@ class FichasController extends Controller
         ];
         return response()->json($data);
     }
-
 }
