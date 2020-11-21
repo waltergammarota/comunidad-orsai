@@ -5,10 +5,11 @@
 
 
 @section('content')
-    <section class="contenedor sobre_fundacion">
-        @include('fundacion.menu-fundacion',["activo" => "historia"])
-        <div class="contenido_menu_lateral_dcha">
-            <h1>Linea de Tiempo Orsai</h1>
+    <section id="page" class="contenedor intro_gral ">
+        <div class="cuerpo_texto">
+            <div class="titulo tit_term">
+                <h1 class="span_h1">Linea de Tiempo Orsai</h1>
+            </div> 
             <article id="linea_interna" >
                 <div class="">
                     <div class="tiempo_tabla">

@@ -1,7 +1,7 @@
 <nav>
     <div id="contenedor_logo_header">
         <div id="logo_header">
-            <a href="{{url('panel')}}">
+            <a href="{{url('novedades')}}">
                 <img src="{{url('recursos/comunidad-orsai-new.png')}}" alt="Comunidad Orsai" width="150">
             </a>
         </div>
@@ -9,10 +9,11 @@
     <div id="desplegable" class="desplegable_cerrado">
         <div id="menu_pcpal">
             <ul>
-                <li><a href="{{url('novedades')}}">Novedades</a></li>
-                <li><a href="{{url('concursos')}}">Concursos</a></li>
+                <li><a href="{{url('historia')}}">Linea de tiempo</a></li>
+                <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
                 @if (Auth::check())
                     @if(Session::get('role') == "admin")
+                <li><a href="{{url('novedades')}}">Novedades</a></li>
                         <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
                         <li><a href="{{url('donar')}}">Donar</a></li>
                     @endif
@@ -24,17 +25,17 @@
                 <ul>
                     @if (Route::currentRouteName() == 'ingresar')
                         <li class="active li_dotted"><a
-                                href="{{url('ingresar')}}">Ingresar</a>
+                                href="{{url('ingresar')}}">Entrar</a>
                         </li>
                     @else
-                        <li class="li_dotted"><a href="{{url('ingresar')}}">Ingresar</a>
+                        <li class="li_dotted"><a href="{{url('ingresar')}}">Entrar</a>
                         </li>
                     @endif
                     @if (Route::currentRouteName() == 'registrarse')
-                        <li class="active"><a href="{{url('registrarse')}}" class="gris">Registrarse</a>
+                        <li class="active"><a href="{{url('registrarse')}}" class="gris">Asociarse</a>
                         </li>
                     @else
-                        <li><a href="{{url('registrarse')}}" class="gris">Registrarse</a>
+                        <li><a href="{{url('registrarse')}}" class="gris">Asociarse</a>
                         </li>
                     @endif
                 </ul>

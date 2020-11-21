@@ -96,6 +96,12 @@ Route::get(
 )->name("concursos");
 
 
+Route::get(
+    '/historia',
+    'WebController@historia'
+)->name('historia');
+
+
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
@@ -170,11 +176,6 @@ Route::middleware(['verified'])->group(
             '/fundacion/donaciones',
             'WebController@donaciones'
         )->name('donaciones');
-
-        Route::get(
-            '/fundacion/historia',
-            'WebController@historia'
-        )->name('historia');
 
         Route::get(
             '/perfil',

@@ -62,7 +62,7 @@
                             <a href="{{url('propuesta/'.$postulacion['id'])}}" class="box_panel">
                                 @endif
                                 @else
-                                    <div class="box_panel">
+                                {{--     <div class="box_panel">
                                         @endif
                                         <div>
                                             <span>Mis postulaciones</span>
@@ -117,7 +117,7 @@
                                         </div>
                                         @if(!$endUploadAppDate)
                                         @else
-                                    </div>
+                                    </div> --}}
                                 @endif
 
                                 @endif
