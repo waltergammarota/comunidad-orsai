@@ -55,14 +55,14 @@
 
         @if($emailWasValidated)
 
-            @if(!$endUploadAppDate)
+           {{--  @if(!$endUploadAppDate)
                 @if($postulacion['status']=="draft" || $postulacion['id']==0)
                     <a href="{{url('postulacion')}}" class="box_panel">
                         @else
                             <a href="{{url('propuesta/'.$postulacion['id'])}}" class="box_panel">
                                 @endif
                                 @else
-                                {{--     <div class="box_panel">
+                                    <div class="box_panel">
                                         @endif
                                         <div>
                                             <span>Mis postulaciones</span>
@@ -117,9 +117,9 @@
                                         </div>
                                         @if(!$endUploadAppDate)
                                         @else
-                                    </div> --}}
+                                    </div>
                                 @endif
-
+ --}}
                                 @endif
                                 <a href="{{url('transacciones')}}" class="box_panel">
                                     <div>
