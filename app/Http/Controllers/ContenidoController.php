@@ -3,13 +3,11 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Databases\ContenidoModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Nowakowskir\JWT\TokenDecoded;
 
 class ContenidoController extends Controller
@@ -26,7 +24,7 @@ class ContenidoController extends Controller
 
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
-        if ($slug == "novedades") {
+        if ($slug == "novedades" || $slug == null) {
             $data['noticias'] = $this->getNoticias($page);
             return view("noticias.noticias", $data);
         } else {
@@ -88,5 +86,4 @@ class ContenidoController extends Controller
         $data['next'] = ContenidoModel::where(["tipo" => "noticia", "visible" => 1])->whereDate('fecha_publicacion', '<=', date('Y-m-d'))->limit($limit)->offset($page * $limit)->count() > 0 ? $page + 1 : $page;
         return $data;
     }
-
 }

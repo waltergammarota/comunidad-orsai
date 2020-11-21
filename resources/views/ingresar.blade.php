@@ -32,7 +32,7 @@
                         data-callback="onSubmit"
                         data-action="submit"
                         id="boton_susc">
-                    Ingresar
+                    Entrar
                 </button>
                 @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
                     <p class="invalid-feedback">

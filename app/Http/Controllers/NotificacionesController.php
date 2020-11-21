@@ -17,7 +17,8 @@ class NotificacionesController extends Controller
         return View('configuracion-notificaciones', $data);
     }
 
-    public function guardar_configuracion_notificaciones(Request $request) {
+    public function guardar_configuracion_notificaciones(Request $request)
+    {
         $user = Auth::user();
         $preferencia = PreferenciasModel::firstOrNew(array('user_id' => $user->id));
         $preferencia->correo =  $request->correo? 1: 0;
@@ -27,5 +28,4 @@ class NotificacionesController extends Controller
 
         return Redirect::to('configuracion-notificaciones');
     }
-
 }

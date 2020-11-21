@@ -10,14 +10,14 @@
    font-family: 'Space mono';
 }
 .coral-viewerBox{
-	display: none;
+	/*display: none;*/
 }
 .coral-emailNotifications{
 	display: none;
 }
 .tab-PROFILE{
 	display: none;
-} 
+}
 .IgnoreUserSettingsContainer-description-2b1e66290abf0f5a6d8371e03a66b6a7{
 	display:none;
 }

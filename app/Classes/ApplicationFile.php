@@ -26,10 +26,10 @@ class ApplicationFile extends GenericClass
     {
         $this->originalName = $originalName;
     }
+
     private $size;
     private $height;
     private $width;
-
 
     /**
      * @return mixed

@@ -5,11 +5,11 @@
 
 
 @section('content')
-    <section id="page" class="contenedor intro_gral ">
+    <section id="page" class="contenedor intro_gral "> 
         <div class="cuerpo_texto"> 
             <div class="titulo tit_term">
                 <h1 class="span_h1">Linea de Tiempo Orsai</h1>
-            </div>
+            </div> 
             <article id="linea_interna" >
                 <div class="">
                     <div class="tiempo_tabla">

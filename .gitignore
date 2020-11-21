@@ -18,3 +18,4 @@ composer.lock
 orsai-local Session.sql
 .php_cs.cache
 .DS_Store
+.vimspector.json

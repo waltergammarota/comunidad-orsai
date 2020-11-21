@@ -1,12 +1,12 @@
 @extends('orsai-template')
 
-@section('title', 'Registro | Comunidad Orsai')
+@section('title', 'Asociarse | Comunidad Orsai')
 @section('description', 'Registrate y formá parte de la Comunidad Orsai.')
 
 @section('content')
     <section id="intro" class="contenedor intro_registro">
         <div>
-            <h1>Registro</h1>
+            <h1>Asociarse</h1>
         </div> 
     </section>
     <section id="registro_js" class="contenedor form_reg">

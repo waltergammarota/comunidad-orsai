@@ -1,23 +1,13 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Auth::routes(['verify' => true]);
 
 
 /* ACCESO PUBLICO */
 Route::get(
-    '/',
-    'WebController@index'
+    '/', 
+    'WebController@index' 
+    'ContenidoController@index' 
 )->name('home');
 
 Route::get(
@@ -25,17 +15,34 @@ Route::get(
     'WebController@ingresar'
 )->name('ingresar');
 
+// LOGIN CONTROLLER ROUTES
+
 Route::post(
     '/ingresar',
     'Auth\LoginController@authenticate'
 )->name('ingresar');
-
 
 Route::get(
     '/salir',
     'Auth\LoginController@logout'
 )->name('salir');
 
+Route::get(
+    '/reset-password/{token}',
+    'Auth\LoginController@resetpasswordform'
+)->name('reset-password');
+
+Route::post(
+    '/reset-password',
+    'Auth\LoginController@createNewPassword'
+)->name('reset-password');
+
+Route::post(
+    '/restablecer-clave',
+    'Auth\LoginController@resetpassword'
+)->name('restablecer-clave');
+
+// END OF LOGIN CONTROLLER ROUTES
 Route::get(
     '/registrarse',
     'Registration\RegistrationController@registrarse'
@@ -58,21 +65,6 @@ Route::get(
 )->name('restablecer-clave');
 
 Route::get(
-    '/reset-password/{token}',
-    'Auth\LoginController@resetpasswordform'
-)->name('reset-password');
-
-Route::post(
-    '/reset-password',
-    'Auth\LoginController@createNewPassword'
-)->name('reset-password');
-
-Route::post(
-    '/restablecer-clave',
-    'Auth\LoginController@resetpassword'
-)->name('restablecer-clave');
-
-Route::get(
     '/reenviar-mail',
     'WebController@reenviar_mail_activacion'
 )->name('reenviar-mail');
@@ -88,7 +80,8 @@ Route::get(
     'WebController@restablecer_clave'
 )->name('restablecer-clave');
 
-Route::get('cuenta-desactivada',
+Route::get(
+    'cuenta-desactivada',
     'PreferenciasController@cuenta_desactivada'
 )->name('cuenta-desactivada');
 
@@ -107,6 +100,12 @@ Route::get(
     '/historia',
     'WebController@historia'
 )->name('historia');
+
+Route::get(
+    '/historia',
+    'WebController@historia'
+)->name('historia');
+
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -183,7 +182,10 @@ Route::middleware(['verified'])->group(
             'WebController@donaciones'
         )->name('donaciones');
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> comunidad-beta
         Route::get(
             '/perfil',
             'AccountController@show_perfil'
@@ -445,11 +447,18 @@ Route::middleware(['verified'])->group(
             'gestion-fichas'
         )->middleware('admin_role');
 
+        // CONTACTO
         Route::get(
             '/contacto',
             'WebController@contacto'
         )->name("contacto");
 
+        Route::post(
+            '/contacto',
+            'WebController@contacto_send'
+        )->name("contacto");
+
+        //END OF CONTACTO
         Route::get(
             '/admin/show-logs',
             'Admin\FichasController@show_logs'
@@ -572,11 +581,10 @@ Route::middleware(['verified'])->group(
 
         Route::get(
             'admin/{slug}',
-            function() {
+            function () {
                 abort(404);
             }
         )->middleware('admin_role');
-
     }
 );
 
@@ -590,6 +598,3 @@ Route::get(
     '/{slug}',
     'ContenidoController@index'
 )->name("pagina");
-
-
-

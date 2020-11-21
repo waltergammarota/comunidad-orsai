@@ -4,7 +4,6 @@
 namespace App\UseCases\Account;
 
 use App\Databases\ContestApplicationModel;
-use App\Databases\CpaLog;
 use App\Repositories\ContestApplicationRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\UserRepository;
