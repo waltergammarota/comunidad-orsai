@@ -16,11 +16,15 @@ use Illuminate\Support\Facades\Redirect;
 
 class WebController extends Controller
 {
-    public function index()
+/*    public function index()
     {
         $data = $this->getUserData();
         $data['novedades'] = $this->getLatestNews(2);
         return view('index', $data);
+    }*/
+    public function index()
+    {
+        return Redirect::to('novedades');
     }
 
     private function getLatestNews($qty)

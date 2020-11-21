@@ -17,7 +17,7 @@ Auth::routes(['verify' => true]);
 /* ACCESO PUBLICO */
 Route::get(
     '/',
-    'WebController@ingresar'
+    'WebController@index'
 )->name('home');
 
 Route::get(
@@ -103,6 +103,10 @@ Route::get(
     'Contest\ContestController@index'
 )->name("concursos");
 
+Route::get(
+    '/historia',
+    'WebController@historia'
+)->name('historia');
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -179,10 +183,6 @@ Route::middleware(['verified'])->group(
             'WebController@donaciones'
         )->name('donaciones');
 
-        Route::get(
-            '/fundacion/historia',
-            'WebController@historia'
-        )->name('historia');
 
         Route::get(
             '/perfil',
