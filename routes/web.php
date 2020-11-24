@@ -6,7 +6,6 @@ Auth::routes(['verify' => true]);
 /* ACCESO PUBLICO */
 Route::get(
     '/', 
-    'WebController@index' 
     'ContenidoController@index' 
 )->name('home');
 
@@ -182,10 +181,6 @@ Route::middleware(['verified'])->group(
             'WebController@donaciones'
         )->name('donaciones');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> comunidad-beta
         Route::get(
             '/perfil',
             'AccountController@show_perfil'
