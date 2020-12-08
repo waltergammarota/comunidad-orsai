@@ -75,6 +75,7 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
+
             <form action="#">
                 <div class="input_err">
                     <label>Apellido<strong>*</strong></label>
@@ -142,7 +143,8 @@
                     </div>
                     <div class="line_dashed"></div>
                 </div>
-                <p class="perfil_tip">¿No encontrás tu país, provincia o ciudad? <br/>Completá <a href="{{url('contacto')}}" class="resaltado_amarillo">este formulario</a>.</p>
+                <p class="perfil_tip">¿No encontrás tu país, provincia o ciudad? <br/>Completá <a
+                        href="{{url('contacto')}}" class="resaltado_amarillo">este formulario</a>.</p>
             </form>
 
         </div>

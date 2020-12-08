@@ -30,10 +30,11 @@ class ContenidoController extends Controller
         } else {
             $contenido = ContenidoModel::where(["slug" => $slug, "visible" => 1])->first();
             if ($contenido == null) {
-                session(['last_values' =>  $data]);
                 abort(404);
             }
             if (($contenido->publica == 0 && !Auth::check())) {
+                session(["last_visited" => url("novedades/{$slug}")]);
+
                 return Redirect::to('ingresar');
             }
             $data['coral_token'] = $this->generateToken();

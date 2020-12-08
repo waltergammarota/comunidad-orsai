@@ -13,7 +13,7 @@
                 <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
                 @if (Auth::check())
                     @if(Session::get('role') == "admin")
-                <li><a href="{{url('novedades')}}">Novedades</a></li>
+                        <li><a href="{{url('novedades')}}">Novedades</a></li>
                         <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>
                         <li><a href="{{url('donar')}}">Donar</a></li>
                     @endif
@@ -47,7 +47,7 @@
                         <a href="{{url('notificaciones')}}">
                             <div class="bell-icon" tabindex="0">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px"
+                                     x="0px" y="0px" width="50px"
                                      height="30px" viewBox="0 0 50 30" enable-background="new 0 0 50 30"
                                      xml:space="preserve">
                                 <g class="bell-icon__group">
@@ -101,7 +101,7 @@
                         <div class="menu_black">
                             <ul>
                                 @if(Session::get('role') == "admin")
-                                        <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+                                    <li><a href="{{url('dashboard')}}">Dashboard</a></li>
                                 @endif
                                 @if (Route::currentRouteName() == 'perfil')
                                     <li class="active"><a href="{{url('panel')}}">Panel</a></li>
@@ -113,7 +113,7 @@
                                 @else
                                     <li><a href="{{url('novedades')}}">Novedades</a></li>
                                 @endif
-                                <li><a href="{{url('salir')}}">Cerrar sesión</a></li>
+                                <li><a href="{{url('salir')}}" onclick="alertLogout()">Cerrar sesión</a></li>
                             </ul>
                         </div>
                     </div>
