@@ -569,6 +569,36 @@ Route::middleware(['verified'])->group(
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
 
+        // PRODUCTOS
+        Route::get(
+            'admin/productos',
+            'Admin\ProductoController@index'
+        )->name('productos')->middleware('admin_role');
+
+        Route::get(
+            'admin/productos-json',
+            'Admin\ProductoController@productos_json'
+        )->name('productos-json')->middleware('admin_role');
+
+        Route::get(
+            'admin/productos/crear',
+            'Admin\ProductoController@create'
+        )->name('productos-create')->middleware('admin_role');
+
+        Route::post(
+            'admin/productos/store',
+            'Admin\ProductoController@store'
+        )->name('productos-store')->middleware('admin_role');
+
+        Route::get(
+            'admin/productos/{id}',
+            'Admin\ProductoController@edit'
+        )->name('productos-edit')->middleware('admin_role');
+
+        Route::post(
+            'admin/productos/update',
+            'Admin\ProductoController@update'
+        )->name('productos-update')->middleware('admin_role');
 
         Route::get(
             'admin/{slug}',
@@ -576,6 +606,7 @@ Route::middleware(['verified'])->group(
                 abort(404);
             }
         )->middleware('admin_role');
+
     }
 );
 

@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
 
 class AdminController extends Controller
 {
@@ -127,7 +126,7 @@ class AdminController extends Controller
         }
         if (array_key_exists('operacion', $filters) && $filters['operacion'] > 0) {
             $operacion = $filters['operacion'];
-            $balance = array_key_exists('balance', $filters) && $filters['balance'] != null? $filters['balance'] : 0;
+            $balance = array_key_exists('balance', $filters) && $filters['balance'] != null ? $filters['balance'] : 0;
             if ($operacion == 1) {
                 $sqlQuery .= " AND (ingreso - egreso - quemado) = {$balance}";
             }
