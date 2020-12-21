@@ -31,15 +31,19 @@
 
     <link rel="stylesheet" href="{{url("admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
     <link rel="stylesheet" href="{{url("admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
-    @yield('header')
+@yield('header')
 
 
-    @if(env('ORSAI_ENV') == 'production')
+@if(env('ORSAI_ENV') == 'production')
     <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176303994-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
             gtag('js', new Date());
 
             gtag('config', 'UA-176303994-1');
@@ -140,10 +144,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{url('admin/notificaciones')}}" class="nav-link">
-                            <i class="nav-icon fas fa-mail-bulk"></i>
+                        <a href="{{url('admin/productos')}}" class="nav-link">
+                            <i class="nav-icon fas fa-store"></i>
                             <p>
-                                Notificaciones
+                                Productos
                             </p>
                         </a>
                     </li>
