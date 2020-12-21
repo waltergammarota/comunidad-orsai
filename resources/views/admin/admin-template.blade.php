@@ -91,10 +91,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('admin/concurso')}}" class="nav-link">
+                        <a href="{{url('admin/concursos')}}" class="nav-link">
                             <i class="nav-icon fas fa-vote-yea"></i>
                             <p>
-                                Concurso
+                                Concursos
                             </p>
                         </a>
                     </li>

@@ -499,9 +499,11 @@ Route::middleware(['verified'])->group(
             'concurso-admin'
         )->middleware('admin_role');
 
-        Route::get('admin/concurso', 'Admin\AdminController@concurso')->name(
+        Route::get('admin/concursos', 'Admin\AdminController@concurso')->name(
             'concurso-admin'
         )->middleware('admin_role');
+
+        Route::get('admin/concursos/crear', 'Contest\ContestController@create')->name('concurso-crear')->middleware('admin_role');
 
         Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
 
