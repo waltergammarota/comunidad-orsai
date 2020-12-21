@@ -84,6 +84,12 @@ class ContestController extends Controller
         return response()->json(["status" => "ok", "message" => "Concurso aprobado"], 422);
     }
 
+    public function create(Request $request)
+    {
+        $contest = false;
+        return view('admin.contest-form', compact('contest'));
+    }
+
     public function edit(Request $request)
     {
         $id = $request->route('id');

@@ -11,6 +11,11 @@
 
 @section('content')
     <div class="card">
+        <div class="card-header">
+            <a href="{{url("admin/concursos/crear")}}" class="btn btn-primary editar float-right">
+                <i class="fa fa-plus-circle"></i>
+            </a>
+        </div>
         <div class="card-body">
             <table id="example2" class="table table-bordered table-hover">
                 <thead>
@@ -68,7 +73,7 @@
                     {
                         "data": "actions",
                         "render": function (data, type, row, meta) {
-                            if(row.active == 1) {
+                            if (row.active == 1) {
                                 return `<button type="button" class="btn btn-primary pausar">Pausar</button>
                                  <button type="button" class="btn btn-success editar">Editar</button>`;
                             }
@@ -79,15 +84,15 @@
                 ]
             });
 
-            table.on('click','.editar', function() {
+            table.on('click', '.editar', function () {
                 const data = table.row($(this).parents('tr')).data();
                 window.location.href = `{{url('admin/contest/editar')}}/${data.id}`;
             });
 
-            table.on( 'click', '.pausar', function () {
-                const data = table.row( $(this).parents('tr') ).data();
+            table.on('click', '.pausar', function () {
+                const data = table.row($(this).parents('tr')).data();
                 const id = data.id;
-                axios.post('{{url('admin/contest/approve')}}',{
+                axios.post('{{url('admin/contest/approve')}}', {
                     id: id
                 }).then(response => {
                     alert("Concurso ha cambiado de estado");
@@ -95,7 +100,7 @@
                 }).catch(error => {
                     alert("Ha ocurrido un error. Intente más tarde")
                 })
-            } );
+            });
         });
     </script>
 @endsection
