@@ -5,8 +5,8 @@ Auth::routes(['verify' => true]);
 
 /* ACCESO PUBLICO */
 Route::get(
-    '/',
-    'ContenidoController@index'
+    '/', 
+    'ContenidoController@index' 
 )->name('home');
 
 Route::get(
@@ -95,6 +95,10 @@ Route::get(
     'Contest\ContestController@index'
 )->name("concursos");
 
+Route::get(
+    '/historia',
+    'WebController@historia'
+)->name('historia');
 
 Route::get(
     '/historia',

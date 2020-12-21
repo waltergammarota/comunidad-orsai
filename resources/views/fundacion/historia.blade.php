@@ -5,8 +5,8 @@
 
 
 @section('content')
-    <section id="page" class="contenedor intro_gral ">
-        <div class="cuerpo_texto">
+    <section id="page" class="contenedor intro_gral "> 
+        <div class="cuerpo_texto"> 
             <div class="titulo tit_term">
                 <h1 class="span_h1">Linea de Tiempo Orsai</h1>
             </div> 
