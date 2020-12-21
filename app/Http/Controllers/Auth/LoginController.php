@@ -8,9 +8,9 @@ use App\Utils\Mailer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
@@ -69,11 +69,11 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if ($this->guard()->attempt($credentials)) {
             if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
-//                if(session('last_visited') != null) {
-//                    $lastVisited = session('last_visited');
-//                    session()->forget('last_visited');
-//                    return Redirect::to($lastVisited);
-//                }
+                if (session('last_visited') != null) {
+                    $lastVisited = session('last_visited');
+                    session()->forget('last_visited');
+                    return Redirect::to($lastVisited);
+                }
                 return Redirect::to('novedades');
             }
             if (Auth::user()->blocked != 0) {

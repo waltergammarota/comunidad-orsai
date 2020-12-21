@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Databases\ContenidoModel;
+use App\Databases\CoralModel;
 use App\Http\Controllers\Controller;
 use App\Repositories\FileRepository;
 use Carbon\Carbon;
@@ -82,15 +83,36 @@ class ContenidoController extends Controller
             "slug" => $slug,
             "user_id" => Auth::user()->id,
             "visible" => $request->visible,
-            "publica" => $request->publica
+            "publica" => $request->publica,
+            "coral_id" => $this->generateUuid()
         ]);
         $noticia->save();
+        $this->createInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
         $imagesIds = $this->convertToIds($images);
         $noticia->images()->sync($imagesIds);
         return Redirect::to('admin/contenidos/tipo/' . $noticia->tipo);
     }
+
+    private function generateUuid()
+    {
+        $uuid = DB::select(DB::raw('SELECT UUID() as id'));
+        return count($uuid) > 0 ? $uuid[0]->id : "";
+    }
+
+    private function createInCoral($coral_id, $url, $title, $author)
+    {
+        $coral = new CoralModel();
+        $coral->createStory($coral_id, $url, $title, $author);
+    }
+
+    private function updateInCoral($coral_id, $url, $title, $author)
+    {
+        $coral = new CoralModel();
+        $coral->updateStory($coral_id, $url, $title, $author);
+    }
+
 
     private function generateSlug($slug, $title, $id)
     {
@@ -138,6 +160,7 @@ class ContenidoController extends Controller
         $noticia->visible = $request->visible;
         $noticia->publica = $request->publica;
         $noticia->save();
+        $this->updateInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
         $imagesIds = $this->convertToIds($images);

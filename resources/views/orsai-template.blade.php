@@ -92,13 +92,13 @@
         </div>
         <div class="sub_footer_ri">
             <div>
-                <ul> 
+                <ul>
                     <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
                     <li><a href="{{url('contacto')}}" class="resaltado_amarillo">Contacto</a></li>
                 </ul>
                 <ul>
                     <li><a href="{{url('terminos-y-condiciones')}}">Términos &amp; Condiciones</a></li>
-                    <li><a href="{{url('politica-de-privacidad')}}">Política de privacidad</a></li> 
+                    <li><a href="{{url('politica-de-privacidad')}}">Política de privacidad</a></li>
                     <li><a href="{{url('politica-de-cookies')}}">Política de cookies</a></li>
                 </ul>
             </div>
@@ -135,14 +135,14 @@
             $("#cookies_msg").show();
         }
         @if(Auth::check())
-           updateNotifications();
+        updateNotifications();
         @endif
     });
 
     if (document.getElementById("cookies_msg")) {
         var get_aceptar_cookies = document.getElementById("btn_cookies");
         get_aceptar_cookies.onclick = function () {
-            Cookies.set('approved-cookies', true);
+            Cookies.set('approved-cookies', true, {expires: 365});
             close(document.getElementById("cookies_msg"));
         };
     }
@@ -161,6 +161,21 @@
             console.log(error);
         });
     }
+
+
+    function alertLogout() {
+        console.log("logout");
+        localStorage.setItem('force-reload', new Date().getTime());
+    }
+
+    window.addEventListener('storage', function (event) {
+        if (event.key == 'force-reload') {
+            console.log("reloading");
+            setTimeout(function () {
+                location.reload();
+            }, 3000);
+        }
+    });
 
 </script>
 @yield('footer')
