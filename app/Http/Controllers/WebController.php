@@ -123,7 +123,7 @@ class WebController extends Controller
     public function historia()
     {
         $data = $this->getUserData();
-        return view('fundacion.historia', $data);
+        return view('fundacion.2021-historia', $data);
     }
 
     public function areas()

@@ -1,0 +1,104 @@
+
+.tiempo_tabla {
+    margin-top: 35px;
+}
+
+.tiempo_tabla .tiempo_fila {
+    max-width: 800px;
+    height: 100%;
+    display: block;
+}
+
+.tiempo_tabla .tiempo_fila > div {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 20px;
+    font-size: 0;
+    margin: 0;
+}
+.tiempo_tabla .tiempo_fila > div:nth-child(2)::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: white;
+    top: 0px;
+    left: -9px;
+}
+.tiempo_tabla .tiempo_fila > div.activo:nth-child(2)::after {
+    background-color: #808080;
+    border: 1px solid #808080;
+}
+.tiempo_tabla .tiempo_fila:last-child > div:nth-child(2)::after {
+    background-color: black;
+}
+
+.tiempo_tabla .tiempo_fila > div > span {
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+}
+.tiempo_tabla .tiempo_fila > div:nth-child(1) {
+    width: 150px;
+    vertical-align: top;
+}
+.tiempo_tabla .tiempo_fila > div:nth-child(1) > span {
+    color: #808080;
+    margin-right: 20px;
+}
+.tiempo_tabla .tiempo_fila > div:nth-child(2) {
+    padding-left: 20px;
+    border-left: 2px dotted #cccccc;
+    min-width: 300px;
+}
+.tiempo_tabla .tiempo_fila > div:nth-child(2) span {
+    max-width: 300px;
+    padding: 15px;
+    border: 1px solid #808080;
+}
+
+.tiempo_tabla .tiempo_fila:last-child > div:nth-child(2) {
+    border-left: 0;
+}
+
+.tiempo_tabla .tiempo_fila:last-child > div:nth-child(2) span {
+    background-color: black;
+    color: white;
+}
+@media (min-width: 991px) and (max-width: 1599px) {
+    .tiempo_tabla .tiempo_fila > div:nth-child(1) {
+        width: 110px;
+    }
+}
+@media (min-width: 300px) and (max-width: 371px) {
+    .tiempo_tabla .tiempo_fila > div:nth-child(1) > span {
+        font-size: 14px;
+    }
+    .tiempo_tabla .tiempo_fila > div:nth-child(2) > span {
+        font-size: 16px;
+    }
+    .tiempo_tabla .tiempo_fila > div:nth-child(1) {
+        width: 95px;
+    }
+    .tiempo_tabla .tiempo_fila > div:nth-child(2) {
+        min-width: 100px;
+        max-width: 180px;
+    }
+}
+@media (min-width: 371px) and (max-width: 480px) {
+    .tiempo_tabla .tiempo_fila > div:nth-child(1) {
+        width: 110px;
+    }
+    .tiempo_tabla .tiempo_fila > div:nth-child(2) {
+        min-width: 100px;
+        max-width: 220px;
+    }
+}
+@media (min-width: 480px) and (max-width: 572px) {
+    .tiempo_tabla .tiempo_fila > div:nth-child(2) {
+        min-width: 200px;
+        max-width: 280px;
+    }
+}

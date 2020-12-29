@@ -5,7 +5,6 @@
 
 @section('content')
     <section id="intro" class="contenedor intro_gral noticias ">
-
         <div class="cont_noticias">
             @foreach($noticias['noticias'] as $key => $noticia)
 
