@@ -14,11 +14,11 @@
     </style>
     <![endif]-->
     <link
-        href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&display=swap"
+        href="https://fonts.googleapis.com/css?family=Barlow+Condensed:wght@400;600&display=swap"
         rel="stylesheet">
 </head>
 <body
-    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Space Mono', monospace;">
+    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', monospace;">
 <center
     style=" max-width: 600px; width: 100%; margin: auto; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     <table
@@ -36,7 +36,7 @@
             bgcolor="#fffefe">
             <td style="padding: 0; text-align: center; width: 600px;"
                 bgcolor="#fffefe">
-                <h1 style="margin-bottom:0;font-weight: 400; font-size:36px; line-height: 38px;">
+                <h1 style="margin-bottom:0;font-size:36px; line-height: 38px;font-weight: 700;">
                     Hay buenas nuevas
                 </h1>
             </td>
@@ -45,24 +45,17 @@
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
                 <div
-                    style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Space Mono', monospace;">
-                    <p style="text-align: center; margin: 2px; font-size: 15px">
+                    style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Roboto', monospace;">
+                    <p style="text-align: center; margin: 2px; font-size:16px;">
                         Conoce los próximos pasos de Comunidad Orsai.
                     </p>
-                    <p style="text-align: center; margin: 2px; font-size: 15px">
+                    <p style="text-align: center; margin: 2px; font-size:16px;">
                     <a href="#" target="_blank"
-                       style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Ingresar</a>
+                       style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Ingresar</a>
                     </p>
                 </div>
             </td>
-        </tr> 
-        <tr bgcolor="#fffefe">
-            <td style="height:40px;">
-                <div style="width:100%; color:#808080; text-align: right;">
-                    <span style="padding-right:20px; font-size:10px;">1</span>
-                </div>
-            </td>
-        </tr>
+        </tr>  
         <tr>
             <td style="height:25px;"></td>
         </tr> 

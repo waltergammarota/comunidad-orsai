@@ -14,11 +14,11 @@
     </style>
     <![endif]-->
     <link
-        href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&display=swap"
+        href="https://fonts.googleapis.com/css?family=Barlow+Condensed:wght@400;600&display=swap"
         rel="stylesheet">
 </head>
 <body
-    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Space Mono', monospace;">
+    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', monospace;">
 <center
     style=" max-width: 600px; width: 100%; margin: auto; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     <table
@@ -45,27 +45,20 @@
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
                 <div
-                    style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Space Mono', monospace;">
-                    <p style="text-align: center; margin: 2px; font-size: 15px">
+                    style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Roboto', monospace;">
+                    <p style="text-align: center; margin: 2px; font-size:16px;">
                         Tu propuesta de logo no es compatible con nuestros requisitos. Chequeá que el diseño cumpla con todos las características que pedimos y cargá de nuevo tu propuesta.
                         <br/>  <br/>
                         Observaciones: {{$comment}}
                     </p>  <br/>  <br/>
-                    <p style="text-align: center; margin: 2px; font-size: 15px">
+                    <p style="text-align: center; margin: 2px; font-size:16px;">
                         ¡No te rindas! <br/>
                     </p>
-                    <a href="https://comunidadorsai.org/panel" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Volver a intentar</a>
+                    <a href="https://comunidadorsai.org/panel" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Volver a intentar</a>
 
                 </div>
             </td>
-        </tr> 
-        <tr bgcolor="#fffefe">
-            <td style="height:40px;">
-                <div style="width:100%; color:#808080; text-align: right;">
-                    <span style="padding-right:20px; font-size:10px;">1</span>
-                </div>
-            </td>
-        </tr>
+        </tr>  
         <tr>
             <td style="height:25px;"></td>
         </tr> 

@@ -1,7 +1,7 @@
 <nav>
     <div id="contenedor_logo_header">
         <div id="logo_header">
-            <a href="{{url('novedades')}}">
+            <a href="{{url('/')}}">
                 <img src="{{url('recursos/comunidad-orsai-new.png')}}" alt="Comunidad Orsai" width="150">
             </a>
         </div>

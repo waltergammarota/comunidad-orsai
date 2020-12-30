@@ -130,25 +130,6 @@
 @section('footer')
     @include("fundacion.footer-fundacion")
     <script>
-        $('.icono_up').click(function(){
-            $("html, body").animate({ scrollTop: 0 }, 1000);
-            return false;
-        });
-        $(window).scroll(function(){
-            if ($(window).scrollTop() >= 300){
-                $( ".icono_up" ).fadeIn();
-            }else{
-                $( ".icono_up" ).fadeOut();
-            }
-            if( $(window).width() > 991 ){
-                if ($(this).scrollTop() > 140) {
-                    $('.menu_lateral_izq ul').addClass('fixed');
-                } else {
-                    $('.menu_lateral_izq ul').removeClass('fixed');
-                }
-            }
-
-        });
         $( window ).resize(function() {
             console.log($(window).scrollTop())
             if( $(window).width() > 991 ){

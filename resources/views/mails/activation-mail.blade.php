@@ -18,7 +18,7 @@
         rel="stylesheet">
 </head>
 <body
-    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Space Mono', monospace;">
+    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', monospace;">
 <center
     style=" max-width: 600px; width: 100%; margin: auto; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     <table
@@ -45,24 +45,17 @@
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
                 <div
-                    style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Space Mono', monospace;">
-                    <p style="text-align: center; margin: 2px; font-size: 15px">Así vas bien, pero te falta dar un paso más.</p>
-                    <p style="text-align: center; margin: 2px; font-size: 15px">¡Muy sabia tu decisión de querer formar parte de la Comunidad Orsai!</p><br/>  
-                    <p style="text-align: center; margin: 2px; font-size: 15px"><strong>Ya casi lo lográs. Hacé clic en el botón para confirmar el registro de tu correo electrónico.</strong> </p> 
+                    style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Roboto', monospace;">
+                    <p style="text-align: center; margin: 2px; font-size:16px;">Así vas bien, pero te falta dar un paso más.</p>
+                    <p style="text-align: center; margin: 2px; font-size:16px;">¡Muy sabia tu decisión de querer formar parte de la Comunidad Orsai!</p><br/>  
+                    <p style="text-align: center; margin: 2px; font-size:16px;"><strong>Ya casi lo lográs. Hacé clic en el botón para confirmar el registro de tu correo electrónico.</strong> </p> 
                     </p>
-                    <p style="text-align: center; margin: 2px; font-size: 15px">
-                    <a href="{{$token}}" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Activar mi cuenta</a>
+                    <p style="text-align: center; margin: 2px; font-size:16px;">
+                    <a href="{{$token}}" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Activar mi cuenta</a>
                     </p>
                 </div>
             </td>
-        </tr> 
-        <tr bgcolor="#fffefe">
-            <td style="height:40px;">
-                <div style="width:100%; color:#808080; text-align: right;">
-                    <span style="padding-right:20px; font-size:10px;">1</span>
-                </div>
-            </td>
-        </tr>
+        </tr>  
         <tr>
             <td style="height:25px;"></td>
         </tr> 

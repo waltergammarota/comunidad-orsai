@@ -104,8 +104,60 @@
                     </li>  
                 </ul>
             @endif 
+
+
+            @if (Auth::check())
+                <ul class="logueado"> 
+                    <li class="resaltado_gris"><span class="color_gris_claro icon-aviso"></span>
+                        <ul class="mensajes_menu">
+                            @if (count($notifications) != 0)
+                                @foreach($notifications as $notification)
+                                    <li>
+                                        <a href="{{url('notificacion')}}/{{$notification['id']}}" rel="noopener noreferrer">
+                                            <strong
+                                                class="notif_subject">{{Str::limit($notification['asunto'],70)}}</strong>
+                                            <span class="notif_author">{{$notification['autor']}}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            @endif
+                            <li class="notif_viewall"><a href="{{url('notificaciones')}}"><span
+                                        class="icon-mail"></span> Ver todas</a></li>
+                            <li class="notif_config"><a href="{{url('configuracion-notificaciones')}}"><span
+                                        class="icon-cog"></span> Preferencias</a></li>
+                        </ul> 
+                    </li>
+                    <li class="menu_perfil">
+                        <div class="borde_gris menu_img">
+                            <img src="{{Session::get('avatar')}}" alt="{{$username}}">
+                        </div>
+                        <div class="menu_perfil_nombre">
+                            <span>{{'@'.$username}}</span>
+                            <span class="color_gris_claro">{{Session::get('balance')}} fichas</span>
+                            <span class="icono icon-angle-down"></span>
+                        </div>
+                        <ul class="mensajes_menu">
+
+                            @if(Session::get('role') == "admin")
+                                <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+                            @endif
+                            @if (Route::currentRouteName() == 'perfil')
+                                <li class="active"><a href="{{url('panel')}}">Panel</a></li>
+                            @else
+                                <li><a href="{{url('panel')}}">Panel</a></li>
+                            @endif
+                            @if (Route::currentRouteName() == 'pagina')
+                                <li class="active"><a href="{{url('novedades')}}">Novedades</a></li>
+                            @else
+                                <li><a href="{{url('novedades')}}">Novedades</a></li>
+                            @endif
+                            <li><a href="{{url('salir')}}" onclick="alertLogout()">Cerrar sesión</a></li> 
+                        </ul>
+                    </li> 
+                </ul>
+            @endif 
         </div>
-    </nav>
+    </nav> 
     {{-- <div id="menu_reg">
             @if (!Auth::check())
                 <ul>

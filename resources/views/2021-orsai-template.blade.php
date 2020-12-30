@@ -86,9 +86,12 @@
                                       class="subrayado text_bold">Política
                     de cookies</a> para obtener más información o accedé a las Preferencias de cookies para
                 administrar tu configuración</p>
-            <a id="btn_cookies" class="subrayado resaltado_amarillo text_bold">Aceptar</a>
+            <a id="btn_cookies" class="boton_redondeado resaltado_amarillo"><span>Aceptar</span></a>
         </div>
     </div>
+</div>
+<div class="icono_up">
+    <span class="icon-angle-up"></span>
 </div>
 
 <script src="{{url('js/jquery.js')}}"></script>
@@ -105,6 +108,25 @@
     src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script>
 
+    $('.icono_up').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+        return false;
+    });
+    $(window).scroll(function(){
+        if ($(window).scrollTop() >= 300){
+            $( ".icono_up" ).fadeIn();
+        }else{
+            $( ".icono_up" ).fadeOut();
+        }
+        if( $(window).width() > 991 ){
+            if ($(this).scrollTop() > 140) {
+                $('.menu_lateral_izq ul').addClass('fixed');
+            } else {
+                $('.menu_lateral_izq ul').removeClass('fixed');
+            }
+        }
+
+    });
     $(document).ready(() => {
         if (Cookies.get('approved-cookies') != "true") {
             $("#cookies_msg").show();
