@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Databases\ContenidoModel;
+use App\Databases\ContestModel;
 use App\Databases\CoralModel;
 use App\Http\Controllers\Controller;
 use App\Repositories\FileRepository;
@@ -38,7 +39,8 @@ class ContenidoController extends Controller
             $imageKey = $image->pivot->id;
             $imageUrl = url('storage/images/' . $image->name . "." . $image->extension);
         }
-        return view('admin.noticias-form', compact('contenido', 'imageUrl', 'type', 'imageKey'));
+        $concursos = ContestModel::all();
+        return view('admin.noticias-form', compact('contenido', 'imageUrl', 'type', 'imageKey', 'concursos'));
     }
 
     public function contenidos_json(Request $request)
@@ -58,7 +60,8 @@ class ContenidoController extends Controller
         $type = $request->type;
         $imageUrl = '';
         $now = Carbon::now()->format('Y-m-d');
-        return view('admin.noticias-form', compact('contenido', 'type', 'imageUrl', 'now'));
+        $concursos = ContestModel::all();
+        return view('admin.noticias-form', compact('contenido', 'type', 'imageUrl', 'now', 'concursos'));
     }
 
     public function store(Request $request)
@@ -92,7 +95,14 @@ class ContenidoController extends Controller
         $images = $fileRepo->getUploadedFiles('images', $request);
         $imagesIds = $this->convertToIds($images);
         $noticia->images()->sync($imagesIds);
+        $noticia = $this->createPage($request);
         return Redirect::to('admin/contenidos/tipo/' . $noticia->tipo);
+    }
+
+    public function createPageByPost(Request $request)
+    {
+        $noticia = $this->createPage($request);
+        return response()->json(["id" => $noticia->id]);
     }
 
     private function generateUuid()
@@ -159,6 +169,7 @@ class ContenidoController extends Controller
         $noticia->user_id = Auth::user()->id;
         $noticia->visible = $request->visible;
         $noticia->publica = $request->publica;
+        $noticia->contest_id = $request->contest_id;
         $noticia->save();
         $this->updateInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
         $fileRepo = new FileRepository();
@@ -183,5 +194,43 @@ class ContenidoController extends Controller
         $noticiaId = $request->id;
         ContenidoModel::destroy($noticiaId);
         return response()->json(["success" => true]);
+    }
+
+    /**
+     * @param Request $request
+     * @return ContenidoModel
+     */
+    public function createPage(Request $request): ContenidoModel
+    {
+        $request->validate([
+            "title" => "required",
+            "fecha_publicacion" => "required|date",
+            "tipo" => "required",
+            "texto" => "required",
+            'images' => 'array',
+            'images.*' => 'image|max:5120',
+            'contest_id' => 'required'
+        ]);
+        $slug = $this->generateSlug($request->slug, $request->title, 0);
+        $noticia = new ContenidoModel([
+            "title" => $request->title,
+            "slug" => $slug,
+            "autor" => $request->autor,
+            "fecha_publicacion" => $request->fecha_publicacion,
+            "copete" => $request->copete,
+            "tipo" => $request->tipo,
+            "texto" => $request->texto,
+            "slug" => $slug,
+            "user_id" => Auth::user()->id,
+            "visible" => $request->visible,
+            "publica" => $request->publica,
+            'contest_id' => $request->contest_id
+        ]);
+        $noticia->save();
+        $fileRepo = new FileRepository();
+        $images = $fileRepo->getUploadedFiles('images', $request);
+        $imagesIds = $this->convertToIds($images);
+        $noticia->images()->sync($imagesIds);
+        return $noticia;
     }
 }

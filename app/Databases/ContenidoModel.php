@@ -28,7 +28,8 @@ class ContenidoModel extends Model
         'user_id',
         'visible',
         'publica',
-        'coral_id'
+        'coral_id',
+        'contest_id'
     ];
 
     /**

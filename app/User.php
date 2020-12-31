@@ -61,20 +61,35 @@ class User extends Authenticable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function avatar() {
-        return $this->hasOne('App\Databases\FileModel','id', "avatar");
+    public function avatar()
+    {
+        return $this->hasOne('App\Databases\FileModel', 'id', "avatar");
     }
+
+    public function hasAvatar()
+    {
+        return $this->avatar()->first() != null;
+    }
+
+    public function getAvatarLink()
+    {
+        $avatar = $this->avatar()->first();
+        return url('storage/images/' . $avatar->name . "." . $avatar->extension);
+    }
+
 
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
+
     public function getJWTCustomClaims()
     {
         return [];
     }
 
-    public function getBalance() {
+    public function getBalance()
+    {
 
         $entrada = Transaction::where('to', $this->id)->whereIn('type', ['TRANSFER', 'MINT'])->sum('amount');
         $salida = Transaction::where('from', $this->id)->whereIn('type', ['TRANSFER'])->sum('amount');

@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Contest;
 
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
+use App\Databases\ContestsModo;
+use App\Databases\ContestsType;
 use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\WebController;
+use App\Repositories\FileRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -18,18 +21,79 @@ class ContestController extends Controller
 {
     public function index(Request $request)
     {
-        $concursoLogoId = 1;
-        $contest = ContestModel::find($concursoLogoId);
-        $minApplications = 25;
-        $userInfo = $this->getUserData();
+        $data = array_merge($this->getUserData());
+        $cantidadPorPagina = 9;
+        $query = ContestModel::where('active', 1)->orderBy('start_date');
+        $data['filtro'] = $request->filtro;
+        $data['busqueda'] = $request->busqueda;
+        $data['pagina'] = $request->pagina ? $request->pagina : 1;
+        if ($request->busqueda != null && $request->busqueda != "") {
+            $query->where('name', 'like', "%{$request->busqueda}%");
+        }
+        switch ($request->filtro) {
+            case 'activos':
+                $query->where('start_date', '<=', Carbon::now())->where('end_date', '>', Carbon::now());
+                break;
+            case 'proximos':
+                $query->where('start_date', '>', Carbon::now());
+                break;
+            case 'finalizados':
+                $query->where('end_date', '<', Carbon::now());
+                break;
+        }
+        $data['total'] = $query->count();
+        $data['concursos'] = $query->limit($cantidadPorPagina)->offset($cantidadPorPagina * ($data['pagina'] - 1))->get();
+        $data['totalPaginas'] = (int)round(ceil($data['total'] / $cantidadPorPagina), 0);
+        $data['links'] = $this->generateLinks($data['totalPaginas'], $data['busqueda'], $data['filtro']);
+        $data['now'] = Carbon::now();
+        return view("concursos.index", $data);
+    }
 
-        if ($contest->active) {
-            $controller = new WebController();
-            return $controller->show_participantes($request);
+    private function generateLinks($totalPaginas, $busqueda, $filtro)
+    {
+        $links = array();
+        for ($i = 1; $i <= $totalPaginas; $i++) {
+            $pagina = $i;
+            $filtros = http_build_query(compact('pagina', 'busqueda', 'filtro'));
+            $links[$i] = url("concursos?{$filtros}");
+        }
+        return $links;
+    }
+
+    public function show(Request $request)
+    {
+        $contestId = $request->route('id');
+        $userInfo = $this->getUserData();
+        $data = array_merge($userInfo);
+        $contest = ContestModel::find($contestId);
+        if ($contest == null) {
+            return Redirect::to(url('no-encontrado'));
+        }
+        $data['concurso'] = $contest;
+        $data['postulaciones_abiertas'] = false;
+        $data['logo'] = $contest->logo();
+        $data['cantidadPostulaciones'] = $contest->cantidadPostulaciones();
+        $data['cantidadFichasEnJuego'] = $contest->cantidadFichasEnJuego();
+        $data['bases'] = $contest->getBases();
+        $data['ganadores'] = [];
+        // CONCURSO POSTULACIONES ABIERTAS
+        if ($contest->hasPostulacionesAbiertas()) {
+            $data['postulaciones_abiertas'] = true;
+            return view('concursos.show', $data);
+        }
+        // CONCURSO INICIO DE LAS APUESTAS
+        if ($contest->hasVotes()) {
+            return view('concursos.apuestas', $data);
+        }
+        // CONCURSO FINALIZADO
+        if ($contest->hasEnded()) {
+            $data['estado'] = "finalizado";
+            $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where('contest_id', $contest->id)->get();
+            return view('concursos.ganador', $data);
         }
 
-        $data = array_merge($userInfo);
-        return view("votacion-no-comenzada", $data);
+        return view('concursos.show', $data);
+
     }
 
     public function show_winner(Request $request)
@@ -87,33 +151,128 @@ class ContestController extends Controller
     public function create(Request $request)
     {
         $contest = false;
-        return view('admin.contest-form', compact('contest'));
+        $types = ContestsType::all();
+        $modes = ContestsModo::all();
+        $now = Carbon::now();
+        $imageUrl = "";
+        $per_winner = array_fill(0, 4, 0);
+        return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner'));
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "bajada_corta" => "required",
+            "bajada_completa" => "required",
+            "start_date" => "required",
+            "end_date" => "required",
+            "start_app_date" => "required",
+            "end_app_date" => "required",
+            "start_vote_date" => "required",
+            "end_vote_date" => "required",
+            "type" => "required",
+            "mode" => "required",
+        ]);
+        $fileRepo = new FileRepository();
+        $images = $fileRepo->getUploadedFiles('images', $request);
+        $data = [
+            "name" => $request->name,
+            "bajada_corta" => $request->bajada_corta,
+            "bajada_completa" => $request->bajada_completa,
+            "start_date" => Carbon::parse($request->start_date)->format('Y-m-d H:i:s'),
+            "end_date" => Carbon::parse($request->end_date)->format('Y-m-d H:i:s'),
+            "start_app_date" => Carbon::parse($request->start_app_date)->format('Y-m-d H:i:s'),
+            "end_app_date" => Carbon::parse($request->end_app_date)->format('Y-m-d H:i:s'),
+            "start_vote_date" => Carbon::parse($request->start_vote_date)->format('Y-m-d H:i:s'),
+            "end_vote_date" => Carbon::parse($request->end_vote_date)->format('Y-m-d H:i:s'),
+            "image" => count($images) > 0 ? $images[0]->getId() : 0,
+            "type" => $request->type,
+            "mode" => $request->mode,
+            "per_winner" => json_encode($request->per_winner),
+            "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
+            "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
+            "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
+            "active" => $request->active,
+            'user_id' => Auth::user()->id
+        ];
+        $contest = new ContestModel($data);
+        $contest->save();
+        return Redirect::to('admin/concursos');
+    }
+
 
     public function edit(Request $request)
     {
         $id = $request->route('id');
         $contest = ContestModel::find($id);
-        return view('admin.contest-form', compact('contest'));
+        $types = ContestsType::all();
+        $modes = ContestsModo::all();
+        $now = Carbon::now();
+        $imageUrl = "";
+        $imageKey = "";
+        $per_winner = json_decode($contest->per_winner);
+        if ($contest->image) {
+            $image = $contest->logo();
+            $imageKey = $image->id;
+            $imageUrl = url('storage/images/' . $image->name . "." . $image->extension);
+        }
+        return view('admin.concursos.contest-form', compact('contest', 'types', 'modes', 'now', 'imageUrl', 'per_winner', 'imageKey'));
+    }
+
+
+    public function deleteImage(Request $request)
+    {
+        $imageId = $request->key;
+        $contest = ContestModel::where('image', $imageId)->first();
+        $contest->image = null;
+        $contest->save();
+        echo json_encode(["message" => $imageId]);
     }
 
     public function update(Request $request)
     {
-        $request->validate(
-            [
-                'id' => 'required',
-                'name' => 'required|min:1|max:128',
-                'start_date' => 'required|date',
-                'votes_end_date' => 'required|date',
-                'end_upload_app' => 'required|date',
-                'end_date' => 'required|date',
-                'min_apps_qty' => 'required|integer',
-            ]
-        );
+        $request->validate([
+            "name" => "required",
+            "bajada_corta" => "required",
+            "bajada_completa" => "required",
+            "start_date" => "required",
+            "end_date" => "required",
+            "start_app_date" => "required",
+            "end_app_date" => "required",
+            "start_vote_date" => "required",
+            "end_vote_date" => "required",
+            "type" => "required",
+            "mode" => "required",
+        ]);
         $id = $request->id;
         $contest = ContestModel::find($id);
-        $contest->fill($request->all(['name', "start_date", "end_date", "votes_end_date", "min_apps_qty", "end_upload_app"]));
+        $fileRepo = new FileRepository();
+        $images = $fileRepo->getUploadedFiles('images', $request);
+        $data = [
+            "name" => $request->name,
+            "bajada_corta" => $request->bajada_corta,
+            "bajada_completa" => $request->bajada_completa,
+            "start_date" => Carbon::parse($request->start_date)->format('Y-m-d H:i:s'),
+            "end_date" => Carbon::parse($request->end_date)->format('Y-m-d H:i:s'),
+            "start_app_date" => Carbon::parse($request->start_app_date)->format('Y-m-d H:i:s'),
+            "end_app_date" => Carbon::parse($request->end_app_date)->format('Y-m-d H:i:s'),
+            "start_vote_date" => Carbon::parse($request->start_vote_date)->format('Y-m-d H:i:s'),
+            "end_vote_date" => Carbon::parse($request->end_vote_date)->format('Y-m-d H:i:s'),
+            "image" => count($images) > 0 ? $images[0]->getId() : 0,
+            "type" => $request->type,
+            "mode" => $request->mode,
+            "per_winner" => json_encode($request->per_winner),
+            "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
+            "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
+            "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
+            "active" => $request->active,
+            'user_id' => Auth::user()->id
+        ];
+        $contest->fill($data);
         $contest->save();
-        return Redirect::to('admin/concurso');
+        return Redirect::to('admin/concursos');
     }
 }

@@ -4,6 +4,7 @@
 namespace App\Databases;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,7 +25,22 @@ class ContestModel extends Model
         'end_date',
         'votes_end_date',
         'end_upload_app',
-        'min_apps_qty'
+        'min_apps_qty',
+        'bajada_corta',
+        'bajada_completa',
+        'start_app_date',
+        'end_app_date',
+        'start_vote_date',
+        'end_vote_date',
+        'image',
+        'type',
+        'mode',
+        'per_winner',
+        'amount_winner',
+        'cant_winners',
+        'cant_caracteres',
+        'cant_capitulos',
+        'user_id'
     ];
 
     /**
@@ -44,6 +60,10 @@ class ContestModel extends Model
         'end_date' => 'datetime',
         'votes_end_date' => 'datetime',
         'end_upload_app' => 'datetime',
+        'start_app_date' => 'datetime',
+        'end_app_date' => 'datetime',
+        'start_vote_date' => 'datetime',
+        'end_vote_date' => 'datetime',
     ];
 
     /**
@@ -52,5 +72,50 @@ class ContestModel extends Model
     public function owner()
     {
         return $this->hasOne('App\User', 'id', "user_id");
+    }
+
+    public function logo()
+    {
+        return $this->hasOne('App\Databases\FileModel', 'id', "image")->first();
+    }
+
+    public function getMode()
+    {
+        return $this->hasOne('App\Databases\ContestsModo', 'id', "mode")->first();
+    }
+
+    public function getType()
+    {
+        return $this->hasOne('App\Databases\ContestsType', 'id', "type")->first();
+    }
+
+    public function hasPostulacionesAbiertas()
+    {
+        return $this->start_app_date >= Carbon::now() && $this->end_app_date < Carbon::now();
+    }
+
+    public function hasVotes()
+    {
+        return $this->start_vote_date >= Carbon::now() && $this->end_vote_date < Carbon::now();
+    }
+
+    public function hasEnded()
+    {
+        return $this->end_date < Carbon::now();
+    }
+
+    public function cantidadPostulaciones()
+    {
+        return ContestApplicationModel::where('contest_id', $this->id)->count();
+    }
+
+    public function cantidadFichasEnJuego()
+    {
+        return Transaction::where('cap_id', $this->id)->sum('amount');
+    }
+
+    public function getBases()
+    {
+        return ContenidoModel::where('contest_id', $this->id)->first();
     }
 }

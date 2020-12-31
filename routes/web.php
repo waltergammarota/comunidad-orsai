@@ -5,8 +5,8 @@ Auth::routes(['verify' => true]);
 
 /* ACCESO PUBLICO */
 Route::get(
-    '/', 
-    'ContenidoController@index' 
+    '/',
+    'ContenidoController@index'
 )->name('home');
 
 Route::get(
@@ -96,9 +96,10 @@ Route::get(
 )->name("concursos");
 
 Route::get(
-    '/historia',
-    'WebController@historia'
-)->name('historia');
+    '/concursos/{id}/{name}',
+    'Contest\ContestController@show'
+)->name("concursos-show");
+
 
 Route::get(
     '/historia',
@@ -344,6 +345,10 @@ Route::middleware(['verified'])->group(
             'contenidos-edit'
         )->middleware('admin_role');
 
+        Route::post('admin/contenidos/createPageByPost', 'Admin\ContenidoController@createPageByPost')->name(
+            'contenidos-createPage'
+        )->middleware('admin_role');
+
         Route::post('admin/contenidos/store', 'Admin\ContenidoController@store')->name(
             'contenidos-store'
         )->middleware('admin_role');
@@ -510,6 +515,20 @@ Route::middleware(['verified'])->group(
         Route::get('admin/concursos/crear', 'Contest\ContestController@create')->name('concurso-crear')->middleware('admin_role');
 
         Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
+
+        Route::post(
+            'admin/contest/deleteImage',
+            'Contest\ContestController@deleteImage'
+        )->name(
+            'concurso-delete-image'
+        )->middleware('admin_role');
+
+        Route::post(
+            'admin/contest/store',
+            'Contest\ContestController@store'
+        )->name(
+            'concurso-store'
+        )->middleware('admin_role');
 
         Route::post(
             'admin/contest/update',
