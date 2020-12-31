@@ -14,11 +14,11 @@
     </style>
     <![endif]-->
     <link
-        href="https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i&display=swap"
+        href="https://fonts.googleapis.com/css?family=Roboto:wght@400;700&display=swap"
         rel="stylesheet">
 </head>
 <body
-    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Space Mono', monospace;">
+    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', monospace;">
 <center
     style=" max-width: 600px; width: 100%; margin: auto; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     <table
@@ -44,28 +44,21 @@
 
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
-                <div style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Space Mono', monospace;">
-                    <p style="text-align: center; margin: 2px; font-size: 15px">Después de un exhaustivo chequeo tu logo ya está participando del concurso. Compartilo ahora con tus amigos de todo el mundo y ¡sumá fichas para ganar!</p>
-                    <a href="{{url("propuesta/{$cpaId}")}}" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Ver mi propuesta</a>
+                <div style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Roboto', monospace;">
+                    <p style="text-align: center; margin: 2px; font-size:16px;">Después de un exhaustivo chequeo tu logo ya está participando del concurso. Compartilo ahora con tus amigos de todo el mundo y ¡sumá fichas para ganar!</p>
+                    <a href="{{url("propuesta/{$cpaId}")}}" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Ver mi propuesta</a>
                 </div>
             </td>
         </tr>
         <tr bgcolor="#fffefe" style="padding-top:20px;">
             <td>
                 <div
-                    style="color: black; margin-left:15px; margin-right:15px; border-top: 2px dashed #808080; text-align: center; font-family: 'Space Mono', monospace;">
-                    <p style="text-align: center; font-size: 15px">¿Querés ver lo que hicieron otros artistas?</p>
-                    <a href="{{url('participantes')}}" target="_blank" style="background-color:#ffeb04; text-decoration-line: underline;  margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block;text-align: center; color:black;">Mirá acá</a>
+                    style="color: black; margin-left:15px; margin-right:15px; border-top: 2px dashed #808080; text-align: center; font-family: 'Roboto', monospace;">
+                    <p style="text-align: center; font-size:16px;">¿Querés ver lo que hicieron otros artistas?</p>
+                    <a href="{{url('participantes')}}" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Mirá acá</a>
                 </div>
             </td>
-        </tr>
-        <tr bgcolor="#fffefe">
-            <td style="height:40px;">
-                <div style="width:100%; color:#808080; text-align: right;">
-                    <span style="padding-right:20px; font-size:10px;">1</span>
-                </div>
-            </td>
-        </tr>
+        </tr> 
         <tr>
             <td style="height:25px;"></td>
         </tr> 
