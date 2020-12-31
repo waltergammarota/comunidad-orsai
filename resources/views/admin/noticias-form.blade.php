@@ -36,7 +36,19 @@
                         <input type="hidden" name="tipo" value="{{$type}}">
 
                         <div class="card-body">
-
+                            <div class="form-group">
+                                <label for="concursos">Concurso</label>
+                                <select name="contest_id" id="contest_id" class="form-control">
+                                    <option value="0">Ninguno</option>
+                                    @foreach($concursos as $concurso)
+                                        @if($contenido && $concurso->id == $contenido->contest_id)
+                                            <option value="{{$concurso->id}}" selected>{{$concurso->name}}</option>
+                                        @else
+                                            <option value="{{$concurso->id}}">{{$concurso->name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Título (obligatorio)</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
@@ -81,7 +93,8 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Copete</label>
                                 <textarea class="form-control" rows="2" placeholder="Copete ..."
-                                          name="copete" id="summernote2">{{$contenido?$contenido->copete:old('copete')}}</textarea>
+                                          name="copete"
+                                          id="summernote2">{{$contenido?$contenido->copete:old('copete')}}</textarea>
                             </div>
 
                             <div class="form-group">

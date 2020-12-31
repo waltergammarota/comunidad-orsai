@@ -27,7 +27,8 @@ class ContenidoModel extends Model
         'texto',
         'user_id',
         'visible',
-        'publica'
+        'publica',
+        'contest_id'
     ];
 
     /**
