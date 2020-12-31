@@ -21,9 +21,9 @@
             <div class="links_redes_footer">
                 <span>Seguinos</span>
                 <ul>
-                    <li><a href="https://www.twitter.com/editorialorsai" target="_blank" rel="noopener noreferrer"><span class="icono icon-tw"></span></a></li>
+                    <li><a href="https://www.twitter.com/casciari" target="_blank" rel="noopener noreferrer"><span class="icono icon-tw"></span></a></li>
                     <li><a href="https://www.facebook.com/EditorialOrsai/" target="_blank" rel="noopener noreferrer"><span class="icono icon-fb"></span></a></li>
-                    <li><a href="https://www.instagram.com/casciari" target="_blank" rel="noopener noreferrer"><span class="icono icon-instagram"></span></a></li>
+                    <li><a href="https://www.instagram.com/editorialorsai" target="_blank" rel="noopener noreferrer"><span class="icono icon-instagram"></span></a></li>
                 </ul>
             </div>
         </div> 
