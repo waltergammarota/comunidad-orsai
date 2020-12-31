@@ -2452,6 +2452,9 @@ header nav>#menu_reg .logueado{
 .blog_texto{
     margin-bottom:60px;
 }
+.blog_texto iframe{
+    max-width: 100%;
+}
 .titulo_blog_cta{
     font-size:20px;
     font-family: 'Barlow Condensed', sans-serif;
