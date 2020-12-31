@@ -14,7 +14,7 @@
     </style>
     <![endif]-->
     <link
-        href="https://fonts.googleapis.com/css?family=Barlow+Condensed:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css?family=Roboto:wght@400;700&display=swap"
         rel="stylesheet">
 </head>
 <body
@@ -45,7 +45,7 @@
             <td style="padding-bottom:20px;">
                 <div
                     style="color: black; margin: 4% 5% 2%; font-family: 'Roboto', monospace;text-align: left;">
-                    <p style="text-align: left; margin: 2px; font-size:16px;">{!! $description !!}</p>
+                    <p style="text-align: left; margin: 2px; font-size:20px;">{!! $description !!}</p>
                     <a href="{{$button_url}}" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: left; color:black;">{{$button_text}}</a>
                     </p>
                 </div>

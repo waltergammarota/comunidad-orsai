@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&display=swap') ;
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&family=Roboto:wght@400;700&display=swap') ;
 
 :root {
     /* Change primary font */
-    --font-family-primary: 'Barlow Condensed';
+    --font-family-primary: 'Roboto';
     --palette-primary-500: black;
     /* Remove round corners */
     --round-corners: 0px;
 }
 .coral-tabBar span{
-   font-family: 'Space mono';
+   font-family: 'Barlow Condensed';
 }
 .coral-viewerBox{
 	/*display: none;*/

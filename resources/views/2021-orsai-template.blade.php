@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="{{url('estilos/front2021/style.css')}}">
+    <link rel="stylesheet" href="{{url('estilos/front2021/animate.css')}}">
     <link rel="stylesheet" href="{{url('estilos/front2021/linea-de-tiempo.css')}}"> 
     <link rel="stylesheet" href="{{url('estilos/front2021/fontello/fontello.css')}}"> 
     <link rel="stylesheet" href="{{url('owlcarousel/owl.carousel.min.css')}}">  
@@ -94,8 +95,7 @@
     <span class="icon-angle-up"></span>
 </div>
 
-<script src="{{url('js/jquery.js')}}"></script>
-<script src="{{url('js/main.js')}}"></script>
+<script src="{{url('js/jquery.js')}}"></script> 
 <script src="{{url('js/front2021/owl.carousel2/dist/owl.carousel.min.js')}}"></script>
 <script src="{{url('js/front2021/segment.js')}}"></script> 
 <script src="{{url('js/front2021/ease.min.js')}}"></script> 
@@ -108,6 +108,21 @@
     src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script>
 
+    if ($(window).width() < 1040) { 
+        $( ".submenu" ).parent( "li" ).click(function() {
+            $(this).find('.submenu').toggleClass('abierto'); 
+        })
+    }
+    if ($(window).width() < 1040) {
+        $( "#insertar_perfil" ).prepend($( "#clonar_perfil" ));
+    } 
+    $( window ).resize(function() {
+        if( $(window).width() < 1040 ){
+            $( "#insertar_perfil" ).prepend($( "#clonar_perfil" ));
+        }else{
+            $( "#clonar_perfil" ).appendTo( ".logueado" );  
+    }
+    }); 
     $('.icono_up').click(function(){
         $("html, body").animate({ scrollTop: 0 }, 1000);
         return false;
@@ -145,12 +160,12 @@
     }
 
     function updateNotifications() {
-        const bell = $('.notification-amount');
+        const bell = $('.campanita');
         axios.get('{{url('notificaciones/counter')}}')
             .then(response => {
                 const amount = response.data.amount;
                 bell.empty();
-                bell.append(`<span>${amount}</span>`);
+                bell.append(`<span class="cant_avisos">${amount}</span>`);
                 if (amount > 0) {
                     bell.css('visibility', 'visible');
                 }

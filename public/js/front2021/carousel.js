@@ -71,18 +71,4 @@
         navText : ["<i class='icon-left_arrow color_amarillo'></i>","<i class='icon-right_arrow color_amarillo'></i>"]
 
         });
-        });
-         
-        if ($(window).width() < 1040) {
-            $(".submenu").siblings().append("<span class='icon-angle-down'></span> ");
-        $( ".submenu" ).parent( "li" ).click(function() {
-            $(this).find('.submenu').toggleClass('abierto');
-
-            if ($(this).find('span').hasClass("icon-angle-down")){
-                console.log($(this).find('span'));
-                $(this).find('span').addClass('icon-angle-up').removeClass('icon-angle-down');
-            }else{
-                $(this).find('span').addClass('icon-angle-down').removeClass('icon-angle-up');
-            }
-
-    })}; 
+}); 

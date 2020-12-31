@@ -14,7 +14,7 @@
     </style>
     <![endif]-->
     <link
-        href="https://fonts.googleapis.com/css?family=Barlow+Condensed:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css?family=Roboto:wght@400;700&display=swap"
         rel="stylesheet">
 </head>
 <body
