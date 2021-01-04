@@ -4,16 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Databases\ContenidoModel;
 use App\Databases\ContestModel;
-<<<<<<< HEAD
-use App\Databases\CoralModel;
-=======
->>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
 use App\Http\Controllers\Controller;
-use App\Repositories\FileRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ContenidoController extends Controller
@@ -80,7 +73,6 @@ class ContenidoController extends Controller
         return response()->json(["id" => $noticia->id]);
     }
 
-<<<<<<< HEAD
     private function generateUuid()
     {
         $uuid = DB::select(DB::raw('SELECT UUID() as id'));
@@ -100,8 +92,6 @@ class ContenidoController extends Controller
     }
 
 
-=======
->>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     private function generateSlug($slug, $title, $id)
     {
         $auxSlug = $slug == null || $slug == '' ? $title : $slug;
@@ -194,17 +184,11 @@ class ContenidoController extends Controller
             "user_id" => Auth::user()->id,
             "visible" => $request->visible,
             "publica" => $request->publica,
-<<<<<<< HEAD
             'contest_id' => $request->contest_id,
             "coral_id" => $this->generateUuid()
         ]);
         $noticia->save();
         $this->createInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
-=======
-            'contest_id' => $request->contest_id
-        ]);
-        $noticia->save();
->>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
         $imagesIds = $this->convertToIds($images);
