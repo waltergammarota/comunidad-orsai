@@ -36,6 +36,7 @@
                         <input type="hidden" name="tipo" value="{{$type}}">
 
                         <div class="card-body">
+<<<<<<< HEAD
                             @if($type == "pagina")
                                 <div class="form-group">
                                     <label for="concursos">Concurso</label>
@@ -53,6 +54,21 @@
                             @else
                                 <input type="hidden" value="0" name="contest_id">
                             @endif
+=======
+                            <div class="form-group">
+                                <label for="concursos">Concurso</label>
+                                <select name="contest_id" id="contest_id" class="form-control">
+                                    <option value="0">Ninguno</option>
+                                    @foreach($concursos as $concurso)
+                                        @if($contenido && $concurso->id == $contenido->contest_id)
+                                            <option value="{{$concurso->id}}" selected>{{$concurso->name}}</option>
+                                        @else
+                                            <option value="{{$concurso->id}}">{{$concurso->name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Título (obligatorio)</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"

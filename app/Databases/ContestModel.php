@@ -38,11 +38,17 @@ class ContestModel extends Model
         'per_winner',
         'amount_winner',
         'cant_winners',
+<<<<<<< HEAD
         'required_amount',
         'cant_caracteres',
         'cant_capitulos',
         'user_id',
         'winner_check'
+=======
+        'cant_caracteres',
+        'cant_capitulos',
+        'user_id'
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     ];
 
     /**
@@ -93,13 +99,21 @@ class ContestModel extends Model
 
     public function hasPostulacionesAbiertas()
     {
+<<<<<<< HEAD
         $result = $this->start_app_date <= Carbon::now() && $this->end_app_date > Carbon::now();
         return $result;
+=======
+        return $this->start_app_date >= Carbon::now() && $this->end_app_date < Carbon::now();
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     }
 
     public function hasVotes()
     {
+<<<<<<< HEAD
         return $this->start_vote_date <= Carbon::now() && $this->end_vote_date > Carbon::now();
+=======
+        return $this->start_vote_date >= Carbon::now() && $this->end_vote_date < Carbon::now();
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     }
 
     public function hasEnded()
@@ -121,6 +135,7 @@ class ContestModel extends Model
     {
         return ContenidoModel::where('contest_id', $this->id)->first();
     }
+<<<<<<< HEAD
 
     public function getStatus()
     {
@@ -135,4 +150,6 @@ class ContestModel extends Model
         }
         return "proximo";
     }
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
 }

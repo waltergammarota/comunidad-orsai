@@ -8,6 +8,10 @@
 
 @section('content')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
 @endsection
 
 @section('footer')

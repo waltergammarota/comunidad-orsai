@@ -209,6 +209,7 @@
                             <div class="row" id="completo">
                                 <div class="col-md-6">
                                     <div class="form-group">
+<<<<<<< HEAD
                                         <label for="exampleInputEmail1">Fichas necesarias</label>
                                         <input type="number" step="1" class="form-control"
                                                placeholder="Fichas necesarias"
@@ -220,6 +221,8 @@
                             <div class="row" id="fijo">
                                 <div class="col-md-6">
                                     <div class="form-group">
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
                                         <label for="exampleInputEmail1">Monto premio</label>
                                         <input type="number" step="1" class="form-control"
                                                placeholder="Monto ganador"
@@ -255,8 +258,12 @@
                                             @if($contest && $contest->getBases())
                                                 <a href="{{url('admin/contenidos/'.$contest->getBases()->id)}}">{{$contest->getBases()->title}}</a>
                                             @else
+<<<<<<< HEAD
                                                 <a href="{{url('admin/contenidos/crear/pagina')}}"
                                                    target="_blank">Crear</a>
+=======
+                                                <a href="{{url('admin/contenidos/crear/pagina')}}">Crear</a>
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
                                             @endif
                                         </div>
                                     </div>
@@ -332,17 +339,27 @@
                     case "1":
                         $("#pozo").show();
                         $("#completo").hide();
+<<<<<<< HEAD
                         $("#fijo").hide();
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
                         break;
                     case "2":
                         $("#pozo").hide();
                         $("#completo").show();
+<<<<<<< HEAD
                         $("#fijo").show();
                         break;
                     case "3":
                         $("#pozo").hide();
                         $("#completo").hide();
                         $("#fijo").show();
+=======
+                        break;
+                    case "3":
+                        $("#pozo").hide();
+                        $("#completo").show();
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
                         break;
                 }
             });

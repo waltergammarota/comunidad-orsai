@@ -69,6 +69,7 @@ class User extends Authenticable implements JWTSubject
         return $this->hasOne('App\Databases\FileModel', 'id', "avatar");
     }
 
+<<<<<<< HEAD
     public function hasPhoneVerified()
     {
         return $this->phone_verified_at != null;
@@ -85,6 +86,19 @@ class User extends Authenticable implements JWTSubject
         return url('storage/images/' . $avatar->name . "." . $avatar->extension);
     }
 
+=======
+    public function hasAvatar()
+    {
+        return $this->avatar()->first() != null;
+    }
+
+    public function getAvatarLink()
+    {
+        $avatar = $this->avatar()->first();
+        return url('storage/images/' . $avatar->name . "." . $avatar->extension);
+    }
+
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
 
     public function getJWTIdentifier()
     {

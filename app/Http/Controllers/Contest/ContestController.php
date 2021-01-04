@@ -7,9 +7,17 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\ContestsModo;
 use App\Databases\ContestsType;
+<<<<<<< HEAD
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
+=======
+use App\Databases\Transaction;
+use App\Http\Controllers\Controller;
+use App\Repositories\FileRepository;
+use App\Repositories\TransactionRepository;
+use App\Repositories\UserRepository;
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,6 +82,7 @@ class ContestController extends Controller
         $data['cantidadFichasEnJuego'] = $contest->cantidadFichasEnJuego();
         $data['bases'] = $contest->getBases();
         $data['ganadores'] = [];
+<<<<<<< HEAD
         $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);
         $webController = new WebController;
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
@@ -86,13 +95,31 @@ class ContestController extends Controller
         // CONCURSO INICIO DE LAS APUESTAS
         if ($contest->hasVotes()) {
             $data['estado'] = "abierto";
+=======
+        // CONCURSO POSTULACIONES ABIERTAS
+        if ($contest->hasPostulacionesAbiertas()) {
+            $data['postulaciones_abiertas'] = true;
+            return view('concursos.show', $data);
+        }
+        // CONCURSO INICIO DE LAS APUESTAS
+        if ($contest->hasVotes()) {
+            return view('concursos.apuestas', $data);
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
         }
         // CONCURSO FINALIZADO
         if ($contest->hasEnded()) {
             $data['estado'] = "finalizado";
             $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where('contest_id', $contest->id)->get();
+<<<<<<< HEAD
         }
         return view('concursos.concurso', $data);
+=======
+            return view('concursos.ganador', $data);
+        }
+
+        return view('concursos.show', $data);
+
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     }
 
     public
@@ -150,8 +177,12 @@ class ContestController extends Controller
         return response()->json(["status" => "ok", "message" => "Concurso aprobado"], 422);
     }
 
+<<<<<<< HEAD
     public
     function create(Request $request)
+=======
+    public function create(Request $request)
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     {
         $contest = false;
         $types = ContestsType::all();
@@ -162,8 +193,12 @@ class ContestController extends Controller
         return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner'));
     }
 
+<<<<<<< HEAD
     public
     function store(Request $request)
+=======
+    public function store(Request $request)
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     {
         $request->validate([
             "name" => "required",
@@ -196,7 +231,10 @@ class ContestController extends Controller
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
             "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+<<<<<<< HEAD
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "active" => $request->active,
@@ -208,8 +246,12 @@ class ContestController extends Controller
     }
 
 
+<<<<<<< HEAD
     public
     function edit(Request $request)
+=======
+    public function edit(Request $request)
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     {
         $id = $request->route('id');
         $contest = ContestModel::find($id);
@@ -225,12 +267,26 @@ class ContestController extends Controller
             $imageUrl = url('storage/images/' . $image->name . "." . $image->extension);
         }
         return view('admin.concursos.contest-form', compact('contest', 'types', 'modes', 'now', 'imageUrl', 'per_winner', 'imageKey'));
+<<<<<<< HEAD
+=======
+    }
+
+
+    public function deleteImage(Request $request)
+    {
+        $imageId = $request->key;
+        $contest = ContestModel::where('image', $imageId)->first();
+        $contest->image = null;
+        $contest->save();
+        echo json_encode(["message" => $imageId]);
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     }
 
 
     public
     function deleteImage(Request $request)
     {
+<<<<<<< HEAD
         $imageId = $request->key;
         $contest = ContestModel::where('image', $imageId)->first();
         $contest->image = null;
@@ -241,6 +297,8 @@ class ContestController extends Controller
     public
     function update(Request $request)
     {
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
         $request->validate([
             "name" => "required",
             "bajada_corta" => "required",
@@ -258,7 +316,10 @@ class ContestController extends Controller
         $contest = ContestModel::find($id);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
+<<<<<<< HEAD
         $logo = $this->processLogo($images, $contest);
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
         $data = [
             "name" => $request->name,
             "bajada_corta" => $request->bajada_corta,
@@ -269,13 +330,20 @@ class ContestController extends Controller
             "end_app_date" => Carbon::parse($request->end_app_date)->format('Y-m-d H:i:s'),
             "start_vote_date" => Carbon::parse($request->start_vote_date)->format('Y-m-d H:i:s'),
             "end_vote_date" => Carbon::parse($request->end_vote_date)->format('Y-m-d H:i:s'),
+<<<<<<< HEAD
             "image" => $logo,
+=======
+            "image" => count($images) > 0 ? $images[0]->getId() : 0,
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
             "type" => $request->type,
             "mode" => $request->mode,
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
             "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+<<<<<<< HEAD
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "active" => $request->active,
@@ -284,6 +352,7 @@ class ContestController extends Controller
         $contest->fill($data);
         $contest->save();
         return Redirect::to('admin/concursos');
+<<<<<<< HEAD
     }
 
     private
@@ -296,5 +365,7 @@ class ContestController extends Controller
             return $contest->image;
         }
         return 0;
+=======
+>>>>>>> c365291ebe8ae41c9e26f382c9464c803a5e3869
     }
 }
