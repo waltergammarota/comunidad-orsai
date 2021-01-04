@@ -7,8 +7,8 @@ use App\Databases\ContenidoModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
-use App\Utils\Mailer;
 use App\User;
+use App\Utils\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -135,6 +135,7 @@ class WebController extends Controller
     public function participantes(Request $request)
     {
         $contest = ContestModel::find(1);
+        return $this->show_participantes($request);
         $hasWinner = $this->checkWinner(1);
         if ($contest->end_date < now()) {
             $userInfo = $this->getUserData();
@@ -143,7 +144,6 @@ class WebController extends Controller
             return view("concurso-finalizado", $data);
         }
         if ($contest->start_date < now() && $contest->end_date >= now() && $this->areEnoughApplications($contest)) {
-            return $this->show_participantes($request);
         }
         return Redirect::to('bases-concurso');
     }
@@ -184,32 +184,32 @@ class WebController extends Controller
         return view("propuestas", $data);
     }
 
-    private function getPropuestas($orden, $limit = 20, $offset = 0, $request = false)
+    private function getPropuestas($orden, $limit = 20, $offset = 0, $request = false, $contestId = 1)
     {
         switch ($orden) {
             case "buscar":
-                $propuestas = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('approved', 1)->with(
+                $propuestas = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('contest_id', $contestId)->where('approved', 1)->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-vistos":
-                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('views', 'desc')->with(
+                $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->orderBy('views', 'desc')->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-recientes":
-                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('created_at', 'desc')->with(
+                $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->orderBy('created_at', 'desc')->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-votados":
-                $propuestas = ContestApplicationModel::where('approved', 1)->orderBy('votes', 'desc')->with(
+                $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->orderBy('votes', 'desc')->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "random":
             default:
-                $propuestas = ContestApplicationModel::where('approved', 1)->inRandomOrder()->with(
+                $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->inRandomOrder()->with(
                     'logos'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
@@ -252,28 +252,7 @@ class WebController extends Controller
      */
     public function show_participantes(Request $request)
     {
-        $userInfo = $this->getUserData();
-        $cpasInfo = $this->getCpasInfo();
-        $data = array_merge($userInfo, $cpasInfo);
-        $orden = $request->route('orden');
-        $page = $request->route('page') ? $request->route('page') : 1;
-        $total = $this->getTotal($orden, $request);
-        $limit = 20;
-        $offset = ($page - 1) * $limit;
-        $totalPages = ceil($total / $limit);
-        $data['total'] = $total;
-        $data['offset'] = $offset;
-        $data['limit'] = $limit;
-        $data['totalPages'] = $totalPages;
-        $data['current_page'] = $page;
-        $data['previous_page'] = $page - 1;
-        $data['next_page'] = ($page + 1) > $totalPages ? $totalPages : ($page + 1);
-        $data['propuestas'] = $this->getPropuestas($orden, $limit, $offset, $request);
-        $data['orden'] = $orden;
-        $data['busqueda'] = $request->busqueda;
-        $contestId = 1;
-        $data['isContestFinished'] = $this->isContestFinished($contestId);
-        $data['hasWinner'] = $this->hasWinner($contestId);
+        $data = $this->getParticipantes($request);
         return view('participantes', $data);
     }
 
@@ -288,14 +267,14 @@ class WebController extends Controller
         return ContestApplicationModel::where('contest_id', $contestId)->where('is_winner', 1)->count();
     }
 
-    private function getTotal($orden, $request)
+    private function getTotal($orden, $request, $contestId = 1)
     {
         switch ($orden) {
             case "buscar":
-                $total = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('approved', 1)->count();
+                $total = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('contest_id', $contestId)->where('approved', 1)->count();
                 break;
             default:
-                $total = ContestApplicationModel::where('approved', 1)->count();
+                $total = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->count();
                 break;
         }
         return $total;
@@ -327,5 +306,35 @@ class WebController extends Controller
         $mailer->sendContactFormEmail($request->all());
         $request->session()->flash('alert', 'contact_data_sent');
         return Redirect::to('contacto');
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function getParticipantes(Request $request, $contestId = 1): array
+    {
+        $userInfo = $this->getUserData();
+        $cpasInfo = $this->getCpasInfo();
+        $data = array_merge($userInfo, $cpasInfo);
+        $orden = $request->route('orden');
+        $page = $request->route('page') ? $request->route('page') : 1;
+        $total = $this->getTotal($orden, $request, $contestId);
+        $limit = 20;
+        $offset = ($page - 1) * $limit;
+        $totalPages = ceil($total / $limit);
+        $data['total'] = $total;
+        $data['offset'] = $offset;
+        $data['limit'] = $limit;
+        $data['totalPages'] = $totalPages;
+        $data['current_page'] = $page;
+        $data['previous_page'] = $page - 1;
+        $data['next_page'] = ($page + 1) > $totalPages ? $totalPages : ($page + 1);
+        $data['propuestas'] = $this->getPropuestas($orden, $limit, $offset, $request, $contestId);
+        $data['orden'] = $orden;
+        $data['busqueda'] = $request->busqueda;
+        $data['isContestFinished'] = $this->isContestFinished($contestId);
+        $data['hasWinner'] = $this->hasWinner($contestId);
+        return $data;
     }
 }

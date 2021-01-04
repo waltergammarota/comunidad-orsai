@@ -2,60 +2,52 @@
 
 namespace App\Databases;
 
+use App\User;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 
-class CoralModel extends Model
+class InfoBipModel extends Model
 {
     private function getEndpoint()
     {
-        return env('CORAL_GRAPHQL_URL', "http://localhost:3000/api/graphql");
+        return env('INFOBIP_URL', "https://gy98mr.api.infobip.com/sms/2/text/advanced");
     }
 
-    private function getCoralToken($client)
+    private function getApiKey()
     {
-        $endpoint = env('CORAL_AUTH_URL', "http://localhost:3000/api/auth/local");
-        try {
-            $response = $client->post($endpoint,
-                ["json" => [
-                    'email' => env('CORAL_ADMIN_USER'),
-                    'password' => env('CORAL_ADMIN_PASSWORD'),
-                ]]);
-        } catch (Exception $error) {
-            dd($error);
-        }
-        $token = json_decode($response->getBody());
-        return $token;
+        return env('INFOBIP_API_KEY', "");
     }
 
-    public function createStory($coral_id, $url, $title, $author)
+    public function verifyPhone($phone, $userId)
     {
         $client = new Client();
+        $code = rand(100000, 999999);
         try {
-            $token = $this->getCoralToken($client);
-            $createStoryResponse = $client->post($this->getEndpoint(),
+            $sendSMS = $client->post($this->getEndpoint(),
                 [
                     "headers" => [
-                        "Authorization" => "Bearer {$token->token}",
+                        "Authorization" => "App {$this->getApiKey()}",
                         "Content-Type" => "application/json"
                     ],
                     "json" => [
-                        "query" => 'mutation CreateStory($story:CreateStory!){createStory(input:{story:$story,clientMutationId:""}){story{id url metadata{title author}}}}',
-                        "variables" => [
-                            "story" => [
-                                "id" => $coral_id,
-                                "url" => $url,
-                                "metadata" => [
-                                    "title" => $title,
-                                    "author" => $author
-                                ]
-                            ],
-                            "operationName" => "CreateStory"
+                        "messages" => [
+                            ["from" => "Comunidad Orsai",
+                                "destinations" => [
+                                    ["to" => $phone]
+                                ],
+                                "flash" => true,
+                                "text" => "[Comunidad Orsai] Código de verificación: {$code}. No compartas este código con nadie."
+                            ]
                         ]
                     ]
                 ]
             );
-        } catch (Exception $error) {
+            $user = User::find($userId);
+            $user->code = $code;
+            $user->sms_sent_at = Carbon::now();
+            $user->save();
+        } catch (\Exception $error) {
         }
     }
 

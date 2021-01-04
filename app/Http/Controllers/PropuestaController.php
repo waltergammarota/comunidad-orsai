@@ -3,16 +3,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Contest;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\CpaLog;
 use App\Databases\Transaction;
+use App\UseCases\ContestApplication\GetContestApplicationById;
 use App\UseCases\ContestApplication\VoteAContestApplication;
 use App\User;
 use App\Utils\Mailer;
 use Illuminate\Http\Request;
-use App\UseCases\ContestApplication\GetContestApplicationById;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -166,7 +165,7 @@ class PropuestaController extends Controller
     {
         $user = Auth::user();
         $cpa = ContestApplicationModel::find($request->id);
-        $winner = ContestApplicationModel::where("is_winner", 1)->count();
+        $winner = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $cpa->contest_id)->count();
         if ($user->role == "admin" && $winner == 0) {
             $cpa = ContestApplicationModel::find($request->id);
             $cpa->is_winner = 1;

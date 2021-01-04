@@ -209,6 +209,17 @@
                             <div class="row" id="completo">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="exampleInputEmail1">Fichas necesarias</label>
+                                        <input type="number" step="1" class="form-control"
+                                               placeholder="Fichas necesarias"
+                                               name="required_amount"
+                                               value="{{$contest?$contest->required_amount:old('required_amount')}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="fijo">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="exampleInputEmail1">Monto premio</label>
                                         <input type="number" step="1" class="form-control"
                                                placeholder="Monto ganador"
@@ -244,7 +255,8 @@
                                             @if($contest && $contest->getBases())
                                                 <a href="{{url('admin/contenidos/'.$contest->getBases()->id)}}">{{$contest->getBases()->title}}</a>
                                             @else
-                                                <a href="{{url('admin/contenidos/crear/pagina')}}">Crear</a>
+                                                <a href="{{url('admin/contenidos/crear/pagina')}}"
+                                                   target="_blank">Crear</a>
                                             @endif
                                         </div>
                                     </div>
@@ -320,14 +332,17 @@
                     case "1":
                         $("#pozo").show();
                         $("#completo").hide();
+                        $("#fijo").hide();
                         break;
                     case "2":
                         $("#pozo").hide();
                         $("#completo").show();
+                        $("#fijo").show();
                         break;
                     case "3":
                         $("#pozo").hide();
-                        $("#completo").show();
+                        $("#completo").hide();
+                        $("#fijo").show();
                         break;
                 }
             });

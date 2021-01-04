@@ -21,6 +21,7 @@
                 <thead>
                 <tr>
                     <th>Título</th>
+                    <th>Concurso</th>
                     <th>Slug</th>
                     <th>Fecha publicación</th>
                     <th>Visible</th>
@@ -109,6 +110,16 @@
                         }
 
                     },
+                    {
+                        "data": "contest",
+                        "render": function (data) {
+                            if (data != null) {
+                                return data.name;
+                            }
+                            return "";
+                        }
+
+                    },
                     {"data": "slug"},
                     {"data": "fecha_publicacion"},
                     {
@@ -150,10 +161,10 @@
                 const slug = data.slug;
                 @if($type == "pagina")
                     target_href = `{{url('')}}/${slug}`;
-                    window.open(target_href, '_blank');
+                window.open(target_href, '_blank');
                 @else
                     target_href = `{{url('novedades')}}/${slug}`;
-                    window.open(target_href, '_blank');
+                window.open(target_href, '_blank');
                 @endif
             });
 

@@ -140,8 +140,8 @@ Route::middleware(['verified'])->group(
         )->name('concurso-finalizado');
 
         Route::get(
-            '/participantes/{orden?}',
-            'WebController@participantes'
+            '/concursos/{id}/{name}/{orden?}',
+            'Contest\ContestController@show'
         )->name('participantes');
 
         Route::get(

@@ -22,7 +22,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Titulo</th>
-                    <th>Usuario</th> 
+                    <th>Usuario</th>
                     <th>Votos</th>
                     <th>Status</th>
                     <th>Fecha</th>
@@ -147,15 +147,15 @@
                     "processing": "Procesando...",
                     "loadingRecords": "Cargando....",
                     "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ entradas",
-                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">'+
-                      '<option value="10">10</option>'+
-                      '<option value="20">20</option>'+
-                      '<option value="30">30</option>'+
-                      '<option value="40">40</option>'+
-                      '<option value="50">50</option>'+
-                      '<option value="-1">Todas</option>'+
-                      '</select> entradas',
-                
+                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
+                        '<option value="10">10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="-1">Todas</option>' +
+                        '</select> entradas',
+
                 },
                 "columns": [
                     {"data": "id"},
@@ -170,7 +170,7 @@
                         "render": function (data) {
                             return data == null ? "" : data.name + data.lastName;
                         }
-                    }, 
+                    },
                     {
                         "data": "votes",
                         "render": function (data) {
@@ -193,9 +193,6 @@
                             &nbsp;<button type="button" class="btn btn-xs  btn-danger rechazar">
                                         <i class="fa fa-times-circle"></i>
                                     </button>
-                            &nbsp;<button type="button" class="btn btn-xs btn-warning ganador">
-                                        <i class="fa fa-wine-glass"></i>
-                                    </button>
                             <button type="button" class="btn btn-xs btn-danger eliminar">
                                         <i class="fa fa-trash"></i>
                                     </button>`;
@@ -203,7 +200,6 @@
                     },
                 ]
             });
-
 
 
             table.on('click', '.aprobar', function () {

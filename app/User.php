@@ -39,7 +39,10 @@ class User extends Authenticable implements JWTSubject
         'email_verified_at',
         'role',
         'avatar',
-        'coral_token'
+        'coral_token',
+        'phone_verified_at',
+        'code',
+        'sms_sent_at'
     ];
 
     /**
@@ -64,6 +67,11 @@ class User extends Authenticable implements JWTSubject
     public function avatar()
     {
         return $this->hasOne('App\Databases\FileModel', 'id', "avatar");
+    }
+
+    public function hasPhoneVerified()
+    {
+        return $this->phone_verified_at != null;
     }
 
     public function hasAvatar()

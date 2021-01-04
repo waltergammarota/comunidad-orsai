@@ -10,6 +10,15 @@
 @endsection
 
 @section('content')
+    <style>
+        #example2 {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 11px;
+        }
+    </style>
     <div class="card">
         <div class="card-header">
             <a href="{{url("admin/concursos/crear")}}" class="btn btn-primary editar float-right">
@@ -22,9 +31,14 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Inicio</th>
+                    <th>Tipo</th>
+                    <th>Modo</th>
+                    <th>Inicio Concurso</th>
+                    <th>Fin Concurso</th>
+                    <th>Inicio postulaciones</th>
+                    <th>Fin postulaciones</th>
+                    <th>Inicio votación</th>
                     <th>Fin votación</th>
-                    <th>Fin</th>
                     <th>Activo</th>
                     <th>Acciones</th>
                 </tr>
@@ -61,9 +75,44 @@
                 "columns": [
                     {"data": "id"},
                     {"data": "name"},
+                    {
+                        "data": "type",
+                        "render": function (data) {
+                            switch (data) {
+                                case 1:
+                                    return "Narrativa corta";
+                                    break;
+                                case 2:
+                                    return "Narrativa larga";
+                                    break;
+                                case 3:
+                                    return "Imagen";
+                                    break;
+                            }
+                        }
+                    },
+                    {
+                        "data": "mode",
+                        "render": function (data) {
+                            switch (data) {
+                                case 1:
+                                    return "Pozo";
+                                    break;
+                                case 2:
+                                    return "Completo";
+                                    break;
+                                case 3:
+                                    return "Fijo";
+                                    break;
+                            }
+                        }
+                    },
                     {"data": "start_date"},
-                    {"data": "votes_end_date"},
                     {"data": "end_date"},
+                    {"data": "start_app_date"},
+                    {"data": "end_app_date"},
+                    {"data": "start_vote_date"},
+                    {"data": "end_vote_date"},
                     {
                         "data": "active",
                         "render": function (data) {

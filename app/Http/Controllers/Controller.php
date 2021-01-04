@@ -21,6 +21,15 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function convertToIds($images)
+    {
+        $data = [];
+        foreach ($images as $image) {
+            $data[] = $image->getId();
+        }
+        return $data;
+    }
+
     protected function mapRequestToUserData(Request $request)
     {
         return $request->json()->all();

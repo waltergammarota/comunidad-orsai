@@ -50,7 +50,8 @@ class ContenidoController extends Controller
             'draw' => $request->query('draw'),
             "recordsTotal" => ContenidoModel::where("tipo", $tipo)->count(),
             "recordsFiltered" => ContenidoModel::where("tipo", $tipo)->count(),
-            'data' => ContenidoModel::where("tipo", $tipo)->orderBy("fecha_publicacion", "desc")->get()];
+            'data' => ContenidoModel::where("tipo", $tipo)->orderBy("fecha_publicacion", "desc")->with('contest')->get()
+        ];
         return response()->json($data);
     }
 
@@ -66,35 +67,6 @@ class ContenidoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            "title" => "required",
-            "fecha_publicacion" => "required|date",
-            "tipo" => "required",
-            "texto" => "required",
-            'images' => 'array',
-            'images.*' => 'image|max:5120',
-        ]);
-        $slug = $this->generateSlug($request->slug, $request->title, 0);
-        $noticia = new ContenidoModel([
-            "title" => $request->title,
-            "slug" => $slug,
-            "autor" => $request->autor,
-            "fecha_publicacion" => $request->fecha_publicacion,
-            "copete" => $request->copete,
-            "tipo" => $request->tipo,
-            "texto" => $request->texto,
-            "slug" => $slug,
-            "user_id" => Auth::user()->id,
-            "visible" => $request->visible,
-            "publica" => $request->publica,
-            "coral_id" => $this->generateUuid()
-        ]);
-        $noticia->save();
-        $this->createInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
-        $fileRepo = new FileRepository();
-        $images = $fileRepo->getUploadedFiles('images', $request);
-        $imagesIds = $this->convertToIds($images);
-        $noticia->images()->sync($imagesIds);
         $noticia = $this->createPage($request);
         return Redirect::to('admin/contenidos/tipo/' . $noticia->tipo);
     }
@@ -139,14 +111,6 @@ class ContenidoController extends Controller
         return "{$slug}-{$qty}";
     }
 
-    private function convertToIds($images)
-    {
-        $data = [];
-        foreach ($images as $image) {
-            $data[] = $image->getId();
-        }
-        return $data;
-    }
 
     public function update(Request $request)
     {
@@ -178,7 +142,6 @@ class ContenidoController extends Controller
         if (count($imagesIds) > 0) {
             $noticia->images()->sync($imagesIds);
         }
-        $type = $noticia->tipo;
         return Redirect::to('admin/contenidos/' . $request->id);
     }
 
@@ -224,9 +187,11 @@ class ContenidoController extends Controller
             "user_id" => Auth::user()->id,
             "visible" => $request->visible,
             "publica" => $request->publica,
-            'contest_id' => $request->contest_id
+            'contest_id' => $request->contest_id,
+            "coral_id" => $this->generateUuid()
         ]);
         $noticia->save();
+        $this->createInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
         $imagesIds = $this->convertToIds($images);

@@ -61,4 +61,9 @@ class ContenidoModel extends Model
         return $this->belongsToMany('App\Databases\FileModel', 'contenido_files', "contenido_id", 'file_id')->withTimestamps()->where('type', '=', 'image')->withPivot('id');
     }
 
+    public function contest()
+    {
+        return $this->hasOne('App\Databases\ContestModel', 'id', "contest_id");
+    }
+
 }

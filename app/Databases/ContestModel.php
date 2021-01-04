@@ -38,9 +38,11 @@ class ContestModel extends Model
         'per_winner',
         'amount_winner',
         'cant_winners',
+        'required_amount',
         'cant_caracteres',
         'cant_capitulos',
-        'user_id'
+        'user_id',
+        'winner_check'
     ];
 
     /**
@@ -91,12 +93,13 @@ class ContestModel extends Model
 
     public function hasPostulacionesAbiertas()
     {
-        return $this->start_app_date >= Carbon::now() && $this->end_app_date < Carbon::now();
+        $result = $this->start_app_date <= Carbon::now() && $this->end_app_date > Carbon::now();
+        return $result;
     }
 
     public function hasVotes()
     {
-        return $this->start_vote_date >= Carbon::now() && $this->end_vote_date < Carbon::now();
+        return $this->start_vote_date <= Carbon::now() && $this->end_vote_date > Carbon::now();
     }
 
     public function hasEnded()
@@ -117,5 +120,19 @@ class ContestModel extends Model
     public function getBases()
     {
         return ContenidoModel::where('contest_id', $this->id)->first();
+    }
+
+    public function getStatus()
+    {
+        if ($this->hasEnded()) {
+            return "finalizado";
+        }
+        if ($this->hasVotes()) {
+            return "abierto";
+        }
+        if ($this->hasPostulacionesAbiertas()) {
+            return "abierto";
+        }
+        return "proximo";
     }
 }

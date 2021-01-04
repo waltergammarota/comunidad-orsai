@@ -7,11 +7,9 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\ContestsModo;
 use App\Databases\ContestsType;
-use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
-use App\Repositories\TransactionRepository;
-use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,27 +74,29 @@ class ContestController extends Controller
         $data['cantidadFichasEnJuego'] = $contest->cantidadFichasEnJuego();
         $data['bases'] = $contest->getBases();
         $data['ganadores'] = [];
+        $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);
+        $webController = new WebController;
+        $data['participantes'] = $webController->getParticipantes($request, $contest->id);
         // CONCURSO POSTULACIONES ABIERTAS
+        $data['estado'] = "proximo";
         if ($contest->hasPostulacionesAbiertas()) {
+            $data['estado'] = "abierto";
             $data['postulaciones_abiertas'] = true;
-            return view('concursos.show', $data);
         }
         // CONCURSO INICIO DE LAS APUESTAS
         if ($contest->hasVotes()) {
-            return view('concursos.apuestas', $data);
+            $data['estado'] = "abierto";
         }
         // CONCURSO FINALIZADO
         if ($contest->hasEnded()) {
             $data['estado'] = "finalizado";
             $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where('contest_id', $contest->id)->get();
-            return view('concursos.ganador', $data);
         }
-
-        return view('concursos.show', $data);
-
+        return view('concursos.concurso', $data);
     }
 
-    public function show_winner(Request $request)
+    public
+    function show_winner(Request $request)
     {
         $contestId = $request->contest_id;
         $userInfo = $this->getUserData();
@@ -126,13 +126,15 @@ class ContestController extends Controller
         return view("logo-ganador", $data);
     }
 
-    private function getTotalSociosApostadores()
+    private
+    function getTotalSociosApostadores()
     {
         $txs = Transaction::where('type', 'TRANSFER')->where('from', '>', 1)->groupBy('from')->get();
         return count($txs);
     }
 
-    public function approve(Request $request)
+    public
+    function approve(Request $request)
     {
         $user = Auth::user();
         if ($user->role == "admin") {
@@ -148,7 +150,8 @@ class ContestController extends Controller
         return response()->json(["status" => "ok", "message" => "Concurso aprobado"], 422);
     }
 
-    public function create(Request $request)
+    public
+    function create(Request $request)
     {
         $contest = false;
         $types = ContestsType::all();
@@ -159,7 +162,8 @@ class ContestController extends Controller
         return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner'));
     }
 
-    public function store(Request $request)
+    public
+    function store(Request $request)
     {
         $request->validate([
             "name" => "required",
@@ -192,6 +196,7 @@ class ContestController extends Controller
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
             "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "active" => $request->active,
@@ -203,7 +208,8 @@ class ContestController extends Controller
     }
 
 
-    public function edit(Request $request)
+    public
+    function edit(Request $request)
     {
         $id = $request->route('id');
         $contest = ContestModel::find($id);
@@ -222,7 +228,8 @@ class ContestController extends Controller
     }
 
 
-    public function deleteImage(Request $request)
+    public
+    function deleteImage(Request $request)
     {
         $imageId = $request->key;
         $contest = ContestModel::where('image', $imageId)->first();
@@ -231,7 +238,8 @@ class ContestController extends Controller
         echo json_encode(["message" => $imageId]);
     }
 
-    public function update(Request $request)
+    public
+    function update(Request $request)
     {
         $request->validate([
             "name" => "required",
@@ -250,6 +258,7 @@ class ContestController extends Controller
         $contest = ContestModel::find($id);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
+        $logo = $this->processLogo($images, $contest);
         $data = [
             "name" => $request->name,
             "bajada_corta" => $request->bajada_corta,
@@ -260,12 +269,13 @@ class ContestController extends Controller
             "end_app_date" => Carbon::parse($request->end_app_date)->format('Y-m-d H:i:s'),
             "start_vote_date" => Carbon::parse($request->start_vote_date)->format('Y-m-d H:i:s'),
             "end_vote_date" => Carbon::parse($request->end_vote_date)->format('Y-m-d H:i:s'),
-            "image" => count($images) > 0 ? $images[0]->getId() : 0,
+            "image" => $logo,
             "type" => $request->type,
             "mode" => $request->mode,
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
             "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "active" => $request->active,
@@ -274,5 +284,17 @@ class ContestController extends Controller
         $contest->fill($data);
         $contest->save();
         return Redirect::to('admin/concursos');
+    }
+
+    private
+    function processLogo($images, $contest)
+    {
+        if (count($images) > 0) {
+            return $images[0]->getId();
+        }
+        if ($contest->image != 0) {
+            return $contest->image;
+        }
+        return 0;
     }
 }
