@@ -18,12 +18,12 @@ use App\UseCases\ContestApplication\EditContestApplication;
 use App\UseCases\ContestApplication\GetContestApplicationByUser;
 use App\User;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use GuzzleHttp\Client;
 
 class AccountController extends Controller
 {
@@ -185,7 +185,8 @@ class AccountController extends Controller
      */
     private function createNewCap(
         Request $request
-    ): RedirectResponse {
+    ): RedirectResponse
+    {
         $request->validate(
             [
                 'title' => 'required|min:1|max:255',
@@ -337,6 +338,14 @@ class AccountController extends Controller
             return response()->json(['message' => "Avatar updated"]);
         }
         return response()->json(['message' => "Invalid image"], 422);
+    }
+
+    public function postulaciones()
+    {
+        $data = $this->getUserData();
+        $user = Auth::user();
+        $data['postulaciones'] = ContestApplicationModel::where('user_id', $user->id)->get();
+        return view('postulaciones', $data);
     }
 
     public function transacciones()

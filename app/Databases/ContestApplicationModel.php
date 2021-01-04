@@ -56,7 +56,7 @@ class ContestApplicationModel extends Model
 
     public function contest()
     {
-        return $this->hasOne('App\ContestModel', 'id', "contest_id");
+        return $this->hasOne('App\Databases\ContestModel', 'id', "contest_id")->first();
     }
 
     public function logos()

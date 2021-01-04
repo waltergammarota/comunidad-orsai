@@ -573,6 +573,11 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::get(
+            '/postulaciones',
+            'AccountController@postulaciones'
+        )->name('postulaciones')->middleware('email_verified');
+
+        Route::get(
             '/transacciones',
             'AccountController@transacciones'
         )->name('transacciones')->middleware('email_verified');
