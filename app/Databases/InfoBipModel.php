@@ -47,38 +47,27 @@ class InfoBipModel extends Model
             $user->code = $code;
             $user->sms_sent_at = Carbon::now();
             $user->save();
+            return $code;
         } catch (\Exception $error) {
         }
     }
 
-    public function updateStory($coral_id, $url, $title, $author)
+    public function verifyCode($code, $userId)
     {
-        $client = new Client();
-        try {
-            $token = $this->getCoralToken($client);
-            $updateStoryResponse = $client->post($this->getEndpoint(),
-                [
-                    "headers" => [
-                        "Authorization" => "Bearer {$token->token}",
-                        "Content-Type" => "application/json"
-                    ],
-                    "json" => [
-                        "query" => 'mutation($id:ID!,$story:UpdateStory!){updateStory(input:{id:$id,story:$story,clientMutationId:""}){story{id url metadata{title author description image publishedAt modifiedAt section}scrapedAt}}}',
-                        "variables" => [
-                            "id" => $coral_id,
-                            "story" => [
-                                "url" => $url,
-                                "metadata" => [
-                                    "title" => $title,
-                                    "author" => $author
-                                ]
-                            ],
-                        ]
-                    ]
-                ]
-            );
-        } catch (\Exception $e) {
+        $user = User::find($userId);
+        $validWindowTimeInMinutes = 2;
+        $sociosFundadorMaxQty = 15000;
+        if ($code == $user->code && $user->sms_sent_at->diffInMinutes(Carbon::now()) < $validWindowTimeInMinutes) {
+            $user->phone_verified_at = Carbon::now();
+            $currentSociosFundadoresQty = User::where('socio_fundador', 1)->count();
+            if ($currentSociosFundadoresQty <= $sociosFundadorMaxQty) {
+                $user->socio_fundador = 1;
+            }
+            $user->save();
+            return true;
         }
+        return false;
     }
+
 }
 

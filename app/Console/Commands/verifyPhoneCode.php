@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 use App\Databases\InfoBipModel;
 use Illuminate\Console\Command;
 
-class sendSMSToUser extends Command
+class verifyPhoneCode extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sms:send';
+    protected $signature = 'sms:verify';
 
     /**
      * The console command description.
@@ -39,8 +39,8 @@ class sendSMSToUser extends Command
     public function handle()
     {
         $smsSender = new InfoBipModel();
-        $phone = "541136998080";
-        $code = $smsSender->verifyPhone($phone, 2);
-        $this->info($code);
+        $code = 858233;
+        $response = $smsSender->verifyCode($code, 2);
+        $this->info($response);
     }
 }

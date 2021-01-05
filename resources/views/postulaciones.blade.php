@@ -23,14 +23,35 @@
                     <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Postulación</th>
                         <th>Concurso</th>
+                        <th>Fecha de presentación</th>
+                        <th>Estado</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($postulaciones as $postulacion)
                         <tr>
                             <td>{{$postulacion->id}}</td>
-                            <td>{{$postulacion->contest()->name}}</td>
+                            <td>{{$postulacion->title}}</td>
+                            {{--                             TODO DEFINIR IMAGEN DE CADA TIPO--}}
+                            <td><img src="{{url('img/participantes/participante.jpg')}}" width="24"
+                                     alt="modo_concurso">&nbsp;{{$postulacion->contest()->name}}</td>
+                            <td>{{$postulacion->created_at->format('d/m/Y H:i')}}</td>
+                            <?php $status = $postulacion->status()->first() ?>
+                            @if($status->status  == 'approved')
+                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                       class="subrayado resaltado_aprobada">Aprobada</a></td>
+                            @elseif($status->status == "rejected")
+                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                       class="subrayado resaltado_rechazada">Rechazada</a></td>
+                            @elseif($status->status== "draft")
+                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                       class="subrayado">Borrador</a></td>
+                            @elseif($status->status== "sent")
+                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                       class="subrayado resaltado_amarillo">En revisión</a></td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>
