@@ -90,16 +90,18 @@ Route::get(
     'WebController@bases_concurso'
 )->name('bases-concurso');
 
-Route::get(
-    '/concursos',
-    'Contest\ContestController@index'
-)->name("concursos");
 
-Route::get(
-    '/concursos/{id}/{name}',
-    'Contest\ContestController@show'
-)->name("concursos-show");
-
+// RUTAS DE CONCURSOS
+//Route::get(
+//    '/concursos',
+//    'Contest\ContestController@index'
+//)->name("concursos");
+//
+//Route::get(
+//    '/concursos/{id}/{name}',
+//    'Contest\ContestController@show'
+//)->name("concursos-show");
+// FIN DE RUTAS DE CONCURSO
 
 Route::get(
     '/historia',
@@ -572,11 +574,12 @@ Route::middleware(['verified'])->group(
             'concurso-ganador'
         )->middleware('admin_role');
 
-        Route::get(
-            '/postulaciones',
-            'AccountController@postulaciones'
-        )->name('postulaciones')->middleware('email_verified');
-
+        // RUTA MIS POSTULACIONES
+//        Route::get(
+//            '/mis-postulaciones',
+//            'AccountController@postulaciones'
+//        )->name('postulaciones')->middleware('email_verified');
+// FIN RUTA MIS POSTULACIONES
         Route::get(
             '/transacciones',
             'AccountController@transacciones'

@@ -54,18 +54,18 @@
         </a>
 
         @if($emailWasValidated)
-            <a href="{{url('postulaciones')}}" class="box_panel">
-                <div>
-                    <span>Mis postulaciones</span>
-                </div>
-                <div>
-                    <span>Acá podés verificar tus postulaciones.</span>
-                </div>
-                <div>
-                <span href="{{url('postulaciones')}}"
-                      class="subrayado resaltado_amarillo">Ver</span>
-                </div>
-            </a>
+            {{--            <a href="{{url('mis-postulaciones')}}" class="box_panel">--}}
+            {{--                <div>--}}
+            {{--                    <span>Mis postulaciones</span>--}}
+            {{--                </div>--}}
+            {{--                <div>--}}
+            {{--                    <span>Acá podés verificar tus postulaciones.</span>--}}
+            {{--                </div>--}}
+            {{--                <div>--}}
+            {{--                <span href="{{url('mis-postulaciones')}}"--}}
+            {{--                      class="subrayado resaltado_amarillo">Ver</span>--}}
+            {{--                </div>--}}
+            {{--            </a>--}}
         @endif
         <a href="{{url('transacciones')}}" class="box_panel">
             <div>
