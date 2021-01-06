@@ -129,7 +129,7 @@
         <article class="card_style_4">
             <div>
                 <span class="icono icon-ficha"></span>
-                <h2 class="">{{$sociosFundadores}}</h2>
+                <h2 class="">{{$sociosfundadores}}</h2>
                 <p class="">socios posta</p>
             </div>
         </article>
