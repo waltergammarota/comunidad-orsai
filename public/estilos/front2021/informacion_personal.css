@@ -1,0 +1,205 @@
+.modal-close {
+  position: absolute;
+  z-index: 999;
+  right: 15px;
+  top: 15px;
+  padding: 10px;
+  color: white;
+  font-weight: 700;
+  transform: rotate(45deg) scale(2);
+  cursor: pointer;
+  color: #808080;
+}
+
+.modal-ctn {
+  top: 0;
+  position: fixed;
+  z-index: 99999;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0,0,0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  margin: auto;
+  opacity: 1;
+  height: 370px;
+  width: 330px;
+  background: white;
+  transition: all .35s ease-out;
+ }
+  #modal-content {
+    margin: 40px;
+    text-align: center;
+  }
+#modal-content strong {
+  text-transform: uppercase;
+  font-size: 24px;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+
+ #cerrar_modal button {
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 700;
+   margin-bottom: 10px;
+  }
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+.justify_center {
+  justify-content: center;
+}  
+.justify_end {
+  justify-content: flex-end;
+}
+#intro {
+  margin-top: 30px !important;
+  margin-bottom: 0px !important;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+#info_personal {
+  flex-basis: 40%;
+}
+#info_personal h1{
+  margin-top: 15px !important;
+  margin-bottom: 20px !important;
+}
+#contenedor_avatar {
+  flex-basis: auto;
+}
+#imagen_avatar {
+  background: url("https://i.ibb.co/thZJgCr/participante.jpg");
+  background-size: cover;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px dashed #808080;
+}
+  #cambiar_avatar a {
+    font-size: 12px;
+  }
+.contenedor_campos {
+  justify-content: flex-start;
+}
+.columna_campos{
+  align-items: flex-start;
+  flex-basis: 30%;
+  margin-right: 20%;
+}
+#campos_izquierda {
+ margin-left: 0;
+}
+#usr, #mail_us{
+  background-color: #f3f3f3;
+}
+#intro_registro form .input_err {
+  padding: 0 !important;
+  width: 100%;
+}
+#intro_registro form input:focus {
+    outline: 0;
+}
+.mt-5 {
+  margin-top: 5px;
+}
+  #boton_enviar button {
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px 0;
+    font-weight: 700;
+  }
+.columna_campos label {
+  font-weight: 400 !important;
+  margin-top: 15px;
+}
+#ubicacion {
+  font-size: 10px;
+}
+#ayuda_form, obligatorio {
+  width: 150%;
+  margin: 20px 0 20px 0;
+}
+
+.contenedor form {
+    font-size: 14px;
+}
+.myhrline {  
+    margin-top: 25px;
+}
+#obligatorio {
+  margin-bottom: 20px;
+}
+.form_reg form, .input_err {
+    font-size: 14px !important;
+}
+#whatsapp {
+  display: inline-block;
+  width: 70%;
+}
+#validar-boton {
+  display: inline-block !important;
+  width: 29%;
+  height: 30px;
+  border-bottom: 1px dashed #808080;
+  margin-left: 1px;
+}
+
+  #validar-boton button {
+    border: 0;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  #boton_enviar button {
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px 0;
+    font-weight: 700;
+  }
+
+@media (max-width: 992px) {
+  .columna_campos{
+  flex-basis: 100%;
+  margin-right: 0;
+  }
+  #contenedor_avatar {
+    width: 100%;
+    margin: 30px auto;
+  }
+  #imagen_avatar {
+    width: 144px;
+    height: 144px;
+  }
+#ayuda_form, obligatorio {
+  width: 100%;
+  }
+}

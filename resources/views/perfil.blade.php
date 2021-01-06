@@ -170,11 +170,38 @@
                     <div class="line_dashed"></div>
                 </div>
             </form>
+
+            <form action="#">
+                <div class="input_err select">
+                    <label class='oculto'>Prefijo teléfono<strong>*</strong></label>
+                    <div class="in_sp editar">
+                        <div class="arm_sel">
+                            <select name='prefijoTel' id='prefijo'
+                                    class=''>
+                                @foreach($countries as $country)
+                                    @if($country->prefijoTel == $prefijo)
+                                        <option value="{{$country->prefijoTel}}" selected>
+                                            (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
+                                        </option>
+                                    @else
+                                        <option value="{{$country->prefijoTel}}">
+                                            (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line_dashed"></div>
+                </div>
+            </form>
+
             <form action="#">
                 <div class="input_err">
-                    <label>Whatsapp<strong>*</strong></label>
+                    <label>Teléfono móvil<strong>*</strong></label>
                     <div class="in_sp editar">
-                        <input type="number" name="whatsapp" value="{{$whatsapp}}" id="whatsapp">
+                        <input type="number" name="whatsapp" value="{{$whatsapp}}" id="whatsapp"
+                               placeholder="(Ej. 115XXXXXXX)">
                     </div>
                     <div class="line_dashed"></div>
                 </div>
@@ -360,6 +387,7 @@
             formData.append('birth_date', $("#birthDate").val());
             formData.append('profesion', $("#profesion").val());
             formData.append('description', $("#description").val());
+            formData.append('prefijo', $("#prefijo").val());
             formData.append('whatsapp', $("#whatsapp").val());
             formData.append('facebook', $("#facebook").val());
             formData.append('twitter', $("#twitter").val());
@@ -381,6 +409,9 @@
             }).then(response => {
                 const get_modal_exito = document.getElementById("exito_msg");
                 const efecto1 = setTimeout(close(get_modal_exito), 600);
+                if (response.data.action == "validate phone") {
+                    window.location = '{{url('validacion-usuario')}}'
+                }
             }).catch((error) => {
                 console.log(error);
                 if (error.response.data.message == "Nombre y Apellido deben ser mayores a 3 caracteres") {

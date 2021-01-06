@@ -43,6 +43,7 @@ class GetAccountInfo extends GenericUseCase
             'birthDate' => $user->birth_date,
             'profesion' => $user->profesion,
             'description' => $user->description,
+            'prefijo' => $user->prefijo,
             'whatsapp' => $user->whatsapp,
             'facebook' => $user->facebook,
             'twitter' => $user->twitter,

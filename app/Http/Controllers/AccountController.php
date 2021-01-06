@@ -38,6 +38,7 @@ class AccountController extends Controller
         $data['ciudadesOptions'] = CiudadModel::all();
         $data['provincias'] = json_encode($this->getProvincias($data['provinciasOptions']));
         $data['ciudades'] = json_encode($this->getCiudades($data['ciudadesOptions']));
+        $data['countries'] = PaisModel::all();
         return view('perfil', $data);
     }
 
@@ -249,21 +250,33 @@ class AccountController extends Controller
             'birth_date',
             'profesion',
             'facebook',
+            'prefijo',
             'whatsapp',
             'twitter',
             'instagram'
         ];
         $postData = $request->all($allowedTypes);
         $user = Auth::user();
+        $previousPhone = $user->prefijo . $user->whatsapp;
         $user->fill($postData);
         if (strlen($user->name) <= 3 || strlen($user->lastName) <= 3) {
             return response()->json(['message' => "Nombre y Apellido deben ser mayores a 3 caracteres"], 422);
         }
+        $action = "";
+        if ($previousPhone != $user->prefijo . $user->whatsapp && $user->whatsapp != "" && $user->prefijo != "") {
+            $action = "validate phone";
+            $user->sms_sent_at = null;
+            $user->code = null;
+            $user->phone_verified_at = null;
+        }
         $user->save();
         $this->updateUserNameInCoral($user);
         if ($this->sendProfileExtraPoints()) {
-            return response()->json(['message' => "points profile completed"]);
+            return response()->json(['message' => "points profile completed", "action" => $action]);
+        } else {
+            return response()->json(['message' => "profile updated", "action" => $action]);
         }
+
         return response()->json(['message' => "Some types are not supported"], 422);
     }
 

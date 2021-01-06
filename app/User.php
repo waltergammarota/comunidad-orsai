@@ -32,6 +32,7 @@ class User extends Authenticable implements JWTSubject
         'description',
         'facebook',
         'whatsapp',
+        'prefijo',
         'twitter',
         'instagram',
         'email',
@@ -103,6 +104,11 @@ class User extends Authenticable implements JWTSubject
         $salida = Transaction::where('from', $this->id)->whereIn('type', ['TRANSFER'])->sum('amount');
         $quemados = Transaction::where('to', $this->id)->whereIn('type', ['BURN'])->sum('amount');
         return $entrada - $salida - $quemados;
+    }
+
+    public function getPhone()
+    {
+        return $this->prefijo . $this->whatsapp;
     }
 
 }

@@ -113,8 +113,41 @@ Route::get(
 Route::middleware(['verified'])->group(
     function () {
 
-        // CONCURSOS
+        // RUTAS SMS
+        Route::get(
+            'validacion-usuario',
+            'SmsController@index'
+        )->middleware('email_verified');
 
+        Route::get(
+            'validacion-codigo',
+            'SmsController@validate_code'
+        )->middleware('email_verified');
+
+        Route::post(
+            'agregar-telefono',
+            'SmsController@add_phone'
+        )->middleware('email_verified');
+
+        Route::post(
+            'verificar-telefono',
+            'SmsController@verify_phone'
+        )->middleware('email_verified');
+
+        Route::post(
+            'reenviar-codigo',
+            'SmsController@resend_code'
+        )->middleware('email_verified');
+
+        Route::post(
+            'verificar-no-usado',
+            'SmsController@verify_unique_phone'
+        )->middleware('email_verified');
+
+
+        // FIN RUTAS SMS
+
+        // CONCURSOS
 
         Route::get(
             '/propuesta/{id}',

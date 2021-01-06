@@ -22,7 +22,7 @@ class InfoBipModel extends Model
     public function verifyPhone($phone, $userId)
     {
         $client = new Client();
-        $code = rand(100000, 999999);
+        $code = rand(1000, 9999);
         try {
             $sendSMS = $client->post($this->getEndpoint(),
                 [
@@ -57,7 +57,8 @@ class InfoBipModel extends Model
         $user = User::find($userId);
         $validWindowTimeInMinutes = 2;
         $sociosFundadorMaxQty = 15000;
-        if ($code == $user->code && $user->sms_sent_at->diffInMinutes(Carbon::now()) < $validWindowTimeInMinutes) {
+        $timePassedInMinutes = $user->sms_sent_at->diffInMinutes(Carbon::now());
+        if ($code == $user->code && $timePassedInMinutes < $validWindowTimeInMinutes) {
             $user->phone_verified_at = Carbon::now();
             $currentSociosFundadoresQty = User::where('socio_fundador', 1)->count();
             if ($currentSociosFundadoresQty <= $sociosFundadorMaxQty) {
