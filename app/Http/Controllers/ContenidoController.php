@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Databases\ContenidoModel;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,8 @@ class ContenidoController extends Controller
     public function index(Request $request)
     {
         $data = $this->getUserData();
+        $data['sociosFundadores'] = User::where('socio_fundador', 1)->count();
+        $data['socios'] = User::whereNotNull('email_verified_at')->count();
         if (Auth::check()) {
             $emailWasValidated = Auth::user()->email_verified_at != null;
             if (!$emailWasValidated) {
@@ -24,9 +27,9 @@ class ContenidoController extends Controller
 
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
-        if($slug == null){ 
+        if ($slug == null) {
             return view("2021-home", $data);
-        }else{
+        } else {
             if ($slug == "novedades") {
                 $data['noticias'] = $this->getNoticias($page);
                 return view("noticias.2021-noticias", $data);
