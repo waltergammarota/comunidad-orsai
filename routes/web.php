@@ -103,10 +103,10 @@ Route::get(
 //)->name("concursos-show");
 // FIN DE RUTAS DE CONCURSO
 
-Route::get(
-    '/historia',
-    'WebController@historia'
-)->name('historia');
+//Route::get(
+//    '/historia',
+//    'WebController@historia'
+//)->name('historia');
 
 
 /* ACCESO RESTRINGIDO */
@@ -483,10 +483,10 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         // CONTACTO
-        Route::get(
-            '/contacto',
-            'WebController@contacto'
-        )->name("contacto");
+//        Route::get(
+//            '/contacto',
+//            'WebController@contacto'
+//        )->name("contacto");
 
         Route::post(
             '/contacto',
