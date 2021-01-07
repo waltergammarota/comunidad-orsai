@@ -111,4 +111,34 @@
     <!-- </div> -->
     </div>
 </section>
+<section class="resaltado_gris pd_tp_bt pd_20 widt_100">
+    <div class="contenedor grilla_3 card_style_4_grid">
+    
+        <article class="card_style_4 card_style_4_tit">
+            <h2 class=""><strong>¡Adiós fase beta!</strong><br>Es momento de que certifiques tu identidad, así que mejor peináte.</h2>
+            <a href="{{url('validacion-usuario')}}" class="link_subrayado mg_20"><span>Los primeros 15.000<br>serán «fundadores»</span></a>
+        </article>
+        
+        <article class="card_style_4 ">
+            <div>
+                <span class="icono icon-card"></span>
+                <h2 class="">{{$socios}}</h2>
+                <p class="">socios beta</p>
+            </div>
+        </article>
+        <article class="card_style_4">
+            <div>
+                <span class="icono icon-ficha"></span>
+                <h2 class="">{{$sociosFundadores}}</h2>
+                <p class="">socios posta</p>
+            </div>
+        </article>
+
+    </div>
+    <div class="contenedor cont_bt">
+        <a href="{{url('validacion-usuario')}}" class="boton_redondeado resaltado_amarillo">
+            <span>Confirmá tu membresía</span>
+        </a>
+    </div>
+</section>
 @endsection

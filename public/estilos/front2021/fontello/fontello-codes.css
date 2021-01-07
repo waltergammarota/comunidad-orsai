@@ -12,5 +12,13 @@
 .icon-right_arrow:before { content: '\e80a'; } /* '' */
 .icon-left_arrow:before { content: '\e80b'; } /* '' */
 .icon-config:before { content: '\e80c'; } /* '' */
+.icon-check:before { content: '\e80d'; } /* '' */
+.icon-editar:before { content: '\e80e'; } /* '' */
+.icon-check_2:before { content: '\e80f'; } /* '' */
+.icon-check_circle:before { content: '\e810'; } /* '' */
+.icon-exclamacion_circle:before { content: '\e811'; } /* '' */
+.icon-down-dir:before { content: '\e812'; } /* '' */
+.icon-arrow_down_rellena:before { content: '\e813'; } /* '' */
+.icon-up-dir:before { content: '\e814'; } /* '' */
 .icon-angle-up:before { content: '\f106'; } /* '' */
 .icon-angle-down:before { content: '\f107'; } /* '' */
