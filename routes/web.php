@@ -120,6 +120,11 @@ Route::middleware(['verified'])->group(
         )->middleware('email_verified');
 
         Route::get(
+            'editar-telefono',
+            'SmsController@edit_phone'
+        )->middleware('email_verified');
+
+        Route::get(
             'validacion-codigo',
             'SmsController@validate_code'
         )->middleware('email_verified');

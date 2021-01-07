@@ -171,38 +171,15 @@
                 </div>
             </form>
 
-            <form action="#">
-                <div class="input_err select">
-                    <label class='oculto'>Prefijo teléfono<strong>*</strong></label>
-                    <div class="in_sp editar">
-                        <div class="arm_sel">
-                            <select name='prefijoTel' id='prefijo'
-                                    class=''>
-                                @foreach($countries as $country)
-                                    @if($country->prefijoTel == $prefijo)
-                                        <option value="{{$country->prefijoTel}}" selected>
-                                            (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
-                                        </option>
-                                    @else
-                                        <option value="{{$country->prefijoTel}}">
-                                            (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="line_dashed"></div>
-                </div>
-            </form>
 
             <form action="#">
                 <div class="input_err">
                     <label>Teléfono móvil<strong>*</strong></label>
                     <div class="in_sp editar">
-                        <input type="number" name="whatsapp" value="{{$whatsapp}}" id="whatsapp"
-                               placeholder="(Ej. 115XXXXXXX)">
+                        <input type="text" name="whatsapp" value="+{{$prefijo}} {{$whatsapp}}" id="whatsapp"
+                               placeholder="(Ej. 115XXXXXXX)" disabled="disabled">
                     </div>
+                    <a href="{{url('editar-telefono')}}" class="link_subrayado">Modificar</a>
                     <div class="line_dashed"></div>
                 </div>
             </form>

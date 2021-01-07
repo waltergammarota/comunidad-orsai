@@ -36,7 +36,6 @@ class InfoBipModel extends Model
                                 "destinations" => [
                                     ["to" => $phone]
                                 ],
-                                "flash" => true,
                                 "text" => "[Comunidad Orsai] Código de verificación: {$code}. No compartas este código con nadie."
                             ]
                         ]

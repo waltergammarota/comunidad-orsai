@@ -11,7 +11,10 @@
                     <h1 class="titulo_blog text_bold">VALIDACIÓN DE TU PERFIL</h1>
                     <p class="normal">Te enviaremos un código de seguridad por mensaje de texto al número de celular
                         asociado a tu perfil:<br/>
-                        <strong>+{{$prefijo}} {{$whatsapp}}</strong>.</p>
+                        <strong>+{{$prefijo}} {{$whatsapp}}</strong>.
+                        No es tu telefóno?
+                        <a href="{{url('editar-telefono')}}" class="link_subrayado">Editar</a>
+                    </p>
                     <p class="subtitulogris">Es posible que se apliquen tarifas de mensajes y datos.</p>
                 </div>
                 <hr/>

@@ -13,22 +13,27 @@ use Illuminate\Support\Facades\Redirect;
 class SmsController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
         $data = $this->getUserData();
         if ($data['whatsapp'] != "") {
             return view('sms.validacion_perfil', $data);
         }
+        return Redirect::to('editar-telefono');
+    }
 
-        $data['countries'] = PaisModel::all();
+    public function edit_phone(Request $request)
+    {
+        $data = $this->getUserData();
+        $data['countries'] = PaisModel::orderBy('nombre', 'asc')->get();
         return view('sms.validacion_sms', $data);
     }
 
     public function verify_unique_phone(Request $request)
     {
         $request->validate([
-            "prefijo" => 'required|numeric',
-            "telefono" => 'required|numeric'
+            "prefijo" => 'required',
+            "telefono" => 'required'
         ]);
         $qty = User::where('whatsapp', $request->telefono)->where('prefijo', $request->prefijo)->count();
         if ($qty == 0) {
@@ -49,7 +54,7 @@ class SmsController extends Controller
         $user->whatsapp = $request->telefono;
         $user->save();
         $smsSender = new InfoBipModel();
-        $smsSender->verifyPhone($user->whatsapp, $user->id);
+        $smsSender->verifyPhone($user->getPhone(), $user->id);
         return Redirect::to('validacion-codigo');
     }
 
