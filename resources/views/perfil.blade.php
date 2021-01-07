@@ -6,6 +6,7 @@
 @section('header')
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{url("admin/plugins/fontawesome-free/css/all.min.css")}}">
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.6/bundle/libphonenumber-min.js"></script>
 @endsection
 
 @section('content')
@@ -442,6 +443,11 @@
                 generateProvinciasOptions(cityOptions2, $("#ciudades"), savedCity);
             }
 
+            const telefono = $('#whatsapp');
+            const phoneValidator = libphonenumber.parsePhoneNumber;
+            const oldPhone = '+{{$prefijo}}{{$whatsapp}}';
+            const formattedPhone = phoneValidator(oldPhone)
+            telefono.val(`+${formattedPhone.countryCallingCode} ${formattedPhone.formatNational()}`);
         });
 
 
