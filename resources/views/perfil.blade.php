@@ -176,11 +176,10 @@
             <form action="#">
                 <div class="input_err">
                     <label>Teléfono móvil<strong>*</strong></label>
-                    <div class="in_sp editar">
-                        <input type="text" name="whatsapp" value="+{{$prefijo}} {{$whatsapp}}" id="whatsapp"
-                               placeholder="(Ej. 115XXXXXXX)" disabled="disabled">
+                    <div class="in_sp editar" style="display:inline-block;">
+                        <input type="text" name="whatsapp" value="+{{$prefijo}} {{$whatsapp}}" id="whatsapp" disabled="disabled">
                     </div>
-                    <a href="{{url('editar-telefono')}}" class="link_subrayado">Modificar</a>
+                    <a href="{{url('editar-telefono')}}" class="subrayado resaltado_amarillo">Editar</a>
                     <div class="line_dashed"></div>
                 </div>
             </form>

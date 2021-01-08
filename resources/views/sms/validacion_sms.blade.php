@@ -4,8 +4,10 @@
 @section('description', 'Validación de perfil')
 @section('header')
     <link rel="stylesheet" href="{{url('estilos/front2021/informacion_personal.css')}}">
-    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.6/bundle/libphonenumber-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.6/bundle/libphonenumber-min.js"></script> 
 @endsection
+
+
 @section('content')
     <style>
         .nroInvalido {
@@ -61,9 +63,10 @@
                                 @endif
                             @endforeach
                         </select></p>
-                    <p><label for=""><strong>Número de celular</strong></label>
-                        <input placeholder="(Ej. 115XXXXXXX)" class="textgrey" type="text" name="telefono"
-                               id="phoneNumber" value=""></p>
+                    <p><label for=""><strong>Número de celular</strong> <small id="example_phone"></small></label>
+                        <input class="textgrey" type="text" name="telefono"
+                               id="phoneNumber" value=""><span id="feedback_phone"></span></p>
+                               
                     <div class="box_button">
                         <button type="submit" id="enviarTelefono"
                                 class="boton_redondeado boton-largo resaltado_amarillo text_bold">Agregar
@@ -84,25 +87,32 @@
         $(document).ready(function () {
             const prefijo = $('#prefijo');
             const telefono = $('#phoneNumber');
+            const feedback = $('#feedback_phone');
             const btn = $("#enviarTelefono");
             const numberUsed = $("#numeroEnUso");
             const genericError = $("#generic-error");
-            const errorPhoneNumber = $("#telefono");
-
+            const errorPhoneNumber = $("#telefono"); 
+            const example_phone = $("#example_phone"); 
+            const phone_examples = $.getJSON( "https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.7/examples.mobile.json");
             const phoneValidator = libphonenumber.parsePhoneNumber;
-            const oldPhone = '+{{$prefijo}}{{$whatsapp}}';
+            const oldPhone = '+{{$prefijo}}{{$whatsapp}}'; 
 
             telefono.val(phoneValidator(oldPhone).formatNational());
 
             function validatePhone(prefix, value) {
-                const phoneNumber = phoneValidator(`+${prefix}${value}`);
+                const phoneNumber = phoneValidator(`+${prefix}${value}`); 
                 if (phoneNumber.isValid()) {
                     telefono.val(phoneNumber.formatNational());
                     telefono.removeClass('nroInvalido');
                     telefono.addClass('nroValido');
-                } else {
+                    feedback.html('');
+                    example_phone.html('');
+                } else {  
+                    examplePhone = libphonenumber.getExampleNumber(phoneNumber.country, phone_examples.responseJSON); 
+                    example_phone.html("Ejemplo: "+examplePhone.nationalNumber); 
                     telefono.addClass('nroInvalido');
                     telefono.removeClass('nroValido');
+                    feedback.html('El teléfono que ingresaste no es válido');
                 }
             }
 
