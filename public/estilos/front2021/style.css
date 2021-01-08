@@ -1162,6 +1162,7 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
     -o-border-radius: 50px;
     border: 0;
     text-decoration: none;
+    cursor:pointer;
 }
 
 .align_left {
@@ -4069,8 +4070,12 @@ footer .sub_footer .sub_footer_ri ul li a {
     text-align: center;
     font-weight: bold;
     margin: auto;
+    cursor:pointer;
 }
-
+#feedback_phone{
+    font-size:12px;
+    color: red;
+}
 .selectgrey {
     background-color: #efefef;
     border-radius: 3px;
@@ -4243,6 +4248,7 @@ footer .sub_footer .sub_footer_ri ul li a {
     .boton-largo {
         width: 100%;
         color: #0d0d0d;
+        cursor:pointer;
     }
 }
 
