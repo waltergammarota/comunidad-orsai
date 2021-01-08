@@ -29,11 +29,6 @@
         </div>
     </div>
 </section>
-@endsection
-
-@section('footer')
-
-@endsection
-
-
-
+@endsection 
+@section('footer') 
+@endsection 

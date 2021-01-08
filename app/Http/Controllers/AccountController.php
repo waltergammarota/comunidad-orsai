@@ -103,7 +103,7 @@ class AccountController extends Controller
         $data['totalusers'] = User::where('email_verified_at', '!=', null)->count();
         $data['user'] = Auth::user();
         $data = array_merge($data, $this->getUserData());
-        return view('panel', $data);
+        return view('2021-panel', $data);
     }
 
     private function hasStarted($contestId)
