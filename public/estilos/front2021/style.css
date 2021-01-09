@@ -4291,11 +4291,11 @@ footer .sub_footer .sub_footer_ri ul li a {
         width: 100%;
     }
 
-    .contenedor_interna {
-        max-width: 640px !Important;
+    #sms .contenedor_interna {
+        max-width: 560px !important;
     }
 
-    .titulo_blog {
+    #sms .titulo_blog {
         font-family: 'Barlow Condensed', sans-serif;
         font-size: 41px;
         font-weight: 400;
@@ -4306,19 +4306,19 @@ footer .sub_footer .sub_footer_ri ul li a {
         color: #0d0d0d;
     }
 
-    .subtitulogris {
+    #sms .subtitulogris {
         color: #969695;
         font-size: 20px;
         line-height: 140%;
         margin-bottom: 20px;
     }
 
-    .subtitulo {
+    #sms .subtitulo {
         font-size: 21px;
         color: #0d0d0d;
     }
 
-    .cuerpo_interna p {
+    #sms .cuerpo_interna p {
         font-size: 16px;
         line-height: 140%;
     }
