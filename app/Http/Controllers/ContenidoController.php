@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Databases\CommentsModel;
 use App\Databases\ContenidoModel;
 use App\User;
 use Illuminate\Http\Request;
@@ -89,6 +90,7 @@ class ContenidoController extends Controller
         $limit = 50;
         $offset = ($page - 1) * $limit;
         $data['noticias'] = ContenidoModel::where(["tipo" => "noticia", "visible" => 1])->whereDate('fecha_publicacion', '<=', date('Y-m-d'))->limit($limit)->offset($offset)->orderBy('fecha_publicacion', 'desc')->get();
+        $data['noticias'] = CommentsModel::getCommentsData($data['noticias']);
         $data['previous'] = $page - 1;
         $data['current_page'] = $page;
         $data['next'] = ContenidoModel::where(["tipo" => "noticia", "visible" => 1])->whereDate('fecha_publicacion', '<=', date('Y-m-d'))->limit($limit)->offset($page * $limit)->count() > 0 ? $page + 1 : $page;
