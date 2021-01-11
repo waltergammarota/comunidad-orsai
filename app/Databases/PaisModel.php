@@ -21,6 +21,7 @@ class PaisModel extends Model
      */
     protected $fillable = [
         'nombre',
+        'iso',
         'zona',
         'prefijoTel',
         'NElat',
@@ -54,7 +55,7 @@ class PaisModel extends Model
      */
     public function provincias()
     {
-        return $this->hasMany('App\Databases\ProvinciaModel','id', "iso");
+        return $this->hasMany('App\Databases\ProvinciaModel', 'id', "iso");
     }
 
 }

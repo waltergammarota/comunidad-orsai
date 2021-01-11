@@ -250,25 +250,16 @@ class AccountController extends Controller
             'birth_date',
             'profesion',
             'facebook',
-            'prefijo',
-            'whatsapp',
             'twitter',
             'instagram'
         ];
         $postData = $request->all($allowedTypes);
         $user = Auth::user();
-        $previousPhone = $user->prefijo . $user->whatsapp;
         $user->fill($postData);
         if (strlen($user->name) <= 3 || strlen($user->lastName) <= 3) {
             return response()->json(['message' => "Nombre y Apellido deben ser mayores a 3 caracteres"], 422);
         }
         $action = "";
-        if ($previousPhone != $user->prefijo . $user->whatsapp && $user->whatsapp != "" && $user->prefijo != "") {
-            $action = "validate phone";
-            $user->sms_sent_at = null;
-            $user->code = null;
-            $user->phone_verified_at = null;
-        }
         $user->save();
         $this->updateUserNameInCoral($user);
         if ($this->sendProfileExtraPoints()) {

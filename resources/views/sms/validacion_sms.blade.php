@@ -4,7 +4,7 @@
 @section('description', 'Validación de perfil')
 @section('header')
     <link rel="stylesheet" href="{{url('estilos/front2021/informacion_personal.css')}}">
-    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.6/bundle/libphonenumber-min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.6/bundle/libphonenumber-min.js"></script>
 @endsection
 
 
@@ -20,7 +20,7 @@
             color: green;
         }
     </style>
-    <section id="sms"  class="resaltado_gris pd_20 pd_20_tp_bt">
+    <section id="sms" class="resaltado_gris pd_20 pd_20_tp_bt">
         <article class="contenedor_interna blog_articulo_completo">
             <div class="cuerpo_interna">
                 <div class="box_heading">
@@ -53,7 +53,7 @@
                         <select name="prefijo" id="prefijo" class="selectgrey">
                             @foreach($countries as $country)
                                 @if($country->prefijoTel == $prefijo)
-                                    <option value="{{$country->prefijoTel}}" selected>
+                                    <option value="{{$country->prefijoTel}}" selected data-iso="{{$country->iso}}">
                                         (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
                                     </option>
                                 @else
@@ -66,10 +66,10 @@
                     <p><label for=""><strong>Número de celular</strong> <small id="example_phone"></small></label>
                         <input class="textgrey" type="text" name="telefono"
                                id="phoneNumber" value=""><span id="feedback_phone"></span></p>
-                               
+
                     <div class="box_button">
                         <button type="submit" id="enviarTelefono"
-                                class="boton_redondeado boton-largo resaltado_amarillo text_bold">Agregar
+                                class="boton_redondeado boton-largo text_bold" disabled>Agregar
                         </button>
                     </div>
                 </form>
@@ -84,6 +84,9 @@
 
 @section('footer')
     <script>
+        $.ajaxSetup({
+            async: false
+        });
         $(document).ready(function () {
             const prefijo = $('#prefijo');
             const telefono = $('#phoneNumber');
@@ -91,29 +94,56 @@
             const btn = $("#enviarTelefono");
             const numberUsed = $("#numeroEnUso");
             const genericError = $("#generic-error");
-            const errorPhoneNumber = $("#telefono"); 
-            const example_phone = $("#example_phone"); 
-            const phone_examples = $.getJSON( "https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.7/examples.mobile.json");
+            const errorPhoneNumber = $("#telefono");
+            const example_phone = $("#example_phone");
+            const phone_examples = $.getJSON("https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.7/examples.mobile.json");
             const phoneValidator = libphonenumber.parsePhoneNumber;
-            const oldPhone = '+{{$prefijo}}{{$whatsapp}}'; 
+            const oldPhone = '+{{$prefijo}}{{$whatsapp}}';
 
-            telefono.val(phoneValidator(oldPhone).formatNational());
-
-            function validatePhone(prefix, value) {
-                const phoneNumber = phoneValidator(`+${prefix}${value}`); 
-                if (phoneNumber.isValid()) {
-                    telefono.val(phoneNumber.formatNational());
+            try {
+                telefono.val(phoneValidator(oldPhone).formatNational());
+                if (phoneValidator(oldPhone).isValid()) {
                     telefono.removeClass('nroInvalido');
                     telefono.addClass('nroValido');
-                    feedback.html('');
-                    example_phone.html('');
-                } else {  
-                    examplePhone = libphonenumber.getExampleNumber(phoneNumber.country, phone_examples.responseJSON); 
-                    example_phone.html("Ejemplo: "+examplePhone.nationalNumber); 
+                    btn.addClass('resaltado_amarillo');
+                    btn.removeAttr('disabled');
+                } else {
+                    showInvalid();
+                }
+            } catch (error) {
+                showInvalid('noPhone');
+            }
+
+            function validatePhone(prefix, value) {
+                try {
+                    const phoneNumber = phoneValidator(`+${prefix}${value}`);
+                    if (phoneNumber.isValid()) {
+                        telefono.val(phoneNumber.formatNational());
+                        telefono.removeClass('nroInvalido');
+                        telefono.addClass('nroValido');
+                        feedback.html('');
+                        example_phone.html('');
+                        btn.addClass('resaltado_amarillo');
+                        btn.removeAttr('disabled');
+                    } else {
+                        showInvalid();
+                    }
+                } catch (error) {
+                    showInvalid();
+                }
+            }
+
+            function showInvalid(options) {
+                const country = $("#prefijo option:selected").data('iso');
+                examplePhone = libphonenumber.getExampleNumber(country.toUpperCase(), phone_examples.responseJSON);
+                example_phone.html("Ejemplo: " + examplePhone.nationalNumber);
+                telefono.removeClass('nroValido');
+                if (options != "noPhone") {
                     telefono.addClass('nroInvalido');
-                    telefono.removeClass('nroValido');
                     feedback.html('El teléfono que ingresaste no es válido');
                 }
+                btn.removeClass('resaltado_amarillo');
+                btn.attr('disabled', 'disabled');
             }
 
             prefijo.change(function () {
@@ -161,8 +191,8 @@
                     console.log("telefono incorrecto");
                 }
             });
-
-        });
+        })
+        ;
     </script>
 
 @endsection

@@ -177,7 +177,8 @@
                 <div class="input_err">
                     <label>Teléfono móvil<strong>*</strong></label>
                     <div class="in_sp editar" style="display:inline-block;">
-                        <input type="text" name="whatsapp" value="+{{$prefijo}} {{$whatsapp}}" id="whatsapp" disabled="disabled">
+                        <input type="text" name="whatsapp" value="+{{$prefijo}} {{$whatsapp}}" id="whatsapp"
+                               disabled="disabled">
                     </div>
                     <a href="{{url('editar-telefono')}}" class="subrayado resaltado_amarillo">Editar</a>
                     <div class="line_dashed"></div>
@@ -445,8 +446,12 @@
             const telefono = $('#whatsapp');
             const phoneValidator = libphonenumber.parsePhoneNumber;
             const oldPhone = '+{{$prefijo}}{{$whatsapp}}';
-            const formattedPhone = phoneValidator(oldPhone)
-            telefono.val(`+${formattedPhone.countryCallingCode} ${formattedPhone.formatNational()}`);
+            try {
+                const formattedPhone = phoneValidator(oldPhone);
+                telefono.val(`+${formattedPhone.countryCallingCode} ${formattedPhone.formatNational()}`);
+            } catch (error) {
+                telefono.val("");
+            }
         });
 
 
