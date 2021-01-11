@@ -107,10 +107,6 @@ Route::get(
 //    '/historia',
 //    'WebController@historia'
 //)->name('historia');
-Route::get(
-    '/mongo',
-    'CommentsController@index'
-)->name('mongo');
 
 
 /* ACCESO RESTRINGIDO */
