@@ -35,7 +35,7 @@ class SmsController extends Controller
             "prefijo" => 'required',
             "telefono" => 'required'
         ]);
-        $qty = User::where('whatsapp', $request->telefono)->where('prefijo', $request->prefijo)->count();
+        $qty = User::where('whatsapp', $request->telefono)->where('prefijo', $request->prefijo)->whereNotNull('phone_verified_at')->count();
         if ($qty == 0) {
             return response()->json(["status" => "none"]);
         } else {

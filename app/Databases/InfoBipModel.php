@@ -44,6 +44,7 @@ class InfoBipModel extends Model
             );
             $user = User::find($userId);
             $user->code = $code;
+            $user->phone_verified_at = null;
             $user->sms_sent_at = Carbon::now();
             $user->save();
             return $code;
