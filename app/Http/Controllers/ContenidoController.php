@@ -18,7 +18,7 @@ class ContenidoController extends Controller
     {
         $data = $this->getUserData();
         $data['sociosPosta'] = User::whereNotNull('email_verified_at')->whereNotNull('phone_verified_at')->count();
-        $data['sociosBeta'] = User::whereNotNull('email_verified_at')->count();
+        $data['sociosBeta'] = User::whereNotNull('email_verified_at')->count() - $data['sociosPosta'];
         if (Auth::check()) {
             $emailWasValidated = Auth::user()->email_verified_at != null;
             if (!$emailWasValidated) {
