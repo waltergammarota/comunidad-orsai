@@ -29,13 +29,23 @@
                     <p class="subtitulogris">Es posible que se apliquen tarifas de mensajes y datos.</p>
                 </div>
                 <hr/>
+
                 <div class="alert alert-error hide" id="numeroEnUso">
                     <div class="alert-content">
                         <span class="icon icon-exclamacion_circle"></span>
                         <p>Este número ya está en uso.</p>
                         <p>Hay otro perfil que asoció el número de teléfono:<br/>
-                            <strong id="telefono"></strong>.</p>
+                            <strong class="telefono"></strong>.</p>
                         <p>Por favor, agregá otro número</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-error hide" id="yaValidado">
+                    <div class="alert-content">
+                        <span class="icon icon-exclamacion_circle"></span>
+                        <p>Ya validamos tu perfil con el siguiente número de celular:<br/>
+                            <strong class="telefono"></strong>.</p>
+                        <p>Por favor, agregá otro</p>
                     </div>
                 </div>
 
@@ -49,10 +59,10 @@
 
                 <form action="{{url('agregar-telefono')}}" class="validation_sms" method="POST">
                     @csrf
-                    <p><label for=""><strong>Prefijo país</strong></label>
+                    <p><label for=""><strong>Prefijo país{{$prefijo}}</strong></label>
                         <select name="prefijo" id="prefijo" class="selectgrey">
                             @foreach($countries as $country)
-                                @if($country->prefijoTel == $prefijo)
+                                @if(($country->prefijoTel == $prefijo && $country->prefijoTel != "") || ($prefijo == 0 && $country->prefijoTel == 54))
                                     <option value="{{$country->prefijoTel}}" selected data-iso="{{$country->iso}}">
                                         (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
                                     </option>
@@ -94,7 +104,8 @@
             const btn = $("#enviarTelefono");
             const numberUsed = $("#numeroEnUso");
             const genericError = $("#generic-error");
-            const errorPhoneNumber = $("#telefono");
+            const isValidatedError = $("#yaValidado");
+            const errorPhoneNumber = $(".telefono");
             const example_phone = $("#example_phone");
             const phone_examples = $.getJSON("https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.7/examples.mobile.json");
             const phoneValidator = libphonenumber.parsePhoneNumber;
@@ -184,7 +195,11 @@
                     }).catch(function (error) {
                         errorPhoneNumber.empty();
                         errorPhoneNumber.append(`(+${prefix}) ${phoneNumber}`);
-                        numberUsed.fadeIn('slow');
+                        if (error.response.data.status == "validated") {
+                            isValidatedError.fadeIn('slow');
+                        } else {
+                            numberUsed.fadeIn('slow');
+                        }
                         genericError.hide();
                     });
                 } else {

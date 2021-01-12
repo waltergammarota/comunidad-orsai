@@ -35,6 +35,10 @@ class SmsController extends Controller
             "prefijo" => 'required',
             "telefono" => 'required'
         ]);
+        $user = Auth::user();
+        if ($user->whatsapp == $request->telefono && $user->phone_verified_at != null) {
+            return response()->json(["status" => "validated"], 400);
+        }
         $qty = User::where('whatsapp', $request->telefono)->where('prefijo', $request->prefijo)->whereNotNull('phone_verified_at')->count();
         if ($qty == 0) {
             return response()->json(["status" => "none"]);
