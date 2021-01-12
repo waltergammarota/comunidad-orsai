@@ -45,7 +45,6 @@
                         <span class="icon icon-check_circle"></span>
                         <p>Ya validamos tu perfil con el siguiente número de celular:<br/>
                             <strong class="telefono"></strong>.</p>
-                        <p>Por favor, agregá otro</p>
                     </div>
                 </div>
 
@@ -157,8 +156,8 @@
             }
 
             prefijo.change(function () {
-                const currentValue = $(this).val();
-                const prefix = prefijo.val();
+                const currentValue = telefono.val();
+                const prefix = $(this).val();
                 validatePhone(prefix, currentValue);
             });
 
