@@ -16,7 +16,7 @@ class CommentsModel extends Model
         try {
             foreach ($noticias as $noticia) {
                 $comments = self::where('storyID', $noticia->coral_id)->where('siteID', env('CORAL_SITE_ID', '550c03dd-d44a-4a3c-bd04-a8694facd564'))->count();
-                $respect = self::where('storyID', $noticia->coral_id)->where('CORAL_SITE_ID', env('CORAL_SITE_ID', '550c03dd-d44a-4a3c-bd04-a8694facd564'))->sum('actionCounts.REACTION');
+                $respect = self::where('storyID', $noticia->coral_id)->where('siteID', env('CORAL_SITE_ID', '550c03dd-d44a-4a3c-bd04-a8694facd564'))->sum('actionCounts.REACTION');
                 $noticia->comments = $comments;
                 $noticia->respect = $respect;
             }
