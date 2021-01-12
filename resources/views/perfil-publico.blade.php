@@ -10,10 +10,7 @@
                 <img src="{{$avatar}}" alt="Imagen usuario">
             </div>
             <div id="user_alias">
-                <h1>{{$user->name}} {{$user->lastName}}</h1>
-                @if($user->id < 15000)
-                    <div class="user_label socio_fundador"><span>Socio Fundador</span></div>
-                @endif
+                <h1>{{$user->name}} {{$user->lastName}}</h1> 
             </div>
 
         </div>
