@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <section class="resaltado_gris pd_20 pd_20_tp_bt">
+    <section id="sms" class="resaltado_gris pd_20 pd_20_tp_bt">
         <article class="contenedor_interna blog_articulo_completo">
             <div class="cuerpo_interna">
                 <div class="box_heading">
