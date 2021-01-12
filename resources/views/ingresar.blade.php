@@ -14,7 +14,7 @@
             @csrf
             <div class="contenedor_campos">
                 <h1>Ya somos {{$sociosPosta}}</h1>
-                <p>Los primeros 15.000 usuarios validados serán llamados "socios fundadores".</p>
+                <p>Los primeros 15.000 socios posta serán llamados "socios fundadores".</p>
             </div>
             <div class="contenedor_campos">
                 <div class="input_err obligatorio">

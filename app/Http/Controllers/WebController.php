@@ -61,6 +61,7 @@ class WebController extends Controller
         }
         $data = $this->getUserData();
         $data['totalusers'] = User::where('email_verified_at', '!=', null)->count();
+        $data['sociosPosta'] = User::whereNotNull('email_verified_at')->whereNotNull('phone_verified_at')->count();
 //        if(!session()->has('last_visited'))
 //        {
 //            $urlPrevious = url()->previous();
