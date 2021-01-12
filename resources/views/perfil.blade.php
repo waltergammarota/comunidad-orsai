@@ -180,7 +180,7 @@
                         <input type="text" name="whatsapp" value="+{{$prefijo}} {{$whatsapp}}" id="whatsapp"
                                disabled="disabled">
                     @if($phone_verified_at)
-                    <div style="top:10px;display:inline-block;background:green;border-radius:50%;color:#fff;font-size:12px;width:30px;height:30px;text-align:center;line-height:30px;"><span class="icon-check" style="display:block;width:30px;"></span></div>
+                    <div style="top:10px;display:inline-block;background:green;border-radius:50%;color:#fff;font-size:12px;width:30px;height:30px;text-align:center;line-height:30px;"><span class="icon-ok" style="display:block;width:30px;"></span></div>
                     @endif
                     </div>
                     <a href="{{url('editar-telefono')}}" class="sub rayado resaltado_amarillo">Editar</a>

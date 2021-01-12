@@ -21,8 +21,7 @@
                     <form action="{{url('validacion-codigo')}}" method="GET">
                         @csrf
                         <input type="hidden" name="enviar_codigo" value="1">
-                        <button type="submit"
-                                class="boton_redondeado boton-largo resaltado_amarillo text_bold">Continuar
+                        <button type="submit" class="boton_redondeado boton-largo resaltado_amarillo text_bold">Continuar
                         </button>
                     </form>
                 </div>

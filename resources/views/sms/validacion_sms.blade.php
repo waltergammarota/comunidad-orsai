@@ -40,9 +40,9 @@
                     </div>
                 </div>
 
-                <div class="alert alert-error hide" id="yaValidado">
+                <div class="alert alert-ok hide" id="yaValidado">
                     <div class="alert-content">
-                        <span class="icon icon-exclamacion_circle"></span>
+                        <span class="icon icon-check_circle"></span>
                         <p>Ya validamos tu perfil con el siguiente número de celular:<br/>
                             <strong class="telefono"></strong>.</p>
                         <p>Por favor, agregá otro</p>
@@ -59,7 +59,7 @@
 
                 <form action="{{url('agregar-telefono')}}" class="validation_sms" method="POST">
                     @csrf
-                    <p><label for=""><strong>Prefijo país{{$prefijo}}</strong></label>
+                    <p><label for=""><strong>Prefijo país</strong></label>
                         <select name="prefijo" id="prefijo" class="selectgrey">
                             @foreach($countries as $country)
                                 @if(($country->prefijoTel == $prefijo && $country->prefijoTel != "") || ($prefijo == 0 && $country->prefijoTel == 54))
@@ -78,8 +78,7 @@
                                id="phoneNumber" value=""><span id="feedback_phone"></span></p>
 
                     <div class="box_button">
-                        <button type="submit" id="enviarTelefono"
-                                class="boton_redondeado boton-largo text_bold" disabled>Agregar
+                        <button type="submit" id="enviarTelefono" class="boton_redondeado boton-largo text_bold" disabled>Agregar
                         </button>
                     </div>
                 </form>
