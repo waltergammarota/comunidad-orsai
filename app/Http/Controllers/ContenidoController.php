@@ -17,8 +17,8 @@ class ContenidoController extends Controller
     public function index(Request $request)
     {
         $data = $this->getUserData();
-        $data['sociosFundadores'] = User::where('socio_fundador', 1)->count();
-        $data['socios'] = User::whereNotNull('email_verified_at')->count();
+        $data['sociosPosta'] = User::whereNotNull('email_verified_at')->whereNotNull('phone_verified_at')->count();
+        $data['sociosBeta'] = User::whereNotNull('email_verified_at')->count();
         if (Auth::check()) {
             $emailWasValidated = Auth::user()->email_verified_at != null;
             if (!$emailWasValidated) {

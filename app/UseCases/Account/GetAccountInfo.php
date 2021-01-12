@@ -45,6 +45,7 @@ class GetAccountInfo extends GenericUseCase
             'description' => $user->description,
             'prefijo' => $user->prefijo,
             'whatsapp' => $user->whatsapp,
+            'phone_verified_at' => $user->phone_verified_at,
             'facebook' => $user->facebook,
             'twitter' => $user->twitter,
             'instagram' => $user->instagram,
