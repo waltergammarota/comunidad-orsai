@@ -57,7 +57,7 @@
                                         (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
                                     </option>
                                 @else
-                                    <option value="{{$country->prefijoTel}}">
+                                    <option value="{{$country->prefijoTel}}" data-iso="{{$country->iso}}">
                                         (+{{$country->prefijoTel}}) {{utf8_encode($country->nombre)}}
                                     </option>
                                 @endif
@@ -134,6 +134,7 @@
             }
 
             function showInvalid(options) {
+                const country = $("#prefijo option:selected").data('iso');
                 const examplePhone = libphonenumber.getExampleNumber(country.toUpperCase(), phone_examples.responseJSON);
                 example_phone.html("Ejemplo: " + examplePhone.nationalNumber);
                 telefono.removeClass('nroValido');
@@ -148,7 +149,6 @@
             prefijo.change(function () {
                 const currentValue = $(this).val();
                 const prefix = prefijo.val();
-                const option = $(this).find()
                 validatePhone(prefix, currentValue);
             });
 
