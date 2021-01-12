@@ -195,8 +195,10 @@
                         errorPhoneNumber.append(`(+${prefix}) ${phoneNumber}`);
                         if (error.response.data.status == "validated") {
                             isValidatedError.fadeIn('slow');
+                            numberUsed.hide();
                         } else {
                             numberUsed.fadeIn('slow');
+                            isValidatedError.hide();
                         }
                         genericError.hide();
                     });
