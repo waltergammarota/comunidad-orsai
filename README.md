@@ -56,3 +56,9 @@ en prod
 mysqldump -u orsai -pfundaxionOrsai2020 --databases comunidadorsai-prod > backup-prod-211220200730.sql
 para beta
 mysqldump -u orsai -pfundaxionOrsai2020 --databases orsai > backup-beta-22102020b.sql
+
+mongodb 
+sudo apt install php-dev php-pear
+sudo pecl install mongodb
+extension=mongodb.so en cli y fpm
+sudo systemctl restart php7.4-fpm.service

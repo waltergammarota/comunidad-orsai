@@ -134,8 +134,7 @@
             }
 
             function showInvalid(options) {
-                const country = $("#prefijo option:selected").data('iso');
-                examplePhone = libphonenumber.getExampleNumber(country.toUpperCase(), phone_examples.responseJSON);
+                const examplePhone = libphonenumber.getExampleNumber(country.toUpperCase(), phone_examples.responseJSON);
                 example_phone.html("Ejemplo: " + examplePhone.nationalNumber);
                 telefono.removeClass('nroValido');
                 if (options != "noPhone") {
@@ -149,6 +148,7 @@
             prefijo.change(function () {
                 const currentValue = $(this).val();
                 const prefix = prefijo.val();
+                const option = $(this).find()
                 validatePhone(prefix, currentValue);
             });
 

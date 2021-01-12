@@ -366,7 +366,6 @@
             formData.append('profesion', $("#profesion").val());
             formData.append('description', $("#description").val());
             formData.append('prefijo', $("#prefijo").val());
-            formData.append('whatsapp', $("#whatsapp").val());
             formData.append('facebook', $("#facebook").val());
             formData.append('twitter', $("#twitter").val());
             formData.append('instagram', $("#instagram").val());
@@ -446,6 +445,7 @@
             const telefono = $('#whatsapp');
             const phoneValidator = libphonenumber.parsePhoneNumber;
             const oldPhone = '+{{$prefijo}}{{$whatsapp}}';
+            console.log(oldPhone);
             try {
                 const formattedPhone = phoneValidator(oldPhone);
                 telefono.val(`+${formattedPhone.countryCallingCode} ${formattedPhone.formatNational()}`);
