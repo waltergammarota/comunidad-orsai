@@ -48,11 +48,9 @@
                                    rel="noopener noreferrer"><span class="icono icon-whatsapp"></span></a>
                             </div>
                         </div>
-                        <div>
+                        <div class="meta_novedad">
+                            <span class="cant_comentarios">{{$noticia->comments}} comentarios &nbsp;|&nbsp; </span>
                             <span class="cant_comentarios">{{$noticia->respect}} me gusta</span>
-                        </div>
-                        <div>
-                            <span class="cant_comentarios" style="left:75%">{{$noticia->comments}} comentarios &nbsp;|&nbsp; </span>
                         </div>
                     </div>
                 </div>

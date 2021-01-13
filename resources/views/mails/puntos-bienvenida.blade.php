@@ -47,10 +47,15 @@
                 <div
                     style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Roboto', monospace;">
                     <p style="text-align: center; margin: 2px; font-size:16px;">
-                        Activaste tu cuenta con el correo electrónico {{$email}}.</p> 
+                        Activaste tu cuenta con el correo electrónico {{$email}}.</p><br/>
+                    <p style="text-align: center; margin: 2px; font-size:16px;">
+                    En Comunidad Orsai todo se vuelve más divertido si validás tu perfil. Si lo hacés ahora podés conseguir fichas, apostar por las mejores historias, presentar postulaciones a concursos y más.</p><br/>  
+
+
                         <p style="text-align: center; margin: 2px; font-size:16px;">
-                    <a href="https://comunidadorsai.org/panel" target="_blank"
-                       style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Ingresá</a></p>
+                    <a href="{{url('validacion-usuario')}}" target="_blank"
+                       style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Validar mi perfil</a></p>
+                       <a href="{{url('panel')}}" style="display:block;margin:auto;text-align: justify;margin: 2px; font-size:16px;color:#999;text-align:center;">Omitir este paso</a> 
                 </div>
             </td>
         </tr>  

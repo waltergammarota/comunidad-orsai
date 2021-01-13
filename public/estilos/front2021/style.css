@@ -2644,11 +2644,18 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
     left: 0;
     bottom: 0;
 }
-
-.blog_preview_social .cant_comentarios, .blog_social .cant_comentarios {
+.blog_preview_social .meta_novedad,
+.blog_social .meta_novedad{
+    position:relative;
+    float:right;
+    right:0;
+}
+.blog_preview_social .cant_comentarios, 
+.blog_social .cant_comentarios {
     color: #969695;
     font-size: 12px;
-    position: absolute;
+    position: relative;
+    display:inline-block;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -2761,6 +2768,12 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
 @media (max-width: 768px) {
     .blog_cta p {
         font-size: 16px;
+    }
+    .blog_preview_social .meta_novedad,
+    .blog_social .meta_novedad{
+        position: relative;
+        float: left;
+        top: 15px;
     }
 }
 

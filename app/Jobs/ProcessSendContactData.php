@@ -29,7 +29,7 @@ class ProcessSendContactData implements ShouldQueue
         $this->lastName = $lastName;
         $this->subject = $subject;
         $this->mensaje = $mensaje;
-        $this->sentTo = "info@fundacionorsai.org";
+        $this->sentTo = "info@comunidadorsai.org";
     }
 
     /**
