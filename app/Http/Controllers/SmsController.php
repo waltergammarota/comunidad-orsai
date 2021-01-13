@@ -16,10 +16,15 @@ class SmsController extends Controller
     public function index()
     {
         $data = $this->getUserData();
-        if ($data['whatsapp'] != "") {
+        if ($this->validatePhone($data['prefijo'], $data['whatsapp'])) {
             return view('sms.validacion_perfil', $data);
         }
         return Redirect::to('editar-telefono');
+    }
+
+    private function validatePhone($prefix, $phone)
+    {
+        return $phone != "";
     }
 
     public function edit_phone(Request $request)
