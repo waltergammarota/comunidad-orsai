@@ -93,9 +93,6 @@
 
 @section('footer')
     <script>
-        $.ajaxSetup({
-            async: true
-        });
         $(document).ready(function () {
             const prefijo = $('#prefijo');
             const telefono = $('#phoneNumber');
