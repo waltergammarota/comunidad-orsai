@@ -50,8 +50,8 @@ class RegistrationController extends Controller
         $nada = "nada";
         $request->validate(
             [
-                'nombre' => 'required|max:255|min:1',
-                'apellido' => 'required|max:255|min:1',
+                'nombre' => 'required|max:255|min:3',
+                'apellido' => 'required|max:255|min:3',
                 'email' => 'email|required|max:255|unique:users',
                 'pais' => 'required|max:255|min:1',
                 'usuario' => 'required|max:255|unique:users,username',
