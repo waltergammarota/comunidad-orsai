@@ -151,6 +151,15 @@
                             </p>
                         </a>
                     </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{url('admin/notificaciones')}}" class="nav-link">
+                            <i class="nav-icon fas fa-mail-bulk"></i>
+                            <p>
+                                Notificaciones
+                            </p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{url('panel')}}" class="nav-link">

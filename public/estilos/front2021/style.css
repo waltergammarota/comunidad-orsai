@@ -2487,7 +2487,12 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
 @media (max-width: 768px) {
     .cuerpo_interna {
         padding: 15px 15px;
+        margin: 0 20px;
     }
+    .titulo_interna{
+        padding: 50px 20px 20px 20px;
+    }
+
 }
 
 .cuerpo_interna h2 {
@@ -2755,8 +2760,6 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
     font-size: 18px;
     line-height: 130%;
 }
-
-
 @media (min-width: 991px) {
     .blog_cta .boton_redondeado {
         display: inline-block;
@@ -2766,6 +2769,10 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
 }
 
 @media (max-width: 768px) {
+
+    .note-video-clip{
+        width:100%;
+    }
     .blog_cta p {
         font-size: 16px;
     }
