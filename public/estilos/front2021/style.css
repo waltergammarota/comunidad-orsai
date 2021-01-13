@@ -2461,11 +2461,7 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
     }
 }
 
-
-.titulo_interna {
-    padding: 50px 0 20px 0;
-}
-
+ 
 .titulo_interna * {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 48px;
@@ -2488,6 +2484,9 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
     .cuerpo_interna {
         padding: 15px 15px;
         margin: 0 20px;
+    }
+    .pd_20 .cuerpo_interna{
+        padding:0;
     }
     .titulo_interna{
         padding: 50px 20px 20px 20px;
