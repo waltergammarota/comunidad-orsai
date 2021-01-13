@@ -92,15 +92,15 @@ Route::get(
 
 
 // RUTAS DE CONCURSOS
-//Route::get(
-//    '/concursos',
-//    'Contest\ContestController@index'
-//)->name("concursos");
-//
-//Route::get(
-//    '/concursos/{id}/{name}',
-//    'Contest\ContestController@show'
-//)->name("concursos-show");
+Route::get(
+    '/concursos',
+    'Contest\ContestController@index'
+)->name("concursos");
+
+Route::get(
+    '/concursos/{id}/{name}',
+    'Contest\ContestController@show'
+)->name("concursos-show");
 // FIN DE RUTAS DE CONCURSO
 
 //Route::get(
@@ -612,12 +612,6 @@ Route::middleware(['verified'])->group(
             'concurso-ganador'
         )->middleware('admin_role');
 
-        // RUTA MIS POSTULACIONES
-//        Route::get(
-//            '/mis-postulaciones',
-//            'AccountController@postulaciones'
-//        )->name('postulaciones')->middleware('email_verified');
-// FIN RUTA MIS POSTULACIONES
         Route::get(
             '/transacciones',
             'AccountController@transacciones'
@@ -629,14 +623,9 @@ Route::middleware(['verified'])->group(
             'AccountController@show_perfil_publico'
         )->name('perfil-publico');
 
-        Route::get(
-            '/{slug}',
-            'ContenidoController@index'
-        )->name("pagina");
-
         // CONTEST WINNER ROUTE
         Route::get(
-            '/concurso/ganador/{contest_id}',
+            'concurso/ganador/{contest_id}',
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
 
@@ -670,6 +659,7 @@ Route::middleware(['verified'])->group(
             'admin/productos/update',
             'Admin\ProductoController@update'
         )->name('productos-update')->middleware('admin_role');
+
 
         Route::get(
             'admin/{slug}',

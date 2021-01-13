@@ -8,6 +8,7 @@ use App\Classes\UserNotFoundException;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 
 class Handler extends ExceptionHandler
@@ -70,12 +71,10 @@ class Handler extends ExceptionHandler
             $code = $exception->getStatusCode();
             switch ($code) {
                 case 404:
-                    $data = session('last_values');
+                    $data = App::make(Controller::class)->callAction('getUserData', array());
                     return response()->view('errors.404', $data, 404);
-                    break;
                 case 403:
                     return Redirect::to('panel');
-                    break;
             }
         }
 

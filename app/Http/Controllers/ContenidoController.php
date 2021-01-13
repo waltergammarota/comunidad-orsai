@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Databases\CommentsModel;
@@ -25,7 +24,6 @@ class ContenidoController extends Controller
                 return Redirect::to('panel');
             }
         }
-
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
         if ($slug == null) {
@@ -41,7 +39,6 @@ class ContenidoController extends Controller
                 }
                 if (($contenido->publica == 0 && !Auth::check())) {
                     session(["last_visited" => url("novedades/{$slug}")]);
-
                     return Redirect::to('ingresar');
                 }
                 $data['coral_token'] = $this->generateToken();
@@ -49,7 +46,6 @@ class ContenidoController extends Controller
                     $data['noticia'] = $contenido;
                     return view("noticias.2021-noticia", $data);
                 }
-
                 $data['pagina'] = $contenido;
                 return view("2021-pagina", $data);
             }
