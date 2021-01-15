@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Databases\InfoBipModel;
 use App\Databases\PaisModel;
 use App\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -21,6 +22,13 @@ class SmsController extends Controller
             return view('sms.validacion_perfil', $data);
         }
         return Redirect::to('editar-telefono');
+    }
+
+    public function testGuzzle()
+    {
+        $client = new Client();
+        $response = $client->request('GET', 'https://6000a980cb21e10017af9200.mockapi.io/users');
+        dd(json_decode($response->getBody()));
     }
 
     private function validatePhone($prefix, $phone)

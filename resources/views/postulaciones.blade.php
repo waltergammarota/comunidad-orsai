@@ -34,9 +34,9 @@
                         <tr>
                             <td>{{$postulacion->id}}</td>
                             <td>{{$postulacion->title}}</td>
-                            {{--                             TODO DEFINIR IMAGEN DE CADA TIPO--}}
+                            {{-- TODO DEFINIR IMAGEN DE CADA TIPO--}}
                             <td><img src="{{url('img/participantes/participante.jpg')}}" width="24"
-                                     alt="modo_concurso">&nbsp;{{$postulacion->contest()->name}}</td>
+                                     alt="modo_concurso">&nbsp;{{$postulacion->contest()->first()->name}}</td>
                             <td>{{$postulacion->created_at->format('d/m/Y H:i')}}</td>
                             <?php $status = $postulacion->status()->first() ?>
                             @if($status->status  == 'approved')

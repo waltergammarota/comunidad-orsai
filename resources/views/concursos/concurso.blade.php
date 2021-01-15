@@ -34,7 +34,8 @@
                                 <h1 class="span_h1">{{$concurso->name}}</h1>
                                 @if($estado == "abierto")
                                     <h2 class="">{{$concurso->bajada_corta}}</h2>
-                                    <a href="#" class="ver_ganador resaltado_amarillo">Subir postulación &raquo;</a>
+                                    <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                       class="ver_ganador resaltado_amarillo">Subir postulación &raquo;</a>
                                 @endif
                             </div>
                             <div class="encabezado_descripcion_concurso">

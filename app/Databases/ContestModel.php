@@ -109,7 +109,7 @@ class ContestModel extends Model
 
     public function cantidadPostulaciones()
     {
-        return ContestApplicationModel::where('contest_id', $this->id)->count();
+        return ContestApplicationModel::where('contest_id', $this->id)->whereNotNull('approved_in')->count();
     }
 
     public function cantidadFichasEnJuego()

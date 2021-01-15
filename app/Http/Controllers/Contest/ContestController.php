@@ -98,8 +98,7 @@ class ContestController extends Controller
         return view('concursos.concurso', $data);
     }
 
-    public
-    function show_winner(Request $request)
+    public function show_winner(Request $request)
     {
         $contestId = $request->contest_id;
         $userInfo = $this->getUserData();

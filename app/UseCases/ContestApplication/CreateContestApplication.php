@@ -27,7 +27,8 @@ class CreateContestApplication extends GenericUseCase
         ContestRepository $contestRepository,
         ContestApplicationRepository $contestApplicationRepository,
         FileRepository $fileRepository
-    ) {
+    )
+    {
         $this->data = $data;
         $this->userRepository = $userRepository;
         $this->contestRepository = $contestRepository;
@@ -40,7 +41,7 @@ class CreateContestApplication extends GenericUseCase
     {
         $user = $this->userRepository->find($this->data['user_id']);
         $contest = $this->contestRepository->find($this->data['contest_id']);
-        if($contest->isActive()) {
+        if ($contest->hasPostulacionesAbiertas()) {
             $data = [
                 "title" => $this->data['title'],
                 "description" => $this->data['description'],
