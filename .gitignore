@@ -2,6 +2,8 @@ forsai.pem
 /node_modules
 /public/hot
 /public/storage
+/public/fundacion.php
+/public/slider.php
 /storage/*.key
 /vendor
 .env
