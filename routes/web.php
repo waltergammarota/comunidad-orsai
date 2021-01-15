@@ -103,10 +103,10 @@ Route::get(
 //)->name("concursos-show");
 // FIN DE RUTAS DE CONCURSO
 
-//Route::get(
-//    '/historia',
-//    'WebController@historia'
-//)->name('historia');
+Route::get(
+    '/historia',
+    'WebController@historia'
+)->name('historia');
 
 
 /* ACCESO RESTRINGIDO */
