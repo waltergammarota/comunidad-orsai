@@ -10,7 +10,7 @@
             <div id="menu_pcpal">
                 <ul id="insertar_perfil">
                     <li><a href="{{url('novedades')}}">Novedades</a></li>
-                    {{--                    <li><a href="{{url('historia')}}">Línea de tiempo</a></li>--}}
+                    <li><a href="{{url('historia')}}">Línea de tiempo</a></li>
                     <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
                     {{--                    <li><a href="{{url('contacto')}}">Contacto</a></li>--}}
                 </ul>
