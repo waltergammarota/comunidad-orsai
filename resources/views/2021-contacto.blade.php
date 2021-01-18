@@ -17,8 +17,7 @@
 		                podemos ajustarla. Tu comentario, sugerencia o lo que quieras decirnos nos ayudan a mejorar la
 		                experiencia en Comunidad Orsai.</p>
                 </div>
-            </div>
-
+            </div> 
             <form id="form-contacto" role="form" method="POST" action="{{url('contacto')}}" enctype="multipart/form-data">
                 @csrf
                     <div class="grilla_form">
@@ -83,6 +82,14 @@
                     <div id="captcha_div">
                         <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
                     </div>
+				    @if(Session::get('alert') == "contact_data_sent") 
+					    <div class="contenedor contenedor_interna_2 feedback_ok" style="padding-bottom:30px;">
+					        <div
+					            style="min-height:50px;background:#d4edda;border-radius:2px;color:#155724;border:1px solid #c3e6cb;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
+					            <p style="display:inline-block;position:relative;">Pronto se contactarán contigo. ¡Gracias!</p> 
+					        </div>
+					    </div> 
+				    @endif
                     <div class="msg_load"><img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /></div> 
                     <div class="form_ctrl input_ asoc_btn ">
                         <div class="align_center">
@@ -95,34 +102,12 @@
         </div>    
     </article>
 </section> 
-    @if(Session::get('alert') == "contact_data_sent")
-        <div class="general_profile_msg popup top_msg">
-            <div class="contenedor msg_position_rel">
-                <div id="texto_exito">
-                    <span>Pronto se contactarán contigo. ¡Gracias!</span>
-                </div>
-                <div class="cerrar">
-                    <span>X</span>
-                </div>
-            </div>
-        </div>
-    @endif
 @endsection 
 @section('footer')
-    <script>
-        if (document.getElementsByClassName("general_profile_msg")) {
-            var get_general_msg = document.getElementsByClassName("general_profile_msg");
-            for (var x = 0; x < get_general_msg.length; x++) {
-                get_general_msg[x].numerito = x;
-                var get_close_modal = get_general_msg[x].getElementsByClassName("cerrar")[0];
-                get_close_modal.onclick = function () {
-                    close(this.parentNode.parentNode);
-                };
-            }
-        }
+    <script> 
         $(document).ready(function() { 	
             $("#form-contacto").submit(function( event ) {
-                  $(".msg_load").show(200);
+                  $(".msg_load").show(200); 
                   $(".ajaxgif").removeClass('hide');
             });
         });
