@@ -2520,12 +2520,21 @@ header nav>#menu_reg .logueado{
 }
 
 @media (max-width:768px){
-    .cuerpo_interna{
-        padding:15px 15px;
+    .cuerpo_interna {
+        padding: 15px 15px;
         margin: 0 20px;
     }
-    .titulo_interna {
+    .pd_20 .cuerpo_interna{
+        margin:0;
+    }
+    .titulo_interna{
         padding: 50px 20px 20px 20px;
+    }
+    .tiempo_tabla .tiempo_fila > div{
+        padding-top:20px;
+    }
+    .tiempo_tabla .tiempo_fila > div:nth-child(2){
+        left:20px;
     }
 }
 #page-contacto .page_description{
@@ -2537,6 +2546,22 @@ header nav>#menu_reg .logueado{
         display:inline-block;
         max-width:300px;
         margin-right:10px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .note-video-clip{
+        width:100%;
+    }
+    .blog_cta p {
+        font-size: 16px;
+    }
+    .blog_preview_social .meta_novedad,
+    .blog_social .meta_novedad{
+        position: relative;
+        float: left;
+        top: 15px;
     }
 }
 @media(max-width:768px){
