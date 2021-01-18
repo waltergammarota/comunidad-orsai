@@ -82,6 +82,7 @@ class ContestController extends Controller
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
         // CONCURSO POSTULACIONES ABIERTAS
         $data['estado'] = "proximo";
+        $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, Auth::user()->id);
         if ($contest->hasPostulacionesAbiertas()) {
             $data['estado'] = "abierto";
             $data['postulaciones_abiertas'] = true;
@@ -97,6 +98,7 @@ class ContestController extends Controller
         }
         return view('concursos.concurso', $data);
     }
+
 
     public function show_winner(Request $request)
     {

@@ -1267,7 +1267,7 @@
 
 .nombre_archivo {
     border: 1px solid #808080;
-    width: calc(100% - 45px);
+    width: calc(100% - 90px);
     display: inline-block;
     height: 35px;
     vertical-align: top;

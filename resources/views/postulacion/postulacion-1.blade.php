@@ -68,8 +68,14 @@
                             </div>
                         </div>
                         <input type="file" name="images[]" id="img-btn" hidden/>
-                        <span id="img_nombre" class="nombre_archivo">No hay ningun archivo seleccionado</span>
+                        <input type="hidden" value="0" name="image_flag" id="image_flag">
+                        @if($hasImage)
+                            <span id="img_nombre" class="nombre_archivo">{{$hasImage->original_name}}</span>
+                        @else
+                            <span id="img_nombre" class="nombre_archivo">No hay ningun archivo seleccionado</span>
+                        @endif
                         <label for="img-btn" class="btn_file">+</label>
+                        <label for="" class="btn_file" onclick="deleteImage()">x</label>
                     </div>
                 </div>
                 <div class="new_form">
@@ -102,10 +108,14 @@
                         </div>
                         <input type="file" name="pdf[]" id="pdf-btn" accept="application/pdf, .doc, .docx, .odf"
                                hidden/>
-
-                        <span id="pdf_nombre" class="nombre_archivo">No hay ningun archivo seleccionado</span>
-
+                        <input type="hidden" name="pdf_flag" value="0" id="pdf_flag">
+                        @if($hasPdf)
+                            <span id="pdf_nombre" class="nombre_archivo">{{$hasPdf->original_name}}</span>
+                        @else
+                            <span id="pdf_nombre" class="nombre_archivo">No hay ningun archivo seleccionado</span>
+                        @endif
                         <label for="pdf-btn" class="btn_file">+</label>
+                        <label for="" class="btn_file" onclick="deletePdf()">x</label>
 
                     </div>
                 </div>
@@ -199,7 +209,7 @@
                         title: {required: true, minlength: 2, maxlength: 255},
                         description: {required: true, minlength: 2, maxlength: 255},
                         link: {url: true},
-                        "images[]": {extension: "png|jpe"},
+                        "images[]": {extension: "png|jpe|jpg"},
                         "pdf[]": {extension: "pdf"}
                     },
                     messages: {
@@ -213,6 +223,30 @@
                 });
             });
         });
+
+        function deletePdf() {
+            console.log("delete pdf");
+            const pdf = $("#pdf-btn");
+            const nombre = $("#pdf_nombre");
+            const flag = $("#pdf_flag");
+            pdf.val('');
+            nombre.empty();
+            const legend = 'No hay ningun archivo seleccionado';
+            nombre.append(legend);
+            flag.val(1);
+        }
+
+        function deleteImage() {
+            console.log("delete image");
+            const imagen = $("#img-btn");
+            const nombre = $("#img_nombre");
+            const flag = $("#image_flag");
+            imagen.val('');
+            nombre.empty();
+            const legend = 'No hay ningun archivo seleccionado';
+            nombre.append(legend);
+            flag.val(1);
+        }
 
     </script>
 @endsection

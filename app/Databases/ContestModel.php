@@ -135,4 +135,14 @@ class ContestModel extends Model
         }
         return "proximo";
     }
+
+    static public function hasPostulacion($contestId, $userId)
+    {
+        $cpa = ContestApplicationModel::where("contest_id", $contestId)->where("user_id", $userId)->first();
+        if ($cpa == null) {
+            return false;
+        }
+        $status = $cpa->status()->first()->status;
+        return $status != "draft";
+    }
 }

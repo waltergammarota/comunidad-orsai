@@ -134,17 +134,25 @@ class AccountController extends Controller
         $postulacion = $this->findPostulacion(Auth::user()->id, $contestId);
         $data['postulacion'] = $postulacion;
         $data['concurso'] = $contest;
+        $data['hasImage'] = false;
+        $data['hasPdf'] = false;
 
-        if ($request->route('chapter_id') == null) {
+        if ($postulacion == null) {
             return view('postulacion.postulacion-1', $data);
         }
+
 
         $status = $postulacion->status()->first()->status;
         $data['capitulo'] = CpaChapterModel::where("cap_id", $postulacion->id)->where('orden', $request->route('chapter_id'))->first();
         $data['orden'] = $request->route("chapter_id") ? $request->route('chapter_id') : 1;
+        $data['hasImage'] = $postulacion->images()->first();
+        $data['hasPdf'] = $postulacion->pdfs()->first();
+        if ($status == "draft" && $request->route('chapter_id') == null) {
+            return view("postulacion.postulacion-1", $data);
+        }
 
-        if ($status == "draft") {
-            return view("postulacion.postulacion-2", $data);
+        if ($status == "draft" && $request->route('chapter_id') > 0) {
+            return view('postulacion.postulacion-2', $data);
         }
 
         return view('postulacion.index', $data);
@@ -240,7 +248,7 @@ class AccountController extends Controller
         $cpa = ContestApplicationModel::find($cpaId);
         if ($cpa->user_id == $user->id) {
             $chapter = CpaChapterModel::where("cap_id", $cpaId)->where("orden", $orden)->first();
-            $contest = $cpa->contest();
+            $contest = $cpa->contest()->first();
             if ($contest->type == 1 && $orden > 1) {
                 return Redirect::to("postulaciones/{$cpa->contest_id}/{$cpa->contest()->name}/capitulos/1");
             }
@@ -254,7 +262,7 @@ class AccountController extends Controller
             $chapter->save();
         }
         $ordenSiguiente = $orden + 1;
-        return Redirect::to("postulaciones/{$cpa->contest_id}/{$cpa->contest()->name}/capitulos/{$ordenSiguiente}");
+        return Redirect::to("postulaciones/{$cpa->contest_id}/{$contest->name}/capitulos/{$ordenSiguiente}");
     }
 
     private function checkWinner($contestId)
@@ -280,10 +288,15 @@ class AccountController extends Controller
     {
         $request->validate([
             "cap_id" => 'required',
-            "contest_id" => 'required'
+            "contest_id" => 'required',
+            "image_flag" => 'required',
+            "pdf_flag" => 'required'
         ]);
+
         $contest = ContestModel::find($request->contest_id);
         $cpa = ContestApplicationModel::find($request->cap_id);
+
+        $files = $this->saveImages($request, $cpa);
 
         if ($contest == null && $cpa == null) {
             abort(404);
@@ -327,6 +340,9 @@ class AccountController extends Controller
             $cpa->user_id = Auth::user()->id;
             $cpa->contest_id = $request->contest_id;
             $cpa->save();
+
+            $this->saveImages($request, $cpa);
+
             $cpaLog = new CpaLog(["status" => "draft", "cap_id" => $cpa->id]);
             $cpaLog->save();
         }
@@ -577,6 +593,65 @@ class AccountController extends Controller
             $user->notifications->where('id', $id)->first()->delete();
         }
         return response()->json(["message" => "notifications deleted"]);
+    }
+
+    /**
+     * @param Request $request
+     * @param ContestApplicationModel $cpa
+     * @return array
+     */
+    private function saveImages(Request $request, ContestApplicationModel $cpa): array
+    {
+        $fileRepo = new FileRepository();
+        $image = $fileRepo->getUploadedFiles('images', $request);
+        $pdf = $fileRepo->getUploadedFiles('pdf', $request);
+        $files = array();
+
+        if (count($image) > 0) {
+            array_push($files, $image[0]->getId());
+        }
+        if (count($pdf) > 0) {
+            array_push($files, $pdf[0]->getId());
+        }
+
+        if ($request->image_flag == 1 && count($image) == 0) {
+            $imageToDelete = $cpa->images()->first();
+            if ($imageToDelete != null) {
+                $imageToDelete->delete();
+            }
+        }
+
+        if ($request->pdf_flag == 1 && count($pdf) == 0) {
+            $pdfToDelete = $cpa->pdfs()->first();
+            if ($pdfToDelete != null) {
+                $pdfToDelete->delete();
+            }
+        }
+
+        if (count($image) > 0) {
+            array_push($files, $image[0]->getId());
+            $imageToDelete = $cpa->images()->first();
+            if ($imageToDelete != null) {
+                $cpa->images()->detach($imageToDelete->id);
+                $imageToDelete->delete();
+            }
+        }
+        if (count($pdf) > 0) {
+            array_push($files, $pdf[0]->getId());
+            $pdfToDelete = $cpa->pdfs()->first();
+            if ($pdfToDelete != null) {
+                $cpa->pdfs()->detach($pdfToDelete->id);
+                $pdfToDelete->delete();
+            }
+        }
+        if (count($files) > 0) {
+            $cpa->images()->syncWithoutDetaching($files);
+        }
+
+        return [
+            "images" => $image,
+            "pdf" => $pdf
+        ];
     }
 
 
