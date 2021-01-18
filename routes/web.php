@@ -488,10 +488,10 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         // CONTACTO
-//        Route::get(
-//            '/contacto',
-//            'WebController@contacto'
-//        )->name("contacto");
+       Route::get(
+           '/contacto',
+           'WebController@contacto'
+       )->name("contacto");
 
         Route::post(
             '/contacto',

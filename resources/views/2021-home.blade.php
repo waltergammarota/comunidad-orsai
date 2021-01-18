@@ -7,129 +7,65 @@
     @php
         require "slider.php";
     @endphp 
-   {{--  <section class="mainslider">
+   {{-- <section class="mainslider">
         <div>
-            <div id="owlMainSlider" class="owl-carousel owl-theme owl-loaded owl-drag"> 
-            <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-3038px, 0px, 0px); transition: all 0s ease 0s; width: 10635px;"><div class="owl-item cloned" style="width: 1519.2px;"><div>
-                    <div class="item"><img src="https://beta.comunidadorsai.org/recursos/front2021/cine-3.jpg" alt="Presentamos el nuevo proyecto Orsai para la década que viene">
-                        <div class="banner_text_inside">
-
-                            <h1 class="contenedor">Presentamos el nuevo proyecto Orsai <span class="block_item">para la década que viene</span>
-                            </h1>
-                            <div class="contenedor">
-                                <p class="contenedor">El 1 de enero de 2021 nació la <strong>Fundación Orsai</strong>,
-                                    con sede física en Mercedes, sede virtual en <i>beta.comunidadorsai.org</i> y con las
-                                    características legales y jurídicas de una organización sin fines de lucro.</p>
-
-                                <a href="https://beta.comunidadorsai.org/novedades/piedra-fundamental" class="boton_redondeado resaltado_amarillo">
-                                    <span>Ver proyecto</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div></div><div class="owl-item cloned" style="width: 1519.2px;"><div>
-                    <div class="item"><img src="https://beta.comunidadorsai.org/recursos/front2021/cine-2.jpg" alt="Nuestra sede física: una historia que empezó hace 40 años">
-                        <div class="banner_text_inside">
-                            <h1 class="contenedor">Nuestra sede física: una historia <span class="block_item">que empezó hace 40 años</span>
-                            </h1>
-                            <div class="contenedor">
-                                <p class="contenedor">Nos cedieron el ex Cine de Mercedes hasta el año 2040, y vamos a
-                                    hacer que ese lugar se convierta en la capital hispanoamericana de la narrativa del
-                                    siglo veintiuno.</p>
-                                <a href="https://beta.comunidadorsai.org/novedades/la-sede-fisica" class="boton_redondeado resaltado_amarillo">
-                                    <span>Ver proyecto</span>
-                                </a><!--
-                            <a href="#" class="boton_redondeado resaltado_amarillo">
-                                <span class="icono icon-card"></span>
-                            </a> -->
-                            </div>
-                        </div>
-                    </div>
-                </div></div><div class="owl-item active" style="width: 1519.2px;"><div>
-                    <div class="item"><img src="https://beta.comunidadorsai.org/recursos/front2021/cine-1.jpg" alt="Orsai producirá cine y será una película aparte">
+            <div id="owlMainSlider" class="owl-carousel owl-theme">
+                <div>
+                    <div class="item"><img src="{{url('recursos/front2021/cine-1.jpg')}}" alt="Orsai producirá cine y será una película aparte">
                         <div class="banner_text_inside">
                             <h1 class="contenedor">Orsai producirá cine y será <span class="block_item">una película aparte</span>
                             </h1>
                             <div class="contenedor">
                                 <p class="contenedor">El debut de «Orsai Audiovisuales» será con la adaptación del
                                     primer gran best-seller rioplatense de este siglo: la novela «La uruguaya», de Pedro
-                                    Mairal.</p>
-                                <a href="https://beta.comunidadorsai.org/novedades/orsai-audiovisual" class="boton_redondeado resaltado_amarillo">
+                                    Mairal.</strong></p>
+                                <a href="{{url('novedades/orsai-audiovisual')}}"
+                                   class="boton_redondeado resaltado_amarillo">
                                     <span>Ver proyecto</span>
                                 </a>
                             </div>
                         </div>
                     </div>
-                </div></div><div class="owl-item" style="width: 1519.2px;"><div>
-                    <div class="item"><img src="https://beta.comunidadorsai.org/recursos/front2021/cine-3.jpg" alt="Presentamos el nuevo proyecto Orsai para la década que viene">
+                </div>
+                <div>
+                    <div class="item"><img src="{{url('recursos/front2021/cine-3.jpg')}}" alt="Presentamos el nuevo proyecto Orsai para la década que viene">
                         <div class="banner_text_inside">
 
                             <h1 class="contenedor">Presentamos el nuevo proyecto Orsai <span class="block_item">para la década que viene</span>
                             </h1>
                             <div class="contenedor">
                                 <p class="contenedor">El 1 de enero de 2021 nació la <strong>Fundación Orsai</strong>,
-                                    con sede física en Mercedes, sede virtual en <i>beta.comunidadorsai.org</i> y con las
+                                    con sede física en Mercedes, sede virtual en <i>ComunidadOrsai.org</i> y con las
                                     características legales y jurídicas de una organización sin fines de lucro.</p>
 
-                                <a href="https://beta.comunidadorsai.org/novedades/piedra-fundamental" class="boton_redondeado resaltado_amarillo">
+                                <a href="{{url('novedades/piedra-fundamental')}}"
+                                   class="boton_redondeado resaltado_amarillo">
                                     <span>Ver proyecto</span>
                                 </a>
                             </div>
                         </div>
                     </div>
-                </div></div><div class="owl-item" style="width: 1519.2px;"><div>
-                    <div class="item"><img src="https://beta.comunidadorsai.org/recursos/front2021/cine-2.jpg" alt="Nuestra sede física: una historia que empezó hace 40 años">
+                </div>
+                <div>
+                    <div class="item"><img src="{{url('recursos/front2021/cine-2.jpg')}}" alt="Nuestra sede física: una historia que empezó hace 40 años">
                         <div class="banner_text_inside">
                             <h1 class="contenedor">Nuestra sede física: una historia <span class="block_item">que empezó hace 40 años</span>
                             </h1>
                             <div class="contenedor">
                                 <p class="contenedor">Nos cedieron el ex Cine de Mercedes hasta el año 2040, y vamos a
                                     hacer que ese lugar se convierta en la capital hispanoamericana de la narrativa del
-                                    siglo veintiuno.</p>
-                                <a href="https://beta.comunidadorsai.org/novedades/la-sede-fisica" class="boton_redondeado resaltado_amarillo">
+                                    siglo veintiuno.</strong></p>
+                                <a href="{{url('novedades/la-sede-fisica')}}"
+                                   class="boton_redondeado resaltado_amarillo">
                                     <span>Ver proyecto</span>
-                                </a><!--
-                            <a href="#" class="boton_redondeado resaltado_amarillo">
-                                <span class="icono icon-card"></span>
-                            </a> -->
+                                </a> 
                             </div>
                         </div>
                     </div>
-                </div></div><div class="owl-item cloned" style="width: 1519.2px;"><div>
-                    <div class="item"><img src="https://beta.comunidadorsai.org/recursos/front2021/cine-1.jpg" alt="Orsai producirá cine y será una película aparte">
-                        <div class="banner_text_inside">
-                            <h1 class="contenedor">Orsai producirá cine y será <span class="block_item">una película aparte</span>
-                            </h1>
-                            <div class="contenedor">
-                                <p class="contenedor">El debut de «Orsai Audiovisuales» será con la adaptación del
-                                    primer gran best-seller rioplatense de este siglo: la novela «La uruguaya», de Pedro
-                                    Mairal.</p>
-                                <a href="https://beta.comunidadorsai.org/novedades/orsai-audiovisual" class="boton_redondeado resaltado_amarillo">
-                                    <span>Ver proyecto</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div></div><div class="owl-item cloned" style="width: 1519.2px;"><div>
-                    <div class="item"><img src="https://beta.comunidadorsai.org/recursos/front2021/cine-3.jpg" alt="Presentamos el nuevo proyecto Orsai para la década que viene">
-                        <div class="banner_text_inside">
-
-                            <h1 class="contenedor">Presentamos el nuevo proyecto Orsai <span class="block_item">para la década que viene</span>
-                            </h1>
-                            <div class="contenedor">
-                                <p class="contenedor">El 1 de enero de 2021 nació la <strong>Fundación Orsai</strong>,
-                                    con sede física en Mercedes, sede virtual en <i>beta.comunidadorsai.org</i> y con las
-                                    características legales y jurídicas de una organización sin fines de lucro.</p>
-
-                                <a href="https://beta.comunidadorsai.org/novedades/piedra-fundamental" class="boton_redondeado resaltado_amarillo">
-                                    <span>Ver proyecto</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div></div></div></div><div class="owl-nav"><div class="owl-prev"><i class="icon-left_arrow"></i></div><div class="owl-next"><i class="icon-right_arrow"></i></div></div><div class="owl-dots"><div class="owl-dot active"><span></span></div><div class="owl-dot"><span></span></div><div class="owl-dot"><span></span></div></div></div>
+                </div> 
+            </div>
         </div>
-    </section> --}}
+    </section>--}}
     <section class="resaltado_gris pd_tp_bt pd_20 widt_100">
         <div class="contenedor grilla_3 card_style_4_grid"> 
             @if (!Auth::check()) 

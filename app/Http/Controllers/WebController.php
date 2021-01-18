@@ -285,7 +285,7 @@ class WebController extends Controller
     {
         $data = $this->getUserData();
 
-        return view('contacto', $data);
+        return view('2021-contacto', $data);
     }
 
     public function terminos(Request $request)
