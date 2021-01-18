@@ -2540,7 +2540,12 @@ header nav>#menu_reg .logueado{
 #page-contacto .page_description{
     font-size:18px; 
 }
-
+.hide{
+    display: none;
+}
+.msg_load{
+    text-align:center;
+}
 @media(min-width:991px){
     .blog_cta .boton_redondeado{
         display:inline-block;

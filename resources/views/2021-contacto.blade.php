@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <form role="form" method="POST" action="{{url('contacto')}}" enctype="multipart/form-data">
+            <form id="form-contacto" role="form" method="POST" action="{{url('contacto')}}" enctype="multipart/form-data">
                 @csrf
                     <div class="grilla_form">
                         <div class="form_ctrl input_ col_3">
@@ -83,14 +83,14 @@
                     <div id="captcha_div">
                         <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LeRgN4UAAAAANiTeJSbMlk0VLNys96klWlt_Wmz"></div>
                     </div>
+                    <div class="msg_load"><img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /></div> 
                     <div class="form_ctrl input_ asoc_btn ">
                         <div class="align_center">
                                 <div class="align_center">
                                     <button type="submit" class="boton_redondeado resaltado_amarillo text_bold custom_size mg_20">Enviar</button>
                                 </div>
                         </div>
-                    </div>{{-- 
-	                <div class="msg"></div><img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide" /> --}}
+                    </div>
                 </form>
         </div>    
     </article>
@@ -120,5 +120,11 @@
                 };
             }
         }
+        $(document).ready(function() { 	
+            $("#form-contacto").submit(function( event ) {
+                  $(".msg_load").show(200);
+                  $(".ajaxgif").removeClass('hide');
+            });
+        });
     </script>
 @endsection
