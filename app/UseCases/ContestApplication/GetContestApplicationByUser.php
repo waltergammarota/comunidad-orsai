@@ -12,17 +12,17 @@ use App\User;
 
 class GetContestApplicationByUser extends GenericUseCase
 {
-    public function __construct($userId)
+    public function __construct($userId, $contestId)
     {
-       $this->userRepo = new UserRepository();
-       $this->userId = $userId;
-       $this->cpaRepo = new ContestApplicationRepository(new ContestApplicationModel(), $this->userRepo);
+        $this->userRepo = new UserRepository();
+        $this->userId = $userId;
+        $this->contestId = $contestId;
+        $this->cpaRepo = new ContestApplicationRepository(new ContestApplicationModel(), $this->userRepo);
     }
 
     public function execute()
     {
-        $concursoLogoId = 1;
-        return $this->cpaRepo->findApplicationByUser($this->userId, $concursoLogoId);
+        return $this->cpaRepo->findApplicationByUser($this->userId, $this->contestId);
     }
 
 }

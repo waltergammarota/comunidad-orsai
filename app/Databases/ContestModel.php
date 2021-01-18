@@ -109,7 +109,7 @@ class ContestModel extends Model
 
     public function cantidadPostulaciones()
     {
-        return ContestApplicationModel::where('contest_id', $this->id)->count();
+        return ContestApplicationModel::where('contest_id', $this->id)->whereNotNull('approved_in')->count();
     }
 
     public function cantidadFichasEnJuego()
@@ -134,5 +134,15 @@ class ContestModel extends Model
             return "abierto";
         }
         return "proximo";
+    }
+
+    static public function hasPostulacion($contestId, $userId)
+    {
+        $cpa = ContestApplicationModel::where("contest_id", $contestId)->where("user_id", $userId)->first();
+        if ($cpa == null) {
+            return false;
+        }
+        $status = $cpa->status()->first()->status;
+        return $status != "draft";
     }
 }

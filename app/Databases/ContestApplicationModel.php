@@ -24,7 +24,9 @@ class ContestApplicationModel extends Model
         'user_id',
         'contest_id',
         'prize_amount',
-        'prize_percentage'
+        'prize_percentage',
+        'bases',
+        'condiciones'
     ];
 
     /**
@@ -56,7 +58,7 @@ class ContestApplicationModel extends Model
 
     public function contest()
     {
-        return $this->hasOne('App\Databases\ContestModel', 'id', "contest_id")->first();
+        return $this->hasOne('App\Databases\ContestModel', 'id', "contest_id");
     }
 
     public function logos()
