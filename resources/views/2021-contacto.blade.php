@@ -4,7 +4,6 @@
 @section('description', 'Contacto')
 
 @section('content')
-
 <section class="resaltado_gris pd_20 pd_20_bt">
     <div class="contenedor blog_preview sin_fondo">
         <div class="mg_20"></div>

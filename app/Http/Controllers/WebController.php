@@ -287,7 +287,6 @@ class WebController extends Controller
 
         return view('2021-contacto', $data);
     }
-
     public function terminos(Request $request)
     {
         return Redirect::to('terminos-y-condiciones');
