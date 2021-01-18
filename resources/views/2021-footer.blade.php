@@ -14,7 +14,7 @@
                 </ul>
                 <ul>
                     <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
-                 {{--    <li><a href="{{url('contacto')}}">Contacto</a></li> --}}
+                    <li><a href="{{url('contacto')}}">Contacto</a></li>
                 </ul>
             </div>
 

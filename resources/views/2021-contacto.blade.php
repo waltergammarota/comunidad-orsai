@@ -25,7 +25,7 @@
                         <div class="form_ctrl input_ col_3">
                             <div class="input_err">
                                 <label class="text_medium">Nombre</label>
-                                <input type="text" name="Nombre" class="obligatorio" placeholder="Nombre" value="{{$name}}">
+                                <input type="text" name="name" class="obligatorio" placeholder="Nombre" value="{{$name}}">
                                 @if ($errors->has('name'))
 			                        <span class="invalid-feedback"> 
 			                        	<span class="error">El campo Nombre es obligatorio.</span>
@@ -36,7 +36,7 @@
                         <div class="form_ctrl input_ col_3">
                             <div class="input_err">
                                 <label class="text_medium">Apellido</label>
-                                <input type="text" name="apellido" class="obligatorio" placeholder="Apellido" value="{{$lastName}}">
+                                <input type="text" name="lastName" class="obligatorio" placeholder="Apellido" value="{{$lastName}}">
                                 @if ($errors->has('lastName'))
 			                        <span class="invalid-feedback"> 
 			                        	<span class="error">El campo Apellido es obligatorio.</span>
@@ -49,7 +49,7 @@
                         <div class="form_ctrl input_ col_3">
                             <div class="input_err">
                                 <label class="text_medium">Correo electrónico</label>
-                                <input type="email" name="Nombre" class="obligatorio" placeholder="Correo electrónico" value="{{$email}}">
+                                <input type="email" name="email" class="obligatorio" placeholder="Correo electrónico" value="{{$email}}">
                                 @if ($errors->has('email'))
 			                        <span class="invalid-feedback"> 
 			                            <span class="error">Este correo electrónico no es válido.</span>
@@ -60,13 +60,12 @@
                         <div class="form_ctrl input_ col_3">
                             <div class="input_err">
                                 <label class="text_medium">Asunto</label>
-                                <input type="text" name="asunto" class="obligatorio" placeholder="Asunto del mensaje" value="{{old('asunto')}}">
-                                @if ($errors->has('asunto'))
+                                <input type="text" name="subject" class="obligatorio" placeholder="Asunto del mensaje" value="{{old('asunto')}}">
+                                @if ($errors->has('subject'))
 			                        <span class="invalid-feedback"> 
 			                            <span class="error">El campo Asunto es obligatorio.</span>
 			                        </span>
-			                    @endif 
-   {{-- 	 --}}
+			                    @endif  
                             </div> 
                         </div>
                     </div>
