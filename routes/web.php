@@ -113,6 +113,18 @@ Route::get(
 Route::middleware(['verified'])->group(
     function () {
 
+        // CONTACTO
+       Route::get(
+           '/contacto',
+           'WebController@contacto'
+       )->name("contacto");
+
+        Route::post(
+            '/contacto',
+            'WebController@contacto_send'
+        )->name("contacto");
+        //END OF CONTACTO
+        
         // RUTAS SMS
         Route::get(
             'validacion-usuario',
@@ -513,19 +525,7 @@ Route::middleware(['verified'])->group(
         )->name(
             'gestion-fichas'
         )->middleware('admin_role');
-
-        // CONTACTO
-       Route::get(
-           '/contacto',
-           'WebController@contacto'
-       )->name("contacto");
-
-        Route::post(
-            '/contacto',
-            'WebController@contacto_send'
-        )->name("contacto");
-
-        //END OF CONTACTO
+        
         Route::get(
             '/admin/show-logs',
             'Admin\FichasController@show_logs'
