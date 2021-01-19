@@ -13,9 +13,7 @@
             <div class="border_bt_form">
                 <div class="titulo titulo_sin_mg">
                     <h1 class="text_regular">Sin pelos en la lengua</h1>
-		            <p class="page_description">No somos perfectos ni queremos serlo: decinos dónde ves una tuerca floja así
-		                podemos ajustarla. Tu comentario, sugerencia o lo que quieras decirnos nos ayudan a mejorar la
-		                experiencia en Comunidad Orsai.</p>
+		            <p class="page_description">No somos perfectos ni queremos serlo. Contanos dónde viste una tuerca floja, así podemos ajustarla. Tu comentario, sugerencia o lo que quieras decirnos nos ayuda a mejorar tu experiencia en Comunidad Orsai.</p>
                 </div>
             </div> 
             <form id="form-contacto" role="form" method="POST" action="{{url('contacto')}}" enctype="multipart/form-data">
@@ -86,7 +84,7 @@
 					    <div class="contenedor contenedor_interna_2 feedback_ok" style="padding-bottom:30px;">
 					        <div
 					            style="min-height:50px;background:#d4edda;border-radius:2px;color:#155724;border:1px solid #c3e6cb;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
-					            <p style="display:inline-block;position:relative;">Pronto se contactarán contigo. ¡Gracias!</p> 
+					            <p style="display:inline-block;position:relative;">¡Gracias por escribirnos! Recibimos tu mensaje y en breve te daremos una respuesta.</p> 
 					        </div>
 					    </div> 
 				    @endif

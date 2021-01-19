@@ -26,7 +26,7 @@
                                 <span>Noviembre, <span class="span_block">2005</span></span>
                             </div>
                             <div>
-                                <span>Surge el primer libro en español surgido de un blog.</span>
+                                <span>Se publica el primer libro en español surgido de un blog.</span>
                             </div>
                         </div>
                         <div class="tiempo_fila elemento_invisible">
@@ -112,6 +112,14 @@
                         <div class="tiempo_fila elemento_invisible">
                             <div>
                                 <span><span class="span_block">2020</span></span>
+                            </div>
+                            <div>
+                                <span>Se inaugura la primera Tienda Orsai en Buenos Aires.</span>
+                            </div>
+                        </div>
+                        <div class="tiempo_fila elemento_invisible">
+                            <div>
+                                <span><span class="span_block">Enero, 2021</span></span>
                             </div>
                             <div>
                                 <span>Nace la Fundación Orsai.</span>
