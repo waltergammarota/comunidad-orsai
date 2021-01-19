@@ -41,7 +41,31 @@ class AccountController extends Controller
         $data['provincias'] = json_encode($this->getProvincias($data['provinciasOptions']));
         $data['ciudades'] = json_encode($this->getCiudades($data['ciudadesOptions']));
         $data['countries'] = PaisModel::all();
-        return view('perfil', $data);
+        return view('2021-perfil', $data);
+    }
+    public function show_redes(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        return view('2021-redes-sociales', $data);
+    }
+    public function show_seguridad(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        return view('2021-seguridad', $data);
+    }
+    public function show_formacion(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        return view('2021-formacion-y-experiencia', $data);
     }
 
     private function getPaises()

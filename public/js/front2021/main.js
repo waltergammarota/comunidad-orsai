@@ -228,8 +228,8 @@ function open_modal(x) {
     $(x).fadeIn();
 }
 
-function close(x) {
-    document.body.style.overflowY = "scroll";
+function close(x) {/*
+    document.body.style.overflowY = "scroll";*/
     document.body.style.overflowX = "hidden";
     if (x != undefined) {
         $(x).fadeOut();

@@ -25,7 +25,7 @@
 	            @csrf
                     <div class="form_ctrl input_">
                         <div class="input_err">
-                            <label class="text_medium">Usuario</label>  
+                            <label class="text_medium">Correo electrónico</label>  
                     		<input type="email" id="mail_us" name="email" placeholder="Correo Electrónico" value="{{ old('email') }}">
                         </div>
                     </div>

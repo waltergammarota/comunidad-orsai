@@ -252,12 +252,30 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/perfil',
             'AccountController@show_perfil'
-        )->name('perfil')->middleware('email_verified');;
+        )->name('perfil')->middleware('email_verified');
 
         Route::get(
             '/panel',
             'AccountController@show_panel'
         )->name('perfil');
+
+        Route::get(
+            '/redes-sociales',
+            'AccountController@show_redes'
+        )->name('perfil')->middleware('email_verified');
+
+        Route::get(
+            'seguridad',
+            'AccountController@show_seguridad'
+        )->name('perfil')->middleware('email_verified');
+
+        Route::get(
+            'formacion-y-experiencia',
+            'AccountController@show_formacion'
+        )->name('perfil')->middleware('email_verified');
+
+
+
 
         Route::post(
             '/guardar-configuracion-preferencias',

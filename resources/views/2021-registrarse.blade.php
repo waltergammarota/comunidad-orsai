@@ -71,7 +71,7 @@
                                 <label class="text_medium">Usuario</label>
                                 <input type="text" id="usr" name="usuario" placeholder="Usuario" value="{{old('usuario')}}">
 			                    @if ($errors->has('usuario'))
-			                        <span class="invalid-feedback">El nombre de usuario ya fue usado. Elija otro.</span>
+			                        <span class="invalid-feedback">El nombre de usuario ya ha sido utilizado.</span>
 			                    @endif 
                             </div> 
                         </div> 
