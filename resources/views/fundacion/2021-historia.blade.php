@@ -113,7 +113,7 @@
                         </div>
                         <div class="tiempo_fila elemento_invisible">
                             <div>
-                                <span><span class="span_block">2020</span></span>
+                                <span>Diciembre, <span class="span_block">2020</span></span>
                             </div>
                             <div>
                                 <span>Se inaugura la primera Tienda Orsai en Buenos Aires.</span>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="tiempo_fila elemento_invisible">
                             <div>
-                                <span><span class="span_block">Enero, 2021</span></span>
+                                <span>Enero, <span class="span_block">2021</span></span>
                             </div>
                             <div>
                                 <span>Nace la Fundación Orsai.</span>
@@ -230,6 +230,12 @@
             }, 3000);
             setTimeout(function() {
                 $(".tiempo_tabla .tiempo_fila:nth-child(13)").addClass("animated bounceInLeft");
+            }, 2800);
+            setTimeout(function() {
+                $(".tiempo_tabla .tiempo_fila:nth-child(14)").removeClass("elemento_invisible");
+            }, 3000);
+            setTimeout(function() {
+                $(".tiempo_tabla .tiempo_fila:nth-child(14)").addClass("animated bounceInLeft");
             }, 3000);
 
 
