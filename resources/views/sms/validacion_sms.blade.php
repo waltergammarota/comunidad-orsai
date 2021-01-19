@@ -86,6 +86,10 @@
                     <a href="{{url('panel')}}">Ahora no</a>
                 </div>
             </div>
+            <div class="bottom_exit">
+                <span>¿Necesitás ayuda?</span>
+                <a class="gris" href="{{url('contacto')}}">Escribinos</a>
+            </div>
         </article>
     </section>
 @endsection
