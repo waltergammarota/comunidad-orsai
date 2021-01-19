@@ -93,7 +93,7 @@ class AccountController extends Controller
         } else {
             $data['avatar'] = url('img/participantes/participante.jpg');
         }
-        return view('perfil-publico', $data);
+        return view('2021-perfil-publico', $data);
     }
 
     public function show_panel()

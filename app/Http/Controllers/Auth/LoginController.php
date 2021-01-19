@@ -101,7 +101,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        return view('ingresar');
+        return view('2021-login');
     }
 
     public function resetPassword(Request $request)
