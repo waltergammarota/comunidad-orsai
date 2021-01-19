@@ -78,7 +78,7 @@ class WebController extends Controller
     {
         $data = $this->getUserData();
         $data['title'] = "Reenviar mail activación";
-        return view('reenviar-mail-activacion', $data);
+        return view('2021-reenviar-mail-activacion', $data);
     }
 
     public function bases_concurso()

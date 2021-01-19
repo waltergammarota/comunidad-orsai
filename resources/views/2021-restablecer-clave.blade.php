@@ -21,9 +21,7 @@
             <div class="titulo">
                 <h1 class="text_regular">Ingresá la dirección de correo electrónico asociada a tu cuenta y te vamos a enviar un enlace para restablecer tu contraseña.</h1>
                 @if($errors->has("token"))
-	                <span class="span_h2" style="background-color: red">
-	                <strong>Tu token expiró o es inválido. Vuelve a ingresar tu email para restablecerla.</strong>
-	            </span>
+	                <span class="span_h2" style="display:block;color: red;margin-bottom:20px;">Tu token expiró o es inválido. Vuelve a ingresar tu email para restablecerla.</span>
 	            @endif
             </div>
         	<form id="form_resetpasswd" action="{{url('restablecer-clave')}}" method="POST">
@@ -37,18 +35,15 @@
 		                    @endif
                         </div>
                     </div>
-
 				    @if(Session::get('alert') == "reset_password_email")
-				        <div class="general_profile_msg popup top_msg">
-				            <div class="contenedor msg_position_rel">
-				                <div id="texto_exito">
-				                    <span>Te enviamos un mail para restablecer tu contraseña.</span>
-				                </div>
-				                <div class="cerrar">
-				                    <span>X</span>
-				                </div>
-				            </div>
-				        </div>
+
+                        <div class="contenedor contenedor_interna_2 feedback_ok" style="padding-bottom:30px;">
+                            <div
+                                style="min-height:50px;background:#d4edda;border-radius:2px;color:#155724;border:1px solid #c3e6cb;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
+                                <p style="font-size:14px;display:inline-block;position:relative;">Te enviamos un mail para restablecer tu contraseña.</p> 
+                            </div>
+                        </div>
+
 				    @endif
                     <div class="grilla_form"> 
 	                    <div id="boton_submit" class="align_center">
