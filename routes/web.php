@@ -356,7 +356,7 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/notificaciones/counter',
             'AccountController@notificaciones_counter'
-        )->name('notificaciones')->middleware('email_verified');
+        )->name('notificaciones-counter')->middleware('email_verified');
 
         Route::get(
             '/notificaciones',
@@ -366,12 +366,12 @@ Route::middleware(['verified'])->group(
         Route::post(
             '/notificaciones/mark-as-not-read',
             'AccountController@notificaciones_markAsNotRead'
-        )->name('notificaciones')->middleware('email_verified');
+        )->name('notificaciones-markAsNotRead')->middleware('email_verified');
 
         Route::post(
             '/notificaciones/mark-as-read',
             'AccountController@notificaciones_markAsRead'
-        )->name('notificaciones')->middleware('email_verified');
+        )->name('notificaciones-markAsRead')->middleware('email_verified');
 
         Route::post(
             '/notificaciones/markallasreaded',
@@ -515,15 +515,15 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         // CONTACTO
-       Route::get(
-           '/contacto',
-           'WebController@contacto'
-       )->name("contacto");
+        Route::get(
+            '/contacto',
+            'WebController@contacto'
+        )->name("contacto");
 
         Route::post(
             '/contacto',
             'WebController@contacto_send'
-        )->name("contacto");
+        )->name("contacto-send");
 
         //END OF CONTACTO
         Route::get(

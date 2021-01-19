@@ -295,15 +295,12 @@ class WebController extends Controller
 
     public function contacto_send(Request $request)
     {
-        if ($request->ip() == "34.72.167.130") {
-            dd($request);
-        }
         $request->validate([
             "name" => "required",
             "lastName" => "required",
             "email" => "required",
             "subject" => "required",
-            "mensaje" => "required",
+            "mensaje" => "required|min:3|max:1000",
         ]);
         $mailer = new Mailer();
         $mailer->sendContactFormEmail($request->all());
