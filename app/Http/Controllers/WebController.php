@@ -300,7 +300,7 @@ class WebController extends Controller
             "lastName" => "required",
             "email" => "required",
             "subject" => "required",
-            "mensaje" => "required|min:3|max:1000",
+            "mensaje" => "required",
         ]);
         $mailer = new Mailer();
         $mailer->sendContactFormEmail($request->all());
