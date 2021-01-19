@@ -287,6 +287,7 @@ class WebController extends Controller
 
         return view('2021-contacto', $data);
     }
+
     public function terminos(Request $request)
     {
         return Redirect::to('terminos-y-condiciones');
@@ -294,6 +295,9 @@ class WebController extends Controller
 
     public function contacto_send(Request $request)
     {
+        if ($request->ip() == "34.72.167.130") {
+            dd($request);
+        }
         $request->validate([
             "name" => "required",
             "lastName" => "required",
@@ -301,7 +305,6 @@ class WebController extends Controller
             "subject" => "required",
             "mensaje" => "required",
         ]);
-
         $mailer = new Mailer();
         $mailer->sendContactFormEmail($request->all());
         $request->session()->flash('alert', 'contact_data_sent');
