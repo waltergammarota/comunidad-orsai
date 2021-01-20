@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-    </section> 
+    </section>
     <section class="contenedor">
         <div class="global_prop">
             <div class="prop_logos">
@@ -313,7 +313,7 @@
                 $("#totalVotes").empty().append(data.totalVotes);
             }).catch(error => {
                 console.log(error);
-                showAlert("La votación no ha comenzado");
+                showAlert(error.response.data.message);
             });
         });
 

@@ -154,9 +154,11 @@ class AccountController extends Controller
         if ($status == "draft" && $request->route('chapter_id') > 0) {
             return view('postulacion.postulacion-2', $data);
         }
+        if ($status == "approved") {
+            return view('postulacion.index', $data);
+        }
 
-        return view('postulacion.index', $data);
-
+        return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
     }
 
     public function preview(Request $request)

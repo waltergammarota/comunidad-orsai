@@ -28,20 +28,28 @@ class VoteAContestApplication extends GenericUseCase
     {
         $this->cap = ContestApplicationModel::find($this->capId);
         if ($this->checkIfContestIsActive()) {
-            return $this->voteCap(
-                $this->capId,
-                $this->userId,
-                $this->amount
-            );
+            if ($this->hasUserPhoneActivated()) {
+                return $this->voteCap(
+                    $this->capId,
+                    $this->userId,
+                    $this->amount
+                );
+            }
+            throw new \Exception('No tienes el teléfono activado', "107");
         }
         throw new \Exception("El Concurso no ha comenzado", "007");
+    }
+
+    private function hasUserPhoneActivated()
+    {
+        $user = User::find($this->userId);
+        return $user->phone_verified_at != null;
     }
 
     private function checkIfContestIsActive()
     {
         $contest = ContestModel::find($this->cap->contest_id);
-        $cpas = ContestApplicationModel::where("contest_id", 1)->count();
-        return $contest->start_date <= now() && $cpas >= $contest->min_apps_qty && $contest->votes_end_date > now();
+        return $contest->hasVotes();
     }
 
     private function isVoterOwnerOf($userId)

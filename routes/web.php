@@ -91,18 +91,6 @@ Route::get(
 )->name('bases-concurso');
 
 
-// RUTAS DE CONCURSOS
-Route::get(
-    '/concursos',
-    'Contest\ContestController@index'
-)->name("concursos");
-
-Route::get(
-    '/concursos/{id}/{name}',
-    'Contest\ContestController@show'
-)->name("concursos-show");
-// FIN DE RUTAS DE CONCURSO
-
 Route::get(
     '/historia',
     'WebController@historia'
@@ -113,6 +101,17 @@ Route::get(
 Route::middleware(['verified'])->group(
     function () {
 
+        // RUTAS DE CONCURSOS
+        Route::get(
+            '/concursos',
+            'Contest\ContestController@index'
+        )->name("concursos");
+
+        Route::get(
+            '/concursos/{id}/{name}',
+            'Contest\ContestController@show'
+        )->name("concursos-show");
+        // FIN DE RUTAS DE CONCURSO
         // RUTAS SMS
         Route::get(
             'validacion-usuario',
@@ -157,6 +156,11 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/propuesta/{id}',
             'PropuestaController@show'
+        );
+
+        Route::get(
+            '/propuesta-detalle/{id}',
+            'PropuestaController@show_detalle'
         );
 
         Route::post(
@@ -515,10 +519,10 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         // CONTACTO
-       Route::get(
-           '/contacto',
-           'WebController@contacto'
-       )->name("contacto");
+        Route::get(
+            '/contacto',
+            'WebController@contacto'
+        )->name("contacto");
 
         Route::post(
             '/contacto',
