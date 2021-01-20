@@ -107,7 +107,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
+/*
         $(document).ready(function () {
             $('#summernote').summernote({
                 tabsize: 2,
@@ -118,7 +118,7 @@
                 height: 200
             });
         });
-
+*/
     </script>
 
 @endsection

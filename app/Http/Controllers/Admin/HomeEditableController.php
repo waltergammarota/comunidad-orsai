@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin; 
  
-use App\Databases\HomeModel; 
-use App\Http\Controllers\Controller; 
+use App\Databases\HomeModel;
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,10 +20,6 @@ class HomeEditableController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([ 
-            "description1" => "required",
-            "description2" => "required"
-        ]);
         $datos1 = [ 
         	"id" => 0,
             "description1" => $request->description1 
@@ -46,10 +42,6 @@ class HomeEditableController extends Controller
     } 
     public function update(Request $request)
     {
-        $request->validate([ 
-            "description1" => "required",
-            "description2" => "required"
-        ]);
         $datos1 = [ 
         	"id" => 0,
             "description" => $request->description1 
@@ -58,11 +50,11 @@ class HomeEditableController extends Controller
         	"id" => 1,
             "description" => $request->description2
         ]; 
-        $home1 = HomeModel::find('0');
+        $home1 = HomeModel::find(0);
         $home1->fill($datos1);
         $home1->save();
 
-        $home2 = HomeModel::find('1');
+        $home2 = HomeModel::find(1);
         $home2->fill($datos2);
         $home2->save(); 
         return Redirect::to('admin/home');
