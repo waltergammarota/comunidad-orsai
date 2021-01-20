@@ -155,7 +155,7 @@ class AccountController extends Controller
             return view('postulacion.postulacion-2', $data);
         }
         if ($status == "approved") {
-            return view('postulacion.index', $data);
+            return Redirect::to('propuesta/' . $postulacion->id);
         }
 
         return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
