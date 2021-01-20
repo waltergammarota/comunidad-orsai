@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Databases\CommentsModel;
 use App\Databases\ContenidoModel;
+use App\Databases\HomeModel;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ class ContenidoController extends Controller
         $data = $this->getUserData();
         $data['sociosPosta'] = User::whereNotNull('email_verified_at')->whereNotNull('phone_verified_at')->count();
         $data['sociosBeta'] = User::whereNotNull('email_verified_at')->count() - $data['sociosPosta'];
+
         if (Auth::check()) {
             $emailWasValidated = Auth::user()->email_verified_at != null;
             if (!$emailWasValidated) {
@@ -29,6 +31,8 @@ class ContenidoController extends Controller
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
         if ($slug == null) {
+            $data['home1'] = HomeModel::find(0)->description;
+            $data['home2'] = HomeModel::find(1)->description;
             return view("2021-home", $data);
         } else {
             if ($slug == "novedades") {
