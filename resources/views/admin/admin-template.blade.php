@@ -160,6 +160,14 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{url('admin/home')}}" class="nav-link">
+                            <i class="nav-icon fas fa-pager"></i>
+                            <p>
+                                Página de Inicio
+                            </p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{url('panel')}}" class="nav-link">

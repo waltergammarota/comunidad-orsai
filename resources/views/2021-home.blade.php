@@ -4,7 +4,8 @@
 @section('description', 'Página de Inicio')
 
 @section('content')  
-    <section class="mainslider">
+{!! $home1 !!}
+{{--     <section class="mainslider">
         <div>
             <div id="owlMainSlider" class="owl-carousel owl-theme">
                 <div>
@@ -62,7 +63,7 @@
                 </div> 
             </div>
         </div>
-    </section>
+    </section> --}}
     <section class="resaltado_gris pd_tp_bt pd_20 widt_100">
         <div class="contenedor grilla_3 card_style_4_grid"> 
             @if (!Auth::check()) 
@@ -120,8 +121,9 @@
                 </div>
             @endif
         @endif   
-    </section> 
-    
+    </section>   
+{!! $home2 !!}
+    {{-- 
     <section class="resaltado_black pd_tp_bt pd_20">
         <div class="contenedor titulo_seccion_med">
             <h2>Más sobre <span class="color_amarillo">la Fundación</span></h2>
@@ -176,5 +178,5 @@
                 </a>
             </article> 
         </div>
-    </section>
+    </section> --}}
 @endsection

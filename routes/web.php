@@ -318,6 +318,20 @@ Route::middleware(['verified'])->group(
             'AccountController@profile_image'
         );
 
+        // HOME EDITABLE
+        Route::get('admin/home', 'Admin\HomeEditableController@index')->name(
+            'home'
+        )->middleware('admin_role');
+
+        Route::post('admin/home/update', 'Admin\HomeEditableController@update')->name(
+            'home-update'
+        )->middleware('admin_role');
+
+        Route::post('admin/home/store', 'Admin\HomeEditableController@store')->name(
+            'home-store'
+        )->middleware('admin_role');
+
+
         // NOTIFICACIONES
         Route::get('admin/notificaciones', 'Admin\NotificacionesController@index')->name(
             'notificaciones'
