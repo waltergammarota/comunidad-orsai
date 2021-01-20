@@ -92,15 +92,15 @@ Route::get(
 
 
 // RUTAS DE CONCURSOS
-Route::get(
-    '/concursos',
-    'Contest\ContestController@index'
-)->name("concursos");
-
-Route::get(
-    '/concursos/{id}/{name}',
-    'Contest\ContestController@show'
-)->name("concursos-show");
+//Route::get(
+//    '/concursos',
+//    'Contest\ContestController@index'
+//)->name("concursos");
+//
+//Route::get(
+//    '/concursos/{id}/{name}',
+//    'Contest\ContestController@show'
+//)->name("concursos-show");
 // FIN DE RUTAS DE CONCURSO
 
 Route::get(
@@ -154,72 +154,72 @@ Route::middleware(['verified'])->group(
 
         // CONCURSOS
 
-        Route::get(
-            '/propuesta/{id}',
-            'PropuestaController@show'
-        );
-
-        Route::post(
-            '/votar',
-            'PropuestaController@votar'
-        );
-        // POSTULACION A UN CONCURSO
-        Route::get(
-            '/postulaciones/{contest_id}/{contest_name}/finalizar/{cap_id}',
-            'AccountController@preview'
-        )->name('postulacion-preview')->middleware('email_verified');
-
-        Route::post(
-            'borrar-capitulo',
-            'AccountController@delete_chapter'
-        )->name('borrar-capitulo')->middleware('email_verified');
-
-        Route::post(
-            'enviar-postulacion',
-            'AccountController@sent_cpa'
-        )->name('enviar-postulacion')->middleware('email_verified');
-
-        Route::get(
-            '/postulaciones/{contest_id}/{contest_name}',
-            'AccountController@show_postulacion'
-        )->name('postulacion')->middleware('email_verified');
-
-        Route::get(
-            '/postulaciones/{contest_id}/{contest_name}/capitulos/{chapter_id}',
-            'AccountController@show_postulacion'
-        )->name('postulacion')->middleware('email_verified');
-
-
-        Route::post(
-            '/postulaciones',
-            'AccountController@store_publicacion'
-        );
-
-        Route::post(
-            '/capitulos',
-            'AccountController@store_chapter'
-        );
-
-
-        Route::get(
-            '/concurso-finalizado',
-            'WebController@concurso_finalizado'
-        )->name('concurso-finalizado');
-
-        Route::get(
-            '/concursos/{id}/{name}/{orden?}',
-            'Contest\ContestController@show'
-        )->name('participantes');
-
-        Route::get(
-            '/participantes/pagina/{page?}/{orden?}/',
-            'WebController@participantes'
-        )->name('participantes-pagina');
-
-        Route::get(
-            '/participantes/{orden?}/{limit}/{offset}',
-            'WebController@getMore'
-        )->name('participantes-more');
+//        Route::get(
+//            '/propuesta/{id}',
+//            'PropuestaController@show'
+//        );
+//
+//        Route::post(
+//            '/votar',
+//            'PropuestaController@votar'
+//        );
+//        // POSTULACION A UN CONCURSO
+//        Route::get(
+//            '/postulaciones/{contest_id}/{contest_name}/finalizar/{cap_id}',
+//            'AccountController@preview'
+//        )->name('postulacion-preview')->middleware('email_verified');
+//
+//        Route::post(
+//            'borrar-capitulo',
+//            'AccountController@delete_chapter'
+//        )->name('borrar-capitulo')->middleware('email_verified');
+//
+//        Route::post(
+//            'enviar-postulacion',
+//            'AccountController@sent_cpa'
+//        )->name('enviar-postulacion')->middleware('email_verified');
+//
+//        Route::get(
+//            '/postulaciones/{contest_id}/{contest_name}',
+//            'AccountController@show_postulacion'
+//        )->name('postulacion')->middleware('email_verified');
+//
+//        Route::get(
+//            '/postulaciones/{contest_id}/{contest_name}/capitulos/{chapter_id}',
+//            'AccountController@show_postulacion'
+//        )->name('postulacion')->middleware('email_verified');
+//
+//
+//        Route::post(
+//            '/postulaciones',
+//            'AccountController@store_publicacion'
+//        );
+//
+//        Route::post(
+//            '/capitulos',
+//            'AccountController@store_chapter'
+//        );
+//
+//
+//        Route::get(
+//            '/concurso-finalizado',
+//            'WebController@concurso_finalizado'
+//        )->name('concurso-finalizado');
+//
+//        Route::get(
+//            '/concursos/{id}/{name}/{orden?}',
+//            'Contest\ContestController@show'
+//        )->name('participantes');
+//
+//        Route::get(
+//            '/participantes/pagina/{page?}/{orden?}/',
+//            'WebController@participantes'
+//        )->name('participantes-pagina');
+//
+//        Route::get(
+//            '/participantes/{orden?}/{limit}/{offset}',
+//            'WebController@getMore'
+//        )->name('participantes-more');
 
         //CONCURSOS
 
