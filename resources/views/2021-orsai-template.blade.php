@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{url('estilos/front2021/style.css')}}">
     <link rel="stylesheet" href="{{url('estilos/front2021/animate.css')}}">
-    <link rel="stylesheet" href="{{url('estilos/front2021/linea-de-tiempo.css')}}"> 
-    <link rel="stylesheet" href="{{url('estilos/front2021/fontello/fontello.css')}}"> 
-    <link rel="stylesheet" href="{{url('owlcarousel/owl.carousel.min.css')}}">  
+    <link rel="stylesheet" href="{{url('estilos/front2021/linea-de-tiempo.css')}}">
+    <link rel="stylesheet" href="{{url('estilos/front2021/fontello/fontello.css')}}">
+    <link rel="stylesheet" href="{{url('owlcarousel/owl.carousel.min.css')}}">
     <script src="{{url('js/segment.js')}}"></script>
     <script src="{{url('js/ease.min.js')}}"></script>
     @if (Route::currentRouteName() == 'registrarse' || Route::currentRouteName() == 'ingresar' || Route::currentRouteName() == 'home')
@@ -68,12 +70,12 @@
     <link rel="shortcut icon" href="{{url('recursos/favicon-new.ico')}}">
     @yield('coral')
 </head>
-<body class="page">  
-    @include('2021-header') 
+<body class="page">
+@include('2021-header')
 
-    @yield('content')
+@yield('content')
 
-    @include('2021-footer') 
+@include('2021-footer')
 
 
 <div id="cookies_msg" class="popup" style="display: none;">
@@ -95,12 +97,12 @@
     <span class="icon-angle-up"></span>
 </div>
 
-<script src="{{url('js/jquery.js')}}"></script> 
+<script src="{{url('js/jquery.js')}}"></script>
 <script src="{{url('js/front2021/owl.carousel2/dist/owl.carousel.min.js')}}"></script>
-<script src="{{url('js/front2021/segment.js')}}"></script> 
-<script src="{{url('js/front2021/ease.min.js')}}"></script> 
-<script src="{{url('js/front2021/main.js')}}"></script> 
-<script src="{{url('js/front2021/carousel.js')}}"></script> 
+<script src="{{url('js/front2021/segment.js')}}"></script>
+<script src="{{url('js/front2021/ease.min.js')}}"></script>
+<script src="{{url('js/front2021/main.js')}}"></script>
+<script src="{{url('js/front2021/carousel.js')}}"></script>
 
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -108,32 +110,38 @@
     src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script>
 
-    if ($(window).width() < 1040) { 
-        $( ".submenu" ).parent( "li" ).click(function() {
-            $(this).find('.submenu').toggleClass('abierto'); 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    if ($(window).width() < 1040) {
+        $(".submenu").parent("li").click(function () {
+            $(this).find('.submenu').toggleClass('abierto');
         })
     }
     if ($(window).width() < 1040) {
-        $( "#insertar_perfil" ).prepend($( "#clonar_perfil" ));
-    } 
-    $( window ).resize(function() {
-        if( $(window).width() < 1040 ){
-            $( "#insertar_perfil" ).prepend($( "#clonar_perfil" ));
-        }else{
-            $( "#clonar_perfil" ).appendTo( ".logueado" );  
+        $("#insertar_perfil").prepend($("#clonar_perfil"));
     }
-    }); 
-    $('.icono_up').click(function(){
-        $("html, body").animate({ scrollTop: 0 }, 1000);
+    $(window).resize(function () {
+        if ($(window).width() < 1040) {
+            $("#insertar_perfil").prepend($("#clonar_perfil"));
+        } else {
+            $("#clonar_perfil").appendTo(".logueado");
+        }
+    });
+    $('.icono_up').click(function () {
+        $("html, body").animate({scrollTop: 0}, 1000);
         return false;
     });
-    $(window).scroll(function(){
-        if ($(window).scrollTop() >= 300){
-            $( ".icono_up" ).fadeIn();
-        }else{
-            $( ".icono_up" ).fadeOut();
+    $(window).scroll(function () {
+        if ($(window).scrollTop() >= 300) {
+            $(".icono_up").fadeIn();
+        } else {
+            $(".icono_up").fadeOut();
         }
-        if( $(window).width() > 991 ){
+        if ($(window).width() > 991) {
             if ($(this).scrollTop() > 140) {
                 $('.menu_lateral_izq ul').addClass('fixed');
             } else {
@@ -161,7 +169,13 @@
 
     function updateNotifications() {
         const bell = $('.campanita');
-        axios.get('{{url('notificaciones/counter')}}')
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        };
+        axios.get('{{url('notificaciones/counter')}}', {}, options)
             .then(response => {
                 const amount = response.data.amount;
                 bell.empty();

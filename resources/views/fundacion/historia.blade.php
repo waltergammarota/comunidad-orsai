@@ -1,7 +1,7 @@
 @extends('orsai-template')
 
-@section('title', 'Historia en Fundación Orsai | Comunidad Orsai')
-@section('description','Historia en Fundación Orsai | Comunidad Orsai')
+@section('title', 'Linea de Tiempo Orsai | Comunidad Orsai')
+@section('description','Linea de Tiempo Orsai | Comunidad Orsai')
 
 
 @section('content')
