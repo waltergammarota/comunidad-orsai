@@ -101,17 +101,6 @@ Route::get(
 Route::middleware(['verified'])->group(
     function () {
 
-        // RUTAS DE CONCURSOS
-        Route::get(
-            '/concursos',
-            'Contest\ContestController@index'
-        )->name("concursos");
-
-        Route::get(
-            '/concursos/{id}/{name}',
-            'Contest\ContestController@show'
-        )->name("concursos-show");
-        // FIN DE RUTAS DE CONCURSO
         // RUTAS SMS
         Route::get(
             'validacion-usuario',
@@ -151,7 +140,17 @@ Route::middleware(['verified'])->group(
 
         // FIN RUTAS SMS
 
-        // CONCURSOS
+        // INICIO CONCURSOS
+
+        Route::get(
+            '/concursos',
+            'Contest\ContestController@index'
+        )->name("concursos");
+
+        Route::get(
+            '/concursos/{id}/{name}',
+            'Contest\ContestController@show'
+        )->name("concursos-show");
 
         Route::get(
             '/propuesta/{id}',
@@ -167,7 +166,7 @@ Route::middleware(['verified'])->group(
             '/votar',
             'PropuestaController@votar'
         );
-        // POSTULACION A UN CONCURSO
+
         Route::get(
             '/postulaciones/{contest_id}/{contest_name}/finalizar/{cap_id}',
             'AccountController@preview'
@@ -225,7 +224,7 @@ Route::middleware(['verified'])->group(
             'WebController@getMore'
         )->name('participantes-more');
 
-        //CONCURSOS
+        //FIN DE CONCURSOS
 
 
         Route::get(
@@ -256,12 +255,28 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/perfil',
             'AccountController@show_perfil'
-        )->name('perfil')->middleware('email_verified');;
+        )->name('perfil')->middleware('email_verified');
 
         Route::get(
             '/panel',
             'AccountController@show_panel'
         )->name('perfil');
+
+        Route::get(
+            '/redes-sociales',
+            'AccountController@show_redes'
+        )->name('perfil')->middleware('email_verified');
+
+        Route::get(
+            'seguridad',
+            'AccountController@show_seguridad'
+        )->name('perfil')->middleware('email_verified');
+
+        Route::get(
+            'formacion-y-experiencia',
+            'AccountController@show_formacion'
+        )->name('perfil')->middleware('email_verified');
+
 
         Route::post(
             '/guardar-configuracion-preferencias',

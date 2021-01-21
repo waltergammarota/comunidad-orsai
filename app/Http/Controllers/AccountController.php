@@ -44,6 +44,33 @@ class AccountController extends Controller
         return view('perfil', $data);
     }
 
+    public function show_redes(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        return view('2021-redes-sociales', $data);
+    }
+
+    public function show_seguridad(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        return view('2021-seguridad', $data);
+    }
+
+    public function show_formacion(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        return view('2021-formacion-y-experiencia', $data);
+    }
+
     private function getPaises()
     {
         $paises = PaisModel::orderBy('peso', 'desc')->orderBy('nombre', 'asc')->get()->toArray();
@@ -93,7 +120,7 @@ class AccountController extends Controller
         } else {
             $data['avatar'] = url('img/participantes/participante.jpg');
         }
-        return view('perfil-publico', $data);
+        return view('2021-perfil-publico', $data);
     }
 
     public function show_panel()

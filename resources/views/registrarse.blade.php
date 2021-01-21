@@ -102,11 +102,9 @@
             <div id="check_div" class="input_err obligatorio"
                  style="padding-right: 0px !important;">
                 <label class="checkbox-container letra_chica text_bold">
-                    Aceptación de <a href="{{url('terminos-y-condiciones')}}"
-                                     class="subrayado resaltado_amarillo text_bold" target="_blank">Términos
+                    Aceptación de <a href="{{url('terminos-y-condiciones')}}" class="subrayado resaltado_amarillo text_bold" target="_blank">Términos
                         y condiciones</a>.
-                    <input type="checkbox" id="cbox1" name="terminos"
-                           value="1" {{old('terminos')? "checked":""}}>
+                    <input type="checkbox" id="cbox1" name="terminos" value="1" {{old('terminos')? "checked":""}}>
                     @if ($errors->has('terminos'))
                         <span class="invalid-feedback">
                             <strong>Por favor, aceptá los términos y condiciones.</strong>
@@ -124,7 +122,7 @@ Este sitio está protegido por reCAPTCHA y se aplican la <a href="https://polici
                         data-sitekey="{{env('CAPTCHA_SITE_KEY')}}"
                         data-callback="onSubmit"
                         data-action="submit"
-                        id="boton_susc">
+                        id="boton_susc">        
                     Registrarme
                 </button>
                 <!-- <div class="msg"></div>

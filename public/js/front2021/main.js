@@ -228,8 +228,8 @@ function open_modal(x) {
     $(x).fadeIn();
 }
 
-function close(x) {
-    document.body.style.overflowY = "scroll";
+function close(x) {/*
+    document.body.style.overflowY = "scroll";*/
     document.body.style.overflowX = "hidden";
     if (x != undefined) {
         $(x).fadeOut();
@@ -763,7 +763,7 @@ if (document.getElementById("registro_js")) {
                 }
             }
         }
-        var get_checkbox = document.getElementById("check_div");
+        /*var get_checkbox = document.getElementById("check_div");
         if (get_checkbox.getElementsByTagName("input")[0].type == "checkbox" && get_checkbox.classList.contains("obligatorio")) {
             if (get_checkbox.getElementsByTagName("input")[0].checked) {
                 if (get_checkbox.getElementsByClassName("error")[0]) {
@@ -776,7 +776,7 @@ if (document.getElementById("registro_js")) {
                     crear_span_error(get_checkbox, "Debe aceptar los términos y condiciones");
                 }
             }
-        }
+        }*/
         var contar_errores = 0;
         for (var z = 0; z < get_input_cont.length; z++) {
             if (get_input_cont[z].error == true) {

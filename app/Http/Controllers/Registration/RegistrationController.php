@@ -149,7 +149,7 @@ class RegistrationController extends Controller
         if (!Auth::check()) {
             $data = $this->getUserData();
             $data['paises'] = $this->getPaises();
-            return view('registrarse', $data);
+            return view('2021-registrarse', $data);
         } else {
             return Redirect::to("panel");
         }

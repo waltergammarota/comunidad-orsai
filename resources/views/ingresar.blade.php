@@ -18,9 +18,7 @@
             </div>
             <div class="contenedor_campos">
                 <div class="input_err obligatorio">
-                    <input type="email" id="mail_us" name="email"
-                           placeholder="Correo Electrónico"
-                           value="{{ old('email') }}">
+                    <input type="email" id="mail_us" name="email" placeholder="Correo Electrónico" value="{{ old('email') }}">
                 </div>
                 <div class="input_err obligatorio">
                     <input type="password" id="ps" name="password" placeholder="Contraseña" value="">
