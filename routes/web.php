@@ -91,18 +91,6 @@ Route::get(
 )->name('bases-concurso');
 
 
-// RUTAS DE CONCURSOS
-Route::get(
-    '/concursos',
-    'Contest\ContestController@index'
-)->name("concursos");
-
-Route::get(
-    '/concursos/{id}/{name}',
-    'Contest\ContestController@show'
-)->name("concursos-show");
-// FIN DE RUTAS DE CONCURSO
-
 Route::get(
     '/historia',
     'WebController@historia'
@@ -113,6 +101,17 @@ Route::get(
 Route::middleware(['verified'])->group(
     function () {
 
+        // RUTAS DE CONCURSOS
+        Route::get(
+            '/concursos',
+            'Contest\ContestController@index'
+        )->name("concursos");
+
+        Route::get(
+            '/concursos/{id}/{name}',
+            'Contest\ContestController@show'
+        )->name("concursos-show");
+        // FIN DE RUTAS DE CONCURSO
         // RUTAS SMS
         Route::get(
             'validacion-usuario',
@@ -157,6 +156,11 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/propuesta/{id}',
             'PropuestaController@show'
+        );
+
+        Route::get(
+            '/propuesta-detalle/{id}',
+            'PropuestaController@show_detalle'
         );
 
         Route::post(
@@ -332,6 +336,20 @@ Route::middleware(['verified'])->group(
             'AccountController@profile_image'
         );
 
+        // HOME EDITABLE
+        Route::get('admin/home', 'Admin\HomeEditableController@index')->name(
+            'home'
+        )->middleware('admin_role');
+
+        Route::post('admin/home/update', 'Admin\HomeEditableController@update')->name(
+            'home-update'
+        )->middleware('admin_role');
+
+        Route::post('admin/home/store', 'Admin\HomeEditableController@store')->name(
+            'home-store'
+        )->middleware('admin_role');
+
+
         // NOTIFICACIONES
         Route::get('admin/notificaciones', 'Admin\NotificacionesController@index')->name(
             'notificaciones'
@@ -374,7 +392,7 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/notificaciones/counter',
             'AccountController@notificaciones_counter'
-        )->name('notificaciones')->middleware('email_verified');
+        )->name('notificaciones-counter')->middleware('email_verified');
 
         Route::get(
             '/notificaciones',
@@ -384,12 +402,12 @@ Route::middleware(['verified'])->group(
         Route::post(
             '/notificaciones/mark-as-not-read',
             'AccountController@notificaciones_markAsNotRead'
-        )->name('notificaciones')->middleware('email_verified');
+        )->name('notificaciones-markAsNotRead')->middleware('email_verified');
 
         Route::post(
             '/notificaciones/mark-as-read',
             'AccountController@notificaciones_markAsRead'
-        )->name('notificaciones')->middleware('email_verified');
+        )->name('notificaciones-markAsRead')->middleware('email_verified');
 
         Route::post(
             '/notificaciones/markallasreaded',
@@ -533,15 +551,15 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         // CONTACTO
-       Route::get(
-           '/contacto',
-           'WebController@contacto'
-       )->name("contacto");
+        Route::get(
+            '/contacto',
+            'WebController@contacto'
+        )->name("contacto");
 
         Route::post(
             '/contacto',
             'WebController@contacto_send'
-        )->name("contacto");
+        )->name("contacto-send");
 
         //END OF CONTACTO
         Route::get(

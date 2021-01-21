@@ -9,9 +9,10 @@
     <div id="desplegable" class="desplegable_cerrado">
         <div id="menu_pcpal">
             <ul>
-         {{--        <li><a href="{{url('historia')}}">Linea de tiempo</a></li> --}}
                 <li><a href="{{url('novedades')}}">Novedades</a></li>
+                <li><a href="{{url('historia')}}">Linea de tiempo</a></li>
                 <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
+                <li><a href="{{url('contacto')}}">Contacto</a></li>
                 @if (Auth::check())
                     @if(Session::get('role') == "admin")
                         <li><a href="{{url('fundacion')}}">Fundación Orsai</a></li>

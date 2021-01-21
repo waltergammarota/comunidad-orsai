@@ -10,7 +10,7 @@
                 <div class="box_heading">
                     <h1 class="titulo_blog text_bold">VALIDACIÓN DE TU PERFIL</h1>
                     @if($phone_verified_at != null)
-                        <div class="alert alert-ok hide" id="yaValidado">
+                        <div class="alert alert-ok" id="yaValidado">
                             <div class="alert-content">
                                 <span class="icon icon-check_circle"></span>
                                 <p>Tu perfil ya está validado con el siguiente número de celular:<br/>
@@ -50,7 +50,7 @@
             </div>
             <div class="bottom_exit">
                 <span>¿Necesitás ayuda?</span>
-                <a class="gris" href="#">Escribinos</a>
+                <a class="gris" href="{{url('contacto')}}">Escribinos</a>
             </div>
         </article>
     </section>

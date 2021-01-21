@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
+use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
 use App\Databases\Transaction;
 use App\UseCases\ContestApplication\GetContestApplicationById;
@@ -30,6 +31,9 @@ class PropuestaController extends Controller
         $data['propuesta'] = $propuesta;
         $data['user_avatar'] = User::find($propuesta['owner']['id'])->avatar()->first();
         $data['txs'] = $this->votes($propuestaId);
+        $contest = ContestModel::find($propuesta['contest_id']);
+        $data['concurso'] = $contest;
+        $data['capitulos'] = CpaChapterModel::getChapters($propuestaId);
         $data['used'] = Transaction::where(
             [
                 "cap_id" => $propuestaId,
@@ -37,9 +41,37 @@ class PropuestaController extends Controller
             ]
         )->sum('amount');
         $data['related'] = ContestApplicationModel::inRandomOrder()->where("approved", 1)
-            ->whereNotIn('id', [$propuestaId])->limit(5)->with('logos')->get();
-        $data['hasVotingEnded'] = $this->hasVotingEnded();
-        return view('propuesta', $data);
+            ->whereNotIn('id', [$propuestaId])->where("contest_id", $propuesta['contest_id'])->limit(5)->with('logos')->get();
+        $data['canVote'] = $contest->hasVotes();
+        return view('postulacion.index', $data);
+    }
+
+    public function show_detalle(Request $request)
+    {
+        $propuestaId = $request->route('id');
+        $propuesta = $this->findPropuesta($propuestaId);
+        $user = Auth::user();
+        if ($propuesta['current_status'] != "approved" && $user->role != "admin" && $propuesta['user_id'] != $user->id) {
+            return Redirect::to('panel');
+        }
+        $this->addView($propuestaId, $request);
+        $data = $this->getUserData();
+        $data['propuesta'] = $propuesta;
+        $data['user_avatar'] = User::find($propuesta['owner']['id'])->avatar()->first();
+        $data['txs'] = $this->votes($propuestaId);
+        $contest = ContestModel::find($propuesta['contest_id']);
+        $data['concurso'] = $contest;
+        $data['capitulos'] = CpaChapterModel::getChapters($propuestaId);
+        $data['used'] = Transaction::where(
+            [
+                "cap_id" => $propuestaId,
+                "from" => $user->id
+            ]
+        )->sum('amount');
+        $data['logo'] = $data['concurso']->logo();
+        $data['canVote'] = $contest->hasVotes();
+        return view('postulacion.detalle', $data);
+
     }
 
     private function hasVotingEnded($contestId = 1)

@@ -287,6 +287,7 @@ class WebController extends Controller
 
         return view('2021-contacto', $data);
     }
+
     public function terminos(Request $request)
     {
         return Redirect::to('terminos-y-condiciones');
@@ -301,7 +302,6 @@ class WebController extends Controller
             "subject" => "required",
             "mensaje" => "required",
         ]);
-
         $mailer = new Mailer();
         $mailer->sendContactFormEmail($request->all());
         $request->session()->flash('alert', 'contact_data_sent');
