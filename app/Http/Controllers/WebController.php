@@ -51,7 +51,7 @@ class WebController extends Controller
     public function restablecer_clave()
     {
         $data = $this->getUserData();
-        return view('restablecer-clave', $data);
+        return view('2021-restablecer-clave', $data);
     }
 
     public function ingresar()
@@ -71,14 +71,14 @@ class WebController extends Controller
 //            }
 //
 //        }
-        return view('ingresar', $data);
+        return view('2021-login', $data);
     }
 
     public function reenviar_mail_activacion()
     {
         $data = $this->getUserData();
         $data['title'] = "Reenviar mail activación";
-        return view('reenviar-mail-activacion', $data);
+        return view('2021-reenviar-mail-activacion', $data);
     }
 
     public function bases_concurso()
