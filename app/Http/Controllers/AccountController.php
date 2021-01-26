@@ -12,12 +12,7 @@ use App\Databases\CpaLog;
 use App\Databases\PaisModel;
 use App\Databases\ProvinciaModel;
 use App\Databases\Transaction;
-use App\Repositories\ContestApplicationRepository;
-use App\Repositories\ContestRepository;
 use App\Repositories\FileRepository;
-use App\Repositories\UserRepository;
-use App\UseCases\ContestApplication\EditContestApplication;
-use App\UseCases\ContestApplication\GetContestApplicationByUser;
 use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -41,7 +36,7 @@ class AccountController extends Controller
         $data['provincias'] = json_encode($this->getProvincias($data['provinciasOptions']));
         $data['ciudades'] = json_encode($this->getCiudades($data['ciudadesOptions']));
         $data['countries'] = PaisModel::all();
-        return view('perfil', $data);
+        return view('2021-perfil', $data);
     }
 
     public function show_redes(Request $request)

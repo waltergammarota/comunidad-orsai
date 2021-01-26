@@ -172,9 +172,11 @@
                                 <div class="logo_particantes">
                                     <a href="{{url('propuesta/'.$item->id)}}">
                                         <div class="logo_img">
-                                            <img
-                                                src="{{url('storage/logo/'.$item['logos'][0]['name'].".".$item['logos'][0]['extension'])}}"
-                                                alt="{{$item->title}}">
+                                            @if(count($item['logos']) > 0)
+                                                <img
+                                                    src="{{url('storage/logo/'.$item['logos'][0]['name'].".".$item['logos'][0]['extension'])}}"
+                                                    alt="{{$item->title}}">
+                                            @endif
                                         </div>
                                     </a>
                                 </div>
