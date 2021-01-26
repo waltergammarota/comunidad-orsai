@@ -31,8 +31,13 @@ class ContenidoController extends Controller
         $slug = $request->route('slug');
         $page = $request->input('pagina') ? $request->input('pagina') : 1;
         if ($slug == null) {
-            $data['home1'] = HomeModel::find(0)->description;
-            $data['home2'] = HomeModel::find(1)->description;
+            $homes = HomeModel::all();
+            $data['home1'] = "";
+            $data['home2'] = "";
+            if (count($homes) > 1) {
+                $data['home1'] = $homes[0]->description;
+                $data['home2'] = $homes[1]->description;
+            }
             return view("2021-home", $data);
         } else {
             if ($slug == "novedades") {
