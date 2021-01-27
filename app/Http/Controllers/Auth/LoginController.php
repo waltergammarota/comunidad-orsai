@@ -157,8 +157,7 @@ class LoginController extends Controller
             $user->password = password_hash($request->password, PASSWORD_DEFAULT);
             $user->remember_token = "";
             $user->save();
-            $request->session()->flash('alert', 'password_reset_success');
-            return Redirect::to('ingresar');
+            $request->session()->flash('alert', 'password_reset_success'); 
         }
         return Redirect::back()->withErrors(
             [
