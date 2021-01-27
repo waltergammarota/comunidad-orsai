@@ -13,8 +13,13 @@
         }
     </style>
     <![endif]-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        h1{
+            font-family: 'Barlow Condensed', 'Roboto', sans-serif;
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body
     style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6;">
@@ -37,7 +42,7 @@
                 bgcolor="#fffefe">
                 <h1 style="margin-bottom:0;font-weight: 400; font-size:36px; line-height: 38px;"> 
                      
-                    <span style="font-weight: 700; display:block;font-family: 'Barlow Condensed', sans-serif;">¡Hola {{$name}}!</span>
+                    <span style="font-weight: 700; display:block;font-family: 'Barlow+Condensed', sans-serif;">¡Hola {{$name}}!</span>
                 </h1>
             </td>
         </tr> 

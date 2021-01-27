@@ -15,11 +15,16 @@
     <![endif]-->
     <style>
         h1{
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: 'Barlow Condensed', 'Roboto', sans-serif;
         }
     </style>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        h1{
+            font-family: 'Barlow Condensed', 'Roboto', sans-serif;
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body
     style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', sans-serif;">
