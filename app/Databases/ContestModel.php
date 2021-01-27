@@ -37,6 +37,7 @@ class ContestModel extends Model
         'mode',
         'per_winner',
         'amount_winner',
+        'amount_usd',
         'cant_winners',
         'required_amount',
         'cant_caracteres',
@@ -114,7 +115,8 @@ class ContestModel extends Model
 
     public function cantidadFichasEnJuego()
     {
-        return Transaction::where('cap_id', $this->id)->sum('amount');
+        $contestId = $this->id;
+        return Transaction::join('contest_applications', 'cap_id', '=', 'contest_applications.id')->where('contest_applications.contest_id', $contestId)->sum('amount');
     }
 
     public function getBases()
@@ -122,10 +124,18 @@ class ContestModel extends Model
         return ContenidoModel::where('contest_id', $this->id)->first();
     }
 
+    public function hasStarted()
+    {
+        return $this->start_date < now();
+    }
+
     public function getStatus()
     {
         if ($this->hasEnded()) {
             return "finalizado";
+        }
+        if ($this->hasStarted() && !$this->hasEnded()) {
+            return "abierto";
         }
         if ($this->hasVotes()) {
             return "abierto";

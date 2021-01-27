@@ -33,7 +33,6 @@
                             <div>
                                 <h1 class="span_h1">{{$concurso->name}}</h1>
                                 @if($estado == "abierto")
-                                    <h2 class="">{{$concurso->bajada_corta}}</h2>
                                     @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas())
                                         <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
                                            class="ver_ganador resaltado_amarillo">Subir postulación &raquo;</a>
