@@ -52,16 +52,10 @@
                     @endif 
                 </div>
                 </div>  
-                    <div class="contenedor contenedor_interna_2 feedback_ok" style="padding-bottom:30px;">
-                            <div style="min-height:50px;background:#d4edda;border-radius:2px;color:#155724;border:1px solid #c3e6cb;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
-                                <p style="font-size:14px;display:inline-block;position:relative;">Guardaste tu nueva contraseña. <a href="{{url('ingresar')}}" style="color:#155724;text-decoration:underline;">Entrar</a></p> 
-                            </div>
-                        </div>
                 @if(Session::get('alert') == "password_reset_success")
                     <div class="contenedor contenedor_interna_2 feedback_ok" style="padding-bottom:30px;">
-                        <div
-                            style="min-height:50px;background:#d4edda;border-radius:2px;color:#155724;border:1px solid #c3e6cb;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
-                            <p style="display:inline-block;position:relative;">Guardaste tu nueva contraseña.</p>
+                        <div style="min-height:50px;background:#d4edda;border-radius:2px;color:#155724;border:1px solid #c3e6cb;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
+                            <p style="font-size:14px;display:inline-block;position:relative;">Guardaste tu nueva contraseña. <a href="{{url('ingresar')}}" style="color:#155724;text-decoration:underline;">Entrar</a></p> 
                         </div>
                     </div>
                 @endif
