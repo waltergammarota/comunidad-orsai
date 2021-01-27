@@ -218,7 +218,7 @@ class AccountController extends Controller
         $cpaLog->save();
 
         // TODO poner link a postulacion a
-        return Redirect::to('concursos');
+        return Redirect::to('mis-postulaciones');
 
     }
 

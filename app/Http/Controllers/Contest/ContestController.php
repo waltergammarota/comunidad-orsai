@@ -81,7 +81,7 @@ class ContestController extends Controller
         $webController = new WebController;
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
         // CONCURSO POSTULACIONES ABIERTAS
-        $data['estado'] = "proximo";
+        $data['estado'] = $contest->getStatus();
         $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, Auth::user()->id);
         if ($contest->hasPostulacionesAbiertas()) {
             $data['estado'] = "abierto";
@@ -169,10 +169,10 @@ class ContestController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "bajada_corta" => "required",
+            "bajada_corta" => "required|max:168",
             "bajada_completa" => "required",
-            "start_date" => "required",
-            "end_date" => "required",
+            "start_date" => "required|date",
+            "end_date" => "required|date|after:start_date",
             "start_app_date" => "required",
             "end_app_date" => "required",
             "start_vote_date" => "required",
@@ -182,6 +182,11 @@ class ContestController extends Controller
         ]);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
+        $cant_winners = 0;
+        if ($request->mode == 1) {
+            $cant_winners = $request->cant_winners ? $request->cant_winners : 0;
+        }
+
         $data = [
             "name" => $request->name,
             "bajada_corta" => $request->bajada_corta,
@@ -197,7 +202,8 @@ class ContestController extends Controller
             "mode" => $request->mode,
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
-            "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
+            "cant_winners" => $cant_winners,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
@@ -245,20 +251,25 @@ class ContestController extends Controller
             "name" => "required",
             "bajada_corta" => "required",
             "bajada_completa" => "required",
-            "start_date" => "required",
-            "end_date" => "required",
+            "start_date" => "required|date",
+            "end_date" => "required|date|after:start_date",
             "start_app_date" => "required",
             "end_app_date" => "required",
             "start_vote_date" => "required",
             "end_vote_date" => "required",
             "type" => "required",
             "mode" => "required",
+            "amount_usd" => "required"
         ]);
         $id = $request->id;
         $contest = ContestModel::find($id);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
         $logo = $this->processLogo($images, $contest);
+        $cant_winners = 0;
+        if ($request->mode == 1) {
+            $cant_winners = $request->cant_winners ? $request->cant_winners : 0;
+        }
         $data = [
             "name" => $request->name,
             "bajada_corta" => $request->bajada_corta,
@@ -274,7 +285,8 @@ class ContestController extends Controller
             "mode" => $request->mode,
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
-            "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
+            "cant_winners" => $cant_winners,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,

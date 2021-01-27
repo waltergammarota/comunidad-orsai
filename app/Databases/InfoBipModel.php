@@ -32,7 +32,7 @@ class InfoBipModel extends Model
                     ],
                     "json" => [
                         "messages" => [
-                            ["from" => "Comunidad Orsai",
+                            ["from" => "Orsai",
                                 "destinations" => [
                                     ["to" => $phone]
                                 ],

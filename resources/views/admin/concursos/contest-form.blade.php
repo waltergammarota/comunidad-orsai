@@ -38,7 +38,7 @@
                                 @error('name') <span class="help-block">{{$message}}</span> @enderror
                             </div>
                             <div class="form-group">
-                                <label for="bajadaCorta">Bajada corta</label>
+                                <label for="bajadaCorta">Bajada corta (Máximo 168 caracteres)</label>
                                 <textarea type="text" class="form-control" id="bajadaCorta" placeholder="Bajada corta"
                                           name="bajada_corta">{{$contest?$contest->bajada_corta:old('bajada_corta')}}</textarea>
                                 @error('bajada_corta') <span class="help-block">{{$message}}</span> @enderror
@@ -110,7 +110,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="exampleInputFile">Imagen</label>
+                                        <label for="exampleInputFile">Imagen de portada del concurso</label>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <input type="file" class="file" id="exampleInputFile"
@@ -164,7 +164,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="modo">Modo de concurso</label>
+                                        <label for="modo">Modo de apuesta</label>
                                         <select name="mode" id="modo" class="form-control">
                                             @foreach($modes as $mode)
                                                 @if($contest && $mode->id == $contest->mode)
@@ -183,7 +183,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Cantidad de ganadores</label>
                                         <select name="cant_winners" id="cant_winners" class="form-control">
-                                            @for($i=0;$i<5;$i++)
+                                            @for($i=1;$i<5;$i++)
                                                 @if($contest && $i == $contest->cant_winners)
                                                     <option value="{{$i}}" selected>{{$i}}</option>
                                                 @else
@@ -209,7 +209,7 @@
                             <div class="row" id="completo">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Fichas necesarias</label>
+                                        <label for="exampleInputEmail1">Cantidad de fichas necesarias para ganar</label>
                                         <input type="number" step="1" class="form-control"
                                                placeholder="Fichas necesarias"
                                                name="required_amount"
@@ -220,11 +220,20 @@
                             <div class="row" id="fijo">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Monto premio</label>
+                                        <label for="exampleInputEmail1">Monto total del premio</label>
                                         <input type="number" step="1" class="form-control"
                                                placeholder="Monto ganador"
                                                name="amount_winner"
                                                value="{{$contest?$contest->amount_winner:old('amount_winner')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Monto total del premio en USD</label>
+                                        <input type="number" step="1" class="form-control"
+                                               placeholder="Monto ganador en USD"
+                                               name="amount_usd"
+                                               value="{{$contest?$contest->amount_usd:old('amount_usd')}}">
                                     </div>
                                 </div>
                             </div>
