@@ -23,7 +23,7 @@
         </div>
         </div>
     </div>
-<div class="contenedor pd_20_prueba ft_size form_rel">
+<div class="contenedor pd_20_tp_bt ft_size form_rel">
     @include('2021-menu-informacion-personal',["activo" => "seguridad"])
     <div class="grilla_perfil">
         <div id="seguridad" class="fondo_blanco">

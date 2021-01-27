@@ -52,6 +52,14 @@
                     @endif 
                 </div>
                 </div>  
+                @if(Session::get('alert') == "password_reset_success")
+                    <div class="contenedor contenedor_interna_2 feedback_ok" style="padding-bottom:30px;">
+                        <div
+                            style="min-height:50px;background:#d4edda;border-radius:2px;color:#155724;border:1px solid #c3e6cb;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
+                            <p style="display:inline-block;position:relative;">Guardaste tu nueva contraseña.</p>
+                        </div>
+                    </div>
+                @endif
                 <div class="grilla_form"> 
                     <div id="boton_submit" class="align_center">
                         <button type="submit" class="boton_redondeado resaltado_amarillo text_bold width_100" id="boton_rest">Guardar nueva contraseña</button>
