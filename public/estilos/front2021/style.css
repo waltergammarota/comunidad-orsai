@@ -2436,17 +2436,6 @@ header nav>#menu_reg .logueado{
     left: 0;
     bottom: 0;
 }
-.blog_social{
-    /* height:35px; */
-    margin-bottom:35px;
-}
-.blog_social .share_redes_gral{
-    position:absolute;
-    right:0;
-    bottom:-5px;
-}
-
-
 .blog_preview_social .meta_novedad,
 .blog_social .meta_novedad{
     position:relative;
@@ -2457,7 +2446,7 @@ header nav>#menu_reg .logueado{
 .blog_social .cant_comentarios {
     color: #969695;
     font-size: 12px;
-    position: absolute;
+    position: relative;
     display:inline-block;
     right: 0;
     top: 50%;
