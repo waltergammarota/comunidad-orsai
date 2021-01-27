@@ -13,12 +13,11 @@
         }
     </style>
     <![endif]-->
-    <link
-        href="https://fonts.googleapis.com/css?family=Roboto:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
 </head>
 <body
-    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', monospace;">
+    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', sans-serif;">
 <center
     style=" max-width: 600px; width: 100%; margin: auto; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     <table
@@ -38,14 +37,14 @@
                 bgcolor="#fffefe">
                 <h1 style="margin-bottom:0;font-weight: 400; font-size:36px; line-height: 38px;"> 
                      
-                    <span style="font-weight: 700; display:block;">¡Hola {{$name}}!</span>
+                    <span style="font-weight: 700; display:block;font-family: 'Barlow Condensed', sans-serif;">¡Hola {{$name}}!</span>
                 </h1>
             </td>
         </tr> 
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
                 <div
-                    style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Roboto', monospace;"> 
+                    style="color: black; margin: 4% 5% 2%; text-align: justify;font-family: 'Roboto', sans-serif;"> 
                     <p style="text-align: center; margin: 2px; font-size:16px;">¡Muy sabia tu decisión de querer formar parte de la Comunidad Orsai, sólo te falta un paso más!</p><br/>  
                     <p style="text-align: center; margin: 2px; font-size:16px;"><strong>Hacé click en el botón para confirmar el registro de tu correo electrónico y ya estás apostando a las buenas historias.</strong> </p> 
                     </p>

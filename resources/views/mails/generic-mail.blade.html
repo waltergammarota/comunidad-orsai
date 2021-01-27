@@ -13,12 +13,11 @@
         }
     </style>
     <![endif]-->
-    <link
-        href="https://fonts.googleapis.com/css?family=Roboto:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
 </head>
 <body
-    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', monospace;">
+    style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', sans-serif;">
 <center
     style=" max-width: 600px; width: 100%; margin: auto; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     <table
@@ -37,14 +36,14 @@
             <td style="padding: 0; text-align: left; width: 600px;"
                 bgcolor="#fffefe">
                 <h1 style="margin-bottom:0; margin: 4% 5% 2%; font-weight: 400; font-size:36px; line-height: 38px;">
-                    <span style="font-weight: 700; display:block;">{{$title}}</span>
+                    <span style="font-weight: 700; display:block;font-family: 'Barlow Condensed', sans-serif;">{{$title}}</span>
                 </h1>
             </td>
         </tr>
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
                 <div
-                    style="color: black; margin: 4% 5% 2%; font-family: 'Roboto', monospace;text-align: left;">
+                    style="color: black; margin: 4% 5% 2%; font-family: 'Roboto', sans-serif;text-align: left;">
                     <p style="text-align: left; margin: 2px; font-size:20px;">{!! $description !!}</p>
                     <a href="{{$button_url}}" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: left; color:black;">{{$button_text}}</a>
                     </p>

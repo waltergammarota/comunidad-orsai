@@ -23,7 +23,7 @@
         </div>
         </div>
     </div>
-<div class="contenedor pd_20_prueba ft_size form_rel">
+<div class="contenedor pd_20_tp_bt ft_size form_rel">
     @include('2021-menu-informacion-personal',["activo" => "perfil"])
     <div class="grilla_perfil">
         <div id="mi_perfil" class="fondo_blanco">
@@ -70,15 +70,13 @@
                 <div class="form_ctrl input_ col_3">
                     <div class="input_err">
                         <label class="text_medium">Nombre</label> 
-                        <input type="text" name="name" value="{{$name}}" id="name" class="obligatorio" placeholder="Nombre" minlength="3" required>
-                        <span class="error">El campo Nombre es obligatorio.</span>
+                        <input type="text" name="name" value="{{$name}}" id="name" class="obligatorio" placeholder="Nombre" minlength="3" required> 
                     </div>
                 </div>
                 <div class="form_ctrl input_ col_3">
                     <div class="input_err">
                         <label class="text_medium">Apellido</label> 
-                        <input type="text" name="lastName" value="{{$lastName}}" id="lastName" class="obligatorio" splaceholder="Apellido" minlength="3" required>
-                        <span class="error">El campo Apellido es obligatorio.</span>
+                        <input type="text" name="lastName" value="{{$lastName}}" id="lastName" class="obligatorio" splaceholder="Apellido" minlength="3" required> 
                     </div>
                 </div>
             </div>
@@ -149,6 +147,10 @@
                             </select>
                             <div class="select__arrow"></div>
                         </div>
+                <div class="input_err"> 
+                    <small>¿No encontrás tu país, provincia o ciudad?
+                    <a class="subrayado" href="{{url('contacto')}}">Completá este formulario.</a></small> 
+                </div>
                     </div>
                 </div>
                 <div class="form_ctrl col_3">
@@ -169,10 +171,6 @@
                 </div>
             </div>
             <div class="form_ctrl input_">
-                <div class="input_err"> 
-					<span class="text_bold">¿No encontrás tu país, provincia o ciudad?
-					<a class="subrayado" href="{{url('contacto')}}">Completá este formulario.</a></span> 
-                </div>
             </div>
             <div class="form_ctrl input_">
                 <div class="input_err">
