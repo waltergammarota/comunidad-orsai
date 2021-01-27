@@ -123,7 +123,7 @@ class LoginController extends Controller
         }
         return Redirect::to('restablecer-clave')->withErrors(
             [
-                "email" => "Email no encontrado"
+                "email" => "El email no fue encontrado"
             ]
         )->withInput();
     }
@@ -140,7 +140,7 @@ class LoginController extends Controller
             $user->save();
         }
         $data['token'] = $token;
-        return view('reset-password', $data);
+        return view('2021-reset-password', $data);
     }
 
     public function createNewPassword(Request $request)

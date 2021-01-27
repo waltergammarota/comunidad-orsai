@@ -119,7 +119,7 @@
 		                        data-callback="onSubmit"
 		                        data-action="submit"
 		                        id="boton_susc">
-		                    Registrarme
+		                    Asociarme
 		                </button>
                     	<div class="msg_load"><img alt="Ruedita de estado" src="{{url('recursos/ajax.gif')}}" class="ajaxgif hide" style="margin-top:10px;	margin-bottom:10px;" /></div> 
                         </div>

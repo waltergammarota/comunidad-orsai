@@ -14,7 +14,7 @@ class NotificacionesController extends Controller
     {
         $data = $this->getUserData();
         $data['preferencias'] = PreferenciasModel::where('user_id', $data['session_user_id'])->first();
-        return View('configuracion-notificaciones', $data);
+        return View('2021-configuracion-notificaciones', $data);
     }
 
     public function guardar_configuracion_notificaciones(Request $request)

@@ -41,8 +41,7 @@
             <div class="resaltado_gris  contenedor contenedor_interna_2" style="padding-top:30px;">
                 <div
                     style="min-height:60px;background:#fff3cd;border-radius:2px;color:#856404;border:1px solid #ffeeba;padding:0 15px; margin:0px;display:flex;justify-content: space-between;">
-                    <p style="display:inline-block;position:relative;">Necesitamos que confirmes el registro. <br/>Revisá
-                        tu mail, y no olvides mirar en spam o promociones. Puede tardar algunos minutos.</p>
+                    <p style="display:inline-block;position:relative;"><strong>Tu cuenta está pendiente de activación.</strong> Te enviamos un mail al correo electrónico asociado para que confirmes tu registro en Comunidad Orsai. Revisá en spam o promociones. Si no lo recibiste, hace clic <a href="{{url('reenviar-mail')}}">acá</a>.</p>
                     <p>
                         <a href="#" class="cerrar"
                            style="line-height: 30px;display:inline-block;position:relative;background:#ffeeba;height:30px;width:30px;border-radius:50%;text-align:center">
@@ -78,7 +77,7 @@
                         <p>Podrás ver tus postulaciones a los concursos.</p>
                     </article>
                 </a> --}}
-                <a href="{{url('transacciones')}}" class="card_style_panel">
+                <a href="{{url('mis-fichas')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
                             <img src="{{url('recursos/front2021/iconos_panel/mis_fichas.svg')}}" alt="mis_fichas">

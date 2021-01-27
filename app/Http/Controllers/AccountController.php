@@ -522,7 +522,7 @@ class AccountController extends Controller
             "to",
             $user->id
         )->get();
-        return view('transacciones', $data);
+        return view('2021-mis-fichas', $data);
     }
 
     public function notificaciones()

@@ -42,7 +42,7 @@
 		                        data-callback="onSubmit"
 		                        data-action="submit"
 		                        id="boton_susc">
-		                    Ingresar
+		                    Entrar
 		                </button>
 		                @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
 		                    <p class="invalid-feedback">
@@ -57,12 +57,12 @@
                     <div class="grilla_form  border_tp_form">
                         <div class="form_ctrl col_3">
                                 <div class="align_center">
-                                    <a href="{{url('registrarse')}}"class="boton_redondeado btn_transparente  width_100">Quiero registrarme</a>
+                                    <a href="{{url('registrarse')}}"class="boton_redondeado btn_transparente  width_100">Quiero asociarme</a>
                                 </div>
                         </div>
                         <div class="form_ctrl col_3">
                                 <div class="align_center">
-                                    <a href="{{url('restablecer-clave')}}" class="boton_redondeado btn_transparente width_100">Olvide mi cotraseña</a>
+                                    <a href="{{url('restablecer-clave')}}" class="boton_redondeado btn_transparente width_100">Olvidé mi contraseña</a>
                                 </div>
                         </div>
                     </div>
