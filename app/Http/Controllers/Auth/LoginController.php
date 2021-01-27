@@ -158,7 +158,7 @@ class LoginController extends Controller
             $user->remember_token = "";
             $user->save();
             $request->session()->flash('alert', 'password_reset_success'); 
-            return view('2021-reset-password', $data);
+            return view('2021-reset-password');
         }
         return Redirect::back()->withErrors(
             [
