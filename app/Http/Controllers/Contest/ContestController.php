@@ -259,8 +259,8 @@ class ContestController extends Controller
             "end_vote_date" => "required",
             "type" => "required",
             "mode" => "required",
-            "amount_usd" => "required"
         ]);
+
         $id = $request->id;
         $contest = ContestModel::find($id);
         $fileRepo = new FileRepository();
