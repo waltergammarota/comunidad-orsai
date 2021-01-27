@@ -679,7 +679,7 @@ Route::middleware(['verified'])->group(
         )->name('postulaciones')->middleware('email_verified');
         // FIN RUTA MIS POSTULACIONES
         Route::get(
-            '/transacciones',
+            '/mis-fichas',
             'AccountController@transacciones'
         )->name('transacciones')->middleware('email_verified');
 

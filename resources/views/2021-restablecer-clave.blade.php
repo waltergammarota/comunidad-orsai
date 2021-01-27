@@ -29,10 +29,10 @@
                     <div class="form_ctrl input_">
                         <div class="input_err">
                             <label class="text_medium">Correo Electrónico</label>
-		                    <input type="email" id="nom_us" name="email" placeholder="Email" value="{{old('email')}}">
-		                    @if(old('email'))
-		                        <span>El email no fue encontrado.</span>
-		                    @endif
+		                    <input type="email" id="nom_us" name="email" placeholder="Email" value="{{old('email')}}"> 
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback">{{$errors->first('email')}}</span>
+                            @endif
                         </div>
                     </div>
 				    @if(Session::get('alert') == "reset_password_email")
@@ -60,17 +60,7 @@
 </section>
 @endsection  
 @section('footer')
-    <script>
-        if (document.getElementsByClassName("general_profile_msg")) {
-            var get_general_msg = document.getElementsByClassName("general_profile_msg");
-            for (var x = 0; x < get_general_msg.length; x++) {
-                get_general_msg[x].numerito = x;
-                var get_close_modal = get_general_msg[x].getElementsByClassName("cerrar")[0];
-                get_close_modal.onclick = function () {
-                    close(this.parentNode.parentNode);
-                }
-            }
-        }  
+    <script> 
         $("#form_resetpasswd").submit(function( event ) {
 			$(".msg_load").show(200); 
 			$(".ajaxgif").removeClass('hide'); 
