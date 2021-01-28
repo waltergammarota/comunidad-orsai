@@ -71,13 +71,13 @@ class PreferenciasController extends Controller
     public function desactivar_cuenta()
     {
         $data = $this->getUserData();
-        return View('desactivar-cuenta', $data);
+        return View('2021-desactivar-cuenta', $data);
     }
 
     public function confirmar_desactivar_cuenta()
     {
         $data = $this->getUserData();
-        return View('confirmar-desactivar-cuenta', $data);
+        return View('2021-confirmar-desactivar-cuenta', $data);
     }
 
     public function borrar_cuenta(Request $request)
@@ -112,6 +112,6 @@ class PreferenciasController extends Controller
 
     public function cuenta_desactivada()
     {
-        return View('cuenta-desactivada');
+        return View('2021-cuenta-desactivada');
     }
 }

@@ -528,7 +528,7 @@ class AccountController extends Controller
     public function notificaciones()
     {
         $data = $this->getUserData();
-        return view('notificaciones', $data);
+        return view('2021-mis-notificaciones', $data);
     }
 
     public function notificacion(Request $request)
@@ -541,7 +541,7 @@ class AccountController extends Controller
         $autor = User::find($notification->data['author']);
         $data['autor'] = "{$autor->name} {$autor->lastName}";
         $data = array_merge($data, $this->getUserData());
-        return view('notificacion', $data);
+        return view('2021-notificacion', $data);
     }
 
     public function notificaciones_counter()

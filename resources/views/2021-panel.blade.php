@@ -146,7 +146,7 @@
         </div>
         <div class="resaltado_gris">
             <div class="contenedor link_bottom">
-                <span>¿Necesitás desactivar tu cuenta?</span> <a href="{{url('desactivar-cuenta')}}">Hacelo acá</a>
+                <span>¿Necesitás desactivar tu cuenta?</span> <a href="{{url('desactivar-cuenta')}}">Hacelo acá</a>.
             </div>
         </div>
     </section>
