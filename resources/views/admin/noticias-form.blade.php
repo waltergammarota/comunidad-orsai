@@ -34,7 +34,9 @@
                         @endif
                         @csrf
                         <input type="hidden" name="tipo" value="{{$type}}">
-
+                        @if($concursoId && $concursoId > 0)
+                            <input type="hidden" name="concursoId" value="{{$concursoId}}">
+                        @endif
                         <div class="card-body">
                             @if($type == "pagina")
                                 <div class="form-group">
@@ -45,7 +47,12 @@
                                             @if($contenido && $concurso->id == $contenido->contest_id)
                                                 <option value="{{$concurso->id}}" selected>{{$concurso->name}}</option>
                                             @else
-                                                <option value="{{$concurso->id}}">{{$concurso->name}}</option>
+                                                @if($concursoId == $concurso->id)
+                                                    <option value="{{$concurso->id}}"
+                                                            selected>{{$concurso->name}}</option>
+                                                @else
+                                                    <option value="{{$concurso->id}}">{{$concurso->name}}</option>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </select>

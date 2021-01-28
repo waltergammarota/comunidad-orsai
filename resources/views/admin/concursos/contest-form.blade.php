@@ -21,7 +21,8 @@
         <!-- /.card-header -->
         <!-- form start -->
         @if($contest)
-            <form role="form" method="POST" action="{{url('admin/contest/update')}}" enctype="multipart/form-data">
+            <form role="form" method="POST" action="{{url('admin/contest/update')}}" enctype="multipart/form-data"
+                  id="contestForm">
                 <input type="hidden" value="{{$contest->id}}" name="id">
                 @else
                     <form role="form" method="POST" action="{{url('admin/contest/store')}}"
@@ -117,6 +118,7 @@
                                                        name="images[]" accept="image/*" data-browse-on-zone-click="true"
                                                        data-msg-placeholder="Seleccione imagen..."
                                                 >
+                                                @error('images') <span class="help-block">{{$message}}</span> @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -146,6 +148,8 @@
                                                        placeholder="Cantidad de caracteres"
                                                        name="cant_caracteres"
                                                        value="{{$contest?$contest->cant_caracteres:old('cant_caracteres')}}"/>
+                                                @error('cant_caracteres') <span
+                                                    class="help-block">{{$message}}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -156,6 +160,8 @@
                                                        placeholder="Cantidad de capítulos"
                                                        name="cant_capitulos"
                                                        value="{{$contest?$contest->cant_capitulos:old('cant_capitulos')}}">
+                                                @error('cant_capitulos') <span
+                                                    class="help-block">{{$message}}</span> @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -191,6 +197,8 @@
                                                 @endif
                                             @endfor
                                         </select>
+                                        @error('per_winner') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6"></div>
@@ -214,6 +222,8 @@
                                                placeholder="Fichas necesarias"
                                                name="required_amount"
                                                value="{{$contest?$contest->required_amount:old('required_amount')}}">
+                                        @error('required_amount') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -225,6 +235,8 @@
                                                placeholder="Monto ganador"
                                                name="amount_winner"
                                                value="{{$contest?$contest->amount_winner:old('amount_winner')}}">
+                                        @error('amount_winner') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -234,6 +246,8 @@
                                                placeholder="Monto ganador en USD"
                                                name="amount_usd"
                                                value="{{$contest?$contest->amount_usd:old('amount_usd')}}">
+                                        @error('amount_usd') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +263,7 @@
                                             @else
                                                 <input type="checkbox" class="form-check-input" id="exampleCheck1"
                                                        value="1"
-                                                       name="active" checked>
+                                                       name="active">
                                             @endif
                                             <label class="form-check-label" for="exampleCheck1">Publicado</label>
                                         </div>
@@ -260,20 +274,27 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="bases">Bases del concurso</label>
-                                        <div class="form-control">
-                                            @if($contest && $contest->getBases())
-                                                <a href="{{url('admin/contenidos/'.$contest->getBases()->id)}}">{{$contest->getBases()->title}}</a>
-                                            @else
-                                                <a href="{{url('admin/contenidos/crear/pagina')}}"
-                                                   target="_blank">Crear</a>
-                                            @endif
-                                        </div>
+                                        @if($contest && $contest->getBases())
+                                            <input type="hidden" id="editar_pagina" value="0" name="editar_pagina">
+                                            <div class="form-control">
+                                                <a href="{{url('admin/contenidos/'.$contest->getBases()->id.'?concurso='.$contest->id)}}">{{$contest->getBases()->title}}</a>
+                                            </div>
+                                            <button type="submit" class="btn btn-success" onclick="editarPagina()">
+                                                Guardar y Editar página
+                                            </button>
+                                        @else
+                                            <input type="hidden" id="crear_pagina" value="0" name="crear_pagina">
+                                            <button type="submit" class="btn btn-success" onclick="crearPagina()">
+                                                Guardar y
+                                                crear página
+                                            </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success float-right">Guardar</button>
+                            <button type="submit" class="btn btn-success float-right" id="submitBtn">Guardar</button>
                         </div>
                     </form>
     </div>
@@ -396,5 +417,21 @@
 
             @endif
         });
+
+        function crearPagina() {
+            event.preventDefault();
+            const flag = $("#crear_pagina");
+            flag.val(1);
+            $("#submitBtn").click();
+        }
+
+        function editarPagina() {
+            event.preventDefault();
+            const flag = $("#editar_pagina");
+            flag.val(1);
+            $("#submitBtn").click();
+        }
+
+
     </script>
 @endsection

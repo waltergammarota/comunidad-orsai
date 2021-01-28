@@ -110,13 +110,13 @@ class ContestModel extends Model
 
     public function cantidadPostulaciones()
     {
-        return ContestApplicationModel::where('contest_id', $this->id)->whereNotNull('approved_in')->count();
+        return ContestApplicationModel::where('contest_id', $this->id)->where('approved', 1)->count();
     }
 
     public function cantidadFichasEnJuego()
     {
         $contestId = $this->id;
-        return Transaction::join('contest_applications', 'cap_id', '=', 'contest_applications.id')->where('contest_applications.contest_id', $contestId)->sum('amount');
+        return Transaction::join('contest_applications', 'cap_id', '=', 'contest_applications.id')->where('contest_applications.contest_id', $contestId)->where('approved', 1)->sum('amount');
     }
 
     public function getBases()
