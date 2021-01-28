@@ -1397,7 +1397,7 @@ header nav>#menu_reg .logueado{
     bottom:-18px;
     width:100%;
     height:15px;
-    background-image: url("../assets/linea_arrow.svg");
+    background-image: url("../../recursos/linea_arrow.svg");
     background-repeat: no-repeat;
 }
 
@@ -1458,8 +1458,8 @@ header nav>#menu_reg .logueado{
     position: absolute;
     bottom:-40px;
     right:0;
-    background-image: url("../assets/fichas.png");
-    /* background-image: url("../assets/fichas.png"); */
+    background-image: url("../../recursos/front2021/fichas.png");
+    /* background-image: url("../../recursos/fichas.png"); */
     background-repeat: no-repeat;
     background-position-y: -14px;
     background-position-x: 0px;
@@ -1481,13 +1481,13 @@ header nav>#menu_reg .logueado{
 }
 
 .card_style_2:nth-child(1)::after{
-    background-image: url("../assets/fichas.png");
+    background-image: url("../../recursos/front2021/fichas.png");
 }
 .card_style_2:nth-child(2)::after{
-    background-image: url("../assets/fichas_2.png");
+    background-image: url("../../recursos/front2021/fichas_2.png");
 }
 .card_style_2:nth-child(3)::after{
-    background-image: url("../assets/fichas_3.png");
+    background-image: url("../../recursos/front2021/fichas_3.png");
 }
 .card_style_2::before{
     content:"";
@@ -1496,7 +1496,7 @@ header nav>#menu_reg .logueado{
     position: absolute;
     bottom:-100px;
     right:0;
-    background-image: url("../assets/sombra.png");
+    background-image: url("../../recursos/front2021/sombra.png");
     background-repeat: no-repeat;
     background-position-y: bottom;
     z-index: -5;
@@ -4235,7 +4235,7 @@ footer .sub_footer .sub_footer_ri ul li a {
     top:5px;
     width:45px;
     height:45px;
-    background-image: url("../assets/25.gif");
+    background-image: url("../../recursos/25.gif");
     background-repeat: no-repeat;
     background-size: 35px;
     -webkit-transform: translateX(-30%);
@@ -4734,7 +4734,7 @@ left: 0;
 bottom: -18px;
 width: 100%;
 height: 15px;
-background-image: url("../assets/linea_arrow.svg");
+background-image: url("../../recursos/linea_arrow.svg");
 background-size: 100% auto;
 background-repeat: no-repeat;
 }
