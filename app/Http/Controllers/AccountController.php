@@ -619,6 +619,7 @@ class AccountController extends Controller
         return response()->json(["message" => "notifications deleted"]);
     }
 
+
     /**
      * @param Request $request
      * @param ContestApplicationModel $cpa
@@ -627,7 +628,7 @@ class AccountController extends Controller
     private function saveImages(Request $request, ContestApplicationModel $cpa): array
     {
         $fileRepo = new FileRepository();
-        $image = $fileRepo->getUploadedFiles('images', $request);
+        $image = $fileRepo->getUploadedFiles('images', $request, 1500, 500);
         $pdf = $fileRepo->getUploadedFiles('pdf', $request);
         $files = array();
 

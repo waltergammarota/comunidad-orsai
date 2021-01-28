@@ -21,11 +21,13 @@ class CoralModel extends Model
                     'email' => env('CORAL_ADMIN_USER'),
                     'password' => env('CORAL_ADMIN_PASSWORD'),
                 ]]);
+            $token = json_decode($response->getBody());
+            return $token;
         } catch (Exception $error) {
-            dd($error);
+            $token = new \stdClass();
+            $token->token = uniqid();
+            return $token;
         }
-        $token = json_decode($response->getBody());
-        return $token;
     }
 
     public function createStory($coral_id, $url, $title, $author)
@@ -55,7 +57,7 @@ class CoralModel extends Model
                     ]
                 ]
             );
-        } catch (Exception $error) {
+        } catch (\Exception $error) {
         }
     }
 

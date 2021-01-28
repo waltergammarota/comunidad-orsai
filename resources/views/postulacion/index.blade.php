@@ -15,7 +15,19 @@
         <div class="postulacion_larga">
             <section id="intro" class="intro_gral indice_contenidos">
                 <div class="portada_concurso portada_concurso_banner">
-                    <img src="{{url('img/img_blog.png')}}" alt="">
+                    @if(count($propuesta['images']) > 0)
+                        <img
+                            src="{{url('storage/images/'.$propuesta['images'][0]['name'].".".$propuesta['images'][0]['extension'])}}"
+                            alt="{{$propuesta['images'][0]['name']}} ">
+                    @else
+                        @if($concurso->image > 0)
+                            <img
+                                src="{{url('storage/images/' . $concurso->logo()->name . "." . $concurso->logo()->extension)}}"
+                                alt="">
+                        @else
+                            <img src="{{url('img/img_blog.png')}}" alt="">
+                        @endif
+                    @endif
                 </div>
                 <div class="titulo titulo_banner">
                     <h1 class="span_h1">{{$propuesta['title']}}</h1>
@@ -172,9 +184,9 @@
                                 <div class="logo_particantes">
                                     <a href="{{url('propuesta/'.$item->id)}}">
                                         <div class="logo_img">
-                                            @if(count($item['logos']) > 0)
+                                            @if(count($item['images']) > 0)
                                                 <img
-                                                    src="{{url('storage/logo/'.$item['logos'][0]['name'].".".$item['logos'][0]['extension'])}}"
+                                                    src="{{url('storage/images/'.$item['images'][0]['name'].".".$item['images'][0]['extension'])}}"
                                                     alt="{{$item->title}}">
                                             @endif
                                         </div>

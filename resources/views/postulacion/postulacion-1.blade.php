@@ -67,7 +67,8 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="file" name="images[]" id="img-btn" hidden/>
+                        <input type="file" name="images[]" id="img-btn" accept="image/png, image/jpeg, image/jpg"
+                               hidden/>
                         <input type="hidden" value="0" name="image_flag" id="image_flag">
                         @if($hasImage)
                             <span id="img_nombre" class="nombre_archivo">{{$hasImage->original_name}}</span>

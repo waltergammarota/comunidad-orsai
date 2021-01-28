@@ -6,21 +6,33 @@ namespace App\Repositories;
 use App\Classes\ApplicationFile;
 use App\Databases\FileModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class FileRepository extends GenericRepository
 {
-    public function getUploadedFiles($type, Request $request = null)
+    public function getUploadedFiles($type, Request $request = null, $width = null, $height = null)
     {
         $images = [];
         if ($request->hasFile($type)) {
             $files = $request->file($type);
             foreach ($files as $key => $file) {
-                $image = $this->saveToDisk($type, $file);
+                $image = $this->saveToDisk($type, $file, $width, $height);
                 $this->saveImage($type, $image, $key);
                 array_push($images, $image);
             }
         }
         return $images;
+    }
+
+    public function resizeImage($file, $type, $id, $extension, $width, $height)
+    {
+        // Resize image
+        $resize = Image::make($file)->fit($width, $height)->encode($extension);
+
+        // Put image to storage
+        Storage::put("public/{$type}/{$id}.{$file->extension()}", $resize->__toString());
+
     }
 
     /**
@@ -56,11 +68,17 @@ class FileRepository extends GenericRepository
      */
     private function saveToDisk(
         $type,
-        \Illuminate\Http\UploadedFile $file
-    ): ApplicationFile {
+        \Illuminate\Http\UploadedFile $file,
+        $width = null, $height = null
+    ): ApplicationFile
+    {
         if ($file->isValid()) {
             $id = uniqid(true);
-            $file->storeAs("public/{$type}", "{$id}.{$file->extension()}");
+            if ($width > 0 && $height > 0) {
+                $this->resizeImage($file, $type, $id, $file->extension(), $width, $height);
+            } else {
+                $file->storeAs("public/{$type}", "{$id}.{$file->extension()}");
+            }
             $newFile = new ApplicationFile();
             $newFile->setType($type);
             $newFile->setName($id);

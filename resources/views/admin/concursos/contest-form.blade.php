@@ -21,7 +21,8 @@
         <!-- /.card-header -->
         <!-- form start -->
         @if($contest)
-            <form role="form" method="POST" action="{{url('admin/contest/update')}}" enctype="multipart/form-data">
+            <form role="form" method="POST" action="{{url('admin/contest/update')}}" enctype="multipart/form-data"
+                  id="contestForm">
                 <input type="hidden" value="{{$contest->id}}" name="id">
                 @else
                     <form role="form" method="POST" action="{{url('admin/contest/store')}}"
@@ -32,7 +33,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Título</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Título"
+                                <input type="text" class="form-control" id="name" placeholder="Título"
                                        name="name"
                                        value="{{$contest?$contest->name:old('name')}}">
                                 @error('name') <span class="help-block">{{$message}}</span> @enderror
@@ -55,7 +56,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Fecha inicio del
                                             concurso</label>
-                                        <input type="datetime-local" class="form-control" id="exampleInputEmail1"
+                                        <input type="datetime-local" class="form-control" id="start_date"
                                                name="start_date"
                                                value="{{$contest?$contest->start_date->format('Y-m-d\TH:i'):old('start_date')}}">
                                         @error('start_date') <span class="help-block">{{$message}}</span> @enderror
@@ -64,7 +65,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Fecha finalización del concurso</label>
-                                        <input type="datetime-local" class="form-control" id="exampleInputEmail1"
+                                        <input type="datetime-local" class="form-control" id="end_date"
                                                name="end_date"
                                                value="{{$contest?$contest->end_date->format('Y-m-d\TH:i'):old('end_date')}}">
                                         @error('end_date') <span class="help-block">{{$message}}</span> @enderror
@@ -73,7 +74,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Fecha inicio de las postulaciones</label>
-                                        <input type="datetime-local" class="form-control" id="exampleInputEmail1"
+                                        <input type="datetime-local" class="form-control" id="start_app_date"
                                                name="start_app_date"
                                                value="{{$contest?$contest->start_app_date->format('Y-m-d\TH:i'):old('start_app_date')}}">
                                         @error('start_app_date') <span class="help-block">{{$message}}</span> @enderror
@@ -82,7 +83,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Fecha finalización de las postulaciones</label>
-                                        <input type="datetime-local" class="form-control" id="exampleInputEmail1"
+                                        <input type="datetime-local" class="form-control" id="end_app_date"
                                                name="end_app_date"
                                                value="{{$contest?$contest->end_app_date->format('Y-m-d\TH:i'):old('end_app_date')}}">
                                         @error('end_app_date') <span class="help-block">{{$message}}</span> @enderror
@@ -91,7 +92,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Fecha inicio de las votaciones</label>
-                                        <input type="datetime-local" class="form-control" id="exampleInputEmail1"
+                                        <input type="datetime-local" class="form-control" id="start_vote_date"
                                                name="start_vote_date"
                                                value="{{$contest?$contest->start_vote_date->format('Y-m-d\TH:i'):old('start_vote_date')}}">
                                         @error('start_vote_date') <span class="help-block">{{$message}}</span> @enderror
@@ -100,7 +101,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Fecha finalización de las votaciones</label>
-                                        <input type="datetime-local" class="form-control" id="exampleInputEmail1"
+                                        <input type="datetime-local" class="form-control" id="end_vote_date"
                                                name="end_vote_date"
                                                value="{{$contest?$contest->end_vote_date->format('Y-m-d\TH:i'):old('end_vote_date')}}">
                                         @error('end_vote_date') <span class="help-block">{{$message}}</span> @enderror
@@ -117,7 +118,9 @@
                                                        name="images[]" accept="image/*" data-browse-on-zone-click="true"
                                                        data-msg-placeholder="Seleccione imagen..."
                                                 >
+                                                @error('images') <span class="help-block">{{$message}}</span> @enderror
                                             </div>
+                                            <div id="inputFileError"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -142,20 +145,24 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Cantidad máxima de caracteres</label>
                                                 <input type="number" min="1" step="1" class="form-control"
-                                                       id="exampleInputEmail1"
+                                                       id="cant_caracteres"
                                                        placeholder="Cantidad de caracteres"
                                                        name="cant_caracteres"
                                                        value="{{$contest?$contest->cant_caracteres:old('cant_caracteres')}}"/>
+                                                @error('cant_caracteres') <span
+                                                    class="help-block">{{$message}}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group narrativaLarga">
                                                 <label for="exampleInputEmail1">Cantidad máxima de capítulos</label>
                                                 <input type="number" step="1" min="0" class="form-control"
-                                                       id="exampleInputEmail1"
+                                                       id="cant_capitulos"
                                                        placeholder="Cantidad de capítulos"
                                                        name="cant_capitulos"
                                                        value="{{$contest?$contest->cant_capitulos:old('cant_capitulos')}}">
+                                                @error('cant_capitulos') <span
+                                                    class="help-block">{{$message}}</span> @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -191,6 +198,8 @@
                                                 @endif
                                             @endfor
                                         </select>
+                                        @error('per_winner') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6"></div>
@@ -198,7 +207,7 @@
                                     <div class="col-md-6 porcentajeWinners">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Porcentaje premio</label>
-                                            <input type="number" step="1" class="form-control"
+                                            <input type="number" step="1" class="form-control per_winner"
                                                    placeholder="Porcentaje ganador"
                                                    name="per_winner[]"
                                                    value="{{$item}}">
@@ -210,10 +219,12 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Cantidad de fichas necesarias para ganar</label>
-                                        <input type="number" step="1" class="form-control"
+                                        <input type="number" step="1" class="form-control" id="required_amount"
                                                placeholder="Fichas necesarias"
                                                name="required_amount"
                                                value="{{$contest?$contest->required_amount:old('required_amount')}}">
+                                        @error('required_amount') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -221,19 +232,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Monto total del premio</label>
-                                        <input type="number" step="1" class="form-control"
+                                        <input type="number" step="1" class="form-control" id="amount_winner"
                                                placeholder="Monto ganador"
                                                name="amount_winner"
                                                value="{{$contest?$contest->amount_winner:old('amount_winner')}}">
+                                        @error('amount_winner') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Monto total del premio en USD</label>
-                                        <input type="number" step="1" class="form-control"
+                                        <input type="number" step="1" class="form-control" id="amount_usd"
                                                placeholder="Monto ganador en USD"
                                                name="amount_usd"
                                                value="{{$contest?$contest->amount_usd:old('amount_usd')}}">
+                                        @error('amount_usd') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +264,7 @@
                                             @else
                                                 <input type="checkbox" class="form-check-input" id="exampleCheck1"
                                                        value="1"
-                                                       name="active" checked>
+                                                       name="active">
                                             @endif
                                             <label class="form-check-label" for="exampleCheck1">Publicado</label>
                                         </div>
@@ -260,20 +275,27 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="bases">Bases del concurso</label>
-                                        <div class="form-control">
-                                            @if($contest && $contest->getBases())
-                                                <a href="{{url('admin/contenidos/'.$contest->getBases()->id)}}">{{$contest->getBases()->title}}</a>
-                                            @else
-                                                <a href="{{url('admin/contenidos/crear/pagina')}}"
-                                                   target="_blank">Crear</a>
-                                            @endif
-                                        </div>
+                                        @if($contest && $contest->getBases())
+                                            <input type="hidden" id="editar_pagina" value="0" name="editar_pagina">
+                                            <div class="form-control">
+                                                <a href="{{url('admin/contenidos/'.$contest->getBases()->id.'?concurso='.$contest->id)}}">{{$contest->getBases()->title}}</a>
+                                            </div>
+                                            <button type="submit" class="btn btn-success" onclick="editarPagina()">
+                                                Guardar y Editar página
+                                            </button>
+                                        @else
+                                            <input type="hidden" id="crear_pagina" value="0" name="crear_pagina">
+                                            <button type="submit" class="btn btn-success" onclick="crearPagina()">
+                                                Guardar y
+                                                crear página
+                                            </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success float-right">Guardar</button>
+                            <button type="submit" class="btn btn-success float-right" id="submitBtn">Guardar</button>
                         </div>
                     </form>
     </div>
@@ -396,5 +418,132 @@
 
             @endif
         });
+
+        const nameInput = $('#name');
+        const bajadaCorta = $("#bajadaCorta");
+        const bajadaCompleta = $("#bajadaCompleta");
+        const start_date = $("#start_date");
+        const end_date = $("#end_date");
+        const start_app_date = $("#start_app_date");
+        const end_app_date = $("#end_app_date");
+        const start_vote_date = $("#start_vote_date");
+        const end_vote_date = $("#end_vote_date");
+        const fileInput = $("#exampleInputFile");
+        const contestType = $("#contest_type");
+        const cant_caracteres = $("#cant_caracteres");
+        const cant_capitulos = $("#cant_capitulos");
+        const modo = $("#modo");
+        const required_amount = $("#required_amount");
+        const amount_winner = $("#amount_winner");
+        const amount_usd = $("#amount_usd");
+        const cant_winners = $("#cant_winners");
+        const form = $("form");
+
+        function crearPagina() {
+            event.preventDefault();
+            const flag = $("#crear_pagina");
+            flag.val(1);
+            form.submit()
+        }
+
+        function editarPagina() {
+            event.preventDefault();
+            const flag = $("#editar_pagina");
+            flag.val(1);
+            form.submit();
+        }
+
+
+        function validateInput(input) {
+            if (input.val().length > 0) {
+                return true;
+            }
+            input.parent().append('<span class="help-block">Este campo es obligatorio</span>');
+            return false;
+        }
+
+        function validateFileInput(input) {
+            if (input.val().length > 0) {
+                return true;
+            }
+            $("#inputFileError").append('<span class="help-block">La imagen es obligatoria</span>');
+            return false;
+        }
+
+        function validateNarrativa() {
+            const type = contestType.val();
+            if (type == 1) {
+                return validateInput(cant_caracteres);
+            }
+            if (type == 2) {
+                const result1 = validateInput(cant_caracteres)
+                const result2 = validateInput(cant_capitulos);
+                return result1 && result2;
+            }
+            if (type == 3) {
+                return true;
+            }
+            return false;
+        }
+
+        function validateModo() {
+            const modoValue = modo.val();
+            switch (modoValue) {
+                case "1":
+                    return validateWinners();
+                case "2":
+                    const result1 = validateInput(required_amount);
+                    const result2 = validateInput(amount_winner);
+                    const result3 = validateInput(amount_usd);
+                    return result1 && result2 && result3;
+                case "3":
+                    const result4 = validateInput(amount_usd);
+                    const result5 = validateInput(amount_winner);
+                    return result4 && result5;
+            }
+        }
+
+        function validateWinners() {
+            const per_winners = $(".per_winner");
+            const results = [];
+            const maxIndex = cant_winners.val();
+            per_winners.each((index, item) => {
+                if (index < maxIndex) {
+                    const value = $(item).val() > 0;
+                    results.push(value);
+                    $(item).parent().append('<span class="help-block">El monto tiene que ser mayor a 0</span>');
+                }
+            });
+            return results.every((item) => item);
+        }
+
+
+        function validateDate(input) {
+            return validateInput(input);
+        }
+
+        form.submit(function (event) {
+            $('.help-block').remove();
+            $("#inputFileError").empty();
+            const validate = [];
+            validate.push(validateInput(nameInput));
+            validate.push(validateInput(bajadaCorta));
+            validate.push(validateInput(bajadaCompleta));
+            validate.push(validateDate(start_date));
+            validate.push(validateDate(end_date));
+            validate.push(validateDate(start_app_date));
+            validate.push(validateDate(end_app_date));
+            validate.push(validateDate(start_vote_date));
+            validate.push(validateDate(end_vote_date));
+            validate.push(validateFileInput(fileInput));
+            validate.push(validateNarrativa());
+            validate.push(validateModo());
+            if (validate.every((item) => item)) {
+                return;
+            }
+            event.preventDefault();
+        });
+
+
     </script>
 @endsection
