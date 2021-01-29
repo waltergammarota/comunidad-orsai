@@ -5123,7 +5123,7 @@ background-repeat: no-repeat;
     font-size: 28px;
     margin-top:10px;
     margin-bottom:10px;
-
+    line-height: 30px;
 }
 .perfil_publico .subtitulo{
     font-size: 18px;
@@ -6533,4 +6533,11 @@ input.check_round:checked + .rounded_toggle_checkbox {
 .menu_perfil_nombre .nickname{
     max-width: 218px;
     overflow: hidden; 
+}
+
+.codigo_error_light{
+    font-size:70px;
+    font-weight:100;
+    margin:20px 0 50px 0;
+    display: block;
 }

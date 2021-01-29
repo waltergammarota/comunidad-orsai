@@ -41,7 +41,7 @@
                             <div class="input_err">
                                 <div class="check_div input_err obligatorio">
                                     <label class="checkbox-container letra_chica text_bold">
-                                        He leido los términos y condiciones de la plataforma.
+                                        He leído los términos y condiciones de la plataforma.
                                         <input type="checkbox" id="cbox1" class="check_cond" value="1" checked disabled> 
                                         <span class="crear_check"></span> 
                                     </label>
@@ -59,7 +59,7 @@
                             <div class="input_err">
                                 <div class=" check_div input_err obligatorio">
                                     <label class="checkbox-container letra_chica text_bold">
-                                        Estoy de acuerdo con la politica de privacidad.
+                                        Estoy de acuerdo con la política de privacidad.
                                         <input type="checkbox" id="cbox1" class="check_cond" value="1" checked disabled> 
                                         <span class="crear_check"></span> 
                                     </label>
@@ -77,7 +77,7 @@
                             <div class="input_err">
                                 <div class="check_div input_err obligatorio">
                                     <label class="checkbox-container letra_chica text_bold">
-                                        Estoy de acuerdo con la politica de cookies.
+                                        Estoy de acuerdo con la política de cookies.
                                         <input type="checkbox" id="cbox1" class="check_cond" value="1" checked disabled> 
                                         <span class="crear_check"></span> 
                                     </label>
