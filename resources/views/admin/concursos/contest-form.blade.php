@@ -511,7 +511,9 @@
                 if (index < maxIndex) {
                     const value = $(item).val() > 0;
                     results.push(value);
-                    $(item).parent().append('<span class="help-block">El monto tiene que ser mayor a 0</span>');
+                    if (!value) {
+                        $(item).parent().append('<span class="help-block">El monto tiene que ser mayor a 0</span>');
+                    }
                 }
             });
             return results.every((item) => item);
