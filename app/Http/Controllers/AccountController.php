@@ -409,10 +409,13 @@ class AccountController extends Controller
             'provincia',
             'city',
             'birth_date',
+            'birth_country',
             'profesion',
             'facebook',
             'twitter',
-            'instagram'
+            'instagram',
+            'passport',
+            'description'
         ];
         $postData = $request->all($allowedTypes);
         $user = Auth::user();
