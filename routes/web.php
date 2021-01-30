@@ -31,6 +31,7 @@ Route::get(
     'Auth\LoginController@resetpasswordform'
 )->name('reset-password');
 
+
 Route::post(
     '/reset-password',
     'Auth\LoginController@createNewPassword'
@@ -100,6 +101,11 @@ Route::get(
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
+
+        Route::post(
+            '/change-password',
+            'AccountController@change_password'
+        )->name('change-password')->middleware('email_verified');
 
         // RUTAS SMS
         Route::get(
@@ -270,7 +276,7 @@ Route::middleware(['verified'])->group(
         Route::get(
             'seguridad',
             'AccountController@show_seguridad'
-        )->name('perfil')->middleware('email_verified');
+        )->name('seguridad')->middleware('email_verified');
 
         Route::get(
             'formacion-y-experiencia',
@@ -326,6 +332,16 @@ Route::middleware(['verified'])->group(
         Route::post(
             '/profile/update',
             'AccountController@profile_update'
+        );
+        // redes
+        Route::post(
+            '/profile/update/redes',
+            'AccountController@profile_update_redes'
+        );
+        // formacion
+        Route::post(
+            '/formacion/update',
+            'AccountController@formacion_update'
         );
 
         Route::post(

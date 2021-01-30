@@ -51,7 +51,17 @@ class GetAccountInfo extends GenericUseCase
             'facebook' => $user->facebook,
             'twitter' => $user->twitter,
             'instagram' => $user->instagram,
+            'linkedin' => $user->linkedin,
+            'portfolio' => $user->portfolio,
+            'web' => $user->web,
+            'medium' => $user->medium,
+            'redes' => $user->redes,
             'role' => $user->role,
+            'empresa' => $user->empresa,
+            'idiomas' => $user->idiomas,
+            'sector' => $user->sector,
+            'formacion' => $user->formacion,
+            'ocupacion' => $user->ocupacion,
             'postulacion' => $this->cpaRepo->statusApplication(1, $this->user->getId()),
             'avatar' => $imageUrl
         ];

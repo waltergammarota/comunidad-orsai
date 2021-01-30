@@ -33,10 +33,15 @@ class User extends Authenticable implements JWTSubject
         'profesion',
         'description',
         'facebook',
-        'whatsapp',
-        'prefijo',
         'twitter',
+        'whatsapp',
         'instagram',
+        'linkedin',
+        'portfolio',
+        'web',
+        'medium',
+        'redes',
+        'prefijo',
         'email',
         'password',
         'email_verified_at',
@@ -45,7 +50,12 @@ class User extends Authenticable implements JWTSubject
         'coral_token',
         'phone_verified_at',
         'code',
-        'sms_sent_at'
+        'sms_sent_at',
+        'empresa',
+        'idiomas',
+        'sector',
+        'formacion',
+        'ocupacion'
     ];
 
     /**
@@ -66,6 +76,9 @@ class User extends Authenticable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
         'sms_sent_at' => 'datetime',
+        'idiomas' => 'array',
+        'formacion' => 'array',
+        'ocupacion' => 'array'
     ];
 
     public function avatar()

@@ -18,6 +18,11 @@ class AddPaisNacimientoUsers extends Migration
             function (Blueprint $table) {
                 $table->string('birth_country')->nullable()->after('birth_date');
                 $table->string('passport')->nullable()->after('lastName');
+                $table->string('linkedin')->nullable()->after('instagram');
+                $table->string('portfolio')->nullable()->after('instagram');
+                $table->string('web')->nullable()->after('instagram');
+                $table->string('medium')->nullable()->after('instagram');
+                $table->string('redes')->nullable()->after('instagram');
             }
         );
     }
@@ -34,6 +39,11 @@ class AddPaisNacimientoUsers extends Migration
             function (Blueprint $table) {
                 $table->dropColumn('birth_country');
                 $table->dropColumn('passport');
+                $table->dropColumn('linkedin');
+                $table->dropColumn('portfolio');
+                $table->dropColumn('web');
+                $table->dropColumn('medium');
+                $table->dropColumn('redes');
             }
         );
     }

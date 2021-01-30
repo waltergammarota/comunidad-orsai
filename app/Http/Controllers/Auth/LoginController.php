@@ -157,7 +157,7 @@ class LoginController extends Controller
             $user->password = password_hash($request->password, PASSWORD_DEFAULT);
             $user->remember_token = "";
             $user->save();
-            $request->session()->flash('alert', 'password_reset_success'); 
+            $request->session()->flash('alert', 'password_reset_success');
             $data['token'] = $request->token;
             return view('2021-reset-password', $data);
         }
@@ -167,4 +167,5 @@ class LoginController extends Controller
             ]
         )->withInput();
     }
+
 }

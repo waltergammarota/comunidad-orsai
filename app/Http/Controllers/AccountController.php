@@ -9,8 +9,12 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
+use App\Databases\FormacionModel;
+use App\Databases\IdiomasModel;
+use App\Databases\OcupacionModel;
 use App\Databases\PaisModel;
 use App\Databases\ProvinciaModel;
+use App\Databases\SectorModel;
 use App\Databases\Transaction;
 use App\Repositories\FileRepository;
 use App\User;
@@ -20,6 +24,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class AccountController extends Controller
@@ -54,7 +59,28 @@ class AccountController extends Controller
         if (!$this->isProfileCompleted()) {
             $request->session()->flash('alert', 'profile_not_completed');
         }
+        $data['countries'] = $this->getPaises();
+        $data['prefijo_guardado'] = $this->findCountry($data);
         return view('2021-seguridad', $data);
+    }
+
+    private function findCountry($data)
+    {
+        $prefijo = $data['prefijo'];
+        $foundCountry = [
+            "prefijoTel" => "",
+            "nombre" => ""
+        ];
+        foreach ($data['countries'] as $country) {
+            if (($country->prefijoTel == $prefijo && $country->prefijoTel != "") || ($prefijo == 0 && $country->prefijoTel == 54)) {
+                $foundCountry = [
+                    "prefijoTel" => $country->prefijoTel,
+                    "nombre" => $country->nombre
+                ];
+                break;
+            }
+        }
+        return $foundCountry;
     }
 
     public function show_formacion(Request $request)
@@ -63,7 +89,23 @@ class AccountController extends Controller
         if (!$this->isProfileCompleted()) {
             $request->session()->flash('alert', 'profile_not_completed');
         }
+        $data['ocupaciones'] = OcupacionModel::all();
+        $data['formaciones'] = FormacionModel::all();
+        $data['languages'] = IdiomasModel::all();
+        $data['sectores'] = SectorModel::all();
         return view('2021-formacion-y-experiencia', $data);
+    }
+
+    public function formacion_update(Request $request)
+    {
+        $user = Auth::user();
+        $user->ocupacion = $request->ocupacion ? $request->ocupacion : [];
+        $user->empresa = $request->empresa;
+        $user->sector = $request->sector;
+        $user->formacion = $request->formacion_alc ? $request->formacion_alc : [];
+        $user->idiomas = $request->idiomas ? $request->idiomas : [];
+        $user->save();
+        return Redirect::to('formacion-y-experiencia');
     }
 
     private function getPaises()
@@ -73,6 +115,7 @@ class AccountController extends Controller
             $row = new \stdClass();
             $row->iso = $item['iso'];
             $row->nombre = utf8_encode($item['nombre']);
+            $row->prefijoTel = $item['prefijoTel'];
             return $row;
         }, $paises);
     }
@@ -400,6 +443,26 @@ class AccountController extends Controller
         return count($attr) >= 5;
     }
 
+    public function profile_update_redes(Request $request)
+    {
+        $allowedTypes = [
+            'facebook',
+            'twitter',
+            'instagram',
+            'linkedin',
+            'portfolio',
+            'web',
+            'medium',
+            'redes'
+        ];
+        $postData = $request->all($allowedTypes);
+        $user = Auth::user();
+        $user->fill($postData);
+        $user->save();
+        $action = "";
+        return response()->json(['message' => "profile redes updated", "action" => $action]);
+    }
+
     public function profile_update(Request $request)
     {
         $allowedTypes = [
@@ -411,28 +474,29 @@ class AccountController extends Controller
             'birth_date',
             'birth_country',
             'profesion',
+            'passport',
+            'description',
             'facebook',
             'twitter',
             'instagram',
-            'passport',
-            'description'
+            'linkedin',
+            'portfolio',
+            'web',
+            'medium',
+            'redes'
         ];
         $postData = $request->all($allowedTypes);
         $user = Auth::user();
         $user->fill($postData);
-        if (strlen($user->name) <= 3 || strlen($user->lastName) <= 3) {
-            return response()->json(['message' => "Nombre y Apellido deben ser mayores a 3 caracteres"], 422);
+        if ($request->has('name') || $request->has('lastName')) {
+            if (strlen($user->name) <= 3 || strlen($user->lastName) <= 3) {
+                return response()->json(['message' => "Nombre y Apellido deben ser mayores a 3 caracteres"], 422);
+            }
         }
         $action = "";
         $user->save();
         $this->updateUserNameInCoral($user);
-        if ($this->sendProfileExtraPoints()) {
-            return response()->json(['message' => "points profile completed", "action" => $action]);
-        } else {
-            return response()->json(['message' => "profile updated", "action" => $action]);
-        }
-
-        return response()->json(['message' => "Some types are not supported"], 422);
+        return response()->json(['message' => "profile updated", "action" => $action]);
     }
 
     private function updateUserNameInCoral($user)
@@ -680,6 +744,32 @@ class AccountController extends Controller
             "images" => $image,
             "pdf" => $pdf
         ];
+    }
+
+
+    public function change_password(Request $request)
+    {
+        $request->validate(
+            [
+                'current_password' => 'required|max:64|min:8',
+                'new_password' => 'required|max:64|min:8',
+                'confirmation_password' => 'required|same:new_password|max:64|min:8',
+            ]
+        );
+
+        $current_password = $request->current_password;
+        $new_password = $request->new_password;
+        $confirmation_password = $request->confirmation_password;
+        $user = Auth::user();
+        if ($new_password != $confirmation_password) {
+            return response()->json(["status" => "error", "msg" => "Las contraseñas no coinciden"], 400);
+        }
+        if ($new_password == $confirmation_password && Hash::check($current_password, $user->password)) {
+            $user->password = password_hash($new_password, PASSWORD_DEFAULT);
+            $user->save();
+            return response()->json(["status" => "success", "msg" => "Cambio de contraseña exitoso"]);
+        }
+        return response()->json(["status" => "error", "msg" => "Error en datos"]);
     }
 
 
