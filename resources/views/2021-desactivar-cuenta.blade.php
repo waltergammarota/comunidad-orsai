@@ -25,7 +25,7 @@
                 <span>Las fichas asociadas a tu usuario van a desaparecer.<br/>No vas a poder acceder más a la cuenta.</span>  
             </div>
             <div class="titulo border_bt_form pd_20_tp_bt">
-            	<a href="{{url('panel')}}" class="boton_redondeado resaltado_amarillo text_bold width_100 g-recaptcha">Me quiero quedar, saquenme de aquí.</a> 
+            	<a href="{{url('panel')}}" class="boton_redondeado resaltado_amarillo text_bold width_100 g-recaptcha">Me quiero quedar, sáquenme de aquí.</a> 
             </div>
             <div class="datos">
             <a href="{{url('confirmar-desactivar-cuenta')}}" class="boton_redondeado btn_transparente  width_100">Quiero desactivar mi cuenta.</a>

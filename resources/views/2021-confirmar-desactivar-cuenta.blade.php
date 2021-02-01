@@ -26,7 +26,7 @@
                 <span>Las fichas asociadas a tu usuario van a desaparecer.<br/>Tus datos van a ser anonimizados, tu información personal será borrada del sistema.</span>  
             </div>
             <div class="titulo border_bt_form pd_20_tp_bt">
-            	<a href="{{url('panel')}}" class="boton_redondeado resaltado_amarillo text_bold width_100 g-recaptcha">Me quiero quedar, saquenme de aquí.</a> 
+            	<a href="{{url('panel')}}" class="boton_redondeado resaltado_amarillo text_bold width_100 g-recaptcha">Me quiero quedar, sáquenme de aquí.</a> 
             </div>
             <div class="datos"> 
                 <form action="{{url('confirmar-desactivar-cuenta')}}" method="POST">
