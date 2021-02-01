@@ -4378,16 +4378,6 @@ footer .sub_footer .sub_footer_ri ul li a {
     position: relative;
 }
 
-.menu_lateral{
-    width:250px;
-    margin-right:20px;
-    display:inline-block;
-    /* position: sticky; */
-    /* position: -webkit-sticky; */
-    top:-1px;
-    z-index: 30000000000000;
-}
-
 .grilla_perfil{
     display:inline-block;
     vertical-align: top;
@@ -4418,6 +4408,16 @@ footer .sub_footer .sub_footer_ri ul li a {
     .contenedor.form_rel{
         max-width:100%;
     }
+}
+
+.menu_lateral{
+    width:250px;
+    margin-right:20px;
+    display:inline-block;
+    /* position: sticky; */
+    /* position: -webkit-sticky; */
+    top:-1px;
+    z-index: 30000000000000;
 }
 .grilla_perfil .fondo_blanco{
     margin-top:0px;
@@ -6540,4 +6540,57 @@ input.check_round:checked + .rounded_toggle_checkbox {
     font-weight:100;
     margin:20px 0 50px 0;
     display: block;
+}
+
+@media (max-width:1040px){
+    .menu_lateral{
+        width:100%;
+    }
+    .menu_lateral #menu_miperfil{
+        width:100%;
+    }
+
+    .menu_lateral #menu_miperfil #ul_menu{
+        margin-bottom:25px; 
+        margin-top:12px;
+        width:100%;
+        max-width:100%;
+    }
+    .menu_lateral #menu_miperfil #ul_menu.orden_abierto{
+        max-height: 450px;
+    }
+    .menu_lateral #menu_miperfil #ul_menu li{
+        display:block;
+        margin-right:0px;
+        padding: 15px 0px;
+        margin-bottom:10px;
+        width:100%;
+    }
+    .active_menu_lateral::after{
+        bottom:-15px;
+    }
+    .menu_lateral #menu_miperfil #ul_menu li:nth-child(2):after{
+        content:"";
+    }
+
+    .menu_lateral #menu_miperfil #ul_menu li a{
+        padding-left:5px;
+        padding-right:5px;
+        width:100%;
+    }
+    .menu_lateral #menu_miperfil #ordenar{
+        cursor: pointer;
+    }
+    .menu_lateral #menu_miperfil #ordenar .ordenar_bt{
+        font-size:16px;
+        color:black;
+        display: inline-block;
+        user-select: none;
+    }
+
+}
+@media (min-width:1040px){
+    .menu_lateral #menu_miperfil #ordenar{
+        display:none;
+    }
 }

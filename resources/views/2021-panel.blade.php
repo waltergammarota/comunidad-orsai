@@ -70,7 +70,7 @@
                         @endif
                     </article>
                 </a>
-                <a href="{{url('mis-postulaciones')}}" class="card_style_panel">
+                {{-- <a href="{{url('mis-postulaciones')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
                             <img src="{{url('recursos/front2021/iconos_panel/mis_postulaciones.svg')}}"
@@ -80,7 +80,7 @@
                         <h2>Mis postulaciones</h2>
                         <p>Podrás ver tus postulaciones a los concursos.</p>
                     </article>
-                </a>
+                </a> --}}
                 <a href="{{url('mis-fichas')}}" class="card_style_panel">
                     <article>
                         <div class="icono">

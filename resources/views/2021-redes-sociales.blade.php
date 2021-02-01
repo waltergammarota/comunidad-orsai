@@ -35,7 +35,7 @@
                     <div class="mg_20"></div>
                     <form action="#">
                         <div class="grilla_form">
-                            <div class="form_ctrl input_ inp_y_btn col_3">
+                            <div class="form_ctrl input_  col_3">
                                 <div class="input_err">
                                     <label class="text_medium">Facebook</label>
                                     <input type="text" name="facebook" class="obligatorio" id="facebook"
@@ -47,7 +47,7 @@
                                 {{--                        <button class="conectar boton_redondeado btn_transparente text_bold ">Conectar</button>--}}
                                 {{--                    </div>--}}
                             </div>
-                            <div class="form_ctrl input_ inp_y_btn col_3">
+                            <div class="form_ctrl input_ col_3">   {{-- inp_y_btn  --}}
                                 <div class="input_err">
                                     <label class="text_medium">Twitter</label>
                                     <input type="text" name="twitter" class="obligatorio" placeholder="@nombredeusuario"
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="grilla_form">
-                            <div class="form_ctrl input_ inp_y_btn col_3">
+                            <div class="form_ctrl input_ col_3">
                                 <div class="input_err">
                                     <label class="text_medium">Instagram</label>
                                     <input type="text" name="instagram" class="obligatorio" placeholder="@instagram"

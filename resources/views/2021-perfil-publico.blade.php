@@ -32,6 +32,13 @@
                     	<span class="subtitulo">Socio Fundadora</span>
                     @endif
                 </div>
+                @empty(!$user->description)
+                    <div class="border_bt_form">
+                        <div>
+                        {{$user->description}}
+                        </div>
+                    </div>
+                @endempty
                 <div class="datos">
                     <div>
                         <span class="color_gris">Nombre de usuario</span>
@@ -40,11 +47,7 @@
                     <div>
                         <span class="color_gris">País</span>
                         <span>{{$user->country}}</span>
-                    </div>
-                    <div>
-                        <span class="color_gris">Profesión</span>
-                        <span>{{$user->profesion}}</span>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

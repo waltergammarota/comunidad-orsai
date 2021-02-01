@@ -26,7 +26,10 @@
                                         <span>Modo {{$concurso->getMode()->name}}</span>
                                     </div>
                                     <div>
-                                        <span>Fecha de cierre: {{$concurso->end_date->format('d/m/Y H.i')}}hs (ARG)</span>
+                                        <span>Modo {{$concurso->getMode()->name}}</span>
+                                    </div>
+                                    <div>
+                                        <span>Cierre del concurso: {{$concurso->end_date->format('d/m/Y H.i')}}hs (ARG)</span>
                                     </div>
                                 </div>
                             </div>
