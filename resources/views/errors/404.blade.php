@@ -13,7 +13,7 @@
             <div class="titulo">
                 <span class="codigo_error_light">¡Uh!</span>
                 <h1 class="texto_italica span_h2">404</h1>
-                <span class="span_h1_extra_sizetexto_italica span_h2">No encontramos la página que estas
+                <span class="span_h1_extra_sizetexto_italica span_h2">No encontramos la página que estás
                     buscando.</span><br/>
             </div>   
         </div>
