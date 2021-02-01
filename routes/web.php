@@ -31,6 +31,7 @@ Route::get(
     'Auth\LoginController@resetpasswordform'
 )->name('reset-password');
 
+
 Route::post(
     '/reset-password',
     'Auth\LoginController@createNewPassword'
@@ -91,18 +92,6 @@ Route::get(
 )->name('bases-concurso');
 
 
-// RUTAS DE CONCURSOS
-//Route::get(
-//    '/concursos',
-//    'Contest\ContestController@index'
-//)->name("concursos");
-//
-//Route::get(
-//    '/concursos/{id}/{name}',
-//    'Contest\ContestController@show'
-//)->name("concursos-show");
-// FIN DE RUTAS DE CONCURSO
-
 Route::get(
     '/historia',
     'WebController@historia'
@@ -112,6 +101,11 @@ Route::get(
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
+
+        Route::post(
+            '/change-password',
+            'AccountController@change_password'
+        )->name('change-password')->middleware('email_verified');
 
         // RUTAS SMS
         Route::get(
@@ -152,76 +146,91 @@ Route::middleware(['verified'])->group(
 
         // FIN RUTAS SMS
 
-        // CONCURSOS
+        // INICIO CONCURSOS
 
-//        Route::get(
-//            '/propuesta/{id}',
-//            'PropuestaController@show'
-//        );
-//
-//        Route::post(
-//            '/votar',
-//            'PropuestaController@votar'
-//        );
-//        // POSTULACION A UN CONCURSO
-//        Route::get(
-//            '/postulaciones/{contest_id}/{contest_name}/finalizar/{cap_id}',
-//            'AccountController@preview'
-//        )->name('postulacion-preview')->middleware('email_verified');
-//
-//        Route::post(
-//            'borrar-capitulo',
-//            'AccountController@delete_chapter'
-//        )->name('borrar-capitulo')->middleware('email_verified');
-//
-//        Route::post(
-//            'enviar-postulacion',
-//            'AccountController@sent_cpa'
-//        )->name('enviar-postulacion')->middleware('email_verified');
-//
-//        Route::get(
-//            '/postulaciones/{contest_id}/{contest_name}',
-//            'AccountController@show_postulacion'
-//        )->name('postulacion')->middleware('email_verified');
-//
-//        Route::get(
-//            '/postulaciones/{contest_id}/{contest_name}/capitulos/{chapter_id}',
-//            'AccountController@show_postulacion'
-//        )->name('postulacion')->middleware('email_verified');
-//
-//
-//        Route::post(
-//            '/postulaciones',
-//            'AccountController@store_publicacion'
-//        );
-//
-//        Route::post(
-//            '/capitulos',
-//            'AccountController@store_chapter'
-//        );
-//
-//
-//        Route::get(
-//            '/concurso-finalizado',
-//            'WebController@concurso_finalizado'
-//        )->name('concurso-finalizado');
-//
-//        Route::get(
-//            '/concursos/{id}/{name}/{orden?}',
-//            'Contest\ContestController@show'
-//        )->name('participantes');
-//
-//        Route::get(
-//            '/participantes/pagina/{page?}/{orden?}/',
-//            'WebController@participantes'
-//        )->name('participantes-pagina');
-//
-//        Route::get(
-//            '/participantes/{orden?}/{limit}/{offset}',
-//            'WebController@getMore'
-//        )->name('participantes-more');
+        Route::get(
+            '/concursos',
+            'Contest\ContestController@index'
+        )->name("concursos");
 
-        //CONCURSOS
+        Route::get(
+            '/concursos/{id}/{name}',
+            'Contest\ContestController@show'
+        )->name("concursos-show");
+
+        Route::get(
+            '/propuesta/{id}',
+            'PropuestaController@show'
+        );
+
+        Route::get(
+            '/propuesta-detalle/{id}',
+            'PropuestaController@show_detalle'
+        );
+
+        Route::post(
+            '/votar',
+            'PropuestaController@votar'
+        );
+
+        Route::get(
+            '/postulaciones/{contest_id}/{contest_name}/finalizar/{cap_id}',
+            'AccountController@preview'
+        )->name('postulacion-preview')->middleware('email_verified');
+
+        Route::post(
+            'borrar-capitulo',
+            'AccountController@delete_chapter'
+        )->name('borrar-capitulo')->middleware('email_verified');
+
+        Route::post(
+            'enviar-postulacion',
+            'AccountController@sent_cpa'
+        )->name('enviar-postulacion')->middleware('email_verified');
+
+        Route::get(
+            '/postulaciones/{contest_id}/{contest_name}',
+            'AccountController@show_postulacion'
+        )->name('postulacion')->middleware('email_verified');
+
+        Route::get(
+            '/postulaciones/{contest_id}/{contest_name}/capitulos/{chapter_id}',
+            'AccountController@show_postulacion'
+        )->name('postulacion')->middleware('email_verified');
+
+
+        Route::post(
+            '/postulaciones',
+            'AccountController@store_publicacion'
+        );
+
+        Route::post(
+            '/capitulos',
+            'AccountController@store_chapter'
+        );
+
+
+        Route::get(
+            '/concurso-finalizado',
+            'WebController@concurso_finalizado'
+        )->name('concurso-finalizado');
+
+        Route::get(
+            '/concursos/{id}/{name}/{orden?}',
+            'Contest\ContestController@show'
+        )->name('participantes');
+
+        Route::get(
+            '/participantes/pagina/{page?}/{orden?}/',
+            'WebController@participantes'
+        )->name('participantes-pagina');
+
+        Route::get(
+            '/participantes/{orden?}/{limit}/{offset}',
+            'WebController@getMore'
+        )->name('participantes-more');
+
+        //FIN DE CONCURSOS
 
 
         Route::get(
@@ -252,12 +261,28 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/perfil',
             'AccountController@show_perfil'
-        )->name('perfil')->middleware('email_verified');;
+        )->name('perfil')->middleware('email_verified');
 
         Route::get(
             '/panel',
             'AccountController@show_panel'
         )->name('perfil');
+
+        Route::get(
+            '/redes-sociales',
+            'AccountController@show_redes'
+        )->name('perfil')->middleware('email_verified');
+
+        Route::get(
+            'seguridad',
+            'AccountController@show_seguridad'
+        )->name('seguridad')->middleware('email_verified');
+
+        Route::get(
+            'formacion-y-experiencia',
+            'AccountController@show_formacion'
+        )->name('perfil')->middleware('email_verified');
+
 
         Route::post(
             '/guardar-configuracion-preferencias',
@@ -307,6 +332,16 @@ Route::middleware(['verified'])->group(
         Route::post(
             '/profile/update',
             'AccountController@profile_update'
+        );
+        // redes
+        Route::post(
+            '/profile/update/redes',
+            'AccountController@profile_update_redes'
+        );
+        // formacion
+        Route::post(
+            '/formacion/update',
+            'AccountController@formacion_update'
         );
 
         Route::post(
@@ -660,7 +695,7 @@ Route::middleware(['verified'])->group(
         )->name('postulaciones')->middleware('email_verified');
         // FIN RUTA MIS POSTULACIONES
         Route::get(
-            '/transacciones',
+            '/mis-fichas',
             'AccountController@transacciones'
         )->name('transacciones')->middleware('email_verified');
 

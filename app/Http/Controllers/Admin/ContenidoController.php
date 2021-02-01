@@ -40,7 +40,8 @@ class ContenidoController extends Controller
             $imageUrl = url('storage/images/' . $image->name . "." . $image->extension);
         }
         $concursos = ContestModel::all();
-        return view('admin.noticias-form', compact('contenido', 'imageUrl', 'type', 'imageKey', 'concursos'));
+        $concursoId = $request->query('concurso');
+        return view('admin.noticias-form', compact('contenido', 'imageUrl', 'type', 'imageKey', 'concursos', 'concursoId'));
     }
 
     public function contenidos_json(Request $request)
@@ -62,12 +63,16 @@ class ContenidoController extends Controller
         $imageUrl = '';
         $now = Carbon::now()->format('Y-m-d');
         $concursos = ContestModel::all();
-        return view('admin.noticias-form', compact('contenido', 'type', 'imageUrl', 'now', 'concursos'));
+        $concursoId = $request->query("concurso");
+        return view('admin.noticias-form', compact('contenido', 'type', 'imageUrl', 'now', 'concursos', 'concursoId'));
     }
 
     public function store(Request $request)
     {
         $noticia = $this->createPage($request);
+        if ($request->concursoId != null) {
+            return Redirect::to('admin/contest/editar/' . $request->concursoId);
+        }
         return Redirect::to('admin/contenidos/tipo/' . $noticia->tipo);
     }
 
@@ -142,6 +147,9 @@ class ContenidoController extends Controller
         $imagesIds = $this->convertToIds($images);
         if (count($imagesIds) > 0) {
             $noticia->images()->sync($imagesIds);
+        }
+        if ($request->concursoId != null) {
+            return Redirect::to('admin/contest/editar/' . $request->concursoId);
         }
         return Redirect::to('admin/contenidos/' . $request->id);
     }

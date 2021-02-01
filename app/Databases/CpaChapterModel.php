@@ -45,4 +45,9 @@ class CpaChapterModel extends Model
     {
         return $this->hasOne('Databases\ContestApplicationModel', 'id', "cap_id");
     }
+
+    static public function getChapters($cpaId)
+    {
+        return self::where("cap_id", $cpaId)->orderBy("orden", "desc")->get();
+    }
 }

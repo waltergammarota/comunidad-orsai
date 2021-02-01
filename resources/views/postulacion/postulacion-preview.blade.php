@@ -22,8 +22,7 @@
                 <span class="resaltado_amarillo">Verificá tu postulación</span>
                 <h1 class="span_h1">{{$postulacion->title}}</h1>
             </div>
-            <div class="descripcion">
-                <h2 class="subtitulo">Descripción.</h2>
+            <div class="descripcion"> 
                 <p class="texto">{{$postulacion->description}}</p>
             </div>
             @foreach($capitulos as $capitulo)
@@ -67,7 +66,7 @@
         </section>
 
         <div class="btn_scroll_down">
-            <span id="btn_scroll" class="resaltado_amarillo" href="#">BOTON CONFIRMAR</span>
+            <span id="btn_scroll" class="resaltado_amarillo" href="#">Finalizar postulación</span>
         </div>
 
     </div>

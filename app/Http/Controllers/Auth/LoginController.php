@@ -101,7 +101,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        return view('ingresar');
+        return view('2021-login');
     }
 
     public function resetPassword(Request $request)
@@ -123,7 +123,7 @@ class LoginController extends Controller
         }
         return Redirect::to('restablecer-clave')->withErrors(
             [
-                "email" => "Email no encontrado"
+                "email" => "El email no fue encontrado"
             ]
         )->withInput();
     }
@@ -140,7 +140,7 @@ class LoginController extends Controller
             $user->save();
         }
         $data['token'] = $token;
-        return view('reset-password', $data);
+        return view('2021-reset-password', $data);
     }
 
     public function createNewPassword(Request $request)
@@ -158,7 +158,8 @@ class LoginController extends Controller
             $user->remember_token = "";
             $user->save();
             $request->session()->flash('alert', 'password_reset_success');
-            return Redirect::to('ingresar');
+            $data['token'] = $request->token;
+            return view('2021-reset-password', $data);
         }
         return Redirect::back()->withErrors(
             [
@@ -166,4 +167,5 @@ class LoginController extends Controller
             ]
         )->withInput();
     }
+
 }

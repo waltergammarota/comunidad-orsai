@@ -70,7 +70,6 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,
-                "responsive": true,
                 "ajax": "{{url('admin/concurso-json')}}",
                 "columns": [
                     {"data": "id"},

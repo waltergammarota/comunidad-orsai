@@ -38,7 +38,7 @@
 
         <div id="add_content" class="contenedor_logos_participantes">
 
-            @include('propuestas', ["propuestas" => $propuestas])
+            @include('propuestas', ["propuestas" => $propuestas, "concurso" => $concurso])
 
         </div>
 

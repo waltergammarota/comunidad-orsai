@@ -20,7 +20,7 @@ class PreferenciasController extends Controller
         $data['monedas'] = ["Peso Argentino (ARS)", "Dólar Americano (USD)", "Euro (EUR)"];
         $data['pagos'] = ["Mercado Pago Argentina", "Paypal"];
         $data['zonas'] = $this->getAllTimeZones();
-        return View('preferencias', $data);
+        return View('2021-preferencias', $data);
     }
 
     private function getAllTimeZonesByCountry($country, &$countries)
@@ -65,19 +65,19 @@ class PreferenciasController extends Controller
     public function configurar_privacidad()
     {
         $data = $this->getUserData();
-        return View('privacidad', $data);
+        return View('2021-privacidad', $data);
     }
 
     public function desactivar_cuenta()
     {
         $data = $this->getUserData();
-        return View('desactivar-cuenta', $data);
+        return View('2021-desactivar-cuenta', $data);
     }
 
     public function confirmar_desactivar_cuenta()
     {
         $data = $this->getUserData();
-        return View('confirmar-desactivar-cuenta', $data);
+        return View('2021-confirmar-desactivar-cuenta', $data);
     }
 
     public function borrar_cuenta(Request $request)
@@ -112,6 +112,6 @@ class PreferenciasController extends Controller
 
     public function cuenta_desactivada()
     {
-        return View('cuenta-desactivada');
+        return View('2021-cuenta-desactivada');
     }
 }

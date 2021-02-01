@@ -9,15 +9,14 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
+use App\Databases\FormacionModel;
+use App\Databases\IdiomasModel;
+use App\Databases\OcupacionModel;
 use App\Databases\PaisModel;
 use App\Databases\ProvinciaModel;
+use App\Databases\SectorModel;
 use App\Databases\Transaction;
-use App\Repositories\ContestApplicationRepository;
-use App\Repositories\ContestRepository;
 use App\Repositories\FileRepository;
-use App\Repositories\UserRepository;
-use App\UseCases\ContestApplication\EditContestApplication;
-use App\UseCases\ContestApplication\GetContestApplicationByUser;
 use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -25,6 +24,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class AccountController extends Controller
@@ -41,7 +41,71 @@ class AccountController extends Controller
         $data['provincias'] = json_encode($this->getProvincias($data['provinciasOptions']));
         $data['ciudades'] = json_encode($this->getCiudades($data['ciudadesOptions']));
         $data['countries'] = PaisModel::all();
-        return view('perfil', $data);
+        return view('2021-perfil', $data);
+    }
+
+    public function show_redes(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        return view('2021-redes-sociales', $data);
+    }
+
+    public function show_seguridad(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        $data['countries'] = $this->getPaises();
+        $data['prefijo_guardado'] = $this->findCountry($data);
+        return view('2021-seguridad', $data);
+    }
+
+    private function findCountry($data)
+    {
+        $prefijo = $data['prefijo'];
+        $foundCountry = [
+            "prefijoTel" => "",
+            "nombre" => ""
+        ];
+        foreach ($data['countries'] as $country) {
+            if (($country->prefijoTel == $prefijo && $country->prefijoTel != "") || ($prefijo == 0 && $country->prefijoTel == 54)) {
+                $foundCountry = [
+                    "prefijoTel" => $country->prefijoTel,
+                    "nombre" => $country->nombre
+                ];
+                break;
+            }
+        }
+        return $foundCountry;
+    }
+
+    public function show_formacion(Request $request)
+    {
+        $data = $this->getUserData();
+        if (!$this->isProfileCompleted()) {
+            $request->session()->flash('alert', 'profile_not_completed');
+        }
+        $data['ocupaciones'] = OcupacionModel::orderBy('name', 'asc')->get();
+        $data['formaciones'] = FormacionModel::orderBy('name', 'asc')->get();
+        $data['languages'] = IdiomasModel::orderBy('name', 'asc')->get();
+        $data['sectores'] = SectorModel::orderBy('name', 'asc')->get();
+        return view('2021-formacion-y-experiencia', $data);
+    }
+
+    public function formacion_update(Request $request)
+    {
+        $user = Auth::user();
+        $user->ocupacion = $request->ocupacion ? $request->ocupacion : [];
+        $user->empresa = $request->empresa;
+        $user->sector = $request->sector;
+        $user->formacion = $request->formacion_alc ? $request->formacion_alc : [];
+        $user->idiomas = $request->idiomas ? $request->idiomas : [];
+        $user->save();
+        return Redirect::to('formacion-y-experiencia');
     }
 
     private function getPaises()
@@ -51,6 +115,7 @@ class AccountController extends Controller
             $row = new \stdClass();
             $row->iso = $item['iso'];
             $row->nombre = utf8_encode($item['nombre']);
+            $row->prefijoTel = $item['prefijoTel'];
             return $row;
         }, $paises);
     }
@@ -93,7 +158,7 @@ class AccountController extends Controller
         } else {
             $data['avatar'] = url('img/participantes/participante.jpg');
         }
-        return view('perfil-publico', $data);
+        return view('2021-perfil-publico', $data);
     }
 
     public function show_panel()
@@ -154,9 +219,11 @@ class AccountController extends Controller
         if ($status == "draft" && $request->route('chapter_id') > 0) {
             return view('postulacion.postulacion-2', $data);
         }
+        if ($status == "approved") {
+            return Redirect::to('propuesta/' . $postulacion->id);
+        }
 
-        return view('postulacion.index', $data);
-
+        return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
     }
 
     public function preview(Request $request)
@@ -194,7 +261,7 @@ class AccountController extends Controller
         $cpaLog->save();
 
         // TODO poner link a postulacion a
-        return Redirect::to('concursos');
+        return Redirect::to('mis-postulaciones');
 
     }
 
@@ -376,6 +443,26 @@ class AccountController extends Controller
         return count($attr) >= 5;
     }
 
+    public function profile_update_redes(Request $request)
+    {
+        $allowedTypes = [
+            'facebook',
+            'twitter',
+            'instagram',
+            'linkedin',
+            'portfolio',
+            'web',
+            'medium',
+            'redes'
+        ];
+        $postData = $request->all($allowedTypes);
+        $user = Auth::user();
+        $user->fill($postData);
+        $user->save();
+        $action = "";
+        return response()->json(['message' => "profile redes updated", "action" => $action]);
+    }
+
     public function profile_update(Request $request)
     {
         $allowedTypes = [
@@ -385,27 +472,31 @@ class AccountController extends Controller
             'provincia',
             'city',
             'birth_date',
+            'birth_country',
             'profesion',
+            'passport',
+            'description',
             'facebook',
             'twitter',
-            'instagram'
+            'instagram',
+            'linkedin',
+            'portfolio',
+            'web',
+            'medium',
+            'redes'
         ];
         $postData = $request->all($allowedTypes);
         $user = Auth::user();
         $user->fill($postData);
-        if (strlen($user->name) <= 3 || strlen($user->lastName) <= 3) {
-            return response()->json(['message' => "Nombre y Apellido deben ser mayores a 3 caracteres"], 422);
+        if ($request->has('name') || $request->has('lastName')) {
+            if (strlen($user->name) <= 3 || strlen($user->lastName) <= 3) {
+                return response()->json(['message' => "Nombre y Apellido deben ser mayores a 3 caracteres"], 422);
+            }
         }
         $action = "";
         $user->save();
         $this->updateUserNameInCoral($user);
-        if ($this->sendProfileExtraPoints()) {
-            return response()->json(['message' => "points profile completed", "action" => $action]);
-        } else {
-            return response()->json(['message' => "profile updated", "action" => $action]);
-        }
-
-        return response()->json(['message' => "Some types are not supported"], 422);
+        return response()->json(['message' => "profile updated", "action" => $action]);
     }
 
     private function updateUserNameInCoral($user)
@@ -498,13 +589,13 @@ class AccountController extends Controller
             "to",
             $user->id
         )->get();
-        return view('transacciones', $data);
+        return view('2021-mis-fichas', $data);
     }
 
     public function notificaciones()
     {
         $data = $this->getUserData();
-        return view('notificaciones', $data);
+        return view('2021-mis-notificaciones', $data);
     }
 
     public function notificacion(Request $request)
@@ -517,7 +608,7 @@ class AccountController extends Controller
         $autor = User::find($notification->data['author']);
         $data['autor'] = "{$autor->name} {$autor->lastName}";
         $data = array_merge($data, $this->getUserData());
-        return view('notificacion', $data);
+        return view('2021-notificacion', $data);
     }
 
     public function notificaciones_counter()
@@ -595,6 +686,7 @@ class AccountController extends Controller
         return response()->json(["message" => "notifications deleted"]);
     }
 
+
     /**
      * @param Request $request
      * @param ContestApplicationModel $cpa
@@ -603,7 +695,7 @@ class AccountController extends Controller
     private function saveImages(Request $request, ContestApplicationModel $cpa): array
     {
         $fileRepo = new FileRepository();
-        $image = $fileRepo->getUploadedFiles('images', $request);
+        $image = $fileRepo->getUploadedFiles('images', $request, 1500, 500);
         $pdf = $fileRepo->getUploadedFiles('pdf', $request);
         $files = array();
 
@@ -652,6 +744,32 @@ class AccountController extends Controller
             "images" => $image,
             "pdf" => $pdf
         ];
+    }
+
+
+    public function change_password(Request $request)
+    {
+        $request->validate(
+            [
+                'current_password' => 'required|max:64|min:8',
+                'new_password' => 'required|max:64|min:8',
+                'confirmation_password' => 'required|same:new_password|max:64|min:8',
+            ]
+        );
+
+        $current_password = $request->current_password;
+        $new_password = $request->new_password;
+        $confirmation_password = $request->confirmation_password;
+        $user = Auth::user();
+        if ($new_password != $confirmation_password) {
+            return response()->json(["status" => "error", "msg" => "Las contraseñas no coinciden"], 400);
+        }
+        if ($new_password == $confirmation_password && Hash::check($current_password, $user->password)) {
+            $user->password = password_hash($new_password, PASSWORD_DEFAULT);
+            $user->save();
+            return response()->json(["status" => "success", "msg" => "Cambio de contraseña exitoso"]);
+        }
+        return response()->json(["status" => "error", "msg" => "Error en datos"]);
     }
 
 

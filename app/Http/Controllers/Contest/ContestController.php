@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Contest;
 
+use App\Databases\ContenidoModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\ContestsModo;
@@ -17,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ContestController extends Controller
 {
@@ -81,7 +83,7 @@ class ContestController extends Controller
         $webController = new WebController;
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
         // CONCURSO POSTULACIONES ABIERTAS
-        $data['estado'] = "proximo";
+        $data['estado'] = $contest->getStatus();
         $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, Auth::user()->id);
         if ($contest->hasPostulacionesAbiertas()) {
             $data['estado'] = "abierto";
@@ -165,23 +167,122 @@ class ContestController extends Controller
         return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner'));
     }
 
+    private function validCantCaracteres($type, $cant_caracteres)
+    {
+        if (($type == 1 || $type == 2) && $cant_caracteres > 0) {
+            return true;
+        }
+        if ($type == 3) {
+            return true;
+        }
+        return false;
+    }
+
+    private function validCantMaxChapters($type, $cant_capitulos)
+    {
+        if ($type == 1 || $type == 3) {
+            return true;
+        }
+        if ($type == 2 && $cant_capitulos > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private function validPrizeAmount($mode, $per_winner)
+    {
+        if ($mode == 1 && !in_array(0, $per_winner)) {
+            return true;
+        }
+        if ($mode > 1) {
+            return true;
+        }
+        return false;
+    }
+
+    private function validRequiredAmount($mode, $required_amount)
+    {
+        if ($mode == 1) {
+            return true;
+        }
+        if ($required_amount > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private function validAmountUsd($mode, $amount_usd)
+    {
+        if ($mode == 1) {
+            return true;
+        }
+        if ($amount_usd > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private function validAmountWinner($mode, $amount_winner)
+    {
+        if ($mode == 1 || $mode == 2) {
+            return true;
+        }
+        if ($mode == 2 && $amount_winner > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             "name" => "required",
-            "bajada_corta" => "required",
+            "bajada_corta" => "required|max:168",
             "bajada_completa" => "required",
-            "start_date" => "required",
-            "end_date" => "required",
+            "start_date" => "required|date",
+            "end_date" => "required|date|after:start_date",
             "start_app_date" => "required",
             "end_app_date" => "required",
             "start_vote_date" => "required",
             "end_vote_date" => "required",
             "type" => "required",
             "mode" => "required",
+            "images" => "required|array|min:1"
         ]);
+
+//        $validator->after(function ($validator) use ($request) {
+//            if (!$this->validCantCaracteres($request->type, $request->cant_caracteres)) {
+//                $validator->errors()->add('cant_caracteres', 'La cantidad de caracteres es de 1 a 240');
+//            }
+//            if (!$this->validCantMaxChapters($request->type, $request->cant_capitulos)) {
+//                $validator->errors()->add('cant_capitulos', 'La cantidad de capítulos no puede ser 0');
+//            }
+//            if (!$this->validPrizeAmount($request->mode, $request->per_winner)) {
+//                $validator->errors()->add('per_winner', 'Los premios deben ser mayor a 0');
+//            }
+//            if (!$this->validRequiredAmount($request->mode, $request->required_amount)) {
+//                $validator->errors()->add('required_amount', 'La cantidad de fichas necesarias debe ser mayor a 0');
+//            }
+//            if (!$this->validAmountWinner($request->mode, $request->amount_winner)) {
+//                $validator->errors()->add('amount_winner', 'La cantidad debe ser mayor a 0');
+//            }
+//            if (!$this->validAmountUsd($request->mode, $request->amount_usd)) {
+//                $validator->errors()->add('amount_usd', 'La cantidad debe ser mayor a 0');
+//            }
+//        });
+
+        if ($validator->fails()) {
+            return redirect('admin/concursos/crear')
+                ->withErrors($validator)
+                ->withInput();
+        }
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
+        $cant_winners = 0;
+        if ($request->mode == 1) {
+            $cant_winners = $request->cant_winners ? $request->cant_winners : 0;
+        }
+
         $data = [
             "name" => $request->name,
             "bajada_corta" => $request->bajada_corta,
@@ -197,7 +298,8 @@ class ContestController extends Controller
             "mode" => $request->mode,
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
-            "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
+            "cant_winners" => $cant_winners,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
@@ -206,6 +308,14 @@ class ContestController extends Controller
         ];
         $contest = new ContestModel($data);
         $contest->save();
+        if ($request->editar_pagina == 1) {
+            $bases = ContenidoModel::where("contest_id", $contest->id)->first();
+            return Redirect::to('admin/contenidos/' . $bases->id . '?concurso=' . $contest->id);
+        }
+        if ($request->crear_pagina == 1) {
+            return Redirect::to('admin/contenidos/crear/pagina?concurso=' . $contest->id);
+        }
+
         return Redirect::to('admin/concursos');
     }
 
@@ -245,8 +355,8 @@ class ContestController extends Controller
             "name" => "required",
             "bajada_corta" => "required",
             "bajada_completa" => "required",
-            "start_date" => "required",
-            "end_date" => "required",
+            "start_date" => "required|date",
+            "end_date" => "required|date|after:start_date",
             "start_app_date" => "required",
             "end_app_date" => "required",
             "start_vote_date" => "required",
@@ -254,11 +364,16 @@ class ContestController extends Controller
             "type" => "required",
             "mode" => "required",
         ]);
+
         $id = $request->id;
         $contest = ContestModel::find($id);
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
         $logo = $this->processLogo($images, $contest);
+        $cant_winners = 0;
+        if ($request->mode == 1) {
+            $cant_winners = $request->cant_winners ? $request->cant_winners : 0;
+        }
         $data = [
             "name" => $request->name,
             "bajada_corta" => $request->bajada_corta,
@@ -274,7 +389,8 @@ class ContestController extends Controller
             "mode" => $request->mode,
             "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
-            "cant_winners" => $request->cant_winners ? $request->cant_winners : 0,
+            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
+            "cant_winners" => $cant_winners,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
@@ -283,6 +399,13 @@ class ContestController extends Controller
         ];
         $contest->fill($data);
         $contest->save();
+        if ($request->editar_pagina == 1) {
+            $bases = ContenidoModel::where("contest_id", $contest->id)->first();
+            return Redirect::to('admin/contenidos/' . $bases->id . '?concurso=' . $contest->id);
+        }
+        if ($request->crear_pagina == 1) {
+            return Redirect::to('admin/contenidos/crear/pagina?concurso=' . $contest->id);
+        }
         return Redirect::to('admin/concursos');
     }
 

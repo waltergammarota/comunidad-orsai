@@ -62,7 +62,7 @@
                                 <img src="{{Session::get('avatar')}}" alt="{{$username}}">
                             </div>
                             <div class="menu_perfil_nombre">
-                                <span>{{'@'.$username}}</span>
+                                <span class="nickname">{{'@'.$username}}</span>
                                 <span class="color_gris_claro">{{Session::get('balance')}} fichas</span>
                                 <span class="icono icon-angle-down"></span>
                             </div>

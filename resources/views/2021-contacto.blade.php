@@ -97,14 +97,13 @@
                             </div>
                         </div>
                     @endif
-                    <div class="msg_load"><img alt="Ruedita de estado" src="recursos/ajax.gif" class="ajaxgif hide"/>
-                    </div>
                     <div class="form_ctrl input_ asoc_btn ">
                         <div class="align_center">
                             <div class="align_center">
                                 <button type="submit"
                                         class="boton_redondeado resaltado_amarillo text_bold custom_size mg_20">Enviar
                                 </button>
+                            <div class="msg_load"><img alt="Ruedita de estado" src="{{url('recursos/ajax.gif')}}" class="ajaxgif hide" style="margin-top:10px;  margin-bottom:10px;" /></div> 
                             </div>
                         </div>
                     </div>

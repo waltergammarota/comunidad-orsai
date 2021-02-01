@@ -5,10 +5,18 @@
             <a href="{{url('propuesta/'.$item['id'])}}">
                 <div class="borde_logo">
                     <div class="logo_img">
-                        @if(count($item['logos']) > 0)
+                        @if(count($item['images']) > 0)
                             <img
-                                src="{{url('storage/logo/'.$item['logos'][0]['name'].".".$item['logos'][0]['extension'])}}"
-                                alt="">
+                                src="{{url('storage/images/'.$item['images'][0]['name'].".".$item['images'][0]['extension'])}}"
+                                alt="{{$item['images'][0]['name']}}">
+                        @else
+                            @if($concurso->image > 0)
+                                <img
+                                    src="{{url('storage/images/' . $concurso->logo()->name . "." . $concurso->logo()->extension)}}"
+                                    alt="">
+                            @else
+                                <img src="{{url('img/img_blog.png')}}" alt="">
+                            @endif
                         @endif
                     </div>
                     <div class="cont_autor">

@@ -51,7 +51,7 @@ class WebController extends Controller
     public function restablecer_clave()
     {
         $data = $this->getUserData();
-        return view('restablecer-clave', $data);
+        return view('2021-restablecer-clave', $data);
     }
 
     public function ingresar()
@@ -71,14 +71,14 @@ class WebController extends Controller
 //            }
 //
 //        }
-        return view('ingresar', $data);
+        return view('2021-login', $data);
     }
 
     public function reenviar_mail_activacion()
     {
         $data = $this->getUserData();
         $data['title'] = "Reenviar mail activación";
-        return view('reenviar-mail-activacion', $data);
+        return view('2021-reenviar-mail-activacion', $data);
     }
 
     public function bases_concurso()
@@ -190,28 +190,28 @@ class WebController extends Controller
         switch ($orden) {
             case "buscar":
                 $propuestas = ContestApplicationModel::where('title', 'LIKE', '%' . $request->busqueda . '%')->where('contest_id', $contestId)->where('approved', 1)->with(
-                    'logos'
+                    'images'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-vistos":
                 $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->orderBy('views', 'desc')->with(
-                    'logos'
+                    'images'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-recientes":
                 $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->orderBy('created_at', 'desc')->with(
-                    'logos'
+                    'images'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "mas-votados":
                 $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->orderBy('votes', 'desc')->with(
-                    'logos'
+                    'images'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
             case "random":
             default:
                 $propuestas = ContestApplicationModel::where('approved', 1)->where('contest_id', $contestId)->inRandomOrder()->with(
-                    'logos'
+                    'images'
                 )->with('owner')->offset($offset)->limit($limit)->get();
                 break;
         }
@@ -228,6 +228,7 @@ class WebController extends Controller
                 "id" => $item->id,
                 "title" => $item->title,
                 "logos" => $item->logos()->limit(1)->get(),
+                "images" => $item->images()->limit(1)->get(),
                 "avatar" => $user->avatar()->first(),
                 "voted" => $voted,
                 "user" => $user->name . " " . $user->lastName,

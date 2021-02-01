@@ -11,7 +11,7 @@
                 <div>
                     <div class="item"><img src="{{url('recursos/front2021/cine-1.jpg')}}" alt="Orsai producirá cine y será una película aparte">
                         <div class="banner_text_inside">
-                            <h1 class="contenedor">Orsai producirá cine y será <span class="block_item">una película aparte</span>
+                            <h1 class="contenedor">Orsai producirá cine y será <span class="block_item">una película más</span>
                             </h1>
                             <div class="contenedor">
                                 <p class="contenedor">El debut de «Orsai Audiovisuales» será con la adaptación del
@@ -45,14 +45,14 @@
                     </div>
                 </div>
                 <div>
-                    <div class="item"><img src="{{url('recursos/front2021/cine-2.jpg')}}" alt="Nuestra sede física: una historia que empezó hace 40 años">
+                    <div class="item"><img src="{{url('recursos/front2021/pasport-1.jpg')}}" alt="Nuestra sede física: una historia que empezó hace 40 años">
                         <div class="banner_text_inside">
-                            <h1 class="contenedor">Nuestra sede física: una historia <span class="block_item">que empezó hace 40 años</span>
+                            <h1 class="contenedor">Derechos y obligaciones para los  <span class="block_item">Socios Fundadores de la Comunidad</span>
                             </h1>
                             <div class="contenedor">
                                 <p class="contenedor">Nos cedieron el ex Cine de Mercedes hasta el año 2040, y vamos a
                                     hacer que ese lugar se convierta en la capital hispanoamericana de la narrativa del
-                                    siglo veintiuno.</strong></p>
+                                    siglo XXI.</strong></p>
                                 <a href="{{url('novedades/la-sede-fisica')}}"
                                    class="boton_redondeado resaltado_amarillo">
                                     <span>Ver proyecto</span>
