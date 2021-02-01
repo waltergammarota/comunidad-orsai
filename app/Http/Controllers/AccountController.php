@@ -89,10 +89,10 @@ class AccountController extends Controller
         if (!$this->isProfileCompleted()) {
             $request->session()->flash('alert', 'profile_not_completed');
         }
-        $data['ocupaciones'] = OcupacionModel::all();
-        $data['formaciones'] = FormacionModel::all();
-        $data['languages'] = IdiomasModel::all();
-        $data['sectores'] = SectorModel::all();
+        $data['ocupaciones'] = OcupacionModel::orderBy('name', 'asc')->get();
+        $data['formaciones'] = FormacionModel::orderBy('name', 'asc')->get();
+        $data['languages'] = IdiomasModel::orderBy('name', 'asc')->get();
+        $data['sectores'] = SectorModel::orderBy('name', 'asc')->get();
         return view('2021-formacion-y-experiencia', $data);
     }
 
