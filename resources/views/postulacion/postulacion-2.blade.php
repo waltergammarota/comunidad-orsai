@@ -16,14 +16,7 @@
             <div class="pasos">
                 <span>2/2</span>
             </div>
-        </section>
-        <section class="contenedor contenedor_newform">
-            <div class="bajada">
-                <h2 class="">Publicá tu historia por partes</h2>
-                <p>Agregá capítulos para amenizar la lectura de tu narrativa. Automáticamente se incluirá una tabla de
-                    contenidos para que puedas ordenar tu obra completa.</p>
-            </div>
-        </section>
+        </section> 
 
         <section class="contenedor contenedor_newform">
             <form action="{{url('capitulos')}}" id="concursos" method="POST">
@@ -32,8 +25,7 @@
                 <input type="hidden" name="orden" value="{{$orden}}">
 
                 <div class="new_form">
-                    @if($concurso->type == 1)
-                        <label class="capitulo">Cuento corto</label>
+                    @if($concurso->type == 1) 
                     @else
                         <label class="capitulo">Capitulo {{$orden == 0? 1: $orden}}</label>
                     @endif
@@ -78,20 +70,7 @@
                 <div class="info_per_nota">
                     <strong>*</strong> = <span class="subrayado">Campos obligatorios.</span>
                 </div>
-                <div class="new_form">
-                    <div class="btn_left">
-                        @if($orden > 1)
-                            <button class="subrayado resaltado_amarillo text_bold"
-                                    onclick="goToChapter('{{$orden - 1}}')">
-                                Volver al capítulo anterior
-                            </button>
-                        @else
-                            <button class="subrayado resaltado_amarillo text_bold"
-                                    onclick="goToCpa()">
-                                Volver
-                            </button>
-                        @endif
-                    </div>
+                <div class="new_form"> 
                     @if($concurso->type == 2)
                         <div class="btn_right">
                             <button id="btn_cargar_capitulo" type="submit"
@@ -100,21 +79,37 @@
                             </button>
                         </div>
                     @endif
-                </div>
-
-                <div class="new_form">
+                    @if($concurso->type == 1) 
+                    @else
                     <div class="btn_left">
                         <button class="subrayado resaltado_rojo text_bold" data-orden="{{$orden}}"
                                 id="btn_delete">
                             Eliminar capitulo
                         </button>
+                    </div> 
+                    @endif 
+                </div>
+                <div class="new_form">
+                    <div class="new_form">
+                        <div class="align_center">
+                            <button id="btn_concurso" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16 width_100" onclick="finalizar('{{$postulacion->id}}')">
+                                Finalizar
+                            </button> 
+                        </div>
                     </div>
-                    <div class="btn_100">
-                        <button id="btn_concurso" class="subrayado resaltado_amarillo text_bold"
-                                onclick="finalizar('{{$postulacion->id}}')">
-                            Finalizar
-                        </button>
-                    </div>
+                </div>
+
+                <div class="new_form">
+                    <div class="btn_left">
+                        @if($orden > 1)
+                            <button class="subrayado resaltado_amarillo text_bold"
+                                    onclick="goToChapter('{{$orden - 1}}')">
+                                Volver al capítulo anterior
+                            </button>
+                        @else 
+                            <a onclick="goToCpa()"target="_blank" class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">&laquo; Volver</a> 
+                        @endif
+                    </div> 
                 </div>
             </form>
             <div class="mg_100"></div>

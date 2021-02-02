@@ -235,6 +235,7 @@ class AccountController extends Controller
         }
         $data = $this->getUserData();
         $data['capitulos'] = CpaChapterModel::where("cap_id", $cpaId)->orderBy("orden", "asc")->get();
+        $data['bases'] = 'url'; //$data['concurso']->getbases(); (?)
         $data['postulacion'] = $cpa;
         $data['concurso'] = $cpa->contest()->first();
         $data['logo'] = $data['concurso']->logo();
@@ -245,8 +246,7 @@ class AccountController extends Controller
     {
         $request->validate([
             "cap_id" => 'required|numeric',
-            "bases" => 'required',
-            "condiciones" => 'required'
+            "bases" => 'required'
         ]);
 
         $cpaId = $request->cap_id;
@@ -254,7 +254,6 @@ class AccountController extends Controller
         if ($cpa == null) {
             abort(404);
         }
-        $cpa->condiciones = Carbon::now();
         $cpa->bases = Carbon::now();
         $cpa->save();
         $cpaLog = new CpaLog(["status" => "sent", "cap_id" => $cpa->id]);

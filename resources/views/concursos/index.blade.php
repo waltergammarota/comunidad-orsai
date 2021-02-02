@@ -60,7 +60,7 @@
                         @elseif($concurso->end_date < $now)
                             <div class="cont_concurso etiqueta_finalizado">
                                 @else
-                                    <div class="cont_concurso etiqueta_activo">
+                                    <div class="cont_concurso">
                                         @endif
                                         <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->name))}}">
                                             <div class="padding_item">

@@ -4,14 +4,13 @@
 @section('description', 'Postulación')
 
 @section('header')
-    <link rel="stylesheet" href="{{url('fontello_new/css/fontello.css')}}">
     <link rel="stylesheet" href="{{url('estilos/estilos_conc.css')}}">
     <link rel="stylesheet" href="{{url('custom/jquery.mCustomScrollbar.css')}}">
 @endsection
 
 @section('content')
 
-    <div class="fondo_blanco sin_overflow">
+    <div class=" sin_overflow">
         <div class="postulacion_larga">
             <section id="intro" class="intro_gral indice_contenidos">
                 <div class="portada_concurso portada_concurso_banner">
@@ -29,9 +28,6 @@
                         @endif
                     @endif
                 </div>
-                <div class="titulo titulo_banner">
-                    <h1 class="span_h1">{{$propuesta['title']}}</h1>
-                </div>
                 <div class="fichas_acumuladas_banner">
                     <div class="info_banner ">
                         <div class="icono resaltado_amarillo">
@@ -45,11 +41,28 @@
                         </div>
                         <p class="titulo"><strong>{{$propuesta['views']}}</strong></p>
                     </div>
-                    <div class="info_banner ">
-                        <div class="icono resaltado_amarillo">
-                            <span class=" icon-eye"></span>
+                    <div class="info_banner_tp ">
+                        <div class="participante">
+                            <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
+                                <div class="avatar">
+                                    <div class="img_perfil">
+                                        <div class="cont_img">
+                                            @if($user_avatar)
+                                                <img
+                                                    src="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"
+                                                    alt="{{ucfirst($propuesta['owner']['name'])}}">
+                                            @else
+                                                <img src="{{url('img/participantes/participante.jpg')}}"
+                                                    alt="{{ucfirst($propuesta['owner']['name'])}}"/>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="intro_datos_perfil">
+                                    <p class="titulo">{{ucfirst($propuesta['owner']['name'])}}</p> 
+                                </div>
+                            </a>
                         </div>
-                        <p class="titulo"><strong>{{ucfirst($concurso->getMode()->name)}}</strong></p>
                     </div>
                 </div>
             </section>
@@ -58,52 +71,6 @@
         <div class="contenedor postulacion_larga ">
             <section id="" class="indice_contenidos ">
                 <aside class="contenedor_lateral">
-                    <div class="part_lat">
-                        <div class="participante">
-                            <div class="avatar">
-                                <div class="img_perfil">
-                                    <div class="cont_img">
-                                        @if($user_avatar)
-                                            <img
-                                                src="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"
-                                                alt="{{ucfirst($propuesta['owner']['name'])}}">
-                                        @else
-                                            <img src="{{url('img/participantes/participante.jpg')}}"
-                                                 alt="{{ucfirst($propuesta['owner']['name'])}}"/>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="intro_datos_perfil">
-                                <p class="titulo">{{ucfirst($propuesta['owner']['name'])}}</p>
-                                <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}"
-                                   class="boton_redondeado resaltado_amarillo align_left">Ver perfil</a>
-                            </div>
-
-                        </div>
-                        <div class="blog_social_concurso">
-                            <div class="share_redes_gral">
-                                <div class="resaltado_gris">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}"
-                                       title="Compartir novedad"
-                                       target="_blank"
-                                       onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
-                                       rel="noopener noreferrer"><span class="icono icon-fb"></span></a>
-                                </div>
-                                <div class="resaltado_gris">
-                                    <a href="https://twitter.com/intent/tweet?text={{$propuesta['title']}}&amp;url={{url()->full()}}&amp;lang=es"
-                                       title="Twittear novedad"
-                                       onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
-                                       rel="noopener noreferrer"><span class="icono icon-tw"></span></a>
-                                </div>
-                                <div class="resaltado_gris">
-                                    <a href="whatsapp://send?text={{$propuesta['title']}} – {{url()->full()}}"
-                                       data-action="share/whatsapp/share" title="Compartir novedad"
-                                       rel="noopener noreferrer"><span class="icono icon-whatsapp"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="part_lat">
                         <div id="bt_votar_2">
                             @if($canVote)
@@ -118,7 +85,7 @@
                                     </div>
                                     <div id="bt_form_votar">
                             <span
-                                class="resaltado_amarillo subrayado text_bold">Poner fichas</span>
+                                class="boton_redondeado resaltado_amarillo subrayado text_bold">Poner fichas</span>
                                     </div>
                                 </form>
                                 <div id="pusiste_fichas" class="resaltado_gris"><span
@@ -126,36 +93,54 @@
                                 </div>
                             @endif
                         </div>
-                    </div>
-                    <div>
-                    </div>
+                        
+                        <div class="share_redes_gral">
+                            <span style="font-size:12px;margin-top:40px;display:block;">Compartir</span><br/>
+                            <div class="resaltado_gris">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}"
+                                   title="Compartir"
+                                   target="_blank"
+                                   onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
+                                   rel="noopener noreferrer"><span class="icono icon-fb"></span></a>
+                            </div>
+                            <div class="resaltado_gris">
+                                <a href="https://twitter.com/intent/tweet?text={{$propuesta['title']}}&amp;url={{url()->full()}}&amp;lang=es"
+                                   title="Twittear"
+                                   onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
+                                   rel="noopener noreferrer"><span class="icono icon-tw"></span></a>
+                            </div>
+                            <div class="resaltado_gris">
+                                <a href="whatsapp://send?text={{$propuesta['title']}} – {{url()->full()}}"
+                                   data-action="share/whatsapp/share" title="Compartir"
+                                   rel="noopener noreferrer"><span class="icono icon-whatsapp"></span></a>
+                            </div>
+                        </div>
+                    </div> 
                 </aside>
 
                 <div class="grilla_postulacion_a">
                     <div class="capitulos">
                         <div class="descripcion">
-                            <h2 class="subtitulo">Descripción.</h2>
+                            <h2 class="subtitulo">{{$propuesta['title']}}</h2> 
                             <p class="texto">{{$propuesta['description']}}</p>
                         </div>
                     </div>
-                    <div class="boton_">
-                        <a href="{{url('propuesta-detalle/'.$propuesta['id'])}}" target="_blank"
-                           class="resaltado_amarillo subrayado text_bold"
+                    @if($concurso->type == 1)
+                    <div class="">
+                        <a href="{{url('propuesta-detalle/'.$propuesta['id'])}}" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16"
                            rel="noopener noreferrer">Seguir leyendo</a>
                     </div>
+                    @endif
+                    @if($concurso->type == 1)
+                    @else
                     <div class="navegador_contenidos_">
-                        <div class="buscador_capitulos_">
-
+                        <div class="buscador_capitulos_"> 
                             <div id="ordenar" class="titulo">
                                 <span class="ordenar_bt_">Tabla de Contenidos</span>
                             </div>
                             <ul class="">
                                 @foreach($capitulos as $capitulo)
-                                    @if($concurso->type == 1)
-                                        <li id="">
-                                            <a href="{{url('propuesta-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
-                                               rel="noopener noreferrer">Cuento corto</a>
-                                        </li>
+                                    @if($concurso->type == 1) 
                                     @else
                                         <li id="">
                                             <a href="{{url('propuesta-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
@@ -166,16 +151,18 @@
                             </ul>
                         </div>
                     </div>
+                    @endif
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </section>
-            <div class="line_dashed">
-            </div>
         </div>
 
         @if(count($related))
             <section class="contenedor otras_prop">
                 <div class="titulo">
-                    <h2>Otras propuestas</h2>
+                    <h2>Otras postulaciones en este concurso</h2>
                 </div>
                 <div class="carrousel_cont_prop">
                     <div class="carrousel_prop">

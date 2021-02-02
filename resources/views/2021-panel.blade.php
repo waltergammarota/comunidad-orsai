@@ -70,7 +70,7 @@
                         @endif
                     </article>
                 </a>
-                {{-- <a href="{{url('mis-postulaciones')}}" class="card_style_panel">
+                <a href="{{url('mis-postulaciones')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
                             <img src="{{url('recursos/front2021/iconos_panel/mis_postulaciones.svg')}}"
@@ -80,7 +80,7 @@
                         <h2>Mis postulaciones</h2>
                         <p>Podrás ver tus postulaciones a los concursos.</p>
                     </article>
-                </a> --}}
+                </a>
                 <a href="{{url('mis-fichas')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
@@ -132,7 +132,7 @@
                         <p>Verificá qué hacemos con tu datos.</p>
                     </article>
                 </a>
-{{--                 <a href="{{url('redes-sociales')}}" class="card_style_panel">
+                <a href="{{url('redes-sociales')}}" class="card_style_panel">
                     <article >
                         <div class="icono">
                             <img src="{{url('recursos/front2021/iconos_panel/conectar_cuentas.svg')}}" alt="conectar_cuentas">
@@ -141,7 +141,7 @@
                         <h2>Conectar cuentas</h2>
                         <p>Lorem, ipsum dolor sit amet, consectetur adipisicing elit. Animi, quidem.</p>
                     </article>
-                </a> --}}
+                </a>
             </div>
         </div>
         <div class="resaltado_gris">

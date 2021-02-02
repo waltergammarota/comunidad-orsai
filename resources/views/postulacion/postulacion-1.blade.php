@@ -11,7 +11,7 @@
     <div class="fondo_blanco">
         <section id="intro" class="contenedor intro_gral contenedor_newform">
             <div>
-                <h1 class="span_h1">Contanos los detalles</h1>
+                <h1 class="span_h1">Completá los datos de tu postulación</h1>
             </div>
             <div class="pasos">
                 <span>1/2</span>
@@ -125,8 +125,8 @@
                 </div>
                 <div class="new_form">
                     <div class="btn_right">
-                        <button type="submit" id="btn_concurso" class="subrayado resaltado_amarillo text_bold">
-                            Siguiente
+                        <button type="submit" id="btn_concurso" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">
+                            Siguiente &raquo;
                         </button>
                     </div>
                 </div>
