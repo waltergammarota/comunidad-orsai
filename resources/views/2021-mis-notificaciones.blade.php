@@ -81,7 +81,7 @@
                 "searching": false,
                 "info": false,
                 "ordering": true,
-                "order": [[2, "desc"]],
+                "order": [[1, "desc"]],
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url('notificaciones-json')}}",
@@ -124,7 +124,7 @@
                         "data": function (data) {
                             return `<div class="grilla_form notificacion read"><div class="form_ctrl input_ col_6 round_label_cont "><div class="align_left"><div class="input_err"><div class=" input_err obligatorio"><div class="contenedor_notif"><a href="{{url('notificacion')}}/${data.id}"><div class="preview_notificacion"><span class="letra_chica text_bold">${data.title}</span></div><div class="explica_notif color_gris_claro"><span class="text_bold">${data.autor}</span> <span>-</span> <span>${data.deliver_time}</span></div></a></div></div></div></div></div></div>`;
                         }
-                    },
+                    }, 
                     {"data": "id"}
 
                 ],
