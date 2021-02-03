@@ -36,11 +36,13 @@
 
         .tran_creditos .cont_tabla table tbody tr td:not(:last-child) {
             border-right: 0px !important;
-        } 
+        }
+
         button.dt-button {
             margin-bottom: 20px !important;
             display: none !important;
-        } 
+        }
+
         .resaltado_amarillo {
             background-color: #ffed00 !important;
         }
@@ -90,7 +92,7 @@
 @section('footer')
     <link rel="stylesheet"
           href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <style> 
+    <style>
 
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
             background: none !important;
@@ -142,7 +144,6 @@
                 "searching": false,
                 "info": true,
                 "ordering": true,
-                "order": [[2, "desc"]],
                 "autoWidth": false,
                 "responsive": true,
                 "ajax": "{{url('notificaciones-json')}}",
@@ -194,7 +195,8 @@
                 </article>`;
                         }
                     },
-                    {"data": "id"}
+                    {"data": "id"},
+                    {"data": "deliver_time"}
 
                 ],
                 columnDefs: [{
