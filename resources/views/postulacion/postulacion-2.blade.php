@@ -74,21 +74,34 @@
                     @if($concurso->type == 2)
                         <div class="btn_right">
                             <button id="btn_cargar_capitulo" type="submit"
-                                    class="subrayado resaltado_amarillo text_bold">
-                                Cargar siguiente capítulo
+                                    class="boton_redondeado subrayado resaltado_amarillo text_bold">
+                                Siguiente capítulo &raquo;
                             </button>
                         </div>
-                    @endif
-                    @if($concurso->type == 1) 
-                    @else
-                    <div class="btn_left">
-                        <button class="subrayado resaltado_rojo text_bold" data-orden="{{$orden}}"
-                                id="btn_delete">
-                            Eliminar capitulo
-                        </button>
-                    </div> 
                     @endif 
+                    <div class="btn_left">
+                        @if($orden > 1)
+                            <button class="boton_redondeado subrayado resaltado_amarillo text_bold"
+                                    onclick="goToChapter('{{$orden - 1}}')">
+                                &laquo; Capítulo anterior
+                            </button>
+                        @else 
+                            <a onclick="goToCpa()"target="_blank" class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">&laquo; Volver</a> 
+                        @endif
+                    </div> 
                 </div>
+                {{--
+                    Debería dejarte borrar el capitulo pero si es que ya se cargó.
+                    Ahora lo deje así para que no te deje eliminar el primero.
+                     --}}
+                    @if($concurso->type == 2 && $orden > 1) 
+                        <div class="align_center">
+                            <button class="boton_redondeado subrayado resaltado_rojo_circ text_bold width_100 mg_bt_20" data-orden="{{$orden}}"
+                                    id="btn_delete">
+                                Eliminar capitulo
+                            </button>
+                        </div>  
+                    @endif 
                 <div class="new_form">
                     <div class="new_form">
                         <div class="align_center">
@@ -98,35 +111,22 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="new_form">
-                    <div class="btn_left">
-                        @if($orden > 1)
-                            <button class="subrayado resaltado_amarillo text_bold"
-                                    onclick="goToChapter('{{$orden - 1}}')">
-                                Volver al capítulo anterior
-                            </button>
-                        @else 
-                            <a onclick="goToCpa()"target="_blank" class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">&laquo; Volver</a> 
-                        @endif
-                    </div> 
-                </div>
             </form>
             <div class="mg_100"></div>
-
-            <div class="modal_msg">
-                <div class="mensaje">
-                    <div>
-                        <span class="text_bold">Esta seguro que desa eliminar el capítulo</span>
-                        <span class="confirma_eliminar btn_modal resaltado_rojo text_bold"
-                              onclick="deleteCpa('{{$orden}}')">Eliminar</span>
-                        <span class="cerrar btn_modal resaltado_amarillo text_bold">Cancelar</span>
-                    </div>
-                </div>
-            </div>
         </section>
     </div>
 @endsection
+
+<div class="modal_msg">
+    <div class="mensaje">
+        <div>
+            <span class="text_bold">¿Querés eliminar el capítulo?</span>
+            <span class="boton_redondeado resaltado_rojo_circ confirma_eliminar btn_modal resaltado_rojo text_bold"
+                  onclick="deleteCpa('{{$orden}}')">Eliminar</span>
+            <span class="boton_redondeado cerrar btn_modal resaltado_amarillo text_bold">Cancelar</span>
+        </div>
+    </div>
+</div>
 
 @section('footer')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -216,17 +216,14 @@
             });
         }
 
-        function popup() {
-            $("body").css('overflow', 'hidden');
+        function popup() { 
             $(".modal_msg").fadeIn();
         };
 
-        $(".cerrar").on("click", function () {
-            $("body").css('overflow', 'visible');
+        $(".cerrar").on("click", function () { 
             $(".modal_msg").fadeOut();
         });
-        $(".confirma_eliminar").on("click", function () {
-            $("body").css('overflow', 'visible');
+        $(".confirma_eliminar").on("click", function () { 
             $(".modal_msg").fadeOut();
         });
 

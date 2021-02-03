@@ -1,4 +1,4 @@
-@extends('orsai-template')
+ @extends('orsai-template')
 
 @section('title',  $concurso->name.' | Comunidad Orsai')
 @section('description', $concurso->name)
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="detalle_concurso">
                                 <h1 class="span_h1">{{$concurso->name}}</h1>
                                 <div class="encabezado_descripcion_concurso">
                                     @if($estado == "abierto" || $estado == "proximo")
@@ -40,21 +40,17 @@
                                 <div class="form_ctrl input_">
                                     <div class="align_left">
                                         @if($estado == "abierto")
-                                            @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas())
-                                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
-                                                   class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">Subir
-                                                    postulación &raquo;</a>
-                                            @endif
+                                            @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas()) 
+                                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">Subir postulación &raquo;</a> 
                                         @endif
-                                        @if($bases)
-                                            <a href="{{url($bases->slug)}}" target="_blank"
-                                               class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">Ver Bases y
-                                                condiciones
-                                                &raquo;</a>
-                                        @endif
+                                    @endif
+                                        @if($bases) 
+                                            <a href="{{url($bases->slug)}}" target="_blank" class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">Ver Bases y condiciones
+                                                &raquo;</a> 
+                                        @endif 
                                     </div>
                                 </div>
-
+                        
                                 @if($hasPostulacion)
                                     <div class="encabezado_descripcion_concurso pd_tp_20">
                                         <p class="titulo">Ya te postulaste a este concurso, <a href="#"

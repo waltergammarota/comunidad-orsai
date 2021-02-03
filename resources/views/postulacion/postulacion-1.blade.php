@@ -58,7 +58,7 @@
                 </div>
                 <div class="new_form">
                     <div class="input_err">
-                        <label>¿Querés sumar una imagen de portada?</label>
+                        <label>¿Querés sumar una imagen de portada?*</label>
                         <div class="tooltip_new">
                             <span class="ask_icon">(?)</span>
                             <div class="modal_asq oculto">
