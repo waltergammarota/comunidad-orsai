@@ -21,7 +21,7 @@
                                     // TODO CAMBIAR IMAGEN DEFAULT DE CONCURSO
                                     <img src="https://comunidadorsai.org/storage/images/15fc7e28ea8b2c.png" alt="">
                                 @endif
-                                <div class="caja_info_negra"> 
+                                <div class="caja_info_negra">
                                     <div>
                                         <span>Modo {{$concurso->getMode()->name}}</span>
                                     </div>
@@ -35,40 +35,46 @@
                                 <div class="encabezado_descripcion_concurso">
                                     @if($estado == "abierto" || $estado == "proximo")
                                         <p class="texto">{!!  $concurso->bajada_completa !!}</p>
-                                    @endif 
+                                    @endif
                                 </div>
-                                        <div class="form_ctrl input_">
-                                            <div class="align_left">
-                                                @if($estado == "abierto")
-                                                    @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas()) 
-                                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">Subir postulación &raquo;</a> 
-                                                @endif
+                                <div class="form_ctrl input_">
+                                    <div class="align_left">
+                                        @if($estado == "abierto")
+                                            @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas())
+                                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                                   class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">Subir
+                                                    postulación &raquo;</a>
                                             @endif
-                                                @if($bases) 
-                                                    <a href="{{url($bases->slug)}}" target="_blank" class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">Ver Bases y condiciones
-                                                        &raquo;</a> 
-                                                @endif 
-                                            </div>
-                                        </div>
-                                
-                                @if($hasPostulacion)
-                                    <div class="encabezado_descripcion_concurso pd_tp_20"> 
-                                        <p class="titulo">Ya te postulaste a este concurso, <a href="#" class="resaltado_amarillo">mirá tu propuesta</a>. </p>
+                                        @endif
+                                        @if($bases)
+                                            <a href="{{url($bases->slug)}}" target="_blank"
+                                               class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">Ver Bases y
+                                                condiciones
+                                                &raquo;</a>
+                                        @endif
                                     </div>
-                                @else 
-                                    <div class="encabezado_descripcion_concurso pd_tp_20"> 
+                                </div>
+
+                                @if($hasPostulacion)
+                                    <div class="encabezado_descripcion_concurso pd_tp_20">
+                                        <p class="titulo">Ya te postulaste a este concurso, <a href="#"
+                                                                                               class="resaltado_amarillo">mirá
+                                                tu propuesta</a>. </p>
+                                    </div>
+                                @elseif ($estado != "finalizado")
+                                    <div class="encabezado_descripcion_concurso pd_tp_20">
                                         <p class="titulo">Tenés tiempo para subir tu postulación hasta
                                             el {{$concurso->end_app_date->isoFormat('dddd D \d\e MMMM \d\e\l Y \a \l\a\s hh:mm')}}
                                             hs. (ARG).</p>
                                     </div>
                                 @endif
-                            </div> 
-                @empty(!$cantidadPostulaciones)
-                <div>
-                    <span class="span_h2"><strong class="post">{{$cantidadPostulaciones}}</strong> postulaciones presentadas / 
+                            </div>
+                            @empty(!$cantidadPostulaciones)
+                                <div>
+                    <span class="span_h2"><strong class="post">{{$cantidadPostulaciones}}</strong> postulaciones presentadas /
                     <strong class="fich">{{$cantidadFichasEnJuego}}</strong> de fichas en juego</span>
-                </div>
-                @endempty
+                                </div>
+        @endempty
     </section>
 
     @if($estado == "finalizado")
