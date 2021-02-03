@@ -2,7 +2,7 @@
     @foreach($propuestas as $item)
         <div class="logo_particantes" data-votos="" data-vistos=""
              data-alta="">
-            <a href="{{url('propuesta/'.$item['id'])}}">
+            <a href="{{url('postulacion/'.$item['id'])}}">
                 <div class="borde_logo">
                     <div class="logo_img">
                         @if(count($item['images']) > 0)

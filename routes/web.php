@@ -159,12 +159,12 @@ Route::middleware(['verified'])->group(
         )->name("concursos-show");
 
         Route::get(
-            '/propuesta/{id}',
+            '/postulacion/{id}',
             'PropuestaController@show'
         );
 
         Route::get(
-            '/propuesta-detalle/{id}',
+            '/postulacion-detalle/{id}',
             'PropuestaController@show_detalle'
         );
 

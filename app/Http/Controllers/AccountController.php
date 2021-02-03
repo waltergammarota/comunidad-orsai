@@ -220,7 +220,7 @@ class AccountController extends Controller
             return view('postulacion.postulacion-2', $data);
         }
         if ($status == "approved") {
-            return Redirect::to('propuesta/' . $postulacion->id);
+            return Redirect::to('postulacion/' . $postulacion->id);
         }
 
         return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
@@ -353,6 +353,8 @@ class AccountController extends Controller
     private function updateCap(Request $request)
     {
         $request->validate([
+            'title' => 'required|min:1|max:255',
+            'description' => 'required|min:1|max:255',
             "cap_id" => 'required',
             "contest_id" => 'required',
             "image_flag" => 'required',
@@ -361,6 +363,10 @@ class AccountController extends Controller
 
         $contest = ContestModel::find($request->contest_id);
         $cpa = ContestApplicationModel::find($request->cap_id);
+        $user = Auth::user();
+        if ($cpa->user_id != $user->id) {
+            abort(404);
+        }
 
         $files = $this->saveImages($request, $cpa);
 

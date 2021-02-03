@@ -37,6 +37,7 @@
                         </div>
                         <input type="text" name="title" class="obligatorio"
                                value="{{$postulacion? $postulacion->title: ""}}">
+
                     </div>
                 </div>
                 <div class="new_form">
@@ -125,7 +126,8 @@
                 </div>
                 <div class="new_form">
                     <div class="btn_right">
-                        <button type="submit" id="btn_concurso" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">
+                        <button type="submit" id="btn_concurso"
+                                class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">
                             Siguiente &raquo;
                         </button>
                     </div>

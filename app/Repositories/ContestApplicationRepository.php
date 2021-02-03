@@ -20,7 +20,8 @@ class ContestApplicationRepository extends GenericRepository
     public function __construct(
         ContestApplicationModel $contestApplicactionModel,
         UserRepository $userRepo = null
-    ) {
+    )
+    {
         $this->model = $contestApplicactionModel;
         $this->userRepo = $userRepo;
     }
@@ -63,7 +64,8 @@ class ContestApplicationRepository extends GenericRepository
         $cpaId,
         ContestApplication $contestApplication,
         Request $request
-    ) {
+    )
+    {
         $contestApplicationDB = ContestApplicationModel::find($cpaId);
         $contestApplicationDB->title = $contestApplication->getTitle();
         $contestApplicationDB->description = $contestApplication->getDescription();
@@ -179,7 +181,7 @@ class ContestApplicationRepository extends GenericRepository
         $data['images'] = $cpaDB->images()->orderBy('position')->get()->toArray();
         $data['pdfs'] = $cpaDB->pdfs()->orderBy('position')->get()->toArray();
         $data['owner'] = $cpaDB->owner()->first()->toArray();
-        $data['current_status'] = CpaLog::where("cap_id", $id)->latest()->first()->status;
+        $data['current_status'] = $cpaDB->status()->first()->status;
         return $data;
     }
 

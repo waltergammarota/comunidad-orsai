@@ -162,7 +162,7 @@
                     {
                         "data": "title",
                         "render": function (data, type, row, meta) {
-                            return `<a href="{{url('propuesta')}}/${row.id}" target="_blank">${data}</a>`;
+                            return `<a href="{{url('postulacion')}}/${row.id}" target="_blank">${data}</a>`;
                         }
                     },
                     {
