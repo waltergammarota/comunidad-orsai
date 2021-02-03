@@ -67,16 +67,15 @@
  
 
     </div>
-    <div class="modal_msg hidden">
-        <div class="mensaje">
-            <div>
-                <span class="text_bold">¡Qué bueno!</span>
-                <span>Gracias por enviar tu postulación.</span>
-                <span class="cerrar resaltado_amarillo text_bold">cerrar</span>
-            </div>
+@endsection
+<div class="modal_msg hidden">
+    <div class="mensaje">
+        <div>
+            <span class="text_bold">¡Qué bueno!</span>
+            <span>Gracias por enviar tu postulación.</span> 
         </div>
     </div>
-@endsection
+</div>
 
 @section('footer')
     <script>

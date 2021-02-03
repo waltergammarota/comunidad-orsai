@@ -93,7 +93,17 @@
                                 </div>
                             @endif
                         </div>
-                        
+                        <div class="detalle_votantes">
+                            <p>Sumar detalle de quienes votaron</p>
+                        </div>
+                        <div class="detalle_propuesta">
+                            <div class="descripcion">
+                                <h2 class="subtitulo">{{$propuesta['title']}}</h2> 
+                                <p class="texto">{{$propuesta['description']}}</p>
+                                <p class="texto"><a href="{{$propuesta['link']}}" target="_blank" style="font-size:12px;text-decoration:underline;">Ir al link</a></p>
+                                <p class="texto"><a href="#" target="_blank" style="font-size:12px;text-decoration:underline;">Ver Documento</a></p>
+                            </div>
+                        </div>
                         <div class="share_redes_gral">
                             <span style="font-size:12px;margin-top:40px;display:block;">Compartir</span><br/>
                             <div class="resaltado_gris">
@@ -118,35 +128,50 @@
                     </div> 
                 </aside>
 
-                <div class="grilla_postulacion_a">
-                    <div class="capitulos">
-                        <div class="descripcion">
-                            <h2 class="subtitulo">{{$propuesta['title']}}</h2> 
-                            <p class="texto">{{$propuesta['description']}}</p>
-                        </div>
-                    </div>
+                <div class="grilla_postulacion_a"> 
                     @if($concurso->type == 1)
-                    <div class="">
+                        @foreach($capitulos as $capitulo)
+                        <div class="capitulos">
+                            <div class="descripcion">
+                                <div class="capitulos" id="capitulo_{{$capitulo->orden}}">
+                                    @if($concurso->type == 1) 
+                                    @else
+                                        <span class="numero_capitulo">Capítulo {{$capitulo->orden}}</span>
+                                    @endif
+                                    <h2 class="subtitulo">{{$capitulo->title}}</h2>
+                                    <div class="texto">{!! $capitulo->body !!}</div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
+
+
+
+                    @if($concurso->type == 2)
+                    <div class="capitulos"> 
+                        <div class="descripcion">
+                                <h2 class="subtitulo">{{$capitulos[0]->title}}</h2>
+                                <div class="texto">{!! substr($capitulos[0]->body, 0,  250) !!}...</div><br/>
+                        </div>  
+                    </div>
+                    <div class="seguir_div">
                         <a href="{{url('propuesta-detalle/'.$propuesta['id'])}}" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16"
                            rel="noopener noreferrer">Seguir leyendo</a>
                     </div>
                     @endif
-                    @if($concurso->type == 1)
-                    @else
+                    @if($concurso->type == 2) 
                     <div class="navegador_contenidos_">
                         <div class="buscador_capitulos_"> 
                             <div id="ordenar" class="titulo">
-                                <span class="ordenar_bt_">Tabla de Contenidos</span>
+                                <span class="ordenar_bt_">Capítulos</span>
                             </div>
                             <ul class="">
-                                @foreach($capitulos as $capitulo)
-                                    @if($concurso->type == 1) 
-                                    @else
+                                @foreach($capitulos as $capitulo) 
                                         <li id="">
                                             <a href="{{url('propuesta-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
-                                               rel="noopener noreferrer">Capítulo {{$capitulo->orden}}</a>
-                                        </li>
-                                    @endif
+                                               rel="noopener noreferrer">{{$capitulo->orden}} - {{$capitulo->title}}</a>
+                                        </li> 
                                 @endforeach
                             </ul>
                         </div>
@@ -185,6 +210,15 @@
                 </div>
             </section>
         @endif
+        <section class="contenedor otras_prop"> 
+        <div class="miga_orsai">
+            <a href="#" class="text_bold boton_redondeado resaltado_gris">&laquo; Volver al concurso</a>
+        </div>
+
+        <br />
+        <br />
+        <br />
+        </section>
     </div>
     <div id="err_msg" class="popup">
         <div>

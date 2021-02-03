@@ -92,7 +92,36 @@
                             </div>
                         @endif
                     </div>
-                    
+                    <div class="detalle_votantes">
+                        <p>Sumar detalle de quienes votaron</p>
+                    </div> 
+                    <div class="detalle_propuesta">
+                        <div class="descripcion">
+                            <h2 class="subtitulo">{{$propuesta['title']}}</h2> 
+                            <p class="texto">{{$propuesta['description']}}</p>
+                            <p class="texto"><a href="{{$propuesta['link']}}" target="_blank" style="font-size:12px;text-decoration:underline;">Ir al link</a></p> 
+                            <p class="texto"><a href="#" target="_blank" style="font-size:12px;text-decoration:underline;">Ver Documento</a></p>
+                        </div>
+                    </div>
+                    @if($concurso->type == 2)  
+                        <div class="navegador_contenidos">
+                            <div class="buscador_capitulos">
+    
+                                <div id="ordenar" class="titulo">
+                                        <span class="ordenar_bt">Capítulos <span
+                                                class="icon-angle-down "></span></span>
+                                </div>
+                                <ul class="">
+                                    @foreach($capitulos as $capitulo)
+                                            <li id="">
+                                                <a href="#capitulo_{{$capitulo->orden}}"
+                                                rel="noopener noreferrer">{{$capitulo->orden}} - {{$capitulo->title}}</a>
+                                            </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                     <div class="share_redes_gral">
                         <span style="font-size:12px;margin-top:40px;display:block;">Compartir</span><br/>
                         <div class="resaltado_gris">
@@ -117,32 +146,8 @@
                 </div> 
             </aside>
             <div class="grilla_postulacion_a">
-                @if($concurso->type == 1) 
-                @else
-                    <div class="navegador_contenidos">
-                        <div class="buscador_capitulos">
-
-                            <div id="ordenar" class="titulo">
-                                    <span class="ordenar_bt">Tabla de Contenidos <span
-                                            class="icon-angle-down "></span></span>
-                            </div>
-                            <ul class="">
-                                @foreach($capitulos as $capitulo)
-                                        <li id="">
-                                            <a href="#capitulo_{{$capitulo->orden}}"
-                                            rel="noopener noreferrer">Capítulo {{$capitulo->orden}}</a>
-                                        </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
                 @foreach($capitulos as $capitulo)
-                    <div class="capitulos" id="capitulo_{{$capitulo->orden}}">
-                        @if($concurso->type == 1) 
-                        @else
-                            <span class="numero_capitulo">Capítulo {{$capitulo->orden}}</span>
-                        @endif
+                    <div class="capitulos" id="capitulo_{{$capitulo->orden}}"> 
                         <h2 class="subtitulo">{{$capitulo->title}}</h2>
                         <div class="texto">{!! $capitulo->body !!}</div>
                     </div>

@@ -122,10 +122,10 @@
                         "data": "actions",
                         "render": function (data, type, row, meta) {
                             if (row.active == 1) {
-                                return `<button type="button" class="btn btn-primary pausar">Pausar</button>
+                                return `<button type="button" class="btn btn-primary pausar">Ocultar</button>
                                  <button type="button" class="btn btn-success editar">Editar</button>`;
                             }
-                            return `<button type="button" class="btn btn-primary pausar">activar</button>
+                            return `<button type="button" class="btn btn-primary pausar">Mostrar</button>
                                     <button type="button" class="btn btn-success editar">Editar</button>`;
                         }
                     }

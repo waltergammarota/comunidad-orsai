@@ -47,7 +47,7 @@
                                        class="subrayado resaltado_rechazada">Rechazada</a></td>
                             @elseif($status->status== "draft")
                                 <td><a href="{{url('propuesta/'.$postulacion->id)}}"
-                                       class="subrayado">Borrador</a></td>
+                                       class="subrayado">Rechazada</a></td>
                             @elseif($status->status== "sent")
                                 <td><a href="{{url('propuesta/'.$postulacion->id)}}"
                                        class="subrayado resaltado_amarillo">En revisión</a></td>
