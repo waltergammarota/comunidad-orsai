@@ -322,8 +322,8 @@
             const error2 = $("#errNm2");
             console.log(body);
             const validTitle = validateInput(title, 2, 120, error1);
-            const validBody = validateInput(body, 10, {{$concurso->cant_caracteres}}, error2);
-            if (validTitle && validBody) {
+            const validBody = validateInput(body, 15, {{$concurso->cant_caracteres}}, error2);
+            if (validTitle.status && validBody.status) {
                 axios.post(url, {
                     "cap_id": {{$postulacion->id}},
                     "orden": {{$orden}},
