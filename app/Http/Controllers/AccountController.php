@@ -238,7 +238,12 @@ class AccountController extends Controller
         $data['bases'] = 'url'; //$data['concurso']->getbases(); (?)
         $data['postulacion'] = $cpa;
         $data['concurso'] = $cpa->contest()->first();
-        $data['logo'] = $data['concurso']->logo();
+        $images = $cpa->images()->get();
+        if (count($images) > 0) {
+            $data['logo'] = $images[0];
+        } else {
+            $data['logo'] = $data['concurso']->logo();
+        }
         return view("postulacion.postulacion-preview", $data);
     }
 
