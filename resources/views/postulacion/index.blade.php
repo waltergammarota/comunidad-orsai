@@ -201,7 +201,7 @@
                             </div>
                         </div>
                         <div class="seguir_div">
-                            <a href="{{url('propuesta-detalle/'.$propuesta['id'])}}"
+                            <a href="{{url('postulacion-detalle/'.$propuesta['id'])}}"
                                class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16"
                                rel="noopener noreferrer">Seguir leyendo</a>
                         </div>
