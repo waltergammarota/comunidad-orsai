@@ -215,7 +215,7 @@
                                 <ul class="">
                                     @foreach($capitulos as $capitulo)
                                         <li id="">
-                                            <a href="{{url('propuesta-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
+                                            <a href="{{url('postulacion-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
                                                rel="noopener noreferrer">{{$capitulo->orden}} - {{$capitulo->title}}</a>
                                         </li>
                                     @endforeach
