@@ -8,6 +8,8 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\ContestsModo;
 use App\Databases\ContestsType;
+use App\Databases\CpaChapterModel;
+use App\Databases\CpaLog;
 use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\WebController;
