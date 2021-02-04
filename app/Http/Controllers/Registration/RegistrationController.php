@@ -138,7 +138,9 @@ class RegistrationController extends Controller
                 $token
             );
             $request->session()->flash('alert', 'activation_email');
-            $data = ["email" => $user->email];
+            $data = $this->getUserData();
+            $data["email"] = $user->email;
+
             return view('reenviar-mail-activacion', $data);
         }
     }
