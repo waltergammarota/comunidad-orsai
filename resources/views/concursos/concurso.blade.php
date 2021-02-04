@@ -1,4 +1,4 @@
- @extends('orsai-template')
+@extends('orsai-template')
 
 @section('title',  $concurso->name.' | Comunidad Orsai')
 @section('description', $concurso->name)
@@ -40,22 +40,28 @@
                                 <div class="form_ctrl input_">
                                     <div class="align_left">
                                         @if($estado == "abierto")
-                                            @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas()) 
-                                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">Subir postulación &raquo;</a> 
+                                            @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas())
+                                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                                   class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">Subir
+                                                    postulación &raquo;</a>
+                                            @endif
                                         @endif
-                                    @endif
-                                        @if($bases) 
-                                            <a href="{{url($bases->slug)}}" target="_blank" class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">Ver Bases y condiciones
-                                                &raquo;</a> 
-                                        @endif 
+                                        @if($bases)
+                                            <a href="{{url($bases->slug)}}" target="_blank"
+                                               class="boton_redondeado resaltado_gris font_14 pd_50_lf_rg">Ver Bases y
+                                                condiciones
+                                                &raquo;</a>
+                                        @endif
                                     </div>
                                 </div>
-                        
+
                                 @if($hasPostulacion)
                                     <div class="encabezado_descripcion_concurso pd_tp_20">
-                                        <p class="titulo">Ya te postulaste a este concurso, <a href="#"
-                                                                                               class="resaltado_amarillo">mirá
-                                                tu propuesta</a>. </p>
+                                        <p class="titulo">Ya te postulaste a este concurso,
+                                            <a href="{{url('postulacion/'.$propuestaId)}}" class="resaltado_amarillo">
+                                                mirá tu propuesta
+                                            </a>.
+                                        </p>
                                     </div>
                                 @elseif ($estado != "finalizado")
                                     <div class="encabezado_descripcion_concurso pd_tp_20">
@@ -120,7 +126,7 @@
                                         @elseif($concurso->mode == 3)
                                             <div>
                                                 <span class="fichas_finales">Premio:</span>
-                                                <span>USD {{$postulacion->prize_amount}}</span>
+                                                <span>USD {{$concurso->amount_usd}}</span>
                                             </div>
                                             <div>
                                                 <span class="fichas_finales">{{$postulacion->votes}}</span>

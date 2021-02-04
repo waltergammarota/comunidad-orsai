@@ -141,6 +141,12 @@
 @endsection
 
 @section('footer')
+    <style>
+        span.error {
+            color: red;
+            font-size: 12px
+        }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
     <script>
@@ -209,18 +215,37 @@
                 $("#concursos").validate({
                     ignore: "",
                     rules: {
-                        title: {required: true, minlength: 2, maxlength: 255},
+                        title: {required: true, minlength: 2, maxlength: 120},
                         description: {required: true, minlength: 2, maxlength: 255},
                         link: {url: true},
+                        @if(!$postulacion)
+                        "images[]": {required: true, extension: "png|jpe|jpg"},
+                        "pdf[]": {required: true, extension: "pdf"}
+                        @else
                         "images[]": {extension: "png|jpe|jpg"},
                         "pdf[]": {extension: "pdf"}
+                        @endif
                     },
                     messages: {
-                        title: "El campo Nombre es obligatorio (de 2 a 255 caracteres)",
-                        description: "La descripcion es obligatoria (de 2 a 255 caracteres)",
+                        title: {
+                            required: "El campo Nombre es obligatorio (de 2 a 120 caracteres)",
+                            minlength: "Dale escribite algo más",
+                            maxlength: "No se pueden escribir más de {0} caracteres"
+                        },
+                        description: {
+                            required: "La descripcion es obligatoria (de 2 a 255 caracteres)",
+                            minlength: "Dale escribite algo más",
+                            maxlength: "No se pueden escribir más de {0} caracteres"
+                        },
                         link: "La url ingresada no es valida",
-                        "images[]": "El archivo seleccionado no es valido",
-                        "pdf[]": "El archivo seleccionado no es valido"
+                        "images[]": {
+                            required: "La imagen de portada es obligatoria",
+                            extension: "El archivo seleccionado no es valido",
+                        },
+                        "pdf[]": {
+                            required: "El archivo pdf es obligatorio",
+                            extension: "El archivo seleccionado no es valido"
+                        }
                     },
                     errorElement: 'span'
                 });

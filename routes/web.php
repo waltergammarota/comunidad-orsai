@@ -633,6 +633,13 @@ Route::middleware(['verified'])->group(
         Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
 
         Route::post(
+            'admin/contest/deleteAll',
+            'Contest\ContestController@deleteAll'
+        )->name(
+            'concurso-delete-all'
+        )->middleware('admin_role');
+
+        Route::post(
             'admin/contest/deleteImage',
             'Contest\ContestController@deleteImage'
         )->name(

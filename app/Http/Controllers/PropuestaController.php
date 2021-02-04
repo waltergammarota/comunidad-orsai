@@ -120,13 +120,18 @@ class PropuestaController extends Controller
 
     public function votar(Request $request)
     {
-        $vote = new VoteAContestApplication(
-            $request->cap_id,
-            Auth::user()->id,
-            $request->amount
-        );
-        $output = $vote->execute();
-        return response()->json(["totalVotes" => $output]);
+        $user = Auth::user();
+        $cpa = ContestApplicationModel::find($request->cap_id);
+        if ($cpa->user_id != $user->id) {
+            $vote = new VoteAContestApplication(
+                $request->cap_id,
+                Auth::user()->id,
+                $request->amount
+            );
+            $output = $vote->execute();
+            return response()->json(["totalVotes" => $output]);
+        }
+        return response()->json(["status" => "error", "msg" => "No puedes votarte a tí mismo"], 400);
     }
 
     private function findPropuesta($id)
