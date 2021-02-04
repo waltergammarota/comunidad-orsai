@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="detalle_concurso">
                                 <h1 class="span_h1">{{$concurso->name}}</h1>
                                 <div class="encabezado_descripcion_concurso">
                                     @if($estado == "abierto" || $estado == "proximo")
@@ -57,9 +57,11 @@
 
                                 @if($hasPostulacion)
                                     <div class="encabezado_descripcion_concurso pd_tp_20">
-                                        <p class="titulo">Ya te postulaste a este concurso, <a href="#"
-                                                                                               class="resaltado_amarillo">mirá
-                                                tu propuesta</a>. </p>
+                                        <p class="titulo">Ya te postulaste a este concurso,
+                                            <a href="{{url('postulacion/'.$propuestaId)}}" class="resaltado_amarillo">
+                                                mirá tu propuesta
+                                            </a>.
+                                        </p>
                                     </div>
                                 @elseif ($estado != "finalizado")
                                     <div class="encabezado_descripcion_concurso pd_tp_20">
@@ -124,7 +126,7 @@
                                         @elseif($concurso->mode == 3)
                                             <div>
                                                 <span class="fichas_finales">Premio:</span>
-                                                <span>USD {{$postulacion->prize_amount}}</span>
+                                                <span>USD {{$concurso->amount_usd}}</span>
                                             </div>
                                             <div>
                                                 <span class="fichas_finales">{{$postulacion->votes}}</span>

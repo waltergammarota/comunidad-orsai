@@ -1380,25 +1380,32 @@
 
 .capitulos .numero_capitulo {
     display: inline-block;
-    font-size: 28px !important;
-    font-weight: 700 !important;
-    line-height: 130%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    width: 100%;
-    text-transform: uppercase;
+    font-size: 14px !important;
+    color:#999; 
+    font-weight: 400 !important;
+    line-height: 130%; 
+    text-align: left;
+    width: 100%; 
+    border-top:1px solid #ddd;
+    padding-top:20px;
+    padding-bottom:10px;
+    margin-top:30px;
 }
 
 .capitulos .subtitulo {
     font-size: 24px !important;
     font-weight: 700 !important;
     line-height: 130%;
+    margin-top:0;
+    margin-bottom:5px;
 }
 
 .capitulos .texto {
     font-size: 16px !important;
     line-height: 140%;
+}
+.capitulos .texto p{ 
+    margin:0
 }
 
 .btn_scroll_down {
@@ -1550,29 +1557,16 @@
 }
 
 .modal_msg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: none;
-    z-index: 50000000000000000;
-    /* overflow: hidden; */
+    position: fixed;
+    height: 100vh;
+    width: 100%; 
+    top:0;
+    z-index: 99999999999;
+    display:none; 
+    background-color: rgba(0,0,0,0.6);
+    overflow-y:hidden;
 }
-
-.modal_msg::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.5;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    z-index: -1;
-    overflow: hidden;
-}
-
+ 
 .modal_msg .mensaje {
     border-radius: 5px;
     position: absolute;
@@ -1625,13 +1619,8 @@
 }
 
 .navegador_contenidos {
-    background-color: rgb(192, 192, 192);
-    vertical-align: top;
-    position: sticky;
-    position: -webkit-sticky;
-
-    top: -1px;
-    z-index: 30000000000000;
+    background-color: #eee;
+    border-radius:5px;
 }
 
 .navegador_contenidos .titulo {
@@ -1688,7 +1677,7 @@
 }
 
 .buscador_capitulos_ ul li a {
-    padding: 10px 0px;
+    padding: 10px 5px;
 }
 
 .buscador_capitulos_ ul li:hover {
@@ -1741,10 +1730,10 @@
     padding-left: 10px;
 }
 
-.buscador_capitulos ul {
-    margin-bottom: 15px;
+.buscador_capitulos ul { 
     max-height: 0;
     padding: 0;
+    margin:0;
     overflow: hidden;
     -ms-transition: max-height 0.35s ease;
     transition: max-height 0.35s ease;
@@ -2130,10 +2119,10 @@ input[type="number"] {
 
 .contenedor_lateral {
     width: calc(100% - 660px);
-    /* height:300px; */
-    display: inline-block;
+    /* height:300px; */ 
     vertical-align: top;
-    position: absolute;
+    position: relative;
+    float: right;
     background-color: white;
     left: none;
     right: -30px;
@@ -2327,11 +2316,15 @@ input[type="number"] {
 
 .grilla_postulacion_a {
     padding: 20px 35px;
-    max-width: 650px;
-    display: inline-block;
+    max-width: 650px; 
+    float: left;
+    width:100%;
 
 }
+.grilla_postulacion_a .capitulos{
+    margin-bottom:20px;
 
+}
 @media (min-width: 991px) and (max-width: 1600px) {
     .grilla_postulacion_a {
         max-width: 590px;
@@ -2515,8 +2508,7 @@ input[type="number"] {
     text-decoration: none;
     cursor: pointer;
     user-select: none;
-    color:#444;
-    margin-right:10px;
+    color:#444; 
     outline:none;
 }
 .boton_redondeado:disabled {
@@ -2553,6 +2545,43 @@ input[type="number"] {
 .grilla_texto > .descripcion > .texto{
     margin:5px 0 20px 0;
 }
-#description-error{
+#description-error,
+#summernote-error{
     color: red;
+}
+.detalle_propuesta{ 
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    margin:20px 0;
+}
+.detalle_propuesta .subtitulo{
+    font-size:16px;
+}
+.detalle_propuesta .texto{
+    font-size:14px;
+}
+.detalle_votantes{
+    font-size:12px;
+}
+.resaltado_rojo_circ{
+    border:2px solid red;
+    background:transparent;
+    color: red;
+}
+.resaltado_rojo_circ:hover{
+    border:2px solid red;
+    background:red;
+    color: white;
+}
+.mg_bt_20{
+    margin-bottom: 20px;
+}
+.seguir_div{
+    margin-top:20px;
+}
+.otras_prop{
+    margin-bottom:50px;
+}
+.detalle_concurso .boton_redondeado {
+    margin-right:10px;
 }

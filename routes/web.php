@@ -159,12 +159,12 @@ Route::middleware(['verified'])->group(
         )->name("concursos-show");
 
         Route::get(
-            '/propuesta/{id}',
+            '/postulacion/{id}',
             'PropuestaController@show'
         );
 
         Route::get(
-            '/propuesta-detalle/{id}',
+            '/postulacion-detalle/{id}',
             'PropuestaController@show_detalle'
         );
 
@@ -631,6 +631,13 @@ Route::middleware(['verified'])->group(
         Route::get('admin/concursos/crear', 'Contest\ContestController@create')->name('concurso-crear')->middleware('admin_role');
 
         Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
+
+        Route::post(
+            'admin/contest/deleteAll',
+            'Contest\ContestController@deleteAll'
+        )->name(
+            'concurso-delete-all'
+        )->middleware('admin_role');
 
         Route::post(
             'admin/contest/deleteImage',

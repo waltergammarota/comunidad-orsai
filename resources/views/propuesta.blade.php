@@ -206,7 +206,7 @@
                     <div class="owl-carousel items">
                         @foreach($related as $item)
                             <div class="logo_particantes">
-                                <a href="{{url('propuesta/'.$item->id)}}">
+                                <a href="{{url('postulacion/'.$item->id)}}">
                                     <div class="logo_img">
                                         <img
                                             src="{{url('storage/logo/'.$item['logos'][0]['name'].".".$item['logos'][0]['extension'])}}"

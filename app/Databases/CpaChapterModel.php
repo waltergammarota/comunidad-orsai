@@ -48,6 +48,6 @@ class CpaChapterModel extends Model
 
     static public function getChapters($cpaId)
     {
-        return self::where("cap_id", $cpaId)->orderBy("orden", "desc")->get();
+        return self::where("cap_id", $cpaId)->orderBy("orden", "asc")->get();
     }
 }

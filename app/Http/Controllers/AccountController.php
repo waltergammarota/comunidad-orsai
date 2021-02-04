@@ -220,7 +220,7 @@ class AccountController extends Controller
             return view('postulacion.postulacion-2', $data);
         }
         if ($status == "approved") {
-            return Redirect::to('propuesta/' . $postulacion->id);
+            return Redirect::to('postulacion/' . $postulacion->id);
         }
 
         return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
@@ -279,13 +279,13 @@ class AccountController extends Controller
             return response()->json(["status" => "error"], 400);
         }
         $chapter->delete();
-        $contest = $cpa->contest();
+        $contest = $cpa->contest()->first();
         $this->reorganizeChapters($capId, $orden);
         if ($orden == 1) {
             $url = url("postulaciones/{$contest->id}/{$contest->name}");
         } else {
             $ordenAnterior = $orden - 1;
-            $url = url("postulaciones/{$contest->id}/{$contest->name}/capitulos/{$ordenAnterior}");
+            $url = url("postulaciones/{$contest->id}/{$contest->name}/capitulos/1");
         }
         return response()->json(["status" => "sucess", "url" => $url]);
     }
@@ -305,7 +305,7 @@ class AccountController extends Controller
         $request->validate([
             "cap_id" => "required",
             "orden" => "required|numeric",
-            "title" => "required",
+            "title" => "required|min:1|max:120",
             "body" => "required"
         ]);
         $cpaId = $request->cap_id;
@@ -353,6 +353,8 @@ class AccountController extends Controller
     private function updateCap(Request $request)
     {
         $request->validate([
+            'title' => 'required|min:1|max:120',
+            'description' => 'required|min:1|max:255',
             "cap_id" => 'required',
             "contest_id" => 'required',
             "image_flag" => 'required',
@@ -361,6 +363,10 @@ class AccountController extends Controller
 
         $contest = ContestModel::find($request->contest_id);
         $cpa = ContestApplicationModel::find($request->cap_id);
+        $user = Auth::user();
+        if ($cpa->user_id != $user->id) {
+            abort(404);
+        }
 
         $files = $this->saveImages($request, $cpa);
 
@@ -386,11 +392,11 @@ class AccountController extends Controller
     {
         $request->validate(
             [
-                'title' => 'required|min:1|max:255',
+                'title' => 'required|min:1|max:120',
                 'description' => 'required|min:1|max:255',
                 'contest_id' => 'required',
                 'images' => 'array',
-                'images.*' => 'image|max:5120',
+                'images.*' => 'mimes:jpeg,png,jpg,gif,svg|max:5120',
                 'pdf' => 'array',
                 'pdf.*' => 'mimes:pdf|max:5120',
             ]

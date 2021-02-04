@@ -37,19 +37,19 @@
                             {{-- TODO DEFINIR IMAGEN DE CADA TIPO--}}
                             <td><img src="{{url('img/participantes/participante.jpg')}}" width="24"
                                      alt="modo_concurso">&nbsp;{{$postulacion->contest()->first()->name}}</td>
-                            <td>{{$postulacion->created_at->format('d/m/Y H:i')}}</td>
-                            <?php $status = $postulacion->status()->first() ?>
+                            <td>{{$postulacion->created_at->subHours(3)->format('d/m/Y H:i')}}</td>
+                            <?php $status = $postulacion->status()->first(); ?>
                             @if($status->status  == 'approved')
-                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                <td><a href="{{url('postulacion/'.$postulacion->id)}}"
                                        class="subrayado resaltado_aprobada">Aprobada</a></td>
                             @elseif($status->status == "rejected")
-                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                <td><a href="{{url('postulacion/'.$postulacion->id)}}"
                                        class="subrayado resaltado_rechazada">Rechazada</a></td>
                             @elseif($status->status== "draft")
-                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                <td><a href="{{url('postulacion/'.$postulacion->id)}}"
                                        class="subrayado">Borrador</a></td>
                             @elseif($status->status== "sent")
-                                <td><a href="{{url('propuesta/'.$postulacion->id)}}"
+                                <td><a href="{{url('postulacion/'.$postulacion->id)}}"
                                        class="subrayado resaltado_amarillo">En revisión</a></td>
                             @endif
                         </tr>

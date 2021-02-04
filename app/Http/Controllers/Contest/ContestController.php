@@ -14,6 +14,7 @@ use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\UserRepository;
+use App\UseCases\ContestApplication\GetContestApplicationById;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,7 +85,12 @@ class ContestController extends Controller
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
         // CONCURSO POSTULACIONES ABIERTAS
         $data['estado'] = $contest->getStatus();
-        $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, Auth::user()->id);
+        $user = Auth::user();
+        $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, $user->id);
+        $data['propuesta'] = false;
+        if ($data['hasPostulacion']) {
+            $data['propuestaId'] = ContestApplicationModel::select('id')->where('contest_id', $contest->id)->where("user_id", $user->id)->first()->id;
+        }
         if ($contest->hasPostulacionesAbiertas()) {
             $data['estado'] = "abierto";
             $data['postulaciones_abiertas'] = true;
@@ -418,5 +424,23 @@ class ContestController extends Controller
             return $contest->image;
         }
         return 0;
+    }
+
+    public function deleteAll(Request $request)
+    {
+        $id = $request->id;
+        $contest = ContestModel::find($id);
+        if ($contest) {
+            $cpas = ContestApplicationModel::where("contest_id", $contest->id)->get();
+            foreach ($cpas as $cpa) {
+                CpaLog::where("cap_id", $cpa->id)->delete();
+                CpaChapterModel::where("cap_id", $cpa->id)->delete();
+            }
+            ContestApplicationModel::where("contest_id", $contest->id)->delete();
+            ContestModel::where("id", $contest->id)->delete();
+            return response()->json(["status" => "success", "msg" => "Concurso borrado"]);
+        }
+        return response()->json(["status" => "error", "message" => "Concurso no encontrado"], 400);
+
     }
 }
