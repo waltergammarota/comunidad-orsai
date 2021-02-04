@@ -220,11 +220,10 @@
                         link: {url: true},
                         @if(!$postulacion)
                         "images[]": {required: true, extension: "png|jpe|jpg"},
-                        "pdf[]": {required: true, extension: "pdf"}
                         @else
                         "images[]": {extension: "png|jpe|jpg"},
-                        "pdf[]": {extension: "pdf"}
                         @endif
+                        "pdf[]": {extension: "pdf"}
                     },
                     messages: {
                         title: {
