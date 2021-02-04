@@ -65,7 +65,7 @@ class VoteAContestApplication extends GenericUseCase
 
         $ingreso = Transaction::where(["to" => $userId])->whereIn('type', ['MINT', 'TRANSFER'])->sum("amount");
         $egreso = Transaction::where(["from" => $userId])->whereIn('type', ['TRANSFER'])->sum("amount");
-        $quemado = Transaction::where(['to' => $userId])->whereIn('type', 'BURN')->sum("amount");
+        $quemado = Transaction::where(['to' => $userId])->whereIn('type', ['BURN'])->sum("amount");
         $votesOnThisApplication = Transaction::where(["from" => $userId, "cap_id" => $capId])->sum("amount");
         $maxLimitPerApplication = 450;
         $minLimitPerApplication = 50;
@@ -94,8 +94,7 @@ class VoteAContestApplication extends GenericUseCase
             $totalVotes = $this->cap->votes + $amount;
             $this->cap->votes = $totalVotes;
             $this->cap->save();
-            $balance = $ingreso = ($egreso + $amount);
-            $output = ["success" => true, "totalVotes" => $totalVotes, "available" => 450 - $votesOnThisApplication, "balance" => $balance];
+            $output = ["success" => true, "totalVotes" => $totalVotes, "available" => 450 - $votesOnThisApplication, "balance" => $balance - $amount];
             return $output;
         }
         $output = ["success" => false, "totalVotes" => $this->cap->votes, "available" => 450 - $votesOnThisApplication, "balance" => $balance];
