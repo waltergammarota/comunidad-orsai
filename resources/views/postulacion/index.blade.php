@@ -29,11 +29,45 @@
                     @endif
                 </div>
                 <div class="fichas_acumuladas_banner">
-                    <div class="info_banner ">
+                    <div class="info_banner" id="btn_ver_quien">
                         <div class="icono resaltado_amarillo">
                             <span class="icon-ficha"></span>
                         </div>
-                        <p class="titulo"><strong>{{$propuesta['votes']}}</strong></p>
+                        <p class="titulo" ><strong>{{$propuesta['votes']}}</strong></p>
+                        
+                        <div class="detalle_votantes">
+                            <div class="prop_info_text">  
+                                <div id="quien_fichas_modal" class="popup">
+                                    <div id="quien_fichas">
+                                        <div class="contenedor_quien_fichas">
+                                            <div class="cerrar">
+                                                <span>(X)</span>
+                                            </div>
+                                            <div class="quien_fichas_header">
+                                                <span>Pusieron fichas:</span>
+                                            </div>
+                                            <div id="content-ltn"
+                                                 class="content pusieron_listas">
+                                                <ul id="ul_listas">
+                                                    @foreach($txs as $tx)
+                                                        <li><a href="{{url('perfil-usuario')}}/{{$tx->id}}"
+                                                               target="_blank">
+                                                                <img
+                                                                    src="{{url($tx->avatar)}}"
+                                                                    alt="{{$tx->userName}}">
+                                                                <span
+                                                                    class="nombre_puso">{{$tx->userName}}</span>
+                                                                <span
+                                                                    class="fichas_puso">{{$tx->amount}}</span></a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
                     </div>
                     <div class="info_banner ">
                         <div class="icono resaltado_amarillo">
@@ -72,8 +106,8 @@
             <section id="" class="indice_contenidos ">
                 <aside class="contenedor_lateral">
                     <div class="part_lat">
-                        <div id="bt_votar_2">
                             @if($canVote)
+                            <div id="bt_votar_2">
                                 <form action="{{url('votar')}}" method="POST" id="form_votacion">
                                     <input type="hidden" name="cap_id"
                                            value="{{$propuesta['id']}}"/>
@@ -84,53 +118,14 @@
                                                onchange="controlVoteInput(this);false;">
                                     </div>
                                     <div id="bt_form_votar">
-                            <span
-                                class="boton_redondeado resaltado_amarillo subrayado text_bold">Poner fichas</span>
+                                    <span class="boton_redondeado resaltado_amarillo subrayado text_bold">Poner fichas</span>
                                     </div>
                                 </form>
                                 <div id="pusiste_fichas" class="resaltado_gris"><span
                                         class="text_bold subrayado">Ya pusiste fichas</span><span class="icon-o"></span>
                                 </div>
-                            @endif
-                        </div>
-                        <div class="detalle_votantes">
-                            <div class="prop_info_text">
-                                <span class="gris">Fichas:</span>
-                                <span id="btn_ver_quien"
-                                      class="resaltado_amarillo">Ver</span>
-
-                                <div id="quien_fichas_modal" class="popup">
-                                    <div id="quien_fichas">
-                                        <div class="contenedor_quien_fichas">
-                                            <div class="cerrar">
-                                                <span>(X)</span>
-                                            </div>
-                                            <div class="quien_fichas_header">
-                                                <span>Pusieron fichas:</span>
-                                            </div>
-                                            <div id="content-ltn"
-                                                 class="content pusieron_listas">
-                                                <ul id="ul_listas">
-                                                    @foreach($txs as $tx)
-                                                        <li><a href="{{url('perfil-usuario')}}/{{$tx->id}}"
-                                                               target="_blank">
-                                                                <img
-                                                                    src="{{url($tx->avatar)}}"
-                                                                    alt="{{$tx->userName}}">
-                                                                <span
-                                                                    class="nombre_puso">{{$tx->userName}}</span>
-                                                                <span
-                                                                    class="fichas_puso">{{$tx->amount}}</span></a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
-                        </div>
+                        @endif
                         <div class="detalle_propuesta">
                             <div class="descripcion">
                                 <h2 class="subtitulo">{{$propuesta['title']}}</h2>
@@ -291,8 +286,7 @@
 
 @section('footer')
     <script src="{{url('owlcarousel/js/owl.carousel.js')}}"></script>
-    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script>
-    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script>
+    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script> 
 
     <script>
         function controlVoteInput(elem) {

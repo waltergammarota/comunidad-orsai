@@ -14,16 +14,6 @@
     </section>
     <section id="catalogo_concursos" class="contenedor">
         <div class="buscador">
-            <div class="cont_busqueda">
-                <form action="{{url('concursos')}}" method="GET">
-                    <div class="in_bu">
-                        <input type="search" name="busqueda" placeholder="¿Qué concurso buscás?" value="{{$busqueda}}">
-                    </div>
-                    <div class="bt_bu">
-                        <button type="submit"><span class="icon-search"></span></button>
-                    </div>
-                </form>
-            </div>
             <div class="buscador_links_filtros">
                 <div id="ordenar">
                     <span class="ordenar_bt">Ordenar <span class="icon-angle-down resaltado_amarillo"></span></span>
@@ -48,6 +38,16 @@
                            class="subrayado">Finalizados</a>
                     </li>
                 </ul>
+                <div class="cont_busqueda">
+                    <form action="{{url('concursos')}}" method="GET">
+                        <div class="in_bu">
+                            <input type="search" name="busqueda" placeholder="¿Qué concurso buscás?" value="{{$busqueda}}">
+                        </div>
+                        <div class="bt_bu">
+                            <button type="submit"><span class="icon-search"></span></button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

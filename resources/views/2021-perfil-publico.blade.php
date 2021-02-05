@@ -29,7 +29,7 @@
                 <div class="titulo border_bt_form">
                     <h1 class="text_medium">{{$user->name}} {{$user->lastName}}</h1>
                     @if($user->socio_fundador)
-                    	<span class="subtitulo">Socio Fundadora</span>
+                    	<span class="subtitulo">Socio Fundador</span>
                     @endif
                 </div>
                 @empty(!$user->description)
