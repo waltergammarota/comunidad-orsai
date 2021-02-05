@@ -65,7 +65,7 @@
             <td style="text-align: center; ">
                 <div
                     style="font-size:14px; width:120px; padding-top:12px; overflow: hidden; margin:0 auto;">
-                    <img style="width:90px;" src="{{url('recursos/orsai_logo_footer.png')}}" alt="Orsai" width="90">
+                    <img style="width:90px;" src="https://comunidadorsai.org/recursos/orsai_logo_footer.png" alt="Orsai" width="90">
                 </div>
                 <div>
                     <p style="font-size:13px; margin:0; margin-top:5px; color:#808080;">
