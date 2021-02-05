@@ -31,7 +31,7 @@
             <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="https://comunidadorsai.org/"
                    style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    <img src="{{url('recursos/comunidad-orsai-new.png')}}" width="100" alt="Comunidad Orsai">
+                    <img src="https://comunidadorsai.org/recursos/comunidad-orsai-new.png" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr> 

@@ -31,7 +31,7 @@
             <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="https://comunidadorsai.org/"
                    style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    <img src="{{url('recursos/comunidad-orsai-new.png')}}" width="100" alt="Comunidad Orsai">
+                    <img src="https://comunidadorsai.org/recursos/comunidad-orsai-new.png" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr>
@@ -49,7 +49,7 @@
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
                 <div style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Roboto', sans-serif;">
-                    <p style="text-align: center; margin: 2px; font-size:16px;">Después de un exhaustivo chequeo tu logo
+                    <p style="text-align: center; margin: 2px; font-size:16px;">Después de un exhaustivo chequeo tu propuesta
                         ya está participando del concurso. Compartilo ahora con tus amigos de todo el mundo y ¡sumá
                         fichas para ganar!</p>
                     <a href="{{url('postulacion/{$cpaId}')}}" target="_blank"
@@ -57,18 +57,7 @@
                         mi propuesta</a>
                 </div>
             </td>
-        </tr>
-        <tr bgcolor="#fffefe" style="padding-top:20px;">
-            <td>
-                <div
-                    style="color: black; margin-left:15px; margin-right:15px; border-top: 2px dashed #808080; text-align: center; font-family: 'Roboto', sans-serif;">
-                    <p style="text-align: center; font-size:16px;">¿Querés ver lo que hicieron otros artistas?</p>
-                    <a href="{{url('participantes')}}" target="_blank"
-                       style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Mirá
-                        acá</a>
-                </div>
-            </td>
-        </tr>
+        </tr> 
         <tr>
             <td style="height:25px;"></td>
         </tr>

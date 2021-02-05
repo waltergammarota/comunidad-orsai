@@ -31,7 +31,7 @@
             <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="https://comunidadorsai.org/"
                    style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    <img src="{{url('recursos/comunidad-orsai-new.png')}}" width="100" alt="Comunidad Orsai">
+                    <img src="https://comunidadorsai.org/recursos/comunidad-orsai-new.png" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr>
@@ -51,7 +51,7 @@
                 <div
                     style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Roboto', sans-serif;">
                     <p style="text-align: center; margin: 2px; font-size:16px;">
-                        Tu propuesta de logo no es compatible con nuestros requisitos. Chequeá que el diseño cumpla con todos las características que pedimos y cargá de nuevo tu propuesta.
+                        Tu propuesta no es compatible con nuestros requisitos. Chequeá que la propuesta cumpla con todas las características que pedimos y cargá de nuevo tu propuesta.
                         <br/>  <br/>
                         Observaciones: {{$comment}}
                     </p>  <br/>  <br/>
