@@ -5280,7 +5280,9 @@ span {
     left:0;
     top:64px;
 }
-
+.mCustomScrollBox{ 
+    height: 240px;
+}
 #quien_fichas_modal > #quien_fichas {
     width: 300px;
     height: 300px;

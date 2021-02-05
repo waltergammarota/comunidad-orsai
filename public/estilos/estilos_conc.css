@@ -2381,10 +2381,20 @@ input[type="number"] {
     }
 
     .contenedor_lateral {
-        width: 100%;
-        position: static;
+        width: 100% !important;
+        position: relative;
+        left:0;
+        right:0;
+        background-color: transparent;
+        float:left;
+        display:block;
     }
-
+    #quien_fichas_modal{
+        position: absolute;
+    }
+    .share_redes_gral{
+        position:relative;
+    }
     #intro .portada_concurso.portada_concurso_banner {
         height: 400px;
         top: 0;
@@ -2410,12 +2420,18 @@ input[type="number"] {
         margin-bottom: 35px !important;
         background-color: transparent;
     }
-
+    .part_lat {
+        border:none;
+    }
+    .buscador .cont_busqueda{
+        width:100%;
+        margin-top:20px;
+    }
     .fichas_acumuladas_banner {
         position: static;
         text-align: center;
         display: block;
-        /* margin-top:15px; */
+        margin-top:25px;
     }
 
     .fichas_acumuladas_banner > div {
@@ -2481,7 +2497,7 @@ input[type="number"] {
 @media (max-width: 400px) {
 
     .contenedor_lateral .blog_social_concurso {
-        position: static;
+        position: relative;
         text-align: center;
     }
 
