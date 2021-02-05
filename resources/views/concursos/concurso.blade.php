@@ -142,8 +142,16 @@
             </a>
         </section>
     @endif
-
     @include('concursos.participantes', $participantes)
+    <section class="contenedor">  
+        <div class="miga_orsai">
+            <a href="{{url('concursos')}}" class="text_bold boton_redondeado resaltado_gris">&laquo;  Volver a Concursos</a>  
+        </div> 
+    </section>
+
+    <br/>
+    <br/>
+    <br/>
 @endsection
 
 @section('footer')

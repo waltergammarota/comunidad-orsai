@@ -1,17 +1,6 @@
 @if($cantidadPostulaciones > 0)
     <section id="catalogo_concursos" class="contenedor">
         <div class="buscador">
-            <div class="cont_busqueda">
-                <form action="{{url($contest_url.'/buscar')}}" method="GET">
-                    <div class="in_bu">
-                        <input type="search" name="busqueda"
-                               placeholder="Buscar" value="{{$busqueda}}">
-                    </div>
-                    <div class="bt_bu">
-                        <button><span class="icon-search"></span></button>
-                    </div>
-                </form>
-            </div>
             <div class="buscador_links_filtros">
                 <div id="ordenar">
                     <span class="ordenar_bt">Ordenar <span
@@ -33,6 +22,17 @@
                         onclick="goto('mas_reciente')" {{($orden == "mas-recientes")? "class=activo":""}}>
                         <a class="subrayado">Más recientes</a></li>
                 </ul>
+                <div class="cont_busqueda">
+                    <form action="{{url($contest_url.'/buscar')}}" method="GET">
+                        <div class="in_bu">
+                            <input type="search" name="busqueda"
+                                   placeholder="Buscar" value="{{$busqueda}}">
+                        </div>
+                        <div class="bt_bu">
+                            <button><span class="icon-search"></span></button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

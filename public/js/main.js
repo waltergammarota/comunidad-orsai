@@ -227,6 +227,9 @@ function open_modal(x) {
     document.body.style.overflow = "hidden";
     $(x).fadeIn();
 }
+function open_modal_fixed(x) { 
+    $(x).fadeIn();
+}
 
 function close(x) {
     document.body.style.overflowY = "scroll";
@@ -368,23 +371,10 @@ if (document.getElementById("quien_fichas_modal")) {
     var btn_ver_quien_fichas = document.getElementById("btn_ver_quien");
     var quien_fichas_dos = document.getElementById("quien_fichas");
     var cerrar_fichas = quien_fichas.getElementsByClassName("cerrar")[0];
-    btn_ver_quien_fichas.onclick = function() {
-        open_modal(quien_fichas);
-        quien_fichas.classList.add("abierto_fichas");
-        var scrollTop = $(window).scrollTop();
-        if ($(window).width() >= 590 && $(window).width() < 992) {
-            $("html, body").animate({
-                scrollTop: "831"
-            });
-        } else if ($(window).width() < 590) {
-            $("html, body").animate({
-                scrollTop: "600"
-            });
-        } else if ($(window).width() >= 992) {
-            $("html, body").animate({
-                scrollTop: "200"
-            });
-        }
+    btn_ver_quien_fichas.onclick = function(e) {
+        e.preventDefault();
+        open_modal_fixed(quien_fichas);
+        quien_fichas.classList.add("abierto_fichas"); 
     }
     cerrar_fichas.onclick = function() {
         close(quien_fichas);
