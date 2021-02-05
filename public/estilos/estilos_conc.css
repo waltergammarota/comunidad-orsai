@@ -2428,12 +2428,14 @@ input[type="number"] {
         margin-top:20px;
     }
     .fichas_acumuladas_banner {
-        position: static;
+        position: relative;
         text-align: center;
         display: block;
         margin-top:25px;
     }
-
+    #quien_fichas .contenedor_quien_fichas{
+        text-align:left;
+    }
     .fichas_acumuladas_banner > div {
         margin-right: 0px;
     }
@@ -2466,7 +2468,7 @@ input[type="number"] {
     }
 
     .part_lat #bt_votar_2 form {
-        text-align: right;
+        text-align: center;
     }
 
     .part_lat #bt_votar_2 .quantity {
