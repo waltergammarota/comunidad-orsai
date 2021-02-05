@@ -30,13 +30,13 @@ class ContestController extends Controller
         $data = array_merge($this->getUserData());
         $cantidadPorPagina = 9;
         $query = ContestModel::where('active', 1)->orderBy('start_date');
-        $data['filtro'] = $request->filtro;
+        $data['filtro'] = $request->filtro ? $request->filtro : 'activos';
         $data['busqueda'] = $request->busqueda;
         $data['pagina'] = $request->pagina ? $request->pagina : 1;
         if ($request->busqueda != null && $request->busqueda != "") {
             $query->where('name', 'like', "%{$request->busqueda}%");
         }
-        switch ($request->filtro) {
+        switch ($data['filtro']) {
             case 'activos':
                 $query->where('start_date', '<=', Carbon::now())->where('end_date', '>', Carbon::now());
                 break;
