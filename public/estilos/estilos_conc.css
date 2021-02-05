@@ -562,6 +562,7 @@
     .buscador_links_filtros ul li {
         text-align: center;
         margin-right: 0;
+        width:150px;
         /* border-right: 2px solid #808080; */
     }
 }
@@ -607,7 +608,7 @@
     overflow: hidden;
     position: relative;
     z-index: 2;
-    /* height:300px; */
+    height:300px;
 }
 
 .portada_concurso .icono {
@@ -648,7 +649,9 @@
         height: 120px;
 
     }
-
+    .detalle_concurso .boton_redondeado{
+        margin-bottom:10px;
+    }
     #intro .portada_concurso img {
         width: 150%;
         object-fit: cover;
@@ -851,7 +854,7 @@
 
 @media (min-width: 768px) and (max-width: 1200px) {
     .contenedor_logos_participantes .logo_particantes {
-        width: 50%;
+        width: 33%;
     }
 
 }
