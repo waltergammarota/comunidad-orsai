@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
+use function GuzzleHttp\json_encode;
+
 class ContestController extends Controller
 {
     public function index(Request $request)
@@ -304,10 +306,10 @@ class ContestController extends Controller
             "image" => count($images) > 0 ? $images[0]->getId() : 0,
             "type" => $request->type,
             "mode" => $request->mode,
-            "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
-            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
             "cant_winners" => $cant_winners,
+            "per_winner" => $this->cleanPerWinnerArray($cant_winners, $request->per_winner),
+            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
@@ -325,6 +327,12 @@ class ContestController extends Controller
         }
 
         return Redirect::to('admin/concursos');
+    }
+
+
+    private function cleanPerWinnerArray($cant_winners, $per_winner) {
+      $array = array_splice($per_winner, 0, $cant_winners);
+      return json_encode(array_pad($array,4,"0"));
     }
 
 
@@ -395,10 +403,10 @@ class ContestController extends Controller
             "image" => $logo,
             "type" => $request->type,
             "mode" => $request->mode,
-            "per_winner" => json_encode($request->per_winner),
+            "cant_winners" => $cant_winners,
+            "per_winner" => $this->cleanPerWinnerArray($cant_winners, $request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
             "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
-            "cant_winners" => $cant_winners,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
