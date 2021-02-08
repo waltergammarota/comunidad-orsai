@@ -80,8 +80,6 @@
                         "paging": true,
                         "searching": false,
                         "info": false,
-                        "ordering": true,
-                        "order": [[2, "desc"]],
                         "autoWidth": false,
                         "responsive": true,
                         "ajax": "{{url('notificaciones-json')}}",
