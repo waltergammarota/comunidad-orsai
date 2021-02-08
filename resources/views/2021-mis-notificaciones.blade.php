@@ -80,6 +80,8 @@
                         "paging": true,
                         "searching": false,
                         "info": false,
+                        "ordering": true,
+                        "order": [[2, "desc"]],
                         "autoWidth": false,
                         "responsive": true,
                         "ajax": "{{url('notificaciones-json')}}",
@@ -125,10 +127,10 @@
                             },
                             {
                                 "data": function (data) {
-                                    return data.deliver_time;
+                                    const timestamp = new Date(data.real_time);
+                                    return timestamp.getTime() / 1000;
                                 }
                             }
-
                         ],
                         columnDefs: [{
                             orderable: false,
@@ -142,53 +144,69 @@
                                 "searchable": false
                             }
                         ],
-                        select: {
-                            style: 'multi',
-                            selector: 'td:first-child'
+                        select
+                :
+                    {
+                        style: 'multi',
+                            selector
+                    :
+                        'td:first-child'
 
-                        },
-                        dom: 'Bfrtip',
-                        buttons: [
-                            {
-                                text: '<div class="icono_notif no_leido_notif" title="Marcar como no leida"><span class="icono icon-mail"></span></div>',
-                                className: 'btn_notif tooltip-read',
-                                action: function (e, dt, node, config) {
-                                    markAsNotRead();
-                                }
-                            },
-                            {
-                                text: '<div class="icono_notif leida_ind_notif" title="Marcar como leida"><span class="icono icon-mail-open-regular "></span></div>',
-                                className: 'btn_notif tooltip-noread',
-                                action: function (e, dt, node, config) {
-                                    markAsRead();
-                                }
-                            },
-                            {
-                                text: '<div class="icono_notif leida_todas_notif" title="Marcar todas como leidas"><span class="icono icon-mail-open"></span></div>',
-                                className: 'btn_notif tooltip-readall',
-                                action: function (e, dt, node, config) {
-                                    markAllAsRead();
-                                }
-                            },
-                            {
-                                text: '<div class="icono_notif eliminar_notif" title="Eliminar"><span class="icono icon-trash-empty"></span></div>',
-                                className: 'btn_notif tooltip-trash',
-                                action: function (e, dt, node, config) {
-                                    deleteNotification();
-                                }
+                    }
+                ,
+                    dom: 'Bfrtip',
+                        buttons
+                :
+                    [
+                        {
+                            text: '<div class="icono_notif no_leido_notif" title="Marcar como no leida"><span class="icono icon-mail"></span></div>',
+                            className: 'btn_notif tooltip-read',
+                            action: function (e, dt, node, config) {
+                                markAsNotRead();
                             }
-                        ],
-                        initComplete: function (settings, json) {
-                            $(".btn_notif").removeClass("dt-button");
                         },
-                        "rowCallback": function (row, data) {
-                            if (data.readed == "NO") {
-                                $(row).addClass("unread");
-                            } else {
-                                $(row).addClass("read");
+                        {
+                            text: '<div class="icono_notif leida_ind_notif" title="Marcar como leida"><span class="icono icon-mail-open-regular "></span></div>',
+                            className: 'btn_notif tooltip-noread',
+                            action: function (e, dt, node, config) {
+                                markAsRead();
+                            }
+                        },
+                        {
+                            text: '<div class="icono_notif leida_todas_notif" title="Marcar todas como leidas"><span class="icono icon-mail-open"></span></div>',
+                            className: 'btn_notif tooltip-readall',
+                            action: function (e, dt, node, config) {
+                                markAllAsRead();
+                            }
+                        },
+                        {
+                            text: '<div class="icono_notif eliminar_notif" title="Eliminar"><span class="icono icon-trash-empty"></span></div>',
+                            className: 'btn_notif tooltip-trash',
+                            action: function (e, dt, node, config) {
+                                deleteNotification();
                             }
                         }
-                    });
+                    ],
+                        initComplete
+                :
+
+                    function (settings, json) {
+                        $(".btn_notif").removeClass("dt-button");
+                    }
+
+                ,
+                    "rowCallback"
+                :
+
+                    function (row, data) {
+                        if (data.readed == "NO") {
+                            $(row).addClass("unread");
+                        } else {
+                            $(row).addClass("read");
+                        }
+                    }
+                })
+                    ;
 
                     function markAllAsRead() {
                         axios.post('{{url('notificaciones/markallasreaded')}}', {}).then(response => {

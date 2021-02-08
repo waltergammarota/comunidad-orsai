@@ -639,6 +639,7 @@ class AccountController extends Controller
             $author = User::find($rowData['author']);
             $row['autor'] = "{$author->name} {$author->lastName}";
             $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i') . " HS";
+            $row['real_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i');
             $row['id'] = $notification->id;
             $row['readed'] = $notification->read_at == null ? 'NO' : 'SI';
             $data['notificaciones'][] = $row;
