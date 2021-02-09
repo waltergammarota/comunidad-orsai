@@ -29,6 +29,7 @@
             @endif
 
             @if (Auth::check())
+                @isset($notifications)
                 <div id="menu_reg">
                     <ul class="logueado">
                         <li class="resaltado_gris animated swing">
@@ -79,6 +80,7 @@
                         </li>
                     </ul>
                 </div>
+                @endisset
             @endif
         </div>
     </nav>
