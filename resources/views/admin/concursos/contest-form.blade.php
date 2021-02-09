@@ -447,6 +447,11 @@
         const amount_usd = $("#amount_usd");
         const cant_winners = $("#cant_winners");
         const form = $("form");
+        @if($imageUrl != '')
+          const hasImage = true;
+        @else
+          const hasImage = false;
+        @endif
 
         function crearPagina() {
             event.preventDefault();
@@ -472,7 +477,7 @@
         }
 
         function validateFileInput(input) {
-            if (input.val().length > 0) {
+            if (input.val().length > 0 || hasImage) {
                 return true;
             }
             $("#inputFileError").append('<span class="help-block">La imagen es obligatoria</span>');
