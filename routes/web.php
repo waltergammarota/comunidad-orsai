@@ -100,7 +100,32 @@ Route::get(
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
-    function () {
+    function () { 
+        //Donar 
+        Route::get(
+            '/donar',
+            'DonarController@index'
+        )->name('index')->middleware('email_verified'); 
+
+        Route::get(
+            '/donar/checkout',
+            'DonarController@checkout'
+        )->name('checkout')->middleware('email_verified'); 
+        
+        Route::get(
+            '/donar/rejected',
+            'DonarController@rejected'
+        )->name('rejected')->middleware('email_verified'); 
+        
+        Route::get(
+            '/donar/pending',
+            'DonarController@pending'
+        )->name('pending')->middleware('email_verified'); 
+        
+        Route::get(
+            '/donar/successful',
+            'DonarController@successful'
+        )->name('successful')->middleware('email_verified'); 
 
         Route::post(
             '/change-password',
@@ -760,7 +785,6 @@ Route::middleware(['verified'])->group(
                 abort(404);
             }
         )->middleware('admin_role');
-
     }
 );
 
