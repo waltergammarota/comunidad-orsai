@@ -64,6 +64,46 @@
             </div>
         </div>
     </section> --}}
+    <section class="resaltado_amarillo pd_tp_bt pd_20">
+        <div class="contenedor titulo_seccion_sm">
+            <h2>Doná para apostar a proyectos</h2>
+        </div>
+        <div class="center_div">
+        <div class="contenedor grilla_3 mg_0">
+            <article class="card_style_2">
+                <span class="icono">Pack 01</span>
+                <h2><strong>500</strong> fichas</h2>
+                <p>son <strong>10</strong> doláres</p>
+                <a href="#" class="boton_redondeado resaltado_amarillo">
+                    <span>Donar</span>
+                </a>
+            </article>
+            <article class="card_style_2">
+                <span class="icono">Pack 02</span>
+                <h2><strong>1000</strong> fichas</h2>
+                <p>son <strong>20</strong> doláres</p>
+                <a href="#" class="boton_redondeado resaltado_amarillo">
+                    <span>Donar</span>
+                </a>
+            </article>
+            <article class="card_style_2 card_style_2_black">
+                <span class="icono color_amarillo">Pack 03</span>
+                <h2 class="color_amarillo"><strong>2000</strong> fichas</h2>
+                <p class="color_amarillo">son <strong>30</strong> dólares</p>
+                <a href="#" class="boton_redondeado resaltado_amarillo">
+                    <span>Donar</span>
+                </a>
+            </article>
+            </div>
+        </div>
+        <div class="btn_owl_mas ">
+            <div class="form_ctrl input_ ">
+                <div class="align_center">
+                    <a href="{{url('donar')}}" class="boton_redondeado">Ver todos los paquetes</a>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="resaltado_gris pd_tp_bt pd_20 widt_100">
         <div class="contenedor grilla_3 card_style_4_grid"> 
             @if (!Auth::check()) 
@@ -122,6 +162,132 @@
             @endif
         @endif   
     </section>   
+    
+<section class="pd_tp_bt">
+    <div class="owl_demo_7 owl-carousel owl-theme">
+        <article class="">
+            <a href="#">
+            <div class="cont_article">
+            <div class="cont_article_align">
+
+            <div class="texto">
+                <div class="msg_over_img rojo">
+                    <span class="_barlow_text color_blanco text_medium">Finalizado</span>
+                </div>
+                <div class="icono ">
+                    <span class="icon-lapiz_2"></span>
+                </div>
+                <Span class="_barlow_text text_bold categoria">Concurso</Span>
+                <h2 class="_barlow_text text_bold titulo">Un logo para la fundación</h2>
+            </div>
+            <div class="cont_btn_y_fichas">
+                <div class="form_ctrl input_">
+                    <div class="align_left">
+                        <span class="boton_redondeado pd_25_lf_rg">Conocer más</span>
+                    </div>
+                </div>
+                <div class="fichas_apostadas">
+                    <span class="fichas_cant _barlow_text text_bold">3.210.73</span>
+                    <span class="_barlow_text text_regular">Fichas apostadas</span>
+                </div>
+            </div>
+        </div>
+        </div>
+        </a>
+        </article>
+        <article class="">
+            <a href="#">
+            <div class="cont_article">
+                <div class="cont_article_align">
+            <div class="texto">
+                <div class="msg_over_img transparente">
+                    <span class="_barlow_text color_negro text_medium">Cierre: 15/03/2021</span>
+                </div>
+                <div class="icono">
+                    <span class="icon-libro"></span>
+                </div>
+                <Span class="_barlow_text text_bold categoria">Concurso</Span>
+                <h2 class="_barlow_text text_bold titulo">Cuento corto con Jurado Popular</h2>
+            </div>
+            <div class="cont_btn_y_fichas">
+                <div class="form_ctrl input_">
+                    <div class="align_left">
+                        <span class="boton_redondeado pd_25_lf_rg">Participar</span>
+                    </div>
+                </div>
+                <div class="fichas_apostadas">
+                    <span class="fichas_cant _barlow_text text_bold ">17.890</span>
+                    <span class="_barlow_text text_regular ">Fichas apostadas</span>
+                </div>
+            </div>
+            </div>
+            </div>
+            </a>
+        </article>
+        <article class="">
+            <a href="#">
+            <div class="cont_article">
+                <div class="cont_article_align">
+            <div class="texto">
+                <div class="icono">
+                    <span class="icon-lapiz_2"></span>
+                </div>
+                <Span class="_barlow_text text_bold categoria">Concurso</Span>
+                <h2 class="_barlow_text text_bold titulo">Un logo para la fundación </h2>
+            </div>
+            <div class="cont_btn_y_fichas">
+                <div class="form_ctrl input_">
+                    <div class="align_left">
+                        <span class="boton_redondeado pd_25_lf_rg">Conocer más</span>
+                    </div>
+                </div>
+                <div class="fichas_apostadas">
+                    <span class="fichas_cant _barlow_text text_bold ">3.210.73</span>
+                    <span class="_barlow_text text_regular ">Fichas apostadas</span>
+                </div>
+            </div>
+            </div>
+            </div>
+            </a>
+        </article>
+        <article class="gris_oscuro">
+            <a href="#">
+            <div class="cont_article">
+                <div class="cont_article_align">
+            <div class="texto">
+                <div class="msg_over_img rojo">
+                    <span class="_barlow_text color_blanco text_medium">Muy pronto</span>
+                </div>
+                <div class="icono">
+                    <span class="icon-lapiz_2"></span>
+                </div>
+                <Span class="_barlow_text text_bold categoria">Concurso Próximo</Span>
+                <h2 class="_barlow_text text_bold titulo">Un logo para la fundación </h2>
+            </div>
+            <div class="cont_btn_y_fichas">
+                <div class="form_ctrl input_">
+                    <div class="align_left">
+                        <span class="boton_redondeado pd_25_lf_rg">Conocer más</span>
+                    </div>
+                </div>
+                <div class="fichas_apostadas">
+                    <span class="fichas_cant _barlow_text text_bold ">3.210.73</span>
+                    <span class="_barlow_text text_regular ">Fichas apostadas</span>
+                </div>
+            </div>
+            </div>
+            </div>
+            </a>
+        </article>
+    </div>
+    <div class="btn_owl_mas ">
+        <div class="form_ctrl input_ ">
+            <div class="align_center">
+                <a href="#" class="boton_redondeado resaltado_blanco">Ver todos los concursos</a>
+            </div>
+        </div>
+    </div>
+</section>
 {!! $home2 !!}
     {{-- 
     <section class="resaltado_black pd_tp_bt pd_20">
