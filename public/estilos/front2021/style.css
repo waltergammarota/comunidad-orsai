@@ -1461,7 +1461,7 @@ header nav>#menu_reg .logueado{
     bottom:-18px;
     width:100%;
     height:15px;
-    background-image: url("../assets/linea_arrow.svg");
+    background-image: url("../../recursos/linea_arrow.svg");
     background-repeat: no-repeat;
 }
 
@@ -7657,7 +7657,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
   .owl_demo_7 .owl-item .msg_over_img.transparente:after {
     content: "";
     position:absolute;
-    background-image: url("../assets/mensaje_transparente.png");
+    background-image: url("../../recursos/mensaje_transparente.png");
     background-repeat:no-repeat;
     background-size: 100% 80%;
     width:100%;
@@ -7680,7 +7680,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
     .owl_demo_7 .owl-item:nth-child(odd) .msg_over_img:after {
         content: "";
         position:absolute;
-        background-image: url("../assets/mensaje_transparente.png");
+        background-image: url("../../recursos/mensaje_transparente.png");
         background-repeat:no-repeat;
         background-size: 100% 80%;
         width:100%;
@@ -7941,12 +7941,12 @@ input.check_round:checked + .rounded_toggle_checkbox {
     -webkit-border-radius:10px;
     -ms-border-radius:10px;
     -o-border-radius:10px;
-    background-image: url("../assets/fichas_banner.png");
+    background-image: url("../../recursos/fichas_banner.png");
 }
 
 @media(max-width:600px){
     .triangle-border {
-        background-image: url("../assets/fichas_smal.png");
+        background-image: url("../../recursos/fichas_smal.png");
         background-size: auto 110%;
     }
 }
@@ -8145,7 +8145,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
         max-width:100%;
     }
     .banner_fichas{
-        /* background-image: url("../assets/banner_fichas_small.png"); */
+        /* background-image: url("../../recursos/banner_fichas_small.png"); */
         background-size: 100% 100%;
     }
 }
@@ -8334,7 +8334,7 @@ border-left: 18px solid transparent;
     position: absolute;
     bottom:-40px;
     right:0;
-    background-image: url("../assets/fichas.png");
+    background-image: url("../../recursos/fichas.png");
     /* background-image: url("../../recursos/fichas.png"); */
     background-repeat: no-repeat;
     background-position-y: -17px;
@@ -8418,7 +8418,7 @@ border-left: 18px solid transparent;
     position: absolute;
     bottom:-100px;
     right:0;
-    background-image: url("../assets/sombra.png");
+    background-image: url("../../recursos/sombra.png");
     background-repeat: no-repeat;
     background-position-y: bottom;
     background-size: 100%;
