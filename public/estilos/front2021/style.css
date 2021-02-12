@@ -7796,8 +7796,6 @@ input.check_round:checked + .rounded_toggle_checkbox {
     }
 
 }
-
-
 .cont_banner_50{
     display:flex;
     flex-wrap:wrap;
@@ -7805,20 +7803,31 @@ input.check_round:checked + .rounded_toggle_checkbox {
     /* align-items:stretch; */
     overflow: hidden;
 }
-@media (max-width:768px){
-    .cont_banner_50{
-        display:none;
-    }
-}
-
 .cont_banner_50 .banner_50{
     width: calc(50% - 10px);
     overflow: hidden;
     position:relative;
     min-height: 300px;
     background-color: rgba(0, 0, 0, 1);
+    
 }
-
+@media (max-width:768px){
+    .cont_banner_50{
+        /* display:none; */
+        flex-direction:column;
+    }
+    .cont_banner_50 .banner_50 {
+        width: 100%;
+    }
+    .cont_banner_50 .banner_50:nth-child(1) {
+        margin-bottom:20px;
+    }
+}
+@media (min-width:768px){
+    .cont_banner_50 .banner_50:nth-child(1) {
+        margin-bottom:0px;
+    }
+}
 .banner_50 .img_banner_50 img{
     /*width:100%;
     */position:absolute;
