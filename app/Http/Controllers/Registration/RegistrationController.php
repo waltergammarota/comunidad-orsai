@@ -139,7 +139,7 @@ class RegistrationController extends Controller
             );
             $request->session()->flash('alert', 'activation_email');
             $data = ["email" => $user->email];
-            return view('reenviar-mail-activacion', $data);
+            return view('2021-reenviar-mail-activacion', $data);
         }
     }
 
