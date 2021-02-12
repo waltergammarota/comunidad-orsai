@@ -40,6 +40,8 @@
 .icon-exclamacion_circle:before { content: '\e826'; } /* '' */
 .icon-down-dir-1:before { content: '\e827'; } /* '' */
 .icon-arrow_down_rellena:before { content: '\e828'; } /* '' */
+.icon-lapiz_2:before { content: '\e835'; } /* '' */
+.icon-libro:before { content: '\e836'; } /* '' */
 .icon-angle-double-left:before { content: '\f100'; } /* '' */
 .icon-angle-double-right:before { content: '\f101'; } /* '' */
 .icon-angle-double-up:before { content: '\f102'; } /* '' */
