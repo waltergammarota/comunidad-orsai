@@ -10,14 +10,17 @@
     "require": {
         "php": "^7.0",
         "doctrine/dbal": "^2.10",
+        "doctrine/inflector": "1.4.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5|^7.2",
         "intervention/image": "^2.5",
         "jenssegers/mongodb": "^3.6",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
+        "mercadopago/dx-php": "^2.2",
         "mongodb/mongodb": "^1.8",
         "nowakowskir/php-jwt": "^1.1",
+        "paypal/paypal-checkout-sdk": "1.0.1",
         "propaganistas/laravel-phone": "^4.2",
         "tymon/jwt-auth": "dev-develop"
     },

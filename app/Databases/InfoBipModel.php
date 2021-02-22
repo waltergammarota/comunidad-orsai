@@ -55,7 +55,7 @@ class InfoBipModel extends Model
     public function verifyCode($code, $userId)
     {
         $user = User::find($userId);
-        $validWindowTimeInMinutes = 2;
+        $validWindowTimeInMinutes = 7;
         $sociosFundadorMaxQty = 15000;
         $timePassedInMinutes = $user->sms_sent_at->diffInMinutes(Carbon::now());
         if ($code == $user->code && $timePassedInMinutes < $validWindowTimeInMinutes) {

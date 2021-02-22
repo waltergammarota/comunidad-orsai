@@ -35,7 +35,7 @@ class CoralModel extends Model
         $client = new Client();
         try {
             $token = $this->getCoralToken($client);
-            $createStoryResponse = $client->post($this->getEndpoint(),
+            return $client->post($this->getEndpoint(),
                 [
                     "headers" => [
                         "Authorization" => "Bearer {$token->token}",

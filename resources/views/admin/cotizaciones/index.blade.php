@@ -6,7 +6,7 @@
 
 
 @section('name')
-    Productos
+    Cotizaciones
 @endsection
 
 @section('content')
@@ -17,33 +17,19 @@
     </style>
     <div class="card">
         <div class="card-header">
-            <p>Cotizacion Actual: 1 ficha igual a USD {{$cotizacion? $cotizacion->precio: 0}}</p>
-            <a href="{{url("admin/cotizacion/crear")}}" class="btn btn-danger float-right" style="margin-left:10px;">
-                <i class="fa fa-money-bill"></i>
-            </a>
-            <a href="{{url("admin/productos/crear")}}" class="btn btn-primary editar float-right">
+            <a href="{{url("admin/cotizaciones/crear")}}" class="btn btn-primary editar float-right">
                 <i class="fa fa-plus-circle"></i>
             </a>
         </div>
         <div class="card-body">
-            <div class="row">
-                @foreach($dolar as $cotizacion)
-                    <div class="col-md-3 col-lg-3">
-                        {{$cotizacion->casa->nombre}}: {{$cotizacion->casa->compra}}
-                        - {{$cotizacion->casa->venta}}
-                    </div>
-                @endforeach
-            </div>
             <br>
             <table id="myTable" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
                     <th>Precio</th>
-                    <th>Visible</th>
+                    <th>Usuario</th>
                     <th>Creado</th>
-                    <th>Acciones</th>
                 </tr>
                 </thead>
             </table>
@@ -62,8 +48,7 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
-                "responsive": true,
-                "ajax": "{{url('admin/productos-json')}}",
+                "ajax": "{{url('admin/cotizaciones-json')}}",
                 "language": {
                     "paginate": {
                         "first": "Primera",
@@ -87,24 +72,14 @@
                 },
                 "columns": [
                     {"data": "id"},
-                    {"data": "name"},
-                    {"data": "price",},
+                    {"data": "precio"},
                     {
-                        "data": "visible",
-                        "render": function (data) {
-                            return data === 1 ? "SI" : "NO"
+                        "data": "user",
+                        render: function (data) {
+                            return data.email;
                         }
                     },
-                    {"data": "created_at"},
-                    {
-                        "data": "acciones",
-                        "render": function (data) {
-                            return `<button type="button" class="btn btn-xs btn-success editar">
-                                        <i class="fa fa-edit"></i>
-                                    </button>`;
-                        }
-                    },
-
+                    {"data": "created_at"}
                 ]
             });
 
