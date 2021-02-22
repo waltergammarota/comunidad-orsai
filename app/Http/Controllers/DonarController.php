@@ -332,6 +332,7 @@ class DonarController extends Controller
 
     public function paypal_successful(Request $request)
     {
+        $data = $this->getUserData();
         $orderId = $request->query('id');
         $compra = CompraModel::where('external_reference', $orderId)->first();
         if ($compra) {

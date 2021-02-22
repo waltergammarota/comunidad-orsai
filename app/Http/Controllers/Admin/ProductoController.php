@@ -23,11 +23,22 @@ class ProductoController extends Controller
     public function productos_json(Request $request)
     {
         $productos = ProductoModel::all();
+        $items = [];
+        foreach ($productos as $producto) {
+            $row = [
+                "id" => $producto->id,
+                "name" => $producto->name,
+                "price" => $producto->getPriceInUsd(),
+                "visible" => $producto->visible,
+                "created_at" => $producto->created_at
+            ];
+            array_push($items, $row);
+        }
         $data = [
             'draw' => $request->query('draw'),
             "recordsTotal" => ProductoModel::count(),
             "recordsFiltered" => ProductoModel::count(),
-            'data' => $productos
+            'data' => $items
         ];
         return response()->json($data);
     }

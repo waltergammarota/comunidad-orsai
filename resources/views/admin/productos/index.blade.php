@@ -17,7 +17,7 @@
     </style>
     <div class="card">
         <div class="card-header">
-            <p>Cotizacion Actual: 1 ficha igual a USD {{$cotizacion? $cotizacion: 0}}</p>
+            <p>Cotizacion Actual: 1 ficha igual a USD {{$cotizacion? $cotizacion->precio: 0}}</p>
             <a href="{{url("admin/cotizacion/crear")}}" class="btn btn-danger float-right" style="margin-left:10px;">
                 <i class="fa fa-money-bill"></i>
             </a>
@@ -88,7 +88,7 @@
                 "columns": [
                     {"data": "id"},
                     {"data": "name"},
-                    {"data": "price"},
+                    {"data": "price",},
                     {
                         "data": "visible",
                         "render": function (data) {
