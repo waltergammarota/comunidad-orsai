@@ -142,15 +142,13 @@ class ContestController extends Controller
         return view("logo-ganador", $data);
     }
 
-    private
-    function getTotalSociosApostadores()
+    private function getTotalSociosApostadores()
     {
         $txs = Transaction::where('type', 'TRANSFER')->where('from', '>', 1)->groupBy('from')->get();
         return count($txs);
     }
 
-    public
-    function approve(Request $request)
+    public function approve(Request $request)
     {
         $user = Auth::user();
         if ($user->role == "admin") {
@@ -330,9 +328,10 @@ class ContestController extends Controller
     }
 
 
-    private function cleanPerWinnerArray($cant_winners, $per_winner) {
-      $array = array_splice($per_winner, 0, $cant_winners);
-      return json_encode(array_pad($array,4,"0"));
+    private function cleanPerWinnerArray($cant_winners, $per_winner)
+    {
+        $array = array_splice($per_winner, 0, $cant_winners);
+        return json_encode(array_pad($array, 4, "0"));
     }
 
 
@@ -451,6 +450,5 @@ class ContestController extends Controller
             return response()->json(["status" => "success", "msg" => "Concurso borrado"]);
         }
         return response()->json(["status" => "error", "message" => "Concurso no encontrado"], 400);
-
     }
 }
