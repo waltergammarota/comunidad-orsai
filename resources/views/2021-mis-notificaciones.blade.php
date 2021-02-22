@@ -23,10 +23,10 @@
                     </table>
                     <div class="height_35"></div>
                 </div>
-           </div>
+            </div>
         </article>
-@endsection
-section('footer')
+        @endsection
+        @section('footer')
             <link rel="stylesheet"
                   href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
             <style>
