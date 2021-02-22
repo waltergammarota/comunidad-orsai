@@ -77,5 +77,6 @@ sudo supervisorctl restart all
 
 
 ngrok http -host-header=rewrite orsai.test:80
-configurar endpoint de webhook en mercadolibre con url + ?token={MP_WEBHOOK_TOKEN} guardado en el .env
+configurar endpoint de webhook en mercadolibre con url + 
+    /donar/mercado_pago_webhook?token={MP_WEBHOOK_TOKEN} guardado en el .env
 
