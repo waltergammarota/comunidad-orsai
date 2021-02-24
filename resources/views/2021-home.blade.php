@@ -30,14 +30,14 @@
                 <div>
                     <span class="icono icon-card"></span>
                     <h2>{{$sociosBeta}}</h2>
-                    <p>socios beta</p>
+                    <p>socios en lista de espera</p>
                 </div>
             </article>
             <article class="card_style_4">
                 <div>
                     <span class="icono icon-ficha"></span>
                     <h2>{{$sociosPosta}}</h2>
-                    <p>socios posta</p>
+                    <p>socios fundadores</p>
                 </div>
             </article> 
         </div>  
