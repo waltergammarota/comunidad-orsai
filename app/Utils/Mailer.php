@@ -6,6 +6,7 @@ namespace App\Utils;
 
 use App\Jobs\ProcessActivationMail;
 use App\Jobs\ProcessApproveMail;
+use App\Jobs\ProcessDonationMail;
 use App\Jobs\ProcessRejectMail;
 use App\Jobs\ProcessResetPasswordMail;
 use App\Jobs\ProcessSendContactData;
@@ -47,12 +48,14 @@ class Mailer
         return true;
     }
 
-    public function sendMailToAdministrator($email, $cpaId, $name, $lastName) {
+    public function sendMailToAdministrator($email, $cpaId, $name, $lastName)
+    {
         ProcessSendMailToAdministrator::dispatch($email, $cpaId, $name, $lastName);
         return true;
     }
 
-    public function sendContactFormEmail($data) {
+    public function sendContactFormEmail($data)
+    {
         $email = $data['email'];
         $name = $data['name'];
         $lastName = $data['lastName'];
@@ -62,7 +65,8 @@ class Mailer
         return true;
     }
 
-    public function sendReminderActivationEmail($data) {
+    public function sendReminderActivationEmail($data)
+    {
         $email = $data['email'];
         $name = $data['name'];
         $lastName = $data['lastName'];
@@ -70,6 +74,18 @@ class Mailer
         $mensaje = $data['mensaje'];
         $token = $data['token'];
         ProcessSendReminderActivationEmail::dispatch($email, $name, $lastName, $subject, $mensaje, $token);
+    }
+
+    public function sendDonationEmail($data)
+    {
+        $email = $data['email'];
+        $fichas = $data['fichas'];
+        $paymentId = $data['paymentId'];
+        $fecha = $data['fecha'];
+        $productName = $data['productName'];
+        $amount = $data['amount'];
+        $donante = $data['donante'];
+        ProcessDonationMail::dispatch($email, $fichas, $paymentId, $fecha, $productName, $amount, $donante);
     }
 
 }
