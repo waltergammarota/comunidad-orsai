@@ -18,9 +18,6 @@
     <div class="card">
         <div class="card-header">
             <p>Cotizacion Actual: 1 ficha igual a USD {{$cotizacion? $cotizacion->precio: 0}}</p>
-            <a href="{{url("admin/cotizacion/crear")}}" class="btn btn-danger float-right" style="margin-left:10px;">
-                <i class="fa fa-money-bill"></i>
-            </a>
             <a href="{{url("admin/productos/crear")}}" class="btn btn-primary editar float-right">
                 <i class="fa fa-plus-circle"></i>
             </a>

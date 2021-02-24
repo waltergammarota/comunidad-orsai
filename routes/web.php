@@ -525,12 +525,11 @@ Route::middleware(['verified'])->group(
             'dashboard'
         )->middleware('admin_role');
 
-        Route::get('admin / contenidos / tipo /{
-            type}', 'Admin\ContenidoController@index')->name(
+        Route::get('admin/contenidos/tipo/{type}', 'Admin\ContenidoController@index')->name(
             'contenidos'
         )->middleware('admin_role');
 
-        Route::post('admin / contenidos / deleteImage', 'Admin\ContenidoController@deleteImage')->name(
+        Route::post('admin/contenidos/deleteImage', 'Admin\ContenidoController@deleteImage')->name(
             'deleteImage'
         )->middleware('admin_role');
 
