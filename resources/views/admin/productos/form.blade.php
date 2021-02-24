@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Precio atado a cotización</label>
                                 <select name="dynamic_price" id="dynamic_price" class="form-control">
-                                    @if($producto->dynamic_price == 1)
+                                    @if($producto && $producto->dynamic_price == 1)
                                         <option value="1" selected>SI</option>
                                         <option value="0">NO</option>
                                     @else
