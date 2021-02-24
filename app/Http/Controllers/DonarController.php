@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Databases\CompraModel;
 use App\Databases\ProductoModel;
 use App\Databases\Transaction;
+use App\Utils\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -175,6 +176,7 @@ class DonarController extends Controller
                     $tx = Transaction::createTransaction(1, $userId, $producto->fichas, "Compra de fichas ID {$params['payment_id']}");
                     $compra->delivered = $tx->id;
                     $compra->save();
+                    $this->sendPaymentMail($user, $producto, $compra);
                     $data['donante'] = $user->name . " " . $user->lastName;
                     return view("donar.donar_status_successful", $data);
                 }
@@ -274,6 +276,8 @@ class DonarController extends Controller
             $producto = ProductoModel::find($compra->producto_id);
             $this->updateCompra($compra, $params, $data, 1, 0);
             $tx = Transaction::createTransaction(1, $compra->user_id, $producto->fichas, "Compra de fichas ID {$params['payment_id']}");
+            $user = Auth::user();
+            $this->sendPaymentMail($user, $producto, $compra);
             $compra->delivered = $tx->id;
             $compra->save();
         }
@@ -344,5 +348,25 @@ class DonarController extends Controller
             return view("donar.donar_status_successful", $data);
         }
         abort(404);
+    }
+
+    /**
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param $producto
+     * @param $compra
+     */
+    private function sendPaymentMail(\Illuminate\Contracts\Auth\Authenticatable $user, $producto, $compra)
+    {
+        $emailData = [
+            "email" => $user->email,
+            "fichas" => $producto->fichas,
+            "paymentId" => $compra->internal_id,
+            "fecha" => Carbon::now()->format("d-m-Y H:i"),
+            "productName" => $producto->name,
+            "amount" => $producto->getPriceInUsd(),
+            "donante" => $user->name . " " . $user->lastName
+        ];
+        $mailer = new Mailer();
+        $mailer->sendDonationEmail($emailData);
     }
 }
