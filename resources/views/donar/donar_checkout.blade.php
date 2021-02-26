@@ -75,7 +75,7 @@
                         <div class="form_ctrl input_  ">
                             <div class="align_center">
                                 <span id="donar"
-                                      class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</span>
+                                      class="boton_redondeado resaltado_amarillo text_bold width_100 hide">Donar</span>
                             </div>
                         </div>
                         <div class="align_center compra_protegida">
@@ -98,13 +98,10 @@
 
     <div class="modal_paypal">
         <div class="contenedor">
-            <div class="cont_modal_blanco">
-                <div class="cerrar">
-                    <span>X</span>
-                </div>
+            <div class="cont_modal_blanco"> 
                 <div class="intro_modal">
                     <img src="{{url('recursos/modal_paypal.svg')}}" alt="">
-                    <span>Te redireccionaremos al sitio de <strong>PayPal</strong> donde podrás elegir uno de los medios de pago debajo.</span>
+                    <span>Te redireccionaremos al sitio de <strong>PayPal</strong>.</span>
                 </div>
             </div>
         </div>
@@ -112,13 +109,10 @@
 
     <div class="modal_mercadopago">
         <div class="contenedor">
-            <div class="cont_modal_blanco">
-                <div class="cerrar">
-                    <span>X</span>
-                </div>
+            <div class="cont_modal_blanco"> 
                 <div class="intro_modal">
                     <img src="{{url('recursos/modal_mercadolibre.svg')}}" alt="">
-                    <span>Te redireccionaremos al sitio de <strong>MercadoLibre</strong> donde podrás elegir uno de los medios de pago debajo.</span>
+                    <span>Te redireccionaremos al sitio de <strong>MercadoLibre</strong>.</span>
                 </div>
             </div>
         </div>
@@ -132,10 +126,13 @@
         $(".forma_pago .boton_redondeado").on("click", function () {
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
+                $('#donar').addClass('hide').attr('disabled','disabled');
             } else {
                 if ($(".forma_pago .boton_redondeado").hasClass("active")) {
                     $(".forma_pago .boton_redondeado.active").removeClass("active");
+                    $('#donar').removeClass('hide').removeAttr('disabled'); 
                 }
+                $('#donar').removeClass('hide').removeAttr('disabled'); 
                 $(this).addClass("active");
             }
         });
@@ -145,7 +142,6 @@
             $(".modal_mercadopago").fadeOut();
             $('html, body').css('overflowY', 'auto');
             if ($(".paypal_").hasClass("active")) {
-                window.location = '{{url('donar/paypal?producto='.$producto->id)}}'
             } else {
                 const url = '{{url('donar/create-compra')}}';
                 axios.post(url, {
@@ -160,14 +156,30 @@
                 });
             }
         })
+ 
+
         $("#donar").on("click", function () {
             if ($(".paypal_").hasClass("active")) {
                 $('html, body').css('overflowY', 'hidden');
-                $(".modal_paypal").fadeIn();
+                $(".modal_paypal").fadeIn().delay(1000).fadeOut('fast', function(){
+                    window.location = '{{url('donar/paypal?producto='.$producto->id)}}'
+                });
             }
             if ($(".mercadopago_").hasClass("active")) {
                 $('html, body').css('overflowY', 'hidden');
-                $(".modal_mercadopago").fadeIn();
+                $(".modal_mercadopago").fadeIn().delay(1000).fadeOut('fast', function(){
+                    const url = '{{url('donar/create-compra')}}';
+                    axios.post(url, {
+                        producto_id: {{$producto->id}},
+                        payment_processor: 'mercadopago'
+                    }).then(function (response) {
+                        console.log(response);
+                        window.location = response.data.preferenceInit;
+                    }).catch(function (error) {
+                        console.log(error);
+                        alert('Ha habido un error, intenten más tarde');
+                    });
+                });
             }
         })
 
