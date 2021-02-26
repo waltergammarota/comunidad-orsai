@@ -27,7 +27,7 @@
                         </article>
                     @else
                         {{--TODO VER CUANDO SE PONE NEGRA LA COSA--}}
-                        <article class="card_style_6 coins_500">
+                        <article class="card_style_6">
                             <a href="{{url('donar/checkout?producto='.$producto->id)}}">
                                 <p>{{$producto->name}}</p>
                                 <h2><strong>{{$producto->fichas}}</strong> Fichas</h2>

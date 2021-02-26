@@ -31,7 +31,7 @@
                     </div>
                     <span class="subtitulo">Tenés</span>
                     <p class="titulo"><strong>{{$balance}}</strong> Fichas</p>
-                    {{--  <a href="#" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a> --}}
+                     <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a>
                 </div>
             </div>
         </div>

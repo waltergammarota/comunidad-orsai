@@ -14,15 +14,13 @@
                             <h1 class="text_regular _barlow_text">TU DONACIÓN
                                 <strong>{{$details['payment_id']}}</strong> ESTÁ PENDIENTE.</h1>
                             <div>
-                                <span class="">¿Todavía querés tener <strong>{{$producto->fichas}}</strong> fichas en tu cuenta? </span>
-                                <span
-                                    class="">Asegurate de completar tus datos correctamente para hacer tu donación.</span>
-
+                                <span class="">Todavía no recibimos tu donación de <strong>{{$producto->fichas}}</strong> fichas. Podés consultar el estado de tu operación en la plataforma de pago donde hiciste tu donación.</span>
                             </div>
                         </div>
                         <div class="form_ctrl input_  pd_20_tp">
-                            <div class="align_center">
-                                <a href="{{url('donar')}}" class="color_gris subrayado block_item">Ahora no</a>
+                            <div class="align_center"> 
+                                <a href="{{url('panel')}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Entendido</a>
+                                <span class="form_footer_term text_center color_gris">¿Necesitás ayuda? <a href="{{url("contacto")}}" class="subrayado">Escribinos</a></span>
                             </div>
                         </div>
                     </div>

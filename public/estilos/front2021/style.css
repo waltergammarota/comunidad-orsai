@@ -8360,19 +8360,19 @@ border-left: 18px solid transparent;
 
 
 
-.card_style_6.coins_500::after{
+.card_style_6:nth-child(1)::after{
     background-image: url("../../recursos/fichas_card_1.png");
 }
-.card_style_6.coins_1200::after{
+.card_style_6:nth-child(2)::after{
     background-image: url("../../recursos/fichas_card_2.png");
 }
-.card_style_6.coins_2000::after{
+.card_style_6:nth-child(3)::after{
     background-image: url("../../recursos/fichas_card_3.png");
 }
-.card_style_6.coins_3500::after{
+.card_style_6:nth-child(4)::after{
     background-image: url("../../recursos/fichas_card_4.png");
 }
-.card_style_6.coins_6500::after{
+.card_style_6:nth-child(5)::after{
     background-image: url("../../recursos/fichas_card_5.png");
 }
 .card_style_6.coins_10000::after{
