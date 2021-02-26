@@ -58,6 +58,29 @@
                             <div id="paypal-button-container"></div>
                         </div>
                     </div>
+                    
+  
+            {{-- PRODUCTION--}}
+            {{-- <form id="paymentForm" action="https://www.paypal.com/cgi-bin/webscr" method="post"></form> --}}
+
+            {{-- SANDBOX--}}
+            <form id="paymentForm" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                
+                <input type="hidden" name="cmd" value="_xclick" />
+                <input type="hidden" name="business" value="{{$user_email}}" />
+                <input type="hidden" name="quantity" value="1" />
+                <input type="hidden" name="lc" value="US" />
+                {{-- <input type="hidden" name="notify_url" value="RETURN URL" />  --}}
+                
+                <input type="hidden" name="item_name" value="{{$producto->id}}" />
+                <input type="hidden" name="return" value="{{url('paypal/successful')}}}" />
+                 
+                
+                <input type="hidden" name="amount" value="{{$producto->getPriceInUsd()}}" />
+                {{-- <input type="hidden" name="shipping" value="SHIPPING PRICE USD" /> --}}
+                <input type="hidden" name="item_number" value="ORDER" />
+                <button type="submit" class="paypal-btn" style="display: inline-block;"><span>DONAR</span></button>
+                </form>
                     <div class="align_center compra_protegida">
                         <img src="{{url('recursos/compra_protegida.svg')}}" alt="">
                         <span class=" text_bold">Compra 100% protegida</span>

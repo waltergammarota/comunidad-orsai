@@ -4,7 +4,7 @@
 @section('description', 'Panel de usuario')
 
 @section('content')
-    <section class="resaltado_gris pd_20 pd_20_tp_bt">
+    <section class="resaltado_gris pd_20 pd_20_tp">
         <div class="panel_perfil contenedor contenedor_interna_2">
             <div class="intro_panel_perfil">
                 <div class="img_perfil">
