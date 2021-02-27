@@ -126,6 +126,12 @@ class WebController extends Controller
         $data = $this->getUserData();
         return view('fundacion.2021-historia', $data);
     }
+    
+    public function pollo()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.pollo', $data);
+    }
 
     public function areas()
     {

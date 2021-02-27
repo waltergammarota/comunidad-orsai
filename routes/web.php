@@ -97,6 +97,13 @@ Route::get(
     'WebController@historia'
 )->name('historia');
 
+Route::get(
+    '/pollo',
+    'WebController@pollo'
+)->name('pollo');
+
+
+
 Route::post(
     '/donar/mercado_pago_webhook',
     'DonarController@mercado_pago_webhook'

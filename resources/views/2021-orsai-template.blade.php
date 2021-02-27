@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{url('estilos/front2021/animate.css')}}">
     <link rel="stylesheet" href="{{url('estilos/front2021/linea-de-tiempo.css')}}">
     <link rel="stylesheet" href="{{url('estilos/front2021/fontello/fontello.css')}}">
+    <link rel="stylesheet" href="{{url('estilos/jquery.tagsinput.min.css')}}">
     <link rel="stylesheet" href="{{url('owlcarousel/owl.carousel.min.css')}}">
     <script src="{{url('js/segment.js')}}"></script>
     <script src="{{url('js/ease.min.js')}}"></script>
@@ -103,6 +104,7 @@
 <script src="{{url('js/front2021/ease.min.js')}}"></script>
 <script src="{{url('js/front2021/main.js')}}"></script>
 <script src="{{url('js/front2021/carousel.js')}}"></script>
+<script src="{{url('js/jquery.tagsinput.min.js')}}"></script>
 
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
