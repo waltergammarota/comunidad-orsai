@@ -2944,7 +2944,7 @@ align-items: center;
 justify-content: center;
 }
 
-.concurso  .concurso__form .form_ctrl .label-centers .rounded-save--yellow {
+.concurso  .concurso__form .form_ctrl .label-centers .rounded-save--yellow, .rounded-save--yellow {
 padding: .75rem;
 display: inline-block;
 border-radius: 20px;
@@ -3486,8 +3486,165 @@ margin: 0 3px;
 .inscripcion-cuento {
   display: flex;
   background-image: url("../../recursos/front2021/fichas-donaciones.jpg");
+}
+
+.inscripcion-cuento .hero {
   min-height: 300px;
   position: relative;
+  padding: 2rem 0;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.inscripcion-cuento .hero .pills {
+  margin: 2rem 0;
+  display: inline-block;
+  width: auto;
+  max-width: 115px;
+}
+
+.inscripcion-cuento .hero h2.title {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 3rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  margin: 0 0 2rem;
+  width: 47%;
+}
+
+.inscripcion-cuento .hero p.subtitle {
+  color: #fff;
+  font-size: 1rem;
+  margin: 0 0 2rem;
+  width: 57%;
+}
+
+.inscripcion-cuento .hero a.link {
+  color: var(--concurso-color-yellow);
+  font-size: 1rem;
+  text-decoration: underline;
+  margin-bottom: 3rem;
+}
+
+.inscripcion-cuento .hero .hero-nav {
+  position: absolute;
+  bottom: -35px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-content {
+  display: flex;
+  justify-content: center;
+  background-color: var(--concurso-color-yellow);
+  border-radius: 10px;
+  height: 70px;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item {
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+  padding: 0 2rem;
+  justify-content: center;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item:after {
+  content:'';
+  position: absolute;
+  border-right: 1px solid #000;
+  height: 60%;
+  right: 0;
+  top: 20%;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item:last-child:after {
+  border-right: none;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .icon{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .icon svg{
+  width: 25px;
+  height: 25px;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .content-nav{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .content-nav span {
+  font-size: 14px;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .content-nav.column{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .content-nav.center{
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .content-nav.center .btn-postulacion{
+  background-color: #000;
+  color: #fff;
+  color: var(--concurso-color-yellow);
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .content-nav.column .big-number{
+  font-size: 2.75rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  margin-right: 10px;
+}
+
+.inscripcion-cuento .hero .hero-nav .hero-nav-item .content-nav .strong{
+  font-weight: bold;
+}
+
+.cuerpo_inscripcion {
+  padding-top: 4rem;
+}
+
+.cuerpo_inscripcion .cuerpo_inscripcion_title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.5rem;
+  font-weight: normal;
+  line-height: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.cuerpo_inscripcion .cuerpo_interna .center-columns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cuerpo_inscripcion .cuerpo_interna .center-columns a.link {
+  margin: 2rem 0;
+  text-decoration: underline;
 }
 
 /* INSCRIPCION */
