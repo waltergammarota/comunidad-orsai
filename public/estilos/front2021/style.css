@@ -2760,30 +2760,33 @@ header nav>#menu_reg .logueado{
 }
 
 .concurso {
-padding-top: 40px;
+ padding-top: 40px;
+}
+.concurso .cuerpo_interna{
+ box-shadow: 0 0 20px rgba(0, 0, 0, 0.04);
 }
 
-.concurso .inscripcion {
-background-color: var(--concurso-color-yellow);
-color: #000;
-border-radius: 20px;
-position: relative;
-display: inline-block;
-padding: 5px 20px;
-text-transform: uppercase;
-font-size: 14px;
+.concurso .inscripcion, .pills {
+  background-color: var(--concurso-color-yellow);
+  color: #000;
+  border-radius: 20px;
+  position: relative;
+  display: inline-block;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
-.concurso .inscripcion::after {
-content: '';
-width: 0;
-height: 0;
-border-style: solid;
-border-width: 12px 12px 0 0;
-border-color: var(--concurso-color-yellow) transparent transparent transparent;
-position: absolute;
-bottom: -10px;
-right: 40px;
+.concurso .inscripcion::after, .pills:after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 12px 0 0;
+  border-color: var(--concurso-color-yellow) transparent transparent transparent;
+  position: absolute;
+  bottom: -10px;
+  right: 40px;
 }
 
 .concurso .title {
@@ -2796,11 +2799,10 @@ line-height: 1.5rem;
 font-size: 1rem;
 }
 
-.concurso hr {
+.concurso hr, hr.gray {
 border: 0;
 height: 0;
 border-top: 1px solid rgba(0, 0, 0, 0.1);
-border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .concurso  .concurso__form {
@@ -2817,7 +2819,6 @@ color: var(--concurso-label-color);
 }
 
 .concurso  .concurso__form .form_ctrl select{
-background-color: #efefef;
 border: 0;
 width: 100%;
 height: 45px;
@@ -2831,6 +2832,9 @@ padding-right: 15px;
 position: relative;
 overflow: hidden;
 -webkit-appearance: none;
+background: #efefef url("data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'	 width='292.362px' height='292.362px' viewBox='0 0 292.362 292.362' style='enable-background:new 0 0 292.362 292.362;'	 xml:space='preserve'><g>	<path d='M286.935,69.377c-3.614-3.617-7.898-5.424-12.848-5.424H18.274c-4.952,0-9.233,1.807-12.85,5.424		C1.807,72.998,0,77.279,0,82.228c0,4.948,1.807,9.229,5.424,12.847l127.907,127.907c3.621,3.617,7.902,5.428,12.85,5.428		s9.233-1.811,12.847-5.428L286.935,95.074c3.613-3.617,5.427-7.898,5.427-12.847C292.362,77.279,290.548,72.998,286.935,69.377z'/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>") no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 9px;
 }
 
 .concurso  .concurso__form .form_ctrl select::after{
@@ -3064,10 +3068,429 @@ margin-top: 5px;
 margin: 0 3px;
 }
 
+.concurso-footer {
+  width: 100%;
+  display: flex;
+  margin-top: 2rem;
+}
 
+.btn-back {
+  border: 1px solid var(--concurso-text-gray);
+  padding: 10px 30px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  justify-content: center;
+}
 
-
+.btn-back:hover {
+  border-color: var(--concurso-color-yellow);
+  background-color: var(--concurso-color-yellow);
+}
 /* CONCURSO FORM STYLES */
+
+
+/* CONCURSOS STYLES */
+
+.concursos_nuevos {
+  padding: 4rem 0;
+}
+
+.concursos_nuevos h2.title {
+  font-size: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.concursos_nuevos h2.title .line{
+  position: absolute;
+  width: 80%;
+  border-top: 1px solid #808080;
+  bottom: -10px;
+  left: 0;
+}
+
+.concursos_nuevos h2.title:after, .concursos_nuevos h2.title:before{
+  content: '';
+  display: block;
+  position: absolute;
+  left: 1rem;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.concursos_nuevos h2.title:after{
+  bottom: -18px;
+  border-color: transparent #f2f2f2 transparent transparent;
+  border-width: 0 11px 11px 0;
+}
+
+.concursos_nuevos h2.title:before{
+  bottom: -20px;
+  border-color: transparent #808080 transparent transparent;
+  border-width: 0px 12px 11px 0;
+}
+
+.concursos_nuevos p.subtitle {
+  font-size: 1rem;
+}
+
+.concursos_nuevos hr {
+  margin: 2rem 0;
+}
+
+.concursos_nuevos .nav-filter {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+@media (min-width: 992px) {
+  .concursos_nuevos .nav-filter {
+    flex-direction: row;
+    margin-bottom: 3rem;
+  }
+  .concursos_nuevos .nav-filter .column-filter {
+    margin-bottom: 0;
+    border-right: 1px solid #a0a09f;
+  }
+}
+
+.concursos_nuevos .nav-filter .column-filter{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.concursos_nuevos .nav-filter .column-filter:last-child{
+  border-right: none;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper .filter:first-child label{
+  border-radius: 10px 0 0 10px;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper .filter{
+  display: flex;
+  flex-grow: 1;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper .filter:last-child label{
+  border-radius: 0 10px 10px 0;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper label{
+  width: 100%;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 10px 0;
+  font-size: 1rem;
+  text-align: center;
+  color: #a0a09f;
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper label:hover{
+  background-color: var(--concurso-color-yellow);
+  color: #000;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper input{
+  position: absolute;
+  left: -999999999px;
+  opacity: 0;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper select{
+  width: 100%;
+  appearance: none;
+  background-color: #fff;
+  border: none;
+  padding: 10px 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  appearance: none;
+  border: none;
+  background: #fff url("data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'	 width='292.362px' height='292.362px' viewBox='0 0 292.362 292.362' style='enable-background:new 0 0 292.362 292.362;'	 xml:space='preserve'><g>	<path d='M286.935,69.377c-3.614-3.617-7.898-5.424-12.848-5.424H18.274c-4.952,0-9.233,1.807-12.85,5.424		C1.807,72.998,0,77.279,0,82.228c0,4.948,1.807,9.229,5.424,12.847l127.907,127.907c3.621,3.617,7.902,5.428,12.85,5.428		s9.233-1.811,12.847-5.428L286.935,95.074c3.613-3.617,5.427-7.898,5.427-12.847C292.362,77.279,290.548,72.998,286.935,69.377z'/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>") no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 9px;
+}
+
+.concursos_nuevos .nav-filter .filter-wrapper input:checked + label{
+  background-color: var(--concurso-color-yellow);
+  color: #000;
+}
+
+.concursos_nuevos .content-cards {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.concursos_nuevos .search-filter {
+  width: 100%;
+  appearance: none;
+  background-color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  padding-right: 3rem;
+  position: relative;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+}
+
+.concursos_nuevos .content-search {
+  position: relative;
+  width: 100%;
+}
+
+.concursos_nuevos .submit-search-filter {
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+  border: none;
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--concurso-color-yellow);
+}
+
+.concursos_nuevos .submit-search-filter svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--concurso-text-black);
+}
+
+.concursos_nuevos .content-cards .card{
+  overflow: hidden;
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 4px 7px 18px -4px rgb(0 0 0 / 10%);
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .3s ease-in;
+}
+
+.concursos_nuevos .content-cards .card:hover{
+  box-shadow: 4px 7px 18px -4px rgba(0,0,0,0.37);
+}
+
+.concursos_nuevos .content-cards .card .thumbnail{
+  position: relative;
+  height: 150px;
+}
+
+.concursos_nuevos .content-cards .card .thumbnail img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.concursos_nuevos .content-cards .card .thumbnail .pills{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 13px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: bold;
+}
+
+.concursos_nuevos .content-cards .card .thumbnail .pills:after{
+  right: 20px;
+}
+
+.concursos_nuevos .content-cards .card .card-body{
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.concursos_nuevos .content-cards .card .card-footer{
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left{
+  flex-grow: 1;
+  display: flex;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left .card-footer-info{
+  display: flex;
+  flex-direction: column;
+  min-height: 30px;
+  justify-content: flex-end;
+  margin-right: 1rem;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left .card-footer-info .img-total{
+  display: flex;
+  align-items: flex-end;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left .card-footer-info.modo-pozo{
+  align-items: center;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left .card-footer-info:last-child{
+  margin-right: 0;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left .card-footer-info svg{
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left .card-footer-info .total {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-left .card-footer-info .info {
+  color: var(--concurso-text-gray);
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-right .more-details {
+  display: block;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-right .more-details svg {
+  fill: var(--concurso-text-black);
+  width: 15px;
+  height: 15px;
+}
+
+.concursos_nuevos .content-cards .card .card-footer .card-footer-right .more-details:hover svg {
+  fill: var(--concurso-color-yellow);
+}
+
+.concursos_nuevos .content-cards .card .card-body .card-title{
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: normal;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.card.soon .pills{
+  background-color: var(--concurso-color-yellow);
+}
+
+.card.soon .pills:after {
+  border-color: var(--concurso-color-yellow) transparent transparent transparent;
+}
+
+.card.active .pills{
+  background-color: #7cec8b;
+}
+
+.card.active .pills:after {
+  border-color: #7cec8b transparent transparent transparent;
+}
+
+.card.ended .pills{
+  background-color: #e9462e;
+  color: #fff;
+}
+
+.card.ended .pills:after {
+  border-color: #e9462e transparent transparent transparent;
+}
+
+.loading-section {
+  display: flex;
+  justify-content: center;
+}
+
+.loading-section .spinner{
+  display: flex;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.loading-section svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.loading-section .text-loading {
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+  color: #808080;
+}
+
+/* CONCURSOS STYLES */
+
+/* GRID SYSTEM */
+
+.container-concurso {
+  padding: 0 15px;
+  margin: 0 auto;
+  width: 100%; }
+  @media only screen and (min-width: 768px) {
+    .container-concurso {
+      max-width: 720px; } }
+  @media only screen and (min-width: 992px) {
+    .container-concurso {
+      max-width: 960px; } }
+  @media only screen and (min-width: 1200px) {
+    .container-concurso {
+      max-width: 1170px; } }
+  .container-concurso-fluid {
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto; }
+.row{margin:0 -15px;display:flex;flex-wrap:wrap}.row [class^=col]{position:relative;min-height:1px;padding:0 15px}.col-1{flex:0 0 8.33333%}.col-2{flex:0 0 16.66667%}.col-3{flex:0 0 25%}.col-4{flex:0 0 33.33333%}.col-5{flex:0 0 41.66667%}.col-6{flex:0 0 50%}.col-7{flex:0 0 58.33333%}.col-8{flex:0 0 66.66667%}.col-9{flex:0 0 75%}.col-10{flex:0 0 83.33333%}.col-11{flex:0 0 91.66667%}.col-12{flex:0 0 100%}@media only screen and (min-width:1200px){.col-xl-1{flex:0 0 8.33333%}.col-xl-2{flex:0 0 16.66667%}.col-xl-3{flex:0 0 25%}.col-xl-4{flex:0 0 33.33333%}.col-xl-5{flex:0 0 41.66667%}.col-xl-6{flex:0 0 50%}.col-xl-7{flex:0 0 58.33333%}.col-xl-8{flex:0 0 66.66667%}.col-xl-9{flex:0 0 75%}.col-xl-10{flex:0 0 83.33333%}.col-xl-11{flex:0 0 91.66667%}.col-xl-12{flex:0 0 100%}}@media only screen and (min-width:992px){.col-lg-1{flex:0 0 8.33333%!important}.col-lg-2{flex:0 0 16.66667%!important}.col-lg-3{flex:0 0 25%!important}.col-lg-4{flex:0 0 33.33333%!important}.col-lg-5{flex:0 0 41.66667%!important}.col-lg-6{flex:0 0 50%!important}.col-lg-7{flex:0 0 58.33333%!important}.col-lg-8{flex:0 0 66.66667%!important}.col-lg-9{flex:0 0 75%!important}.col-lg-10{flex:0 0 83.33333%!important}.col-lg-11{flex:0 0 91.66667%!important}.col-lg-12{flex:0 0 100%!important}}@media only screen and (min-width:768px){.col-md-1{flex:0 0 8.33333%}.col-md-2{flex:0 0 16.66667%}.col-md-3{flex:0 0 25%}.col-md-4{flex:0 0 33.33333%}.col-md-5{flex:0 0 41.66667%}.col-md-6{flex:0 0 50%}.col-md-7{flex:0 0 58.33333%}.col-md-8{flex:0 0 66.66667%}.col-md-9{flex:0 0 75%}.col-md-10{flex:0 0 83.33333%}.col-md-11{flex:0 0 91.66667%}.col-md-12{flex:0 0 100%}}@media only screen and (min-width:480px){.col-sm-1{flex:0 0 8.33333%}.col-sm-2{flex:0 0 16.66667%}.col-sm-3{flex:0 0 25%}.col-sm-4{flex:0 0 33.33333%}.col-sm-5{flex:0 0 41.66667%}.col-sm-6{flex:0 0 50%}.col-sm-7{flex:0 0 58.33333%}.col-sm-8{flex:0 0 66.66667%}.col-sm-9{flex:0 0 75%}.col-sm-10{flex:0 0 83.33333%}.col-sm-11{flex:0 0 91.66667%}.col-sm-12{flex:0 0 100%}}
+/* GRID SYSTEM */
+
+
+/* INSCRIPCION */
+
+.inscripcion-cuento {
+  display: flex;
+  background-image: url("../../recursos/front2021/fichas-donaciones.jpg");
+  min-height: 300px;
+  position: relative;
+}
+
+/* INSCRIPCION */
 
 .cuerpo_interna h2{
 margin:0;

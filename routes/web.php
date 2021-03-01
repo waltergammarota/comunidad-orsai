@@ -98,9 +98,19 @@ Route::get(
 )->name('historia');
 
 Route::get(
-    '/pollo',
-    'WebController@pollo'
-)->name('pollo');
+    '/concurso-cuento',
+    'WebController@concurso_cuento'
+)->name('concurso-cuento');
+
+Route::get(
+    '/concursos-nuevos',
+    'WebController@concursos_nuevos'
+)->name('concursos-nuevos');
+
+Route::get(
+    '/concursos-inscripcion',
+    'WebController@concursos_inscripcion'
+)->name('concursos-inscripcion');
 
 
 

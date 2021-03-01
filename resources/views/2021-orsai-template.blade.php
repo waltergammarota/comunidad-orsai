@@ -97,7 +97,6 @@
 <div class="icono_up">
     <span class="icon-angle-up"></span>
 </div>
-
 <script src="{{url('js/jquery.js')}}"></script>
 <script src="{{url('js/front2021/owl.carousel2/dist/owl.carousel.min.js')}}"></script>
 <script src="{{url('js/front2021/segment.js')}}"></script>
