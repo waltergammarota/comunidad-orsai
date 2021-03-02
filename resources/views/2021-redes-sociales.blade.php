@@ -40,7 +40,7 @@
                                     <label class="text_medium">Facebook</label>
                                     <input type="text" name="facebook" class="obligatorio" id="facebook"
                                            placeholder="Nombre de Usuario" value="{{$facebook}}" disabled>
-                                    <span class="icono_aviso icon-check_circle"></span>
+                                    <span class="icono_aviso icon-check_circle" @if($facebook) style="display:block;" @endif></span>
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
                                 <div class="button_lf_side">
@@ -60,7 +60,7 @@
                                     <label class="text_medium">Twitter</label>
                                     <input type="text" name="twitter" class="obligatorio" placeholder="@nombredeusuario"
                                            id="twitter" value="{{$twitter}}" disabled>
-                                    <span class="icono_aviso icon-check_circle"></span>
+                                    <span class="icono_aviso icon-check_circle" @if($twitter) style="display:block;" @endif></span>
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
                                 @if(!$twitter)
