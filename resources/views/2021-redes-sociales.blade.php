@@ -44,9 +44,15 @@
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
                                 <div class="button_lf_side">
-                                    <button class="conectar boton_redondeado btn_transparente text_bold"
-                                            data-network="facebook">Conectar
-                                    </button>
+                                    @if(!$facebook)
+                                        <button class="conectar boton_redondeado btn_transparente text_bold"
+                                                data-network="facebook">Conectar
+                                        </button>
+                                    @else
+                                        <button class="conectar boton_redondeado text_bold"
+                                                data-network="facebook">Desconectar
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form_ctrl input_ col_3">   {{-- inp_y_btn  --}}
@@ -143,12 +149,11 @@
     <script>
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '239352054320594',
+                appId: '{{env('FACEBOOK_APP_ID')}}',
                 autoLogAppEvents: true,
                 xfbml: true,
                 version: 'v10.0'
             });
-
         };
     </script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
@@ -236,7 +241,6 @@
                     toggle(false, btn_);
                     input.val("");
                 });
-                console.log('Good to see you, ' + response.name + '.');
             });
         }
 
@@ -270,6 +274,47 @@
             console.log("twitter");
         }
 
+
+        function disconnectInstagram(btn_, input) {
+            $(btn_).html('Conectar');
+            $(btn_).addClass('btn_transparente');
+            input.val("");
+            const url = '{{url("save-instagram")}}';
+            axios.post(url, {
+                facebook_id: null,
+                facebook_user: null,
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        function disconnectTwitter(btn_, input) {
+            $(btn_).html('Conectar');
+            $(btn_).addClass('btn_transparente');
+            input.val("");
+            const url = '{{url("save-twitter")}}';
+            axios.post(url, {
+                facebook_id: null,
+                facebook_user: null,
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        function disconnectFacebook(btn_, input) {
+            $(btn_).html('Conectar');
+            $(btn_).addClass('btn_transparente');
+            input.val("");
+            const url = '{{url("save-facebook")}}';
+            axios.post(url, {
+                facebook_id: null,
+                facebook_user: null,
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+
         /* ANIMACION BOTON REDES SOCIALES MI PERFIL */
         $('.conectar').click(function () {
             const btn_ = $(this);
@@ -277,20 +322,32 @@
             const input = $(this).parent().siblings('.input_err').find('input');
             input.attr('disabled', true);
             const network = btn_.data('network');
-            switch (network) {
-                case "facebook":
-                    connectFacebook(btn_, input);
-                    break;
-                case "instagram":
-                    connectInstagram(btn_, input);
-                    break;
-                case "twitter":
-                    connectTwitter(btn_, input);
-                    break;
+            // CASE CONECTAR HORRIBLE
+            if ($(btn_).hasClass('btn_transparente')) {
+                switch (network) {
+                    case "facebook":
+                        connectFacebook(btn_, input);
+                        break;
+                    case "instagram":
+                        connectInstagram(btn_, input);
+                        break;
+                    case "twitter":
+                        connectTwitter(btn_, input);
+                        break;
+                }
+            } else {
+                switch (network) {
+                    case "facebook":
+                        disconnectFacebook(btn_, input);
+                        break;
+                    case "instagram":
+                        disconnectInstagram(btn_, input);
+                        break;
+                    case "twitter":
+                        disconnectTwitter(btn_, input);
+                        break;
+                }
             }
-            loader(btn_, color_btn);
-            toggle(true, btn_);
-
         });
 
 
