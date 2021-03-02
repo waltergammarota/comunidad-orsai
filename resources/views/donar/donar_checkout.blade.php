@@ -12,6 +12,17 @@
         #paypal-button-container {
             display: none;
         }
+        .opt_mercadopago,
+        .opt_paypal {
+            text-align:center;
+            display: none;
+        }
+        .otras_opciones{
+            display: none;
+            font-size: 13px; 
+            margin: 25px 0;
+            text-decoration:underline;
+        } 
     </style>
     <script
         src="https://www.paypal.com/sdk/js?client-id={{env('PAYPAL_CLIENT_ID')}}&currency=USD"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
@@ -26,10 +37,7 @@
                                 DE CONSEGUIR TUS FICHAS</h1>
                         </div>
                         <table class="border_tp_bt_table">
-                            <tbody class="">
-                            <tr>
-                                <td colspan="2">Detalle de tu donación:</td>
-                            </tr>
+                            <tbody class=""> 
                             <tr>
                                 <td colspan="2">
                                     <table class="items_detalle">
@@ -58,7 +66,7 @@
                                             </td>
                                         </tr>
                                         <tr class="_total pesitos">
-                                            <td><br>En pesos
+                                            <td><br>Total en Pesos Argentinos
                                             </td>
                                             <td class="text_bold"><br>ARS {{$producto->getPriceInArs()}}</td>
                                         </tr>
@@ -73,13 +81,19 @@
                             </tbody>
                         </table>
                         <div class="forma_pago">
-                            <span class="titulo text_bold">Seleccioná como querés abonar</span>
+                            <span class="titulo text_bold">Seleccioná como querés abonar tu donación:</span>
+                            <div class="opt_mercadopago">
+                                <span class="desc">Vas a realizar tu donación con <img src="{{url('recursos/mercadopago.svg')}}" width="100" alt="Mercado Pago"></span><br/>
+                            </div>
+                            <div class="opt_paypal">
+                                <span class="desc">Vas a realizar tu donación con <strong>Paypal</strong>.<br/>También podes hacerlo con cualquier tarjeta de débito o crédito internacional. </span><br/>
+                            </div>
                             <div class="grilla_form">
                                 <div class="form_ctrl col_3"> 
                                     <div class="align_center">
                                         <div class="boton_redondeado btn_gris width_100 mercadopago_"
                                              data-processor_type="mercadopago">
-                                            <img src="{{url('recursos/mercadopago.svg')}}" alt="">
+                                            <img src="{{url('recursos/mercadopago.svg')}}" alt="Mercado Pago">
                                         </div>
                                         <span class="color_gris text_medium">Argentina</span>
                                     </div>
@@ -96,9 +110,9 @@
                         </div>
                         <div class="form_ctrl input_  ">
                             <div class="align_center">
-                                <span id="donar"
-                                      class="boton_redondeado resaltado_amarillo text_bold width_100 hide">Donar</span>
+                                <span id="donar" class="boton_redondeado resaltado_amarillo text_bold width_100 hide">Donar</span>
                                 <div id="paypal-button-container"></div>
+                                <a href="#" class="otras_opciones">Volver a otras opciones de donación</a>
                             </div>
                         </div>
                         <div class="align_center compra_protegida">
@@ -135,7 +149,7 @@
             <div class="cont_modal_blanco">
                 <div class="intro_modal">
                     <img src="{{url('recursos/modal_mercadolibre.svg')}}" alt="">
-                    <span>Te redireccionaremos al sitio de <strong>MercadoLibre</strong>.</span>
+                    <span>Te redireccionaremos al sitio de <strong>Mercado Pago</strong>.</span>
                 </div>
             </div>
         </div>
@@ -147,16 +161,32 @@
 
 
     <script>
+        $('.otras_opciones').on("click", function(e){
+            e.preventDefault();
+            $(".forma_pago .titulo").fadeIn();
+            $('.grilla_form').fadeIn();
+            $('.opt_mercadopago').hide();
+            $('.opt_paypal').hide();
+            $(".pesitos").hide(); 
+            $("#paypal-button-container").hide(); 
+            $('#donar').addClass('hide').attr('disabled', 'disabled'); 
+            $('.boton_redondeado').removeClass("active");
+            $(this).hide();
+        });
         $(".forma_pago .boton_redondeado").on("click", function () {
+                $(".forma_pago .titulo").fadeOut();
+                $('.grilla_form').fadeOut();
+                $('.otras_opciones').css('display','block');
             if ($(this).data('processor_type') == "mercadopago") {
                 $(".pesitos").show();
                 $('#donar').removeClass('hide').removeAttr('disabled');
                 $("#paypal-button-container").hide();
+                $('.opt_mercadopago').fadeIn();
             } else {
                 $(".pesitos").hide();
                 $('#donar').addClass('hide').attr('disabled', 'disabled');
                 $("#paypal-button-container").show();
-                $('.paypal-button-label-container').prepend('<span style="font-size: 14px;display: inline-block;line-height: 23px;margin-right: 5px;">Con una cuenta de</span>');
+                $('.opt_paypal').fadeIn();
             }
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
