@@ -53,6 +53,41 @@ class AccountController extends Controller
         return view('2021-redes-sociales', $data);
     }
 
+    public function saveFacebook(Request $request)
+    {
+        $facebookId = $request->facebook_id;
+        $facebookUser = $request->facebook_user;
+        $user = Auth::user();
+        $user->facebook = $facebookUser;
+        $user->facebook_id = $facebookId;
+        $user->save();
+        return response()->json(["status" => 'success', 'msg' => 'Facebook user updated']);
+    }
+
+    public function saveInstagram(Request $request)
+    {
+        $instagramId = $request->instagram_id;
+        $instagramUser = $request->instagram_user;
+        $user = Auth::user();
+        $user->instagram = $instagramUser;
+        $user->instagram_id = $instagramId;
+        $user->save();
+        return response()->json(["status" => 'success', 'msg' => 'Instagram user updated']);
+    }
+
+    public function saveTwitter(Request $request)
+    {
+        $twitterId = $request->twitter_id;
+        $twitterUser = $request->twitter_user;
+        $user = Auth::user();
+        $user->twitter = $twitterUser;
+        $user->twitter_id = $twitterId;
+        $user->save();
+        return response()->json(["status" => 'success', 'msg' => 'Twitter user updated']);
+
+    }
+
+
     public function show_seguridad(Request $request)
     {
         $data = $this->getUserData();
@@ -456,9 +491,6 @@ class AccountController extends Controller
     public function profile_update_redes(Request $request)
     {
         $allowedTypes = [
-            'facebook',
-            'twitter',
-            'instagram',
             'linkedin',
             'portfolio',
             'web',
