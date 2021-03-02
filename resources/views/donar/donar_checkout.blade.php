@@ -10,7 +10,7 @@
         }
 
         #paypal-button-container {
-            /* display: none; */
+            display: none;
         }
     </style>
     <script
@@ -75,8 +75,7 @@
                         <div class="forma_pago">
                             <span class="titulo text_bold">Seleccioná como querés abonar</span>
                             <div class="grilla_form">
-                                <div class="form_ctrl ">
-                                    {{-- col_3 --}}
+                                <div class="form_ctrl col_3"> 
                                     <div class="align_center">
                                         <div class="boton_redondeado btn_gris width_100 mercadopago_"
                                              data-processor_type="mercadopago">
@@ -85,14 +84,14 @@
                                         <span class="color_gris text_medium">Argentina</span>
                                     </div>
                                 </div>
-                                {{-- <div class="form_ctrl col_3">
+                                <div class="form_ctrl col_3">
                                     <div class="align_center">
                                         <div class="boton_redondeado btn_gris width_100 paypal_">
                                             <img src="{{url('recursos/paypal.svg')}}" alt="">
                                         </div>
                                         <span class="color_gris text_medium">Mundo</span>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                         <div class="form_ctrl input_  ">
