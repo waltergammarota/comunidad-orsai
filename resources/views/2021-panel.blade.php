@@ -31,7 +31,7 @@
                     </div>
                     <span class="subtitulo">Tenés</span>
                     <p class="titulo"><strong>{{$balance}}</strong> Fichas</p>
-                     <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a>
+                     {{-- <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a> --}}
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
                         <p>Sincronizá tus cuentas de redes sociales que quieras compartir con la comunidad.</p>
                     </article>
                 </a>
-                @if (Auth::check())
+                {{-- @if (Auth::check())
                     @if(Session::get('role') == "admin")
                         <a href="#" class="card_style_panel">
                             <article>
@@ -146,7 +146,7 @@
                             </article>
                         </a>
                     @endif
-                @endif
+                @endif --}}
             </div>
         </div>
         <div class="resaltado_gris">

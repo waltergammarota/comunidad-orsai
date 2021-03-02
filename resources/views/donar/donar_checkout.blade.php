@@ -163,8 +163,8 @@
     <script>
         $('.otras_opciones').on("click", function(e){
             e.preventDefault();
-            $(".forma_pago .titulo").fadeIn();
-            $('.grilla_form').fadeIn();
+            $(".forma_pago .titulo").show();
+            $('.grilla_form').show();
             $('.opt_mercadopago').hide();
             $('.opt_paypal').hide();
             $(".pesitos").hide(); 
@@ -174,19 +174,19 @@
             $(this).hide();
         });
         $(".forma_pago .boton_redondeado").on("click", function () {
-                $(".forma_pago .titulo").fadeOut();
-                $('.grilla_form').fadeOut();
+                $(".forma_pago .titulo").hide();
+                $('.grilla_form').hide();
                 $('.otras_opciones').css('display','block');
             if ($(this).data('processor_type') == "mercadopago") {
                 $(".pesitos").show();
                 $('#donar').removeClass('hide').removeAttr('disabled');
                 $("#paypal-button-container").hide();
-                $('.opt_mercadopago').fadeIn();
+                $('.opt_mercadopago').show();
             } else {
                 $(".pesitos").hide();
                 $('#donar').addClass('hide').attr('disabled', 'disabled');
                 $("#paypal-button-container").show();
-                $('.opt_paypal').fadeIn();
+                $('.opt_paypal').show();
             }
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
