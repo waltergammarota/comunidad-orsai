@@ -45,10 +45,14 @@ class ProductoController extends Controller
 
     private function getDolarPrice()
     {
-        $client = new Client();
-        $url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
-        $response = $client->get($url);
-        return json_decode($response->getBody());
+        try {
+            $client = new Client();
+            $url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
+            $response = $client->get($url);
+            return json_decode($response->getBody());
+        } catch (\Exception $error) {
+            return [];
+        }
     }
 
     public function create(Request $request)

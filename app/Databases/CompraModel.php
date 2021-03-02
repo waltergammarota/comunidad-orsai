@@ -27,7 +27,8 @@ class CompraModel extends Model
         'internal_id',
         'datos',
         'processed',
-        'delivered'
+        'delivered',
+        'price_ars'
     ];
 
     /**

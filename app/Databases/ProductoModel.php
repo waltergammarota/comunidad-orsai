@@ -10,6 +10,8 @@ class ProductoModel extends Model
 {
     protected $table = 'productos';
 
+    private $cotizacion = 150;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,6 +52,22 @@ class ProductoModel extends Model
         }
         return $this->price;
 
+    }
+
+    public function setCotizacion($cotizacion)
+    {
+        $this->cotizacion = $cotizacion;
+    }
+
+    public function getCotizacion()
+    {
+        return $this->cotizacion;
+    }
+
+    public function getPriceInArs()
+    {
+        $priceInUsd = $this->getPriceInUsd();
+        return $priceInUsd * $this->cotizacion;
     }
 
 }

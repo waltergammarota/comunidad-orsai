@@ -6,6 +6,7 @@ use App\Databases\CompraModel;
 use App\Databases\ProductoModel;
 use App\Databases\Transaction;
 use App\Utils\Mailer;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -40,8 +41,31 @@ class DonarController extends Controller
         if ($productId == null) {
             abort(404);
         }
-        $data['producto'] = ProductoModel::find($productId);
+        $producto = ProductoModel::find($productId);
+        $cotizacionDolarMEP = $this->getDolarPrice();
+        $producto->setCotizacion($cotizacionDolarMEP);
+        $data['producto'] = $producto;
+        $data['user_email'] = Auth::user()->email;
         return view("donar.donar_checkout", $data);
+    }
+
+
+    private function getDolarPrice()
+    {
+        try {
+            $client = new Client();
+            $url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
+            $response = $client->get($url);
+            $cotizaciones = json_decode($response->getBody());
+            $cotizacion = array_filter($cotizaciones, function ($cotizacion) {
+                return $cotizacion->casa->nombre == 'Dolar Contado con Liqui';
+            });
+            if (count($cotizacion) > 0) {
+                return str_replace(',', '.', reset($cotizacion)->casa->venta);
+            }
+        } catch (\Exception $error) {
+            return 150;
+        }
     }
 
 
@@ -53,8 +77,8 @@ class DonarController extends Controller
         $item = new Item();
         $item->title = $producto->name;
         $item->quantity = 1;
-        $item->unit_price = $producto->getPriceInUsd();
-        $item->currency_id = 'USD';
+        $item->unit_price = $producto->getPriceInArs();
+        $item->currency_id = 'ARS';
         $item->category = "donations";
         $preference->items = array($item);
         $preference->back_urls = array(
@@ -99,7 +123,10 @@ class DonarController extends Controller
         $preferenceInit = "";
         $internalId = $this->generateUuid();
         $paypalId = "";
+        $priceInArs = 0;
         if ($medio == "mercadopago") {
+            $priceInArs = $this->getDolarPrice();
+            $producto->setCotizacion($priceInArs);
             $preference = $this->mercado_pago($producto, $internalId, $user);
             $preferenceInit = $preference->init_point;
         } else {
@@ -113,7 +140,8 @@ class DonarController extends Controller
             'payment_processor' => $medio,
             'internal_id' => $internalId,
             'status' => 'prepared',
-            'external_reference' => $paypalId
+            'external_reference' => $paypalId,
+            'price_ars' => $priceInArs
         ]);
         $preCompra->save();
         return response()->json(["status" => "success", "preferenceInit" => $preferenceInit, "paypal_id" => $paypalId]);
