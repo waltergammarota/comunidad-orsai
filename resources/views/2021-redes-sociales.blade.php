@@ -63,11 +63,15 @@
                                     <span class="icono_aviso icon-check_circle"></span>
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
-                                {{--                                <div class="button_lf_side">--}}
-                                {{--                                    <button class="conectar boton_redondeado btn_transparente text_bold ">Conectar--}}
-                                {{--                                    </button>--}}
-                                {{--                                </div>--}}
-                                {{--                                <span class="error">El campo Nombre es obligatorio.</span>--}}
+                                @if(!$instagram)
+                                    <button class="conectar boton_redondeado btn_transparente text_bold"
+                                            data-network="instagram">Conectar
+                                    </button>
+                                @else
+                                    <button class="conectar boton_redondeado text_bold"
+                                            data-network="instagram">Desconectar
+                                    </button>
+                                @endif
                             </div>
                         </div>
                         <div class="grilla_form">
@@ -260,7 +264,7 @@
                             input.val("");
                             console.log('User cancelled login or did not fully authorize.');
                         }
-                    });
+                    }, {scope: 'instagram_basic'});
                 }
             });
         }
