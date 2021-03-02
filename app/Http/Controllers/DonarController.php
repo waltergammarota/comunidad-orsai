@@ -24,7 +24,7 @@ use PayPalHttp\HttpException;
 
 class DonarController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $data = $this->getUserData();
         $cantidadMaximaProductos = 6;
@@ -207,7 +207,6 @@ class DonarController extends Controller
         $compra->fill($data['details']);
         $compra->save();
         return $data;
-
     }
 
     public function paypal(Request $request)

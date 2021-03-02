@@ -39,13 +39,15 @@
                                 <div class="input_err">
                                     <label class="text_medium">Facebook</label>
                                     <input type="text" name="facebook" class="obligatorio" id="facebook"
-                                           placeholder="Nombre de Usuario" value="{{$facebook}}">
+                                           placeholder="Nombre de Usuario" value="{{$facebook}}" disabled>
                                     <span class="icono_aviso icon-check_circle"></span>
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
-                                {{--                    <div class="button_lf_side">--}}
-                                {{--                        <button class="conectar boton_redondeado btn_transparente text_bold ">Conectar</button>--}}
-                                {{--                    </div>--}}
+                                <div class="button_lf_side">
+                                    <button class="conectar boton_redondeado btn_transparente text_bold"
+                                            data-network="facebook">Conectar
+                                    </button>
+                                </div>
                             </div>
                             <div class="form_ctrl input_ col_3">   {{-- inp_y_btn  --}}
                                 <div class="input_err">
@@ -139,6 +141,18 @@
 
 @section('footer')
     <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '239352054320594',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v10.0'
+            });
+
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script>
         const facebook = $("#facebook");
         const twitter = $("#twitter");
         const instagram = $("#instagram");
@@ -147,6 +161,7 @@
         const web = $("#web");
         const medium = $("#medium");
         const redes = $("#redes");
+
 
         function save() {
             event.preventDefault();
@@ -180,44 +195,92 @@
             }
         });
 
-
-        /* ANIMACION BOTON REDES SOCIALES MI PERFIL */
-        $('.conectar').click(function () {
-            //   $('#val_tel').hide();
-            const btn_ = $(this);
-            const color_btn = $(this).css("color");
-            $(this).siblings('.input_err').find('input').attr('disabled', true);
-
-
+        function loader(btn_, color_btn) {
             $(btn_).css("color", "transparent");
             $(btn_).addClass('btn_loader');
-            setTimeout(function () {
-                $(btn_).removeClass('btn_loader');
-                $(btn_).css("color", color_btn);
-                // $('#val_tel').show();
-            }, 2000);
-            setTimeout(function () {
-                //  Si es Ok
+            $(btn_).removeClass('btn_loader');
+            $(btn_).css("color", color_btn);
+        }
+
+        function toggle(success, btn_) {
+            if (success) {
                 if ($(btn_).hasClass('btn_transparente')) {
                     $(btn_).html('Desconectar');
                     $(btn_).removeClass('btn_transparente');
-                } else {
-                    $(btn_).html('Conectar');
-                    $(btn_).addClass('btn_transparente');
                 }
                 $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeIn();
 
-                //   Si es error
-                // $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeIn();
-            }, 2000);
+                setTimeout(function () {
+                    $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeOut();
+                }, 3000);
+            } else {
+                $(btn_).html('Conectar');
+                $(btn_).addClass('btn_transparente');
+                $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeIn();
+                setTimeout(function () {
+                    $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeOut();
+                }, 3000);
+            }
+        }
 
-            setTimeout(function () {
-                //  Si es Ok
-                $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeOut();
+        function connectFacebook(btn_, input) {
+            console.log("facebook");
+            FB.login(function (response) {
+                console.log(response);
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me', function (response) {
+                        input.val(response.name);
+                        const url = '{{url("save-facebook")}}';
+                        axios.post(url, {
+                            facebook_id: response.id,
+                            facebook_user: response.name
+                        }).then(function (response) {
+                            toggle(true, btn_);
+                        }).catch(function (error) {
+                            toggle(false, btn_);
+                            input.val("");
+                        });
+                        console.log('Good to see you, ' + response.name + '.');
+                    });
+                } else {
+                    toggle(false, btn_);
+                    input.val("");
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            });
+        }
 
-                //   Si es error
-                // $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeOut();
-            }, 3000);
+        function connectInstagram() {
+            console.log("instagram");
+        }
+
+        function connectTwitter() {
+            console.log("twitter");
+        }
+
+        /* ANIMACION BOTON REDES SOCIALES MI PERFIL */
+        $('.conectar').click(function () {
+            const btn_ = $(this);
+            const color_btn = $(this).css("color");
+            const input = $(this).siblings('.input_err').find('input');
+            input.attr('disabled', true);
+
+            const network = btn_.data('network');
+            switch (network) {
+                case "facebook":
+                    connectFacebook(btn_, input);
+                    break;
+                case "instagram":
+                    connectInstagram(btn_, input);
+                    break;
+                case "twitter":
+                    connectTwitter(btn_, input);
+                    break;
+            }
+            loader(btn_, color_btn);
+            toggle(true, btn_);
+
         });
 
 
