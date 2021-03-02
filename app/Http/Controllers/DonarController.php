@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Databases\CompraModel;
+use App\Databases\DolarModel;
 use App\Databases\ProductoModel;
 use App\Databases\Transaction;
 use App\Utils\Mailer;
@@ -52,6 +53,11 @@ class DonarController extends Controller
 
     private function getDolarPrice()
     {
+        $cotizacion = DolarModel::latest()->first();
+        $minutes = 60 * 12;
+        if ($cotizacion && $cotizacion->fecha->diffInMinutes(Carbon::now()) < $minutes) {
+            return $cotizacion->precio;
+        }
         try {
             $client = new Client();
             $url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
@@ -61,9 +67,18 @@ class DonarController extends Controller
                 return $cotizacion->casa->nombre == 'Dolar Contado con Liqui';
             });
             if (count($cotizacion) > 0) {
-                return str_replace(',', '.', reset($cotizacion)->casa->venta);
+                $precio = str_replace(',', '.', reset($cotizacion)->casa->venta);
+                $dolarMep = new DolarModel([
+                    "precio" => $precio,
+                    "fecha" => Carbon::now()
+                ]);
+                $dolarMep->save();
+                return $precio;
             }
         } catch (\Exception $error) {
+            if ($cotizacion) {
+                return $cotizacion->precio;
+            }
             return 150;
         }
     }
