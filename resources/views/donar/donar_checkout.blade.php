@@ -10,7 +10,7 @@
         }
 
         #paypal-button-container {
-            display: none;
+            /* display: none; */
         }
     </style>
     <script
@@ -75,7 +75,8 @@
                         <div class="forma_pago">
                             <span class="titulo text_bold">Seleccioná como querés abonar</span>
                             <div class="grilla_form">
-                                <div class="form_ctrl col_3">
+                                <div class="form_ctrl ">
+                                    {{-- col_3 --}}
                                     <div class="align_center">
                                         <div class="boton_redondeado btn_gris width_100 mercadopago_"
                                              data-processor_type="mercadopago">
@@ -84,23 +85,23 @@
                                         <span class="color_gris text_medium">Argentina</span>
                                     </div>
                                 </div>
-                                <div class="form_ctrl col_3">
+                                {{-- <div class="form_ctrl col_3">
                                     <div class="align_center">
                                         <div class="boton_redondeado btn_gris width_100 paypal_">
                                             <img src="{{url('recursos/paypal.svg')}}" alt="">
                                         </div>
                                         <span class="color_gris text_medium">Mundo</span>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
-                        <div class="form_ctrl input_  ">
+                        {{-- <div class="form_ctrl input_  ">
                             <div class="align_center">
                                 <span id="donar"
                                       class="boton_redondeado resaltado_amarillo text_bold width_100 hide">Donar</span>
                                 <div id="paypal-button-container"></div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="align_center compra_protegida">
                             <img src="{{url('recursos/compra_protegida.svg')}}" alt="">
                             <span class=" text_bold">Compra 100% protegida</span>
@@ -119,7 +120,7 @@
         </div>
     </section>
 
-    <div class="modal_paypal">
+    {{-- <div class="modal_paypal">
         <div class="contenedor">
             <div class="cont_modal_blanco">
                 <div class="intro_modal">
@@ -128,7 +129,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="modal_mercadopago">
         <div class="contenedor">
@@ -144,6 +145,8 @@
 
 
 @section('footer')
+
+
     <script>
         $(".forma_pago .boton_redondeado").on("click", function () {
             if ($(this).data('processor_type') == "mercadopago") {
@@ -151,8 +154,10 @@
                 $('#donar').removeClass('hide').removeAttr('disabled');
                 $("#paypal-button-container").hide();
             } else {
+                $(".pesitos").hide();
                 $('#donar').addClass('hide').attr('disabled', 'disabled');
                 $("#paypal-button-container").show();
+                $('.paypal-button-label-container').prepend('<span style="font-size: 14px;display: inline-block;line-height: 23px;margin-right: 5px;">Con una cuenta de</span>');
             }
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
