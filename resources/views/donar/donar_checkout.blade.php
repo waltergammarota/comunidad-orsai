@@ -4,7 +4,18 @@
 @section('description', 'Donar')
 
 @section('content')
+    <style>
+        .pesitos {
+            display: none;
+        }
 
+        #paypal-button-container {
+            display: none;
+        }
+    </style>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id={{env('PAYPAL_CLIENT_ID')}}&currency=USD"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+    </script>
     <section class="resaltado_amarillo pd_tp_bt">
         <article class="contenedor">
             <div class="cuerpo_card_perfil_publico ps_pago_02">
@@ -46,6 +57,16 @@
                                                 apliquen tarifas extra por tasas de cambio según país.
                                             </td>
                                         </tr>
+                                        <tr class="_total pesitos">
+                                            <td><br>En pesos
+                                            </td>
+                                            <td class="text_bold"><br>ARS {{$producto->getPriceInArs()}}</td>
+                                        </tr>
+                                        <tr class="pesitos">
+                                            <td colspan="2" class="pie_tabla color_gris_claro">
+                                                Cotización: 1 USD = {{$producto->getCotizacion()}}
+                                            </td>
+                                        </tr>
                                     </table>
                                 </td>
                             </tr>
@@ -56,7 +77,8 @@
                             <div class="grilla_form">
                                 <div class="form_ctrl col_3">
                                     <div class="align_center">
-                                        <div class="boton_redondeado btn_gris width_100 mercadopago_">
+                                        <div class="boton_redondeado btn_gris width_100 mercadopago_"
+                                             data-processor_type="mercadopago">
                                             <img src="{{url('recursos/mercadopago.svg')}}" alt="">
                                         </div>
                                         <span class="color_gris text_medium">Argentina</span>
@@ -76,6 +98,7 @@
                             <div class="align_center">
                                 <span id="donar"
                                       class="boton_redondeado resaltado_amarillo text_bold width_100 hide">Donar</span>
+                                <div id="paypal-button-container"></div>
                             </div>
                         </div>
                         <div class="align_center compra_protegida">
@@ -98,7 +121,7 @@
 
     <div class="modal_paypal">
         <div class="contenedor">
-            <div class="cont_modal_blanco"> 
+            <div class="cont_modal_blanco">
                 <div class="intro_modal">
                     <img src="{{url('recursos/modal_paypal.svg')}}" alt="">
                     <span>Te redireccionaremos al sitio de <strong>PayPal</strong>.</span>
@@ -109,7 +132,7 @@
 
     <div class="modal_mercadopago">
         <div class="contenedor">
-            <div class="cont_modal_blanco"> 
+            <div class="cont_modal_blanco">
                 <div class="intro_modal">
                     <img src="{{url('recursos/modal_mercadolibre.svg')}}" alt="">
                     <span>Te redireccionaremos al sitio de <strong>MercadoLibre</strong>.</span>
@@ -121,18 +144,22 @@
 
 
 @section('footer')
-
     <script>
         $(".forma_pago .boton_redondeado").on("click", function () {
+            if ($(this).data('processor_type') == "mercadopago") {
+                $(".pesitos").show();
+                $('#donar').removeClass('hide').removeAttr('disabled');
+                $("#paypal-button-container").hide();
+            } else {
+                $("#paypal-button-container").show();
+            }
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
-                $('#donar').addClass('hide').attr('disabled','disabled');
+                $('#donar').addClass('hide').attr('disabled', 'disabled');
             } else {
                 if ($(".forma_pago .boton_redondeado").hasClass("active")) {
                     $(".forma_pago .boton_redondeado.active").removeClass("active");
-                    $('#donar').removeClass('hide').removeAttr('disabled'); 
                 }
-                $('#donar').removeClass('hide').removeAttr('disabled'); 
                 $(this).addClass("active");
             }
         });
@@ -156,18 +183,15 @@
                 });
             }
         })
- 
+
 
         $("#donar").on("click", function () {
             if ($(".paypal_").hasClass("active")) {
                 $('html, body').css('overflowY', 'hidden');
-                $(".modal_paypal").fadeIn().delay(1000).fadeOut('fast', function(){
-                    window.location = '{{url('donar/paypal?producto='.$producto->id)}}'
-                });
             }
             if ($(".mercadopago_").hasClass("active")) {
                 $('html, body').css('overflowY', 'hidden');
-                $(".modal_mercadopago").fadeIn().delay(1000).fadeOut('fast', function(){
+                $(".modal_mercadopago").fadeIn().delay(1000).fadeOut('fast', function () {
                     const url = '{{url('donar/create-compra')}}';
                     axios.post(url, {
                         producto_id: {{$producto->id}},
@@ -182,6 +206,44 @@
                 });
             }
         })
+
+        const product = {{$producto->id}};
+        const amount = {{$producto->getPriceInUsd()}};
+        let internal_id = "";
+        const email = '{{$user_email}}';
+
+        async function createCompra() {
+            const url = '{{url('donar/create-compra')}}';
+            return axios.post(url, {
+                producto_id: {{$producto->id}},
+                payment_processor: 'paypal'
+            });
+        }
+
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                return createCompra().then(function (response) {
+                    return response.data.paypal_id;
+                })
+            },
+            onApprove: function (details, actions) {
+                const url = '{{url("donar/paypal/capture")}}';
+                return axios.post(url, {
+                        orderID: details.orderID
+                    }
+                ).then(function (response) {
+                    if (response.data.details && response.data.details[0].issue === 'INSTRUMENT_DECLINED') {
+                        alert("Su tarjeta ha sido rechazada, por favor intente más tarde");
+                    } else {
+                        window.location = `{{url("donar/paypal/successful")}}?id=${response.data.id}`;
+                    }
+                });
+            },
+            onError: (err) => {
+                console.error('error from the onError callback', err);
+            }
+        }).render('#paypal-button-container');
+
 
     </script>
 @endsection
