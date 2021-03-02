@@ -223,33 +223,44 @@
             }
         }
 
-        function connectFacebook(btn_, input) {
-            console.log("facebook");
-            FB.login(function (response) {
-                console.log(response);
-                if (response.authResponse) {
-                    console.log('Welcome!  Fetching your information.... ');
-                    FB.api('/me', function (response) {
-                        input.val(response.name);
-                        const url = '{{url("save-facebook")}}';
-                        axios.post(url, {
-                            facebook_id: response.id,
-                            facebook_user: response.name
-                        }).then(function (response) {
-                            toggle(true, btn_);
-                        }).catch(function (error) {
-                            toggle(false, btn_);
-                            input.val("");
-                        });
-                        console.log('Good to see you, ' + response.name + '.');
-                    });
-                } else {
+        function callFacebookApi(btn_, input) {
+            FB.api('/me', function (response) {
+                input.val(response.name);
+                const url = '{{url("save-facebook")}}';
+                axios.post(url, {
+                    facebook_id: response.id,
+                    facebook_user: response.name
+                }).then(function (response) {
+                    toggle(true, btn_);
+                }).catch(function (error) {
                     toggle(false, btn_);
                     input.val("");
-                    console.log('User cancelled login or did not fully authorize.');
+                });
+                console.log('Good to see you, ' + response.name + '.');
+            });
+        }
+
+        function connectFacebook(btn_, input) {
+            console.log("facebook");
+            FB.getLoginStatus(function (response) {
+                if (response.authResponse) {
+                    callFacebookApi(btn_, input);
+                } else {
+                    FB.login(function (response) {
+                        console.log(response);
+                        if (response.authResponse) {
+                            callFacebookApi(btn_, input);
+                            console.log('Welcome!  Fetching your information.... ');
+                        } else {
+                            toggle(false, btn_);
+                            input.val("");
+                            console.log('User cancelled login or did not fully authorize.');
+                        }
+                    });
                 }
             });
         }
+
 
         function connectInstagram() {
             console.log("instagram");
@@ -263,9 +274,8 @@
         $('.conectar').click(function () {
             const btn_ = $(this);
             const color_btn = $(this).css("color");
-            const input = $(this).siblings('.input_err').find('input');
+            const input = $(this).parent().siblings('.input_err').find('input');
             input.attr('disabled', true);
-
             const network = btn_.data('network');
             switch (network) {
                 case "facebook":
