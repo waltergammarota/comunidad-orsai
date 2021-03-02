@@ -355,19 +355,25 @@ Route::middleware(['verified'])->group(
         )->name('perfil')->middleware('email_verified');
 
         Route::post(
-            '/save-facebook',
-            'AccountController@saveFacebook'
-        )->name('save-facebook')->middleware('email_verified');
-
-        Route::post(
             '/save-twitter',
             'AccountController@saveTwitter'
         )->name('save-twitter')->middleware('email_verified');
 
         Route::post(
+            '/save-facebook',
+            'AccountController@saveFacebook'
+        )->name('save-facebook')->middleware('email_verified');
+
+        Route::post(
+            'twitter-login',
+            'AccountController@twitter'
+        )->name('twitter-callback')->middleware('email_verified');
+
+        Route::post(
             '/save-instagram',
             'AccountController@saveInstagram'
         )->name('save-instagram')->middleware('email_verified');
+
 
         Route::get(
             'seguridad',
