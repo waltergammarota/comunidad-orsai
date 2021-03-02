@@ -91,16 +91,6 @@
                         <p>Seguí los últimos movimientos de tus fichas.</p>
                     </article>
                 </a>
-            {{--     <a href="#" class="card_style_panel">
-                    <article>
-                        <div class="icono">
-                            <img src="{{url('recursos/front2021/iconos_panel/mis_cursos.svg')}}" alt="mis_cursos">
-                            <span><span class="icon-vista"></span>Ver</span>
-                        </div> 
-                        <h2>Mis Cursos</h2>
-                        <p>Accedé a todos los cursos en los que estas inscripto.</p>
-                    </article>
-                </a> --}}
                 <a href="{{url('configuracion-notificaciones')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
@@ -139,9 +129,24 @@
                             <span><span class="icon-editar"></span>Editar</span>
                         </div> 
                         <h2>Conectar cuentas</h2>
-                        <p>Lorem, ipsum dolor sit amet, consectetur adipisicing elit. Animi, quidem.</p>
+                        <p>Sincronizá tus cuentas de redes sociales que quieras compartir con la comunidad.</p>
                     </article>
                 </a>
+                @if (Auth::check())
+                    @if(Session::get('role') == "admin")
+                        <a href="#" class="card_style_panel">
+                            <article>
+                                <div class="icono">
+                                    <img src="{{url('recursos/front2021/iconos_panel/mis_cursos.svg')}}" alt="mis_cursos">
+                                    <span><span class="icon-vista"></span>Ver</span>
+                                </div> 
+                                <h2>Mis Cursos</h2>
+                                <p>Accedé a todos los cursos en los que estas inscripto.</p>
+                                <span style="color:red;font-size:10px;">ESTAS VIENDO ESTE MÓDULO PORQUE SOS ADMINISTRADOR</span>
+                            </article>
+                        </a>
+                    @endif
+                @endif
             </div>
         </div>
         <div class="resaltado_gris">
