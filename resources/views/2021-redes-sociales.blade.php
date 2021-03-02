@@ -291,6 +291,12 @@
 
         function connectTwitter() {
             console.log("twitter");
+            const url = '{{url("twitter-login")}}';
+            axios.post(url).then(function (response) {
+                window.location = response.data.url;
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
 
 
@@ -313,8 +319,8 @@
             input.val("");
             const url = '{{url("save-twitter")}}';
             axios.post(url, {
-                facebook_id: null,
-                facebook_user: null,
+                twiter_id: null,
+                twitter_user: null,
             }).catch(function (error) {
                 console.log(error);
             });
@@ -335,7 +341,8 @@
 
 
         /* ANIMACION BOTON REDES SOCIALES MI PERFIL */
-        $('.conectar').click(function () {
+        $('.conectar').click(function (event) {
+            event.preventDefault();
             const btn_ = $(this);
             const color_btn = $(this).css("color");
             const input = $(this).parent().siblings('.input_err').find('input');
