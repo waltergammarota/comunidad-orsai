@@ -79,17 +79,17 @@
                                 <div class="input_err">
                                     <label class="text_medium">Instagram</label>
                                     <input type="text" name="instagram" class="obligatorio" placeholder="@instagram"
-                                           id="instagram" value="{{$instagram}}" disabled/>
+                                           id="instagram" value="{{$instagram}}"/>
                                 </div>
-                                @if(!$instagram)
-                                    <button class="conectar boton_redondeado btn_transparente text_bold"
-                                            data-network="instagram">Conectar
-                                    </button>
-                                @else
-                                    <button class="conectar boton_redondeado text_bold"
-                                            data-network="instagram">Desconectar
-                                    </button>
-                                @endif
+                                {{--                                @if(!$instagram)--}}
+                                {{--                                    <button class="conectar boton_redondeado btn_transparente text_bold"--}}
+                                {{--                                            data-network="instagram">Conectar--}}
+                                {{--                                    </button>--}}
+                                {{--                                @else--}}
+                                {{--                                    <button class="conectar boton_redondeado text_bold"--}}
+                                {{--                                            data-network="instagram">Desconectar--}}
+                                {{--                                    </button>--}}
+                                {{--                                @endif--}}
                             </div>
                             <div class="form_ctrl input_ col_3">
                                 <div class="input_err">
