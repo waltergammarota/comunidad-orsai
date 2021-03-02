@@ -95,13 +95,13 @@
                                 </div> --}}
                             </div>
                         </div>
-                        {{-- <div class="form_ctrl input_  ">
+                        <div class="form_ctrl input_  ">
                             <div class="align_center">
                                 <span id="donar"
                                       class="boton_redondeado resaltado_amarillo text_bold width_100 hide">Donar</span>
                                 <div id="paypal-button-container"></div>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="align_center compra_protegida">
                             <img src="{{url('recursos/compra_protegida.svg')}}" alt="">
                             <span class=" text_bold">Compra 100% protegida</span>
