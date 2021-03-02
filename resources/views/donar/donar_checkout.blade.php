@@ -151,11 +151,13 @@
                 $('#donar').removeClass('hide').removeAttr('disabled');
                 $("#paypal-button-container").hide();
             } else {
+                $('#donar').addClass('hide').attr('disabled', 'disabled');
                 $("#paypal-button-container").show();
             }
             if ($(this).hasClass("active")) {
                 $(this).removeClass("active");
                 $('#donar').addClass('hide').attr('disabled', 'disabled');
+                $("#paypal-button-container").hide();
             } else {
                 if ($(".forma_pago .boton_redondeado").hasClass("active")) {
                     $(".forma_pago .boton_redondeado.active").removeClass("active");
