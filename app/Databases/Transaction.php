@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction extends Model
 {
     use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,7 +44,7 @@ class Transaction extends Model
      */
     public function getFromUser()
     {
-        return $this->hasOne('App\User','id', "from")->withTrashed();
+        return $this->hasOne('App\User', 'id', "from")->withTrashed();
     }
 
     /**
@@ -54,7 +55,22 @@ class Transaction extends Model
         return $this->hasOne('App\User', 'id', "to")->withTrashed();
     }
 
-    public function capId() {
+    public function capId()
+    {
         return $this->hasOne('App\Databases\ContestApplicationModel', 'id', 'cap_id');
+    }
+
+    static public function createTransaction($from, $to, $amount, $data, $cap_id = null)
+    {
+        $tx = new Transaction([
+            'from' => $from,
+            'to' => $to,
+            'type' => 'MINT',
+            'amount' => $amount,
+            'data' => $data,
+            'cap_id' => $cap_id
+        ]);
+        $tx->save();
+        return $tx;
     }
 }

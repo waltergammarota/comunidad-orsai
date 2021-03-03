@@ -76,4 +76,5 @@ class ContestApplicationModel extends Model
         return $this->belongsToMany('App\Databases\FileModel', 'contest_applications_files', "cap_id", 'file_id')->withTimestamps()->where('type', "=", 'pdf');
     }
 
+
 }

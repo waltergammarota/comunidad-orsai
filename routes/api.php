@@ -16,6 +16,7 @@ Route::post('/users/register', 'Registration\RegistrationController@register');
 
 Route::post('/contest_application/create', 'Contest\ContestApplication@create');
 
+
 Route::group(
     [
         'middleware' => 'api',

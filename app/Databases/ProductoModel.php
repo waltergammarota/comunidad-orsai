@@ -3,11 +3,14 @@
 
 namespace App\Databases;
 
+use App\Databases\CotizacionModel;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductoModel extends Model
 {
     protected $table = 'productos';
+
+    private $cotizacion = 150;
 
     /**
      * The attributes that are mass assignable.
@@ -40,5 +43,31 @@ class ProductoModel extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
+
+    public function getPriceInUsd()
+    {
+        $cotizacion = CotizacionModel::getCurrentCotizacion();
+        if ($this->dynamic_price == 1) {
+            return $this->fichas * $cotizacion->precio;
+        }
+        return $this->price;
+
+    }
+
+    public function setCotizacion($cotizacion)
+    {
+        $this->cotizacion = $cotizacion;
+    }
+
+    public function getCotizacion()
+    {
+        return $this->cotizacion;
+    }
+
+    public function getPriceInArs()
+    {
+        $priceInUsd = $this->getPriceInUsd();
+        return $priceInUsd * $this->cotizacion;
+    }
 
 }

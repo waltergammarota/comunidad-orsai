@@ -4,7 +4,7 @@
 @section('description', 'Panel de usuario')
 
 @section('content')
-    <section class="resaltado_gris pd_20 pd_20_tp_bt">
+    <section class="resaltado_gris pd_20 pd_20_tp">
         <div class="panel_perfil contenedor contenedor_interna_2">
             <div class="intro_panel_perfil">
                 <div class="img_perfil">
@@ -31,7 +31,7 @@
                     </div>
                     <span class="subtitulo">Tenés</span>
                     <p class="titulo"><strong>{{$balance}}</strong> Fichas</p>
-                    {{--  <a href="#" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a> --}}
+                     {{-- <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a> --}}
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         @endif
                     </article>
                 </a>
-                {{-- <a href="{{url('mis-postulaciones')}}" class="card_style_panel">
+                <a href="{{url('mis-postulaciones')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
                             <img src="{{url('recursos/front2021/iconos_panel/mis_postulaciones.svg')}}"
@@ -80,7 +80,7 @@
                         <h2>Mis postulaciones</h2>
                         <p>Podrás ver tus postulaciones a los concursos.</p>
                     </article>
-                </a> --}}
+                </a>
                 <a href="{{url('mis-fichas')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
@@ -91,16 +91,6 @@
                         <p>Seguí los últimos movimientos de tus fichas.</p>
                     </article>
                 </a>
-            {{--     <a href="#" class="card_style_panel">
-                    <article>
-                        <div class="icono">
-                            <img src="{{url('recursos/front2021/iconos_panel/mis_cursos.svg')}}" alt="mis_cursos">
-                            <span><span class="icon-vista"></span>Ver</span>
-                        </div> 
-                        <h2>Mis Cursos</h2>
-                        <p>Accedé a todos los cursos en los que estas inscripto.</p>
-                    </article>
-                </a> --}}
                 <a href="{{url('configuracion-notificaciones')}}" class="card_style_panel">
                     <article>
                         <div class="icono">
@@ -132,16 +122,31 @@
                         <p>Verificá qué hacemos con tu datos.</p>
                     </article>
                 </a>
-{{--                 <a href="{{url('redes-sociales')}}" class="card_style_panel">
+                <a href="{{url('redes-sociales')}}" class="card_style_panel">
                     <article >
                         <div class="icono">
                             <img src="{{url('recursos/front2021/iconos_panel/conectar_cuentas.svg')}}" alt="conectar_cuentas">
                             <span><span class="icon-editar"></span>Editar</span>
                         </div> 
                         <h2>Conectar cuentas</h2>
-                        <p>Lorem, ipsum dolor sit amet, consectetur adipisicing elit. Animi, quidem.</p>
+                        <p>Sincronizá tus cuentas de redes sociales que quieras compartir con la comunidad.</p>
                     </article>
-                </a> --}}
+                </a>
+                {{-- @if (Auth::check())
+                    @if(Session::get('role') == "admin")
+                        <a href="#" class="card_style_panel">
+                            <article>
+                                <div class="icono">
+                                    <img src="{{url('recursos/front2021/iconos_panel/mis_cursos.svg')}}" alt="mis_cursos">
+                                    <span><span class="icon-vista"></span>Ver</span>
+                                </div> 
+                                <h2>Mis Cursos</h2>
+                                <p>Accedé a todos los cursos en los que estas inscripto.</p>
+                                <span style="color:red;font-size:10px;">ESTAS VIENDO ESTE MÓDULO PORQUE SOS ADMINISTRADOR</span>
+                            </article>
+                        </a>
+                    @endif
+                @endif --}}
             </div>
         </div>
         <div class="resaltado_gris">

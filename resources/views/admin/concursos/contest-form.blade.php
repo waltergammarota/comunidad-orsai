@@ -36,20 +36,22 @@
                                 <input type="text" class="form-control" id="name" placeholder="Título"
                                        name="name"
                                        value="{{$contest?$contest->name:old('name')}}">
-                                @error('name') <span class="help-block">{{$message}}</span> @enderror
+                                @error('name') <span class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label for="bajadaCorta">Bajada corta (Máximo 168 caracteres)</label>
                                 <textarea type="text" class="form-control" id="bajadaCorta" placeholder="Bajada corta"
                                           name="bajada_corta">{{$contest?$contest->bajada_corta:old('bajada_corta')}}</textarea>
-                                @error('bajada_corta') <span class="help-block">{{$message}}</span> @enderror
+                                @error('bajada_corta') <span
+                                    class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label for="bajadaCompleta">Bajada completa</label>
                                 <textarea type="text" class="form-control" id="bajadaCompleta"
                                           placeholder="Bajada completa"
                                           name="bajada_completa">{{$contest?$contest->bajada_corta:old('bajada_completa')}}</textarea>
-                                @error('bajada_completa') <span class="help-block">{{$message}}</span> @enderror
+                                @error('bajada_completa') <span
+                                    class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -59,7 +61,8 @@
                                         <input type="datetime-local" class="form-control" id="start_date"
                                                name="start_date"
                                                value="{{$contest?$contest->start_date->format('Y-m-d\TH:i'):old('start_date')}}">
-                                        @error('start_date') <span class="help-block">{{$message}}</span> @enderror
+                                        @error('start_date') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -68,7 +71,8 @@
                                         <input type="datetime-local" class="form-control" id="end_date"
                                                name="end_date"
                                                value="{{$contest?$contest->end_date->format('Y-m-d\TH:i'):old('end_date')}}">
-                                        @error('end_date') <span class="help-block">{{$message}}</span> @enderror
+                                        @error('end_date') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -77,7 +81,8 @@
                                         <input type="datetime-local" class="form-control" id="start_app_date"
                                                name="start_app_date"
                                                value="{{$contest?$contest->start_app_date->format('Y-m-d\TH:i'):old('start_app_date')}}">
-                                        @error('start_app_date') <span class="help-block">{{$message}}</span> @enderror
+                                        @error('start_app_date') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -86,7 +91,8 @@
                                         <input type="datetime-local" class="form-control" id="end_app_date"
                                                name="end_app_date"
                                                value="{{$contest?$contest->end_app_date->format('Y-m-d\TH:i'):old('end_app_date')}}">
-                                        @error('end_app_date') <span class="help-block">{{$message}}</span> @enderror
+                                        @error('end_app_date') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -95,7 +101,8 @@
                                         <input type="datetime-local" class="form-control" id="start_vote_date"
                                                name="start_vote_date"
                                                value="{{$contest?$contest->start_vote_date->format('Y-m-d\TH:i'):old('start_vote_date')}}">
-                                        @error('start_vote_date') <span class="help-block">{{$message}}</span> @enderror
+                                        @error('start_vote_date') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -104,7 +111,8 @@
                                         <input type="datetime-local" class="form-control" id="end_vote_date"
                                                name="end_vote_date"
                                                value="{{$contest?$contest->end_vote_date->format('Y-m-d\TH:i'):old('end_vote_date')}}">
-                                        @error('end_vote_date') <span class="help-block">{{$message}}</span> @enderror
+                                        @error('end_vote_date') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +126,8 @@
                                                        name="images[]" accept="image/*" data-browse-on-zone-click="true"
                                                        data-msg-placeholder="Seleccione imagen..."
                                                 >
-                                                @error('images') <span class="help-block">{{$message}}</span> @enderror
+                                                @error('images') <span
+                                                    class="help-block">Este campo es obligatorio</span> @enderror
                                             </div>
                                             <div id="inputFileError"></div>
                                         </div>
@@ -150,7 +159,7 @@
                                                        name="cant_caracteres"
                                                        value="{{$contest?$contest->cant_caracteres:old('cant_caracteres')}}"/>
                                                 @error('cant_caracteres') <span
-                                                    class="help-block">{{$message}}</span> @enderror
+                                                    class="help-block">Este campo es obligatorio</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -162,7 +171,7 @@
                                                        name="cant_capitulos"
                                                        value="{{$contest?$contest->cant_capitulos:old('cant_capitulos')}}">
                                                 @error('cant_capitulos') <span
-                                                    class="help-block">{{$message}}</span> @enderror
+                                                    class="help-block">Este campo es obligatorio</span> @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +208,7 @@
                                             @endfor
                                         </select>
                                         @error('per_winner') <span
-                                            class="help-block">{{$message}}</span> @enderror
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6"></div>
@@ -224,7 +233,7 @@
                                                name="required_amount"
                                                value="{{$contest?$contest->required_amount:old('required_amount')}}">
                                         @error('required_amount') <span
-                                            class="help-block">{{$message}}</span> @enderror
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +246,7 @@
                                                name="amount_winner"
                                                value="{{$contest?$contest->amount_winner:old('amount_winner')}}">
                                         @error('amount_winner') <span
-                                            class="help-block">{{$message}}</span> @enderror
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -248,7 +257,7 @@
                                                name="amount_usd"
                                                value="{{$contest?$contest->amount_usd:old('amount_usd')}}">
                                         @error('amount_usd') <span
-                                            class="help-block">{{$message}}</span> @enderror
+                                            class="help-block">Este campo es obligatorio</span> @enderror
                                     </div>
                                 </div>
                             </div>
@@ -438,6 +447,11 @@
         const amount_usd = $("#amount_usd");
         const cant_winners = $("#cant_winners");
         const form = $("form");
+        @if($imageUrl != '')
+          const hasImage = true;
+        @else
+          const hasImage = false;
+        @endif
 
         function crearPagina() {
             event.preventDefault();
@@ -463,7 +477,7 @@
         }
 
         function validateFileInput(input) {
-            if (input.val().length > 0) {
+            if (input.val().length > 0 || hasImage) {
                 return true;
             }
             $("#inputFileError").append('<span class="help-block">La imagen es obligatoria</span>');

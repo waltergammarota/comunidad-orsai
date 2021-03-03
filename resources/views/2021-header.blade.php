@@ -12,6 +12,7 @@
                     <li><a href="{{url('novedades')}}">Novedades</a></li>
                     <li><a href="{{url('historia')}}">Línea de tiempo</a></li>
                     <li><a href="{{url('preguntas-frecuentes')}}">Preguntas frecuentes</a></li>
+                    {{-- <li><a href="{{url('donar')}}">Donar</a></li> --}}
                     <li><a href="{{url('contacto')}}">Contacto</a></li>
                 </ul>
             </div>
@@ -29,6 +30,7 @@
             @endif
 
             @if (Auth::check())
+                @isset($notifications)
                 <div id="menu_reg">
                     <ul class="logueado">
                         <li class="resaltado_gris animated swing">
@@ -79,6 +81,7 @@
                         </li>
                     </ul>
                 </div>
+                @endisset
             @endif
         </div>
     </nav>

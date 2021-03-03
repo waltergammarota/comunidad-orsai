@@ -32,8 +32,8 @@
                         <input type="hidden" value="0" name="id">
                         @endif
                         @csrf
-                        <div class="card-body">
 
+                        <div class="card-body">
                             <br/>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nombre</label>
@@ -45,8 +45,22 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="exampleInputEmail1">Precio atado a cotización</label>
+                                <select name="dynamic_price" id="dynamic_price" class="form-control">
+                                    @if($producto && $producto->dynamic_price == 1)
+                                        <option value="1" selected>SI</option>
+                                        <option value="0">NO</option>
+                                    @else
+                                        <option value="1">SI</option>
+                                        <option value="0" selected>NO</option>
+                                    @endif
+                                </select>
+                                @error('dynamic_price') <span class="help-block">{{$message}}</span> @enderror
+                            </div>
+
+                            <div class="form-group" id="price">
                                 <label for="exampleInputEmail1">Precio (en USD)</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Precio"
+                                <input type="number" class="form-control" id="price_input" placeholder="Precio"
                                        name="price" step="1"
                                        value="{{$producto?$producto->price:old('price')}}">
                                 @error('price') <span class="help-block">{{$message}}</span> @enderror
@@ -95,5 +109,27 @@
 @endsection
 
 @section('footer')
+    <script>
+        const dynamic_price = $("#dynamic_price");
+        const price = $("#price");
+        const price_input = $("#price_input");
+
+        dynamic_price.on('change', function () {
+            if (dynamic_price.val() == 1) {
+                price_input.val(0);
+                price.hide();
+            } else {
+                price.show();
+            }
+        });
+
+        $(document).ready(function () {
+            if (dynamic_price.val() == 0) {
+                price.show();
+            } else {
+                price.hide();
+            }
+        });
+    </script>
 @endsection
 

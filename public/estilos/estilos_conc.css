@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+    font-family: "Roboto", monospace;
+}
 .mg_100 {
     margin-bottom: 100px;
 }
@@ -281,7 +285,7 @@
 }
 
 .buscador .cont_busqueda {
-    width: 100%;
+    width: 25%;
     display: inline-block;
 }
 
@@ -389,6 +393,7 @@
 
 .buscador_links_filtros ul {
     padding-left: 0;
+    display:inline-block;
 }
 
 .buscador_links_filtros ul li.activo a {
@@ -557,6 +562,7 @@
     .buscador_links_filtros ul li {
         text-align: center;
         margin-right: 0;
+        width:150px;
         /* border-right: 2px solid #808080; */
     }
 }
@@ -564,7 +570,7 @@
 
 @media (min-width: 1200px) {
     .buscador_links_filtros {
-        width: 75%;
+        width: 100%;
     }
 
     .buscador_links_filtros ul li {
@@ -602,7 +608,7 @@
     overflow: hidden;
     position: relative;
     z-index: 2;
-    /* height:300px; */
+    height:300px;
 }
 
 .portada_concurso .icono {
@@ -643,7 +649,9 @@
         height: 120px;
 
     }
-
+    .detalle_concurso .boton_redondeado{
+        margin-bottom:10px;
+    }
     #intro .portada_concurso img {
         width: 150%;
         object-fit: cover;
@@ -723,8 +731,7 @@
 }
 
 
-.encabezado_descripcion_concurso {
-    margin-top: 20px;
+.encabezado_descripcion_concurso { 
     margin-bottom: 20px;
 
 }
@@ -847,7 +854,7 @@
 
 @media (min-width: 768px) and (max-width: 1200px) {
     .contenedor_logos_participantes .logo_particantes {
-        width: 50%;
+        width: 33%;
     }
 
 }
@@ -1381,25 +1388,32 @@
 
 .capitulos .numero_capitulo {
     display: inline-block;
-    font-size: 28px !important;
-    font-weight: 700 !important;
-    line-height: 130%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    width: 100%;
-    text-transform: uppercase;
+    font-size: 14px !important;
+    color:#999; 
+    font-weight: 400 !important;
+    line-height: 130%; 
+    text-align: left;
+    width: 100%; 
+    border-top:1px solid #ddd;
+    padding-top:20px;
+    padding-bottom:10px;
+    margin-top:30px;
 }
 
 .capitulos .subtitulo {
-    font-size: 20px !important;
+    font-size: 24px !important;
     font-weight: 700 !important;
     line-height: 130%;
+    margin-top:0;
+    margin-bottom:5px;
 }
 
 .capitulos .texto {
     font-size: 16px !important;
     line-height: 140%;
+}
+.capitulos .texto p{ 
+    margin:0
 }
 
 .btn_scroll_down {
@@ -1455,7 +1469,7 @@
     font-weight: 700;
     margin-bottom: 5px;
     display: inline-block;
-    font-size: 13px;
+    font-size: 16px;
 }
 
 
@@ -1551,29 +1565,16 @@
 }
 
 .modal_msg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: none;
-    z-index: 50000000000000000;
-    /* overflow: hidden; */
+    position: fixed;
+    height: 100vh;
+    width: 100%; 
+    top:0;
+    z-index: 99999999999;
+    display:none; 
+    background-color: rgba(0,0,0,0.6);
+    overflow-y:hidden;
 }
-
-.modal_msg::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.5;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    z-index: -1;
-    overflow: hidden;
-}
-
+ 
 .modal_msg .mensaje {
     border-radius: 5px;
     position: absolute;
@@ -1626,13 +1627,8 @@
 }
 
 .navegador_contenidos {
-    background-color: rgb(192, 192, 192);
-    vertical-align: top;
-    position: sticky;
-    position: -webkit-sticky;
-
-    top: -1px;
-    z-index: 30000000000000;
+    background-color: #eee;
+    border-radius:5px;
 }
 
 .navegador_contenidos .titulo {
@@ -1689,7 +1685,7 @@
 }
 
 .buscador_capitulos_ ul li a {
-    padding: 10px 0px;
+    padding: 10px 5px;
 }
 
 .buscador_capitulos_ ul li:hover {
@@ -1742,10 +1738,10 @@
     padding-left: 10px;
 }
 
-.buscador_capitulos ul {
-    margin-bottom: 15px;
+.buscador_capitulos ul { 
     max-height: 0;
     padding: 0;
+    margin:0;
     overflow: hidden;
     -ms-transition: max-height 0.35s ease;
     transition: max-height 0.35s ease;
@@ -1865,17 +1861,29 @@
     width: 100%;
 }
 
-.participante {
+.participante,
+.participante a{
     position: relative;
-    margin-bottom: 20px;
     display: inline-block;
     width: 100%;
+    height:35px;
+    vertical-align: middle;
 }
 
+.participante .avatar,
+.participante .avatar .img_perfil,
+.participante .avatar .img_perfil .cont_img,
+.participante .avatar img{
+    width:35px !important;
+    height:35px !important;
+    display:inline-block;
+}
 .participante .intro_datos_perfil {
     display: inline-block;
     margin-left: 10px;
     vertical-align: top;
+    line-height:35px;
+    height:35px;
 }
 
 .participante .intro_datos_perfil .titulo {
@@ -1884,6 +1892,9 @@
     margin-top: 0px;
     margin-bottom: 5px !important;
     margin: 0;
+    height:35px;
+    line-height:35px;
+    vertical-align: middle;
 }
 
 .participante .intro_datos_perfil .boton_redondeado {
@@ -1975,14 +1986,15 @@
 #bt_votar_2 {
     /* height:100px;    */
     display: inline-block;
-    position: relative;
-    margin-top: 0px;
+    position: relative; 
     margin-top: 4px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
+    padding-bottom:20px;
     width: 100%;
     max-height: 61px;
     vertical-align: top;
     text-align: right;
+    border-bottom: 1px solid #eee;
 }
 
 @media (max-width: 1599px) {
@@ -2116,10 +2128,10 @@ input[type="number"] {
 
 .contenedor_lateral {
     width: calc(100% - 660px);
-    /* height:300px; */
-    display: inline-block;
+    /* height:300px; */ 
     vertical-align: top;
-    position: absolute;
+    position: relative;
+    float: right;
     background-color: white;
     left: none;
     right: -30px;
@@ -2128,9 +2140,7 @@ input[type="number"] {
 }
 
 .part_lat {
-    -webkit-box-shadow: -1px 5px 5px 0px rgba(0, 0, 0, 0.08);
-    -moz-box-shadow: -1px 5px 5px 0px rgba(0, 0, 0, 0.08);
-    box-shadow: -1px 5px 5px 0px rgba(0, 0, 0, 0.08);
+    border-left:1px solid #eee;
     top: 0;
     padding: 20px;
     margin-bottom: 35px;
@@ -2156,17 +2166,11 @@ input[type="number"] {
     text-align: left;
     font-size: 10px;
 }
-
-.part_lat #bt_votar_2 #bt_form_votar {
-    max-width: 100px;
-    width: calc(100% - 80px)
-}
-
 .part_lat #bt_votar_2 #bt_form_votar span {
-    font-size: 14px;
-    padding: 0;
+    font-size: 14px; 
     text-align: center;
     width: 100%;
+    line-height:27px;
 }
 
 .contenedor_lateral .blog_social_concurso {
@@ -2229,7 +2233,7 @@ input[type="number"] {
     -moz-transform: translateY(-25%);
     -ms-transform: translateY(-25%);
     -o-transform: translateY(-25%);
-    z-index: 50000000;
+    z-index: 5000;
 }
 
 .fichas_acumuladas_banner > div {
@@ -2238,9 +2242,17 @@ input[type="number"] {
 
 .info_banner {
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 15px 35px 5px 70px;
+    padding: 15px 15px 5px 70px;
     display: inline-block;
     position: relative;
+    font-weight:300;
+}
+.info_banner_tp {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 15px 5px 15px;
+    display: inline-block;
+    position: relative;
+    top:-5px;
 }
 
 .info_banner .icon-eye {
@@ -2286,7 +2298,7 @@ input[type="number"] {
     */
     position: absolute;
     top: 50%;
-    left: 25px;
+    left: 15px;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -2313,11 +2325,15 @@ input[type="number"] {
 
 .grilla_postulacion_a {
     padding: 20px 35px;
-    max-width: 650px;
-    display: inline-block;
+    max-width: 650px; 
+    float: left;
+    width:100%;
 
 }
+.grilla_postulacion_a .capitulos{
+    margin-bottom:20px;
 
+}
 @media (min-width: 991px) and (max-width: 1600px) {
     .grilla_postulacion_a {
         max-width: 590px;
@@ -2368,10 +2384,20 @@ input[type="number"] {
     }
 
     .contenedor_lateral {
-        width: 100%;
-        position: static;
+        width: 100% !important;
+        position: relative;
+        left:0;
+        right:0;
+        background-color: transparent;
+        float:left;
+        display:block;
     }
-
+    #quien_fichas_modal{
+        position: absolute;
+    }
+    .share_redes_gral{
+        position:relative;
+    }
     #intro .portada_concurso.portada_concurso_banner {
         height: 400px;
         top: 0;
@@ -2397,14 +2423,22 @@ input[type="number"] {
         margin-bottom: 35px !important;
         background-color: transparent;
     }
-
+    .part_lat {
+        border:none;
+    }
+    .buscador .cont_busqueda{
+        width:100%;
+        margin-top:20px;
+    }
     .fichas_acumuladas_banner {
-        position: static;
+        position: relative;
         text-align: center;
         display: block;
-        /* margin-top:15px; */
+        margin-top:25px;
     }
-
+    #quien_fichas .contenedor_quien_fichas{
+        text-align:left;
+    }
     .fichas_acumuladas_banner > div {
         margin-right: 0px;
     }
@@ -2437,7 +2471,7 @@ input[type="number"] {
     }
 
     .part_lat #bt_votar_2 form {
-        text-align: right;
+        text-align: center;
     }
 
     .part_lat #bt_votar_2 .quantity {
@@ -2468,7 +2502,7 @@ input[type="number"] {
 @media (max-width: 400px) {
 
     .contenedor_lateral .blog_social_concurso {
-        position: static;
+        position: relative;
         text-align: center;
     }
 
@@ -2487,4 +2521,93 @@ input[type="number"] {
     .fichas_acumuladas_banner .titulo {
         font-size: 12px;
     }
+}
+
+.boton_redondeado{
+    padding: 10px 20px;
+    display:inline-block;
+    border-radius: 50px;    
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    border:0;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    color:#444; 
+    outline:none;
+}
+.boton_redondeado:disabled {
+    color:#999999;
+}
+.font_16{
+    font-size: 16px;
+}
+.font_14{
+    font-size: 14px;
+}
+.resaltado_amarillo {
+    background: #ffe600;
+} 
+.text_bold{
+    font-weight: 700;
+}
+.pd_bt_20{ 
+    padding-bottom:20px;
+}
+.pd_tp_20{ 
+    padding-top:20px;
+}
+.width_100{
+    width:100%;
+}
+.span_h3{
+    font-size:24px;
+    margin:0;
+}
+#intro.intro_gral .titulo{
+    margin-bottom:0;
+}
+.grilla_texto > .descripcion > .texto{
+    margin:5px 0 20px 0;
+}
+#description-error,
+#summernote-error{
+    color: red;
+}
+.detalle_propuesta{  
+    border-bottom:1px solid #eee;
+    margin:20px 0;
+}
+.detalle_propuesta .subtitulo{
+    font-size:16px;
+}
+.detalle_propuesta .texto{
+    font-size:14px;
+}
+.detalle_votantes{
+    font-size:12px;
+}
+.resaltado_rojo_circ{
+    border:2px solid red;
+    background:transparent;
+    color: red;
+}
+.resaltado_rojo_circ:hover{
+    border:2px solid red;
+    background:red;
+    color: white;
+}
+.mg_bt_20{
+    margin-bottom: 20px;
+}
+.seguir_div{
+    margin-top:20px;
+}
+.otras_prop{
+    margin-bottom:50px;
+}
+.detalle_concurso .boton_redondeado {
+    margin-right:10px;
 }

@@ -4,14 +4,13 @@
 @section('description', 'Postulación')
 
 @section('header')
-    <link rel="stylesheet" href="{{url('fontello_new/css/fontello.css')}}">
     <link rel="stylesheet" href="{{url('estilos/estilos_conc.css')}}">
     <link rel="stylesheet" href="{{url('custom/jquery.mCustomScrollbar.css')}}">
 @endsection
 
 @section('content')
 
-    <div class="fondo_blanco sin_overflow">
+    <div class=" sin_overflow">
         <div class="postulacion_larga">
             <section id="intro" class="intro_gral indice_contenidos">
                 <div class="portada_concurso portada_concurso_banner">
@@ -29,15 +28,46 @@
                         @endif
                     @endif
                 </div>
-                <div class="titulo titulo_banner">
-                    <h1 class="span_h1">{{$propuesta['title']}}</h1>
-                </div>
                 <div class="fichas_acumuladas_banner">
-                    <div class="info_banner ">
+                    <div class="info_banner" id="btn_ver_quien">
                         <div class="icono resaltado_amarillo">
                             <span class="icon-ficha"></span>
                         </div>
-                        <p class="titulo"><strong>{{$propuesta['votes']}}</strong></p>
+                        <p class="titulo" ><strong>{{$propuesta['votes']}}</strong></p>
+                        
+                        <div class="detalle_votantes">
+                            <div class="prop_info_text">  
+                                <div id="quien_fichas_modal" class="popup">
+                                    <div id="quien_fichas">
+                                        <div class="contenedor_quien_fichas">
+                                            <div class="cerrar">
+                                                <span>(X)</span>
+                                            </div>
+                                            <div class="quien_fichas_header">
+                                                <span>Pusieron fichas:</span>
+                                            </div>
+                                            <div id="content-ltn"
+                                                 class="content pusieron_listas">
+                                                <ul id="ul_listas">
+                                                    @foreach($txs as $tx)
+                                                        <li><a href="{{url('perfil-usuario')}}/{{$tx->id}}"
+                                                               target="_blank">
+                                                                <img
+                                                                    src="{{url($tx->avatar)}}"
+                                                                    alt="{{$tx->userName}}">
+                                                                <span
+                                                                    class="nombre_puso">{{$tx->userName}}</span>
+                                                                <span
+                                                                    class="fichas_puso">{{$tx->amount}}</span></a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
                     </div>
                     <div class="info_banner ">
                         <div class="icono resaltado_amarillo">
@@ -45,11 +75,28 @@
                         </div>
                         <p class="titulo"><strong>{{$propuesta['views']}}</strong></p>
                     </div>
-                    <div class="info_banner ">
-                        <div class="icono resaltado_amarillo">
-                            <span class=" icon-eye"></span>
+                    <div class="info_banner_tp ">
+                        <div class="participante">
+                            <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}">
+                                <div class="avatar">
+                                    <div class="img_perfil">
+                                        <div class="cont_img">
+                                            @if($user_avatar)
+                                                <img
+                                                    src="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"
+                                                    alt="{{ucfirst($propuesta['owner']['name'])}}">
+                                            @else
+                                                <img src="{{url('img/participantes/participante.jpg')}}"
+                                                     alt="{{ucfirst($propuesta['owner']['name'])}}"/>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="intro_datos_perfil">
+                                    <p class="titulo">{{ucfirst($propuesta['owner']['name'])}}</p>
+                                </div>
+                            </a>
                         </div>
-                        <p class="titulo"><strong>{{ucfirst($concurso->getMode()->name)}}</strong></p>
                     </div>
                 </div>
             </section>
@@ -59,54 +106,8 @@
             <section id="" class="indice_contenidos ">
                 <aside class="contenedor_lateral">
                     <div class="part_lat">
-                        <div class="participante">
-                            <div class="avatar">
-                                <div class="img_perfil">
-                                    <div class="cont_img">
-                                        @if($user_avatar)
-                                            <img
-                                                src="{{url('storage/images/'.$user_avatar->name.'.'.$user_avatar->extension)}}"
-                                                alt="{{ucfirst($propuesta['owner']['name'])}}">
-                                        @else
-                                            <img src="{{url('img/participantes/participante.jpg')}}"
-                                                 alt="{{ucfirst($propuesta['owner']['name'])}}"/>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="intro_datos_perfil">
-                                <p class="titulo">{{ucfirst($propuesta['owner']['name'])}}</p>
-                                <a href="{{url('perfil-usuario/'.$propuesta['owner']['id'])}}"
-                                   class="boton_redondeado resaltado_amarillo align_left">Ver perfil</a>
-                            </div>
-
-                        </div>
-                        <div class="blog_social_concurso">
-                            <div class="share_redes_gral">
-                                <div class="resaltado_gris">
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}"
-                                       title="Compartir novedad"
-                                       target="_blank"
-                                       onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
-                                       rel="noopener noreferrer"><span class="icono icon-fb"></span></a>
-                                </div>
-                                <div class="resaltado_gris">
-                                    <a href="https://twitter.com/intent/tweet?text={{$propuesta['title']}}&amp;url={{url()->full()}}&amp;lang=es"
-                                       title="Twittear novedad"
-                                       onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
-                                       rel="noopener noreferrer"><span class="icono icon-tw"></span></a>
-                                </div>
-                                <div class="resaltado_gris">
-                                    <a href="whatsapp://send?text={{$propuesta['title']}} – {{url()->full()}}"
-                                       data-action="share/whatsapp/share" title="Compartir novedad"
-                                       rel="noopener noreferrer"><span class="icono icon-whatsapp"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="part_lat">
-                        <div id="bt_votar_2">
                             @if($canVote)
+                            <div id="bt_votar_2">
                                 <form action="{{url('votar')}}" method="POST" id="form_votacion">
                                     <input type="hidden" name="cap_id"
                                            value="{{$propuesta['id']}}"/>
@@ -117,77 +118,137 @@
                                                onchange="controlVoteInput(this);false;">
                                     </div>
                                     <div id="bt_form_votar">
-                            <span
-                                class="resaltado_amarillo subrayado text_bold">Poner fichas</span>
+                                    <span class="boton_redondeado resaltado_amarillo subrayado text_bold">Poner fichas</span>
                                     </div>
                                 </form>
                                 <div id="pusiste_fichas" class="resaltado_gris"><span
                                         class="text_bold subrayado">Ya pusiste fichas</span><span class="icon-o"></span>
                                 </div>
-                            @endif
+                            </div>
+                        @endif
+                        <div class="detalle_propuesta">
+                            <div class="descripcion">
+                                <h2 class="subtitulo">{{$propuesta['title']}}</h2>
+                                @if($propuesta['link'] != "")
+                                    <p class="texto"><a href="{{$propuesta['link']}}" target="_blank"
+                                                        style="font-size:12px;text-decoration:underline;">Ir al link</a>
+                                    </p>
+                                @endif
+                                @if(count($propuesta['pdfs']) > 0)
+                                    <p class="texto"><a
+                                            href="{{url('storage/pdf/'.$propuesta['pdfs'][0]['name'].".".$propuesta['pdfs'][0]['extension'])}}"
+                                            target="_blank"
+                                            style="font-size:12px;text-decoration:underline;">Ver Documento</a>
+                                    </p>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                    <div>
+                        <div class="share_redes_gral">
+                            <span style="font-size:12px;margin-top:40px;display:block;">Compartir</span><br/>
+                            <div class="resaltado_gris">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{url()->full()}}"
+                                   title="Compartir"
+                                   target="_blank"
+                                   onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
+                                   rel="noopener noreferrer"><span class="icono icon-fb"></span></a>
+                            </div>
+                            <div class="resaltado_gris">
+                                <a href="https://twitter.com/intent/tweet?text={{$propuesta['title']}}&amp;url={{url()->full()}}&amp;lang=es"
+                                   title="Twittear"
+                                   onclick="window.open(this.href, this.target, 'width=400,height=300'); return false;"
+                                   rel="noopener noreferrer"><span class="icono icon-tw"></span></a>
+                            </div>
+                            <div class="resaltado_gris">
+                                <a href="whatsapp://send?text={{$propuesta['title']}} – {{url()->full()}}"
+                                   data-action="share/whatsapp/share" title="Compartir"
+                                   rel="noopener noreferrer"><span class="icono icon-whatsapp"></span></a>
+                            </div>
+                        </div>
                     </div>
                 </aside>
 
                 <div class="grilla_postulacion_a">
-                    <div class="capitulos">
-                        <div class="descripcion">
-                            <h2 class="subtitulo">Descripción.</h2>
-                            <p class="texto">{{$propuesta['description']}}</p>
-                        </div>
-                    </div>
-                    <div class="boton_">
-                        <a href="{{url('propuesta-detalle/'.$propuesta['id'])}}" target="_blank"
-                           class="resaltado_amarillo subrayado text_bold"
-                           rel="noopener noreferrer">Seguir leyendo</a>
-                    </div>
-                    <div class="navegador_contenidos_">
-                        <div class="buscador_capitulos_">
-
-                            <div id="ordenar" class="titulo">
-                                <span class="ordenar_bt_">Tabla de Contenidos</span>
+                    @if($concurso->type == 1)
+                        @foreach($capitulos as $capitulo)
+                            <div class="capitulos">
+                                <div class="descripcion">
+                                    <div class="capitulos" id="capitulo_{{$capitulo->orden}}">
+                                        @if($concurso->type == 1)
+                                        @else
+                                            <span class="numero_capitulo">Capítulo {{$capitulo->orden}}</span>
+                                        @endif
+                                        <h2 class="subtitulo">{{$capitulo->title}}</h2>
+                                        <div class="texto">{!! $capitulo->body !!}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="">
-                                @foreach($capitulos as $capitulo)
-                                    @if($concurso->type == 1)
-                                        <li id="">
-                                            <a href="{{url('propuesta-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
-                                               rel="noopener noreferrer">Cuento corto</a>
-                                        </li>
-                                    @else
-                                        <li id="">
-                                            <a href="{{url('propuesta-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
-                                               rel="noopener noreferrer">Capítulo {{$capitulo->orden}}</a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            </ul>
+                        @endforeach
+                    @endif
+
+
+
+                    @if($concurso->type == 2)
+                        <div class="capitulos">
+                            <div class="descripcion">
+                                <h2 class="subtitulo">{{$capitulos[0]->title}}</h2>
+                                <div class="texto">{!! substr($capitulos[0]->body, 0,  250) !!}...</div>
+                                <br/>
+                            </div>
                         </div>
-                    </div>
+                        <div class="seguir_div">
+                            <a href="{{url('postulacion-detalle/'.$propuesta['id'])}}"
+                               class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16"
+                               rel="noopener noreferrer">Seguir leyendo</a>
+                        </div>
+                    @endif
+                    @if($concurso->type == 2)
+                        <div class="navegador_contenidos_">
+                            <div class="buscador_capitulos_">
+                                <div id="ordenar" class="titulo">
+                                    <span class="ordenar_bt_">Capítulos</span>
+                                </div>
+                                <ul class="">
+                                    @foreach($capitulos as $capitulo)
+                                        <li id="">
+                                            <a href="{{url('postulacion-detalle/'.$propuesta['id'].'#capitulo_'.$capitulo->orden)}}"
+                                               rel="noopener noreferrer">{{$capitulo->orden}} - {{$capitulo->title}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                    <br/>
+                    <br/>
+                    <br/>
                 </div>
             </section>
-            <div class="line_dashed">
-            </div>
         </div>
 
         @if(count($related))
             <section class="contenedor otras_prop">
                 <div class="titulo">
-                    <h2>Otras propuestas</h2>
+                    <h2>Otras postulaciones en este concurso</h2>
                 </div>
                 <div class="carrousel_cont_prop">
                     <div class="carrousel_prop">
                         <div class="owl-carousel items">
                             @foreach($related as $item)
                                 <div class="logo_particantes">
-                                    <a href="{{url('propuesta/'.$item->id)}}">
+                                    <a href="{{url('postulacion/'.$item->id)}}">
                                         <div class="logo_img">
                                             @if(count($item['images']) > 0)
                                                 <img
                                                     src="{{url('storage/images/'.$item['images'][0]['name'].".".$item['images'][0]['extension'])}}"
                                                     alt="{{$item->title}}">
+                                            @else
+                                                @if($concurso->image > 0)
+                                                    <img
+                                                        src="{{url('storage/images/' . $concurso->logo()->name . "." . $concurso->logo()->extension)}}"
+                                                        alt="">
+                                                @else
+                                                    <img src="{{url('img/img_blog.png')}}" alt="">
+                                                @endif
                                             @endif
                                         </div>
                                     </a>
@@ -198,6 +259,17 @@
                 </div>
             </section>
         @endif
+        <section class="contenedor otras_prop">
+            <div class="miga_orsai">
+                <a href="{{url('concursos/'.$concurso->id.'/'.$concurso->name)}}"
+                   class="text_bold boton_redondeado resaltado_gris">&laquo; Volver al
+                    concurso</a>
+            </div>
+
+            <br/>
+            <br/>
+            <br/>
+        </section>
     </div>
     <div id="err_msg" class="popup">
         <div>
@@ -214,8 +286,7 @@
 
 @section('footer')
     <script src="{{url('owlcarousel/js/owl.carousel.js')}}"></script>
-    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script>
-    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script>
+    <script src="{{url('custom/jquery.mCustomScrollbar.js')}}"></script> 
 
     <script>
         function controlVoteInput(elem) {

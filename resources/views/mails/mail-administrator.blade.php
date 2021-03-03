@@ -14,12 +14,12 @@
     </style>
     <![endif]-->
     <style>
-        h1{
+        h1 {
             font-family: 'Barlow Condensed', 'Roboto', sans-serif;
         }
     </style>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body
     style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', sans-serif;">
@@ -31,7 +31,7 @@
             <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="https://comunidadorsai.org/"
                    style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    <img src="{{url('recursos/comunidad-orsai-new.png')}}" width="100" alt="Comunidad Orsai">
+                    <img src="https://comunidadorsai.org/recursos/comunidad-orsai-new.png" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr>
@@ -52,7 +52,7 @@
                     <p style="text-align: center; margin: 2px; font-size:16px;">Hay una nueva propuesta</p>
                     <p style="text-align: center; margin: 2px; font-size:16px;">Creador: {{$name}} {{$lastName}}</p>
                     <p style="text-align: center; margin: 2px; font-size:16px;">Email: {{$email}}</p>
-                    <a href="{{url("propuesta/{$cpaId}")}}" target="_blank"
+                    <a href="{{url("postulacion/{$cpaId}")}}" target="_blank"
                        style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Ver
                         la propuesta</a>
                 </div>
@@ -68,15 +68,15 @@
                         acá</a>
                 </div>
             </td>
-        </tr> 
+        </tr>
         <tr>
             <td style="height:25px;"></td>
-        </tr> 
+        </tr>
         <tr>
             <td style="text-align: center; ">
                 <div
                     style="font-size:14px; width:120px; padding-top:12px; overflow: hidden; margin:0 auto;">
-                    <img style="width:100%;" src="{{url('recursos/orsai_logo_footer.png')}}"
+                    <img style="width:100%;" src="https://comunidadorsai.org/recursos/orsai_logo_footer.png"
                          alt="Logo Orsai">
                 </div>
                 <div>

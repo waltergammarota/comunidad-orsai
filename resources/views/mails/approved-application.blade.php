@@ -14,12 +14,12 @@
     </style>
     <![endif]-->
     <style>
-        h1{
+        h1 {
             font-family: 'Barlow Condensed', 'Roboto', sans-serif;
         }
     </style>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body
     style="margin: 0; padding: 0; min-width: 100%; background-color: #e6e6e6; font-family: 'Roboto', sans-serif;">
@@ -31,7 +31,7 @@
             <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="https://comunidadorsai.org/"
                    style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    <img src="{{url('recursos/comunidad-orsai-new.png')}}" width="100" alt="Comunidad Orsai">
+                    <img src="https://comunidadorsai.org/recursos/comunidad-orsai-new.png" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr>
@@ -49,28 +49,23 @@
         <tr bgcolor="#fffefe">
             <td style="padding-bottom:20px;">
                 <div style="color: black; margin: 4% 5% 2%; text-align: center;font-family: 'Roboto', sans-serif;">
-                    <p style="text-align: center; margin: 2px; font-size:16px;">Después de un exhaustivo chequeo tu logo ya está participando del concurso. Compartilo ahora con tus amigos de todo el mundo y ¡sumá fichas para ganar!</p>
-                    <a href="{{url("propuesta/{$cpaId}")}}" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Ver mi propuesta</a>
-                </div>
-            </td>
-        </tr>
-        <tr bgcolor="#fffefe" style="padding-top:20px;">
-            <td>
-                <div
-                    style="color: black; margin-left:15px; margin-right:15px; border-top: 2px dashed #808080; text-align: center; font-family: 'Roboto', sans-serif;">
-                    <p style="text-align: center; font-size:16px;">¿Querés ver lo que hicieron otros artistas?</p>
-                    <a href="{{url('participantes')}}" target="_blank" style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Mirá acá</a>
+                    <p style="text-align: center; margin: 2px; font-size:16px;">Después de un exhaustivo chequeo tu propuesta
+                        ya está participando del concurso. Compartilo ahora con tus amigos de todo el mundo y ¡sumá
+                        fichas para ganar!</p>
+                    <a href="{{url('postulacion/{$cpaId}')}}" target="_blank"
+                       style="background-color:#ffeb04; padding-right:30px; padding-left:30px; padding-top:10px; padding-bottom:10px; border-radius: 20px; margin-top:20px; margin-bottom:20px; font-size:18px; display: inline-block; text-decoration:none; text-align: center; color:black;">Ver
+                        mi propuesta</a>
                 </div>
             </td>
         </tr> 
         <tr>
             <td style="height:25px;"></td>
-        </tr> 
+        </tr>
         <tr>
             <td style="text-align: center; ">
                 <div
                     style="font-size:14px; width:120px; padding-top:12px; overflow: hidden; margin:0 auto;">
-                    <img style="width:90px;" src="{{url('recursos/orsai_logo_footer.png')}}" alt="Orsai" width="90">
+                    <img style="width:90px;" src="https://comunidadorsai.org/recursos/orsai_logo_footer.png" alt="Orsai" width="90">
                 </div>
                 <div>
                     <p style="font-size:13px; margin:0; margin-top:5px; color:#808080;">

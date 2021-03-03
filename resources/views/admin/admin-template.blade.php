@@ -144,6 +144,15 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="{{url('admin/cotizaciones')}}" class="nav-link">
+                            <i class="nav-icon fa fa-money-bill"></i>
+                            <p>
+                                Cotizaciones
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{url('admin/productos')}}" class="nav-link">
                             <i class="nav-icon fas fa-store"></i>
                             <p>
@@ -151,7 +160,7 @@
                             </p>
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="{{url('admin/notificaciones')}}" class="nav-link">
                             <i class="nav-icon fas fa-mail-bulk"></i>

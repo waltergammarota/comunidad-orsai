@@ -141,7 +141,13 @@ class ContenidoController extends Controller
         $noticia->publica = $request->publica;
         $noticia->contest_id = $request->contest_id;
         $noticia->save();
-        $this->updateInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
+        if ($noticia->coral_id == null) {
+            $noticia->coral_id = $this->generateUuid();
+            $noticia->save();
+            $this->createInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
+        } else {
+            $this->updateInCoral($noticia->coral_id, url("novedades/{$noticia->slug}"), $noticia->title, $noticia->autor);
+        }
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
         $imagesIds = $this->convertToIds($images);

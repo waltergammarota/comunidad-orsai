@@ -11,7 +11,7 @@
     <div class="fondo_blanco">
         <section id="intro" class="contenedor intro_gral contenedor_newform">
             <div>
-                <h1 class="span_h1">Contanos los detalles</h1>
+                <h1 class="span_h1">Completá los datos de tu postulación</h1>
             </div>
             <div class="pasos">
                 <span>1/2</span>
@@ -37,6 +37,7 @@
                         </div>
                         <input type="text" name="title" class="obligatorio"
                                value="{{$postulacion? $postulacion->title: ""}}">
+
                     </div>
                 </div>
                 <div class="new_form">
@@ -57,7 +58,7 @@
                 </div>
                 <div class="new_form">
                     <div class="input_err">
-                        <label>¿Querés sumar una imagen de portada?</label>
+                        <label>¿Querés sumar una imagen de portada?*</label>
                         <div class="tooltip_new">
                             <span class="ask_icon">(?)</span>
                             <div class="modal_asq oculto">
@@ -125,8 +126,9 @@
                 </div>
                 <div class="new_form">
                     <div class="btn_right">
-                        <button type="submit" id="btn_concurso" class="subrayado resaltado_amarillo text_bold">
-                            Siguiente
+                        <button type="submit" id="btn_concurso"
+                                class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">
+                            Siguiente &raquo;
                         </button>
                     </div>
                 </div>
@@ -139,6 +141,12 @@
 @endsection
 
 @section('footer')
+    <style>
+        span.error {
+            color: red;
+            font-size: 12px
+        }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
     <script>
@@ -207,18 +215,36 @@
                 $("#concursos").validate({
                     ignore: "",
                     rules: {
-                        title: {required: true, minlength: 2, maxlength: 255},
+                        title: {required: true, minlength: 2, maxlength: 120},
                         description: {required: true, minlength: 2, maxlength: 255},
                         link: {url: true},
+                        @if(!$postulacion)
+                        "images[]": {required: true, extension: "png|jpe|jpg"},
+                        @else
                         "images[]": {extension: "png|jpe|jpg"},
+                        @endif
                         "pdf[]": {extension: "pdf"}
                     },
                     messages: {
-                        title: "El campo Nombre es obligatorio (de 2 a 255 caracteres)",
-                        description: "La descripcion es obligatoria (de 2 a 255 caracteres)",
+                        title: {
+                            required: "El campo Nombre es obligatorio (de 2 a 120 caracteres)",
+                            minlength: "Dale escribite algo más",
+                            maxlength: "No se pueden escribir más de {0} caracteres"
+                        },
+                        description: {
+                            required: "La descripcion es obligatoria (de 2 a 255 caracteres)",
+                            minlength: "Dale escribite algo más",
+                            maxlength: "No se pueden escribir más de {0} caracteres"
+                        },
                         link: "La url ingresada no es valida",
-                        "images[]": "El archivo seleccionado no es valido",
-                        "pdf[]": "El archivo seleccionado no es valido"
+                        "images[]": {
+                            required: "La imagen de portada es obligatoria",
+                            extension: "El archivo seleccionado no es valido",
+                        },
+                        "pdf[]": {
+                            required: "El archivo pdf es obligatorio",
+                            extension: "El archivo seleccionado no es valido"
+                        }
                     },
                     errorElement: 'span'
                 });

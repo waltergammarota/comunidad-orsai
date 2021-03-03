@@ -62,3 +62,21 @@ sudo apt install php-dev php-pear
 sudo pecl install mongodb
 extension=mongodb.so en cli y fpm
 sudo systemctl restart php7.4-fpm.service
+
+MERCADO PAGO
+composer require doctrine/inflector:1.4.0
+
+DEPLOY
+
+cd /var/www/comunidadorsai-prod
+git status
+controlar archivos sin commitear
+git pull
+php artisan migrate (si hay migraciones, si corre y no hay nada no pasa nada)
+sudo supervisorctl restart all
+
+
+ngrok http -host-header=rewrite orsai.test:80
+configurar endpoint de webhook en mercadolibre con url + 
+    /donar/mercado_pago_webhook?token={MP_WEBHOOK_TOKEN} guardado en el .env
+

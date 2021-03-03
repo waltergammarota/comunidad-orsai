@@ -23,6 +23,10 @@ class PropuestaController extends Controller
         $propuestaId = $request->route('id');
         $propuesta = $this->findPropuesta($propuestaId);
         $user = Auth::user();
+        $contest = ContestModel::find($propuesta['contest_id']);
+        if ($propuesta['current_status'] == "draft") {
+            return Redirect::to('postulaciones/' . $contest->id . '/' . $contest->name);
+        }
         if ($propuesta['current_status'] != "approved" && $user->role != "admin" && $propuesta['user_id'] != $user->id) {
             return Redirect::to('panel');
         }
@@ -31,7 +35,6 @@ class PropuestaController extends Controller
         $data['propuesta'] = $propuesta;
         $data['user_avatar'] = User::find($propuesta['owner']['id'])->avatar()->first();
         $data['txs'] = $this->votes($propuestaId);
-        $contest = ContestModel::find($propuesta['contest_id']);
         $data['concurso'] = $contest;
         $data['capitulos'] = CpaChapterModel::getChapters($propuestaId);
         $data['used'] = Transaction::where(
@@ -42,7 +45,7 @@ class PropuestaController extends Controller
         )->sum('amount');
         $data['related'] = ContestApplicationModel::inRandomOrder()->where("approved", 1)
             ->whereNotIn('id', [$propuestaId])->where("contest_id", $propuesta['contest_id'])->limit(5)->with('logos')->get();
-        $data['canVote'] = $contest->hasVotes();
+        $data['canVote'] = $contest->hasVotes() && $user->id != $propuesta['user_id'];
         return view('postulacion.index', $data);
     }
 
@@ -117,13 +120,18 @@ class PropuestaController extends Controller
 
     public function votar(Request $request)
     {
-        $vote = new VoteAContestApplication(
-            $request->cap_id,
-            Auth::user()->id,
-            $request->amount
-        );
-        $output = $vote->execute();
-        return response()->json(["totalVotes" => $output]);
+        $user = Auth::user();
+        $cpa = ContestApplicationModel::find($request->cap_id);
+        if ($cpa->user_id != $user->id) {
+            $vote = new VoteAContestApplication(
+                $request->cap_id,
+                Auth::user()->id,
+                $request->amount
+            );
+            $output = $vote->execute();
+            return response()->json(["totalVotes" => $output]);
+        }
+        return response()->json(["status" => "error", "msg" => "No puedes votarte a tí mismo"], 400);
     }
 
     private function findPropuesta($id)

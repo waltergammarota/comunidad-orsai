@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Controllers\CreateContestApplicationController;
 use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
@@ -46,11 +47,49 @@ class AccountController extends Controller
 
     public function show_redes(Request $request)
     {
+        $twitter = $request->oauth_token;
+        $verifier = $request->oauth_verifier;
+        if ($twitter && $twitter == session('oauth_token')) {
+            $this->verifyTwitter($verifier);
+        }
         $data = $this->getUserData();
         if (!$this->isProfileCompleted()) {
             $request->session()->flash('alert', 'profile_not_completed');
         }
         return view('2021-redes-sociales', $data);
+    }
+
+    public function saveFacebook(Request $request)
+    {
+        $facebookId = $request->facebook_id;
+        $facebookUser = $request->facebook_user;
+        $user = Auth::user();
+        $user->facebook = $facebookUser;
+        $user->facebook_id = $facebookId;
+        $user->save();
+        return response()->json(["status" => 'success', 'msg' => 'Facebook user updated']);
+    }
+
+    public function saveTwitter(Request $request)
+    {
+        $twitterId = $request->twitter_id;
+        $twitterUser = $request->twitter_user;
+        $user = Auth::user();
+        $user->twitter = $twitterUser;
+        $user->twitter_id = $twitterId;
+        $user->save();
+        return response()->json(["status" => 'success', 'msg' => 'Twitter user updated']);
+    }
+
+    public function saveInstagram(Request $request)
+    {
+        $instagramId = $request->instagram_id;
+        $instagramUser = $request->instagram_user;
+        $user = Auth::user();
+        $user->instagram = $instagramUser;
+        $user->instagram_id = $instagramId;
+        $user->save();
+        return response()->json(["status" => 'success', 'msg' => 'Instagram user updated']);
     }
 
     public function show_seguridad(Request $request)
@@ -220,7 +259,7 @@ class AccountController extends Controller
             return view('postulacion.postulacion-2', $data);
         }
         if ($status == "approved") {
-            return Redirect::to('propuesta/' . $postulacion->id);
+            return Redirect::to('postulacion/' . $postulacion->id);
         }
 
         return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
@@ -235,9 +274,15 @@ class AccountController extends Controller
         }
         $data = $this->getUserData();
         $data['capitulos'] = CpaChapterModel::where("cap_id", $cpaId)->orderBy("orden", "asc")->get();
+        $data['bases'] = 'url'; //$data['concurso']->getbases(); (?)
         $data['postulacion'] = $cpa;
         $data['concurso'] = $cpa->contest()->first();
-        $data['logo'] = $data['concurso']->logo();
+        $images = $cpa->images()->get();
+        if (count($images) > 0) {
+            $data['logo'] = $images[0];
+        } else {
+            $data['logo'] = $data['concurso']->logo();
+        }
         return view("postulacion.postulacion-preview", $data);
     }
 
@@ -245,8 +290,7 @@ class AccountController extends Controller
     {
         $request->validate([
             "cap_id" => 'required|numeric',
-            "bases" => 'required',
-            "condiciones" => 'required'
+            "bases" => 'required'
         ]);
 
         $cpaId = $request->cap_id;
@@ -254,7 +298,6 @@ class AccountController extends Controller
         if ($cpa == null) {
             abort(404);
         }
-        $cpa->condiciones = Carbon::now();
         $cpa->bases = Carbon::now();
         $cpa->save();
         $cpaLog = new CpaLog(["status" => "sent", "cap_id" => $cpa->id]);
@@ -280,13 +323,13 @@ class AccountController extends Controller
             return response()->json(["status" => "error"], 400);
         }
         $chapter->delete();
-        $contest = $cpa->contest();
+        $contest = $cpa->contest()->first();
         $this->reorganizeChapters($capId, $orden);
         if ($orden == 1) {
             $url = url("postulaciones/{$contest->id}/{$contest->name}");
         } else {
             $ordenAnterior = $orden - 1;
-            $url = url("postulaciones/{$contest->id}/{$contest->name}/capitulos/{$ordenAnterior}");
+            $url = url("postulaciones/{$contest->id}/{$contest->name}/capitulos/1");
         }
         return response()->json(["status" => "sucess", "url" => $url]);
     }
@@ -306,7 +349,7 @@ class AccountController extends Controller
         $request->validate([
             "cap_id" => "required",
             "orden" => "required|numeric",
-            "title" => "required",
+            "title" => "required|min:1|max:120",
             "body" => "required"
         ]);
         $cpaId = $request->cap_id;
@@ -354,6 +397,8 @@ class AccountController extends Controller
     private function updateCap(Request $request)
     {
         $request->validate([
+            'title' => 'required|min:1|max:120',
+            'description' => 'required|min:1|max:255',
             "cap_id" => 'required',
             "contest_id" => 'required',
             "image_flag" => 'required',
@@ -362,6 +407,10 @@ class AccountController extends Controller
 
         $contest = ContestModel::find($request->contest_id);
         $cpa = ContestApplicationModel::find($request->cap_id);
+        $user = Auth::user();
+        if ($cpa->user_id != $user->id) {
+            abort(404);
+        }
 
         $files = $this->saveImages($request, $cpa);
 
@@ -387,11 +436,11 @@ class AccountController extends Controller
     {
         $request->validate(
             [
-                'title' => 'required|min:1|max:255',
+                'title' => 'required|min:1|max:120',
                 'description' => 'required|min:1|max:255',
                 'contest_id' => 'required',
                 'images' => 'array',
-                'images.*' => 'image|max:5120',
+                'images.*' => 'mimes:jpeg,png,jpg,gif,svg|max:5120',
                 'pdf' => 'array',
                 'pdf.*' => 'mimes:pdf|max:5120',
             ]
@@ -407,9 +456,7 @@ class AccountController extends Controller
             $cpa->user_id = Auth::user()->id;
             $cpa->contest_id = $request->contest_id;
             $cpa->save();
-
             $this->saveImages($request, $cpa);
-
             $cpaLog = new CpaLog(["status" => "draft", "cap_id" => $cpa->id]);
             $cpaLog->save();
         }
@@ -446,8 +493,6 @@ class AccountController extends Controller
     public function profile_update_redes(Request $request)
     {
         $allowedTypes = [
-            'facebook',
-            'twitter',
             'instagram',
             'linkedin',
             'portfolio',
@@ -629,6 +674,7 @@ class AccountController extends Controller
             $author = User::find($rowData['author']);
             $row['autor'] = "{$author->name} {$author->lastName}";
             $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i') . " HS";
+            $row['real_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i');
             $row['id'] = $notification->id;
             $row['readed'] = $notification->read_at == null ? 'NO' : 'SI';
             $data['notificaciones'][] = $row;
@@ -772,5 +818,41 @@ class AccountController extends Controller
         return response()->json(["status" => "error", "msg" => "Error en datos"]);
     }
 
+    public function twitter()
+    {
+        try {
+            $consumerKey = env("TWITTER_ACCESS_TOKEN");
+            $consumerSecret = env("TWITTER_SECRET");
+            $connection = new TwitterOAuth($consumerKey, $consumerSecret);
+            $request_token = $connection->oauth('oauth/request_token');
+            $url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
+            session([
+                'oauth_token' => $request_token['oauth_token'],
+                'oauth_token_secret' => $request_token['oauth_token_secret']
+            ]);
+            return response()->json(["status" => "success", 'url' => $url, 'msg' => 'Link enviado']);
+        } catch (\Exception $error) {
+            return response()->json(["status" => "error", 'msg' => $error->getMessage()], 400);
+        }
+    }
+
+    /**
+     * @param $verifier
+     * @throws \Abraham\TwitterOAuth\TwitterOAuthException
+     */
+    private function verifyTwitter($verifier)
+    {
+        try {
+            $consumerKey = env("TWITTER_ACCESS_TOKEN");
+            $consumerSecret = env("TWITTER_SECRET");
+            $connection = new TwitterOAuth($consumerKey, $consumerSecret, session('oauth_token'), session('oauth_token_secret'));
+            $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $verifier]);
+            $user = Auth::user();
+            $user->twitter = $access_token['screen_name'];
+            $user->twitter_id = $access_token['user_id'];
+            $user->save();
+        } catch (\Exception $error) {
+        }
+    }
 
 }

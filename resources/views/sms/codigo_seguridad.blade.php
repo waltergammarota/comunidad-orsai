@@ -7,6 +7,11 @@
 @endsection
 
 @section('content')
+    <style>
+        #sms .contenedor_interna {
+            max-width: 615px !important;
+        }
+    </style>
     <section id="sms" class="resaltado_gris pd_20 pd_20_tp_bt">
         <article class="contenedor_interna blog_articulo_completo">
             <div class="cuerpo_interna">

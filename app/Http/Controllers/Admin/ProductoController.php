@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Databases\CotizacionModel;
 use App\Databases\ProductoModel;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
@@ -15,27 +16,43 @@ class ProductoController extends Controller
     {
         $data['title'] = "Productos";
         $data['dolar'] = $this->getDolarPrice();
+        $data['cotizacion'] = CotizacionModel::getCurrentCotizacion();
         return view('admin.productos.index', $data);
     }
 
     public function productos_json(Request $request)
     {
         $productos = ProductoModel::all();
+        $items = [];
+        foreach ($productos as $producto) {
+            $row = [
+                "id" => $producto->id,
+                "name" => $producto->name,
+                "price" => $producto->getPriceInUsd(),
+                "visible" => $producto->visible,
+                "created_at" => $producto->created_at
+            ];
+            array_push($items, $row);
+        }
         $data = [
             'draw' => $request->query('draw'),
             "recordsTotal" => ProductoModel::count(),
             "recordsFiltered" => ProductoModel::count(),
-            'data' => $productos
+            'data' => $items
         ];
         return response()->json($data);
     }
 
     private function getDolarPrice()
     {
-        $client = new Client();
-        $url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
-        $response = $client->get($url);
-        return json_decode($response->getBody());
+        try {
+            $client = new Client();
+            $url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
+            $response = $client->get($url);
+            return json_decode($response->getBody());
+        } catch (\Exception $error) {
+            return [];
+        }
     }
 
     public function create(Request $request)
@@ -49,14 +66,13 @@ class ProductoController extends Controller
     {
         $request->validate([
             "name" => 'required',
-            "price" => 'required|min:1|max:10000',
-            "fichas" => 'required|min:1|max:10000',
             "description" => 'max:1000',
             "visible" => 'min:0|max:1'
         ]);
         $producto = new ProductoModel([
             "user_id" => Auth::user()->id,
             "name" => $request->name,
+            "dynamic_price" => $request->dynamic_price,
             "description" => $request->description,
             "price" => $request->price,
             "fichas" => $request->fichas,
@@ -70,7 +86,6 @@ class ProductoController extends Controller
     {
         $request->validate([
             "name" => 'required',
-            "price" => 'required|integer|between:1,10000',
             "fichas" => 'required|integer|between:1,10000',
             "description" => 'max:1000',
         ]);
@@ -80,6 +95,7 @@ class ProductoController extends Controller
         $producto->description = $request->description;
         $producto->price = $request->price;
         $producto->visible = $request->visible ? 1 : 0;
+        $producto->dynamic_price = $request->dynamic_price;
         $producto->fichas = $request->fichas;
         $producto->save();
         return Redirect::to('admin/productos/' . $producto->id);

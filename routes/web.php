@@ -97,10 +97,91 @@ Route::get(
     'WebController@historia'
 )->name('historia');
 
+Route::post(
+    '/donar/mercado_pago_webhook',
+    'DonarController@mercado_pago_webhook'
+)->name('mercado_pago_webhook');
+
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
+        // COTIZACION
+        Route::get(
+            'admin/cotizaciones',
+            'Admin\CotizacionController@index'
+        )->name('cotizacion-form')->middleware('admin_role');
+
+        Route::get(
+            'admin/cotizaciones-json',
+            'Admin\CotizacionController@cotizaciones_json'
+        )->name('cotizacion-json')->middleware('admin_role');
+
+        Route::get(
+            'admin/cotizaciones/crear',
+            'Admin\CotizacionController@create'
+        )->name('cotizacion-crear')->middleware('admin_role');
+
+
+        Route::post(
+            'admin/cotizaciones/store',
+            'Admin\CotizacionController@store'
+        )->name('cotizacion-store')->middleware('admin_role');
+
+        // END OF COTIZACION
+        //Donar
+
+        Route::post(
+            'donar/create-compra',
+            'DonarController@create_compra'
+        )->name('create-compra')->middleware('email_verified');
+
+        Route::post(
+            'donar/paypal/capture',
+            'DonarController@paypal_capture'
+        )->name('paypal-capture-compra')->middleware('email_verified');
+
+        Route::get(
+            '/donar',
+            'DonarController@index'
+        )->name('index')->middleware('email_verified');
+
+        Route::get(
+            '/donar/paypal',
+            'DonarController@paypal'
+        )->name('paypal')->middleware('email_verified');
+
+        Route::get(
+            '/donar/checkout',
+            'DonarController@checkout'
+        )->name('checkout')->middleware('email_verified');
+
+        Route::get(
+            '/donar/rejected',
+            'DonarController@rejected'
+        )->name('rejected')->middleware('email_verified');
+
+        Route::get(
+            '/donar/pending',
+            'DonarController@pending'
+        )->name('pending')->middleware('email_verified');
+
+        Route::get(
+            '/donar/paypal/successful',
+            'DonarController@paypal_successful'
+        )->name('paypal-successful')->middleware('email_verified');
+
+        Route::get(
+            '/donar/successful',
+            'DonarController@successful'
+        )->name('successful')->middleware('email_verified');
+
+
+        Route::post(
+            '/donar/create_compra',
+            'DonarController@create'
+        )->name('compra-create')->middleware('email_verified');
+        // end of donar
 
         Route::post(
             '/change-password',
@@ -159,12 +240,12 @@ Route::middleware(['verified'])->group(
         )->name("concursos-show");
 
         Route::get(
-            '/propuesta/{id}',
+            '/postulacion/{id}',
             'PropuestaController@show'
         );
 
         Route::get(
-            '/propuesta-detalle/{id}',
+            '/postulacion-detalle/{id}',
             'PropuestaController@show_detalle'
         );
 
@@ -273,6 +354,27 @@ Route::middleware(['verified'])->group(
             'AccountController@show_redes'
         )->name('perfil')->middleware('email_verified');
 
+        Route::post(
+            '/save-twitter',
+            'AccountController@saveTwitter'
+        )->name('save-twitter')->middleware('email_verified');
+
+        Route::post(
+            '/save-facebook',
+            'AccountController@saveFacebook'
+        )->name('save-facebook')->middleware('email_verified');
+
+        Route::post(
+            'twitter-login',
+            'AccountController@twitter'
+        )->name('twitter-callback')->middleware('email_verified');
+
+        Route::post(
+            '/save-instagram',
+            'AccountController@saveInstagram'
+        )->name('save-instagram')->middleware('email_verified');
+
+
         Route::get(
             'seguridad',
             'AccountController@show_seguridad'
@@ -340,12 +442,12 @@ Route::middleware(['verified'])->group(
         );
         // formacion
         Route::post(
-            '/formacion/update',
+            ' / formacion / update',
             'AccountController@formacion_update'
         );
 
         Route::post(
-            '/profile/image',
+            ' / profile / image',
             'AccountController@profile_image'
         );
 
@@ -633,6 +735,13 @@ Route::middleware(['verified'])->group(
         Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
 
         Route::post(
+            'admin/contest/deleteAll',
+            'Contest\ContestController@deleteAll'
+        )->name(
+            'concurso-delete-all'
+        )->middleware('admin_role');
+
+        Route::post(
             'admin/contest/deleteImage',
             'Contest\ContestController@deleteImage'
         )->name(
@@ -753,7 +862,6 @@ Route::middleware(['verified'])->group(
                 abort(404);
             }
         )->middleware('admin_role');
-
     }
 );
 

@@ -35,31 +35,43 @@
                     <div class="mg_20"></div>
                     <form action="#">
                         <div class="grilla_form">
-                            <div class="form_ctrl input_  col_3">
+                            <div class="form_ctrl input_ inp_y_btn col_3">
                                 <div class="input_err">
                                     <label class="text_medium">Facebook</label>
                                     <input type="text" name="facebook" class="obligatorio" id="facebook"
-                                           placeholder="Nombre de Usuario" value="{{$facebook}}">
+                                           placeholder="Nombre de Usuario" value="{{$facebook}}" disabled>
                                     <span class="icono_aviso icon-check_circle"></span>
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
-                                {{--                    <div class="button_lf_side">--}}
-                                {{--                        <button class="conectar boton_redondeado btn_transparente text_bold ">Conectar</button>--}}
-                                {{--                    </div>--}}
+                                <div class="button_lf_side">
+                                    @if(!$facebook)
+                                        <button class="conectar boton_redondeado btn_transparente text_bold"
+                                                data-network="facebook">Conectar
+                                        </button>
+                                    @else
+                                        <button class="conectar boton_redondeado text_bold"
+                                                data-network="facebook">Desconectar
+                                        </button>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="form_ctrl input_ col_3">   {{-- inp_y_btn  --}}
+                            <div class="form_ctrl input_ inp_y_btn col_3">   {{-- inp_y_btn  --}}
                                 <div class="input_err">
                                     <label class="text_medium">Twitter</label>
                                     <input type="text" name="twitter" class="obligatorio" placeholder="@nombredeusuario"
-                                           id="twitter" value="{{$twitter}}">
+                                           id="twitter" value="{{$twitter}}" disabled>
                                     <span class="icono_aviso icon-check_circle"></span>
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
-                                {{--                                <div class="button_lf_side">--}}
-                                {{--                                    <button class="conectar boton_redondeado btn_transparente text_bold ">Conectar--}}
-                                {{--                                    </button>--}}
-                                {{--                                </div>--}}
-                                {{--                                <span class="error">El campo Nombre es obligatorio.</span>--}}
+                                @if(!$twitter)
+                                    <button class="conectar boton_redondeado btn_transparente text_bold"
+                                            data-network="twitter">Conectar
+                                    </button>
+                                @else
+                                    <button class="conectar boton_redondeado text_bold"
+                                            data-network="twitter">Desconectar
+                                    </button>
+                                @endif
                             </div>
                         </div>
                         <div class="grilla_form">
@@ -69,9 +81,15 @@
                                     <input type="text" name="instagram" class="obligatorio" placeholder="@instagram"
                                            id="instagram" value="{{$instagram}}"/>
                                 </div>
-                                {{--                                <div class="button_lf_side">--}}
-                                {{--                                    <button class="conectar boton_redondeado text_bold ">Desconectar</button>--}}
-                                {{--                                </div>--}}
+                                {{--                                @if(!$instagram)--}}
+                                {{--                                    <button class="conectar boton_redondeado btn_transparente text_bold"--}}
+                                {{--                                            data-network="instagram">Conectar--}}
+                                {{--                                    </button>--}}
+                                {{--                                @else--}}
+                                {{--                                    <button class="conectar boton_redondeado text_bold"--}}
+                                {{--                                            data-network="instagram">Desconectar--}}
+                                {{--                                    </button>--}}
+                                {{--                                @endif--}}
                             </div>
                             <div class="form_ctrl input_ col_3">
                                 <div class="input_err">
@@ -139,6 +157,17 @@
 
 @section('footer')
     <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '{{env('FACEBOOK_APP_ID')}}',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v10.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script>
         const facebook = $("#facebook");
         const twitter = $("#twitter");
         const instagram = $("#instagram");
@@ -147,6 +176,7 @@
         const web = $("#web");
         const medium = $("#medium");
         const redes = $("#redes");
+
 
         function save() {
             event.preventDefault();
@@ -180,44 +210,173 @@
             }
         });
 
-
-        /* ANIMACION BOTON REDES SOCIALES MI PERFIL */
-        $('.conectar').click(function () {
-            //   $('#val_tel').hide();
-            const btn_ = $(this);
-            const color_btn = $(this).css("color");
-            $(this).siblings('.input_err').find('input').attr('disabled', true);
-
-
+        function loader(btn_, color_btn) {
             $(btn_).css("color", "transparent");
             $(btn_).addClass('btn_loader');
-            setTimeout(function () {
-                $(btn_).removeClass('btn_loader');
-                $(btn_).css("color", color_btn);
-                // $('#val_tel').show();
-            }, 2000);
-            setTimeout(function () {
-                //  Si es Ok
+            $(btn_).removeClass('btn_loader');
+            $(btn_).css("color", color_btn);
+        }
+
+        function toggle(success, btn_) {
+            if (success) {
                 if ($(btn_).hasClass('btn_transparente')) {
                     $(btn_).html('Desconectar');
                     $(btn_).removeClass('btn_transparente');
-                } else {
-                    $(btn_).html('Conectar');
-                    $(btn_).addClass('btn_transparente');
                 }
                 $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeIn();
 
-                //   Si es error
-                // $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeIn();
-            }, 2000);
+                setTimeout(function () {
+                    $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeOut();
+                }, 3000);
+            } else {
+                $(btn_).html('Conectar');
+                $(btn_).addClass('btn_transparente');
+                $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeIn();
+                setTimeout(function () {
+                    $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeOut();
+                }, 3000);
+            }
+        }
 
-            setTimeout(function () {
-                //  Si es Ok
-                $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeOut();
+        function callFacebookApi(btn_, input) {
+            FB.api('/me', function (response) {
+                input.val(response.name);
+                const url = '{{url("save-facebook")}}';
+                axios.post(url, {
+                    facebook_id: response.id,
+                    facebook_user: response.name
+                }).then(function (response) {
+                    toggle(true, btn_);
+                }).catch(function (error) {
+                    toggle(false, btn_);
+                    input.val("");
+                });
+            });
+        }
 
-                //   Si es error
-                // $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-exclamacion_circle').fadeOut();
-            }, 3000);
+        function connectFacebook(btn_, input) {
+            FB.getLoginStatus(function (response) {
+                if (response.authResponse) {
+                    callFacebookApi(btn_, input);
+                } else {
+                    FB.login(function (response) {
+                        console.log(response);
+                        if (response.authResponse) {
+                            callFacebookApi(btn_, input);
+                            console.log('Welcome!  Fetching your information.... ');
+                        } else {
+                            toggle(false, btn_);
+                            input.val("");
+                            console.log('User cancelled login or did not fully authorize.');
+                        }
+                    }, {scope: 'instagram_basic'});
+                }
+            });
+        }
+
+
+        function connectInstagram() {
+            console.log("instagram");
+            const url = "https://graph.instagram.com/me?fields=id,username&access_token=";
+            FB.getLoginStatus(function (response) {
+                if (response.authResponse) {
+                    axios.get(`${url}${response.authResponse.accessToken}`).then(function (data) {
+                        console.log(data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
+                }
+            });
+        }
+
+        function connectTwitter() {
+            console.log("twitter");
+            const url = '{{url("twitter-login")}}';
+            axios.post(url).then(function (response) {
+                window.location = response.data.url;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+
+        function disconnectInstagram(btn_, input) {
+            $(btn_).html('Conectar');
+            $(btn_).addClass('btn_transparente'); 
+            $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeIn();
+            input.val("");
+            const url = '{{url("save-instagram")}}';
+            axios.post(url, {
+                facebook_id: null,
+                facebook_user: null,
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        function disconnectTwitter(btn_, input) {
+            $(btn_).html('Conectar');
+            $(btn_).addClass('btn_transparente');
+            $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeIn();
+            input.val("");
+            const url = '{{url("save-twitter")}}';
+            axios.post(url, {
+                twiter_id: null,
+                twitter_user: null,
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        function disconnectFacebook(btn_, input) {
+            $(btn_).html('Conectar');
+            $(btn_).addClass('btn_transparente');
+            $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeIn();
+            input.val("");
+            const url = '{{url("save-facebook")}}';
+            axios.post(url, {
+                facebook_id: null,
+                facebook_user: null,
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+
+        /* ANIMACION BOTON REDES SOCIALES MI PERFIL */
+        $('.conectar').click(function (event) {
+            event.preventDefault();
+            const btn_ = $(this);
+            const color_btn = $(this).css("color");
+            const input = $(this).parent().siblings('.input_err').find('input');
+            input.attr('disabled', true);
+            const network = btn_.data('network');
+            // CASE CONECTAR HORRIBLE
+            if ($(btn_).hasClass('btn_transparente')) {
+                switch (network) {
+                    case "facebook":
+                        connectFacebook(btn_, input);
+                        break;
+                    case "instagram":
+                        connectInstagram(btn_, input);
+                        break;
+                    case "twitter":
+                        connectTwitter(btn_, input);
+                        break;
+                }
+            } else {
+                switch (network) {
+                    case "facebook":
+                        disconnectFacebook(btn_, input);
+                        break;
+                    case "instagram":
+                        disconnectInstagram(btn_, input);
+                        break;
+                    case "twitter":
+                        disconnectTwitter(btn_, input);
+                        break;
+                }
+            }
         });
 
 

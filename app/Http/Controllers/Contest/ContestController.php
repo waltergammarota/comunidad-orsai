@@ -8,17 +8,22 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\ContestsModo;
 use App\Databases\ContestsType;
+use App\Databases\CpaChapterModel;
+use App\Databases\CpaLog;
 use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\UserRepository;
+use App\UseCases\ContestApplication\GetContestApplicationById;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+
+use function GuzzleHttp\json_encode;
 
 class ContestController extends Controller
 {
@@ -27,13 +32,13 @@ class ContestController extends Controller
         $data = array_merge($this->getUserData());
         $cantidadPorPagina = 9;
         $query = ContestModel::where('active', 1)->orderBy('start_date');
-        $data['filtro'] = $request->filtro;
+        $data['filtro'] = $request->filtro ? $request->filtro : 'activos';
         $data['busqueda'] = $request->busqueda;
         $data['pagina'] = $request->pagina ? $request->pagina : 1;
         if ($request->busqueda != null && $request->busqueda != "") {
             $query->where('name', 'like', "%{$request->busqueda}%");
         }
-        switch ($request->filtro) {
+        switch ($data['filtro']) {
             case 'activos':
                 $query->where('start_date', '<=', Carbon::now())->where('end_date', '>', Carbon::now());
                 break;
@@ -84,7 +89,12 @@ class ContestController extends Controller
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
         // CONCURSO POSTULACIONES ABIERTAS
         $data['estado'] = $contest->getStatus();
-        $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, Auth::user()->id);
+        $user = Auth::user();
+        $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, $user->id);
+        $data['propuesta'] = false;
+        if ($data['hasPostulacion']) {
+            $data['propuestaId'] = ContestApplicationModel::select('id')->where('contest_id', $contest->id)->where("user_id", $user->id)->first()->id;
+        }
         if ($contest->hasPostulacionesAbiertas()) {
             $data['estado'] = "abierto";
             $data['postulaciones_abiertas'] = true;
@@ -132,15 +142,13 @@ class ContestController extends Controller
         return view("logo-ganador", $data);
     }
 
-    private
-    function getTotalSociosApostadores()
+    private function getTotalSociosApostadores()
     {
         $txs = Transaction::where('type', 'TRANSFER')->where('from', '>', 1)->groupBy('from')->get();
         return count($txs);
     }
 
-    public
-    function approve(Request $request)
+    public function approve(Request $request)
     {
         $user = Auth::user();
         if ($user->role == "admin") {
@@ -296,10 +304,10 @@ class ContestController extends Controller
             "image" => count($images) > 0 ? $images[0]->getId() : 0,
             "type" => $request->type,
             "mode" => $request->mode,
-            "per_winner" => json_encode($request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
-            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
             "cant_winners" => $cant_winners,
+            "per_winner" => $this->cleanPerWinnerArray($cant_winners, $request->per_winner),
+            "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
@@ -317,6 +325,13 @@ class ContestController extends Controller
         }
 
         return Redirect::to('admin/concursos');
+    }
+
+
+    private function cleanPerWinnerArray($cant_winners, $per_winner)
+    {
+        $array = array_splice($per_winner, 0, $cant_winners);
+        return json_encode(array_pad($array, 4, "0"));
     }
 
 
@@ -387,10 +402,10 @@ class ContestController extends Controller
             "image" => $logo,
             "type" => $request->type,
             "mode" => $request->mode,
-            "per_winner" => json_encode($request->per_winner),
+            "cant_winners" => $cant_winners,
+            "per_winner" => $this->cleanPerWinnerArray($cant_winners, $request->per_winner),
             "amount_winner" => $request->amount_winner ? $request->amount_winner : 0,
             "amount_usd" => $request->amount_usd ? $request->amount_usd : 0,
-            "cant_winners" => $cant_winners,
             "required_amount" => $request->required_amount ? $request->required_amount : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
@@ -418,5 +433,22 @@ class ContestController extends Controller
             return $contest->image;
         }
         return 0;
+    }
+
+    public function deleteAll(Request $request)
+    {
+        $id = $request->id;
+        $contest = ContestModel::find($id);
+        if ($contest) {
+            $cpas = ContestApplicationModel::where("contest_id", $contest->id)->get();
+            foreach ($cpas as $cpa) {
+                CpaLog::where("cap_id", $cpa->id)->delete();
+                CpaChapterModel::where("cap_id", $cpa->id)->delete();
+            }
+            ContestApplicationModel::where("contest_id", $contest->id)->delete();
+            ContestModel::where("id", $contest->id)->delete();
+            return response()->json(["status" => "success", "msg" => "Concurso borrado"]);
+        }
+        return response()->json(["status" => "error", "message" => "Concurso no encontrado"], 400);
     }
 }

@@ -31,7 +31,7 @@
             <td style="text-align: center; padding: 0; padding-top:20px;">
                 <a href="https://comunidadorsai.org/"
                    style="padding:15px;display: inline-block;text-align: center; color:black; text-decoration: none;">
-                    <img src="{{url('recursos/comunidad-orsai-new.png')}}" width="100" alt="Comunidad Orsai">
+                    <img src="https://comunidadorsai.org/recursos/comunidad-orsai-new.png" width="100" alt="Comunidad Orsai">
                 </a>
             </td>
         </tr> 
@@ -79,7 +79,7 @@
             <td style="text-align: center; ">
                 <div
                     style="font-size:14px; width:120px; padding-top:12px; overflow: hidden; margin:0 auto;">
-                    <img style="width:100%;" src="{{url('recursos/orsai_logo_footer.png')}}"
+                    <img style="width:100%;" src="https://comunidadorsai.org/recursos/orsai_logo_footer.png"
                          alt="Logo Orsai">
                 </div>
                 <div>
