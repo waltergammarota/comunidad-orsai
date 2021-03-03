@@ -56,22 +56,22 @@
                                 </div>
                             </div>
                             <div class="form_ctrl input_ inp_y_btn col_3">   {{-- inp_y_btn  --}}
-                                <div class="input_err">
+                                <div class="input_err" style="width: 100% !important;">
                                     <label class="text_medium">Twitter</label>
                                     <input type="text" name="twitter" class="obligatorio" placeholder="@nombredeusuario"
-                                           id="twitter" value="{{$twitter}}" disabled>
+                                           id="twitter" value="{{$twitter}}">
                                     <span class="icono_aviso icon-check_circle"></span>
                                     <span class="icono_aviso icon-exclamacion_circle"></span>
                                 </div>
-                                @if(!$twitter)
-                                    <button class="conectar boton_redondeado btn_transparente text_bold"
-                                            data-network="twitter">Conectar
-                                    </button>
-                                @else
-                                    <button class="conectar boton_redondeado text_bold"
-                                            data-network="twitter">Desconectar
-                                    </button>
-                                @endif
+                                {{--                                @if(!$twitter)--}}
+                                {{--                                    <button class="conectar boton_redondeado btn_transparente text_bold"--}}
+                                {{--                                            data-network="twitter">Conectar--}}
+                                {{--                                    </button>--}}
+                                {{--                                @else--}}
+                                {{--                                    <button class="conectar boton_redondeado text_bold"--}}
+                                {{--                                            data-network="twitter">Desconectar--}}
+                                {{--                                    </button>--}}
+                                {{--                                @endif--}}
                             </div>
                         </div>
                         <div class="grilla_form">
@@ -302,7 +302,7 @@
 
         function disconnectInstagram(btn_, input) {
             $(btn_).html('Conectar');
-            $(btn_).addClass('btn_transparente'); 
+            $(btn_).addClass('btn_transparente');
             $(btn_).parent('.button_lf_side').siblings('.input_err').find('.icono_aviso.icon-check_circle').fadeIn();
             input.val("");
             const url = '{{url("save-instagram")}}';

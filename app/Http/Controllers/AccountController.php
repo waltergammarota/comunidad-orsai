@@ -493,6 +493,7 @@ class AccountController extends Controller
     public function profile_update_redes(Request $request)
     {
         $allowedTypes = [
+            'twitter',
             'instagram',
             'linkedin',
             'portfolio',
