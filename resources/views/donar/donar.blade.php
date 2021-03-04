@@ -42,8 +42,9 @@
             </div>
         </div>
         <div class="contenedor pie_section">
-            <p class="">Si querés saber más sobre la transparencia, apuestas y el sistema de fichas, <a href="#"
-                                                                                                        class="subrayado ">leé
+            <p class="">Si querés saber más sobre la transparencia, apuestas y el sistema de fichas, <a
+                    href="{{url('novedades/sistema-de-fichas')}}"
+                    class="subrayado ">leé
                     esta nota.</a></p>
         </div>
     </section>

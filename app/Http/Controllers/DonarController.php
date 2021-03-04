@@ -6,6 +6,7 @@ use App\Databases\CompraModel;
 use App\Databases\DolarModel;
 use App\Databases\ProductoModel;
 use App\Databases\Transaction;
+use App\User;
 use App\Utils\Mailer;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -203,7 +204,7 @@ class DonarController extends Controller
 
     public function successful(Request $request)
     {
-        $data = $this->getUserData();
+        $data = [];
         $params = $request->all();
         $external_reference = $params['external_reference'];
         if ($this->compraExists($external_reference)) {
@@ -212,7 +213,6 @@ class DonarController extends Controller
                 $productId = $compra->producto_id;
                 $userId = $compra->user_id;
                 $producto = ProductoModel::find($productId);
-                $data['producto'] = $producto;
                 $user = Auth::user();
                 if ($params['status'] == "approved" && $compra->processed == 0) {
                     $data = $this->updateCompra($compra, $params, $data, 1, 0);
@@ -220,9 +220,29 @@ class DonarController extends Controller
                     $compra->delivered = $tx->id;
                     $compra->save();
                     $this->sendPaymentMail($user, $producto, $compra);
+                    $data = array_merge($data, $this->getUserData());
+                    $data['producto'] = $producto;
+                    $producto->setCotizacion($compra->price_ars);
+                    $data['compra'] = $compra;
                     $data['donante'] = $user->name . " " . $user->lastName;
-                    return view("donar.donar_status_successful", $data);
+                } else {
+                    $data['details'] = [
+                        'status' => $compra->status,
+                        'payment_id' => $compra->payment_id,
+                        'payment_type' => $compra->payment_type,
+                        'order_id' => $params['merchant_order_id'],
+                        'external_reference' => $compra->external_reference,
+                        'datos' => json_encode($params),
+                        'fecha' => Carbon::now()->setTimezone('America/Argentina/Buenos_Aires')->format('d-m-Y H:i'),
+                        'processed' => $compra->processed,
+                        'delivered' => $compra->delivered
+                    ];
+                    $data['producto'] = $producto;
+                    $producto->setCotizacion($compra->price_ars);
+                    $data['compra'] = $compra;
+                    $data['donante'] = $user->name . " " . $user->lastName;
                 }
+                return view("donar.donar_status_successful", $data);
             }
         }
         abort(404);
@@ -243,7 +263,7 @@ class DonarController extends Controller
             'order_id' => $params['merchant_order_id'],
             'external_reference' => $params['external_reference'],
             'datos' => json_encode($params),
-            'fecha' => Carbon::now()->format('d-m-Y H:i'),
+            'fecha' => Carbon::now()->setTimezone('America/Argentina/Buenos_Aires')->format('d-m-Y H:i'),
             'processed' => $processed,
             'delivered' => $delivered
         ];
@@ -281,6 +301,8 @@ class DonarController extends Controller
                             $compra->save();
                             $producto = ProductoModel::find($compra->producto_id);
                             $tx = Transaction::createTransaction(1, $compra->user_id, $producto->fichas, "Compra de fichas ID {$compra->payment_id}");
+                            $user = User::find($compra->user_id);
+                            $this->sendPaymentMail($user, $producto, $compra);
                             $compra->delivered = $tx->id;
                             $compra->save();
                         }
@@ -385,8 +407,9 @@ class DonarController extends Controller
             $user = Auth::user();
             $data['producto'] = ProductoModel::find($compra->producto_id);
             $data['donante'] = $user->name . " " . $user->lastName;
-            $data['details']['fecha'] = Carbon::now()->format('d-m-Y H:i');
+            $data['details']['fecha'] = Carbon::now()->setTimezone('America/Argentina/Buenos_Aires')->format('d-m-Y H:i');
             $data['details']['payment_id'] = $orderId;
+            $data['compra'] = $compra;
             return view("donar.donar_status_successful", $data);
         }
         abort(404);

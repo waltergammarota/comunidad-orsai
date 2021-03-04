@@ -38,10 +38,17 @@
                                             <td>Cantidad de fichas</td>
                                             <td>{{$producto->fichas}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>Importe total</td>
-                                            <td>USD {{$producto->getPriceInUsd()}}</td>
-                                        </tr>
+                                        @if($compra->payment_processor == "mercadopago")
+                                            <tr>
+                                                <td>Importe total</td>
+                                                <td>ARS {{$producto->getPriceInArs()}}</td>
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td>Importe total</td>
+                                                <td>USD {{$producto->getPriceInUsd()}}</td>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <td>Donante</td>
                                             <td>{{$donante}}</td>
