@@ -634,7 +634,7 @@ class AccountController extends Controller
         $data['txs'] = Transaction::where("from", $user->id)->orWhere(
             "to",
             $user->id
-        )->get();
+        )->orderBy('id', 'desc')->get();
         return view('2021-mis-fichas', $data);
     }
 
