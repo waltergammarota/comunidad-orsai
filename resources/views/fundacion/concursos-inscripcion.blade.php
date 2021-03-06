@@ -8,12 +8,14 @@
 <section class="inscripcion-cuento">
   <div class="contenedor">
     <div class="hero">
-      <p class="pills">Incripción</p>
-      <h2 class="title">CONCURSO INTERNACIONAL DE CUENTO CORTO CON JURADO POPULAR Y PREMIO INCALCULABLE EN DÓLARES</h2>
-      <p class="subtitle">Cualquier socio registrado en la Comunidad Orsai podrá postular la cantidad de cuentos que se
-        le antoje y participar como jurado. Del 16 de abril al 15 de mayo, cada jurado votará con fichas
-        la cantidad de cuentos que se le antoje. </p>
-        <a href="#!" class="link">Leer bases y condiciones</a>
+      <div class="content-hero">
+        <p class="pills">Incripción</p>
+        <h2 class="title">CONCURSO INTERNACIONAL DE CUENTO CORTO CON JURADO POPULAR Y PREMIO INCALCULABLE EN DÓLARES</h2>
+        <p class="subtitle">Cualquier socio registrado en la Comunidad Orsai podrá postular la cantidad de cuentos que se
+          le antoje y participar como jurado. Del 16 de abril al 15 de mayo, cada jurado votará con fichas
+          la cantidad de cuentos que se le antoje. </p>
+          <a href="#!" class="link">Leer bases y condiciones</a>
+      </div>
         <nav class="hero-nav">
             <div class="hero-nav-content">
               <div class="hero-nav-item">
