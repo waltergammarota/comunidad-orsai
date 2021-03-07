@@ -37,19 +37,7 @@ class UserActivation extends GenericUseCase
         $user = $this->userRepository->findBytoken($this->token);
         if ($user && $user->getEmailVerifiedAt() == null) {
             $user->activateUser();
-            $savedUser = $this->userRepository->save($user);
-            $sendWelcomePoints = new WelcomePoints(
-                $savedUser,
-                $this->userRepository,
-                new TransactionRepository($this->userRepository),
-                new Mailer()
-            );
-            if ($sendWelcomePoints->execute()) {
-                return $this->present(
-                    $savedUser->getId(),
-                    $savedUser->getEmail()
-                );
-            }
+            $this->userRepository->save($user);
             return false;
         }
         if ($user && $user->getEmailVerifiedAt() != null) {
