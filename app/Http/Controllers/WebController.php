@@ -126,6 +126,24 @@ class WebController extends Controller
         $data = $this->getUserData();
         return view('fundacion.2021-historia', $data);
     }
+    
+    public function concurso_cuento()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.concurso-cuento', $data);
+    }
+    
+    public function concursos_nuevos()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.concursos-nuevos', $data);
+    }
+    
+    public function concursos_inscripcion()
+    {
+        $data = $this->getUserData();
+        return view('fundacion.concursos-inscripcion', $data);
+    }
 
     public function areas()
     {
