@@ -43,7 +43,12 @@ class ContestModel extends Model
         'cant_caracteres',
         'cant_capitulos',
         'user_id',
-        'winner_check'
+        'winner_check',
+        'cost_per_cpa',
+        'cost_jury',
+        'vote_limit',
+        'form_id'
+
     ];
 
     /**
@@ -154,5 +159,15 @@ class ContestModel extends Model
         }
         $status = $cpa->status()->first()->status;
         return $status != "draft";
+    }
+
+    public function rondas()
+    {
+        return $this->hasMany(RondaModel::class, 'contest_id');
+    }
+
+    public function form()
+    {
+        return $this->hasOne(FormModel::class, 'form_id');
     }
 }

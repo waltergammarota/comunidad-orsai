@@ -262,6 +262,104 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Costo por publicar</label>
+                                        <input type="number" step="1" class="form-control" id="cost_per_cpa"
+                                               placeholder="0"
+                                               name="cost_per_cpa"
+                                               value="{{$contest?$contest->cost_per_cpa:old('cost_per_cpa')}}">
+                                        @error('cost_per_cpa') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Votos para ser jurado</label>
+                                        <input type="number" step="1" class="form-control" id="cost_jury"
+                                               placeholder="0"
+                                               name="cost_jury"
+                                               value="{{$contest?$contest->cost_jury:old('cost_jury')}}">
+                                        @error('amount_usd') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Límite de apuesta por postulación</label>
+                                        <input type="number" step="1" class="form-control" id="cost_jury"
+                                               placeholder="0"
+                                               name="vote_limit"
+                                               value="{{$contest?$contest->vote_limit:old('vote_limit')}}">
+                                        @error('vote_limit') <span
+                                            class="help-block">Este campo es obligatorio</span> @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="rondas">
+                                @for($i=0; $i<3;$i++)
+                                    <div class="col-md-12">
+                                        <hr>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Costo ronda {{$i+1}}</label>
+                                            <input type="number" step="1" class="form-control"
+                                                   placeholder="Costo por ronda en fichas"
+                                                   name="cost[{{$i}}]"
+                                                   value="{{count($rondas)?$rondas[$i]->cost:old('cost')}}">
+                                            @error('cost') <span
+                                                class="help-block">Este campo es obligatorio</span> @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Título ronda {{$i+1}}</label>
+                                            <input type="text" class="form-control"
+                                                   placeholder="Título de la ronda"
+                                                   name="title[{{$i}}]"
+                                                   value="{{count($rondas)?$rondas[$i]->title:old('cost')}}">
+                                            @error('title') <span
+                                                class="help-block">Este campo es obligatorio</span> @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Bajada ronda {{$i+1}}</label>
+                                            <input type="text" class="form-control"
+                                                   placeholder="Bajada de la ronda"
+                                                   name="bajada[{{$i}}]"
+                                                   value="{{count($rondas)?$rondas[$i]->bajada:old('cost')}}">
+                                            @error('bajada') <span
+                                                class="help-block">Este campo es obligatorio</span> @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bajadaCompleta">Contenido ronda {{$i+1}}</label>
+                                            <textarea type="text" class="form-control" id="bajadaCompleta"
+                                                      placeholder="Contenido"
+                                                      name="body[{{$i}}]">{{count($rondas)?$rondas[$i]->body:old('body')}}</textarea>
+                                            @error('body') <span
+                                                class="help-block">Este campo es obligatorio</span> @enderror
+                                        </div>
+                                    </div>
+                                @endfor
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="forms">Formulario</label>
+                                        <select name="form_id" id="forms" class="form-control">
+                                            <option value="0">Ninguno</option>
+                                            @foreach($forms as $form)
+                                                @if($contest && $contest->form_id == $form->id)
+                                                    <option value="{{$form->id}}" selected>{{$form->name}}</option>
+                                                @else
+                                                    <option value="{{$form->id}}">{{$form->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Publicar</label>
@@ -394,14 +492,17 @@
                     case "1":
                         $(".narrativa").show();
                         $(".narrativaLarga").hide();
+                        $("#rondas").show();
                         break;
                     case "2":
                         $(".narrativa").show();
                         $(".narrativaLarga").show();
+                        $("#rondas").hide();
                         break;
                     case "3":
                         $(".narrativa").hide();
                         $(".narrativaLarga").hide();
+                        $("#rondas").hide();
                         break;
                 }
             });
@@ -448,9 +549,9 @@
         const cant_winners = $("#cant_winners");
         const form = $("form");
         @if($imageUrl != '')
-          const hasImage = true;
+        const hasImage = true;
         @else
-          const hasImage = false;
+        const hasImage = false;
         @endif
 
         function crearPagina() {
@@ -477,6 +578,7 @@
         }
 
         function validateFileInput(input) {
+            return true;
             if (input.val().length > 0 || hasImage) {
                 return true;
             }
