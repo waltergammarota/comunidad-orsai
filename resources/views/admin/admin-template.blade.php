@@ -124,6 +124,24 @@
                         </a>
                     </li>
 
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Formularios
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('admin/inputs')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Inputs</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
                         <a href="{{url('admin/contenidos/tipo/noticia')}}" class="nav-link">
                             <i class="nav-icon fas fa-newspaper"></i>
@@ -143,23 +161,34 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{url('admin/cotizaciones')}}" class="nav-link">
-                            <i class="nav-icon fa fa-money-bill"></i>
-                            <p>
-                                Cotizaciones
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{url('admin/productos')}}" class="nav-link">
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-store"></i>
                             <p>
-                                Productos
+                                Donaciones
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('admin/cotizaciones')}}" class="nav-link">
+                                    <i class="nav-icon fa fa-money-bill"></i>
+                                    <p>
+                                        Cotizaciones
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/productos')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-store"></i>
+                                    <p>
+                                        Productos
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+
 
                     <li class="nav-item">
                         <a href="{{url('admin/notificaciones')}}" class="nav-link">

@@ -10,13 +10,14 @@ use App\Databases\ContestsModo;
 use App\Databases\ContestsType;
 use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
+use App\Databases\FormModel;
+use App\Databases\RondaModel;
 use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\UserRepository;
-use App\UseCases\ContestApplication\GetContestApplicationById;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,6 +79,7 @@ class ContestController extends Controller
             return Redirect::to(url('no-encontrado'));
         }
         $data['concurso'] = $contest;
+        $data['diferencia'] = Carbon::now()->diffInDays($contest->end_app_date);
         $data['postulaciones_abiertas'] = false;
         $data['logo'] = $contest->logo();
         $data['cantidadPostulaciones'] = $contest->cantidadPostulaciones();
@@ -108,7 +110,7 @@ class ContestController extends Controller
             $data['estado'] = "finalizado";
             $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where('contest_id', $contest->id)->get();
         }
-        return view('concursos.concurso', $data);
+        return view('concursos.inscripcion', $data);
     }
 
 
@@ -172,7 +174,9 @@ class ContestController extends Controller
         $now = Carbon::now();
         $imageUrl = "";
         $per_winner = array_fill(0, 4, 0);
-        return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner'));
+        $rondas = [];
+        $forms = FormModel::all();
+        return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner', 'rondas', 'forms'));
     }
 
     private function validCantCaracteres($type, $cant_caracteres)
@@ -258,27 +262,6 @@ class ContestController extends Controller
             "images" => "required|array|min:1"
         ]);
 
-//        $validator->after(function ($validator) use ($request) {
-//            if (!$this->validCantCaracteres($request->type, $request->cant_caracteres)) {
-//                $validator->errors()->add('cant_caracteres', 'La cantidad de caracteres es de 1 a 240');
-//            }
-//            if (!$this->validCantMaxChapters($request->type, $request->cant_capitulos)) {
-//                $validator->errors()->add('cant_capitulos', 'La cantidad de capítulos no puede ser 0');
-//            }
-//            if (!$this->validPrizeAmount($request->mode, $request->per_winner)) {
-//                $validator->errors()->add('per_winner', 'Los premios deben ser mayor a 0');
-//            }
-//            if (!$this->validRequiredAmount($request->mode, $request->required_amount)) {
-//                $validator->errors()->add('required_amount', 'La cantidad de fichas necesarias debe ser mayor a 0');
-//            }
-//            if (!$this->validAmountWinner($request->mode, $request->amount_winner)) {
-//                $validator->errors()->add('amount_winner', 'La cantidad debe ser mayor a 0');
-//            }
-//            if (!$this->validAmountUsd($request->mode, $request->amount_usd)) {
-//                $validator->errors()->add('amount_usd', 'La cantidad debe ser mayor a 0');
-//            }
-//        });
-
         if ($validator->fails()) {
             return redirect('admin/concursos/crear')
                 ->withErrors($validator)
@@ -312,10 +295,29 @@ class ContestController extends Controller
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "active" => $request->active,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'cost_per_cpa' => $request->cost_per_cpa,
+            'cost_jury' => $request->cost_jury,
+            'vote_limit' => $request->vote_limit,
+            'form_id' => $request->form_id
         ];
         $contest = new ContestModel($data);
         $contest->save();
+        $contest->rondas()->delete();
+        if ($contest->type == 1) {
+            for ($i = 0; $i < 3; $i++) {
+                $rondaData = [
+                    "contest_id" => $contest->id,
+                    'cost' => $request->cost[$i] ? $request->cost[$i] : 0,
+                    'title' => $request->title[$i] ? $request->title[$i] : '',
+                    'bajada' => $request->bajada[$i] ? $request->bajada[$i] : '',
+                    'body' => $request->body[$i] ? $request->body[$i] : '',
+                ];
+                $ronda = new RondaModel($rondaData);
+                $ronda->save();
+            }
+        }
+
         if ($request->editar_pagina == 1) {
             $bases = ContenidoModel::where("contest_id", $contest->id)->first();
             return Redirect::to('admin/contenidos/' . $bases->id . '?concurso=' . $contest->id);
@@ -339,18 +341,20 @@ class ContestController extends Controller
     {
         $id = $request->route('id');
         $contest = ContestModel::find($id);
+        $rondas = $contest->rondas()->get();
         $types = ContestsType::all();
         $modes = ContestsModo::all();
         $now = Carbon::now();
         $imageUrl = "";
         $imageKey = "";
         $per_winner = json_decode($contest->per_winner);
+        $forms = FormModel::all();
         if ($contest->image) {
             $image = $contest->logo();
             $imageKey = $image->id;
             $imageUrl = url('storage/images/' . $image->name . "." . $image->extension);
         }
-        return view('admin.concursos.contest-form', compact('contest', 'types', 'modes', 'now', 'imageUrl', 'per_winner', 'imageKey'));
+        return view('admin.concursos.contest-form', compact('contest', 'types', 'modes', 'now', 'imageUrl', 'per_winner', 'imageKey', 'rondas', 'forms'));
     }
 
 
@@ -410,10 +414,29 @@ class ContestController extends Controller
             "cant_capitulos" => $request->cant_capitulos ? $request->cant_capitulos : 0,
             "cant_caracteres" => $request->cant_caracteres ? $request->cant_caracteres : 0,
             "active" => $request->active,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'cost_per_cpa' => $request->cost_per_cpa,
+            'cost_jury' => $request->cost_jury,
+            'vote_limit' => $request->vote_limit,
+            'form_id' => $request->form_id
         ];
         $contest->fill($data);
         $contest->save();
+        $contest->rondas()->delete();
+        if ($contest->type == 1) {
+            for ($i = 0; $i < 3; $i++) {
+                $rondaData = [
+                    "contest_id" => $contest->id,
+                    'cost' => $request->cost[$i] ? $request->cost[$i] : 0,
+                    'title' => $request->title[$i] ? $request->title[$i] : '',
+                    'bajada' => $request->bajada[$i] ? $request->bajada[$i] : '',
+                    'body' => $request->body[$i] ? $request->body[$i] : '',
+                ];
+                $ronda = new RondaModel($rondaData);
+                $ronda->save();
+            }
+        }
+
         if ($request->editar_pagina == 1) {
             $bases = ContenidoModel::where("contest_id", $contest->id)->first();
             return Redirect::to('admin/contenidos/' . $bases->id . '?concurso=' . $contest->id);

@@ -113,7 +113,6 @@ Route::get(
 )->name('concursos-inscripcion');
 
 
-
 Route::post(
     '/donar/mercado_pago_webhook',
     'DonarController@mercado_pago_webhook'
@@ -841,7 +840,38 @@ Route::middleware(['verified'])->group(
             '/concurso/ganador/{contest_id}',
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
+        // INPUTS
+        Route::get(
+            'admin/inputs',
+            'Admin\InputController@index'
+        )->name('inputs')->middleware('admin_role');
 
+        Route::get(
+            'admin/inputs-json',
+            'Admin\InputController@inputs_json'
+        )->name('inputs-json')->middleware('admin_role');
+
+        Route::get(
+            'admin/inputs/crear',
+            'Admin\InputController@create'
+        )->name('inputs-create')->middleware('admin_role');
+
+        Route::post(
+            'admin/inputs/store',
+            'Admin\InputController@store'
+        )->name('inputs-store')->middleware('admin_role');
+
+        Route::get(
+            'admin/inputs/{id}',
+            'Admin\InputController@edit'
+        )->name('inputs-edit')->middleware('admin_role');
+
+        Route::post(
+            'admin/inputs/update',
+            'Admin\InputController@update'
+        )->name('inputs-update')->middleware('admin_role');
+
+        // END OF INPUTS
         // PRODUCTOS
         Route::get(
             'admin/productos',
