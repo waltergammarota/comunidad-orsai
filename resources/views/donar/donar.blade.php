@@ -7,9 +7,8 @@
 
     <section class="resaltado_amarillo pd_tp_bt pd_20">
         <div class="contenedor  cs6_titulo_seccion_sm">
-            <h2>Grandes proyectos, <strong>buenas apuestas</strong></h2>
-            <p>Elegí cómo querés jugar, hacé tu donación y recibí fichas a cambio para apostar a los grandiosos
-                proyectos de la Comunidad Orsai.</p>
+            <h2>Ponele fichas <strong>a las buenas ideas</strong></h2>
+            <p><strong>Elegí tu pack.</strong> Cada vez que hacés una donación, a cambio te damos fichas para que apuestes a la narrativa.</p>
         </div>
         <div class="center_div">
             <div class="contenedor mg_0 dis_flex ">
@@ -42,22 +41,20 @@
             </div>
         </div>
         <div class="contenedor pie_section">
-            <p class="">Si querés saber más sobre la transparencia, apuestas y el sistema de fichas, <a
+            <p class="">Si querés saber más sobre el sistema de fichas, la transparencia y las apuestas leé <a
                     href="{{url('novedades/sistema-de-fichas')}}"
-                    class="subrayado ">leé
-                    esta nota.</a></p>
+                    class="subrayado ">esta nota</a>.</p>
         </div>
     </section>
     <section class="resaltado_gris pd_tp_bt">
         <div class="">
             <article class="card_style_1 ps_pago_01">
                 <img src="{{url('recursos/donantes.svg')}}" class="icono" alt="boleteria">
-                <span>Hacé tu donación y sumate a los</span>
+                <span>Hacé tu donación y buscáte en la página de</span>
                 <div class="cant_soc_donantes ">
-                    <span class="_barlow_text text_bold"> <span
-                            class="_barlow_text text_bold num_donantes">{{$socios_donantes_qty}}</span> socios donantes</span>
+                    <span class="_barlow_text text_bold">transparencia obsena</span>
                 </div>
-                <span>que apostamos a la <strong>Comunidad Orsai.</strong></span>
+                <span>de la Comunidad Orsai.</span>
             </article>
         </div>
     </section>
