@@ -118,6 +118,7 @@ header {
     width: 100%;
     position: relative;
     height: 90px; 
+    z-index:9;
 }
 
 header nav {
@@ -3358,6 +3359,9 @@ div.tagsinput #tags_tag{
 /* CONCURSO FORM STYLES */
 
 /* MODAL STYLES */
+.blocker{
+    z-index:10;
+}
 .title_modal{ 
     display: flex;
     flex-direction: row;
@@ -8204,7 +8208,10 @@ footer .sub_footer .sub_footer_ri ul li a {
     margin-bottom: 50px;
     max-width: 1223px;
 }
-
+.interna_panel_blanco .subtitle{
+    width:60%;
+    color:#333;
+}
 @media (max-width: 600px) {
     .interna_panel_blanco {
         padding: 45px 20px;
@@ -8443,8 +8450,7 @@ table.dataTable thead th.sorting:after {
     display: inline-block;
     margin-right: 10px;
     color: #969695 !important;
-}
-
+} 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     border: 1px solid #969695 !important;
@@ -11381,4 +11387,82 @@ input.check_round:checked + .rounded_toggle_checkbox {
     position: absolute;
     right: 0;
     outline: 0;
+}
+
+.estado_postulacion{
+    color:#333;
+    font-weight:bold;
+    width:100%; 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: normal;
+    align-content: normal;
+}
+.estado_postulacion span,
+.estado_postulacion p{
+    display:inline-block;
+    margin:0;
+}
+
+.estado_postulacion p{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+}
+.estado_postulacion span{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+}
+.estado_rechazado span{
+    color:red;
+}
+.estado_aprobado span{
+    color:#02be76;
+}
+.sin_postulaciones{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+}
+.sin_postulaciones img{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+    width:100px;
+}
+.sin_postulaciones h3{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+    font-weight:700;
+    padding:0;
+    margin:10px 0;
+}
+.sin_postulaciones p{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0; 
+    padding:0;
+    margin:10px 0 20px 0;
 }

@@ -360,7 +360,7 @@
     
     <!-- pagination has path -->
     <p class="pagination">
-      <a class="pagination__next" href="page2.html">Next page</a>
+      <a class="pagination__next" href="{{url('infinite-test.html')}}">Next page</a>
     </p>
     
   </div>
