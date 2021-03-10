@@ -3360,7 +3360,7 @@ div.tagsinput #tags_tag{
 
 /* MODAL STYLES */
 .blocker{
-    z-index:10;
+    z-index:10 !important;
 }
 .title_modal{ 
     display: flex;
