@@ -130,21 +130,15 @@ class WebController extends Controller
     public function concurso_cuento()
     {
         $data = $this->getUserData();
-        return view('fundacion.concurso-cuento', $data);
+        return view('concursos.concurso-cuento', $data);
     }
     
     public function concursos_nuevos()
     {
         $data = $this->getUserData();
-        return view('fundacion.concursos-nuevos', $data);
-    }
-    
-    public function concursos_inscripcion()
-    {
-        $data = $this->getUserData();
-        return view('fundacion.concursos-inscripcion', $data);
-    }
-
+        return view('concursos.concursos-nuevos', $data);
+    } 
+     
     public function areas()
     {
         $data = $this->getUserData();
