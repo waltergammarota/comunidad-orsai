@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{url('estilos/front2021/fontello/fontello.css')}}">
     <link rel="stylesheet" href="{{url('estilos/jquery.tagsinput.min.css')}}">
     <link rel="stylesheet" href="{{url('owlcarousel/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{url('js/front2021/jquery.modal/jquery.modal.min.css')}}" /> 
     <script src="{{url('js/segment.js')}}"></script>
     <script src="{{url('js/ease.min.js')}}"></script>
     @if (Route::currentRouteName() == 'registrarse' || Route::currentRouteName() == 'ingresar' || Route::currentRouteName() == 'home')

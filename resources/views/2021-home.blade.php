@@ -5,7 +5,7 @@
 
 @section('content')
     {!! $home1 !!}
-    <section class="resaltado_gris pd_tp_bt pd_20 widt_100">
+    <section class="resaltado_gris pd_tp_bt pd_20 widt_100 modulo">
         <div class="contenedor grilla_3 card_style_4_grid">
             @if (!Auth::check())
                 <article class="card_style_4 card_style_4_tit">
@@ -117,7 +117,7 @@
                     </div>
                 </div>
             </section>
-            <section class="pd_tp_bt">
+            <section class="pd_tp_bt modulo">
                 <div class="owl_demo_7 owl-carousel owl-theme">
                     <article class="">
                         <a href="#">
@@ -283,7 +283,7 @@
                     </div>
                 </div>
             </section>
-            <section class="pd_tp_bt pd_20">
+            <section class="pd_tp_bt pd_20 modulo">
                 <div class="contenedor titulo_seccion_sm">
                     <h2>Actividades</h2>
                 </div>
@@ -344,7 +344,7 @@
                     </div>
                 </div>
             </section>
-            <section class="pd_tp_bt pd_20">
+            <section class="pd_tp_bt pd_20 modulo">
                 <div class="contenedor titulo_seccion_sm">
                     <h2>Cursos de formación</h2>
                 </div>
@@ -425,7 +425,7 @@
                     </div>
                 </div>
             </section>
-            <section class="carrousel_notas pd_tp_bt">
+            <section class="carrousel_notas pd_tp_bt modulo">
                 <div id="owl-demo_2" class="owl-carousel owl-theme">
                     <div class="item" data-merge="1.5">
                         <div class="titulo_seccion_sm">

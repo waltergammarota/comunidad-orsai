@@ -106,12 +106,7 @@ Route::get(
     '/concursos-nuevos',
     'WebController@concursos_nuevos'
 )->name('concursos-nuevos');
-
-Route::get(
-    '/concursos-inscripcion',
-    'WebController@concursos_inscripcion'
-)->name('concursos-inscripcion');
-
+ 
 
 Route::post(
     '/donar/mercado_pago_webhook',
