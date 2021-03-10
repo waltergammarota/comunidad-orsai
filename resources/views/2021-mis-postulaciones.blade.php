@@ -25,7 +25,7 @@
                         <div class="titulo titulo_sin_mg">
                             <h1 class="text_regular">Mis Postulaciones</h1>
                          </div>
-                         @if(!empty($postulaciones))
+                         @if(!$postulaciones->isEmpty())
                          <div class="subtitle">
                             <p>Revisá tu correo electrónico para hacer un seguimiento de tus postulaciones enviadas.<br/>Si tenés alguna rechazada, no olvides hacer los cambios que te pedimos.</p>
                          </div>
@@ -35,7 +35,7 @@
                 </div> 
                 <div class="form_central_3 "> 
                     <div class="tran_creditos">
-                        @if(!empty($postulaciones))
+                         @if(!$postulaciones->isEmpty())
                             <div class="cont_tabla">
                                 <table class="light-3" id="mis_postulaciones_table">
                                     <thead>
