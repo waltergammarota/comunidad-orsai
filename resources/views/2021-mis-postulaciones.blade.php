@@ -67,7 +67,7 @@
                                                 <td><a href="{{url('postulacion/'.$postulacion->id)}}"
                                                     class="estado_postulacion"><p>En revisión</p><span class="icon-eye-regular"></span></a></td>
                                             @endif
-                                        </tr>
+                                        </tr> 
                                     @endforeach 
                                     </tbody>
                                 </table>
@@ -80,7 +80,7 @@
                                 <div class="form_ctrl buttons">
                                     <div class="input_err">
                                         <div class="label-centers">
-                                            <a class="boton_redondeado resaltado_amarillo" href="#sin_fichas" rel="modal:open">Ver concursos</a> 
+                                            <a class="boton_redondeado resaltado_amarillo" href="{{url('concursos')}}" rel="modal:open">Ver concursos</a> 
                                         </div> 
                                     </div>
                                 </div>

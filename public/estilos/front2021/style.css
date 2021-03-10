@@ -8212,6 +8212,11 @@ footer .sub_footer .sub_footer_ri ul li a {
     width:60%;
     color:#333;
 }
+@media (max-width: 768px) {
+    .interna_panel_blanco .subtitle{
+        width:100%;
+    }
+}
 @media (max-width: 600px) {
     .interna_panel_blanco {
         padding: 45px 20px;
@@ -11435,6 +11440,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
     justify-content: center;
     align-items: center;
     align-content: stretch;
+    text-align:center;
 }
 .sin_postulaciones img{
     display: block;
