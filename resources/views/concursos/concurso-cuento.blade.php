@@ -5,7 +5,15 @@
 
 
 @section('content')
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <section class="resaltado_gris">
         <div class="contenedor_interna concurso">
             <div class="cuerpo_interna">
@@ -19,7 +27,10 @@
                         @csrf
                         <div class="concurso__form">
                             @if($form)
-                                @include('concursos.form', $form)
+                                @include('concursos.form', [
+    "form" => $form,
+    "answers" => $answers
+    ])
                             @endif
                             <div class="form_ctrl">
                                 <div class="input_err">
@@ -29,7 +40,7 @@
                                                 Acepto las <a href="{{url($bases->slug)}}" target="_blank">bases del
                                                     concurso</a>
                                             @endif
-                                            <input type="checkbox" name="bases" id="bases">
+                                            <input type="checkbox" name="bases" id="bases" value="1">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -38,7 +49,8 @@
                             <div class="form_ctrl buttons">
                                 <div class="input_err">
                                     <div class="label-centers">
-                                        <button class="rounded-save" id="save">
+                                        <button class="rounded-save" id="save" name="guardar" value="guardar"
+                                                type="submit">
                                             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  viewBox="0 0 428.544 428.544"
@@ -75,7 +87,8 @@
                             <div class="form_ctrl buttons">
                                 <div class="input_err">
                                     <div class="label-centers">
-                                        <button class="rounded-save--yellow" type="submit">Enviar mi postulación
+                                        <button class="rounded-save--yellow" type="submit" name="enviar" value="enviar">
+                                            Enviar mi postulación
                                         </button>
                                     </div>
                                     <span class="disclaimer-center">Te costará {{$concurso->cost_per_cpa}} fichas</span>
@@ -120,7 +133,6 @@
 
             // When the user clicks on the button, open the modal
             btn.onclick = function (event) {
-                event.preventDefault();
                 modal.style.display = "block";
             }
 
@@ -185,5 +197,59 @@
                 alert("Alcanzaste el máximo de palabras permitidas. Se removerán las palabras o espacios extras.");
             }
         });
+    </script>
+@endsection
+
+@section('footer')
+    @include("fundacion.footer-fundacion")
+    <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
+    <script type="text/javascript">
+        $('#tags').tagsInput({
+            width: 'auto',
+            'defaultText': '',
+            height: 'auto'
+        });
+
+        $('.count-words').on('input', function () {
+            return ContadorPalabras($(this));
+        });
+
+        //uno dos tres cuatro cinco seis siete ocho nueve diez once doce trece
+
+        function ContadorPalabras($this) {
+            var maxWords = $this.data('max');
+
+            if (!$this.val()) {
+                wordcount = 0;
+            } else {
+                wordcount = $this.val().split(/\s+/gi).length;
+            }
+
+            count = maxWords - wordcount;
+
+            if (wordcount > maxWords) {
+                $this.parent().find('.content-count-words').addClass("error");
+            } else {
+                $this.parent().find('.content-count-words').removeClass("error");
+            }
+            return $this.parent().find('.count-words-text').text(count);
+        }
+
+        $('.count-characters').on('input', function () {
+            return ContadorCaracteres($(this));
+        });
+
+        function ContadorCaracteres($this) {
+            var maxWords = $this.data('max');
+            var wordcount;
+            wordcount = $this.val().length;
+            if (wordcount > maxWords) {
+                $this.parent().find('.content-count-words').addClass("error");
+            } else {
+                $this.parent().find('.content-count-words').removeClass("error");
+            }
+            return $this.parent().find('.count-words-text').text(maxWords - wordcount);
+        }
+
     </script>
 @endsection

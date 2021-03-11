@@ -47,7 +47,8 @@ class ContestModel extends Model
         'cost_per_cpa',
         'cost_jury',
         'vote_limit',
-        'form_id'
+        'form_id',
+        'pool_id'
 
     ];
 
@@ -74,6 +75,12 @@ class ContestModel extends Model
         'end_vote_date' => 'datetime',
     ];
 
+
+    public function pool()
+    {
+        return $this->hasOne('App\User', 'id', "pool_id");
+    }
+
     /**
      * Get the from User associated with a tx
      */
@@ -85,6 +92,11 @@ class ContestModel extends Model
     public function logo()
     {
         return $this->hasOne('App\Databases\FileModel', 'id', "image")->first();
+    }
+
+    public function mode()
+    {
+        return $this->hasOne('App\Databases\ContestsModo', 'id', "mode");
     }
 
     public function getMode()

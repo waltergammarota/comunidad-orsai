@@ -92,7 +92,7 @@ class InputModel extends Model
                   </div>
                 </div>
                 <div class="content-input">
-                  <input type="text" name="' . $this->id . '" id="' . $this->id . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" placeholder="' . $this->placeholder . '">';
+                  <input type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" placeholder="' . $this->placeholder . '">';
         if ($palabras != "") {
             $html .= '<div class="content-count-words">Te quedan <span class="count-words-text"> ' . $this->counter_max . ' </span> ' . $palabras . '</div>';
         }
@@ -127,8 +127,7 @@ class InputModel extends Model
                   </div>
                 </div>
                 <div class="content-input">
-
-                    <textarea type="text" name="' . $this->id . '" id="' . $this->id . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" cols="' . $this->cols . '" rows="' . $this->rows . '" placeholder="' . $this->placeholder . '"></textarea>';
+                    <textarea type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" cols="' . $this->cols . '" rows="' . $this->rows . '" placeholder="' . $this->placeholder . '"></textarea>';
         if ($palabras != "") {
             $html .= '<div class="content-count-words">Te quedan <span class="count-words-text"> ' . $this->counter_max . ' </span> ' . $palabras . '</div>';
         }
@@ -136,6 +135,11 @@ class InputModel extends Model
               </div>
             </div>';
         return $html;
+    }
+
+    public function getInputName()
+    {
+        return 'input@' . $this->id;
     }
 
     private function selectToHtml()
@@ -152,7 +156,7 @@ class InputModel extends Model
                   </div>
                 </div>
                 <div class="content-input">
-                  <select name="' . $this->id . '" id="' . $this->id . '">
+                  <select name="' . $this->getInputName() . '" id="' . $this->getInputName() . '">
                     <option value="" selected="true" disabled="disabled">Elegir</option>';
         foreach ($this->options as $option) {
             $html .= '<option value="' . $option . '">' . $option . '</option>';
@@ -179,12 +183,18 @@ class InputModel extends Model
                   </div>
                 </div>
                 <div class="content-input">
-                  <input type="text" name="' . $this->id . '" id="tags" class="tags">
+                  <input type="text" name="' . $this->getInputName() . '" id="tags" class="tags">
                   <div class="content-count-words">Separá las palabras con comas</div>
                 </div>
               </div>
-            </div> ';
+            </div>';
         return $html;
+    }
+
+    public function getRule()
+    {
+        return $this->required ? "required" : '';
+
     }
 
 }

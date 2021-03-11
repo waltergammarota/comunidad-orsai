@@ -70,11 +70,16 @@
                                                     <td style="padding:2px 0; border-top:0; border-bottom:0;text-align: right;">{{$fichas}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="padding:2px 0; border-top:0; border-bottom:0;">Importe
-                                                        total
+                                                    <td style="padding:2px 0; border-top:0; border-bottom:0;">Total
                                                     </td>
                                                     <td style="padding:2px 0; border-top:0; border-bottom:0;text-align: right;">
                                                         USD {{$amount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding:2px 0; border-top:0; border-bottom:0;">Total en Pesos Argentinos
+                                                    </td>
+                                                    <td style="padding:2px 0; border-top:0; border-bottom:0;text-align: right;">
+                                                        ARS {{$amount}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="padding:2px 0; border-top:0; border-bottom:0;">Donante
@@ -83,26 +88,14 @@
                                                 </tr>
                                             </table>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="padding-top:20px; padding-bottom:20px;">
-                                            <table>
-                                                <tr>
-                                                    <td colspan="2"
-                                                        style="font-weight:500; font-style: italic;padding:0; border-top:0; border-bottom:0;">
-                                                        En minutos recibirás la factura de tu donación por mail.
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
+                                    </tr> 
                                     </tbody>
                                 </table>
-                                <div style="padding-bottom:30px;padding-top:30px;">
-                                    <h2 style="padding-bottom:35px;">Ahora, ponele fichas a grandes proyectos:</h2>
-                                    <div style="text-align: left;">
-                                        <span
-                                            style="font-size:18px; font-weight: 700; padding: 10px 20px;display:inline-block; border-radius: 50px; -webkit-border-radius: 50px;-moz-border-radius: 50px;-ms-border-radius: 50px;-o-border-radius: 50px;border:0;text-decoration: none; cursor: pointer;user-select: none; padding-left:50px; padding-right:50px; background: #ffe600;">Ver concursos</span>
+                                <div style="padding-bottom:30px;padding-top:30px;text-align:center;"> 
+                                    <div style="text-align: center;">
+                                        <span style="font-size:18px; font-weight: 700; padding: 10px 20px;margin:auto;display:inline-block; border-radius: 50px; -webkit-border-radius: 50px;-moz-border-radius: 50px;-ms-border-radius: 50px;-o-border-radius: 50px;border:0;text-decoration: none; cursor: pointer;user-select: none; padding-left:50px; padding-right:50px; background: #ffe600;">Ir a Mis fichas</span>
+                                        <br/>
+                                        <span style="font-size:14px;color:#999;margin-top:15px;display:block;">¿Necesitás ayuda? <a href="{{url('contacto')}}"" style="color:#999;">Escribinos</a></span>
                                     </div>
                                 </div>
                             </div>

@@ -43,4 +43,14 @@ class FormModel extends Model
         return $this->hasMany(InputModel::class, 'form_id');
     }
 
+    public function getRules()
+    {
+        $inputs = $this->inputs()->get();
+        $rules = [];
+        foreach ($inputs as $input) {
+            $rules[$input->getInputName()] = $input->getRule();
+        }
+        return $rules;
+    }
+
 }
