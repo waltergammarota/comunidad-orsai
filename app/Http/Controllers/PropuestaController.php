@@ -156,11 +156,13 @@ class PropuestaController extends Controller
             $cpa->approved = 1;
             $cpa->approved_in = now();
             $cpa->approved_by_user = $user->id;
-            $cpa->save();
             $cpaLog = new CpaLog(
                 ["status" => "approved", "cap_id" => $cpa->id]
             );
             $cpaLog->save();
+            $contest = $cpa->contest()->first();
+            $cpa->order = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->count() + 1;
+            $cpa->save();
             $owner = User::find($cpa->user_id);
             $this->sendApproveMail($owner->email, $cpa->id);
             $this->sendMailToAdministrator($owner->email, $cpa->id, $owner->name, $owner->lastName);
