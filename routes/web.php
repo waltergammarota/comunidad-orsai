@@ -442,12 +442,12 @@ Route::middleware(['verified'])->group(
         );
         // formacion
         Route::post(
-            ' / formacion / update',
+            '/formacion/update',
             'AccountController@formacion_update'
         );
 
         Route::post(
-            ' / profile / image',
+            '/profile/image',
             'AccountController@profile_image'
         );
 
