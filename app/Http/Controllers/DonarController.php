@@ -55,7 +55,7 @@ class DonarController extends Controller
     private function getDolarPrice()
     {
         $cotizacion = DolarModel::latest()->first();
-        $minutes = 60 * 12;
+        $minutes = 60 * 6;
         if ($cotizacion && $cotizacion->fecha->diffInMinutes(Carbon::now()) < $minutes) {
             return $cotizacion->precio;
         }
@@ -65,7 +65,7 @@ class DonarController extends Controller
             $response = $client->get($url);
             $cotizaciones = json_decode($response->getBody());
             $cotizacion = array_filter($cotizaciones, function ($cotizacion) {
-                return $cotizacion->casa->nombre == 'Dolar Contado con Liqui';
+                return $cotizacion->casa->nombre == 'Dolar Bolsa';
             });
             if (count($cotizacion) > 0) {
                 $precio = str_replace(',', '.', reset($cotizacion)->casa->venta);

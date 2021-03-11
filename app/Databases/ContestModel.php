@@ -168,6 +168,6 @@ class ContestModel extends Model
 
     public function form()
     {
-        return $this->hasOne(FormModel::class, 'form_id');
+        return $this->belongsTo(FormModel::class, 'form_id');
     }
 }

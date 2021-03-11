@@ -66,7 +66,7 @@ class ProductoController extends Controller
     {
         $request->validate([
             "name" => 'required',
-            "description" => 'max:1000',
+            "description" => 'required|max:1000',
             "visible" => 'min:0|max:1'
         ]);
         $producto = new ProductoModel([
@@ -79,14 +79,14 @@ class ProductoController extends Controller
             "visible" => $request->visible
         ]);
         $producto->save();
-        return Redirect::to('admin/productos/' . $producto->id);
+        return Redirect::to('admin/productos');
     }
 
     public function update(Request $request)
     {
         $request->validate([
             "name" => 'required',
-            "fichas" => 'required|integer|between:1,10000',
+            "fichas" => 'required | integer | between:1,10000',
             "description" => 'max:1000',
         ]);
         $producto = ProductoModel::find($request->id);

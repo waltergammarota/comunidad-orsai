@@ -240,8 +240,12 @@ class AccountController extends Controller
         $data['concurso'] = $contest;
         $data['hasImage'] = false;
         $data['hasPdf'] = false;
-
+        $data['form'] = $contest->form()->first();
+        $data['bases'] = $contest->getBases();
         if ($postulacion == null) {
+            if ($contest->type == 1) {
+                return view('concursos.concurso-cuento', $data);
+            }
             return view('postulacion.postulacion-1', $data);
         }
 
@@ -434,18 +438,6 @@ class AccountController extends Controller
         Request $request
     ): RedirectResponse
     {
-        $request->validate(
-            [
-                'title' => 'required|min:1|max:120',
-                'description' => 'required|min:1|max:255',
-                'contest_id' => 'required',
-                'images' => 'array',
-                'images.*' => 'mimes:jpeg,png,jpg,gif,svg|max:5120',
-                'pdf' => 'array',
-                'pdf.*' => 'mimes:pdf|max:5120',
-            ]
-        );
-
         $contest = ContestModel::find($request->contest_id);
         $cpa = new ContestApplicationModel();
 

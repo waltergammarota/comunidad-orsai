@@ -329,6 +329,17 @@ Route::middleware(['verified'])->group(
 
         //FIN DE CONCURSOS
 
+        //TRANSPARENCIA
+        Route::get(
+            'transparencia',
+            'TransparenciaController@index')
+            ->name('transparencia');
+
+        Route::get(
+            'transparencia-json',
+            'TransparenciaController@transparencia_json')
+            ->name('transparencia-json');
+        // END OF TRANSPARENCIA
 
         Route::get(
             '/fundacion',
