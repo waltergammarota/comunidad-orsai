@@ -106,7 +106,7 @@ Route::get(
     '/concursos-nuevos',
     'WebController@concursos_nuevos'
 )->name('concursos-nuevos');
- 
+
 
 Route::post(
     '/donar/mercado_pago_webhook',
@@ -442,6 +442,11 @@ Route::middleware(['verified'])->group(
             '/configuracion-privacidad',
             'PreferenciasController@configurar_privacidad'
         )->name('configuracion-privacidad');
+
+        Route::post(
+            '/configuracion-privacidad',
+            'PreferenciasController@guardar_conf_privacidad'
+        )->name('guardar-configuracion-privacidad');
 
         Route::get(
             '/configuracion-notificaciones',

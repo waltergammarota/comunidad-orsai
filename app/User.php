@@ -55,7 +55,11 @@ class User extends Authenticable implements JWTSubject
         'idiomas',
         'sector',
         'formacion',
-        'ocupacion'
+        'ocupacion',
+        'anonimo',
+        'cookies',
+        'privacidad',
+        'terminos'
     ];
 
     /**
