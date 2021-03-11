@@ -49,22 +49,35 @@ class InputModel extends Model
     ];
 
 
-    public function toHtml()
+    public function toHtml($answers = [])
     {
         $type = $this->type;
         switch ($type) {
             case "input":
-                return $this->inputToHtml();
+                return $this->inputToHtml($answers);
             case "textarea":
-                return $this->textAreaToHtml();
+                return $this->textAreaToHtml($answers);
             case "nube":
-                return $this->nubeToHtml();
+                return $this->nubeToHtml($answers);
             case "select":
-                return $this->selectToHtml();
+                return $this->selectToHtml($answers);
         }
     }
 
-    private function inputToHtml()
+
+    private function getValue($answers)
+    {
+        $inputId = $this->id;
+        $values = $answers->filter(function ($value) use ($inputId) {
+            return $value->input_id == $inputId;
+        });
+        if (count($values) > 0) {
+            return $values->first()->answer;
+        }
+        return "";
+    }
+
+    private function inputToHtml($answers)
     {
         $counter_type = $this->counter_type;
         $counterClass = "";
@@ -79,6 +92,7 @@ class InputModel extends Model
                 $palabras = "caracteres";
                 break;
         }
+        $value = $this->getValue($answers);
         $html = '
             <div class="form_ctrl">
               <div class="input_err">
@@ -92,7 +106,7 @@ class InputModel extends Model
                   </div>
                 </div>
                 <div class="content-input">
-                  <input type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" placeholder="' . $this->placeholder . '">';
+                  <input type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" placeholder="' . $this->placeholder . '" value="' . $value . '">';
         if ($palabras != "") {
             $html .= '<div class="content-count-words">Te quedan <span class="count-words-text"> ' . $this->counter_max . ' </span> ' . $palabras . '</div>';
         }
@@ -102,7 +116,7 @@ class InputModel extends Model
         return $html;
     }
 
-    private function textAreaToHtml()
+    private function textAreaToHtml($answers)
     {
         $counter_type = $this->counter_type;
         $counterClass = "";
@@ -127,7 +141,7 @@ class InputModel extends Model
                   </div>
                 </div>
                 <div class="content-input">
-                    <textarea type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" cols="' . $this->cols . '" rows="' . $this->rows . '" placeholder="' . $this->placeholder . '"></textarea>';
+                    <textarea type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" cols="' . $this->cols . '" rows="' . $this->rows . '" placeholder="' . $this->placeholder . '">' . $this->getValue($answers) . '</textarea>';
         if ($palabras != "") {
             $html .= '<div class="content-count-words">Te quedan <span class="count-words-text"> ' . $this->counter_max . ' </span> ' . $palabras . '</div>';
         }
@@ -142,7 +156,7 @@ class InputModel extends Model
         return 'input@' . $this->id;
     }
 
-    private function selectToHtml()
+    private function selectToHtml($answers)
     {
         $html = '<div class="form_ctrl">
               <div class="input_err">
@@ -159,7 +173,11 @@ class InputModel extends Model
                   <select name="' . $this->getInputName() . '" id="' . $this->getInputName() . '">
                     <option value="" selected="true" disabled="disabled">Elegir</option>';
         foreach ($this->options as $option) {
-            $html .= '<option value="' . $option . '">' . $option . '</option>';
+            $selected = "";
+            if ($option == $this->getValue($answers)) {
+                $selected = "selected";
+            }
+            $html .= '<option value="' . $option . '"' . $selected . '>' . $option . '</option>';
         }
         $html .= '</select>
                 </div>
@@ -169,7 +187,7 @@ class InputModel extends Model
     }
 
 
-    private function nubeToHtml()
+    private function nubeToHtml($answers)
     {
         $html = '<div class="form_ctrl">
               <div class="input_err">
@@ -183,7 +201,7 @@ class InputModel extends Model
                   </div>
                 </div>
                 <div class="content-input">
-                  <input type="text" name="' . $this->getInputName() . '" id="tags" class="tags">
+                  <input type="text" name="' . $this->getInputName() . '" id="tags" class="tags" value="' . $this->getValue($answers) . '">
                   <div class="content-count-words">Separá las palabras con comas</div>
                 </div>
               </div>

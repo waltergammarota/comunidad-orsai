@@ -1,3 +1,3 @@
 @foreach($form->inputs()->get() as $input)
-    {!! $input->toHtml()!!}
+    {!! $input->toHtml($answers)!!}
 @endforeach
