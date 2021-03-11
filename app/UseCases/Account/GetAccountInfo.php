@@ -63,7 +63,8 @@ class GetAccountInfo extends GenericUseCase
             'formacion' => $user->formacion,
             'ocupacion' => $user->ocupacion,
             'postulacion' => $this->cpaRepo->statusApplication(1, $this->user->getId()),
-            'avatar' => $imageUrl
+            'avatar' => $imageUrl,
+            'anonimo' => $user->anonimo
         ];
         return $data;
     }

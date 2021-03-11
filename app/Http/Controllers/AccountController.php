@@ -389,9 +389,9 @@ class AccountController extends Controller
         $appsQty = $this->findPostulacion(Auth::user()->id, $request->contest_id);
         $user = Auth::user();
         $contest = ContestModel::find($request->contest_id);
-//        if ($user->getBalance() < $contest->cost_per_cpa) {
-//            return Redirect::back();
-//        }
+        if ($user->getBalance() < $contest->cost_per_cpa) {
+            return Redirect::back();
+        }
         if ($request->cap_id == 0 && $appsQty == null) {
             return $this->createNewCap($request);
         }
