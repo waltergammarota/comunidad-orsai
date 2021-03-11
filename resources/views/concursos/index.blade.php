@@ -1,6 +1,6 @@
 @extends('orsai-template')
 
-@section('title', 'Concurso finalizado | Comunidad Orsai')
+@section('title', 'Concursos | Comunidad Orsai')
 @section('description', 'Concurso Logo finalizado')
 @section('header')
     <link rel="stylesheet" href="{{url('estilos/estilos_conc.css')}}">
@@ -41,7 +41,8 @@
                 <div class="cont_busqueda">
                     <form action="{{url('concursos')}}" method="GET">
                         <div class="in_bu">
-                            <input type="search" name="busqueda" placeholder="¿Qué concurso buscás?" value="{{$busqueda}}">
+                            <input type="search" name="busqueda" placeholder="¿Qué concurso buscás?"
+                                   value="{{$busqueda}}">
                         </div>
                         <div class="bt_bu">
                             <button type="submit"><span class="icon-search"></span></button>

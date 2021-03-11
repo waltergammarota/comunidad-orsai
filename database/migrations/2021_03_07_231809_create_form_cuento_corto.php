@@ -31,6 +31,7 @@ class CreateFormCuentoCorto extends Migration
         $leitMotiv->type = "input";
         $leitMotiv->options = [];
         $leitMotiv->placeholder = "[TEXTO]";
+        $leitMotiv->required = 1;
         $leitMotiv->save();
         // DESCRIPCION
         $descripcion = new InputModel();
@@ -44,6 +45,7 @@ class CreateFormCuentoCorto extends Migration
         $descripcion->type = "input";
         $descripcion->options = [];
         $descripcion->placeholder = "[PÁRRAFO]";
+        $descripcion->required = 1;
         $descripcion->save();
         // NUBE DE TAGS
         $nube = new InputModel();
@@ -57,6 +59,7 @@ class CreateFormCuentoCorto extends Migration
         $nube->type = "nube";
         $nube->placeholder = "";
         $nube->options = [];
+        $nube->required = 1;
         $nube->save();
         // CATEGORIA
         $categoria = new InputModel();
@@ -72,6 +75,7 @@ class CreateFormCuentoCorto extends Migration
             "Opción 1", "Opción 2", "Opción 3"
         ];
         $categoria->placeholder = "";
+        $categoria->required = 1;
         $categoria->save();
         // TITULO DEL CUENTO
         $titulo = new InputModel();
@@ -85,6 +89,7 @@ class CreateFormCuentoCorto extends Migration
         $titulo->type = "input";
         $titulo->options = [];
         $titulo->placeholder = "[TEXTO]";
+        $titulo->required = 1;
         $titulo->save();
         // CUENTO
         $cuento = new InputModel();
@@ -98,6 +103,10 @@ class CreateFormCuentoCorto extends Migration
         $cuento->type = "textarea";
         $cuento->options = [];
         $cuento->placeholder = "[PÁRRAFO]";
+        $cuento->required = 1;
+        $cuento->cols = 30;
+        $cuento->rows = 10;
+
         $cuento->save();
     }
 

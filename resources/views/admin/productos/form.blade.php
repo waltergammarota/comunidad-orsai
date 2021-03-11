@@ -76,7 +76,7 @@
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Descripción</label>
-                                <textarea class="form-control" rows="2" placeholder="Descripción ..."
+                                <textarea class="form-control" rows="2" placeholder="Descripción ..." required="true"
                                           name="description"
                                           id="summernote2">{{$producto?$producto->description:old('description')}}</textarea>
                                 @error('description') <span class="help-block">{{$message}}</span> @enderror

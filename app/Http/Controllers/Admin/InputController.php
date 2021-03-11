@@ -76,7 +76,10 @@ class InputController extends Controller
             "counter_max" => $request->counter_max,
             "type" => $request->type,
             "options" => $this->convertOptions($request->options),
-            "placeholder" => $request->placeholder
+            "placeholder" => $request->placeholder,
+            'required' => $request->required,
+            'rows' => $request->rows,
+            'cols' => $request->cols
         ];
         $input = new InputModel($data);
         $input->save();
@@ -110,7 +113,10 @@ class InputController extends Controller
             "counter_max" => $request->counter_max,
             "type" => $request->type,
             "options" => $this->convertOptions($request->options),
-            "placeholder" => $request->placeholder
+            "placeholder" => $request->placeholder,
+            'required' => $request->required,
+            'rows' => $request->rows,
+            'cols' => $request->cols
         ];
         $input->fill($data);
         $input->save();

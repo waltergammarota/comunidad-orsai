@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Controllers\CreateContestApplicationController;
+use App\Databases\AnswerModel;
 use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
@@ -240,8 +241,12 @@ class AccountController extends Controller
         $data['concurso'] = $contest;
         $data['hasImage'] = false;
         $data['hasPdf'] = false;
-
+        $data['form'] = $contest->form()->first();
+        $data['bases'] = $contest->getBases();
         if ($postulacion == null) {
+            if ($contest->type == 1) {
+                return view('concursos.concurso-cuento', $data);
+            }
             return view('postulacion.postulacion-1', $data);
         }
 
@@ -251,7 +256,11 @@ class AccountController extends Controller
         $data['orden'] = $request->route("chapter_id") ? $request->route('chapter_id') : 1;
         $data['hasImage'] = $postulacion->images()->first();
         $data['hasPdf'] = $postulacion->pdfs()->first();
+        $data['answers'] = AnswerModel::where('cap_id', $postulacion->id)->get();
         if ($status == "draft" && $request->route('chapter_id') == null) {
+            if ($contest->type == 1) {
+                return view('concursos.concurso-cuento', $data);
+            }
             return view("postulacion.postulacion-1", $data);
         }
 
@@ -286,24 +295,14 @@ class AccountController extends Controller
         return view("postulacion.postulacion-preview", $data);
     }
 
-    public function sent_cpa(Request $request)
+    public function sent_cpa($cpa, $contest, $user)
     {
-        $request->validate([
-            "cap_id" => 'required|numeric',
-            "bases" => 'required'
-        ]);
-
-        $cpaId = $request->cap_id;
-        $cpa = ContestApplicationModel::find($cpaId);
-        if ($cpa == null) {
-            abort(404);
-        }
         $cpa->bases = Carbon::now();
+        $cpa->condiciones = Carbon::now();
         $cpa->save();
         $cpaLog = new CpaLog(["status" => "sent", "cap_id" => $cpa->id]);
         $cpaLog->save();
-
-        // TODO poner link a postulacion a
+        Transaction::createTransaction($user->id, $contest->pool_id, $contest->cost_per_cpa, "Inscripción a concurso " . $contest->name);
         return Redirect::to('mis-postulaciones');
 
     }
@@ -388,6 +387,11 @@ class AccountController extends Controller
     public function store_publicacion(Request $request)
     {
         $appsQty = $this->findPostulacion(Auth::user()->id, $request->contest_id);
+        $user = Auth::user();
+        $contest = ContestModel::find($request->contest_id);
+//        if ($user->getBalance() < $contest->cost_per_cpa) {
+//            return Redirect::back();
+//        }
         if ($request->cap_id == 0 && $appsQty == null) {
             return $this->createNewCap($request);
         }
@@ -396,32 +400,36 @@ class AccountController extends Controller
 
     private function updateCap(Request $request)
     {
-        $request->validate([
-            'title' => 'required|min:1|max:120',
-            'description' => 'required|min:1|max:255',
-            "cap_id" => 'required',
-            "contest_id" => 'required',
-            "image_flag" => 'required',
-            "pdf_flag" => 'required'
-        ]);
-
         $contest = ContestModel::find($request->contest_id);
-        $cpa = ContestApplicationModel::find($request->cap_id);
+        $form = $contest->form()->first();
+        $rules = $form->getRules();
+        array_push($rules, [
+            "bases" => "required"
+        ]);
+        if ($rules) {
+            $request->validate($rules);
+        } else {
+            abort(404);
+        }
         $user = Auth::user();
+        $cpa = ContestApplicationModel::where('contest_id', $contest->id)->where('user_id', $user->id)->first();
         if ($cpa->user_id != $user->id) {
             abort(404);
         }
-
-        $files = $this->saveImages($request, $cpa);
 
         if ($contest == null && $cpa == null) {
             abort(404);
         }
 
-        $cpa->title = $request->title;
-        $cpa->description = $request->description;
-        $cpa->link = $request->link;
+        $cpa->title = "";
+        $cpa->description = "";
+        $cpa->link = "";
         $cpa->save();
+        $this->saveAnswers($contest, $form, $cpa, $user, $request);
+        if ($request->enviar == "enviar") {
+            $this->sent_cpa($cpa, $contest, $user);
+        }
+
 
         return Redirect::to("postulaciones/{$contest->id}/{$contest->name}/capitulos/1");
     }
@@ -434,33 +442,54 @@ class AccountController extends Controller
         Request $request
     ): RedirectResponse
     {
-        $request->validate(
-            [
-                'title' => 'required|min:1|max:120',
-                'description' => 'required|min:1|max:255',
-                'contest_id' => 'required',
-                'images' => 'array',
-                'images.*' => 'mimes:jpeg,png,jpg,gif,svg|max:5120',
-                'pdf' => 'array',
-                'pdf.*' => 'mimes:pdf|max:5120',
-            ]
-        );
-
         $contest = ContestModel::find($request->contest_id);
-        $cpa = new ContestApplicationModel();
+        $form = $contest->form()->first();
+        $rules = $form->getRules();
+        $rules['bases'] = "required";
+        $rules['contest_id'] = "required";
+        if ($rules) {
+            $request->validate($rules);
+        } else {
+            abort(404);
+        }
 
+        $cpa = new ContestApplicationModel();
         if ($contest->hasPostulacionesAbiertas()) {
-            $cpa->title = $request->title;
-            $cpa->description = $request->description;
-            $cpa->link = $request->link;
-            $cpa->user_id = Auth::user()->id;
+            $user = Auth::user();
+            $cpa->title = "";
+            $cpa->description = "";
+            $cpa->link = "";
+            $cpa->user_id = $user->id;
             $cpa->contest_id = $request->contest_id;
             $cpa->save();
-            $this->saveImages($request, $cpa);
+            $this->saveAnswers($contest, $form, $cpa, $user, $request);
             $cpaLog = new CpaLog(["status" => "draft", "cap_id" => $cpa->id]);
             $cpaLog->save();
         }
-        return Redirect::to("postulaciones/{$contest->id}/{$contest->name}/capitulos/1");
+        if ($request->enviar == "enviar") {
+            $this->sent_cpa($contest, $cpa);
+        }
+        return Redirect::to("mis-postulaciones");
+    }
+
+    private function saveAnswers($contest, $form, $cpa, $user, $request)
+    {
+        $params = $request->all();
+        $values = array_filter($params, function ($key) {
+            return strpos($key, "input@") !== false;
+        }, ARRAY_FILTER_USE_KEY);
+        AnswerModel::where("cap_id", $cpa->id)->delete();
+        foreach ($values as $key => $value) {
+            $answer = new AnswerModel([
+                "form_id" => $form->id,
+                "contest_id" => $contest->id,
+                "input_id" => substr($key, 6),
+                "cap_id" => $cpa->id,
+                "user_id" => $user->id,
+                "answer" => $value
+            ]);
+            $answer->save();
+        }
     }
 
     public function gracias()

@@ -77,4 +77,10 @@ class ContestApplicationModel extends Model
     }
 
 
+    public function answers()
+    {
+        return $this->belongsToMany(AnswerModel::class, 'answers', 'cpa_id', 'id');
+    }
+
+
 }
