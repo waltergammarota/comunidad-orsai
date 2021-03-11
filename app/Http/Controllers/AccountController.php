@@ -243,13 +243,13 @@ class AccountController extends Controller
         $data['hasPdf'] = false;
         $data['form'] = $contest->form()->first();
         $data['bases'] = $contest->getBases();
+        $data['answers'] = [];
         if ($postulacion == null) {
             if ($contest->type == 1) {
                 return view('concursos.concurso-cuento', $data);
             }
             return view('postulacion.postulacion-1', $data);
         }
-
 
         $status = $postulacion->status()->first()->status;
         $data['capitulo'] = CpaChapterModel::where("cap_id", $postulacion->id)->where('orden', $request->route('chapter_id'))->first();
@@ -403,9 +403,8 @@ class AccountController extends Controller
         $contest = ContestModel::find($request->contest_id);
         $form = $contest->form()->first();
         $rules = $form->getRules();
-        array_push($rules, [
-            "bases" => "required"
-        ]);
+        $rules['bases'] = "required";
+        $rules['contest_id'] = "required";
         if ($rules) {
             $request->validate($rules);
         } else {
@@ -429,9 +428,7 @@ class AccountController extends Controller
         if ($request->enviar == "enviar") {
             $this->sent_cpa($cpa, $contest, $user);
         }
-
-
-        return Redirect::to("postulaciones/{$contest->id}/{$contest->name}/capitulos/1");
+        return Redirect::to("mis-postulaciones");
     }
 
     /**

@@ -17,7 +17,7 @@
                     @endif
                 </div>
                 @if($logo)
-                    <img src="{{url('storage/images/'.$logo->name.".".$logo->extension)}}" alt="">
+                    <img src="{{url('storage/images/'.$logo->name.".".$logo->extension)}}" alt="" class="img_fondo">
                 @else
                     <img src="https://dev.comunidadorsai.org/recursos/front2021/fichas-donaciones.jpg" class="img_fondo"
                          alt="">
