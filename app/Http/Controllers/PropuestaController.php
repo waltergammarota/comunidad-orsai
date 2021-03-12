@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Databases\AnswerModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\CpaChapterModel;
@@ -20,33 +21,25 @@ class PropuestaController extends Controller
 {
     public function show(Request $request)
     {
-        $propuestaId = $request->route('id');
-        $propuesta = $this->findPropuesta($propuestaId);
+        $postulacionId = $request->route('id');
+        $cpa = ContestApplicationModel::find($postulacionId);
         $user = Auth::user();
-        $contest = ContestModel::find($propuesta['contest_id']);
-        if ($propuesta['current_status'] == "draft") {
-            return Redirect::to('postulaciones/' . $contest->id . '/' . $contest->name);
+        if ($cpa && ($user->id == $cpa->id || $user->role == "admin")) {
+            $data = $this->getUserData();
+            $postulacion = $cpa;
+            $contest = $cpa->contest()->first();
+            $data['postulacion'] = $postulacion;
+            $data['concurso'] = $contest;
+            $data['hasImage'] = false;
+            $data['hasPdf'] = false;
+            $data['form'] = $contest->form()->first();
+            $data['bases'] = $contest->getBases();
+            $data['answers'] = AnswerModel::where('cap_id', $postulacion->id)->get();
+            $data['buttons'] = false;
+            return view('concursos.concurso-cuento', $data);
         }
-        if ($propuesta['current_status'] != "approved" && $user->role != "admin" && $propuesta['user_id'] != $user->id) {
-            return Redirect::to('panel');
-        }
-        $this->addView($propuestaId, $request);
-        $data = $this->getUserData();
-        $data['propuesta'] = $propuesta;
-        $data['user_avatar'] = User::find($propuesta['owner']['id'])->avatar()->first();
-        $data['txs'] = $this->votes($propuestaId);
-        $data['concurso'] = $contest;
-        $data['capitulos'] = CpaChapterModel::getChapters($propuestaId);
-        $data['used'] = Transaction::where(
-            [
-                "cap_id" => $propuestaId,
-                "from" => $user->id
-            ]
-        )->sum('amount');
-        $data['related'] = ContestApplicationModel::inRandomOrder()->where("approved", 1)
-            ->whereNotIn('id', [$propuestaId])->where("contest_id", $propuesta['contest_id'])->limit(5)->with('logos')->get();
-        $data['canVote'] = $contest->hasVotes() && $user->id != $propuesta['user_id'];
-        return view('postulacion.index', $data);
+        abort(404);
+
     }
 
     public function show_detalle(Request $request)

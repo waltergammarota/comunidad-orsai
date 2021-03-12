@@ -238,6 +238,7 @@ class AccountController extends Controller
         // NO SE POSTULÓ O ESTÁ EN DRAFT
         $postulacion = $this->findPostulacion(Auth::user()->id, $contestId);
         $data['postulacion'] = $postulacion;
+        $data['buttons'] = true;
         $data['concurso'] = $contest;
         $data['hasImage'] = false;
         $data['hasPdf'] = false;
@@ -245,7 +246,7 @@ class AccountController extends Controller
         $data['bases'] = $contest->getBases();
         $data['answers'] = collect([]);
         $status = $postulacion->status()->latest()->first()->status;
-        if ($status == "sent") {
+        if ($status != "draft") {
             $postulacion = null;
             $data['postulacion'] = null;
         }
@@ -253,7 +254,7 @@ class AccountController extends Controller
             if ($contest->type == 1) {
                 return view('concursos.concurso-cuento', $data);
             }
-            return view('postulacion.postulacion-1', $data);
+            return view('concursos.concurso-cuento', $data);
         }
 
         $data['orden'] = $request->route("chapter_id") ? $request->route('chapter_id') : 1;
@@ -264,9 +265,9 @@ class AccountController extends Controller
             if ($contest->type == 1) {
                 return view('concursos.concurso-cuento', $data);
             }
-            return view("postulacion.postulacion-1", $data);
+            return view("concursos.concurso-cuento", $data);
         }
-        return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
+        return Redirect::to('concursos/' . $contest->id . '/' . $contest->name);
     }
 
     public function preview(Request $request)
