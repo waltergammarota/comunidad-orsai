@@ -4,7 +4,6 @@
 namespace App\Http\Controllers;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use App\Controllers\CreateContestApplicationController;
 use App\Databases\AnswerModel;
 use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
