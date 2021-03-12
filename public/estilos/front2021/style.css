@@ -6137,6 +6137,7 @@ footer .sub_footer .sub_footer_ri ul li a {
     opacity: 0.5;
     user-select: none;
     cursor: pointer;
+    z-index:5;
 }
 
 .icono_up span {

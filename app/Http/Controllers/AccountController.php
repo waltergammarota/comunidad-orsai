@@ -459,7 +459,7 @@ class AccountController extends Controller
             $cpaLog->save();
         }
         if ($request->enviar == "enviar") {
-            $this->sent_cpa($contest, $cpa);
+            $this->sent_cpa($cpa, $contest, $user);
         }
         return Redirect::to("mis-postulaciones");
     }
