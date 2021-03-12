@@ -97,18 +97,6 @@
             <div class="cuerpo_interna">
                 <h2 class="cuerpo_inscripcion_title">{{$concurso->name}}</h2>
                 {{$concurso->bajada_completa}}
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, sit asperiores quae deleniti
-                consectetur tempora beatae expedita reprehenderit eaque id magnam nesciunt animi itaque veritatis et
-                quis qui velit aspernatur?
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, sit asperiores quae deleniti
-                consectetur tempora beatae expedita reprehenderit eaque id magnam nesciunt animi itaque veritatis et
-                quis qui velit aspernatur?
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, sit asperiores quae deleniti
-                consectetur tempora beatae expedita reprehenderit eaque id magnam nesciunt animi itaque veritatis et
-                quis qui velit aspernatur?
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, sit asperiores quae deleniti
-                consectetur tempora beatae expedita reprehenderit eaque id magnam nesciunt animi itaque veritatis et
-                quis qui velit aspernatur?
                 <div class="center-columns">
                     @if($bases)
                         <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
