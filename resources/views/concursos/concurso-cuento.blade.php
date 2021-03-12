@@ -24,6 +24,12 @@
                     <hr>
                     <form method="POST" id="concursos" action="{{url('postulaciones')}}" enctype="multipart/form-data">
                         <input type="hidden" name="contest_id" value="{{$concurso->id}}">
+                        @if($postulacion)
+                            <input type="hidden" name="cap_id" value="{{$postulacion->id}}">
+                        @else
+                            <input type="hidden" name="cap_id" value="0">
+                        @endif
+
                         @csrf
                         <div class="concurso__form">
                             @if($form)

@@ -60,12 +60,12 @@ class Transaction extends Model
         return $this->hasOne('App\Databases\ContestApplicationModel', 'id', 'cap_id');
     }
 
-    static public function createTransaction($from, $to, $amount, $data, $cap_id = null)
+    static public function createTransaction($from, $to, $amount, $data, $cap_id = null, $type = "MINT")
     {
         $tx = new Transaction([
             'from' => $from,
             'to' => $to,
-            'type' => 'MINT',
+            'type' => $type,
             'amount' => $amount,
             'data' => $data,
             'cap_id' => $cap_id

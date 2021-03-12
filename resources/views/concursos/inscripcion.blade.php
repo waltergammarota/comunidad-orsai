@@ -114,11 +114,11 @@
                         <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
                     @endif
                     @if($estado == "abierto")
-                        @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas())
+                        @if($concurso->hasPostulacionesAbiertas())
                             <div class="align_center">
                                 <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
-                                   class="boton_redondeado resaltado_amarillo text_bold width_100">Subir
-                                    mi postulación</a>
+                                   class="boton_redondeado resaltado_amarillo text_bold width_100">
+                                    Subir mi postulación</a>
                             </div>
                         @endif
                     @endif
