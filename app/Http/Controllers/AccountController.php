@@ -4,7 +4,6 @@
 namespace App\Http\Controllers;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use App\Controllers\CreateContestApplicationController;
 use App\Databases\AnswerModel;
 use App\Databases\CiudadModel;
 use App\Databases\ContestApplicationModel;
@@ -245,7 +244,7 @@ class AccountController extends Controller
         $data['form'] = $contest->form()->first();
         $data['bases'] = $contest->getBases();
         $data['answers'] = collect([]);
-        $status = $postulacion->status()->latest()->first()->status;
+        $status = $postulacion ? $postulacion->status()->latest()->first() : "draft";
         if ($status != "draft") {
             $postulacion = null;
             $data['postulacion'] = null;
