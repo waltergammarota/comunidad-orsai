@@ -78,7 +78,7 @@ class InputController extends Controller
             "options" => $this->convertOptions($request->options),
             "placeholder" => $request->placeholder,
             'required' => $request->required,
-            'rows' => $request->filas,
+            'filas' => $request->rows,
             'cols' => $request->cols
         ];
         $input = new InputModel($data);
@@ -115,7 +115,7 @@ class InputController extends Controller
             "options" => $this->convertOptions($request->options),
             "placeholder" => $request->placeholder,
             'required' => $request->required,
-            'rows' => $request->filas,
+            'filas' => $request->rows,
             'cols' => $request->cols
         ];
         $input->fill($data);
