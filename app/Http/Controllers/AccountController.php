@@ -238,21 +238,25 @@ class AccountController extends Controller
         // NO SE POSTULÓ O ESTÁ EN DRAFT
         $postulacion = $this->findPostulacion(Auth::user()->id, $contestId);
         $data['postulacion'] = $postulacion;
+        $data['buttons'] = true;
         $data['concurso'] = $contest;
         $data['hasImage'] = false;
         $data['hasPdf'] = false;
         $data['form'] = $contest->form()->first();
         $data['bases'] = $contest->getBases();
-        $data['answers'] = [];
+        $data['answers'] = collect([]);
+        $status = $postulacion->status()->latest()->first()->status;
+        if ($status != "draft") {
+            $postulacion = null;
+            $data['postulacion'] = null;
+        }
         if ($postulacion == null) {
             if ($contest->type == 1) {
                 return view('concursos.concurso-cuento', $data);
             }
-            return view('postulacion.postulacion-1', $data);
+            return view('concursos.concurso-cuento', $data);
         }
 
-        $status = $postulacion->status()->first()->status;
-        $data['capitulo'] = CpaChapterModel::where("cap_id", $postulacion->id)->where('orden', $request->route('chapter_id'))->first();
         $data['orden'] = $request->route("chapter_id") ? $request->route('chapter_id') : 1;
         $data['hasImage'] = $postulacion->images()->first();
         $data['hasPdf'] = $postulacion->pdfs()->first();
@@ -261,17 +265,9 @@ class AccountController extends Controller
             if ($contest->type == 1) {
                 return view('concursos.concurso-cuento', $data);
             }
-            return view("postulacion.postulacion-1", $data);
+            return view("concursos.concurso-cuento", $data);
         }
-
-        if ($status == "draft" && $request->route('chapter_id') > 0) {
-            return view('postulacion.postulacion-2', $data);
-        }
-        if ($status == "approved") {
-            return Redirect::to('postulacion/' . $postulacion->id);
-        }
-
-        return Redirect::to('concursos' . $contest->id . '/' . $contest->name);
+        return Redirect::to('concursos/' . $contest->id . '/' . $contest->name);
     }
 
     public function preview(Request $request)
@@ -302,7 +298,7 @@ class AccountController extends Controller
         $cpa->save();
         $cpaLog = new CpaLog(["status" => "sent", "cap_id" => $cpa->id]);
         $cpaLog->save();
-        Transaction::createTransaction($user->id, $contest->pool_id, $contest->cost_per_cpa, "Inscripción a concurso " . $contest->name);
+        Transaction::createTransaction($user->id, $contest->pool_id, $contest->cost_per_cpa, "Inscripción a concurso " . $contest->name, null, 'TRANSFER');
         return Redirect::to('mis-postulaciones');
 
     }
@@ -381,18 +377,18 @@ class AccountController extends Controller
 
     private function findPostulacion($userId, $contestId)
     {
-        return ContestApplicationModel::where('contest_id', $contestId)->where('user_id', $userId)->first();
+        $cpa = ContestApplicationModel::where('contest_id', $contestId)->where('user_id', $userId)->with('status')->latest()->first();
+        return $cpa;
     }
 
     public function store_publicacion(Request $request)
     {
-        $appsQty = $this->findPostulacion(Auth::user()->id, $request->contest_id);
         $user = Auth::user();
         $contest = ContestModel::find($request->contest_id);
         if ($user->getBalance() < $contest->cost_per_cpa) {
             return Redirect::back();
         }
-        if ($request->cap_id == 0 && $appsQty == null) {
+        if ($request->cap_id == 0) {
             return $this->createNewCap($request);
         }
         return $this->updateCap($request);
@@ -411,7 +407,7 @@ class AccountController extends Controller
             abort(404);
         }
         $user = Auth::user();
-        $cpa = ContestApplicationModel::where('contest_id', $contest->id)->where('user_id', $user->id)->first();
+        $cpa = ContestApplicationModel::find($request->cap_id);
         if ($cpa->user_id != $user->id) {
             abort(404);
         }

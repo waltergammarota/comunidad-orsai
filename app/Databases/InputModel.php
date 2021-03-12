@@ -92,27 +92,19 @@ class InputModel extends Model
                 $palabras = "caracteres";
                 break;
         }
-        $value = $this->getValue($answers);
-        $html = '
-            <div class="form_ctrl">
-              <div class="input_err">
-                <div class="label-two-columns">
-                  <div class="left">
-                    <label class="text_medium" for="motivo">' . $this->title . '</label>
-                    <span class="disclaimer">' . $this->description . '</span>
-                  </div>
-                  <div class="right">
-                    <a href="' . $this->tutorial . '" target="_blank">Ver tutorial</a>
-                  </div>
-                </div>
-                <div class="content-input">
-                  <input type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" placeholder="' . $this->placeholder . '" value="' . $value . '">';
-        if ($palabras != "") {
-            $html .= '<div class="content-count-words">Te quedan <span class="count-words-text"> ' . $this->counter_max . ' </span> ' . $palabras . '</div>';
-        }
-        $html .= '</div>
-              </div>
-            </div>';
+        $data = [
+            "id" => $this->id,
+            "tutorial" => $this->tutorial,
+            "title" => $this->title,
+            "description" => $this->description,
+            "inputName" => $this->getInputName(),
+            "value" => $this->getValue($answers),
+            "counterClass" => $counterClass,
+            "palabras" => $palabras,
+            "placeholder" => $this->placeholder,
+            "counter_max" => $this->counter_max
+        ];
+        $html = view('concursos.inputTextHtml', $data);
         return $html;
     }
 
@@ -131,23 +123,21 @@ class InputModel extends Model
                 $palabras = "caracteres";
                 break;
         }
-        $html = '
-            <div class="form_ctrl">
-              <div class="input_err">
-                <div class="label-two-columns">
-                  <div class="left">
-                    <label class="text_medium" for="motivo">' . $this->title . '</label>
-                    <span class="disclaimer">' . $this->description . '</span>
-                  </div>
-                </div>
-                <div class="content-input">
-                    <textarea type="text" name="' . $this->getInputName() . '" id="' . $this->getInputName() . '" class="' . $counterClass . '" data-max="' . $this->counter_max . '" cols="' . $this->cols . '" rows="' . $this->rows . '" placeholder="' . $this->placeholder . '">' . $this->getValue($answers) . '</textarea>';
-        if ($palabras != "") {
-            $html .= '<div class="content-count-words">Te quedan <span class="count-words-text"> ' . $this->counter_max . ' </span> ' . $palabras . '</div>';
-        }
-        $html .= '</div>
-              </div>
-            </div>';
+        $data = [
+            "id" => $this->id,
+            "title" => $this->title,
+            "description" => $this->description,
+            "inputName" => $this->getInputName(),
+            "value" => $this->getValue($answers),
+            "counterClass" => $counterClass,
+            "palabras" => $palabras,
+            "placeholder" => $this->placeholder,
+            "counter_max" => $this->counter_max,
+            "rows" => $this->rows,
+            "cols" => $this->cols,
+            "tutorial" => $this->tutorial
+        ];
+        $html = view('concursos.inputTextareaHtml', $data);
         return $html;
     }
 
@@ -158,54 +148,32 @@ class InputModel extends Model
 
     private function selectToHtml($answers)
     {
-        $html = '<div class="form_ctrl">
-              <div class="input_err">
-                <div class="label-two-columns">
-                  <div class="left">
-                    <label class="text_medium" for="categoria">' . $this->title . '</label>
-                    <span class="disclaimer">' . $this->description . '</span>
-                  </div>
-                  <div class="right">
-                    <a href="' . $this->tutorial . '" target="_blank">Ver tutorial</a>
-                  </div>
-                </div>
-                <div class="content-input">
-                  <select name="' . $this->getInputName() . '" id="' . $this->getInputName() . '">
-                    <option value="" selected="true" disabled="disabled">Elegir</option>';
-        foreach ($this->options as $option) {
-            $selected = "";
-            if ($option == $this->getValue($answers)) {
-                $selected = "selected";
-            }
-            $html .= '<option value="' . $option . '"' . $selected . '>' . $option . '</option>';
-        }
-        $html .= '</select>
-                </div>
-              </div>
-            </div>';
+        $data = [
+            "id" => $this->id,
+            "title" => $this->title,
+            "description" => $this->description,
+            "tutorial" => $this->tutorial,
+            "inputName" => $this->getInputName(),
+            "value" => $this->getValue($answers),
+            "options" => $this->options
+        ];
+        $html = view('concursos.inputSelectHmtl', $data);
         return $html;
     }
 
-
     private function nubeToHtml($answers)
     {
-        $html = '<div class="form_ctrl">
-              <div class="input_err">
-                <div class="label-two-columns">
-                  <div class="left">
-                    <label class="text_medium" for="tags">' . $this->title . '</label>
-                    <span class="disclaimer">' . $this->description . '</span>
-                  </div>
-                  <div class="right">
-                    <a href="' . $this->tutorial . '" target="_blank">Ver tutorial</a>
-                  </div>
-                </div>
-                <div class="content-input">
-                  <input type="text" name="' . $this->getInputName() . '" id="tags" class="tags" value="' . $this->getValue($answers) . '">
-                  <div class="content-count-words">Separá las palabras con comas</div>
-                </div>
-              </div>
-            </div>';
+        $data = [
+            "id" => $this->id,
+            "title" => $this->title,
+            "description" => $this->description,
+            "tutorial" => $this->tutorial,
+            "inputName" => $this->getInputName(),
+            "value" => $this->getValue($answers),
+            "placeholder" => $this->placeholder,
+            "counter_max" => $this->counter_max
+        ];
+        $html = view('concursos.inputNubeHtml', $data);
         return $html;
     }
 
