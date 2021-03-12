@@ -21,7 +21,6 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Titulo</th>
                     <th>Usuario</th>
                     <th>Votos</th>
                     <th>Status</th>
@@ -158,11 +157,10 @@
 
                 },
                 "columns": [
-                    {"data": "id"},
                     {
-                        "data": "title",
+                        "data": "id",
                         "render": function (data, type, row, meta) {
-                            return `<a href="{{url('postulacion')}}/${row.id}" target="_blank">${data}</a>`;
+                            return `<a href="{{url('postulacion')}}/${row.id}" target="_blank">${row.id}</a>`;
                         }
                     },
                     {
