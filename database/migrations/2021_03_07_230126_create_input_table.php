@@ -25,9 +25,9 @@ class CreateInputTable extends Migration
             $table->longText('options');
             $table->unsignedBigInteger('form_id');
             $table->string('placeholder');
-            $table->integer('required');
+            $table->integer('required')->default(0);
             $table->integer('cols')->default(0);
-            $table->integer('rows')->default(0);
+            $table->integer('filas')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

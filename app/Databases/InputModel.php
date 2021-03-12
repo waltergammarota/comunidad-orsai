@@ -27,7 +27,7 @@ class InputModel extends Model
         'placeholder',
         'required',
         'cols',
-        'rows'
+        'filas'
     ];
 
     /**
@@ -133,7 +133,7 @@ class InputModel extends Model
             "palabras" => $palabras,
             "placeholder" => $this->placeholder,
             "counter_max" => $this->counter_max,
-            "rows" => $this->rows,
+            "rows" => $this->filas,
             "cols" => $this->cols,
             "tutorial" => $this->tutorial
         ];
