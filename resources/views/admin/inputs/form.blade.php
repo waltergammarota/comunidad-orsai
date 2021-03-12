@@ -149,7 +149,7 @@
                                 <label for="exampleInputEmail1">Filas (solo textarea)</label>
                                 <input type="number" class="form-control" placeholder="Nro de filas"
                                        name="rows" step="1"
-                                       value="{{$input?$input->rows:old('rows')}}">
+                                       value="{{$input?$input->filas:old('rows')}}">
                                 @error('rows') <span class="help-block">{{$message}}</span> @enderror
                             </div>
 
