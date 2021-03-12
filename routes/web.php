@@ -102,6 +102,13 @@ Route::get(
     'WebController@concurso_cuento'
 )->name('concurso-cuento');
 
+
+Route::get(
+    '/concurso-apuesta',
+    'WebController@concurso_apuesta'
+)->name('concurso-apuesta');
+
+
 Route::get(
     '/concursos-nuevos',
     'WebController@concursos_nuevos'
@@ -244,6 +251,7 @@ Route::middleware(['verified'])->group(
             '/concursos',
             'Contest\ContestController@index'
         )->name("concursos");
+        
 
         Route::get(
             '/concursos/{id}/{name}',
@@ -453,12 +461,12 @@ Route::middleware(['verified'])->group(
         );
         // formacion
         Route::post(
-            ' / formacion / update',
+            '/formacion/update',
             'AccountController@formacion_update'
         );
 
         Route::post(
-            ' / profile / image',
+            '/profile/image',
             'AccountController@profile_image'
         );
 
