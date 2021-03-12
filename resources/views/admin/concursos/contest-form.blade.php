@@ -296,6 +296,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="forms">Formulario</label>
+                                    <select name="form_id" id="forms" class="form-control">
+                                        <option value="0">Ninguno</option>
+                                        @foreach($forms as $form)
+                                            @if($contest && $contest->form_id == $form->id)
+                                                <option value="{{$form->id}}" selected>{{$form->name}}</option>
+                                            @else
+                                                <option value="{{$form->id}}">{{$form->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row" id="rondas">
                                 @for($i=0; $i<3;$i++)
                                     <div class="col-md-12">
@@ -343,21 +358,6 @@
                                         </div>
                                     </div>
                                 @endfor
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="forms">Formulario</label>
-                                        <select name="form_id" id="forms" class="form-control">
-                                            <option value="0">Ninguno</option>
-                                            @foreach($forms as $form)
-                                                @if($contest && $contest->form_id == $form->id)
-                                                    <option value="{{$form->id}}" selected>{{$form->name}}</option>
-                                                @else
-                                                    <option value="{{$form->id}}">{{$form->name}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

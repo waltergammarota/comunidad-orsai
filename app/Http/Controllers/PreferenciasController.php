@@ -68,6 +68,14 @@ class PreferenciasController extends Controller
         return View('2021-privacidad', $data);
     }
 
+    public function guardar_conf_privacidad(Request $request)
+    {
+        $user = Auth::user();
+        $user->anonimo = $request->anonimo;
+        $user->save();
+        return Redirect::to('configuracion-privacidad');
+    }
+
     public function desactivar_cuenta()
     {
         $data = $this->getUserData();

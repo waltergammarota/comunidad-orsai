@@ -74,7 +74,7 @@
                 "columns": [
                     {"data": "id"},
                     {"data": "name"},
-                    {"data": "type",},
+                    {"data": "type"},
                     {"data": "created_at"},
                     {
                         "data": "acciones",

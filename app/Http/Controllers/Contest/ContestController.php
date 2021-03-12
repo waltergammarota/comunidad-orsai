@@ -18,6 +18,7 @@ use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\UserRepository;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,7 @@ class ContestController extends Controller
         $data['filtro'] = $request->filtro ? $request->filtro : 'activos';
         $data['busqueda'] = $request->busqueda;
         $data['pagina'] = $request->pagina ? $request->pagina : 1;
+        $data['modo'] = $request->modo;
         if ($request->busqueda != null && $request->busqueda != "") {
             $query->where('name', 'like', "%{$request->busqueda}%");
         }
@@ -50,12 +52,27 @@ class ContestController extends Controller
                 $query->where('end_date', '<', Carbon::now());
                 break;
         }
+        switch ($data['modo']) {
+            case 'pozo':
+                $query->where('mode', 1);
+                break;
+            case 'completo':
+                $query->where('mode', 2);
+                break;
+            case 'fijo':
+                $query->where('mode', 3);
+                break;
+        }
         $data['total'] = $query->count();
         $data['concursos'] = $query->limit($cantidadPorPagina)->offset($cantidadPorPagina * ($data['pagina'] - 1))->get();
         $data['totalPaginas'] = (int)round(ceil($data['total'] / $cantidadPorPagina), 0);
         $data['links'] = $this->generateLinks($data['totalPaginas'], $data['busqueda'], $data['filtro']);
         $data['now'] = Carbon::now();
-        return view("concursos.index", $data);
+        $isOnnlyCards = $request->onlyCards;
+        if ($isOnnlyCards) {
+            return view('concursos.only-cards', $data);
+        }
+        return view("concursos.concursos-nuevos", $data);
     }
 
     private function generateLinks($totalPaginas, $busqueda, $filtro)
@@ -64,7 +81,7 @@ class ContestController extends Controller
         for ($i = 1; $i <= $totalPaginas; $i++) {
             $pagina = $i;
             $filtros = http_build_query(compact('pagina', 'busqueda', 'filtro'));
-            $links[$i] = url("concursos?{$filtros}");
+            $links[$i] = url("concursos?{$filtros}&onlyCards=true");
         }
         return $links;
     }
@@ -273,7 +290,6 @@ class ContestController extends Controller
         if ($request->mode == 1) {
             $cant_winners = $request->cant_winners ? $request->cant_winners : 0;
         }
-
         $data = [
             "name" => $request->name,
             "bajada_corta" => $request->bajada_corta,
@@ -303,6 +319,7 @@ class ContestController extends Controller
         ];
         $contest = new ContestModel($data);
         $contest->save();
+        $this->generateContestPool($contest);
         $contest->rondas()->delete();
         if ($contest->type == 1) {
             for ($i = 0; $i < 3; $i++) {
@@ -329,6 +346,29 @@ class ContestController extends Controller
         return Redirect::to('admin/concursos');
     }
 
+    private function generateContestPool($contest)
+    {
+        $uniqid = uniqid();
+        $user = new User([
+            "name" => $contest->name,
+            "lastName" => "",
+            "passport" => 0,
+            "userName" => $contest->name,
+            "country" => "Argentina",
+            "provincia" => null,
+            "city" => null,
+            "birth_date" => Carbon::now(),
+            "birth_country" => "Argentina",
+            "email" => "concurso+{$contest->id}@gmail.com",
+            "email_verified_at" => null,
+            "password" => uniqid(),
+            "role" => "user",
+        ]);
+        $user->save();
+        $contest->pool_id = $user->id;
+        $contest->save();
+        return $user;
+    }
 
     private function cleanPerWinnerArray($cant_winners, $per_winner)
     {
@@ -422,6 +462,9 @@ class ContestController extends Controller
         ];
         $contest->fill($data);
         $contest->save();
+        if ($contest->pool_id == 0) {
+            $this->generateContestPool($contest);
+        }
         $contest->rondas()->delete();
         if ($contest->type == 1) {
             for ($i = 0; $i < 3; $i++) {

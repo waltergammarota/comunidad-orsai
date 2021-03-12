@@ -80,7 +80,7 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                @error('dynamic_price') <span class="help-block">{{$message}}</span> @enderror
+                                @error('counter_type') <span class="help-block">{{$message}}</span> @enderror
                             </div>
 
                             <div class="form-group">
@@ -121,6 +121,36 @@
                                        name="placeholder"
                                        value="{{$input?$input->placeholder:old('placeholder')}}">
                                 @error('placeholder') <span class="help-block">{{$message}}</span> @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Obligatorio</label>
+                                <div class="form-check">
+                                    @if($input)
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
+                                               name="required" {{$input->required?"checked":""}}>
+                                    @else
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"
+                                               name="required">
+                                    @endif
+                                    <label class="form-check-label" for="exampleCheck1">Obligatorio</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Columnas (solo textarea)</label>
+                                <input type="number" class="form-control" placeholder="Nro de columnas"
+                                       name="cols" step="1"
+                                       value="{{$input?$input->cols:old('cols')}}">
+                                @error('cols') <span class="help-block">{{$message}}</span> @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Filas (solo textarea)</label>
+                                <input type="number" class="form-control" placeholder="Nro de filas"
+                                       name="rows" step="1"
+                                       value="{{$input?$input->rows:old('rows')}}">
+                                @error('rows') <span class="help-block">{{$message}}</span> @enderror
                             </div>
 
                             <div class="form-group">

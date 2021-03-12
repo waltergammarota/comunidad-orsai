@@ -26,7 +26,8 @@ class ContestApplicationModel extends Model
         'prize_amount',
         'prize_percentage',
         'bases',
-        'condiciones'
+        'condiciones',
+        'order'
     ];
 
     /**
@@ -56,6 +57,16 @@ class ContestApplicationModel extends Model
         return $this->hasMany('App\Databases\CpaLog', 'cap_id', "id")->orderBy('id', 'desc');
     }
 
+    public function currentStatus()
+    {
+        $status = $this->hasMany('App\Databases\CpaLog', 'cap_id', "id")->orderBy('id', 'desc')->first();
+        if ($status) {
+            return $status->name;
+        }
+        return null;
+    }
+
+
     public function contest()
     {
         return $this->hasOne('App\Databases\ContestModel', 'id', "contest_id");
@@ -74,6 +85,12 @@ class ContestApplicationModel extends Model
     public function pdfs()
     {
         return $this->belongsToMany('App\Databases\FileModel', 'contest_applications_files', "cap_id", 'file_id')->withTimestamps()->where('type', "=", 'pdf');
+    }
+
+
+    public function answers()
+    {
+        return $this->belongsToMany(AnswerModel::class, 'answers', 'cpa_id', 'id');
     }
 
 

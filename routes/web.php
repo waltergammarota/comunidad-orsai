@@ -113,7 +113,7 @@ Route::get(
     '/concursos-nuevos',
     'WebController@concursos_nuevos'
 )->name('concursos-nuevos');
- 
+
 
 Route::post(
     '/donar/mercado_pago_webhook',
@@ -332,6 +332,17 @@ Route::middleware(['verified'])->group(
 
         //FIN DE CONCURSOS
 
+        //TRANSPARENCIA
+        Route::get(
+            'transparencia',
+            'TransparenciaController@index')
+            ->name('transparencia');
+
+        Route::get(
+            'transparencia-json',
+            'TransparenciaController@transparencia_json')
+            ->name('transparencia-json');
+        // END OF TRANSPARENCIA
 
         Route::get(
             '/fundacion',
@@ -439,6 +450,11 @@ Route::middleware(['verified'])->group(
             '/configuracion-privacidad',
             'PreferenciasController@configurar_privacidad'
         )->name('configuracion-privacidad');
+
+        Route::post(
+            '/configuracion-privacidad',
+            'PreferenciasController@guardar_conf_privacidad'
+        )->name('guardar-configuracion-privacidad');
 
         Route::get(
             '/configuracion-notificaciones',
