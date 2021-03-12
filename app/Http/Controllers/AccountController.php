@@ -245,7 +245,8 @@ class AccountController extends Controller
         $data['form'] = $contest->form()->first();
         $data['bases'] = $contest->getBases();
         $data['answers'] = collect([]);
-        $status = $postulacion->status()->latest()->first()->status;
+        $statusLog = $postulacion->status()->latest()->first();
+        $status = $statusLog ? $statusLog->status : "draft";
         if ($status != "draft") {
             $postulacion = null;
             $data['postulacion'] = null;
