@@ -54,7 +54,7 @@ class CreateFormCuentoCorto extends Migration
         $nube->title = "Nube de tags";
         $nube->description = "Agregá hasta cinco palabras que orienten tu historia.";
         $nube->tutorial = "";
-        $nube->counter_type = "words";
+        $nube->counter_type = "word";
         $nube->counter_max = 5;
         $nube->type = "nube";
         $nube->placeholder = "";

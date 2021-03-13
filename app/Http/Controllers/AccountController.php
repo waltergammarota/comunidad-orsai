@@ -27,6 +27,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -401,7 +402,7 @@ class AccountController extends Controller
         $rules['bases'] = "required";
         $rules['contest_id'] = "required";
         if ($rules) {
-            $request->validate($rules);
+            Validator::make($request->all(), $rules, [], $form->getAttributes())->validate();
         } else {
             abort(404);
         }
@@ -439,8 +440,9 @@ class AccountController extends Controller
         $rules = $form->getRules();
         $rules['bases'] = "required";
         $rules['contest_id'] = "required";
+        $messages = $form->getAttributes();
         if ($rules) {
-            $request->validate($rules);
+            Validator::make($request->all(), $rules, [], $messages)->validate();
         } else {
             abort(404);
         }

@@ -9,15 +9,16 @@
             <span class="disclaimer">{{$description}}</span>
         </div>
         <div class="content-input">
-                                        <textarea name="{{$inputName}}" id="{{$inputName}}" cols="{{$cols}}"
-                                                  rows="{{$rows}}"
-                                                  class="{{$counterClass}}"
-                                                  data-max="{{$counter_max}}"
-                                                  placeholder="{{$placeholder}}">{{$value}}</textarea>
+                <textarea name="{{$inputName}}" id="{{$inputName}}" cols="{{$cols}}"
+                          rows="{{$rows}}"
+                          class="{{$counterClass}}"
+                          data-max="{{$counter_max}}"
+                          placeholder="{{$placeholder}}">{{old($inputName)? old($inputName) : $value}}</textarea>
             <div class="content-count-words">Te quedan <span
                     class="count-words-text"> {{$counter_max}} </span> {{$palabras}}
             </div>
         </div>
+        @error($inputName) {{$message}} @enderror
     </div>
 </div>
 

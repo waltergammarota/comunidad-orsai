@@ -2,6 +2,8 @@
 
 namespace App\Databases;
 
+use App\Rules\MaxNubeWordsRule;
+use App\Rules\MaxWordsRule;
 use Illuminate\Database\Eloquent\Model;
 
 class InputModel extends Model
@@ -179,8 +181,16 @@ class InputModel extends Model
 
     public function getRule()
     {
-        return $this->required ? "required" : '';
-
+        $rawRules = [
+            $this->required ? "required" : null,
+            $this->counter_max > 0 && $this->counter_type == "char" ? "max:" . $this->counter_max : null,
+            $this->counter_max > 0 && $this->counter_type == "word" && in_array($this->type, ["input", "textarea"]) ? new MaxWordsRule($this->counter_max) : null,
+            $this->counter_max > 0 && $this->counter_type == "word" && $this->type == "nube" ? new MaxNubeWordsRule($this->counter_max) : null,
+        ];
+        $rules = array_filter($rawRules, function ($item) {
+            return $item != null;
+        });
+        return $rules;
     }
 
 }
