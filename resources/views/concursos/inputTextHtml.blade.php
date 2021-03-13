@@ -9,11 +9,14 @@
             <span class="disclaimer">{{$description}}</span>
         </div>
         <div class="content-input">
-            <input type="text" name="{{$inputName}}" id="{{$inputName}}" value="{{$value}}" class="{{$counterClass}}"
+            <input type="text" name="{{$inputName}}" id="{{$inputName}}"
+                   value="{{ old($inputName)? old($inputName): $value }}"
+                   class="{{$counterClass}}"
                    data-max="{{$counter_max}}" placeholder="{{$placeholder}}">
             <div class="content-count-words">Te quedan <span
                     class="count-words-text"> {{$counter_max}}  </span> {{$palabras}}
             </div>
+            @error($inputName) {{$message}} @enderror
         </div>
     </div>
 </div>

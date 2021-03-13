@@ -13,7 +13,7 @@
             <select name="{{$inputName}}" id="{{$inputName}}">
                 <option value="" selected="true" disabled="disabled">Elegir</option>
                 @foreach($options as $option)
-                    @if($option == $value)
+                    @if($option == old($inputName) || $option == $value)
                         <option value="{{$option}}" selected>{{$option}}</option>
                     @else
                         <option value="{{$option}}">{{$option}}</option>
@@ -21,6 +21,7 @@
                 @endforeach
             </select>
         </div>
+        @error($inputName) {{$message}} @enderror
     </div>
 </div>
 

@@ -53,4 +53,14 @@ class FormModel extends Model
         return $rules;
     }
 
+    public function getAttributes()
+    {
+        $inputs = $this->inputs()->get();
+        $attributes = [];
+        foreach ($inputs as $input) {
+            $attributes[$input->getInputName()] = strtolower($input->title);
+        }
+        return $attributes;
+    }
+
 }

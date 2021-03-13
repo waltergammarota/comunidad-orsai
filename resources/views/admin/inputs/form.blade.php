@@ -106,11 +106,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Opciones (separar con coma)</label>
+                                <label for="exampleInputEmail1">Opciones (separar con punto y coma [;] )</label>
                                 <input type="text" class="form-control @error('options') is-invalid @enderror"
                                        id="exampleInputEmail1" placeholder="Opciones separar con coma"
                                        name="options"
-                                       value="{{$input?implode(",",$input->options):old('options')}}">
+                                       value="{{$input?implode(";",$input->options):old('options')}}">
                                 @error('options') <span class="help-block">{{$message}}</span> @enderror
                             </div>
 

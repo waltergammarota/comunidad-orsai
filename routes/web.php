@@ -251,7 +251,7 @@ Route::middleware(['verified'])->group(
             '/concursos',
             'Contest\ContestController@index'
         )->name("concursos");
-        
+
 
         Route::get(
             '/concursos/{id}/{name}',
@@ -470,6 +470,12 @@ Route::middleware(['verified'])->group(
             '/profile/update',
             'AccountController@profile_update'
         );
+
+        // balance
+        Route::get(
+            'my-balance',
+            'BalanceController@index'
+        )->name('my-balance');
         // redes
         Route::post(
             '/profile/update/redes',

@@ -88,7 +88,7 @@ class InputController extends Controller
 
     private function convertOptions($options)
     {
-        $items = explode(",", $options);
+        $items = explode(";", $options);
         return array_map(function ($item) {
             return trim($item);
         }, $items);

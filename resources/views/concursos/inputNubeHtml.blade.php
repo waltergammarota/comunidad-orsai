@@ -10,11 +10,13 @@
                 class="disclaimer">{{$description}}</span>
         </div>
         <div class="content-input">
-            <input type="text" name="{{$inputName}}" id="tags" class="tags" value="{{$value}}"
+            <input type="text" name="{{$inputName}}" id="tags" class="tags"
+                   value="{{old($inputName)? old($inputName): $value}}"
                    data-max="{{$counter_max}}">
             <div class="content-count-words">Separá las palabras con comas</div>
         </div>
     </div>
+    @error($inputName) {{$message}} @enderror
 </div>
 
 @if($tutorial != "")

@@ -36,6 +36,9 @@ class PropuestaController extends Controller
             $data['bases'] = $contest->getBases();
             $data['answers'] = AnswerModel::where('cap_id', $postulacion->id)->get();
             $data['buttons'] = false;
+            if ($postulacion->getCurrentStatus() == "draft") {
+                $data['buttons'] = true;
+            }
             return view('concursos.concurso-cuento', $data);
         }
         abort(404);
