@@ -57,11 +57,11 @@ class ContestApplicationModel extends Model
         return $this->hasMany('App\Databases\CpaLog', 'cap_id', "id")->orderBy('id', 'desc');
     }
 
-    public function currentStatus()
+    public function getCurrentStatus()
     {
         $status = $this->hasMany('App\Databases\CpaLog', 'cap_id', "id")->orderBy('id', 'desc')->first();
         if ($status) {
-            return $status->name;
+            return $status->status;
         }
         return null;
     }

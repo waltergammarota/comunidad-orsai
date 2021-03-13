@@ -15,6 +15,7 @@
                     <hr>
                     <form method="POST" id="concursos" action="{{url('postulaciones')}}" enctype="multipart/form-data">
                         <input type="hidden" name="contest_id" value="{{$concurso->id}}">
+                        <input type="hidden" value="{{$concurso->cost_per_cpa}}" id="pricePerCpa">
                         @if($postulacion)
                             <input type="hidden" name="cap_id" value="{{$postulacion->id}}">
                         @else
@@ -38,7 +39,7 @@
                                                     Acepto las <a href="{{url($bases->slug)}}" target="_blank">bases del
                                                         concurso</a>
                                                 @endif
-                                                <input type="checkbox" name="bases" id="bases" value="1">
+                                                <input type="checkbox" name="bases" id="bases" value="1" checked>
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
@@ -86,7 +87,7 @@
                                     <div class="input_err">
                                         <div class="label-centers">
                                             <button class="rounded-save--yellow" type="submit" name="enviar"
-                                                    value="enviar">
+                                                    value="enviar" id="enviar">
                                                 Enviar mi postulación
                                             </button>
                                         </div>
@@ -104,10 +105,17 @@
             </div>
         </div>
     </section>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <p>Some text in the Modal..</p>
+    <div id="sin_fichas" class="modal modal_sinfichas">
+        <div class="title_modal">
+            <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
+            <h5>No te alcanzan las Fichas</h5>
+        </div>
+        <div class="content_modal">
+            <p>Hacé una donación para conseguir más.</p>
+        </div>
+        <div class="align_center">
+            <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</a>
+            <a href="#" rel="modal:close" class="boton_decline width_100" onclick="modalHide()">Ahora no</a>
         </div>
     </div>
 @endsection
@@ -126,9 +134,45 @@
             return ContadorPalabras($(this));
         });
 
-        //uno dos tres cuatro cinco seis siete ocho nueve diez once doce trece
+        const form = $('#concursos');
+        const pricePerCpa = parseInt($("#pricePerCpa").val());
+        const modal = $(".modal_sinfichas");
 
-        function ContadorPalabras($this) {
+        function modalHide() {
+            modal.hide();
+        }
+
+        form.submit(function (event) {
+            event.preventDefault();
+            getBalance().then(balance => {
+                const enviar = $(document.activeElement).val();
+                if (balance >= pricePerCpa) {
+                    console.log("enviando");
+                    modal.hide();
+                    if (enviar == "enviar") {
+                        const input = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "enviar").val("enviar");
+                        form.append(input);
+                    }
+                    event.currentTarget.submit();
+                } else {
+                    modal.show();
+                }
+            });
+        });
+
+        function getBalance() {
+            const url = '{{url('my-balance')}}';
+            return axios.get(url).then(function (response) {
+                return response.data.msg;
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+
+        function
+        ContadorPalabras($this) {
             var maxWords = $this.data('max');
 
             if (!$this.val()) {
