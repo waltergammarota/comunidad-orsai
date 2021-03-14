@@ -3003,6 +3003,7 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
     line-height: 3rem;
     font-size:3em;
     font-family: 'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
     font-weight: bold;
 }
 

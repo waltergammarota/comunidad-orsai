@@ -36,7 +36,7 @@
                                         <div class="label-centers">
                                             <label class="text_medium checkboxes" for="bases">
                                                 @if($bases)
-                                                    Acepto las <a href="{{url($bases->slug)}}" target="_blank">bases del
+                                                    Acepto las <a href="{{url($bases->slug)}}" target="_blank">bases y condiciones del
                                                         concurso</a>
                                                 @endif
                                                 <input type="checkbox" name="bases" id="bases" value="1" checked>

@@ -17,7 +17,7 @@
         <div class="contenedor mg_0 dis_flex ">
             <article class="card_style_6 transparencia">
                 <div class="img_transparencia">
-                    <img src="{{url('estilos/front2021/assets/svg/billetera_transparencia.svg')}}" alt="">
+                    <img src="{{url('estilos/front2021/assets/SVG/billetera_transparencia.svg')}}" alt="">
                 </div>
                 <div class="txt_transparencia">
                     <h2>XXXX</h2>
@@ -26,7 +26,7 @@
             </article>
             <article class="card_style_6 transparencia">
                 <div class="img_transparencia">
-                    <img src="{{url('estilos/front2021/assets/svg/monedas_transparencia.svg')}}" alt="">
+                    <img src="{{url('estilos/front2021/assets/SVG/monedas_transparencia.svg')}}" alt="">
                 </div>    
                 <div class="txt_transparencia">
                     <h2>XXXX</h2>
@@ -35,7 +35,7 @@
             </article>
             <article class="card_style_6 transparencia">
                 <div class="img_transparencia">
-                    <img src="{{url('estilos/front2021/assets/svg/baldeo_transparencia.svg')}}" alt="">
+                    <img src="{{url('estilos/front2021/assets/SVG/baldeo_transparencia.svg')}}" alt="">
                 </div>
                 <div class="txt_transparencia">
                     <h2>XXXX</h2>
@@ -56,7 +56,7 @@
             </div>
             <div class="tran_creditos transparencia">
                 <div class="cont_tabla"> 
-                    <table class="light-3" id="mis_fichas_table">
+                    <table class="light-3" class="display nowrap" style="width:100%height:500px;" id="mis_fichas_table">
                         <thead>
                         <tr>
                             <th>Fecha y hora</th>
@@ -66,24 +66,24 @@
                             <th>Crédito</th>
                         </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                              <td><span class="icono icon-flag tooltip"> <span class="tooltiptext">Reportar</span> </span> 02/12/2020 16:44</td>
-                              <td class="id_transaccion">19762</td>
-                              <td>Matías Suárez se postuló al Concurso Internacional de Cuento Corto</td>
-                                <td class="">
-                                    <div class="fichas fichas_td fichas_negativo"><span class="icono icon-ficha"></span>-5</div> 
-                                    <div class="dinero dinero_td"><span class="icono">$ </span>5.000 </div>
-                                </td>
-                            </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div> 
     </article> 
 </section>
-
+{{-- 
+<tbody>
+    <tr>
+      <td><span class="icono icon-flag tooltip"> <span class="tooltiptext">Reportar</span> </span> 02/12/2020 16:44</td>
+      <td class="id_transaccion">19762</td>
+      <td>Matías Suárez se postuló al Concurso Internacional de Cuento Corto</td>
+        <td class="">
+            <div class="fichas fichas_td fichas_negativo"><span class="icono icon-ficha"></span>-5</div> 
+            <div class="dinero dinero_td"><span class="icono">$ </span>5.000 </div>
+        </td>
+    </tr>
+</tbody> --}}
 <div id="reportar_transaccion" class="modal_">
     <div class="contenedor">
         <div class="cont_modal_blanco cont_modal_basico">
@@ -137,7 +137,8 @@ ACA VA LA IMAGEN BLUREADA
 
 @section('footer')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/scroller/2.0.3/js/dataTables.scroller.min.js"></script>
     <script>
 
     @if(!$user->phone_verified_at) 
@@ -183,12 +184,7 @@ ACA VA LA IMAGEN BLUREADA
                 "order": [[0, "desc"]],
                 "serverSide": true,
                 "ajax": '{{url('transparencia-json')}}',
-                language: lang,
-                "columnDefs": [ {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button>Click!</button>"
-                } ],
+                "language": lang,
                 "columns": [
                     {"data": "date"},
                     {"data": "id"},
