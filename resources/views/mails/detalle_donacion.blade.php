@@ -75,12 +75,14 @@
                                                     <td style="padding:2px 0; border-top:0; border-bottom:0;text-align: right;">
                                                         USD {{$amount}}</td>
                                                 </tr>
+                                                @if($payment_processor == 'mercadopago')
                                                 <tr>
                                                     <td style="padding:2px 0; border-top:0; border-bottom:0;">Total en Pesos Argentinos
                                                     </td>
                                                     <td style="padding:2px 0; border-top:0; border-bottom:0;text-align: right;">
-                                                        ARS {{$amount}}</td>
+                                                        ARS {{$amount_ars}}</td>
                                                 </tr>
+                                                @endif
                                                 <tr>
                                                     <td style="padding:2px 0; border-top:0; border-bottom:0;">Donante
                                                     </td>

@@ -428,7 +428,9 @@ class DonarController extends Controller
             "paymentId" => $compra->internal_id,
             "fecha" => Carbon::now()->format("d-m-Y H:i"),
             "productName" => $producto->name,
+            "payment_processor" => $compra->payment_processor,
             "amount" => $producto->getPriceInUsd(),
+            "amount_ars" => $producto->getPriceInArs(),
             "donante" => $user->name . " " . $user->lastName
         ];
         $mailer = new Mailer();
