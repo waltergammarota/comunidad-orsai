@@ -98,11 +98,11 @@
     <section class="resaltado_gris cuerpo_inscripcion">
         <div class="contenedor_interna">
             <div class="cuerpo_interna">
-                <h2 class="cuerpo_inscripcion_title">{{$concurso->name}}</h2>
-                {{$concurso->bajada_completa}}
+                {{-- <h2 class="cuerpo_inscripcion_title">{{$concurso->name}}</h2> --}}
+                {!! $concurso->bajada_completa !!}
                 <div class="center-columns">
                     @if($bases)
-                        <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
+                        <a href="{{url($bases->slug)}}" target="_blank" class="link">Leer bases y condiciones</a>
                     @endif
                     @if($estado == "abierto")
                         @if($concurso->hasPostulacionesAbiertas())

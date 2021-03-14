@@ -206,8 +206,8 @@
                                                 Cargando...
                                             </div>
                                         </div>
-                                    </div>
-                                    <p class="infinite-scroll-last">No hay más concursos.</p>
+                                    {{-- </div>
+                                    <p class="infinite-scroll-last">No hay más concursos.</p> --}}
                                 </div>
 
                                 <!-- pagination has path -->
