@@ -96,7 +96,7 @@ class ContestController extends Controller
             return Redirect::to(url('no-encontrado'));
         }
         $data['concurso'] = $contest;
-        $data['diferencia'] = Carbon::now()->diffInDays($contest->end_app_date);
+        $data['diferencia'] = $contest->end_app_date;
         $data['postulaciones_abiertas'] = false;
         $data['logo'] = $contest->logo();
         $data['cantidadPostulaciones'] = $contest->cantidadPostulaciones();

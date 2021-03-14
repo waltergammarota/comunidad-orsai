@@ -55,15 +55,13 @@
                     </div> 
                     <div class="hero-nav-item">
                         <div class="content-nav center">
-                            <a href="#"
-                                class="btn-postulacion">Subir mi postulación</a>
+                            <a href="#" class="btn-postulacion">Subir mi postulación</a>
                         </div>
                     </div> 
                 </div>
             </nav>
             <div class="subir_postulacion"> 
-                <a href="#"
-                    class="btn-postulacion">Subir mi postulación</a> 
+                <a href="#" class="btn-postulacion">Subir mi postulación</a> 
             </div>
         </div>
     </section>

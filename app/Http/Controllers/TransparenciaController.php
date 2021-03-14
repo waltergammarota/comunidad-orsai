@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Databases\CompraModel;
+use App\Databases\CompraModel; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ class TransparenciaController extends Controller
     {
         $data = $this->getUserData();
         $data['total'] = CompraModel::where('processed', 1)->sum('amount');
+        $data['user'] = Auth::user();
         return view('transparencia.index', $data);
     }
 

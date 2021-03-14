@@ -9,8 +9,8 @@
     <section class="resaltado_gris concursos_nuevos">
         <div class="container-concurso">
             <h2 class="title">CONCURSOS <span class="line"></span></h2>
-            <p class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
+            <p class="subtitle">Este es el casino cultural de Comunidad Orsai.</p>
+            <p class="subtitle">Participá de los concursos: subí la cantidad de postulaciones que quieras y ponele fichas a otras historias que te gusten. ¿Querés tener ventaja? <strong>Convertite en jurado VIP</strong>.</p>
             <hr class="gray">
 
             <div class="nav-filter">

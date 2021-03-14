@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success float-right">
-                    Enviar Puntos
+                    Liberar Fichas
                 </button>
             </form>
         </div>

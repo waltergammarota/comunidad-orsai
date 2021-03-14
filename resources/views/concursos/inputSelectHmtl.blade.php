@@ -3,8 +3,8 @@
         <div class="label-two-columns-flex">
             <label class="text_medium" for="categoria">{{$title}}</label>
             @if($tutorial != "")
-                <a class="btn_tutorial" href="#videotutorial-{{$id}}" rel="modal:open">Ver
-                    tutorial</a>
+                {{-- <a class="btn_tutorial" href="#videotutorial-{{$id}}" rel="modal:open">Ver tutorial</a> --}}
+                <a class="btn_tutorial" href="{{$tutorial}}" target="_blank">Ver tutorial</a>
             @endif
             <span
                 class="disclaimer">{{$description}}</span>
@@ -20,15 +20,19 @@
                     @endif
                 @endforeach
             </select>
-        </div>
-        @error($inputName) {{$message}} @enderror
+        </div> 
+        @error($inputName)
+            <span class="invalid-feedback">
+                <span class="error">{{$message}}</span>
+            </span>
+        @enderror 
     </div>
 </div>
 
-@if($tutorial != "")
+{{-- @if($tutorial != "")
     <div id="videotutorial-{{$id}}" class="modal videotutorial">
         <iframe width="800" height="600" src="{{$tutorial}}" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
     </div>
-@endif
+@endif --}}

@@ -56,9 +56,8 @@
                                             <td>{{$postulacion->created_at->subHours(3)->format('d/m/Y H:i')}}</td>
                                             <?php $status = $postulacion->status()->first(); ?>
                                             @if($status && $status->status  == 'approved')
-                                                <td><a href="{{url('postulacion/'.$postulacion->id)}}"
-                                                       class="estado_postulacion estado_aprobado"><p>Aprobada</p><span
-                                                            class="icon-check"></span></a></td>
+                                                <td><span class="estado_postulacion estado_aprobado"><p>Aprobada</p><span
+                                                            class="icon-check"></span></span></td>
                                             @elseif($status && $status->status == "rejected")
                                                 <td><a href="{{url('postulacion/'.$postulacion->id)}}"
                                                        class="estado_postulacion estado_rechazado"><p>Rechazada</p><span
