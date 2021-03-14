@@ -100,8 +100,11 @@
                     </form>
                 </article>
             </div>
-            <div class="concurso-footer">
-                <a href="{{url('concursos/')}}" class="btn-back">Volver</a>
+            <div class="form_ctrl input_" style="margin-top:20px;">
+                <div class="align_left btn_noti_ico">
+                    <a href="{{url('concursos/')}}" class="boton_redondeado btn_transparente"><span class="icon-angle-left"></span>
+                        Volver</a>
+                </div>
             </div>
         </div>
     </section>
@@ -115,7 +118,7 @@
         </div>
         <div class="align_center">
             <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</a>
-            <a href="#" rel="modal:close" class="boton_decline width_100" onclick="modalHide()">Ahora no</a>
+            <a href="#" rel="modal:close" class="boton_decline width_100" >Ahora no</a>
         </div>
     </div>
 @endsection
@@ -137,11 +140,7 @@
         const form = $('#concursos');
         const pricePerCpa = parseInt($("#pricePerCpa").val());
         const modal = $(".modal_sinfichas");
-
-        function modalHide() {
-            modal.hide();
-        }
-
+ 
         form.submit(function (event) {
             event.preventDefault();
             getBalance().then(balance => {
@@ -157,7 +156,7 @@
                     }
                     event.currentTarget.submit();
                 } else {
-                    modal.show();
+                    modal.modal();
                 }
             });
         });

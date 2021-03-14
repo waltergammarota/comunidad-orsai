@@ -32,7 +32,7 @@
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav">
-                            <span>Te quedan<br/><strong>{{$diferencia}} dias</strong></span>
+                            <span>Te quedan<br/><strong id="countdown_concurso"></strong></span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
@@ -75,7 +75,7 @@
                     </div>
 
                     @if($estado == "abierto")
-                        @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas())
+                        @if($concurso->hasPostulacionesAbiertas())
                             <div class="hero-nav-item">
                                 <div class="content-nav center">
                                     <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
@@ -86,10 +86,13 @@
                     @endif
                 </div>
             </nav>
-            <div class="subir_postulacion">
-                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
-                   class="btn-postulacion">Subir mi postulación</a>
-            </div>
+            @if($estado == "abierto")
+                @if($concurso->hasPostulacionesAbiertas())
+                    <div class="subir_postulacion">
+                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="btn-postulacion">Subir mi postulación</a>
+                    </div>
+                @endif
+            @endif
         </div>
     </section>
     <section class="resaltado_gris cuerpo_inscripcion">
@@ -104,9 +107,7 @@
                     @if($estado == "abierto")
                         @if($concurso->hasPostulacionesAbiertas())
                             <div class="align_center">
-                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
-                                   class="boton_redondeado resaltado_amarillo text_bold width_100">
-                                    Subir mi postulación</a>
+                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Subir mi postulación</a>
                             </div>
                         @endif
                     @endif
@@ -125,8 +126,14 @@
 
 @section('footer')
     @include("fundacion.footer-fundacion")
+    <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
-
+        $("#countdown_concurso")
+            .countdown("{{$diferencia}}", function(event) {
+            $(this).text(
+                event.strftime('%D días %H:%M:%S')
+            );
+        });
         $(".hero-nav-content").owlCarousel({
             responsiveClass: true,
             dots: false,

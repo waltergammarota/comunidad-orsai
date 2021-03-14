@@ -12,7 +12,7 @@
                 proyectos de la Comunidad Orsai.</p>
         </div>
         <div class="center_div">
-            <div class="contenedor mg_0 dis_flex ">
+            <div class="contenedor mg_0 dis_flex donar">
                 @foreach($productos as $producto)
                     @if($producto->getPriceInUsd() >= 100)
                         <article class="card_style_6 card_style_6_black coins_10000">

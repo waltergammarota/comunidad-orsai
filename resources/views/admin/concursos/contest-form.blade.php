@@ -39,16 +39,16 @@
                                 @error('name') <span class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
                             <div class="form-group">
-                                <label for="bajadaCorta">Bajada corta (Máximo 168 caracteres)</label>
-                                <textarea type="text" class="form-control" id="bajadaCorta" placeholder="Bajada corta"
+                                <label for="bajadaCorta">Bajada (Máximo 168 caracteres)</label>
+                                <textarea type="text" class="form-control" id="bajadaCorta" placeholder="Bajada"
                                           name="bajada_corta">{{$contest?$contest->bajada_corta:old('bajada_corta')}}</textarea>
                                 @error('bajada_corta') <span
                                     class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
                             <div class="form-group">
-                                <label for="bajadaCompleta">Bajada completa</label>
+                                <label for="bajadaCompleta">Descripción</label>
                                 <textarea type="text" class="form-control" id="bajadaCompleta"
-                                          placeholder="Bajada completa"
+                                          placeholder="Descripción"
                                           name="bajada_completa">{{$contest?$contest->bajada_corta:old('bajada_completa')}}</textarea>
                                 @error('bajada_completa') <span
                                     class="help-block">Este campo es obligatorio</span> @enderror
@@ -275,7 +275,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Votos para ser jurado</label>
+                                        <label for="exampleInputEmail1">Fichas para ser Jurado VIP</label>
                                         <input type="number" step="1" class="form-control" id="cost_jury"
                                                placeholder="0"
                                                name="cost_jury"
