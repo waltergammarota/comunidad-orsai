@@ -11761,3 +11761,110 @@ table.dataTable .tran_creditos.transparencia tbody tr {
     -o-transition: opacity 0.6s;
     opacity: 1;
 }
+
+.card_style_7{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+
+.card_style_7 div img{
+    width:100%;
+    max-height:500px;
+    text-align: center; 
+    margin:0 auto;
+}
+.card_style_7 .cuerpo_texto{
+    position:relative;
+}
+
+.card_style_7 .cuerpo_texto h2{
+    font-size:36px;
+    margin-top:0;
+    margin-bottom:20px;
+    line-height: 100%;
+
+}
+
+.card_style_7 .cuerpo_texto p, .card_style_7 .cuerpo_texto div > span{
+    font-size:16px;
+}
+.card_style_7 .cuerpo_texto div > span{
+    display:block;
+}
+.card_style_7 .cuerpo_texto a{
+    margin-top:45px;
+    display:inline-block;
+}
+
+@media (max-width:991px){
+
+    .card_style_7 div img{
+        max-height: 400px;
+    }
+    .card_style_7{
+        flex-direction:column;
+    }
+    .card_style_7 > div{
+        width:100%;
+    }
+    .card_style_7 .cuerpo_texto div{
+        text-align: center;
+    }
+    .card_style_7 .cs_7_img .div_img img{
+        height:200px;
+        width:100%;
+        max-height:500px; 
+        background-size: 200px auto;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .trans_img{
+        display:none;
+    }
+    .trans_img_mobile{
+        display:block;
+    }
+}
+
+@media (min-width:991px){
+    .card_style_7 .cuerpo_texto{
+        width:60%;
+        padding-left:35px
+    }
+    .card_style_7 .cs_7_img{
+        width:40%;
+        text-align: right;
+    }
+    .card_style_7 .cs_7_img .div_img img{
+        height:300px;
+        width:100%;
+        max-height:500px; 
+        background-size: 400px auto;
+        background-repeat: no-repeat;
+        background-position: right;
+    }
+    .trans_img_mobile{
+        display:none;
+    }
+    .trans_img{
+        display:block;
+    }
+    .card_style_7{
+        padding-left:20px;
+        padding-right:20px;
+        max-width: 1000px;
+        margin: auto;
+    }
+    .card_style_7 .cuerpo_texto div{
+        position:absolute;
+        top:50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        padding-right:20px;
+    }
+}
