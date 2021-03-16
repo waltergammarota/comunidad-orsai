@@ -68,6 +68,28 @@
                 </div>
             @endif
         @endif
+    </section><section class="resaltado_gris_oscuro pd_tp_bt pd_20">
+        <div class="contenedor">
+            <article class="card_style_7">
+                <div class="cs_7_img">
+                    <div class="div_img"> 
+                        <img src="{{url('estilos/front2021/assets/socios_curiosos_2.svg')}}" class="trans_img_mobile" />
+                        <img src="{{url('estilos/front2021/assets/socios_curiosos.svg')}}" class="trans_img" />
+                    </div>
+                </div>
+                <div class="cuerpo_texto">
+                    <div>
+                        <h2 class="_barlow_text text_regular">APTO PARA SOCIOS CURIOSOS</h2>
+                        <p>Cuando te agarre un baldeo y no sepas a dónde fueron tus fichas, asomate por la ventana.</p>
+                        <span><strong>Mirá lo que hace</strong></span>
+                        <span><strong>Comunidad Orsai con tus fichas.</strong></span>
+                        <a href="{{url('transparencia')}}" class="boton_redondeado resaltado_amarillo pd_50_lf_rg">
+                            <span>Enterate más</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
     </section>
     {!! $home2 !!}
     @if (Auth::check())
@@ -76,6 +98,29 @@
                      style="padding:40px;text-align:center; background:rgb(209, 0, 0);font-size:16px;color:#fff;">
                 <span style="font-size:24px;">MÓDULOS VISIBLES PARA ADMINISTRADORES</span><br/>
                 <span style="font-size:32px;">&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;&darr;</span>
+            </section> 
+            <section class="resaltado_gris_oscuro pd_tp_bt pd_20">
+                <div class="contenedor">
+                    <article class="card_style_7">
+                        <div class="cs_7_img">
+                            <div class="div_img"> 
+                                <img src="{{url('estilos/front2021/assets/socios_curiosos_2.svg')}}" class="trans_img_mobile" />
+                                <img src="{{url('estilos/front2021/assets/socios_curiosos.svg')}}" class="trans_img" />
+                            </div>
+                        </div>
+                        <div class="cuerpo_texto">
+                            <div>
+                                <h2 class="_barlow_text text_regular">APTO PARA SOCIOS CURIOSOS</h2>
+                                <p>Cuando te agarre un baldeo y no sepas a dónde fueron tus fichas, asomate por la ventana.</p>
+                                <span><strong>Mirá lo que hace</strong></span>
+                                <span><strong>Comunidad Orsai con tus fichas.</strong></span>
+                                <a href="{{url('transparencia')}}" class="boton_redondeado resaltado_amarillo pd_50_lf_rg">
+                                    <span>Enterate más</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </section>
             <section class="resaltado_amarillo pd_tp_bt pd_20">
                 <div class="contenedor titulo_seccion_sm">
