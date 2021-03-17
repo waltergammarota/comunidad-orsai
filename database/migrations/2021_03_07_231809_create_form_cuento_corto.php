@@ -105,7 +105,7 @@ class CreateFormCuentoCorto extends Migration
         $cuento->placeholder = "[PÁRRAFO]";
         $cuento->required = 1;
         $cuento->cols = 30;
-        $cuento->rows = 10;
+        $cuento->filas = 10;
 
         $cuento->save();
     }
