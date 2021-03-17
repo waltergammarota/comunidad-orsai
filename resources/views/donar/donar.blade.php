@@ -8,7 +8,8 @@
     <section class="resaltado_amarillo pd_tp_bt pd_20">
         <div class="contenedor  cs6_titulo_seccion_sm">
             <h2>Ponele fichas <strong>a las buenas ideas</strong></h2>
-            <p><strong>Elegí tu pack.</strong> Cada vez que hacés una donación, a cambio te damos fichas para que apuestes a la narrativa.</p>
+            <p><strong>Elegí tu pack.</strong> Cada vez que hacés una donación, a cambio te damos fichas para que
+                apuestes a la narrativa.</p>
         </div>
         <div class="center_div">
             <div class="contenedor mg_0 dis_flex donar">
@@ -52,7 +53,7 @@
                 <img src="{{url('recursos/donantes.svg')}}" class="icono" alt="boleteria">
                 <span>Hacé tu donación y buscáte en la página de</span>
                 <div class="cant_soc_donantes ">
-                    <span class="_barlow_text text_bold">transparencia obsena</span>
+                    <span class="_barlow_text text_bold">transparencia</span>
                 </div>
                 <span>de la Comunidad Orsai.</span>
             </article>
