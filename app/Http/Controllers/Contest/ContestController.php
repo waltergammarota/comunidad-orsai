@@ -281,13 +281,10 @@ class ContestController extends Controller
             "end_vote_date" => "required",
             "type" => "required",
             "mode" => "required",
-            "images" => "required|array|min:1"
         ]);
 
         if ($validator->fails()) {
-            return redirect('admin/concursos/crear')
-                ->withErrors($validator)
-                ->withInput();
+            return Redirect::back()->withErrors($validator)->withInput();
         }
         $fileRepo = new FileRepository();
         $images = $fileRepo->getUploadedFiles('images', $request);
