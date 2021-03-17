@@ -84,7 +84,9 @@ class Mailer
         $productName = $data['productName'];
         $amount = $data['amount'];
         $donante = $data['donante'];
-        ProcessDonationMail::dispatch($email, $fichas, $paymentId, $fecha, $productName, $amount, $donante);
+        $amount_ars = $data['amount_ars'];
+        $payment_processor = $data['payment_processor'];
+        ProcessDonationMail::dispatch($email, $fichas, $paymentId, $fecha, $productName, $amount, $amount_ars, $payment_processor, $donante);
     }
 
     public function sendReclamo($txId, $reclamo)
