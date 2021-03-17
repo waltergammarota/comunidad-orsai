@@ -119,7 +119,7 @@
             <p>Hacé una donación para conseguir más.</p>
         </div>
         <div class="align_center">
-            <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</a>
+            <a href="#" onclick="donar()" class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</a>
             <a href="#" rel="modal:close" class="boton_decline width_100">Ahora no</a>
         </div>
     </div>
@@ -147,7 +147,7 @@
             event.preventDefault();
             getBalance().then(balance => {
                 const enviar = $(document.activeElement).val();
-                if (enviar == "guardar") {
+                if (enviar == "guardar" || enviar == "") {
                     event.currentTarget.submit();
                     return;
                 }
@@ -210,6 +210,16 @@
                 $this.parent().find('.content-count-words').removeClass("error");
             }
             return $this.parent().find('.count-words-text').text(maxWords - wordcount);
+        }
+
+        function donar() {
+            event.preventDefault();
+            const input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "redirect").val("donar");
+            form.append(input);
+            console.log("donandooooo....");
+            $("#save").trigger('click');
         }
 
     </script>

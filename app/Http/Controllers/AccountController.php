@@ -293,14 +293,15 @@ class AccountController extends Controller
 
     public function sent_cpa($cpa, $contest, $user)
     {
-        $cpa->bases = Carbon::now();
-        $cpa->condiciones = Carbon::now();
-        $cpa->save();
-        $cpaLog = new CpaLog(["status" => "sent", "cap_id" => $cpa->id]);
-        $cpaLog->save();
-        Transaction::createTransaction($user->id, $contest->pool_id, $contest->cost_per_cpa, "Inscripción a concurso " . $contest->name, null, 'TRANSFER');
+        if ($user->getBalance() >= $contest->cost_per_cpa) {
+            $cpa->bases = Carbon::now();
+            $cpa->condiciones = Carbon::now();
+            $cpa->save();
+            $cpaLog = new CpaLog(["status" => "sent", "cap_id" => $cpa->id]);
+            $cpaLog->save();
+            Transaction::createTransaction($user->id, $contest->pool_id, $contest->cost_per_cpa, "Inscripción a concurso " . $contest->name, null, 'TRANSFER');
+        }
         return Redirect::to('mis-postulaciones');
-
     }
 
 
@@ -383,11 +384,6 @@ class AccountController extends Controller
 
     public function store_publicacion(Request $request)
     {
-        $user = Auth::user();
-        $contest = ContestModel::find($request->contest_id);
-        if ($user->getBalance() < $contest->cost_per_cpa) {
-            return Redirect::back();
-        }
         if ($request->cap_id == 0) {
             return $this->createNewCap($request);
         }
@@ -423,6 +419,9 @@ class AccountController extends Controller
         $this->saveAnswers($contest, $form, $cpa, $user, $request);
         if ($request->enviar == "enviar") {
             $this->sent_cpa($cpa, $contest, $user);
+        }
+        if ($request->redirect == "donar") {
+            return Redirect::to("donar");
         }
         return Redirect::to("mis-postulaciones");
     }
@@ -462,6 +461,9 @@ class AccountController extends Controller
         }
         if ($request->enviar == "enviar") {
             $this->sent_cpa($cpa, $contest, $user);
+        }
+        if ($request->redirect == "donar") {
+            return Redirect::to("donar");
         }
         return Redirect::to("mis-postulaciones");
     }
