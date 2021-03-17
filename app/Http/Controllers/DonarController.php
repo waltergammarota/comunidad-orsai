@@ -32,7 +32,6 @@ class DonarController extends Controller
         $data = $this->getUserData();
         $cantidadMaximaProductos = 6;
         $data['productos'] = ProductoModel::where('visible', 1)->orderBy('fichas', 'asc')->take($cantidadMaximaProductos)->get();
-        $data['socios_donantes_qty'] = CompraModel::groupBy('user_id')->count();
         return view("donar.donar", $data);
     }
 
