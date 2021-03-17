@@ -28,6 +28,7 @@ class AnswerModel extends Model
     protected $casts = [
         "created_at" => 'datetime',
         "updated_at" => 'datetime',
+
     ];
 
     public function contest()
