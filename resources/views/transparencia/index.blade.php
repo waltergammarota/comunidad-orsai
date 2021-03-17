@@ -81,11 +81,12 @@
                     </div>
                     <div class="cuerpo_modal">
                         <p>Estás a punto de reportar la transacción ID# <span id="report_id"></span></p>
-                        <form action="#">
-                            <input type="hidden" name="" id="report_id_input" value="">
+                        <form action="{{url('reportar')}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="tx_id" id="report_id_input" value="">
                             <div class="form_ctrl input_">
                                 <div class="input_err">
-                                    <textarea name="descripcion" id="" cols="" rows=""
+                                    <textarea name="reclamo" id="" cols="" rows=""
                                               placeholder="Quiero reportar..."></textarea>
                                 </div>
                             </div>
@@ -129,7 +130,7 @@
     </div>
 @endsection
 
-@section('footer')
+@section('footer') 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/scroller/2.0.3/js/dataTables.scroller.min.js"></script>
@@ -174,7 +175,7 @@
                 {
                     "data": "date",
                     "render": function (data) {
-                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> ${data}`;
+                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
                     }
                 },
                 {"data": "id"},
@@ -194,7 +195,7 @@
                 {
                     "data": "date",
                     "render": function (data) {
-                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> ${data}`;
+                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
                     }
                 },
                 {"data": "id"},
@@ -271,10 +272,12 @@
                 $("#validacion_requerida").fadeOut();
                 $(".aviso").fadeOut();
                 $('html, body').css('overflowY', 'auto');
-            })
-            $(".icon-flag").on("click", function () {
-                $("#report_id").text($(this).parent().parent().find(".id_transaccion").text())
-                $("#report_id_input").val($(this).parent().parent().find(".id_transaccion").text())
+            });
+
+            table.on('click', ".icon-flag", function () {
+                const data = table.row($(this).parents('tr')).data();
+                $("#report_id").empty().append(data.id);
+                $("#report_id_input").val(data.id);
                 $('html, body').css('overflowY', 'hidden');
                 $("#reportar_transaccion").fadeIn();
             })
