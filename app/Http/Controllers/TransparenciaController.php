@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Databases\CompraModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
