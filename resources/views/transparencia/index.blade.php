@@ -171,7 +171,12 @@
 
         $(document).ready(function () {
             const colsDinero = [
-                {"data": "date"},
+                {
+                    "data": "date",
+                    "render": function (data) {
+                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> ${data}`;
+                    }
+                },
                 {"data": "id"},
                 {"data": "description"},
                 {
@@ -186,7 +191,12 @@
                 }
             ];
             const colsFichas = [
-                {"data": "date"},
+                {
+                    "data": "date",
+                    "render": function (data) {
+                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> ${data}`;
+                    }
+                },
                 {"data": "id"},
                 {"data": "description"},
                 {
