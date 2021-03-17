@@ -138,9 +138,6 @@ class User extends Authenticable implements JWTSubject
     public function getUserName()
     {
         $userID = $this->getID();
-        if ($this->anonimo == 1) {
-            return "Anónimo";
-        }
         if ($this->anonimo == 0 && $this->deleted_at == null) {
             if ($this->name != 'Comunidad Orsai') {
                 $data = '<a href="' . url("/perfil-usuario/$userID") . '">' . $this->name . ' ' . $this->lastName . '</a>';
