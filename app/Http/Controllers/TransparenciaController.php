@@ -89,7 +89,7 @@ class TransparenciaController extends Controller
     {
         $userFrom = User::find($tx->user_id);
         $userName = $userFrom->getUserName();
-        return "{$userName} hizo una donación a la Comunidad";
+        return "{$userName} hizo una donación a la Comunidad Orsai";
     }
 
     private function getFichasDescription($tx, $contests)
@@ -102,16 +102,9 @@ class TransparenciaController extends Controller
         if ($userFrom->id == 1) {
             return "{$to} recibió fichas de {$from}";
         }
-        if (in_array($userTo->id, $pools)) {
-            //'.url("/perfil-usuario/$userID").'
-            //{{url("concursos/".$concurso->id."/".urlencode($concurso->name))}}
-            
-            //'.url("/perfil-usuario/$userID").'
-            //{{url("concursos/".$contests->id."/".urlencode($contests->name))}}
-            //            return '{$from} se postuló al Concurso <a href="{url("concursos/".$contests->id."/".urlencode($contests->name))}">{$contests->firstWhere("pool_id", $userTo->id)->name}</a>';
-            //return '{$from} se postuló al Concurso <a href="{url("concursos/".$contests->id."/".urlencode($contests->name))}">{$contests->firstWhere("pool_id", $userTo->id)->name}</a>';
+        if (in_array($userTo->id, $pools)) { 
             $contest_url = "concursos/{$contests->firstWhere("pool_id", $userTo->id)->id}/" . urlencode($contests->firstWhere("pool_id", $userTo->id)->name);
-           return "{$from} se postuló al <a href='{$contest_url}'>{$contests->firstWhere("pool_id", $userTo->id)->name}</a>";
+            return "{$from} se postuló al <a href='{$contest_url}'>{$contests->firstWhere("pool_id", $userTo->id)->name}</a>";
            }
         // TODO AGREGAR VOTACION LEYENDA
         return "{$from} envió al Usuario {$to}";
