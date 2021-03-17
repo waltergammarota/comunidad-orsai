@@ -6,10 +6,12 @@ use App\Databases\CompraModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
 use App\User;
+use App\Utils\Mailer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class TransparenciaController extends Controller
 {
@@ -99,5 +101,17 @@ class TransparenciaController extends Controller
         }
         // TODO AGREGAR VOTACION LEYENDA
         return "{$from} envió al Usuario {$to}";
+    }
+
+
+    public function reportar(Request $request)
+    {
+        $request->validate([
+            "tx_id" => 'required',
+            "reclamo" => 'required'
+        ]);
+        $mailer = new Mailer();
+        $mailer->sendReclamo($request->tx_id, $request->reclamo);
+        return Redirect::to('transparencia');
     }
 }

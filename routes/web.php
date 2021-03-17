@@ -324,6 +324,11 @@ Route::middleware(['verified'])->group(
             'transparencia-json',
             'TransparenciaController@transparencia_json')
             ->name('transparencia-json');
+
+        Route::post(
+            'reportar',
+            'TransparenciaController@reportar')
+            ->name('reportar');
         // END OF TRANSPARENCIA
 
         Route::get(

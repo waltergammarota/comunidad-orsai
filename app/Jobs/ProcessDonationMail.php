@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\DonationMail;
+use App\Mail\ReclamoMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -45,6 +45,6 @@ class ProcessDonationMail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new DonationMail($this->fichas, $this->paymentId, $this->fecha, $this->productName, $this->amount, $this->donante));
+        Mail::to($this->email)->send(new ReclamoMail($this->fichas, $this->paymentId, $this->fecha, $this->productName, $this->amount, $this->donante));
     }
 }
