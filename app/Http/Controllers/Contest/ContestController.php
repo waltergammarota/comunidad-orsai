@@ -72,6 +72,11 @@ class ContestController extends Controller
         if ($isOnnlyCards) {
             return view('concursos.only-cards', $data);
         }
+        // TODO REMOVER CUANDO SE PUBLIQUE EL SEGUNDO
+        if ($data['total'] == 1) {
+            $firstContest = $data['concursos'][0];
+            return Redirect::to('concursos/' . $firstContest->id . '/' . $firstContest->name);
+        }
         return view("concursos.concursos-nuevos", $data);
     }
 
