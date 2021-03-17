@@ -96,20 +96,6 @@ $(document).ready(function() {
    }
    });
 
-
-   if ($(window).width() < 1040) {
-       // $(".submenu").siblings().append("<span class='icon-angle-down'></span> ");
-   $( ".submenu" ).parent( "li" ).on("click", function() {
-       $(this).find('.submenu').toggleClass('abierto');
-
-       if ($(this).find('.icono').hasClass("icon-angle-down")){
-           // console.log($(this).find('span'));
-           $(this).find('.icono').addClass('icon-angle-up').removeClass('icon-angle-down');
-       }else{
-           $(this).find('.icono').addClass('icon-angle-down').removeClass('icon-angle-up');
-       }
-
-})};
 if (document.getElementsByClassName("menu_lateral")[0]){
    if (document.getElementById("ordenar")) {
        var get_ordenar = document.getElementById("ordenar");

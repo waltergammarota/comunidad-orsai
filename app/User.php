@@ -130,9 +130,23 @@ class User extends Authenticable implements JWTSubject
         return $this->prefijo . $this->whatsapp;
     }
 
+    public function getID()
+    {
+        return $this->id;
+    }
     public function getUserName()
     {
-        return $this->anonimo == 0 && $this->deleted_at == null ? $this->userName : "Anónimo";
+        $userID = $this->getID();
+        if($this->anonimo == 0 && $this->deleted_at == null){ 
+            if($this->name != 'Comunidad Orsai'){
+                $data = '<a href="'.url("/perfil-usuario/$userID").'">'.$this->name.' '.$this->lastName.'</a>';
+            }else{ 
+                $data = $this->name;
+            }
+        }else{
+            $data = $this->name;    
+        }
+        return $data; 
     }
 
 }

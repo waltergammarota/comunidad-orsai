@@ -20,12 +20,18 @@ class TransparenciaController extends Controller
         $data = $this->getUserData();
         $data['total'] = CompraModel::where('processed', 1)->sum('amount');
         $data['user'] = Auth::user();
-        $data['baldeosYMordidas'] = Transaction::getFichasBaldeosYMordidas();
-        $data['fichasEnJuego'] = Transaction::getFichasEnJuego();
-        $data['fichasEnBilleteras'] = Transaction::getFichasEnBilleteras();
+        $baldeoymordida = Transaction::getFichasBaldeosYMordidas();
+        $data['baldeosYMordidas'] = $this->changeNumberFormat($baldeoymordida);
+        $fichasEnJuego = Transaction::getFichasEnJuego();
+        $data['fichasEnJuego'] = $this->changeNumberFormat($fichasEnJuego);
+        $fichasEnBilleteras = Transaction::getFichasEnBilleteras();
+        $data['fichasEnBilleteras'] = $this->changeNumberFormat($fichasEnBilleteras);
         return view('transparencia.index', $data);
     }
-
+    public function changeNumberFormat($number){
+        $number = number_format($number, 0, ',', '.');
+        return  $number;
+    }
     public function transparencia_json(Request $request)
     {
         $start = $request->start;
@@ -48,7 +54,7 @@ class TransparenciaController extends Controller
                     $row['id'] = $tx->payment_id;
                     $row['description'] = $this->getDineroDescription($tx);
                     $row['date'] = Carbon::create($tx->created_at)->format("d/m/Y H:i");
-                    $row['type'] = $tx->amount;
+                    $row['type'] = $this->changeNumberFormat($tx->amount);
                     array_push($data, $row);
                 }
                 $recordsTotal = CompraModel::where("processed", 1)->count();
@@ -63,7 +69,7 @@ class TransparenciaController extends Controller
                     $row['id'] = $tx->id;
                     $row['description'] = $this->getFichasDescription($tx, $contests);
                     $row['date'] = $tx->created_at->format("d/m/Y H:i");
-                    $row['type'] = $tx->getAmountForReport();
+                    $row['type'] = $this->changeNumberFormat($tx->getAmountForReport());
                     array_push($data, $row);
                 }
                 $recordsTotal = Transaction::count();
@@ -83,7 +89,7 @@ class TransparenciaController extends Controller
     {
         $userFrom = User::find($tx->user_id);
         $userName = $userFrom->getUserName();
-        return "{$userName} donó a la Comunidad";
+        return "{$userName} hizo una donación a la Comunidad";
     }
 
     private function getFichasDescription($tx, $contests)
@@ -97,8 +103,16 @@ class TransparenciaController extends Controller
             return "{$to} recibió fichas de {$from}";
         }
         if (in_array($userTo->id, $pools)) {
-            return "{$from} se postuló al Concurso {$contests->firstWhere("pool_id", $userTo->id)->name}";
-        }
+            //'.url("/perfil-usuario/$userID").'
+            //{{url("concursos/".$concurso->id."/".urlencode($concurso->name))}}
+            
+            //'.url("/perfil-usuario/$userID").'
+            //{{url("concursos/".$contests->id."/".urlencode($contests->name))}}
+            //            return '{$from} se postuló al Concurso <a href="{url("concursos/".$contests->id."/".urlencode($contests->name))}">{$contests->firstWhere("pool_id", $userTo->id)->name}</a>';
+            //return '{$from} se postuló al Concurso <a href="{url("concursos/".$contests->id."/".urlencode($contests->name))}">{$contests->firstWhere("pool_id", $userTo->id)->name}</a>';
+            $contest_url = "concursos/{$contests->firstWhere("pool_id", $userTo->id)->id}/" . urlencode($contests->firstWhere("pool_id", $userTo->id)->name);
+           return "{$from} se postuló al <a href='{$contest_url}'>{$contests->firstWhere("pool_id", $userTo->id)->name}</a>";
+           }
         // TODO AGREGAR VOTACION LEYENDA
         return "{$from} envió al Usuario {$to}";
     }

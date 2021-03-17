@@ -72,7 +72,7 @@
                                         </tr>
                                         <tr class="pesitos">
                                             <td colspan="2" class="pie_tabla color_gris_claro">
-                                                Cotización: 1 USD = {{$producto->getCotizacion()}}
+                                                <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Conversión Dolar Bolsa</a>: USD 1 = ARS {{$producto->getCotizacion()}}
                                             </td>
                                         </tr>
                                     </table>
