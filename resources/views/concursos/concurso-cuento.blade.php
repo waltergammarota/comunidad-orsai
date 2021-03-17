@@ -102,8 +102,9 @@
             </div>
             <div class="form_ctrl input_" style="margin-top:20px;">
                 <div class="align_left btn_noti_ico">
-                    <a href="{{url('concursos/')}}" class="boton_redondeado btn_transparente"><span class="icon-angle-left"></span>
-                        Volver</a>
+                    <a href="{{url('concursos')}}"
+                       class="boton_redondeado btn_transparente"><span class="icon-angle-left"></span>
+                         Volver a concursos</a>
                 </div>
             </div>
         </div>
