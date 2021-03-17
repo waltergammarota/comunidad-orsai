@@ -6,7 +6,7 @@ namespace App\Utils;
 
 use App\Jobs\ProcessActivationMail;
 use App\Jobs\ProcessApproveMail;
-use App\Jobs\ProcessDonationMail;
+use App\Jobs\ProcessReclamoMail;
 use App\Jobs\ProcessRejectMail;
 use App\Jobs\ProcessResetPasswordMail;
 use App\Jobs\ProcessSendContactData;
@@ -85,7 +85,12 @@ class Mailer
         $productName = $data['productName'];
         $amount = $data['amount'];
         $donante = $data['donante'];
-        ProcessDonationMail::dispatch($email, $fichas, $paymentId, $fecha, $productName, $amount, $donante);
+        ProcessReclamoMail::dispatch($email, $fichas, $paymentId, $fecha, $productName, $amount, $donante);
+    }
+
+    public function sendReclamo($txId, $reclamo)
+    {
+        ProcessReclamoMail::dispatch($txId, $reclamo);
     }
 
 }
