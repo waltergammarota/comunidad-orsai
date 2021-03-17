@@ -24,7 +24,7 @@ class PropuestaController extends Controller
         $postulacionId = $request->route('id');
         $cpa = ContestApplicationModel::find($postulacionId);
         $user = Auth::user();
-        if ($cpa && ($user->id == $cpa->id || $user->role == "admin")) {
+        if ($cpa && ($user->id == $cpa->user_id || $user->role == "admin")) {
             $data = $this->getUserData();
             $postulacion = $cpa;
             $contest = $cpa->contest()->first();
