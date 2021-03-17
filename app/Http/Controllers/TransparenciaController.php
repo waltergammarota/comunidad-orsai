@@ -28,10 +28,13 @@ class TransparenciaController extends Controller
         $data['fichasEnBilleteras'] = $this->changeNumberFormat($fichasEnBilleteras);
         return view('transparencia.index', $data);
     }
-    public function changeNumberFormat($number){
+
+    public function changeNumberFormat($number)
+    {
         $number = number_format($number, 0, ',', '.');
-        return  $number;
+        return $number;
     }
+
     public function transparencia_json(Request $request)
     {
         $start = $request->start;
@@ -46,7 +49,7 @@ class TransparenciaController extends Controller
             case "dinero":
                 $txsQuery = DB::table('compras')->join('users', 'compras.user_id', '=', 'users.id')
                     ->join('productos', 'productos.id', '=', 'compras.producto_id')
-                    ->where('compras.processed', '=', 1);
+                    ->where('compras.processed', '=', 1)->select(DB::raw('compras.*, users.*, productos.*, compras.user_id as comprador'));
                 $txs = $txsQuery->offset($offset)->limit($limit)
                     ->orderBy('compras.created_at', 'desc')->get();
                 foreach ($txs as $tx) {
@@ -87,7 +90,7 @@ class TransparenciaController extends Controller
 
     private function getDineroDescription($tx)
     {
-        $userFrom = User::find($tx->user_id);
+        $userFrom = User::find($tx->comprador);
         $userName = $userFrom->getUserName();
         return "{$userName} hizo una donación a la Comunidad Orsai";
     }
@@ -102,10 +105,11 @@ class TransparenciaController extends Controller
         if ($userFrom->id == 1) {
             return "{$to} recibió fichas de {$from}";
         }
-        if (in_array($userTo->id, $pools)) { 
+        if (in_array($userTo->id, $pools)) {
             $contest_url = "concursos/{$contests->firstWhere("pool_id", $userTo->id)->id}/" . urlencode($contests->firstWhere("pool_id", $userTo->id)->name);
-            return "{$from} se postuló al <a href='{$contest_url}'>{$contests->firstWhere("pool_id", $userTo->id)->name}</a>";
-           }
+            return "{$from} se postuló al <a href='{
+                $contest_url}'>{$contests->firstWhere("pool_id", $userTo->id)->name}</a>";
+        }
         // TODO AGREGAR VOTACION LEYENDA
         return "{$from} envió al Usuario {$to}";
     }
