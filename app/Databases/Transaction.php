@@ -99,7 +99,7 @@ class Transaction extends Model
         switch ($this->from) {
             case 1:
                 return $this->amount;
-            case 2:
+            default:
                 return $this->amount * -1;
         }
     }
