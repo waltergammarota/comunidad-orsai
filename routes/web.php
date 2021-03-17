@@ -97,24 +97,6 @@ Route::get(
     'WebController@historia'
 )->name('historia');
 
-Route::get(
-    '/concurso-cuento',
-    'WebController@concurso_cuento'
-)->name('concurso-cuento');
-
-
-Route::get(
-    '/concurso-apuesta',
-    'WebController@concurso_apuesta'
-)->name('concurso-apuesta');
-
-
-Route::get(
-    '/concursos-nuevos',
-    'WebController@concursos_nuevos'
-)->name('concursos-nuevos');
-
-
 Route::post(
     '/donar/mercado_pago_webhook',
     'DonarController@mercado_pago_webhook'
