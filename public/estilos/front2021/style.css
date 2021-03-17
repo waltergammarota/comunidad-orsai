@@ -11801,6 +11801,10 @@ table.dataTable .tran_creditos.transparencia tbody tr {
     max-width: 500px;
 }
 
+.link_underline:hover{    
+    text-decoration:underline;
+}
+
 #validacion_requerida .titulo {
     font-size: 40px;
     border-bottom: 1px solid black;
@@ -11994,4 +11998,7 @@ table.dataTable .tran_creditos.transparencia tbody tr {
         -o-transform: translateY(-50%);
         padding-right: 20px;
     }
+} 
+.blur{
+    filter: blur(4px);
 }

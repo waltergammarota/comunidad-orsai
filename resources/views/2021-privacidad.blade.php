@@ -108,11 +108,7 @@
                                                     >
                                                     <span class="crear_check"></span>
                                                 </label>
-                                            </div>
-                                            <div class="btn_leer_perfil">
-                                                <a href="{{url('politica-de-cookies')}}"
-                                                   class="boton_redondeado btn_transparente">Leer</a>
-                                            </div>
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>

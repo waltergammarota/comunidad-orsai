@@ -105,7 +105,7 @@
                 <div class="align_left btn_noti_ico">
                     <a href="{{url('concursos')}}"
                        class="boton_redondeado btn_transparente"><span class="icon-angle-left"></span>
-                        Volver a concursos</a>
+                        Volver al concurso</a>
                 </div>
             </div>
         </div>
