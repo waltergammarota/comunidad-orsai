@@ -36,7 +36,8 @@
                                         <div class="label-centers">
                                             <label class="text_medium checkboxes" for="bases">
                                                 @if($bases)
-                                                    Acepto las <a href="{{url($bases->slug)}}" target="_blank">bases y condiciones del
+                                                    Acepto las <a href="{{url($bases->slug)}}" target="_blank">bases y
+                                                        condiciones del
                                                         concurso</a>
                                                 @endif
                                                 <input type="checkbox" name="bases" id="bases" value="1" checked>
@@ -104,7 +105,7 @@
                 <div class="align_left btn_noti_ico">
                     <a href="{{url('concursos')}}"
                        class="boton_redondeado btn_transparente"><span class="icon-angle-left"></span>
-                         Volver a concursos</a>
+                        Volver a concursos</a>
                 </div>
             </div>
         </div>
@@ -119,7 +120,7 @@
         </div>
         <div class="align_center">
             <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</a>
-            <a href="#" rel="modal:close" class="boton_decline width_100" >Ahora no</a>
+            <a href="#" rel="modal:close" class="boton_decline width_100">Ahora no</a>
         </div>
     </div>
 @endsection
@@ -141,12 +142,16 @@
         const form = $('#concursos');
         const pricePerCpa = parseInt($("#pricePerCpa").val());
         const modal = $(".modal_sinfichas");
- 
+
         form.submit(function (event) {
             event.preventDefault();
             getBalance().then(balance => {
                 const enviar = $(document.activeElement).val();
-                if (balance >= pricePerCpa) {
+                if (enviar == "guardar") {
+                    event.currentTarget.submit();
+                    return;
+                }
+                if (balance >= pricePerCpa && enviar == "enviar") {
                     console.log("enviando");
                     modal.hide();
                     if (enviar == "enviar") {
