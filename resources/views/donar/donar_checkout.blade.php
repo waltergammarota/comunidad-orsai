@@ -12,17 +12,19 @@
         #paypal-button-container {
             display: none;
         }
+
         .opt_mercadopago,
         .opt_paypal {
-            text-align:center;
+            text-align: center;
             display: none;
         }
-        .otras_opciones{
+
+        .otras_opciones {
             display: none;
-            font-size: 13px; 
+            font-size: 13px;
             margin: 25px 0;
-            text-decoration:underline;
-        } 
+            text-decoration: underline;
+        }
     </style>
     <script
         src="https://www.paypal.com/sdk/js?client-id={{env('PAYPAL_CLIENT_ID')}}&currency=USD"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
@@ -37,7 +39,7 @@
                                 DE CONSEGUIR TUS FICHAS</h1>
                         </div>
                         <table class="border_tp_bt_table">
-                            <tbody class=""> 
+                            <tbody class="">
                             <tr>
                                 <td colspan="2">
                                     <table class="items_detalle">
@@ -60,11 +62,6 @@
                                             </td>
                                             <td class="text_bold">USD {{$producto->getPriceInUsd()}}</td>
                                         </tr>
-                                        <tr class="">
-                                            <td colspan="2" class="pie_tabla color_gris_claro">Es posible que se
-                                                apliquen tarifas extra por tasas de cambio según país.
-                                            </td>
-                                        </tr>
                                         <tr class="_total pesitos">
                                             <td><br>Total en Pesos Argentinos
                                             </td>
@@ -72,7 +69,9 @@
                                         </tr>
                                         <tr class="pesitos">
                                             <td colspan="2" class="pie_tabla color_gris_claro">
-                                                <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Conversión Dolar Bolsa</a>: USD 1 = ARS {{$producto->getCotizacion()}}
+                                                <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/"
+                                                   target="_blank" class="color_gris_claro link_underline">Conversión
+                                                    Dolar Bolsa</a>: USD 1 = ARS {{$producto->getCotizacion()}}
                                             </td>
                                         </tr>
                                     </table>
@@ -83,13 +82,14 @@
                         <div class="forma_pago">
                             <span class="titulo text_bold">Seleccioná como querés abonar tu donación:</span>
                             <div class="opt_mercadopago">
-                                <span class="desc">Vas a realizar tu donación con <img src="{{url('recursos/mercadopago.svg')}}" width="100" alt="Mercado Pago"></span><br/>
+                                <span class="desc">Vas a realizar tu donación con <img
+                                        src="{{url('recursos/mercadopago.svg')}}" width="100" alt="Mercado Pago"></span><br/>
                             </div>
                             <div class="opt_paypal">
                                 <span class="desc">Vas a realizar tu donación con <strong>Paypal</strong>.<br/>También podes hacerlo con cualquier tarjeta de débito o crédito internacional. </span><br/>
                             </div>
                             <div class="grilla_form">
-                                <div class="form_ctrl col_3"> 
+                                <div class="form_ctrl col_3">
                                     <div class="align_center">
                                         <div class="boton_redondeado btn_gris width_100 mercadopago_"
                                              data-processor_type="mercadopago">
@@ -161,22 +161,22 @@
 
 
     <script>
-        $('.otras_opciones').on("click", function(e){
+        $('.otras_opciones').on("click", function (e) {
             e.preventDefault();
             $(".forma_pago .titulo").show();
             $('.grilla_form').show();
             $('.opt_mercadopago').hide();
             $('.opt_paypal').hide();
-            $(".pesitos").hide(); 
-            $("#paypal-button-container").hide(); 
-            $('#donar').addClass('hide').attr('disabled', 'disabled'); 
+            $(".pesitos").hide();
+            $("#paypal-button-container").hide();
+            $('#donar').addClass('hide').attr('disabled', 'disabled');
             $('.boton_redondeado').removeClass("active");
             $(this).hide();
         });
         $(".forma_pago .boton_redondeado").on("click", function () {
-                $(".forma_pago .titulo").hide();
-                $('.grilla_form').hide();
-                $('.otras_opciones').css('display','block');
+            $(".forma_pago .titulo").hide();
+            $('.grilla_form').hide();
+            $('.otras_opciones').css('display', 'block');
             if ($(this).data('processor_type') == "mercadopago") {
                 $(".pesitos").show();
                 $('#donar').removeClass('hide').removeAttr('disabled');

@@ -42,11 +42,6 @@
                                             </td>
                                             <td class="text_bold">USD {{$producto->getPriceInUsd()}}</td>
                                         </tr>
-                                        <tr class="">
-                                            <td colspan="2" class="pie_tabla color_gris_claro">Es posible que se
-                                                apliquen tarifas extra por tasas de cambio según país.
-                                            </td>
-                                        </tr>
                                     </table>
                                 </td>
                             </tr>
