@@ -195,7 +195,7 @@
                 {
                     "data": "date",
                     "render": function (data) {
-                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span>xx</span> ${data}`;
+                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
                     }
                 },
                 {"data": "id"},
