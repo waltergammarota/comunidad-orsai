@@ -298,6 +298,11 @@ Route::middleware(['verified'])->group(
         )->name('concurso-finalizado');
 
         Route::get(
+            '/concurso-apuesta',
+            'WebController@concurso_apuesta'
+        )->name('concurso-apuesta');
+
+        Route::get(
             '/concursos/{id}/{name}/{orden?}',
             'Contest\ContestController@show'
         )->name('participantes');
