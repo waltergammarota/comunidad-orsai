@@ -397,17 +397,15 @@ class AccountController extends Controller
         $rules = $form->getRules();
         $rules['bases'] = "required";
         $rules['contest_id'] = "required";
-        if ($rules) {
+        if ($rules && $request->enviar == "enviar") {
             Validator::make($request->all(), $rules, [], $form->getAttributes())->validate();
-        } else {
-            abort(404);
         }
+
         $user = Auth::user();
         $cpa = ContestApplicationModel::find($request->cap_id);
         if ($cpa->user_id != $user->id) {
             abort(404);
         }
-
         if ($contest == null && $cpa == null) {
             abort(404);
         }
@@ -440,10 +438,8 @@ class AccountController extends Controller
         $rules['bases'] = "required";
         $rules['contest_id'] = "required";
         $messages = $form->getAttributes();
-        if ($rules) {
+        if ($rules && $request->enviar == "enviar") {
             Validator::make($request->all(), $rules, [], $messages)->validate();
-        } else {
-            abort(404);
         }
 
         $cpa = new ContestApplicationModel();
@@ -482,7 +478,7 @@ class AccountController extends Controller
                 "input_id" => substr($key, 6),
                 "cap_id" => $cpa->id,
                 "user_id" => $user->id,
-                "answer" => $value
+                "answer" => $value ? $value : ""
             ]);
             $answer->save();
         }
