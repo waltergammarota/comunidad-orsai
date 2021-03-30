@@ -125,6 +125,16 @@ class ContestModel extends Model
         return $this->end_date < Carbon::now();
     }
 
+    public function cantidadCuentistasInscriptos()
+    {
+        return ContestApplicationModel::where('contest_id', $this->id)->groupBy('user_id')->count();
+    }
+
+    public function cantidadPostulacionesEnTotal()
+    {
+        return ContestApplicationModel::where('contest_id', $this->id)->count();
+    }
+
     public function cantidadPostulaciones()
     {
         return ContestApplicationModel::where('contest_id', $this->id)->where('approved', 1)->count();

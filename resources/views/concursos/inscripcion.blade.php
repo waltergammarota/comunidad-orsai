@@ -41,8 +41,8 @@
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav column">
-                            <span class="big-number">{{$cantidadFichasEnJuego}}</span>
-                            <span>Fichas de<br> pozo acumulado</span>
+                            <span class="big-number">{{$cuentosPostulados}}</span>
+                            <span>Cuentos <br> postulados</span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
@@ -51,28 +51,38 @@
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav column">
-                            <span class="big-number">{{$concurso->cost_per_cpa}}</span>
-                            <span>Fichas de<br> costo de inscripcion</span>
+                            <span class="big-number">{{$cantidadPostulacionesAprobadas}}</span>
+                            <span>Cuentos<br> aprobados </span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
                         <div class="icon">
-                            @if($concurso->getMode()->id == 1)
-                                <img src="{{url('estilos/front2021/assets/modo_pozo.svg')}}"
-                                     alt="">
-                            @elseif($concurso->getMode()->id == 2)
-                                <img src="{{url('estilos/front2021/assets/modo_completo.svg')}}"
-                                     alt="">
-                            @else
-                                <img src="{{url('estilos/front2021/assets/modo_fijo.svg')}}"
-                                     alt="">
-                            @endif
+                            <img src="{{url('estilos/front2021/assets/ficha.svg')}}"
+                                 alt="insertar SVG con la etiqueta image">
                         </div>
-                        <div class="content-nav">
-                            <span>Modo</span>
-                            <span class="strong">{{$concurso->getMode()->name}}</span>
+                        <div class="content-nav column">
+                            <span class="big-number">{{$cuentistasInscriptos}}</span>
+                            <span>Cuentistas<br> inscriptos </span>
                         </div>
                     </div>
+                    {{--                    <div class="hero-nav-item">--}}
+                    {{--                        <div class="icon">--}}
+                    {{--                            @if($concurso->getMode()->id == 1)--}}
+                    {{--                                <img src="{{url('estilos/front2021/assets/modo_pozo.svg')}}"--}}
+                    {{--                                     alt="">--}}
+                    {{--                            @elseif($concurso->getMode()->id == 2)--}}
+                    {{--                                <img src="{{url('estilos/front2021/assets/modo_completo.svg')}}"--}}
+                    {{--                                     alt="">--}}
+                    {{--                            @else--}}
+                    {{--                                <img src="{{url('estilos/front2021/assets/modo_fijo.svg')}}"--}}
+                    {{--                                     alt="">--}}
+                    {{--                            @endif--}}
+                    {{--                        </div>--}}
+                    {{--                        <div class="content-nav">--}}
+                    {{--                            <span>Modo</span>--}}
+                    {{--                            <span class="strong">{{$concurso->getMode()->name}}</span>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
 
                     @if($estado == "abierto")
                         @if($concurso->hasPostulacionesAbiertas())
@@ -89,7 +99,8 @@
             @if($estado == "abierto")
                 @if($concurso->hasPostulacionesAbiertas())
                     <div class="subir_postulacion">
-                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="btn-postulacion">Subir mi postulación</a>
+                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="btn-postulacion">Subir
+                            mi postulación</a>
                     </div>
                 @endif
             @endif
@@ -107,7 +118,9 @@
                     @if($estado == "abierto")
                         @if($concurso->hasPostulacionesAbiertas())
                             <div class="align_center">
-                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Subir mi postulación</a>
+                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                   class="boton_redondeado resaltado_amarillo text_bold width_100">Subir mi
+                                    postulación</a>
                             </div>
                         @endif
                     @endif
@@ -129,11 +142,11 @@
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
         $("#countdown_concurso")
-            .countdown("{{$diferencia}}", function(event) {
-            $(this).text(
-                event.strftime('%D días %H:%M:%S')
-            );
-        });
+            .countdown("{{$diferencia}}", function (event) {
+                $(this).text(
+                    event.strftime('%D días %H:%M:%S')
+                );
+            });
         $(".hero-nav-content").owlCarousel({
             responsiveClass: true,
             dots: false,
