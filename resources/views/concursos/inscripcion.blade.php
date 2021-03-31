@@ -37,7 +37,7 @@
                     </div>
                     <div class="hero-nav-item">
                         <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/fichas.svg')}}"
+                            <img src="{{url('estilos/front2021/assets/cuentos_postulados.svg')}}"
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav column">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="hero-nav-item">
                         <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/ficha.svg')}}"
+                            <img src="{{url('estilos/front2021/assets/cuentos_aprobados.svg')}}"
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav column">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="hero-nav-item">
                         <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/ficha.svg')}}"
+                            <img src="{{url('estilos/front2021/assets/cuentistas_inscriptos.svg')}}"
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav column">
