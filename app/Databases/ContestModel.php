@@ -7,6 +7,7 @@ namespace App\Databases;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class ContestModel extends Model
 {
@@ -123,6 +124,17 @@ class ContestModel extends Model
     public function hasEnded()
     {
         return $this->end_date < Carbon::now();
+    }
+
+    public function cantidadCuentistasInscriptos()
+    {
+        $cuentistas = DB::select(DB::raw('select count(*) as cantidad from (select user_id from contest_applications group by user_id) t1'));
+        return count($cuentistas) > 0 ? $cuentistas[0]->cantidad : 0;
+    }
+
+    public function cantidadPostulacionesEnTotal()
+    {
+        return ContestApplicationModel::where('contest_id', $this->id)->count();
     }
 
     public function cantidadPostulaciones()

@@ -104,8 +104,10 @@ class ContestController extends Controller
         $data['diferencia'] = $contest->end_app_date;
         $data['postulaciones_abiertas'] = false;
         $data['logo'] = $contest->logo();
-        $data['cantidadPostulaciones'] = $contest->cantidadPostulaciones();
+        $data['cantidadPostulacionesAprobadas'] = $contest->cantidadPostulaciones();
         $data['cantidadFichasEnJuego'] = $contest->cantidadFichasEnJuego();
+        $data['cuentosPostulados'] = $contest->cantidadPostulacionesEnTotal();
+        $data['cuentistasInscriptos'] = $contest->cantidadCuentistasInscriptos();
         $data['bases'] = $contest->getBases();
         $data['ganadores'] = [];
         $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);

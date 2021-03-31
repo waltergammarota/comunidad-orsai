@@ -49,7 +49,7 @@
                                 <label for="bajadaCompleta">Descripción</label>
                                 <textarea type="text" class="form-control" id="bajadaCompleta"
                                           placeholder="Descripción"
-                                          name="bajada_completa">{{$contest?$contest->bajada_corta:old('bajada_completa')}}</textarea>
+                                          name="bajada_completa">{{$contest?$contest->bajada_completa:old('bajada_completa')}}</textarea>
                                 @error('bajada_completa') <span
                                     class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
