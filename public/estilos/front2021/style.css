@@ -4607,7 +4607,7 @@ div.tagsinput #tags_tag {
     font-size: 13px;
 }
 
-.inscripcion-cuento .hero-nav .owl-item:last-child .hero-nav-item {
+.inscripcion-cuento .hero-nav .owl-item:nth-child(5) .hero-nav-item {
     margin-top: 5px;
 }
 
@@ -11801,8 +11801,8 @@ table.dataTable .tran_creditos.transparencia tbody tr {
     max-width: 500px;
 }
 
-.link_underline:hover{    
-    text-decoration:underline;
+.link_underline:hover {
+    text-decoration: underline;
 }
 
 #validacion_requerida .titulo {
@@ -11998,7 +11998,8 @@ table.dataTable .tran_creditos.transparencia tbody tr {
         -o-transform: translateY(-50%);
         padding-right: 20px;
     }
-} 
-.blur{
+}
+
+.blur {
     filter: blur(4px);
 }
