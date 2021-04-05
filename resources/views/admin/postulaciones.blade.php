@@ -20,6 +20,7 @@
             <table id="myTable" class="table table-bordered table-hover">
                 <thead>
                 <tr>
+                    <th>Todos</th>
                     <th>Id</th>
                     <th>Usuario</th>
                     <th>Votos</th>
@@ -125,6 +126,9 @@
 @endsection
 
 @section('footer')
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css"/>
     <script>
         $(function () {
             const table = $('#myTable').DataTable({
@@ -157,6 +161,11 @@
 
                 },
                 "columns": [
+                    {
+                        "data": function (data) {
+                            return '';
+                        }
+                    },
                     {
                         "data": "id",
                         "render": function (data, type, row, meta) {
@@ -196,7 +205,16 @@
                                     </button>`;
                         }
                     },
-                ]
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
             });
 
 

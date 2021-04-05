@@ -38,17 +38,18 @@
                             <p class="titulo"><strong>{{Session::get('balance')}}</strong> Fichas</p>
                             {{-- <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a> --}}
                         </div>
-                        {{--                 <div class="texto_2">
-                                            <div>
-                                                <span>La próxima mordida es el 01/02/2021</span>
-                                                <span class="text_bold">Te quedarán 6.000 fichas</span>
-                                            </div>
-                                            <div>
-                                                <span class="color_rojo_b">Tu próxima baldeo es el 24/12/2020</span>
-                                                <span class="text_bold">Te quedarán 18.000 fichas</span>
-                                            </div>
+                        <div class="texto_2">
+                            <div>
+                                <span>La próxima mordida es el {{$mordida['fechaProximaMordida']}}</span>
+                                <span class="text_bold">Te quedarán {{$mordida['resto']}} fichas</span>
+                            </div>
+                            <div>
+                                <span
+                                    class="color_rojo_b">Tu próxima baldeo es el {{$baldeo['fechaProximoBaldeo']->format("d/m/Y")}}</span>
+                                <span class="text_bold">Te quedarán {{$baldeo['balance']}} fichas</span>
+                            </div>
 
-                                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 <div class="form_central_3 ">

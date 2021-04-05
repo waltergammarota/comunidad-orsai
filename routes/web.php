@@ -671,6 +671,13 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::get(
+            'admin/gestion-dinero',
+            'Admin\MoneyController@index'
+        )->name(
+            'gestion-dinero'
+        )->middleware('admin_role');
+
+        Route::get(
             'admin/search-paises',
             'Admin\FichasController@search_paises'
         )->name(
@@ -715,6 +722,7 @@ Route::middleware(['verified'])->group(
             'Admin\FichasController@show_logs'
         )->name("fichas-logs");
 
+
         Route::post(
             'admin/gestion-fichas',
             'Admin\FichasController@send'
@@ -722,6 +730,19 @@ Route::middleware(['verified'])->group(
             'send-fichas'
         )->middleware('admin_role');
 
+        Route::get(
+            'admin/gestion-dinero-json',
+            'Admin\MoneyController@dinero_json'
+        )->name(
+            'money-transactions'
+        )->middleware('admin_role');
+
+        Route::post(
+            'admin/gestion-dinero',
+            'Admin\MoneyController@add'
+        )->name(
+            'add-money-transaction'
+        )->middleware('admin_role');
         // END OF GESTION DE FICHAS
 
         Route::get(

@@ -656,6 +656,8 @@ class AccountController extends Controller
             "to",
             $user->id
         )->orderBy('id', 'desc')->get();
+        $data['baldeo'] = Transaction::getNextBaldeoDate($user);
+        $data['mordida'] = Transaction::getNextMordida($user);
         return view('2021-mis-fichas', $data);
     }
 

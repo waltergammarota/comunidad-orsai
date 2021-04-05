@@ -4,6 +4,7 @@
 namespace App\Console\Commands;
 
 use App\Databases\BaldeoModel;
+use App\Databases\ContestModel;
 use App\Databases\Transaction;
 use App\User;
 use Carbon\Carbon;
@@ -31,10 +32,16 @@ class Baldeo extends Command
                 User::whereNotNull('email_verified_at')->chunk(100, function ($users) use ($month, $year) {
                     $log = [];
                     foreach ($users as $user) {
+                        $isPozo = ContestModel::isPool($user->id);
+                        if ($isPozo) {
+                            $this->info("Is Pozo {$user->id}");
+                            continue;
+                        }
                         $balance = $user->getBalance();
                         $amount = round(floor($balance * env("PORCENTAJE_BALDEO", 10) / 100), 0);
                         $poolOrsai = 1;
-                        if ($amount > 10) {
+                        $minimo = env('MORDIDA_MINIMO', 10);
+                        if ($amount > $minimo) {
                             Transaction::createTransaction(
                                 $user->id,
                                 $poolOrsai,

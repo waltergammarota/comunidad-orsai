@@ -104,10 +104,10 @@ class ContestController extends Controller
         $data['diferencia'] = $contest->end_app_date;
         $data['postulaciones_abiertas'] = false;
         $data['logo'] = $contest->logo();
-        $data['cantidadPostulacionesAprobadas'] = $contest->cantidadPostulaciones();
-        $data['cantidadFichasEnJuego'] = $contest->cantidadFichasEnJuego();
-        $data['cuentosPostulados'] = $contest->cantidadPostulacionesEnTotal();
-        $data['cuentistasInscriptos'] = $contest->cantidadCuentistasInscriptos();
+        $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
+        $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
+        $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
+        $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
         $data['bases'] = $contest->getBases();
         $data['ganadores'] = [];
         $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);
@@ -137,6 +137,14 @@ class ContestController extends Controller
         return view('concursos.inscripcion', $data);
     }
 
+    private function convertToK($amount)
+    {
+        if ($amount > 1000) {
+            $amount = $amount / 1000;
+            return "{$amount}K";
+        }
+        return $amount;
+    }
 
     public function show_winner(Request $request)
     {
@@ -283,6 +291,7 @@ class ContestController extends Controller
             "end_vote_date" => "required",
             "type" => "required",
             "mode" => "required",
+            "token_value" => "required"
         ]);
 
         if ($validator->fails()) {
@@ -319,7 +328,8 @@ class ContestController extends Controller
             'cost_per_cpa' => $request->cost_per_cpa,
             'cost_jury' => $request->cost_jury,
             'vote_limit' => $request->vote_limit,
-            'form_id' => $request->form_id
+            'form_id' => $request->form_id,
+            'token_value' => $request->token_value
         ];
         $contest = new ContestModel($data);
         $contest->save();
@@ -426,6 +436,7 @@ class ContestController extends Controller
             "end_vote_date" => "required",
             "type" => "required",
             "mode" => "required",
+            "token_value" => "required"
         ]);
 
         $id = $request->id;
@@ -462,7 +473,8 @@ class ContestController extends Controller
             'cost_per_cpa' => $request->cost_per_cpa,
             'cost_jury' => $request->cost_jury,
             'vote_limit' => $request->vote_limit,
-            'form_id' => $request->form_id
+            'form_id' => $request->form_id,
+            'token_value' => $request->token_value
         ];
         $contest->fill($data);
         $contest->save();

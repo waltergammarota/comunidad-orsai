@@ -381,6 +381,19 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="bases">Valor de pago de la ficha</label>
+                                        <input type="number" step="0.01" class="form-control"
+                                               value="{{old('token_value')? old('token_value'): ($contest? $contest->token_value: 0)}}"
+                                               name="token_value" placeholder="Valor de ficha para el pago en USD"
+                                               required>
+                                        @error('token_value') <span
+                                            class="help-block">{{$message}}</span> @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label for="bases">Bases del concurso</label>
                                         @if($contest && $contest->getBases())
                                             <input type="hidden" id="editar_pagina" value="0" name="editar_pagina">
