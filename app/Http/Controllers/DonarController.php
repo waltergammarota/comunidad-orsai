@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Databases\CompraModel;
 use App\Databases\DolarModel;
+use App\Databases\MoneyTransactionModel;
 use App\Databases\ProductoModel;
 use App\Databases\Transaction;
 use App\User;
 use App\Utils\Mailer;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -43,44 +43,11 @@ class DonarController extends Controller
             abort(404);
         }
         $producto = ProductoModel::find($productId);
-        $cotizacionDolarMEP = $this->getDolarPrice();
+        $cotizacionDolarMEP = DolarModel::getDolarPrice();
         $producto->setCotizacion($cotizacionDolarMEP);
         $data['producto'] = $producto;
         $data['user_email'] = Auth::user()->email;
         return view("donar.donar_checkout", $data);
-    }
-
-
-    private function getDolarPrice()
-    {
-        $cotizacion = DolarModel::latest()->first();
-        $minutes = 60 * 6;
-        if ($cotizacion && $cotizacion->fecha->diffInMinutes(Carbon::now()) < $minutes) {
-            return $cotizacion->precio;
-        }
-        try {
-            $client = new Client();
-            $url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
-            $response = $client->get($url);
-            $cotizaciones = json_decode($response->getBody());
-            $cotizacion = array_filter($cotizaciones, function ($cotizacion) {
-                return $cotizacion->casa->nombre == 'Dolar Bolsa';
-            });
-            if (count($cotizacion) > 0) {
-                $precio = str_replace(',', '.', reset($cotizacion)->casa->venta);
-                $dolarMep = new DolarModel([
-                    "precio" => $precio,
-                    "fecha" => Carbon::now()
-                ]);
-                $dolarMep->save();
-                return $precio;
-            }
-        } catch (\Exception $error) {
-            if ($cotizacion) {
-                return $cotizacion->precio;
-            }
-            return 150;
-        }
     }
 
 
@@ -216,6 +183,7 @@ class DonarController extends Controller
                 if ($params['status'] == "approved" && $compra->processed == 0) {
                     $data = $this->updateCompra($compra, $params, $data, 1, 0);
                     $tx = Transaction::createTransaction(1, $userId, $producto->fichas, "Compra de fichas ID {$params['payment_id']}");
+                    MoneyTransactionModel::createMoneyTransaction($user->id, $producto->price, "Ingreso compra producto {$producto->id}", "MINT", "USD", $compra->payment_id);
                     $compra->delivered = $tx->id;
                     $compra->save();
                     $this->sendPaymentMail($user, $producto, $compra);
@@ -300,6 +268,7 @@ class DonarController extends Controller
                             $compra->save();
                             $producto = ProductoModel::find($compra->producto_id);
                             $tx = Transaction::createTransaction(1, $compra->user_id, $producto->fichas, "Compra de fichas ID {$compra->payment_id}");
+                            MoneyTransactionModel::createMoneyTransaction($compra->user_id, $producto->price, "Ingreso compra producto {$producto->id}", "MINT", "USD", $compra->payment_id);
                             $user = User::find($compra->user_id);
                             $this->sendPaymentMail($user, $producto, $compra);
                             $compra->delivered = $tx->id;
@@ -339,6 +308,7 @@ class DonarController extends Controller
             $producto = ProductoModel::find($compra->producto_id);
             $this->updateCompra($compra, $params, $data, 1, 0);
             $tx = Transaction::createTransaction(1, $compra->user_id, $producto->fichas, "Compra de fichas ID {$params['payment_id']}");
+            MoneyTransactionModel::createMoneyTransaction($compra->user_id, $producto->price, "Ingreso compra producto {$producto->id}", "MINT", "USD", $compra->payment_id);
             $user = Auth::user();
             $this->sendPaymentMail($user, $producto, $compra);
             $compra->delivered = $tx->id;

@@ -54,7 +54,7 @@ class FichasController extends Controller
         $operacion = array_key_exists('operacion', $filters) ? $filters['operacion'] : 0;
         $balance = array_key_exists('balance', $filters) ? $filters['balance'] : 0;
         $users = User::where('email_verified_at', '!=', null);
-        $profesion = array_key_exists('profesion', $filters) ? $filters['profesion']: "";
+        $profesion = array_key_exists('profesion', $filters) ? $filters['profesion'] : "";
         $startDate = array_key_exists('start', $filters['birth_date']) ? $filters['birth_date']['start'] : "";
         $endDate = array_key_exists('end', $filters['birth_date']) ? $filters['birth_date']['end'] : "";
         if (count($countries) > 0) {
@@ -215,37 +215,38 @@ class FichasController extends Controller
     private function sendAllUsers($amount, $data, $type)
     {
         $idPool = 1;
-        $users = User::select('id')->where('email_verified_at', '!=', 'null')->where('id', '>', $idPool)->get();
-        $sum = 0;
-        foreach ($users as $user) {
-            $amountAux = $amount;
-            if ($type == "burn") {
-                $balance = $user->getBalance();
-                $amountAux = $amount <= $balance ? $amount : $balance;
+        User::select('id')->where('email_verified_at', '!=', 'null')->where('id', '>', $idPool)->chunk(250, function ($users) use ($amount, $data, $type) {
+            $sum = 0;
+            foreach ($users as $user) {
+                $amountAux = $amount;
+                if ($type == "burn") {
+                    $balance = $user->getBalance();
+                    $amountAux = $amount <= $balance ? $amount : $balance;
+                }
+                if ($amountAux == 0) {
+                    continue;
+                }
+                $tx = new Transaction([
+                    "from" => 1,
+                    "to" => $user->id,
+                    "data" => $data,
+                    "type" => $type,
+                    "amount" => $amountAux >= 0 ? $amountAux : 0
+                ]);
+                $tx->save();
+                $sum += $amountAux;
             }
-            if ($amountAux == 0) {
-                continue;
-            }
-            $tx = new Transaction([
-                "from" => 1,
-                "to" => $user->id,
-                "data" => $data,
-                "type" => $type,
-                "amount" => $amountAux >= 0 ? $amountAux : 0
+            $log = new FichasLog([
+                'user_id' => Auth::user()->id,
+                'destinatarios' => 'Todos',
+                'cantidad_puntos' => $amount,
+                'cantidad_users' => count($users),
+                'total_puntos' => $sum,
+                'tipo' => $type == 'mint' ? 'entrega' : 'quitar',
+                'description' => $data
             ]);
-            $tx->save();
-            $sum += $amountAux;
-        }
-        $log = new FichasLog([
-            'user_id' => Auth::user()->id,
-            'destinatarios' => 'Todos',
-            'cantidad_puntos' => $amount,
-            'cantidad_users' => count($users),
-            'total_puntos' => $sum,
-            'tipo' => $type == 'mint' ? 'entrega' : 'quitar',
-            'description' => $data
-        ]);
-        $log->save();
+            $log->save();
+        });
     }
 
     public function search_users(Request $request)

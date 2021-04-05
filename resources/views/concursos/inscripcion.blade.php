@@ -83,7 +83,6 @@
                     {{--                            <span class="strong">{{$concurso->getMode()->name}}</span>--}}
                     {{--                        </div>--}}
                     {{--                    </div>--}}
-
                     @if($estado == "abierto")
                         @if($concurso->hasPostulacionesAbiertas())
                             <div class="hero-nav-item">

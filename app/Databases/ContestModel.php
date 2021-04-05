@@ -49,8 +49,8 @@ class ContestModel extends Model
         'cost_jury',
         'vote_limit',
         'form_id',
-        'pool_id'
-
+        'pool_id',
+        'token_value'
     ];
 
     /**
@@ -129,22 +129,27 @@ class ContestModel extends Model
     public function cantidadCuentistasInscriptos()
     {
         $cuentistas = DB::select(DB::raw('select count(*) as cantidad from (select user_id from contest_applications group by user_id) t1'));
-        return count($cuentistas) > 0 ? $cuentistas[0]->cantidad : 0;
+        $amount = count($cuentistas) > 0 ? $cuentistas[0]->cantidad : 0;
+        return $amount;
     }
 
     public function cantidadPostulacionesEnTotal()
     {
-        return ContestApplicationModel::where('contest_id', $this->id)->count();
+        $amount = ContestApplicationModel::where('contest_id', $this->id)->count();
+        return $amount;
     }
 
     public function cantidadPostulaciones()
     {
-        return ContestApplicationModel::where('contest_id', $this->id)->where('approved', 1)->count();
+        $amount = ContestApplicationModel::where('contest_id', $this->id)->where('approved', 1)->count();
+        return $amount;
     }
+
 
     public function cantidadFichasEnJuego()
     {
-        return Transaction::where("to", $this->pool_id)->sum('amount');
+        $amount = Transaction::where("to", $this->pool_id)->sum('amount');
+        return $amount;
     }
 
     public function getBases()
@@ -192,5 +197,10 @@ class ContestModel extends Model
     public function form()
     {
         return $this->belongsTo(FormModel::class, 'form_id');
+    }
+
+    static public function isPool($poolId)
+    {
+        return ContestModel::where('pool_id', $poolId)->count() > 0;
     }
 }

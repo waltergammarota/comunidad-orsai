@@ -35,8 +35,6 @@
             </table>
         </div>
     </div>
-
-
 @endsection
 
 @section('footer')
