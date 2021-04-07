@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Databases\CiudadModel;
 use App\Databases\FichasLog;
+use App\Databases\OcupacionModel;
 use App\Databases\PaisModel;
 use App\Databases\ProvinciaModel;
 use App\Databases\Transaction;
