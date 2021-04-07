@@ -642,6 +642,13 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::post(
+            'admin/usuarios/validar',
+            'Admin\AdminController@validar'
+        )->name(
+            'usuarios-validar'
+        )->middleware('admin_role');
+
+        Route::post(
             'admin/usuarios/bloquear',
             'Admin\AdminController@bloquear'
         )->name(

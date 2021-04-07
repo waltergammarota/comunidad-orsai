@@ -193,6 +193,47 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal fade" id="modal-validar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Validación manual de usuario</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="block-message"></p>
+                    <p class="usuarioData"></p>
+                    <input type="hidden" name="id" value="0" class="usuarioId">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Prefijo</label>
+                                <input type="text" class="form-control " id="prefijo" placeholder="Ingrese prefijo" name="prefijo" value="" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Teléfono</label>
+                                <input type="text" class="form-control " id="whatsapp" placeholder="Ingrese teléfono" name="whatsapp" value="" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" id="validar-button">Sí
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <div class="modal fade" id="modal-eliminar">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -368,6 +409,9 @@
                                     <button type="button" class="btn  btn-xs btn-success admin" data-row="${meta.row}" >
                                         <i class="fa fa-user-circle"></i>
                                     </button>
+                                    <button type="button" class="btn  btn-xs btn-success validar" data-row="${meta.row}" >
+                                        <i class="fa fa-check-circle"></i>
+                                    </button>
                                     <button type="button" class="btn  btn-xs btn-danger eliminar" data-row="${meta.row}">
                                         <i class="fa fa-trash"></i>
                                     </button>`;
@@ -377,6 +421,7 @@
                     {"data": "profesion", "visible": false},
                     {"data": "twitter", "visible": false},
                     {"data": "facebook", "visible": false},
+                    {"data": "prefijo", "visible": false},
                     {"data": "whatsapp", "visible": false},
                     {"data": "instagram", "visible": false},
                 ],
@@ -399,6 +444,25 @@
                 $('#modal-admin').modal('show');
 
             });
+
+            /* CO-437 Validación manual de usuarios */
+            table.on('click', '.validar', function() {
+                const row = $(this).data('row');
+                const data = table.row(row).data();
+                const id = data.id;
+                const message = $(".block-message");
+
+                const phone = data.whatsapp ? '(' + data.prefijo + ') ' + data.whatsapp : 'El usuario no registra teléfono.';
+
+                message.empty().append(`Desea validar el número telefónico de ${data.name} ${data.lastName}?`);
+
+                $(".usuarioId").val(id);
+                $("#prefijo").val(data.prefijo);
+                $("#whatsapp").val(data.whatsapp);
+                // $(".usuarioData").empty().append(`Telefono: ${phone}`);
+                $('#modal-validar').modal('show');
+            });
+
 
             table.on('click', '.bloquear', function () {
                 const row = $(this).data('row');
@@ -431,6 +495,26 @@
                 const id = data.id;
                 window.location.href = `{{url('admin/usuarios/editar')}}/${id}`;
             });
+
+            $("#validar-button").click((event) => {
+                event.preventDefault();
+
+                const data = {};
+                data.id = $(".usuarioId").val();
+                data.prefijo = $("#prefijo").val();
+                data.whatsapp = $("#whatsapp").val();
+
+                $('#modal-validar').modal('hide');
+                axios.post('{{ url('admin/usuarios/validar') }}', data ).then(response => {
+                    alert(response.data.message);
+                    table.ajax.reload();
+                    $(".usuarioId").val(0);
+                }).catch(error => {
+                    alert("Ha ocurrido un error. Intente más tarde");
+                    $(".usuarioId").val(0);
+                });
+            });
+
 
             $("#bloquear-button").click((event) => {
                 event.preventDefault();
