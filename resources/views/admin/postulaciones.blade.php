@@ -17,19 +17,30 @@
     </style>
     <div class="card">
         <div class="card-body">
-            <table id="myTable" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Todos</th>
-                    <th>Id</th>
-                    <th>Usuario</th>
-                    <th>Votos</th>
-                    <th>Status</th>
-                    <th>Fecha</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-            </table>
+            <div class="row">
+                <div class="col-md-12" style="margin-bottom: 20px;">
+                    <button type="button" class="btn btn-success" disabled id="aprobar"
+                            onclick="showConfirmModal()">Aprobar
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="myTable" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th>Usuario</th>
+                            <th>Votos</th>
+                            <th>Status</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
         <!-- /.card-body -->
     </div>
@@ -122,16 +133,48 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <!-- modal multiple approval -->
+    <div class="modal fade" id="modal-approve">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Aprobar postulaciones</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Estás por aprobar <span id="approveQty"></span> postulaciones</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success"
+                            onclick="approveMultiple()">SI
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
 @endsection
 
 @section('footer')
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script type="text/javascript"
+            src="//cdn.datatables.net/plug-ins/1.10.16/sorting/custom-data-source/dom-checkbox.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css"/>
     <script>
+        let table;
+
         $(function () {
-            const table = $('#myTable').DataTable({
+            const aprobarBtn = $('#aprobar');
+            table = $('#myTable').DataTable({
                 "paging": true,
                 "searching": true,
                 "ordering": true,
@@ -163,7 +206,7 @@
                 "columns": [
                     {
                         "data": function (data) {
-                            return '';
+                            return '<input type="checkbox">';
                         }
                     },
                     {
@@ -207,12 +250,11 @@
                     },
                 ],
                 columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
+                    orderDataType: "dom-checkbox",
                     targets: 0
                 }],
                 select: {
-                    style: 'os',
+                    style: 'multi',
                     selector: 'td:first-child'
                 },
             });
@@ -253,6 +295,19 @@
                 $("#postulacion").val(id);
                 $('#modal-ganador').modal('show');
             });
+
+            table
+                .on('select', function (e, dt, type, indexes) {
+                    const rowData = table.rows(indexes).data().toArray();
+                    aprobarBtn.removeAttr('disabled');
+                })
+                .on('deselect', function (e, dt, type, indexes) {
+                    var rowData = table.rows(indexes).data().toArray();
+                    const qty = table.rows({selected: true}).count();
+                    if (qty == 0) {
+                        aprobarBtn.attr('disabled', 'disabled');
+                    }
+                });
 
 
             $("#enviarRechazo").click((event) => {
@@ -303,8 +358,35 @@
                     $('#modal-eliminar').modal('hide');
                 });
             });
-
         });
+
+        function showConfirmModal() {
+            $('#modal-approve').modal('show');
+            const qty = table.rows({selected: true}).count();
+            $('#approveQty').empty().append(qty);
+        }
+
+        function approveMultiple() {
+            const indexes = table.rows({selected: true});
+            const rows = indexes.map(function (item) {
+                return table.rows(item).data().toArray();
+            });
+            const responses = rows[0].map(function (item) {
+                console.log(item.id);
+                return axios.post('{{url('admin/application/approve')}}', {
+                    id: item.id,
+                });
+            });
+            Promise.all(responses).then(function (values) {
+                $('#modal-approve').modal('hide');
+                alert("Todas las postulaciones seleccionadas fueron aprobadas");
+                table.ajax.reload();
+                $('#aprobar').attr('disabled', 'disabled');
+            }).catch(function (error) {
+                console.log(error);
+                alert("Ha occurido un error, las postulaciones no se han podido aprobar");
+            });
+        }
     </script>
 @endsection
 

@@ -79,8 +79,11 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="balance">Profesión</label>
-                            <input type="text" name="filters[profesion]" placeholder="Profesión"
-                                   class="form-control" id="profesion">
+                            <select name="filters[operacion]" id="operacion" class="form-control">
+                                @foreach($profesiones as $profesion)
+                                    <option value="{{}}"
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -102,16 +105,25 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="amount">Tipo</label>
+                            <label for="amount">Acción</label>
                             <select name="type" class="form-control">
                                 <option value="mint">Entregar</option>
                                 <option value="burn">Quitar</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="amount">Tipo</label>
+                            <select name="way" class="form-control">
+                                <option value="coins">Fichas</option>
+                                <option value="percentage">Porcentaje</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="amount">Monto</label>
                             <input type="number" step="1" class="form-control @error('amount') is-invalid @enderror"

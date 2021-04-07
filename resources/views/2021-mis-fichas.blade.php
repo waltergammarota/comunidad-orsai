@@ -40,8 +40,10 @@
                         </div>
                         <div class="texto_2">
                             <div>
-                                <span>La próxima mordida es el {{$mordida['fechaProximaMordida']}}</span>
-                                <span class="text_bold">Te quedarán {{$mordida['resto']}} fichas</span>
+                                @if($mordida['fechaProximaMordida'])
+                                    <span>La próxima mordida es el {{$mordida['fechaProximaMordida']}}</span>
+                                    <span class="text_bold">Te quedarán {{$mordida['resto']}} fichas</span>
+                                @endif
                             </div>
                             <div>
                                 <span
