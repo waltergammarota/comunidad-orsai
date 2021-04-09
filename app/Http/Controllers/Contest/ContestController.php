@@ -91,6 +91,7 @@ class ContestController extends Controller
         return $links;
     }
 
+
     public function show(Request $request)
     {
         $contestId = $request->route('id');
@@ -329,7 +330,8 @@ class ContestController extends Controller
             'cost_jury' => $request->cost_jury,
             'vote_limit' => $request->vote_limit,
             'form_id' => $request->form_id,
-            'token_value' => $request->token_value
+            'token_value' => $request->token_value,
+            'auto_approval' => $request->auto_approval ? $request->auto_approval : 0
         ];
         $contest = new ContestModel($data);
         $contest->save();
@@ -474,7 +476,8 @@ class ContestController extends Controller
             'cost_jury' => $request->cost_jury,
             'vote_limit' => $request->vote_limit,
             'form_id' => $request->form_id,
-            'token_value' => $request->token_value
+            'token_value' => $request->token_value,
+            'auto_approval' => $request->auto_approval ? $request->auto_approval : 0
         ];
         $contest->fill($data);
         $contest->save();

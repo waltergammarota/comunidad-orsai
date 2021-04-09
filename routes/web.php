@@ -767,14 +767,14 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::get(
-            'admin/postulaciones-json',
+            'admin/postulaciones-json/{id}',
             'Admin\AdminController@postulaciones_json'
         )->name(
             'postulaciones-json'
         )->middleware('admin_role');
 
         Route::get(
-            'admin/postulaciones',
+            'admin/postulaciones/{id}',
             'Admin\AdminController@postulaciones'
         )->name(
             'postulaciones'

@@ -50,7 +50,8 @@ class ContestModel extends Model
         'vote_limit',
         'form_id',
         'pool_id',
-        'token_value'
+        'token_value',
+        'auto_approval'
     ];
 
     /**

@@ -377,6 +377,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Aprobaciones automáticas</label>
+                                        <div class="form-check">
+                                            @if($contest)
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                                       value="1"
+                                                       name="auto_approval" {{$contest->auto_approval?"checked":""}}>
+                                            @else
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                                       value="1"
+                                                       name="auto_approval">
+                                            @endif
+                                            <label class="form-check-label" for="exampleCheck1">Aprobaciones
+                                                automáticas</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
