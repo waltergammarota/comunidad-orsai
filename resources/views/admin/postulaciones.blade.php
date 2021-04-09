@@ -6,7 +6,7 @@
 
 
 @section('name')
-    Postulaciones
+    Postulaciones Concurso: {{$concurso->name}}
 @endsection
 
 @section('content')
