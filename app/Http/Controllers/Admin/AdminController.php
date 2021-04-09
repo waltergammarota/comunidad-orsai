@@ -48,9 +48,14 @@ class AdminController extends Controller
         return view('admin.transacciones');
     }
 
-    public function postulaciones()
+    public function postulaciones(Request $request)
     {
-        return view('admin.postulaciones');
+        $contestId = $request->route('id');
+        $data['concurso'] = ContestModel::find($contestId);
+        if (!$data['concurso']) {
+            abort(404);
+        }
+        return view('admin.postulaciones', $data);
     }
 
     public function concurso()
@@ -175,7 +180,7 @@ class AdminController extends Controller
         return response()->json($data);
     }
 
- 
+
     public function validar(Request $request)
     {
         $userId = $request->id;
@@ -236,11 +241,12 @@ class AdminController extends Controller
     public function postulaciones_json(Request $request)
     {
         $this->isAdmin();
+        $contestId = $request->route('id');
         $data = [
             'draw' => $request->query('draw'),
-            "recordsTotal" => ContestApplicationModel::count(),
-            "recordsFiltered" => ContestApplicationModel::count(),
-            'data' => ContestApplicationModel::with('owner')->with('status')->get()
+            "recordsTotal" => ContestApplicationModel::where('contest_id', $contestId)->count(),
+            "recordsFiltered" => ContestApplicationModel::where('contest_id', $contestId)->count(),
+            'data' => ContestApplicationModel::with('owner')->with('status')->where('contest_id', $contestId)->get()
         ];
         return response()->json($data);
     }

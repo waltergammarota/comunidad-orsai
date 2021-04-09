@@ -79,9 +79,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="balance">Profesión</label>
-                            <select name="filters[operacion]" id="operacion" class="form-control">
+                            <select name="filters[profesion]" id="operacion" class="form-control">
+                                <option value="">Ninguno</option>
                                 @foreach($profesiones as $profesion)
-                                    <option value="{{}}"
+                                    <option value="{{$profesion->name}}">{{$profesion->name}}</option>
                                 @endforeach
                             </select>
                         </div>

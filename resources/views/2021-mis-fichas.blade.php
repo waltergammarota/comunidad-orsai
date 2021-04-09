@@ -60,28 +60,38 @@
                         <div class="cont_tabla">
                             <table class="light-3" id="mis_fichas_table">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Fichas</th>
-                                    <th>Fecha y hora</th>
-                                </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Descripción</th>
+                                        <th>Fichas</th>
+                                        <th>Fecha y hora</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($txs as $tx)
-                                    <tr>
-                                        <td>{{$tx->id}}</td>
-                                        <td>{{$tx->data}}</td>
-                                        @if($tx->type == 'BURN' || $tx->type == 'TRANSFER')
-                                            <td class="fichas_td fichas_negativo"><span class="icono icon-ficha"></span>-{{$tx->amount}}
+                                    @foreach($txs as $tx)
+                                        @php
+                                            if ($tx->type == 'BURN' || $tx->type == 'TRANSFER') {
+                                                $class = 'fichas_td fichas_negativo';
+                                                $amount = number_format((float) $tx->amount * -1, 0, ',', '.');
+                                            } else {
+                                                $class = 'fichas_td';
+                                                $amount = number_format($tx->amount, 0, ',', '.');
+                                            }
+                                            $dolar = number_format($tx->price_ars, 2, ',', '.');
+                                        @endphp
+                                        <tr>
+                                            <td style="text-align: right;">{{$tx->id}}</td>
+                                            <td>
+                                                @if($tx->payment_processor == 'mercadopago' && $tx->type == 'MINT')
+                                                    {{$tx->data}} - <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Tipo de cambio USD1 = {{$dolar}} (conlink)</a>
+                                                @else
+                                                    {{$tx->data}}
+                                                @endif
                                             </td>
-                                        @else
-                                            <td class="fichas_td"><span class="icono icon-ficha"></span>{{$tx->amount}}
-                                            </td>
-                                        @endif
-                                        <td>{{ date('j/m/Y G:i', strtotime($tx->created_at)) }}</td>
-                                    </tr>
-                                @endforeach
+                                            <td class="{{$class}}" style="text-align: right;"><span class="icono icon-ficha"></span>{{$amount}}</td>
+                                            <td style="text-align: center;">{{ date('j/m/Y G:i', strtotime($tx->created_at)) }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

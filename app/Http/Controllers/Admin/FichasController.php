@@ -20,7 +20,7 @@ class FichasController extends Controller
     public function index()
     {
         $data['profesiones'] = OcupacionModel::all();
-        return view('admin.gestion-fichas');
+        return view('admin.gestion-fichas', $data);
     }
 
     public function send(Request $request)

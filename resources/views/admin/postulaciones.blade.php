@@ -6,13 +6,17 @@
 
 
 @section('name')
-    Postulaciones
+    Postulaciones Concurso: {{$concurso->name}}
 @endsection
 
 @section('content')
     <style>
         #myTable {
             font-size: 14px;
+        }
+
+        table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+            outline: none;
         }
     </style>
     <div class="card">
@@ -181,7 +185,7 @@
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-                "ajax": "{{url('admin/postulaciones-json')}}",
+                "ajax": "{{url('admin/postulaciones-json/'.$concurso->id)}}",
                 "language": {
                     "paginate": {
                         "first": "Primera",
@@ -255,7 +259,7 @@
                 }],
                 select: {
                     style: 'multi',
-                    selector: 'td:first-child'
+                    selector: 'td > input'
                 },
             });
 

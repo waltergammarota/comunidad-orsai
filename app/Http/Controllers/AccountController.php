@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
@@ -299,6 +300,10 @@ class AccountController extends Controller
             $cpa->save();
             $cpaLog = new CpaLog(["status" => "sent", "cap_id" => $cpa->id]);
             $cpaLog->save();
+            if ($contest->auto_approval == 1) {
+                $cpaLog = new CpaLog(["status" => "approved", "cap_id" => $cpa->id]);
+                $cpaLog->save();
+            }
             Transaction::createTransaction($user->id, $contest->pool_id, $contest->cost_per_cpa, "Inscripción a concurso " . $contest->name, null, 'TRANSFER');
         }
         return Redirect::to('mis-postulaciones');
@@ -649,13 +654,19 @@ class AccountController extends Controller
 
     public function transacciones()
     {
+
         $data = $this->getUserData();
         $user = Auth::user();
         $data['hasStarted'] = $this->hasStarted(1);
-        $data['txs'] = Transaction::where("from", $user->id)->orWhere(
-            "to",
-            $user->id
-        )->orderBy('id', 'desc')->get();
+
+        $txsQuery = DB::table('transactions')
+            ->leftJoin('compras', 'transactions.id', '=', 'compras.delivered')
+            ->where('transactions.from', '=', $user->id)
+            ->orWhere('transactions.to', '=', $user->id)
+            ->select(DB::raw('compras.payment_processor, compras.price_ars, transactions.*'));
+
+        //$data['txs'] = Transaction::where("from", $user->id)->orWhere("to",$user->id)->orderBy('id', 'desc')->get();
+        $data['txs'] = $txsQuery->orderBy('transactions.id', 'desc')->get();
         $data['baldeo'] = Transaction::getNextBaldeoDate($user);
         $data['mordida'] = Transaction::getNextMordida($user);
         return view('2021-mis-fichas', $data);
