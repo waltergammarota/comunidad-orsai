@@ -298,9 +298,29 @@ Route::middleware(['verified'])->group(
         )->name('concurso-finalizado');
 
         Route::get(
-            '/concurso-apuesta',
-            'WebController@concurso_apuesta'
-        )->name('concurso-apuesta');
+            '/ronda_1',
+            'WebController@ronda_1'
+        )->name('ronda_1');
+
+        Route::get(
+            '/ronda_2',
+            'WebController@ronda_2'
+        )->name('ronda_2');
+
+        Route::get(
+            '/ronda_3',
+            'WebController@ronda_3'
+        )->name('ronda_3');
+
+        Route::get(
+            '/cuento_completo',
+            'WebController@cuento_completo'
+        )->name('cuento_completo');
+
+        Route::get(
+            '/ranking',
+            'WebController@ranking'
+        )->name('ranking');
 
         Route::get(
             '/concursos/{id}/{name}/{orden?}',
