@@ -905,6 +905,13 @@ Route::middleware(['verified'])->group(
             '/concurso/ganador/{contest_id}',
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
+
+        // FORMS
+        Route::get(
+            'admin/forms',
+            'Admin\FormController@index'
+        )->name('forms')->middleware('admin_role');
+
         // INPUTS
         Route::get(
             'admin/inputs',
