@@ -13946,13 +13946,24 @@ Main Components
     /* transform: scale(2) translateY(-10px); */
   }
   
-  .card-leitmotiv__ .tip-button.clicked {
-    animation: 150ms ease-in-out 1 shake;
-    /*pointer-events: none;
-    */background:#000;
-    -webkit-animation: 150ms ease-in-out 1 shake;
-    width:100%;
-    
+.card-leitmotiv__ .tip-button.clicked {
+animation: 150ms ease-in-out 1 shaket;
+/*pointer-events: none;*/
+background:#000;
+-webkit-animation: 150ms ease-in-out 1 shaket;
+width:100%; 
+}
+
+@keyframes shaket{
+  0% {
+    transform: rotate(4deg);
+  }
+  66% {
+    transform: rotate(-4deg);
+  }
+  100% {
+    transform: rotate();
+  }
 }
   .card-leitmotiv__ .tip-button.clicked .tip-button__text {
     /* opacity: 0;
@@ -13974,26 +13985,7 @@ Main Components
     -moz-transition: margin-bottom 1s linear 200ms;
     -ms-transition: margin-bottom 1s linear 200ms;
     -o-transition: margin-bottom 1s linear 200ms;
-}
-
-
-  
-  .card-leitmotiv__ .button_card a{
-    /* display:block;    */
-  } 
-
-
-  @keyframes shake {
-    0% {
-      transform: rotate(4deg);
-    }
-    66% {
-      transform: rotate(-4deg);
-    }
-    100% {
-      transform: rotate();
-    }
-  }
+} 
   
   
 

@@ -489,7 +489,7 @@
         $(this).find(".icon").not(".icon_flip").addClass("icon-flecha_leitmotiv");
         $(this).find(".num_coins").css("display","none");
         
-        $(this).parent().addClass("card-leitmotiv-animate");
++       $(this).parent().parent().addClass("card-leitmotiv-animate");
         if ($(this).parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))){
             $(this).parent().parent().addClass("color-1")
         }

@@ -498,7 +498,7 @@ $('.button_card').on('click', function(e) {
     $(this).find(".icon").not(".icon_flip").removeClass("icon-ficha");
     $(this).find(".icon").not(".icon_flip").addClass("icon-flecha_leitmotiv");
     
-    $(this).parent().addClass("card-leitmotiv-animate");
++   $(this).parent().parent().addClass("card-leitmotiv-animate");
     if ($(this).parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))){
         $(this).parent().parent().addClass("color-1")
     }
