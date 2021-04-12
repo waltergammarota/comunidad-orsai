@@ -133,10 +133,30 @@ class WebController extends Controller
         return view('concursos.concurso-cuento', $data);
     }
     
-    public function concurso_apuesta()
+    public function ronda_1()
     {
         $data = $this->getUserData();
-        return view('concursos.concurso_apuesta', $data);
+        return view('concursos.ronda_1', $data);
+    }
+    public function ronda_2()
+    {
+        $data = $this->getUserData();
+        return view('concursos.ronda_2', $data);
+    }
+    public function ronda_3()
+    {
+        $data = $this->getUserData();
+        return view('concursos.ronda_3', $data);
+    }
+    public function cuento_completo()
+    {
+        $data = $this->getUserData();
+        return view('concursos.cuento_completo', $data);
+    }
+    public function ranking()
+    {
+        $data = $this->getUserData();
+        return view('concursos.ranking', $data);
     }
 
     public function concursos_nuevos()
