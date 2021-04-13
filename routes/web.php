@@ -141,10 +141,10 @@ Route::middleware(['verified'])->group(
             'DonarController@paypal_capture'
         )->name('paypal-capture-compra')->middleware('email_verified');
 
-        Route::get(
-            '/donar',
-            'DonarController@index'
-        )->name('index')->middleware('email_verified');
+//        Route::get(
+//            '/donar',
+//            'DonarController@index'
+//        )->name('index')->middleware('email_verified');
 
         Route::get(
             '/donar/paypal',
@@ -229,10 +229,10 @@ Route::middleware(['verified'])->group(
 
         // INICIO CONCURSOS
 
-        Route::get(
-            '/concursos',
-            'Contest\ContestController@index'
-        )->name("concursos");
+//        Route::get(
+//            '/concursos',
+//            'Contest\ContestController@index'
+//        )->name("concursos");
 
 
         Route::get(
@@ -296,6 +296,31 @@ Route::middleware(['verified'])->group(
             '/concurso-finalizado',
             'WebController@concurso_finalizado'
         )->name('concurso-finalizado');
+
+        Route::get(
+            '/ronda_1',
+            'WebController@ronda_1'
+        )->name('ronda_1');
+
+        Route::get(
+            '/ronda_2',
+            'WebController@ronda_2'
+        )->name('ronda_2');
+
+        Route::get(
+            '/ronda_3',
+            'WebController@ronda_3'
+        )->name('ronda_3');
+
+        Route::get(
+            '/cuento_completo',
+            'WebController@cuento_completo'
+        )->name('cuento_completo');
+
+        Route::get(
+            '/ranking',
+            'WebController@ranking'
+        )->name('ranking');
 
         Route::get(
             '/concursos/{id}/{name}/{orden?}',
@@ -637,6 +662,13 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::post(
+            'admin/usuarios/validar',
+            'Admin\AdminController@validar'
+        )->name(
+            'usuarios-validar'
+        )->middleware('admin_role');
+
+        Route::post(
             'admin/usuarios/bloquear',
             'Admin\AdminController@bloquear'
         )->name(
@@ -663,6 +695,13 @@ Route::middleware(['verified'])->group(
             'Admin\FichasController@index'
         )->name(
             'gestion-fichas'
+        )->middleware('admin_role');
+
+        Route::get(
+            'admin/gestion-dinero',
+            'Admin\MoneyController@index'
+        )->name(
+            'gestion-dinero'
         )->middleware('admin_role');
 
         Route::get(
@@ -710,6 +749,7 @@ Route::middleware(['verified'])->group(
             'Admin\FichasController@show_logs'
         )->name("fichas-logs");
 
+
         Route::post(
             'admin/gestion-fichas',
             'Admin\FichasController@send'
@@ -717,6 +757,19 @@ Route::middleware(['verified'])->group(
             'send-fichas'
         )->middleware('admin_role');
 
+        Route::get(
+            'admin/gestion-dinero-json',
+            'Admin\MoneyController@dinero_json'
+        )->name(
+            'money-transactions'
+        )->middleware('admin_role');
+
+        Route::post(
+            'admin/gestion-dinero',
+            'Admin\MoneyController@add'
+        )->name(
+            'add-money-transaction'
+        )->middleware('admin_role');
         // END OF GESTION DE FICHAS
 
         Route::get(
@@ -734,14 +787,14 @@ Route::middleware(['verified'])->group(
         )->middleware('admin_role');
 
         Route::get(
-            'admin/postulaciones-json',
+            'admin/postulaciones-json/{id}',
             'Admin\AdminController@postulaciones_json'
         )->name(
             'postulaciones-json'
         )->middleware('admin_role');
 
         Route::get(
-            'admin/postulaciones',
+            'admin/postulaciones/{id}',
             'Admin\AdminController@postulaciones'
         )->name(
             'postulaciones'
@@ -852,6 +905,13 @@ Route::middleware(['verified'])->group(
             '/concurso/ganador/{contest_id}',
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
+
+        // FORMS
+        Route::get(
+            'admin/forms',
+            'Admin\FormController@index'
+        )->name('forms')->middleware('admin_role');
+
         // INPUTS
         Route::get(
             'admin/inputs',

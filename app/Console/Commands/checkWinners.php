@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -47,7 +48,7 @@ class checkWinners extends Command
             switch ($contest->mode) {
                 case 1:
                     $this->info("pozo");
-                    $pozo = ContestApplicationModel::where('contest_id', $contest->id)->sum('votes');
+                    $pozo = User::find($contest->pool_id)->getBalance();
                     $winnersDistribution = json_decode($contest->per_winner);
                     $cpas = ContestApplicationModel::where('contest_id', $contest->id)->orderBy('votes', 'DESC')->take($contest->cant_winners)->get();
                     foreach ($cpas as $cpa) {
@@ -73,9 +74,11 @@ class checkWinners extends Command
                     }
                     $contest->winner_check = 1;
                     $contest->save();
+                    Transaction::createTransaction(1, $contest->pool_id, $pozo, "Finalización concurso {$contest->name}", null, "BURN", ["concurso: {$contest->id}"]);
                     break;
                 case 2:
                     $this->info("completo");
+                    $pozo = User::find($contest->pool_id)->getBalance();
                     $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('votes', '>=', $contest->required_amount)->get();
                     foreach ($cpas as $cpa) {
                         $cpa->is_winner = 1;
@@ -84,9 +87,11 @@ class checkWinners extends Command
                     }
                     $contest->winner_check = 1;
                     $contest->save();
+                    Transaction::createTransaction(1, $contest->pool_id, $pozo, "Finalización concurso {$contest->name}", null, "BURN", ["concurso: {$contest->id}"]);
                     break;
                 case 3:
                     $this->info("fijo");
+                    $pozo = User::find($contest->pool_id)->getBalance();
                     $cpa = ContestApplicationModel::where('contest_id', $contest->id)->max('votes');
                     if ($cpa) {
                         $cpa->is_winner = 1;
@@ -95,6 +100,7 @@ class checkWinners extends Command
                     }
                     $contest->winner_check = 1;
                     $contest->save();
+                    Transaction::createTransaction(1, $contest->pool_id, $pozo, "Finalización concurso {$contest->name}", null, "BURN", ["concurso: {$contest->id}"]);
                     break;
             }
         }

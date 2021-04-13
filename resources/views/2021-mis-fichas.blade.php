@@ -38,17 +38,20 @@
                             <p class="titulo"><strong>{{Session::get('balance')}}</strong> Fichas</p>
                             {{-- <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a> --}}
                         </div>
-                        {{--                 <div class="texto_2">
-                                            <div>
-                                                <span>La próxima mordida es el 01/02/2021</span>
-                                                <span class="text_bold">Te quedarán 6.000 fichas</span>
-                                            </div>
-                                            <div>
-                                                <span class="color_rojo_b">Tu próxima baldeo es el 24/12/2020</span>
-                                                <span class="text_bold">Te quedarán 18.000 fichas</span>
-                                            </div>
+                        <div class="texto_2">
+                            <div>
+                                @if($mordida['fechaProximaMordida'])
+                                    <span>La próxima mordida es el {{$mordida['fechaProximaMordida']}}</span>
+                                    <span class="text_bold">Te quedarán {{$mordida['resto']}} fichas</span>
+                                @endif
+                            </div>
+                            <div>
+                                <span
+                                    class="color_rojo_b">Tu próxima baldeo es el {{$baldeo['fechaProximoBaldeo']->format("d/m/Y")}}</span>
+                                <span class="text_bold">Te quedarán {{$baldeo['balance']}} fichas</span>
+                            </div>
 
-                                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 <div class="form_central_3 ">
@@ -57,28 +60,38 @@
                         <div class="cont_tabla">
                             <table class="light-3" id="mis_fichas_table">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Fichas</th>
-                                    <th>Fecha y hora</th>
-                                </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Descripción</th>
+                                        <th>Fichas</th>
+                                        <th>Fecha y hora</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($txs as $tx)
-                                    <tr>
-                                        <td>{{$tx->id}}</td>
-                                        <td>{{$tx->data}}</td>
-                                        @if($tx->type == 'BURN' || $tx->type == 'TRANSFER')
-                                            <td class="fichas_td fichas_negativo"><span class="icono icon-ficha"></span>-{{$tx->amount}}
+                                    @foreach($txs as $tx)
+                                        @php
+                                            if ($tx->type == 'BURN' || $tx->type == 'TRANSFER') {
+                                                $class = 'fichas_td fichas_negativo';
+                                                $amount = number_format((float) $tx->amount * -1, 0, ',', '.');
+                                            } else {
+                                                $class = 'fichas_td';
+                                                $amount = number_format($tx->amount, 0, ',', '.');
+                                            }
+                                            $dolar = number_format($tx->price_ars, 2, ',', '.');
+                                        @endphp
+                                        <tr>
+                                            <td style="text-align: right;">{{$tx->id}}</td>
+                                            <td>
+                                                @if($tx->payment_processor == 'mercadopago' && $tx->type == 'MINT')
+                                                    {{$tx->data}} - <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Tipo de cambio USD1 = {{$dolar}} (conlink)</a>
+                                                @else
+                                                    {{$tx->data}}
+                                                @endif
                                             </td>
-                                        @else
-                                            <td class="fichas_td"><span class="icono icon-ficha"></span>{{$tx->amount}}
-                                            </td>
-                                        @endif
-                                        <td>{{ date('j/m/Y G:i', strtotime($tx->created_at)) }}</td>
-                                    </tr>
-                                @endforeach
+                                            <td class="{{$class}}" style="text-align: right;"><span class="icono icon-ficha"></span>{{$amount}}</td>
+                                            <td style="text-align: center;">{{ date('j/m/Y G:i', strtotime($tx->created_at)) }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

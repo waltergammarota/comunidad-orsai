@@ -7,6 +7,7 @@ use App\Databases\ContestModel;
 use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,9 +48,14 @@ class AdminController extends Controller
         return view('admin.transacciones');
     }
 
-    public function postulaciones()
+    public function postulaciones(Request $request)
     {
-        return view('admin.postulaciones');
+        $contestId = $request->route('id');
+        $data['concurso'] = ContestModel::find($contestId);
+        if (!$data['concurso']) {
+            abort(404);
+        }
+        return view('admin.postulaciones', $data);
     }
 
     public function concurso()
@@ -74,10 +80,11 @@ class AdminController extends Controller
                u.profesion                                     as profesion,
                u.description                                   as descripcion,
                u.facebook                                      as facebook,
+               u.prefijo                                       as prefijo,
                u.whatsapp                                      as whatsapp,
                u.twitter                                       as twitter,
                u.instagram                                     as instagram,
-               (ingreso - egreso - quemado)                              as balance
+               (ingreso - egreso - quemado)                    as balance
         from (
                  select users.id, ifnull(sum(t2.amount), 0) as ingreso
                  from users
@@ -173,6 +180,22 @@ class AdminController extends Controller
         return response()->json($data);
     }
 
+
+    public function validar(Request $request)
+    {
+        $userId = $request->id;
+        $user = User::find($userId);
+
+        $user->prefijo = $request->prefijo;
+        $user->whatsapp = $request->whatsapp;
+        $user->phone_verified_at = Carbon::now();
+
+        $user->save();
+        $data = ["success" => true, "message" => $user->blocked == 1 ? "Usuario bloqueado" : "Usuario validado"];
+        return response()->json($data);
+    }
+
+
     public function bloquear(Request $request)
     {
         $userId = $request->id;
@@ -218,11 +241,12 @@ class AdminController extends Controller
     public function postulaciones_json(Request $request)
     {
         $this->isAdmin();
+        $contestId = $request->route('id');
         $data = [
             'draw' => $request->query('draw'),
-            "recordsTotal" => ContestApplicationModel::count(),
-            "recordsFiltered" => ContestApplicationModel::count(),
-            'data' => ContestApplicationModel::with('owner')->with('status')->get()
+            "recordsTotal" => ContestApplicationModel::where('contest_id', $contestId)->count(),
+            "recordsFiltered" => ContestApplicationModel::where('contest_id', $contestId)->count(),
+            'data' => ContestApplicationModel::with('owner')->with('status')->where('contest_id', $contestId)->get()
         ];
         return response()->json($data);
     }

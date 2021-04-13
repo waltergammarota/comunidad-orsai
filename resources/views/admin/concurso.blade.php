@@ -160,6 +160,9 @@
                                     <button type="button" class="btn btn-danger eliminar">
                                         <i class="fa fa-trash"></i>
                                     </button>
+                                    <button type="button" class="btn btn-primary postulaciones">
+                                        <i class="fa fa-file"></i>
+                                    </button>
                                 `;
                             }
                             return `
@@ -181,6 +184,11 @@
             table.on('click', '.editar', function () {
                 const data = table.row($(this).parents('tr')).data();
                 window.location.href = `{{url('admin/contest/editar')}}/${data.id}`;
+            });
+
+            table.on('click', '.postulaciones', function () {
+                const data = table.row($(this).parents('tr')).data();
+                window.location.href = `{{url('admin/postulaciones')}}/${data.id}`;
             });
 
             table.on('click', '.pausar', function () {

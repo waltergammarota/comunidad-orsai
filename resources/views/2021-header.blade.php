@@ -10,9 +10,9 @@
             <div id="menu_pcpal">
                 <ul id="insertar_perfil">
                     <li><a href="{{url('novedades')}}">Novedades</a></li>
-                    <li><a href="{{url('historia')}}">Línea de tiempo</a></li> 
-                    <!-- <li><a href="{{url('concursos')}}">Concursos</a></li>
-                    <li><a href="{{url('donar')}}">Donar</a></li> -->
+                    <li><a href="{{url('historia')}}">Línea de tiempo</a></li>
+                    {{--                    <li><a href="{{url('concursos')}}">Concursos</a></li>--}}
+                    {{--                    <li><a href="{{url('donar')}}">Donar</a></li>--}}
                 </ul>
             </div>
         </div>
@@ -30,56 +30,60 @@
 
             @if (Auth::check())
                 @isset($notifications)
-                <div id="menu_reg">
-                    <ul class="logueado">
-                        <li class="resaltado_gris animated swing">
-                            <span class="color_gris_claro icon-aviso"></span>
-                            @if (count($notifications) != 0)
-                                <div class="campanita"><span class="cant_avisos">{{count($notifications)}}</span></div>
-                            @endif
-                            <ul class="mensajes_menu">
+                    <div id="menu_reg">
+                        <ul class="logueado">
+                            <li class="resaltado_gris animated swing">
+                                <span class="color_gris_claro icon-aviso"></span>
                                 @if (count($notifications) != 0)
-                                    @foreach($notifications as $notification)
-                                        <li>
-                                            <a href="{{url('notificacion')}}/{{$notification['id']}}"
-                                               rel="noopener noreferrer">
-                                                <strong
-                                                    class="notif_subject">{{Str::limit($notification['asunto'],70)}}</strong>
-                                                <span class="notif_author">{{$notification['autor']}}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
+                                    <div class="campanita"><span class="cant_avisos">{{count($notifications)}}</span>
+                                    </div>
                                 @endif
-                                <li class="menu_configuracion">
-                                    <a href="{{url('notificaciones')}}" rel="noopener noreferrer"><span
-                                            class="icon-vista"></span>Ver todas</a>
-                                    <a href="{{url('configuracion-notificaciones')}}" rel="noopener noreferrer"><span
-                                            class="icon-config"></span>Preferencias</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li id="clonar_perfil" class="menu_perfil">
-                            <div class="borde_gris menu_img">
-                                <img src="{{Session::get('avatar')}}" alt="{{$username}}">
-                            </div>
-                            <div class="menu_perfil_nombre">
-                                <span class="nickname">{{'@'.$username}}</span>
-                                <span class="color_gris_claro">{{Session::get('balance')}} fichas</span>
-                                <span class="icono icon-angle-down"></span>
-                            </div>
-                            <div class="submenu">
-                                <ul class="mensajes_menu contenedor">
-                                    @if(Session::get('role') == "admin")
-                                        <li><a href="{{url('dashboard')}}" rel="noopener noreferrer">Dashboard</a></li>
+                                <ul class="mensajes_menu">
+                                    @if (count($notifications) != 0)
+                                        @foreach($notifications as $notification)
+                                            <li>
+                                                <a href="{{url('notificacion')}}/{{$notification['id']}}"
+                                                   rel="noopener noreferrer">
+                                                    <strong
+                                                        class="notif_subject">{{Str::limit($notification['asunto'],70)}}</strong>
+                                                    <span class="notif_author">{{$notification['autor']}}</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     @endif
-                                    <li><a href="{{url('panel')}}" rel="noopener noreferrer">Panel</a></li>
-                                    <li><a href="{{url('salir')}}" onclick="alertLogout()" rel="noopener noreferrer">Cerrar
-                                            sesión</a></li>
+                                    <li class="menu_configuracion">
+                                        <a href="{{url('notificaciones')}}" rel="noopener noreferrer"><span
+                                                class="icon-vista"></span>Ver todas</a>
+                                        <a href="{{url('configuracion-notificaciones')}}"
+                                           rel="noopener noreferrer"><span
+                                                class="icon-config"></span>Preferencias</a>
+                                    </li>
                                 </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                            </li>
+                            <li id="clonar_perfil" class="menu_perfil">
+                                <div class="borde_gris menu_img">
+                                    <img src="{{Session::get('avatar')}}" alt="{{$username}}">
+                                </div>
+                                <div class="menu_perfil_nombre">
+                                    <span class="nickname">{{'@'.$username}}</span>
+                                    <span class="color_gris_claro">{{Session::get('balance')}} fichas</span>
+                                    <span class="icono icon-angle-down"></span>
+                                </div>
+                                <div class="submenu">
+                                    <ul class="mensajes_menu contenedor">
+                                        @if(Session::get('role') == "admin")
+                                            <li><a href="{{url('dashboard')}}" rel="noopener noreferrer">Dashboard</a>
+                                            </li>
+                                        @endif
+                                        <li><a href="{{url('panel')}}" rel="noopener noreferrer">Panel</a></li>
+                                        <li><a href="{{url('salir')}}" onclick="alertLogout()"
+                                               rel="noopener noreferrer">Cerrar
+                                                sesión</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 @endisset
             @endif
         </div>

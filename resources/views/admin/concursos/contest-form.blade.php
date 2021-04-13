@@ -49,7 +49,7 @@
                                 <label for="bajadaCompleta">Descripción</label>
                                 <textarea type="text" class="form-control" id="bajadaCompleta"
                                           placeholder="Descripción"
-                                          name="bajada_completa">{{$contest?$contest->bajada_corta:old('bajada_completa')}}</textarea>
+                                          name="bajada_completa">{{$contest?$contest->bajada_completa:old('bajada_completa')}}</textarea>
                                 @error('bajada_completa') <span
                                     class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
@@ -375,6 +375,37 @@
                                             @endif
                                             <label class="form-check-label" for="exampleCheck1">Publicado</label>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Aprobaciones automáticas</label>
+                                        <div class="form-check">
+                                            @if($contest)
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                                       value="1"
+                                                       name="auto_approval" {{$contest->auto_approval?"checked":""}}>
+                                            @else
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                                       value="1"
+                                                       name="auto_approval">
+                                            @endif
+                                            <label class="form-check-label" for="exampleCheck1">Aprobaciones
+                                                automáticas</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="bases">Valor de pago de la ficha</label>
+                                        <input type="number" step="0.01" class="form-control"
+                                               value="{{old('token_value')? old('token_value'): ($contest? $contest->token_value: 0)}}"
+                                               name="token_value" placeholder="Valor de ficha para el pago en USD"
+                                               required>
+                                        @error('token_value') <span
+                                            class="help-block">{{$message}}</span> @enderror
                                     </div>
                                 </div>
                             </div>

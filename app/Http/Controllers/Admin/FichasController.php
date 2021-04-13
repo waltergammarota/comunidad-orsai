@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Databases\CiudadModel;
 use App\Databases\FichasLog;
+use App\Databases\OcupacionModel;
 use App\Databases\PaisModel;
 use App\Databases\ProvinciaModel;
 use App\Databases\Transaction;
@@ -18,7 +19,8 @@ class FichasController extends Controller
 {
     public function index()
     {
-        return view('admin.gestion-fichas');
+        $data['profesiones'] = OcupacionModel::all();
+        return view('admin.gestion-fichas', $data);
     }
 
     public function send(Request $request)
@@ -27,26 +29,27 @@ class FichasController extends Controller
             "opcion" => "required",
             "amount" => "required",
             "data" => "required",
-            "type" => "required"
+            "type" => "required",
+            "way" => "required"
         ]);
         $opcion = $request->opcion;
 
         switch ($opcion) {
             case 0:
-                $this->sendAllUsers($request->amount, $request->data, $request->type);
+                $this->sendAllUsers($request->amount, $request->data, strtoupper($request->type), $request->way);
                 break;
             case 1:
-                $this->sendToUsers($request->users, $request->amount, $request->data, $request->type);
+                $this->sendToUsers($request->users, $request->amount, $request->data, strtoupper($request->type), $request->way);
                 break;
             case 2:
-                $this->sendToListUsers($request->filters, $request->amount, $request->data, $request->type);
+                $this->sendToListUsers($request->filters, $request->amount, $request->data, strtoupper($request->type), $request->way);
                 break;
         }
 
         return Redirect::to('admin/gestion-fichas');
     }
 
-    private function sendToListUsers($filters, $amount, $data, $type)
+    private function sendToListUsers($filters, $amount, $data, $type, $method)
     {
         $countries = array_key_exists('country', $filters) ? $filters['country'] : [];
         $provincias = array_key_exists('provincia', $filters) ? $filters['provincia'] : [];
@@ -54,7 +57,7 @@ class FichasController extends Controller
         $operacion = array_key_exists('operacion', $filters) ? $filters['operacion'] : 0;
         $balance = array_key_exists('balance', $filters) ? $filters['balance'] : 0;
         $users = User::where('email_verified_at', '!=', null);
-        $profesion = array_key_exists('profesion', $filters) ? $filters['profesion']: "";
+        $profesion = array_key_exists('profesion', $filters) ? $filters['profesion'] : "";
         $startDate = array_key_exists('start', $filters['birth_date']) ? $filters['birth_date']['start'] : "";
         $endDate = array_key_exists('end', $filters['birth_date']) ? $filters['birth_date']['end'] : "";
         if (count($countries) > 0) {
@@ -82,10 +85,7 @@ class FichasController extends Controller
             $amountAux = $amount;
             $saldo = $user->getBalance();
             if ($operacion == 0) {
-                if ($type == 'burn') {
-                    $balance = $saldo();
-                    $amountAux = $amount <= $balance ? $amount : $balance;
-                }
+                $amountAux = $this->getExactAmount($type, $method, $amount, $user);
                 $tx = new Transaction([
                     "from" => 1,
                     "to" => $user->id,
@@ -175,17 +175,14 @@ class FichasController extends Controller
         $log->save();
     }
 
-    private function sendToUsers($users, $amount, $data, $type)
+    private function sendToUsers($users, $amount, $data, $type, $method)
     {
         $sum = 0;
         foreach ($users as $userId) {
             $amountAux = $amount;
             $user = User::find($userId);
             if ($user != null) {
-                if ($type == 'burn') {
-                    $balance = $user->getBalance();
-                    $amountAux = $amount <= $balance ? $amount : $balance;
-                }
+                $amountAux = $this->getExactAmount($type, $method, $amount, $user);
                 if ($amountAux == 0 || $user->email_verified_at == null) {
                     continue;
                 }
@@ -212,40 +209,39 @@ class FichasController extends Controller
         $log->save();
     }
 
-    private function sendAllUsers($amount, $data, $type)
+    private function sendAllUsers($amount, $data, $type, $method = "coins")
     {
         $idPool = 1;
-        $users = User::select('id')->where('email_verified_at', '!=', 'null')->where('id', '>', $idPool)->get();
-        $sum = 0;
-        foreach ($users as $user) {
-            $amountAux = $amount;
-            if ($type == "burn") {
-                $balance = $user->getBalance();
-                $amountAux = $amount <= $balance ? $amount : $balance;
+        User::select('id')->whereNotNull('email_verified_at')->where('id', '>', $idPool)->chunk(250, function ($users) use ($amount, $data, $type, $method) {
+            $sum = 0;
+            foreach ($users as $user) {
+                $amountAux = $amount;
+                $amountAux = $this->getExactAmount($type, $method, $amount, $user);
+                if ($type == "MINT")
+                    if ($amountAux == 0) {
+                        continue;
+                    }
+                $tx = new Transaction([
+                    "from" => 1,
+                    "to" => $user->id,
+                    "data" => $data,
+                    "type" => $type,
+                    "amount" => $amountAux >= 0 ? $amountAux : 0
+                ]);
+                $tx->save();
+                $sum += $amountAux;
             }
-            if ($amountAux == 0) {
-                continue;
-            }
-            $tx = new Transaction([
-                "from" => 1,
-                "to" => $user->id,
-                "data" => $data,
-                "type" => $type,
-                "amount" => $amountAux >= 0 ? $amountAux : 0
+            $log = new FichasLog([
+                'user_id' => Auth::user()->id,
+                'destinatarios' => 'Todos',
+                'cantidad_puntos' => $amount,
+                'cantidad_users' => count($users),
+                'total_puntos' => $sum,
+                'tipo' => $type == 'mint' ? 'entrega' : 'quitar',
+                'description' => $data
             ]);
-            $tx->save();
-            $sum += $amountAux;
-        }
-        $log = new FichasLog([
-            'user_id' => Auth::user()->id,
-            'destinatarios' => 'Todos',
-            'cantidad_puntos' => $amount,
-            'cantidad_users' => count($users),
-            'total_puntos' => $sum,
-            'tipo' => $type == 'mint' ? 'entrega' : 'quitar',
-            'description' => $data
-        ]);
-        $log->save();
+            $log->save();
+        });
     }
 
     public function search_users(Request $request)
@@ -325,5 +321,26 @@ class FichasController extends Controller
             'data' => $data
         ];
         return response()->json($data);
+    }
+
+    private function getExactAmount($type, string $method, $amount, $user)
+    {
+        if ($type == "MINT" && $method == "coins") {
+            $amountAux = $amount;
+        }
+        if ($type == "BURN" && $method == "coins") {
+            $balance = $user->getBalance();
+            $amountAux = $amount <= $balance ? $amount : $balance;
+        }
+        if ($type == "MINT" && $method == "percentage") {
+            $balance = $user->getBalance();
+            $amountAux = round($balance * ($amount / 100), 0);
+        }
+        if ($type == "BURN" && $method == "percentage") {
+            $balance = $user->getBalance();
+            $amountAux = round($balance * ($amount / 100), 0);
+            $amountAux = $amountAux <= $balance ? $amountAux : $balance;
+        }
+        return $amountAux;
     }
 }

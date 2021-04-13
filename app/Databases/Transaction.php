@@ -4,6 +4,7 @@
 namespace App\Databases;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -91,7 +92,7 @@ class Transaction extends Model
 
     static function getFichasBaldeosYMordidas()
     {
-        return Transaction::where('tags', 'like', "%baldeo%")->orWhere('tags', 'like', '%mordida%')->sum('amount');
+        return Transaction::where('to', 1)->sum('amount');
     }
 
     public function getAmountForReport()
@@ -102,5 +103,42 @@ class Transaction extends Model
             default:
                 return $this->amount * -1;
         }
+    }
+
+
+    static public function getNextBaldeoDate($user)
+    {
+        $day = env('BALDEO_DIA', 1);
+        $currentMonth = Carbon::now()->format('m');
+        $nextMonth = ($currentMonth + 1) == 12 ? 1 : $currentMonth + 1;
+        $currentYear = Carbon::now()->format('Y');
+        $year = $currentMonth == 12 ? $currentYear + 1 : $currentYear;
+        $balance = $user->getBalance();
+        $porcentaje = env("PORCENTAJE_BALDEO", 10);
+        return
+            ["fechaProximoBaldeo" => Carbon::create($year, $nextMonth, $day),
+                "balance" => $balance * (1 - ($porcentaje / 100))
+            ];
+    }
+
+    static public function getNextMordida($user)
+    {
+        $days = env('MORDIDA_DIAS', 90);
+        $lastTx = Transaction::where(['to' => $user->id,
+            'type' => 'MINT', 'processed' => 0])->first();
+        $mintedTxs = Transaction::where(['to' => $user->id,
+            'type' => 'MINT',
+            'processed' => 0])->sum('amount');
+        $burnedTxs = Transaction::where(['to' => $user->id, 'type' => 'BURN', 'processed' => 0])->sum('amount');
+        $transfers = Transaction::where(['from' => $user->id, 'type' => 'TRANSFER', 'processed' => 0])->sum('amount');
+        $resto = $mintedTxs - $burnedTxs - $transfers;
+        $puntosAQuemar = $user->getBalance() - $resto;
+        $minimo = env('MORDIDA_MINIMO', 10);
+        return ['fechaProximaMordida' => $lastTx ? $lastTx->created_at->addDays($days)->format('d/m/Y') : false,
+            'mintedTxs' => $mintedTxs,
+            'burnedTxs' => $burnedTxs,
+            'transfers' => $transfers,
+            'resto' => $puntosAQuemar > $minimo ? $puntosAQuemar : $minimo
+        ];
     }
 }
