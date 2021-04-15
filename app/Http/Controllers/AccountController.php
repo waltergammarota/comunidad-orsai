@@ -19,6 +19,7 @@ use App\Databases\SectorModel;
 use App\Databases\Transaction;
 use App\Repositories\FileRepository;
 use App\User;
+use App\Utils\Mailer;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
@@ -303,10 +304,25 @@ class AccountController extends Controller
             if ($contest->auto_approval == 1) {
                 $cpaLog = new CpaLog(["status" => "approved", "cap_id" => $cpa->id]);
                 $cpaLog->save();
+                $owner = User::find($cpa->user_id);
+                $this->sendApproveMail($owner->email, $cpa->id);
+                $this->sendMailToAdministrator($owner->email, $cpa->id, $owner->name, $owner->lastName);
             }
             Transaction::createTransaction($user->id, $contest->pool_id, $contest->cost_per_cpa, "Inscripción a concurso " . $contest->name, null, 'TRANSFER');
         }
         return Redirect::to('mis-postulaciones');
+    }
+
+    private function sendMailToAdministrator($email, $cpaId, $name, $lastName)
+    {
+        $mailer = new Mailer();
+        $mailer->sendMailToAdministrator($email, $cpaId, $name, $lastName);
+    }
+
+    private function sendApproveMail($email, $cpaId)
+    {
+        $mailer = new Mailer();
+        $mailer->sendApproveMail($email, $cpaId);
     }
 
 
