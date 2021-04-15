@@ -38,29 +38,29 @@ class FormModel extends Model
     ];
 
 
-    public function inputs()
-    {
-        return $this->hasMany(InputModel::class, 'form_id');
-    }
+    // public function inputs()
+    // {
+    //     return $this->hasMany(InputModel::class, 'form_id');
+    // }
 
-    public function getRules()
-    {
-        $inputs = $this->inputs()->get();
-        $rules = [];
-        foreach ($inputs as $input) {
-            $rules[$input->getInputName()] = $input->getRule();
-        }
-        return $rules;
-    }
+    // public function getRules()
+    // {
+    //     $inputs = $this->inputs()->get();
+    //     $rules = [];
+    //     foreach ($inputs as $input) {
+    //         $rules[$input->getInputName()] = $input->getRule();
+    //     }
+    //     return $rules;
+    // }
 
-    public function getAttributes()
-    {
-        $inputs = $this->inputs()->get();
-        $attributes = [];
-        foreach ($inputs as $input) {
-            $attributes[$input->getInputName()] = strtolower($input->title);
-        }
-        return $attributes;
-    }
+    // public function getAttributes()
+    // {
+    //     // $inputs = $this->inputs()->get();
+    //     $attributes = [];
+    //     // foreach ($inputs as $input) {
+    //     //     $attributes[$input->getInputName()] = strtolower($input->title);
+    //     // }
+    //     return $attributes;
+    // }
 
 }

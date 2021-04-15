@@ -141,6 +141,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
+                                <a href="{{url('admin/forms')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Forms</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{url('admin/inputs')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inputs</p>
