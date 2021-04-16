@@ -17,9 +17,9 @@
     </style>
     <div class="card">
         <div class="card-header">
-            <a href="{{url("admin/inputs/crear")}}" class="btn btn-primary editar float-right">
+            {{-- <a href="{{url("admin/inputs/crear")}}" class="btn btn-primary editar float-right">
                 <i class="fa fa-plus-circle"></i>
-            </a>
+            </a> --}}
         </div>
         <div class="card-body">
             <table id="myTable" class="table table-bordered table-hover">
