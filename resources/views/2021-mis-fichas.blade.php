@@ -83,7 +83,7 @@
                                             <td style="text-align: right;">{{$tx->id}}</td>
                                             <td>
                                                 @if($tx->payment_processor == 'mercadopago' && $tx->type == 'MINT')
-                                                    {{$tx->data}} - <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Tipo de cambio USD1 = {{$dolar}} (conlink)</a>
+                                                    {{$tx->data}} - <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Tipo de cambio USD1 = {{$dolar}}</a>
                                                 @else
                                                     {{$tx->data}}
                                                 @endif
