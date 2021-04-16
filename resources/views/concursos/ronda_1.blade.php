@@ -87,26 +87,8 @@
         <div class="cd-tab-filter">
            <ul class="filtro_menu">
                <li class="color_blanco"> <span id="open_menu"> <span class="icon icon-filtro"></span><span class="text_tit_submenu">Filtros </span><span class="color_amarillo cant_filtros_aplicados">(4)</span></span>
-                <form action="#" id="form_filtro" autocomplete="off">
-                    <ul class="sub_menu">
-                        <li> <span class="icon icon-cancel"></span></li>
-                        <li>
-                            Mis filtros
-                            <div class="input_err tag-container">
-
-                            </div>
-                            
-                        </li>
-                        <li>
-                            <div class="border_bt_form">
-                                <div class="form_ctrl input_">
-                                    <div class="input_err">
-                                        <label class="text_medium">Buscar</label>
-                                        <input type="text" name="palabras_buscar" placeholder="palabra" class="obligatorio">
-                                    </div>
-                                </div>
-                            </div>    
-                        </li>
+                <form action="#" id="form_filtro" autocomplete="off"><span class="icon icon-cancel cerrar"></span>
+                    <ul class="sub_menu"> 
                         <li>
                             <div class="form_ctrl input_">
                                 <div class="input_err">
@@ -123,17 +105,22 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="titulo_checkbox">
-                                <span class="text_medium">Ver</span>
+                        <li> 
+                            <div class="form_ctrl input_">
+                                <div class="input_err">
+                                    <label class="text_medium">Buscar</label>
+                                    <input type="text" name="palabras_buscar" placeholder="palabra" class="obligatorio">
+                                </div>
                             </div> 
+                        </li>
+                        <li> 
                             <div class="grilla_form sin_margin">
                                 <div class="form_ctrl input_ col_6">
                                     <div class="align_left">
                                     <div class="input_err">
                                         <div class="check_div input_err obligatorio">
                                             <label class="checkbox-container letra_chica text_bold">
-                                                Destrabados
+                                                Ver destrabados
                                                 <input type="checkbox" value="Destrabados" id="cbox3" name="filtro3" class="check_cond"> 
                                                 <span class="crear_check"></span> 
                                             </label>
@@ -143,6 +130,15 @@
                                 </div>   
                             </div>
                         </li>  
+                        <li> 
+                            <div class="input_err tag-container"> 
+                            </div> 
+                        </li>
+                        <li> 
+                            <div class="input_"> 
+                                <a href="#" class="boton_redondeado resaltado_amarillo align_left">Enviar</a>
+                            </div> 
+                        </li>
                     </ul>
                 </form>
             </li>

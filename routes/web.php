@@ -102,6 +102,18 @@ Route::post(
     'DonarController@mercado_pago_webhook'
 )->name('mercado_pago_webhook');
 
+//TRANSPARENCIA
+Route::get(
+    'transparencia',
+    'TransparenciaController@index'
+)
+    ->name('transparencia');
+
+Route::get(
+    'transparencia-json',
+    'TransparenciaController@transparencia_json'
+)
+    ->name('transparencia-json');
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -338,20 +350,6 @@ Route::middleware(['verified'])->group(
         )->name('participantes-more');
 
         //FIN DE CONCURSOS
-
-        //TRANSPARENCIA
-        Route::get(
-            'transparencia',
-            'TransparenciaController@index'
-        )
-            ->name('transparencia');
-
-        Route::get(
-            'transparencia-json',
-            'TransparenciaController@transparencia_json'
-        )
-            ->name('transparencia-json');
-
         Route::post(
             'reportar',
             'TransparenciaController@reportar'

@@ -12,74 +12,73 @@
                 listados de benefactores, adherentes y aportantes económicos que bancan los proyectos.</p>
         </div>
     </section>
-
-    @if($user->phone_verified_at)
-        <section class="resaltado_gris_oscuro pd_tp_bt pd_20">
-            <div class="center_div">
-                <div class="contenedor mg_0 dis_flex ">
-                    <article class="card_style_6 transparencia">
-                        <div class="img_transparencia">
-                            <img src="{{url('estilos/front2021/assets/SVG/billetera_transparencia.svg')}}" alt="">
-                        </div>
-                        <div class="txt_transparencia">
-                            <h2>{{$fichasEnBilleteras}}</h2>
-                            <p>Fichas en la billetera de los usuarios</p>
-                        </div>
-                    </article>
-                    <article class="card_style_6 transparencia">
-                        <div class="img_transparencia">
-                            <img src="{{url('estilos/front2021/assets/SVG/monedas_transparencia.svg')}}" alt="">
-                        </div>
-                        <div class="txt_transparencia">
-                            <h2>{{$fichasEnJuego}}</h2>
-                            <p>Fichas en juego</p>
-                        </div>
-                    </article>
-                    <article class="card_style_6 transparencia">
-                        <div class="img_transparencia">
-                            <img src="{{url('estilos/front2021/assets/SVG/baldeo_transparencia.svg')}}" alt="">
-                        </div>
-                        <div class="txt_transparencia">
-                            <h2>{{$baldeosYMordidas}}</h2>
-                            <p>Fichas recaudadas por baldeo y mordida</p>
-                        </div>
-                    </article>
-                </div>
+ 
+    <section class="resaltado_gris_oscuro pd_tp_bt pd_20">
+        <div class="center_div">
+            <div class="contenedor mg_0 dis_flex ">
+                <article class="card_style_6 transparencia">
+                    <div class="img_transparencia">
+                        <img src="{{url('estilos/front2021/assets/SVG/billetera_transparencia.svg')}}" alt="">
+                    </div>
+                    <div class="txt_transparencia">
+                        <h2>{{$fichasEnBilleteras}}</h2>
+                        <p>Fichas en la billetera de los usuarios</p>
+                    </div>
+                </article>
+                <article class="card_style_6 transparencia">
+                    <div class="img_transparencia">
+                        <img src="{{url('estilos/front2021/assets/SVG/monedas_transparencia.svg')}}" alt="">
+                    </div>
+                    <div class="txt_transparencia">
+                        <h2>{{$fichasEnJuego}}</h2>
+                        <p>Fichas en juego</p>
+                    </div>
+                </article>
+                <article class="card_style_6 transparencia">
+                    <div class="img_transparencia">
+                        <img src="{{url('estilos/front2021/assets/SVG/baldeo_transparencia.svg')}}" alt="">
+                    </div>
+                    <div class="txt_transparencia">
+                        <h2>{{$baldeosYMordidas}}</h2>
+                        <p>Fichas recaudadas por baldeo y mordida</p>
+                    </div>
+                </article>
             </div>
-        </section>
-        <section class="resaltado_gris pd_20_tp_bt ">
-            <article class="contenedor ft_size form_rel pd_15_extra">
-                <div class="">
-                    <div class="form_central_3 ">
-                        <div class="btn_fichas_dinero">
-                            <span class="fichas active" data-type="fichas">Fichas</span>
-                            <span class="dinero" data-type="dinero">Dinero</span>
-                        </div>
-                        <div class="tran_creditos transparencia">
-                            <div class="cont_tabla">
-                                <table class="light-3" class="display nowrap" style="width:100%height:500px;"
-                                       id="mis_fichas_table">
-                                    <thead>
-                                    <tr>
-                                        <th>Fecha y hora</th>
-                                        <th>ID</th>
-                                        <th>Descripción</th>
-                                        <th>Débito/Crédito</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
+        </div>
+    </section>
+    <section class="resaltado_gris pd_20_tp_bt ">
+        <article class="contenedor ft_size form_rel pd_15_extra">
+            <div class="">
+                <div class="form_central_3 ">
+                    <div class="btn_fichas_dinero">
+                        <span class="fichas active" data-type="fichas">Fichas</span>
+                        <span class="dinero" data-type="dinero">Dinero</span>
+                    </div>
+                    <div class="tran_creditos transparencia">
+                        <div class="cont_tabla">
+                            <table class="light-3" class="display nowrap" style="width:100%height:500px;"
+                                    id="mis_fichas_table">
+                                <thead>
+                                <tr>
+                                    <th width="150">Fecha y hora</th>
+                                    <th width="100">ID</th>
+                                    <th>Descripción</th>
+                                    <th width="100">Débito/Crédito</th>
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
-            </article>
-        </section>
-        <div id="reportar_transaccion" class="modal_">
-            <div class="contenedor">
-                <div class="cont_modal_blanco cont_modal_basico">
-                    <div class="cerrar">
-                        <span>X</span>
-                    </div>
-                    <div class="cuerpo_modal">
+                </div>
+        </article>
+    </section>
+    <div id="reportar_transaccion" class="modal_">
+        <div class="contenedor">
+            <div class="cont_modal_blanco cont_modal_basico">
+                <div class="cerrar">
+                    <span>X</span>
+                </div>
+                <div class="cuerpo_modal">
                         <p>Estás a punto de reportar la transacción ID# <span id="report_id"></span></p>
                         <form action="{{url('reportar')}}" method="POST">
                             @csrf
@@ -87,7 +86,7 @@
                             <div class="form_ctrl input_">
                                 <div class="input_err">
                                     <textarea name="reclamo" id="" cols="" rows=""
-                                              placeholder="Quiero reportar..."></textarea>
+                                                placeholder="Quiero reportar..."></textarea>
                                 </div>
                             </div>
                             <div class="aviso">
@@ -100,138 +99,38 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </form>  
                 </div>
             </div>
         </div>
-    @else
-        <section class="resaltado_gris pd_20_bt ">
-            <div class="contenedor  cs6_titulo_seccion_sm transparencia">
-                <a href="{{url('validacion-usuario')}}"
-                   class="boton_redondeado resaltado_black color_amarillo  pd_50_lf_rg">Validar mi
-                    perfil</a></div>
-            </div>
-        </section>
-        <section class="resaltado_gris_oscuro pd_tp_bt pd_20 blur">
-            <div class="center_div">
-                <div class="contenedor mg_0 dis_flex ">
-                    <article class="card_style_6 transparencia">
-                        <div class="img_transparencia">
-                            <img src="{{url('estilos/front2021/assets/SVG/billetera_transparencia.svg')}}" alt="">
-                        </div>
-                        <div class="txt_transparencia">
-                            <h2>--</h2>
-                            <p>Fichas en la billetera de los usuarios</p>
-                        </div>
-                    </article>
-                    <article class="card_style_6 transparencia">
-                        <div class="img_transparencia">
-                            <img src="{{url('estilos/front2021/assets/SVG/monedas_transparencia.svg')}}" alt="">
-                        </div>
-                        <div class="txt_transparencia">
-                            <h2>--</h2>
-                            <p>Fichas en juego</p>
-                        </div>
-                    </article>
-                    <article class="card_style_6 transparencia">
-                        <div class="img_transparencia">
-                            <img src="{{url('estilos/front2021/assets/SVG/baldeo_transparencia.svg')}}" alt="">
-                        </div>
-                        <div class="txt_transparencia">
-                            <h2>--</h2>
-                            <p>Fichas recaudadas por baldeo y mordida</p>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-        <section class="resaltado_gris pd_20_tp_bt blur">
-            <article class="contenedor ft_size form_rel pd_15_extra">
-                <div class="">
-                    <div class="form_central_3 ">
-                        <div class="btn_fichas_dinero">
-                            <span class="fichas active" data-type="fichas">Fichas</span>
-                            <span class="dinero" data-type="dinero">Dinero</span>
-                        </div>
-                        <div class="tran_creditos transparencia">
-                            <div class="cont_tabla">
-                                <table class="light-3" class="display nowrap" style="width:100%height:500px;"
-                                       id="table_demo">
-                                    <thead>
-                                    <tr>
-                                        <th>Fecha y hora</th>
-                                        <th>ID</th>
-                                        <th>Descripción</th>
-                                        <th>Débito/Crédito</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="odd">
-                                        <td><span class="icono icon-flag tooltip"><span
-                                                    class="tooltiptext">Reportar</span></span> 01/01/2021 00:00
-                                        </td>
-                                        <td>1234</td>
-                                        <td><a href="#">Usuario </a> se postuló al <a
-                                                href="concursos/4/Cuentos+infantiles">Concurso</a></td>
-                                        <td>
-                                            <div class="fichas fichas_td fichas_negativo"><span
-                                                    class="icono icon-ficha"></span>-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td><span class="icono icon-flag tooltip"><span
-                                                    class="tooltiptext">Reportar</span></span> 01/01/2021 00:00
-                                        </td>
-                                        <td>1234</td>
-                                        <td><a href="#">Usuario </a> se postuló al <a
-                                                href="concursos/4/Cuentos+infantiles">Concurso</a></td>
-                                        <td>
-                                            <div class="fichas fichas_td"><span class="icono icon-ficha"></span>-</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td><span class="icono icon-flag tooltip"><span
-                                                    class="tooltiptext">Reportar</span></span> 01/01/2021 00:00
-                                        </td>
-                                        <td>1234</td>
-                                        <td><a href="#">Usuario </a> se postuló al <a
-                                                href="concursos/4/Cuentos+infantiles">Concurso</a></td>
-                                        <td>
-                                            <div class="fichas fichas_td fichas_negativo"><span
-                                                    class="icono icon-ficha"></span>-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td><span class="icono icon-flag tooltip"><span
-                                                    class="tooltiptext">Reportar</span></span> 01/01/2021 00:00
-                                        </td>
-                                        <td>1234</td>
-                                        <td><a href="#">Usuario </a> se postuló al <a
-                                                href="concursos/4/Cuentos+infantiles">Concurso</a></td>
-                                        <td>
-                                            <div class="fichas fichas_td fichas_negativo"><span
-                                                    class="icono icon-ficha"></span>-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-            </article>
-        </section>
-    @endif
-    <div id="validacion_requerida" class="modal_">
+    </div> 
+    {{-- <div id="validacion_requerida" class="modal_">
         <div class="contenedor">
             <div class="cont_modal_blanco cont_modal_basico resaltado_amarillo">
                 <div class="cuerpo_modal">
                     <span class="icono icon-exclamacion_circle"></span>
                     <p class="titulo _barlow_text">Validación requerida</p>
                     <p>Para ver cada centavo que entra y sale de la Comunidad Orsai tenés que validar tu perfil.</p>
+                    <div class="form_ctrl input_">
+                        <div class="align_center">
+                            <a href="{{url('validacion-usuario')}}"
+                               class="boton_redondeado resaltado_black color_amarillo  pd_50_lf_rg width_100">Validar mi
+                                perfil</a></div>
+                        <div class="align_center mg_20">
+                            <a href="#" class="modal_no subrayado">Ahora no</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <div id="validacion_requerida" class="modal_">
+        <div class="contenedor">
+            <div class="cont_modal_blanco cont_modal_basico resaltado_amarillo">
+                <div class="cuerpo_modal">
+                    <span class="icono icon-exclamacion_circle"></span>
+                    <p class="titulo _barlow_text">Validación requerida</p>
+                    <p>Para reportar una transacción tenes que ser miembro.</p>
                     <div class="form_ctrl input_">
                         <div class="align_center">
                             <a href="{{url('validacion-usuario')}}"
@@ -252,14 +151,7 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/scroller/2.0.3/js/dataTables.scroller.min.js"></script>
     <script>
-
-        @if(!$user->phone_verified_at)
-        $('#validacion_requerida').show();
-        @endif
-        $(".modal_no").on("click", function () {
-            $('#validacion_requerida').hide();
-        });
-
+ 
         const lang = {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -307,7 +199,7 @@
                         if (parseInt(data) < 0) {
                             classNegativo = "dinero_negativo";
                         }
-                        return `<div class="dinero dinero_td ${classNegativo}"><span class="icono">USD </span>${data}</div>`;
+                        return `<div class="dinero dinero_td ${classNegativo} align_right"><span class="icono">USD </span>${data}</div>`;
                     }
                 }
             ];
@@ -327,7 +219,7 @@
                         if (parseInt(data) < 0) {
                             classNegativo = "fichas_negativo";
                         }
-                        return `<div class="fichas fichas_td ${classNegativo}"><span class="icono icon-ficha"></span>${data}</div>`;
+                        return `<div class="fichas fichas_td ${classNegativo}"><span class="icono icon-ficha"></span><span class="align_right">${data}</span></div>`;
                     }
                 }
             ];
@@ -395,9 +287,14 @@
                 }
             });
 
+            $(".modal_no").on("click", function () {
+                $("#validacion_requerida").fadeOut();
+                $(".aviso").fadeOut();
+                $('html, body').css('overflowY', 'auto');
+            });
+
             $(".cerrar").on("click", function () {
                 $("#reportar_transaccion").fadeOut();
-                $("#validacion_requerida").fadeOut();
                 $(".aviso").fadeOut();
                 $('html, body').css('overflowY', 'auto');
             });
@@ -407,7 +304,12 @@
                 $("#report_id").empty().append(data.id);
                 $("#report_id_input").val(data.id);
                 $('html, body').css('overflowY', 'hidden');
-                $("#reportar_transaccion").fadeIn();
+
+                @if (Auth::check())
+                    $("#reportar_transaccion").fadeIn();
+                @else
+                    $("#validacion_requerida").fadeIn();
+                @endif
             })
             $("#reportar_transaccion button").on("click", function () {
                 $(".aviso").fadeIn();

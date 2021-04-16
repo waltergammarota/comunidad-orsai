@@ -35,7 +35,7 @@
             <div class="modal-content">
                 <form role="form" method="POST" action="{{ route('inputs.delete') }}" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h4 class="modal-title">Eliminación de input</h4>
+                        <h4 class="modal-title">Eliminación de campo</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -142,9 +142,9 @@
                                 <tfoot>
                                     <tr class="table-warning">
                                         <td class="text-right">#</td>
-                                        <td colspan="5"><strong>Crear Input</strong></td>
+                                        <td colspan="5"><strong>Crear campo</strong></td>
                                         <td class="text-center">
-                                            <a href="{{ route('inputs.create', $form) }}" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Crear Input">
+                                            <a href="{{ route('inputs.create', $form) }}" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Crear campo">
                                                 <i class="fas fa-plus"></i>
                                             </a>
                                         </td>

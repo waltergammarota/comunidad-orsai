@@ -40,7 +40,7 @@ class FormController extends Controller
         $form->description = '';
 
         $data['form'] = $form;
-        $data['section_name'] = 'Crear Form';
+        $data['section_name'] = 'Crear Formulario';
 
         return view('admin.forms.form', $data);
     }
@@ -70,7 +70,7 @@ class FormController extends Controller
         $data['form'] = $form;
         $data['inputs'] = $form->inputs();
 
-        $data['section_name'] = 'Editar Form';
+        $data['section_name'] = 'Editar Formulario';
 
         return view('admin.forms.form', $data);
     }
