@@ -6,7 +6,7 @@
 
 
 @section('name')
-    Inputs
+    Campos
 @endsection
 
 @section('content')
@@ -58,7 +58,7 @@
                     "search": "Buscar:",
                     "processing": "Procesando...",
                     "loadingRecords": "Cargando....",
-                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ entradas",
+                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ campos",
                     "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
                         '<option value="10">10</option>' +
                         '<option value="20">20</option>' +
@@ -66,7 +66,7 @@
                         '<option value="40">40</option>' +
                         '<option value="50">50</option>' +
                         '<option value="-1">Todas</option>' +
-                        '</select> entradas',
+                        '</select> campos',
 
                 },
                 "columns": [

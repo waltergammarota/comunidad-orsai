@@ -978,6 +978,13 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
         width: 230px;
         text-align: right;
     }
+    .header_flex{ 
+        flex-direction: column;
+    }
+    .transparencia_box{ 
+        margin:0 auto 20px auto;
+        text-align:center;
+    }
 }
 
 @media (min-width: 1040px) and (max-width: 1200px) {
@@ -3476,6 +3483,7 @@ div.tagsinput #tags_tag {
 
 .modal_sinfichas {
     max-width: 400px !important;
+    padding: 15px 30px;
 }
 
 .modal_sinfichas p {
@@ -6902,7 +6910,13 @@ footer .sub_footer .sub_footer_ri ul li a {
     padding-bottom: 15px;
     margin-bottom: 25px;
 }
-
+.header_flex { 
+  display: flex; 
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: normal;
+  align-content: normal;
+}
 .grilla_form .form_ctrl:nth-child(1) {
     padding-right: 25px;
 }
@@ -8685,6 +8699,12 @@ table.dataTable thead th.sorting:after {
 .tran_creditos .cont_tabla table tbody tr .fichas_td {
     font-weight: 700;
     color: #090908;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: normal;
+    align-content: normal;
 }
 
 .tran_creditos .cont_tabla table tbody tr .fichas_td .icono {
@@ -13264,7 +13284,7 @@ Main Components
     /* this way the placehodler is alway visible */
     /* display: block; */
   }
-  .cd-tab-filter a {
+  .cd-tab-filter .cd-filters a {
     display: block;
     /* set same size of the .cd-tab-filter */
     height: 50px;
@@ -13272,7 +13292,7 @@ Main Components
     line-height: 50px;
     padding-left: 14px;
   }
-  .cd-tab-filter a.selected { 
+  .cd-tab-filter .cd-filters a.selected { 
     color: #ffffff;
     border-bottom:3px solid #ffe600;
   }
@@ -13311,8 +13331,7 @@ Main Components
     }
     .cd-tab-filter .filtro_menu ul li{
         width:100%;
-        position:relative;
-        min-height: 30px;
+        position:relative; 
   }
   .cd-tab-filter .filtro_menu:first-child{
       color:red;
@@ -13322,8 +13341,7 @@ Main Components
   }
   .cd-tab-filter .filtro_menu .sub_menu{
       background-color: #e6e6e6;
-      padding:0px 20px;
-      padding-bottom:20px;
+      padding:20px; 
       border-radius: 5px;
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
@@ -13332,8 +13350,15 @@ Main Components
       position:absolute;
       left:-10px;
       width:420px;
-      top:35px;
+      top:15px;
       max-width:420px;
+}
+#form_filtro{
+    position:relative;
+    width:420px;
+}
+#form_filtro .boton_redondeado  {
+font-size:14px;
 }
 @media (max-width:600px){
     .cd-tab-filter .filtro_menu .sub_menu{
@@ -13362,10 +13387,7 @@ Main Components
 }
   .cd-tab-filter .filtro_menu ul.sub_menu  {
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
-}
-.cd-tab-filter .filtro_menu ul.sub_menu .border_bt_form{
-    border-bottom: 1px solid #d1d1d1;
-}
+} 
   .cd-tab-filter .filtro_menu .sub_menu li{
       color:black;
       font-size:16px;
@@ -13410,11 +13432,11 @@ Main Components
   .cd-tab-filter .filtro_menu .sub_menu .form_ctrl input, .cd-tab-filter .filtro_menu .sub_menu .form_ctrl select{
       width:100%;
   }
-  .cd-tab-filter .filtro_menu ul li .icon{
+  .cd-tab-filter .filtro_menu .cerrar{
     cursor: pointer;
     position:absolute;
-    right:-5px;
-    top:6px;
+    right: 10px;
+    top: 20px;
     text-align: right;
     margin-right:0;
     color: #808080;
@@ -13468,7 +13490,7 @@ Main Components
     .cd-tab-filter li.placeholder {
       display: none !important;
     }
-    .cd-tab-filter a {
+    .cd-tab-filter .cd-filters a {
       display: inline-block;
       padding: 0 1em;
       width: auto;
@@ -13477,10 +13499,10 @@ Main Components
       font-size: 14px;
     }
     
-    .no-touch .cd-tab-filter a:hover {
+    .no-touch .cd-tab-filter .cd-filters a:hover {
       color: #41307c;
     }
-    .cd-tab-filter a.selected {
+    .cd-tab-filter .cd-filters a.selected {
       background: transparent;
       color: var(--concurso-color-yellow);
       /* create border bottom using box-shadow property */
@@ -13490,7 +13512,7 @@ Main Components
       display: inline-block;
     }
   }
-  .cd-tab-filter a .counter_{
+  .cd-tab-filter .cd-filters a .counter_{
     color: #ffe600;
   }
   .cd-filters li.filter.bloqued a .counter_{
@@ -13503,7 +13525,7 @@ Main Components
         text-align: left;
 
     }
-    .cd-tab-filter a {
+    .cd-tab-filter .cd-filters a {
         color: #fff; 
       }
     .cd-tab-filter ul.cd-filters{
@@ -13543,13 +13565,13 @@ Main Components
         display:inline-block;
         
     }
-    .cd-tab-filter a.selected{
+    .cd-tab-filter .cd-filters a.selected{
         color: white;
     }
-    .cd-tab-filter a.selected .icon {
+    .cd-tab-filter .cd-filters a.selected .icon {
         color: #ffe600;
     }
-    .cd-tab-filter a .icon{
+    .cd-tab-filter .cd-filters a .icon{
         margin-right:25px;
     }
 
@@ -13579,7 +13601,13 @@ Main Components
     }
     .cd-tab-filter .filtro_menu .sub_menu {
         left:10px;
-        top:60px;
+        top:5px;
+    }
+    #form_filtro{
+        width:315px;
+    }
+    .cd-tab-filter .filtro_menu .cerrar{
+        top:10px;
     }
     .cd-tab-filter .filtro_menu .sub_menu::after{
         top:-14px;
@@ -13620,7 +13648,7 @@ Main Components
     .cd-tab-filter ul.cd-filters li > .icon{
         display: none;
     }
-    .cd-tab-filter a:not(.selected) .counter_{
+    .cd-tab-filter .cd-filters a:not(.selected) .counter_{
         color: white;
       }
   }
@@ -13641,6 +13669,7 @@ Main Components
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    margin-bottom:10px;
 }
   .tag-container .tag {
     height: 30px;
@@ -14225,13 +14254,9 @@ width:100%;
 margin-top:0;
 }
 
-.modal a.close-modal {
-    top:20px !important;
+.modal a.close-modal { 
     right:20px;
-}
-.modal{
-    padding-top:60px !important;
-}
+} 
 .modal p{
     margin-bottom:35px;
     font-size:18px;

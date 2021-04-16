@@ -21,9 +21,12 @@
         <article class="contenedor ft_size form_rel pd_15_extra">
             <div class="interna_panel_blanco">
                 <div class="form_central_3">
-                    <div class="border_bt_form">
+                    <div class="border_bt_form header_flex">
                         <div class="titulo titulo_sin_mg">
                             <h1 class="text_regular">Mis fichas</h1>
+                        </div> 
+                        <div class="transparencia_box">
+                            <a href="{{url('transparencia')}}" class="boton_redondeado resaltado_gris_oscuro align_left">Transparencia Ecónomica</a>
                         </div>
                     </div>
                     <div class="height_20"></div>
@@ -36,7 +39,7 @@
                             </div>
                             <span class="subtitulo">Tenés</span>
                             <p class="titulo"><strong>{{Session::get('balance')}}</strong> Fichas</p>
-                            {{-- <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a> --}}
+                            <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a>
                         </div>
                         <div class="texto_2">
                             <div>
@@ -47,10 +50,9 @@
                             </div>
                             <div>
                                 <span
-                                    class="color_rojo_b">Tu próxima baldeo es el {{$baldeo['fechaProximoBaldeo']->format("d/m/Y")}}</span>
+                                    class="color_rojo_b">Tu próximo baldeo es el {{$baldeo['fechaProximoBaldeo']->format("d/m/Y")}}</span>
                                 <span class="text_bold">Te quedarán {{$baldeo['balance']}} fichas</span>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -63,7 +65,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Descripción</th>
-                                        <th>Fichas</th>
+                                        <th width="100">Fichas</th>
                                         <th>Fecha y hora</th>
                                     </tr>
                                 </thead>
@@ -83,7 +85,7 @@
                                             <td style="text-align: right;">{{$tx->id}}</td>
                                             <td>
                                                 @if($tx->payment_processor == 'mercadopago' && $tx->type == 'MINT')
-                                                    {{$tx->data}} - <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Tipo de cambio USD1 = {{$dolar}} (conlink)</a>
+                                                    {{$tx->data}} - <a href="https://www.dolarsi.com/cotizacion-dolar-mep-bolsa/" target="_blank" class="color_gris_claro link_underline">Tipo de cambio USD1 = {{$dolar}}</a>
                                                 @else
                                                     {{$tx->data}}
                                                 @endif

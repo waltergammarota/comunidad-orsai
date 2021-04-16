@@ -110,8 +110,8 @@
                         <tr>
                           <td class="color_amarillo">1.</td>
                           <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer" class="color_blanco_gris">Cuento ID 675528</a></td>
-                          <td class="color_amarillo"><span class="icono icon-ficha"></span> 156</td>
-                          <td class="">
+                          <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 156</td>
+                          <td class="align_right">
                             <div class="color_blanco_gris imagen_usuario">
                                   <div>
                                     <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
@@ -131,8 +131,8 @@
                         <tr>
                             <td class="color_amarillo">2.</td>
                             <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer" class="color_blanco_gris">Cuento ID 675528</a></td>
-                            <td class="color_amarillo"><span class="icono icon-ficha"></span>95</td>
-                            <td class="">
+                            <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 95</td>
+                            <td class="align_right">
                                 <div class="color_blanco_gris imagen_usuario">
                                     <div>
                                       <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
@@ -152,8 +152,8 @@
                         <tr>
                             <td class="color_amarillo">3.</td>
                             <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer" class="color_blanco_gris">Cuento ID 675528</a></td>
-                            <td class="color_amarillo"><span class="icono icon-ficha"></span> 78</td>
-                              <td class="">
+                            <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 78</td>
+                              <td class="align_right">
                                   <div class="color_blanco_gris imagen_usuario">
                                     <div>
                                       <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
