@@ -940,7 +940,7 @@ Route::middleware(['verified'])->group(
         Route::post(
             'admin/inputs/store',
             'Admin\InputController@store'
-        )->name('inputs-store')->middleware('admin_role');
+        )->name('inputs.store')->middleware('admin_role');
 
         Route::get(
             'admin/inputs/{id}',
@@ -950,7 +950,7 @@ Route::middleware(['verified'])->group(
         Route::post(
             'admin/inputs/update',
             'Admin\InputController@update'
-        )->name('inputs-update')->middleware('admin_role');
+        )->name('inputs.update')->middleware('admin_role');
 
         // END OF INPUTS
         // PRODUCTOS

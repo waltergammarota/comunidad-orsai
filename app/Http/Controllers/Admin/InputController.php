@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Databases\CotizacionModel;
 use App\Databases\FormModel;
 use App\Databases\InputModel;
-use App\Databases\ProductoModel;
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -17,7 +14,7 @@ class InputController extends Controller
     protected $rules = [
         "name" => 'required',
         "title" => 'required',
-        "description" => 'max:200'
+        "description" => 'max:1000'
     ];
 
     protected $types = [
@@ -29,8 +26,14 @@ class InputController extends Controller
         "audio" => 'Audio'
     ];
 
+    protected $counter_types = [
+        "ninguno" => "none",
+        "caracter" => "char",
+        "palabra" => "word"
+    ];
 
-    public function index(Request $request)
+
+    public function index()
     {
         $data['title'] = "Inputs";
         return view('admin.inputs.index', $data);
@@ -61,13 +64,11 @@ class InputController extends Controller
 
     public function create(Request $request)
     {
-
         $id = $request->route('id');
 
         $data['form'] = FormModel::find($id);
 
         $input = new \stdClass();
-        //$input->id = 0;
         $input->name = ' ';
         $input->title = ' ';
         $input->description = ' ';
@@ -81,18 +82,10 @@ class InputController extends Controller
         $input->filas = 0;
         $input->cols = 0;
 
-
-
-
         $data['title'] = "Inputs";
         $data['input'] = $input;
 
-        $data['counter_types'] = [
-            "ninguno" => "none",
-            "caracter" => "char",
-            "palabra" => "word"
-        ];
-
+        $data['counter_types'] = $this->counter_types;
         $data['types'] = $this->types;
 
         $data['forms'] = FormModel::all();
@@ -102,12 +95,8 @@ class InputController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            "name" => 'required',
-            "title" => 'required',
-            "description" => 'max:1000',
-            'form_id' => 'required'
-        ]);
+        $request->validate($this->rules);
+
         $data = [
             "form_id" => $request->form_id,
             "name" => $request->name,
@@ -129,7 +118,6 @@ class InputController extends Controller
         session()->flash('message', 'Input creado!');
 
         return Redirect::to(route('forms.edit', $request->form_id));
-        //return Redirect::to('admin/inputs/' . $input->id);
     }
 
     private function convertOptions($options)
@@ -142,21 +130,15 @@ class InputController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            "name" => 'required',
-            "title" => 'required',
-            "description" => 'max:1000',
-            'form_id' => 'required'
-        ]);
+        $request->validate($this->rules);
 
-        
         $input = InputModel::find($request->id);
         $data = [
             "form_id" => $request->form_id,
             "name" => $request->name,
             "title" => $request->title,
             "description" => $request->description,
-            "tutorial" => $request->input('tutorial', 'tut'),
+            "tutorial" => $request->tutorial,
             "counter_type" => $request->counter_type,
             "counter_max" => $request->counter_max,
             "type" => $request->type,
@@ -171,8 +153,6 @@ class InputController extends Controller
 
         session()->flash('message', 'Input actualizado!');
 
-        //return Redirect::to('admin/inputs/' . $input->id);
-
         return Redirect::to(route('forms.edit', $request->form_id));
     }
 
@@ -186,19 +166,12 @@ class InputController extends Controller
 
         $data['input'] = $input;
         $data['title'] = "Inputs";
-        $data['counter_types'] = [
-            "ninguno" => "none",
-            "caracter" => "char",
-            "palabra" => "word"
-        ];
+        $data['counter_types'] = $this->counter_types;
 
         $data['types'] = $this->types;
 
-        //$data['forms'] = FormModel::all();
         return view('admin.inputs.form', $data);
     }
-
-    
 
 
     public function delete(Request $request)
@@ -208,9 +181,7 @@ class InputController extends Controller
         $input->delete();
 
         session()->flash('message', $request->message);
-        //session()->flash('message', json_encode($request->all()));
 
         return Redirect::to(route('forms.edit', $request->form_id));
     }
-
 }
