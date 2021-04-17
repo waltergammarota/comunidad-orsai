@@ -419,7 +419,7 @@ class AccountController extends Controller
         $rules['bases'] = "required";
         $rules['contest_id'] = "required";
         if ($rules && $request->enviar == "enviar") {
-            Validator::make($request->all(), $rules, [], $form->getAttributes())->validate();
+            Validator::make($request->all(), $rules, [], $form->getInputsMessages())->validate();
         }
 
         $user = Auth::user();
@@ -458,7 +458,7 @@ class AccountController extends Controller
         $rules = $form->getRules();
         $rules['bases'] = "required";
         $rules['contest_id'] = "required";
-        $messages = $form->getAttributes();
+        $messages = $form->getInputsMessages();
         if ($rules && $request->enviar == "enviar") {
             Validator::make($request->all(), $rules, [], $messages)->validate();
         }
@@ -725,7 +725,7 @@ class AccountController extends Controller
             $author = User::find($rowData['author']);
             $row['autor'] = "{$author->name} {$author->lastName}";
             $row['deliver_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i') . " HS";
-            $row['real_time'] = (new Carbon($rowData['deliver_time']))->format('d/m/Y H:i');
+            $row['real_time'] = (new Carbon($rowData['deliver_time']))->format('m/d/Y H:i');
             $row['id'] = $notification->id;
             $row['readed'] = $notification->read_at == null ? 'NO' : 'SI';
             $data['notificaciones'][] = $row;

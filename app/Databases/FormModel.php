@@ -64,7 +64,7 @@ class FormModel extends Model
         return $rules;
     }
 
-    public function getAttributes()
+    public function getInputsMessages()
     {
         $inputs = $this->inputs()->get();
         $attributes = [];

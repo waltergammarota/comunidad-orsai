@@ -110,6 +110,14 @@
             </div>
         </div>
     </section>
+
+    <div id="sin_completar" class="modal modal_sincompletar">
+        <div class="title_modal">
+            <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
+            <h5>Te pedimos que completes algún campo antes de avanzar</h5>
+        </div>
+    </div>
+
     <div id="sin_fichas" class="modal modal_sinfichas">
         <div class="title_modal">
             <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
@@ -123,9 +131,11 @@
             <a href="#" rel="modal:close" class="boton_decline width_100">Ahora no</a>
         </div>
     </div>
+
 @endsection
 
 @section('footer')
+
     @include("fundacion.footer-fundacion")
     <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script type="text/javascript">
@@ -142,9 +152,24 @@
         const form = $('#concursos');
         const pricePerCpa = parseInt($("#pricePerCpa").val());
         const modal = $(".modal_sinfichas");
+        const modalSinCompletar = $(".modal_sincompletar");
+
+        function userHasCompletedSomething() {
+            const inputs = form.serializeArray();
+            const checkeableInputs = inputs.filter(item => item.name.includes('input@'));
+            return checkeableInputs.some(item => item.value != '');
+        }
+
+        function showFillSomethingModal() {
+            modalSinCompletar.modal();
+        }
 
         form.submit(function (event) {
             event.preventDefault();
+            if (!userHasCompletedSomething()) {
+                showFillSomethingModal();
+                return;
+            }
             getBalance().then(balance => {
                 const enviar = $(document.activeElement).val();
                 if (enviar == "guardar" || enviar == "") {
