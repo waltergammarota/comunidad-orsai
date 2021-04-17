@@ -38,6 +38,17 @@ class FormModel extends Model
     ];
 
 
+//    public function inputs()
+//    {
+//        $inputs = InputModel::selectRaw('inputs.id, inputs.name, inputs.title , inputs.type, COUNT(DISTINCT rondas_inputs.id) AS rondas, COUNT(DISTINCT answers.id) AS answers')
+//            ->leftjoin('rondas_inputs', 'inputs.id', '=', 'rondas_inputs.input_id')
+//            ->leftjoin('answers', 'inputs.id', '=', 'answers.input_id')
+//            ->groupBy('inputs.id', 'inputs.name', 'inputs.title', 'inputs.type')
+//            ->where('inputs.form_id', $this->id);
+//
+//        return $inputs->get();
+//    }
+
     public function inputs()
     {
         return $this->hasMany(InputModel::class, 'form_id');
@@ -53,7 +64,7 @@ class FormModel extends Model
         return $rules;
     }
 
-    public function getAttributes()
+    public function getInputsMessages()
     {
         $inputs = $this->inputs()->get();
         $attributes = [];

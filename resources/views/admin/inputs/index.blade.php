@@ -6,7 +6,7 @@
 
 
 @section('name')
-    Inputs
+    Campos
 @endsection
 
 @section('content')
@@ -17,9 +17,9 @@
     </style>
     <div class="card">
         <div class="card-header">
-            <a href="{{url("admin/inputs/crear")}}" class="btn btn-primary editar float-right">
+            {{-- <a href="{{url("admin/inputs/crear")}}" class="btn btn-primary editar float-right">
                 <i class="fa fa-plus-circle"></i>
-            </a>
+            </a> --}}
         </div>
         <div class="card-body">
             <table id="myTable" class="table table-bordered table-hover">
@@ -29,6 +29,7 @@
                     <th>Nombre</th>
                     <th>Type</th>
                     <th>Creado</th>
+                    <th>Formulario</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -58,7 +59,7 @@
                     "search": "Buscar:",
                     "processing": "Procesando...",
                     "loadingRecords": "Cargando....",
-                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ entradas",
+                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ campos",
                     "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
                         '<option value="10">10</option>' +
                         '<option value="20">20</option>' +
@@ -66,7 +67,7 @@
                         '<option value="40">40</option>' +
                         '<option value="50">50</option>' +
                         '<option value="-1">Todas</option>' +
-                        '</select> entradas',
+                        '</select> campos',
 
                 },
                 "columns": [
@@ -74,6 +75,7 @@
                     {"data": "name"},
                     {"data": "type"},
                     {"data": "created_at"},
+                    {"data": "form_id"},
                     {
                         "data": "acciones",
                         "render": function (data) {

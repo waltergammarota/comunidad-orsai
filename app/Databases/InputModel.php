@@ -89,7 +89,7 @@ class InputModel extends Model
                 $counterClass = "count-words";
                 $palabras = "palabras";
                 break;
-            case "char" :
+            case "char":
                 $counterClass = "count-characters";
                 $palabras = "caracteres";
                 break;
@@ -120,7 +120,7 @@ class InputModel extends Model
                 $counterClass = "count-words";
                 $palabras = "caracteres";
                 break;
-            case "word" :
+            case "word":
                 $counterClass = "count-characters";
                 $palabras = "palabras";
                 break;
@@ -192,5 +192,4 @@ class InputModel extends Model
         });
         return $rules;
     }
-
 }

@@ -102,6 +102,18 @@ Route::post(
     'DonarController@mercado_pago_webhook'
 )->name('mercado_pago_webhook');
 
+//TRANSPARENCIA
+Route::get(
+    'transparencia',
+    'TransparenciaController@index'
+)
+    ->name('transparencia');
+
+Route::get(
+    'transparencia-json',
+    'TransparenciaController@transparencia_json'
+)
+    ->name('transparencia-json');
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -338,21 +350,10 @@ Route::middleware(['verified'])->group(
         )->name('participantes-more');
 
         //FIN DE CONCURSOS
-
-        //TRANSPARENCIA
-        Route::get(
-            'transparencia',
-            'TransparenciaController@index')
-            ->name('transparencia');
-
-        Route::get(
-            'transparencia-json',
-            'TransparenciaController@transparencia_json')
-            ->name('transparencia-json');
-
         Route::post(
             'reportar',
-            'TransparenciaController@reportar')
+            'TransparenciaController@reportar'
+        )
             ->name('reportar');
         // END OF TRANSPARENCIA
 
@@ -889,7 +890,6 @@ Route::middleware(['verified'])->group(
             'AccountController@transacciones'
         )->name('transacciones')->middleware('email_verified');
 
-
         Route::get(
             'perfil-usuario/{id}',
             'AccountController@show_perfil_publico'
@@ -907,10 +907,17 @@ Route::middleware(['verified'])->group(
         )->name("concurso-ganador");
 
         // FORMS
-        Route::get(
-            'admin/forms',
-            'Admin\FormController@index'
-        )->name('forms')->middleware('admin_role');
+        Route::get('admin/forms', 'Admin\FormController@index')->name('forms.index')->middleware('admin_role');
+        Route::get('admin/forms/crear', 'Admin\FormController@create')->name('forms.create')->middleware('admin_role');
+        Route::post('admin/forms/store', 'Admin\FormController@store')->name('forms.store')->middleware('admin_role');
+        Route::get('admin/forms/{id}/editar', 'Admin\FormController@edit')->name('forms.edit')->middleware('admin_role');
+        Route::post('admin/forms/update', 'Admin\FormController@update')->name('forms.update')->middleware('admin_role');
+        Route::get('admin/forms/{id}/inputs/crear', 'Admin\InputController@create')->name('inputs.create')->middleware('admin_role');
+
+        Route::get('admin/forms/{id}/borrar', 'Admin\FormController@delete')->name('forms.delete')->middleware('admin_role');
+
+        Route::post('admin/inputs/borrar', 'Admin\InputController@delete')->name('inputs.delete')->middleware('admin_role');
+
 
         // INPUTS
         Route::get(
@@ -923,15 +930,15 @@ Route::middleware(['verified'])->group(
             'Admin\InputController@inputs_json'
         )->name('inputs-json')->middleware('admin_role');
 
-        Route::get(
-            'admin/inputs/crear',
-            'Admin\InputController@create'
-        )->name('inputs-create')->middleware('admin_role');
+        // Route::get(
+        //     'admin/inputs/crear',
+        //     'Admin\InputController@create'
+        // )->name('inputs_create')->middleware('admin_role');
 
         Route::post(
             'admin/inputs/store',
             'Admin\InputController@store'
-        )->name('inputs-store')->middleware('admin_role');
+        )->name('inputs.store')->middleware('admin_role');
 
         Route::get(
             'admin/inputs/{id}',
@@ -941,7 +948,7 @@ Route::middleware(['verified'])->group(
         Route::post(
             'admin/inputs/update',
             'Admin\InputController@update'
-        )->name('inputs-update')->middleware('admin_role');
+        )->name('inputs.update')->middleware('admin_role');
 
         // END OF INPUTS
         // PRODUCTOS

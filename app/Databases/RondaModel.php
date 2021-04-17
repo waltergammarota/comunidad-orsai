@@ -25,13 +25,17 @@ class RondaModel extends Model
         "updated_at" => 'datetime',
     ];
 
+    public function inputs()
+    {
+        return $this->hasMany(RondaInputModel::class, 'ronda_id');
+    }
+
     public function getRondaInputs()
     {
-        $query = DB::table('rondas_inputs')
+        $inputs = RondaInputModel::selectRaw('rondas_inputs.ronda_id, rondas_inputs.input_id, inputs.*')
             ->join('inputs', 'rondas_inputs.input_id', '=', 'inputs.id')
-            ->where('rondas_inputs.ronda_id', '=', $this->id)
-            ->select(DB::raw('rondas_inputs.ronda_id, rondas_inputs.input_id, inputs.*'));
+            ->where('rondas_inputs.ronda_id', '=', $this->id);
 
-        return $query->get();
+        return $inputs->get();
     }
 }
