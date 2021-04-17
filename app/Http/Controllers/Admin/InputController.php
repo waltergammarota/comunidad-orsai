@@ -48,6 +48,7 @@ class InputController extends Controller
                 "id" => $input->id,
                 "name" => $input->name,
                 "type" => $input->type,
+                "form_id" => $input->form_id,
                 "created_at" => $input->created_at
             ];
             array_push($items, $row);
@@ -78,7 +79,7 @@ class InputController extends Controller
         $input->type = 'input';
         $input->options = [""];
         $input->placeholder = ' ';
-        $input->required  = 0;
+        $input->required = 0;
         $input->filas = 0;
         $input->cols = 0;
 
@@ -95,6 +96,7 @@ class InputController extends Controller
 
     public function store(Request $request)
     {
+        $test = "cool";
         $request->validate($this->rules);
 
         $data = [

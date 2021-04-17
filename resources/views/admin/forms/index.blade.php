@@ -39,50 +39,48 @@
         <div class="card-body">
             <table id="form-table" class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Título</th>
-                        <th>Descripción</th>
-                        <th class="text-center">Concursos</th>
-                        <th>Creado</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Creado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($forms as $form)
-                        <tr>
-                            <td class="text-right">
-                                {{ $form->id }}
-                            </td>
-                            <td>
-                                {{ $form->name }}
-                            </td>
-                            <td>
-                                {{ $form->title }}
-                            </td>
-                            <td>
-                                {{ $form->description }}
-                            </td>
-                            <td class="text-center">
-                                {{ $form->contests }}
-                            </td>
-                            <td>
-                                {{ date('j/m/Y G:i', strtotime($form->created_at)) }}
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('forms.edit', $form->id) }}" class="btn btn-xs btn-success editar" data-toggle="tooltip" title="Editar formulario">
-                                    <i class="fas fa-edit"></i>
+                @foreach ($forms as $form)
+                    <tr>
+                        <td class="text-right">
+                            {{ $form->id }}
+                        </td>
+                        <td>
+                            {{ $form->name }}
+                        </td>
+                        <td>
+                            {{ $form->title }}
+                        </td>
+                        <td>
+                            {{ $form->description }}
+                        </td>
+                        <td>
+                            {{ date('j/m/Y G:i', strtotime($form->created_at)) }}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('forms.edit', $form->id) }}" class="btn btn-xs btn-success editar"
+                               data-toggle="tooltip" title="Editar formulario">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            @if ($form->contests == 0)
+                                <a href="{{ route('forms.delete', $form->id) }}" class="btn btn-xs btn-danger"
+                                   data-toggle="tooltip" title="Editar formulario">
+                                    <i class="fa fa-trash"></i>
                                 </a>
-                                @if ($form->contests == 0)
-                                    <a href="{{ route('forms.delete', $form->id) }}" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Editar formulario">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
 
             </table>

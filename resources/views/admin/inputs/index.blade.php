@@ -29,6 +29,7 @@
                     <th>Nombre</th>
                     <th>Type</th>
                     <th>Creado</th>
+                    <th>Formulario</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -74,6 +75,7 @@
                     {"data": "name"},
                     {"data": "type"},
                     {"data": "created_at"},
+                    {"data": "form_id"},
                     {
                         "data": "acciones",
                         "render": function (data) {
