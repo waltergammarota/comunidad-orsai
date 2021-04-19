@@ -129,7 +129,7 @@ class ContestModel extends Model
 
     public function cantidadCuentistasInscriptos()
     {
-        $cuentistas = DB::select(DB::raw('select count(*) as cantidad from (select user_id from contest_applications group by user_id) t1'));
+        $cuentistas = DB::select(DB::raw("select count(*) as cantidad from (select user_id from contest_applications where contest_id = {$this->id} group by user_id) t1"));
         $amount = count($cuentistas) > 0 ? $cuentistas[0]->cantidad : 0;
         return $amount;
     }
