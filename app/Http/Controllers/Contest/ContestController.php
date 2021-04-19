@@ -327,7 +327,7 @@ class ContestController extends Controller
             "active" => $request->active,
             'user_id' => Auth::user()->id,
             'cost_per_cpa' => $request->cost_per_cpa ? $request->cost_per_cpa : 0,
-            'cost_jury' => $request->cost_jury,
+            'cost_jury' => $request->cost_jury ? $request->cost_jury : 0,
             'vote_limit' => $request->vote_limit,
             'form_id' => $request->form_id,
             'token_value' => $request->token_value,
