@@ -117,7 +117,10 @@ class ContestController extends Controller
         // CONCURSO POSTULACIONES ABIERTAS
         $data['estado'] = $contest->getStatus();
         $user = Auth::user();
-        $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, $user->id);
+        $data['hasPostulacion'] = false;
+        if ($user) {
+            $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, $user->id);
+        }
         $data['propuesta'] = false;
         if ($data['hasPostulacion']) {
             $data['propuestaId'] = ContestApplicationModel::select('id')->where('contest_id', $contest->id)->where("user_id", $user->id)->first()->id;
