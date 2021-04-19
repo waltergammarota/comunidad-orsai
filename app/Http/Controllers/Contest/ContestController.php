@@ -328,7 +328,7 @@ class ContestController extends Controller
             'user_id' => Auth::user()->id,
             'cost_per_cpa' => $request->cost_per_cpa ? $request->cost_per_cpa : 0,
             'cost_jury' => $request->cost_jury ? $request->cost_jury : 0,
-            'vote_limit' => $request->vote_limit,
+            'vote_limit' => $request->vote_limit ? $request->vote_limit : 0,
             'form_id' => $request->form_id,
             'token_value' => $request->token_value,
             'auto_approval' => $request->auto_approval ? $request->auto_approval : 0
