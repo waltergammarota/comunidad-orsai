@@ -3,7 +3,6 @@
 namespace App\Databases;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class RondaModel extends Model
 {
@@ -12,6 +11,7 @@ class RondaModel extends Model
     protected $fillable = [
         'id',
         'contest_id',
+        'solapa',
         'cost',
         'title',
         'bajada',
@@ -27,15 +27,6 @@ class RondaModel extends Model
 
     public function inputs()
     {
-        return $this->hasMany(RondaInputModel::class, 'ronda_id');
-    }
-
-    public function getRondaInputs()
-    {
-        $inputs = RondaInputModel::selectRaw('rondas_inputs.ronda_id, rondas_inputs.input_id, inputs.*')
-            ->join('inputs', 'rondas_inputs.input_id', '=', 'inputs.id')
-            ->where('rondas_inputs.ronda_id', '=', $this->id);
-
-        return $inputs->get();
+        return $this->hasManyThrough(InputModel::class, RondaInputModel::class, 'ronda_id', 'id');
     }
 }

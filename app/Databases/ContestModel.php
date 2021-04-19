@@ -195,6 +195,16 @@ class ContestModel extends Model
         return $this->hasMany(RondaModel::class, 'contest_id');
     }
 
+    /**
+     * @param $rondaOrder
+     * @return RondaModel
+     */
+    public function getRondaByOrder($rondaOrder)
+    {
+        return $this->rondas()->where('order', $rondaOrder)->first();
+    }
+
+
     public function form()
     {
         return $this->belongsTo(FormModel::class, 'form_id');

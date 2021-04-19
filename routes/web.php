@@ -153,10 +153,10 @@ Route::middleware(['verified'])->group(
             'DonarController@paypal_capture'
         )->name('paypal-capture-compra')->middleware('email_verified');
 
-        Route::get(
-            '/donar',
-            'DonarController@index'
-        )->name('index')->middleware('email_verified');
+       Route::get(
+           '/donar',
+           'DonarController@index'
+       )->name('index')->middleware('email_verified');
 
         Route::get(
             '/donar/paypal',
@@ -241,10 +241,10 @@ Route::middleware(['verified'])->group(
 
         // INICIO CONCURSOS
 
-        Route::get(
-            '/concursos',
-            'Contest\ContestController@index'
-        )->name("concursos");
+       Route::get(
+           '/concursos',
+           'Contest\ContestController@index'
+       )->name("concursos");
 
 
         Route::get(
