@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 
+use App\Databases\ContestModel;
+
 class FormController extends Controller
 {
 
@@ -20,7 +22,10 @@ class FormController extends Controller
 
     public function index()
     {
-        $forms = FormModel::all();
+        $forms = FormModel::selectRaw('forms.id, forms.name, forms.title , forms.description , forms.created_at, COUNT(contests.form_id) AS contests')
+            ->leftjoin('contests', 'forms.id', '=', 'contests.form_id')
+            ->groupBy('forms.id', 'forms.name', 'forms.title', 'forms.description', 'forms.created_at')
+            ->get();
 
         $data['forms'] = $forms;
 
@@ -64,7 +69,7 @@ class FormController extends Controller
 
         $form = FormModel::find($id);
         $data['form'] = $form;
-        $data['inputs'] = $form->inputs()->get();
+        $data['inputs'] = $form->getInputs();
 
         $data['section_name'] = 'Editar Formulario';
 

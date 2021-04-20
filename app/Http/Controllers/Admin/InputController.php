@@ -106,7 +106,7 @@ class InputController extends Controller
             "description" => $request->description ?? '',
             "tutorial" => $request->tutorial ?? '',
             "counter_type" => $request->counter_type,
-            "counter_max" => $request->counter_max,
+            "counter_max" => $request->counter_max ?? 0,
             "type" => $request->type,
             "options" => $this->convertOptions($request->options),
             "placeholder" => $request->placeholder ?? '',

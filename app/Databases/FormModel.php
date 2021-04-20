@@ -37,17 +37,15 @@ class FormModel extends Model
         "updated_at" => 'datetime',
     ];
 
-
-//    public function inputs()
-//    {
-//        $inputs = InputModel::selectRaw('inputs.id, inputs.name, inputs.title , inputs.type, COUNT(DISTINCT rondas_inputs.id) AS rondas, COUNT(DISTINCT answers.id) AS answers')
-//            ->leftjoin('rondas_inputs', 'inputs.id', '=', 'rondas_inputs.input_id')
-//            ->leftjoin('answers', 'inputs.id', '=', 'answers.input_id')
-//            ->groupBy('inputs.id', 'inputs.name', 'inputs.title', 'inputs.type')
-//            ->where('inputs.form_id', $this->id);
-//
-//        return $inputs->get();
-//    }
+    public function getInputs()
+    {
+        $inputs = InputModel::selectRaw('inputs.id, inputs.name, inputs.title , inputs.type, COUNT(DISTINCT rondas_inputs.id) AS rondas, COUNT(DISTINCT answers.id) AS answers')
+            ->leftjoin('rondas_inputs', 'inputs.id', '=', 'rondas_inputs.input_id')
+            ->leftjoin('answers', 'inputs.id', '=', 'answers.input_id')
+            ->groupBy('inputs.id', 'inputs.name', 'inputs.title', 'inputs.type')
+            ->where('inputs.form_id', $this->id);
+        return $inputs->get();
+    }
 
     public function inputs()
     {
@@ -73,5 +71,4 @@ class FormModel extends Model
         }
         return $attributes;
     }
-
 }

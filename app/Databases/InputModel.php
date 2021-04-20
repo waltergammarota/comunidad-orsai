@@ -63,6 +63,10 @@ class InputModel extends Model
                 return $this->nubeToHtml($answers);
             case "select":
                 return $this->selectToHtml($answers);
+            case "image":
+                return $this->mediaToHtml($answers);
+            case "audio":
+                return $this->mediaToHtml($answers);
         }
     }
 
@@ -109,6 +113,7 @@ class InputModel extends Model
         $html = view('concursos.inputTextHtml', $data);
         return $html;
     }
+
 
     private function textAreaToHtml($answers)
     {
@@ -178,6 +183,40 @@ class InputModel extends Model
         $html = view('concursos.inputNubeHtml', $data);
         return $html;
     }
+
+
+    private function mediaToHtml($answers)
+    {
+        $counter_type = $this->counter_type;
+        $counterClass = "";
+        $palabras = "";
+        switch ($counter_type) {
+            case "word":
+                $counterClass = "count-words";
+                $palabras = "palabras";
+                break;
+            case "char":
+                $counterClass = "count-characters";
+                $palabras = "caracteres";
+                break;
+        }
+        $data = [
+            "id" => $this->id,
+            "tutorial" => $this->tutorial,
+            "title" => $this->title,
+            "description" => $this->description,
+            "inputName" => $this->getInputName(),
+            "value" => $this->getValue($answers),
+            "counterClass" => $counterClass,
+            "palabras" => $palabras,
+            "placeholder" => $this->placeholder,
+            "counter_max" => $this->counter_max
+        ];
+        $html = view('concursos.inputMediaHtml', $data);
+        return $html;
+    }
+
+
 
     public function getRule()
     {
