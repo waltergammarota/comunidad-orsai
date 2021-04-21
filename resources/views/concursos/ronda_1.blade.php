@@ -87,8 +87,11 @@
         <div class="cd-tab-filter">
            <ul class="filtro_menu">
                <li class="color_blanco"> <span id="open_menu"> <span class="icon icon-filtro"></span><span class="text_tit_submenu">Filtros </span><span class="color_amarillo cant_filtros_aplicados">(4)</span></span>
-                <form action="#" id="form_filtro" autocomplete="off"><span class="icon icon-cancel cerrar"></span>
-                    <ul class="sub_menu"> 
+                <form action="#" id="form_filtro" autocomplete="off">
+                    <ul class="sub_menu">
+                        <li class="cont_icon_cancel">
+                            <span class="icon icon-cancel cerrar"></span>
+                        </li> 
                         <li>
                             <div class="form_ctrl input_">
                                 <div class="input_err">
@@ -134,10 +137,12 @@
                             <div class="input_err tag-container"> 
                             </div> 
                         </li>
-                        <li> 
-                            <div class="input_"> 
-                                <a href="#" class="boton_redondeado resaltado_amarillo align_left">Enviar</a>
-                            </div> 
+                        <li class="cont_btn_filtro">
+                            <div class="form_ctrl input_">
+                                <div class="align_right">
+                                    <a class="boton_redondeado resaltado_amarillo pd_50_lf_rg">Filtrar</a>
+                                </div>
+                            </div>    
                         </li>
                     </ul>
                 </form>
@@ -386,18 +391,18 @@
 @section('footer')
   @include("fundacion.footer-fundacion")  
 <script>
-    /* Submenu de busqueda */
-    $("#form_filtro .icon-cancel").on("click", function(){
-        $("#form_filtro").fadeOut();
-    })
-    $("#open_menu").on("click", function(){
-        $("#form_filtro").fadeIn();
-    })
-    $(document).ready(function() {
-      $('#form_filtro').submit(function(e) {
-        e.preventDefault();
-      });
-    });
+/* Submenu de busqueda */
+$("#form_filtro .icon-cancel").on("click", function(){
+    $("#form_filtro").removeClass("abierto");
+})
+$("#open_menu").on("click", function(){
+    if($("#form_filtro").hasClass("abierto")){
+        
+        $("#form_filtro").removeClass("abierto");
+    }else{
+        $("#form_filtro").addClass("abierto");
+    }
+})
     const tagContainer = document.querySelector('.tag-container');
     const input = document.querySelector('input');
     const input_check = document.querySelectorAll('.check_cond');

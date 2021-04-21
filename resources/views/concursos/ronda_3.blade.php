@@ -85,64 +85,69 @@
 <main class="cd-main-content resaltado_gris">
 <div class="cd-tab-filter-wrapper"> 
         <div class="cd-tab-filter">
-            <ul class="filtro_menu">
-                <li class="color_blanco"> <span id="open_menu"> <span class="icon icon-filtro"></span><span class="text_tit_submenu">Filtros </span><span class="color_amarillo cant_filtros_aplicados">(4)</span></span>
-                 <form action="#" id="form_filtro" autocomplete="off"><span class="icon icon-cancel cerrar"></span>
-                     <ul class="sub_menu"> 
-                         <li>
-                             <div class="form_ctrl input_">
-                                 <div class="input_err">
-                                     <label class="text_medium">Categorias</label>
-                                     <div class="select">
-                                         <select id ="categorias" name = "categorias" >
-                                                 <option value="Tragedia">Tragedia</option>
-                                                 <option value="Drama">Drama</option>
-                                                 <option value="Terror">Terror</option>
-                                                 <option value="Romantico">Romantico</option>
-                                         </select>
-                                         <div class="select__arrow"></div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </li>
-                         <li> 
-                             <div class="form_ctrl input_">
-                                 <div class="input_err">
-                                     <label class="text_medium">Buscar</label>
-                                     <input type="text" name="palabras_buscar" placeholder="palabra" class="obligatorio">
-                                 </div>
-                             </div> 
-                         </li>
-                         <li> 
-                             <div class="grilla_form sin_margin">
-                                 <div class="form_ctrl input_ col_6">
-                                     <div class="align_left">
-                                     <div class="input_err">
-                                         <div class="check_div input_err obligatorio">
-                                             <label class="checkbox-container letra_chica text_bold">
-                                                 Ver destrabados
-                                                 <input type="checkbox" value="Destrabados" id="cbox3" name="filtro3" class="check_cond"> 
-                                                 <span class="crear_check"></span> 
-                                             </label>
-                                         </div>
-                                     </div>
-                                     </div>
-                                 </div>   
-                             </div>
-                         </li>  
-                         <li> 
-                             <div class="input_err tag-container"> 
-                             </div> 
-                         </li>
-                         <li> 
-                             <div class="input_"> 
-                                 <a href="#" class="boton_redondeado resaltado_amarillo align_left">Enviar</a>
-                             </div> 
-                         </li>
-                     </ul>
-                 </form>
-             </li>
-            </ul>
+        <ul class="filtro_menu">
+               <li class="color_blanco"> <span id="open_menu"> <span class="icon icon-filtro"></span><span class="text_tit_submenu">Filtros </span><span class="color_amarillo cant_filtros_aplicados">(4)</span></span>
+                <form action="#" id="form_filtro" autocomplete="off">
+                    <ul class="sub_menu">
+                        <li class="cont_icon_cancel">
+                            <span class="icon icon-cancel cerrar"></span>
+                        </li> 
+                        <li>
+                            <div class="form_ctrl input_">
+                                <div class="input_err">
+                                    <label class="text_medium">Categorias</label>
+                                    <div class="select">
+                                        <select id ="categorias" name = "categorias" >
+                                                <option value="Tragedia">Tragedia</option>
+                                                <option value="Drama">Drama</option>
+                                                <option value="Terror">Terror</option>
+                                                <option value="Romantico">Romantico</option>
+                                        </select>
+                                        <div class="select__arrow"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li> 
+                            <div class="form_ctrl input_">
+                                <div class="input_err">
+                                    <label class="text_medium">Buscar</label>
+                                    <input type="text" name="palabras_buscar" placeholder="palabra" class="obligatorio">
+                                </div>
+                            </div> 
+                        </li>
+                        <li> 
+                            <div class="grilla_form sin_margin">
+                                <div class="form_ctrl input_ col_6">
+                                    <div class="align_left">
+                                    <div class="input_err">
+                                        <div class="check_div input_err obligatorio">
+                                            <label class="checkbox-container letra_chica text_bold">
+                                                Ver destrabados
+                                                <input type="checkbox" value="Destrabados" id="cbox3" name="filtro3" class="check_cond"> 
+                                                <span class="crear_check"></span> 
+                                            </label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>   
+                            </div>
+                        </li>  
+                        <li> 
+                            <div class="input_err tag-container"> 
+                            </div> 
+                        </li>
+                        <li class="cont_btn_filtro">
+                            <div class="form_ctrl input_">
+                                <div class="align_right">
+                                    <a class="boton_redondeado resaltado_amarillo pd_50_lf_rg">Filtrar</a>
+                                </div>
+                            </div>    
+                        </li>
+                    </ul>
+                </form>
+            </li>
+           </ul>
             <ul class="cd-filters">                
 
             <li class="filter" data-orden="1">
@@ -381,16 +386,16 @@
 <script>
    
 $("#form_filtro .icon-cancel").on("click", function(){
-    $("#form_filtro").fadeOut();
+$("#form_filtro").removeClass("abierto");
 })
 $("#open_menu").on("click", function(){
-    $("#form_filtro").fadeIn();
+    if($("#form_filtro").hasClass("abierto")){
+        
+        $("#form_filtro").removeClass("abierto");
+    }else{
+        $("#form_filtro").addClass("abierto");
+    }
 })
-$(document).ready(function() {
-  $('#form_filtro').submit(function(e) {
-    e.preventDefault();
-  });
-});
 const tagContainer = document.querySelector('.tag-container');
 const input = document.querySelector('input');
 const input_check = document.querySelectorAll('.check_cond');
