@@ -12,6 +12,7 @@ use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
 use App\Databases\FormModel;
 use App\Databases\RondaModel;
+use App\Databases\RondaInputModel;
 use App\Databases\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\WebController;
@@ -211,6 +212,19 @@ class ContestController extends Controller
         $imageUrl = "";
         $per_winner = array_fill(0, 4, 0);
         $rondas = [];
+
+        for ($i = 0; $i < 3; $i++) {
+            $ronda = new \stdClass();
+            $ronda->id = 0;
+            $ronda->contest_id = 0;
+            $ronda->cost = 0;
+            $ronda->title = '';
+            $ronda->bajada = '';
+            $ronda->body = '';
+
+            $rondas[] =  $ronda;
+        }
+
         $forms = FormModel::all();
         return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner', 'rondas', 'forms'));
     }
@@ -340,19 +354,28 @@ class ContestController extends Controller
         $contest->save();
         $this->generateContestPool($contest);
         $contest->rondas()->delete();
+
         if ($contest->type == 1) {
-            for ($i = 0; $i < 3; $i++) {
-                $rondaData = [
-                    "contest_id" => $contest->id,
-                    'cost' => $request->cost[$i] ? $request->cost[$i] : 0,
-                    'title' => $request->title[$i] ? $request->title[$i] : '',
-                    'bajada' => $request->bajada[$i] ? $request->bajada[$i] : '',
-                    'body' => $request->body[$i] ? $request->body[$i] : '',
-                ];
-                $ronda = new RondaModel($rondaData);
+            foreach ($request->title as $key => $value) {
+                $inputs = $request->inputs[$key]  ?? [];
+
+                $ronda = new RondaModel();
+                $ronda->contest_id = $contest->id;
+                $ronda->cost = $request->cost[$key] ?? 0;
+                $ronda->title = $request->title[$key] ?? '';
+                $ronda->bajada = $request->bajada[$key] ?? '';
+                $ronda->body = $request->body[$key] ?? '';
                 $ronda->save();
+
+                foreach ($inputs as $value) {
+                    $form = new RondaInputModel();
+                    $form->ronda_id = $ronda->id;
+                    $form->input_id = $value;
+                    $form->save();
+                }
             }
         }
+
 
         if ($request->editar_pagina == 1) {
             $bases = ContenidoModel::where("contest_id", $contest->id)->first();
@@ -401,6 +424,28 @@ class ContestController extends Controller
         $id = $request->route('id');
         $contest = ContestModel::find($id);
         $rondas = $contest->rondas()->get();
+        $inputs = $contest->inputs()->get();
+
+        $count = 3 - $rondas->count();
+
+        if ($count > 0) {
+            for ($i = 0; $i < $count; $i++) {
+                $ronda = new \stdClass();
+                $ronda->id = 0;
+                $ronda->contest_id = $id;
+                $ronda->cost = 0;
+                $ronda->title = '';
+                $ronda->bajada = '';
+                $ronda->body = '';
+
+                $rondas[] =  $ronda;
+            }
+        }
+
+        foreach ($rondas as $ronda) {
+            $ronda->inputs = $contest->getRondaInputs($ronda->id);
+        }
+
         $types = ContestsType::all();
         $modes = ContestsModo::all();
         $now = Carbon::now();
@@ -487,20 +532,41 @@ class ContestController extends Controller
         if ($contest->pool_id == 0) {
             $this->generateContestPool($contest);
         }
-        $contest->rondas()->delete();
+
+        /* Inserta Rondas y RondasInputs */
+        // $contest->rondas()->delete();
+        $contest->inputs()->delete();
+
         if ($contest->type == 1) {
-            for ($i = 0; $i < 3; $i++) {
-                $rondaData = [
-                    "contest_id" => $contest->id,
-                    'cost' => $request->cost[$i] ? $request->cost[$i] : 0,
-                    'title' => $request->title[$i] ? $request->title[$i] : '',
-                    'bajada' => $request->bajada[$i] ? $request->bajada[$i] : '',
-                    'body' => $request->body[$i] ? $request->body[$i] : '',
-                ];
-                $ronda = new RondaModel($rondaData);
+            foreach ($request->title as $key => $value) {
+                $ronda_id = $request->ronda_id[$key];
+                $inputs = $request->inputs[$key]  ?? [];
+
+                if ($ronda_id == 0) {
+                    $ronda = new RondaModel();
+                    $ronda->contest_id = $contest->id;
+                } else {
+                    $ronda = RondaModel::find($ronda_id);
+                }
+
+                $ronda->cost = $request->cost[$key] ?? 0;
+                $ronda->title = $request->title[$key] ?? '';
+                $ronda->bajada = $request->bajada[$key] ?? '';
+                $ronda->body = $request->body[$key] ?? '';
                 $ronda->save();
+
+                foreach ($inputs as $value) {
+                    $form = new RondaInputModel();
+                    $form->ronda_id = $ronda->id;
+                    $form->input_id = $value;
+                    $form->save();
+                };
             }
+        } else {
+            $contest->rondas()->delete();
         }
+
+
 
         if ($request->editar_pagina == 1) {
             $bases = ContenidoModel::where("contest_id", $contest->id)->first();
@@ -509,6 +575,7 @@ class ContestController extends Controller
         if ($request->crear_pagina == 1) {
             return Redirect::to('admin/contenidos/crear/pagina?concurso=' . $contest->id);
         }
+
         return Redirect::to('admin/concursos');
     }
 
@@ -538,5 +605,15 @@ class ContestController extends Controller
             return response()->json(["status" => "success", "msg" => "Concurso borrado"]);
         }
         return response()->json(["status" => "error", "message" => "Concurso no encontrado"], 400);
+    }
+
+
+    public function inputs(Request $request)
+    {
+        $id = $request->route('id');
+        $form = FormModel::find($id);
+        $data = $form->inputs()->select('id', 'name', 'title')->get();
+
+        return response()->json($data);
     }
 }

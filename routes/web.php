@@ -816,6 +816,7 @@ Route::middleware(['verified'])->group(
         Route::get('admin/concursos/crear', 'Contest\ContestController@create')->name('concurso-crear')->middleware('admin_role');
 
         Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
+        Route::get('admin/contest/inputs/{id}', 'Contest\ContestController@inputs')->name('contest.inputs')->middleware('admin_role');
 
         Route::post(
             'admin/contest/deleteAll',
