@@ -147,6 +147,11 @@ class WebController extends Controller
     {
         $data = $this->getUserData();
         return view('concursos.ronda_3', $data);
+    } 
+    public function postulacion_publica()
+    {
+        $data = $this->getUserData();
+        return view('concursos.postulacion_publica', $data);
     }
     public function cuento_completo()
     {

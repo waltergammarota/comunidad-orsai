@@ -126,6 +126,11 @@ Route::get(
     'Contest\ContestController@show'
 )->name("concursos-show");
 
+Route::get(
+    '/concursos/{id}/{name}/ganador',
+    'Contest\ContestController@ganador'
+)->name("ganador");
+
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
@@ -311,6 +316,11 @@ Route::middleware(['verified'])->group(
         )->name('concurso-finalizado');
 
         Route::get(
+            '/postulacion_publica',
+            'WebController@postulacion_publica'
+        )->name('postulacion_publica');
+
+        Route::get(
             '/ronda_1',
             'WebController@ronda_1'
         )->name('ronda_1');
@@ -323,7 +333,7 @@ Route::middleware(['verified'])->group(
         Route::get(
             '/ronda_3',
             'WebController@ronda_3'
-        )->name('ronda_3');
+        )->name('ronda_3'); 
 
         Route::get(
             '/cuento_completo',

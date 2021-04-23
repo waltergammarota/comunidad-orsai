@@ -142,6 +142,54 @@ class ContestController extends Controller
         return view('concursos.inscripcion', $data);
     }
 
+    public function ganador(Request $request)
+    {
+        $contestId = $request->route('id');
+        $userInfo = $this->getUserData();
+        $data = array_merge($userInfo);
+        $contest = ContestModel::find($contestId);
+        if ($contest == null) {
+            return Redirect::to(url('no-encontrado'));
+        }
+        $data['concurso'] = $contest;
+        $data['diferencia'] = $contest->end_app_date;
+        $data['postulaciones_abiertas'] = false;
+        $data['logo'] = $contest->logo();
+        $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
+        $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
+        $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
+        $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        $data['bases'] = $contest->getBases();
+        $data['ganadores'] = [];
+        $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);
+        $webController = new WebController;
+        $data['participantes'] = $webController->getParticipantes($request, $contest->id);
+        // CONCURSO POSTULACIONES ABIERTAS
+        $data['estado'] = $contest->getStatus();
+        $user = Auth::user();
+        $data['hasPostulacion'] = false;
+        if ($user) {
+            $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, $user->id);
+        }
+        $data['propuesta'] = false;
+        if ($data['hasPostulacion']) {
+            $data['propuestaId'] = ContestApplicationModel::select('id')->where('contest_id', $contest->id)->where("user_id", $user->id)->first()->id;
+        }
+        if ($contest->hasPostulacionesAbiertas()) {
+            $data['estado'] = "abierto";
+            $data['postulaciones_abiertas'] = true;
+        }
+        // CONCURSO INICIO DE LAS APUESTAS
+        if ($contest->hasVotes()) {
+            $data['estado'] = "abierto";
+        }
+        // CONCURSO FINALIZADO
+        if ($contest->hasEnded()) {
+            $data['estado'] = "finalizado";
+            $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where('contest_id', $contest->id)->get();
+        }
+        return view('concursos.ganador', $data);
+    }
     private function convertToK($amount)
     {
         if ($amount > 1000) {

@@ -4719,7 +4719,7 @@ div.tagsinput #tags_tag {
 
 .inscripcion-cuento .hero-nav .hero-nav-content .linea {
     position:relative;
-    margin-right:10px;
+    margin-right:5px;
 }
 @media(min-width:1100px){
     .inscripcion-cuento .hero-nav .hero-nav-content div.linea:before{
@@ -14084,10 +14084,10 @@ Main Components
   }
   
   .card-leitmotiv__ .tip-button.clicked {
-    animation: 150ms ease-in-out 1 shake;
+    animation: 150ms ease-in-out 1 shakeit;
     /*pointer-events: none;
     */background:#000;
-    -webkit-animation: 150ms ease-in-out 1 shake;
+    -webkit-animation: 150ms ease-in-out 1 shakeit;
     width:100%;
     
 }
@@ -14120,7 +14120,7 @@ Main Components
   } 
 
 
-  @keyframes shake {
+  @keyframes shakeit {
     0% {
       transform: rotate(4deg);
     }
@@ -14691,7 +14691,7 @@ margin-top:0;
 
 }
 .inscripcion-cuento .hero .content-hero.ganador_hero {
-    max-width: 1300px;
+    max-width: 1100px;
     width: 100%;
     margin: 0 auto 0 auto;
 }
@@ -14899,8 +14899,7 @@ margin-top:0;
     display:flex;
     justify-content: space-between;
     flex-wrap:wrap;
-    padding-bottom:25px;
-    margin-bottom:25px;
+    padding-bottom:25px; 
 }
 
 .card_ganador .bloque_blanco{
