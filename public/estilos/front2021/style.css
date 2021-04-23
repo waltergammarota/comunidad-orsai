@@ -1312,7 +1312,9 @@ header nav #desplegable #menu_pcpal .submenu a:hover {
     margin-top: 50px;
     margin-bottom: 50px;
 }
-
+.alto{
+    height:100px;
+}
 
 /*Banner slider*/
 
@@ -4596,7 +4598,7 @@ div.tagsinput #tags_tag {
 .inscripcion-cuento .hero-nav .hero-nav-item:after {
     content: '';
     position: absolute;
-    border-right: 1px solid #000;
+    /* border-right: 1px solid #000; */
     height: 60%;
     right: 0;
     top: 20%;
@@ -4680,6 +4682,7 @@ div.tagsinput #tags_tag {
     display:inline-block;
     line-height: 70%;
 }
+
 .inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column .big-number_2 {
     font-size: 2.5rem;
     font-family: 'Barlow Condensed', sans-serif;
@@ -4689,6 +4692,10 @@ div.tagsinput #tags_tag {
     line-height: 80%;
     width:100%;
     position:relative;
+}
+.inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column .big-number_2.finalizado{
+    color:#ff3c00 !important;
+    text-transform: uppercase;
 }
 .inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column .big-number_2 span{
     display:block;
@@ -12248,6 +12255,10 @@ z-index: 20000;
     max-width:1100px;
     margin:0 auto;
 }
+.max_w_1300{
+    max-width:1300px;
+    margin:0 auto;
+}
 .tran_creditos.transparencia.ranking .cont_tabla table tbody tr:nth-child(2n) {
     background-color: transparent;
 }
@@ -14662,4 +14673,418 @@ margin-top:0;
 
 .reset_min_height{
     min-height:auto;
+}
+
+
+/*Ganador*/
+.inscripcion-cuento .img_fondo{
+    min-height: 120%;
+    min-width:100%;
+}
+
+.inscripcion-cuento .hero .content-hero.ganador_hero .pills{
+    background: #ff3c00;
+    color:white;
+}
+.inscripcion-cuento .hero .content-hero.ganador_hero .pills::after{
+    border-color:  #ff3c00 transparent transparent transparent;
+
+}
+.inscripcion-cuento .hero .content-hero.ganador_hero {
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+.hero-nav.concurso_nav.ganador_nav{
+    max-width:1300px;
+}
+.inscripcion-cuento .hero-nav.ganador_nav .hero-nav-content{
+    max-width:1400px;
+}
+.cuerpo_interna .super_titulo{
+    font-size: 46px;
+    line-height: 110%;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+}
+
+.cuerpo_interna{
+    box-shadow: 4px 7px 18px -4px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 4px 7px 18px -4px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 4px 7px 18px -4px rgba(0, 0, 0, 0.1);   
+}
+
+.bloque_amarillo{
+    position:relative;
+    z-index: 0;
+    color:black;
+    z-index: 0;
+    padding-bottom:25px;
+    margin-bottom:45px;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+}
+.bloque_amarillo:after{
+    content:"";
+    background: #ffe600;
+    position:absolute;
+    top:-50px;
+    left:-50px;
+    width:calc(100% + 100px);
+    height:calc(100% + 50px);
+    z-index: -10;
+}
+
+.bloque_amarillo > div:nth-child(1){
+    width:calc(50% - 10px);
+}
+.bloque_amarillo > div:nth-child(2){
+    width:calc(50% - 10px);
+}
+
+.bloque_amarillo > div *{
+    margin:0;
+}
+.bloque_amarillo .gan_premio p, .bloque_amarillo .gan_premio p strong{
+    font-size:18px;
+    font-family: 'Barlow Condensed', sans-serif;
+    margin-bottom:10px;
+}
+
+.bloque_amarillo .gan_premio .boton_redondeado{
+    font-size:14px;
+    padding:5px 15px;
+    width:auto;
+}
+.bloque_amarillo .titulo{
+    font-size: 40px;
+    line-height: 110%;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    margin-bottom:10px;
+}
+
+.bloque_amarillo .cont_glogito .boton_redondeado{
+    display:inline-block;
+    width:auto;
+    font-weight: 700;
+    font-size:12px;
+    padding:5px 15px;
+    margin-right:12px;
+}
+
+.bloque_amarillo .numero_linea_bt{
+    position:relative;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    top:2px;
+}
+
+.bloque_amarillo .numero_linea_bt::after{
+    position:absolute;
+    content:"";
+    width:100%;
+    height:1px;
+    background-color: #090908;
+    left:0;
+    bottom:-3px;
+}
+
+
+
+.bloque_amarillo .datos_ganador a{
+    font-size:14px;
+}
+.bloque_amarillo .icon{
+    font-size:12px;
+}
+.pos_rel{
+    position:relative;
+}
+.pos_abs{
+    position:absolute;
+    top:50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.cuerpo_interna.ganador{
+    margin-bottom:45px;
+}
+
+@media(max-width:768px){
+    .bloque_amarillo{
+        padding-top:10px;
+        padding-bottom:25px;
+    }
+    .bloque_amarillo > div:nth-child(1){
+        padding-bottom:20px;
+        margin-bottom:20px;
+        border-bottom:1px solid #ddc200;
+        position:relative
+    }
+    .bloque_amarillo .numero_linea_bt{
+        position:absolute;
+        right:0;
+        font-size:26px;
+    }
+    .bloque_amarillo .numero_linea_bt::after{
+        position:absolute;
+        content:"";
+        width:100%;
+        height:2px;
+        background-color: #090908;
+        left:0;
+        bottom:-10px;
+    }
+    .bloque_amarillo .cont_glogito{
+        margin-bottom:20px;
+    }
+    .bloque_amarillo .cont_glogito .boton_redondeado{
+        padding-top:8px;
+        padding-bottom:8px;
+    }
+    .bloque_amarillo > div:nth-child(1), .bloque_amarillo > div:nth-child(2) {
+        width:100%;
+    }
+    .bloque_amarillo .gan_premio .pos_abs{
+        position:static;
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+    }
+    .bloque_amarillo .gan_premio p, .bloque_amarillo .gan_premio p strong{
+        margin-bottom:20px;
+        font-size:20px;
+    }
+    .bloque_amarillo .gan_premio .boton_redondeado{
+        width:100%;
+        text-align: center;
+        font-size:16px;
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+    .bloque_amarillo .datos_ganador a{
+        font-weight: 600;
+        font-size:16px;
+    }
+    .bloque_amarillo .cont_glogito .boton_redondeado{
+        font-size:16px;
+
+    }
+    .btn_voler_concursos {
+        padding-left:20px;
+        padding-right:20px;
+    }
+    .btn_voler_concursos .boton_redondeado{
+        text-align: center;
+        /* text-align:center; */
+        width:100%;
+    }
+}
+
+.card_ganador .btn_fichas_dinero{
+    border-bottom: 2px solid #ffe600;
+    margin-bottom:35px;
+}
+
+.card_ganador .contenedor_bloques_{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    padding-bottom:25px;
+    margin-bottom:25px;
+}
+
+.card_ganador .bloque_blanco{
+    background-color: white;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    width:calc(75% - 20px);
+}
+.card_ganador .bloque_blanco, .card_ganador .bloque_amarillo_{
+    padding:25px 45px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.card_ganador .bloque_amarillo_{
+    width:calc(25% - 20px);
+}
+.card_ganador .bloque_blanco .cont_glogito .boton_redondeado {
+    display: inline-block;
+    width: auto;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 5px 15px;
+    margin-right: 12px;
+}
+.card_ganador .bloque_blanco  .numero_linea_bt {
+    position: relative;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    top: 2px;
+}
+.card_ganador .bloque_blanco .numero_linea_bt::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #ffe600;
+    left: 0;
+    bottom: -3px;
+}
+.card_ganador .bloque_blanco .datos_ganador a {
+    font-size: 14px;
+}
+
+.card_ganador .bloque_blanco .icon {
+    font-size: 12px;
+}
+.card_ganador .bloque_blanco .titulo {
+    font-size: 40px;
+    line-height: 110%;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-top:15px;
+    max-width:300px;
+}
+.card_ganador .bloque_blanco .gan_premio p, .card_ganador .bloque_blanco .gan_premio p strong {
+    font-size: 18px;
+    font-family: 'Barlow Condensed', sans-serif;
+    margin: 0px;
+}
+.card_ganador .bloque_blanco .gan_premio .boton_redondeado {
+    font-size: 14px;
+    padding: 5px 15px;
+    width: auto;
+}
+.card_ganador .bloque_amarillo_{
+    position:relative;
+    display:inline-block;
+    background-color: #ffe740;
+    text-align: center;
+}
+.card_ganador .bloque_amarillo_ .img_ganador{
+    margin:0 auto;
+    width:100px;
+    height:100px;
+    display:block;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    overflow: hidden;
+    margin-bottom:10px;
+}
+.card_ganador .bloque_amarillo_ .img_ganador img{
+    width:100%;
+}
+
+.bloque_blanco .datos_ganador{
+    width:calc(60% - 10px);
+}
+.bloque_blanco .gan_premio{
+    width:calc(40% - 10px);
+}
+.card_ganador .bloque_amarillo_ .datos_ganador span{
+    display:block;
+}
+
+.card_ganador .bloque_amarillo_ .datos_ganador span:nth-child(1){
+    font-size:14px;
+    opacity: 0.5;
+}
+.card_ganador .bloque_amarillo_{
+    position:relative;
+}
+.card_ganador .bloque_amarillo_ .pro_star {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 15px;
+}
+@media(min-width:768px) and (max-width:900px){
+    .card_ganador .bloque_amarillo_ .pro_star {
+        right: 15px;
+        top: 25px;
+    }
+}
+
+
+@media(max-width:768px){
+    .card_ganador .bloque_blanco, .card_ganador .bloque_amarillo_{
+        width:100%;
+        margin-bottom:25px;
+    }
+    .card_ganador .bloque_blanco > div:nth-child(1){
+        padding-bottom:20px;
+        margin-bottom:20px;
+        border-bottom:1px solid #ddc200;
+        position:relative
+    }
+    .card_ganador .bloque_blanco .numero_linea_bt{
+        position:absolute;
+        right:0;
+        top:-5px;
+        font-size:26px;
+    }
+    .card_ganador .bloque_blanco .numero_linea_bt::after{
+        position:absolute;
+        content:"";
+        width:100%;
+        height:2px;
+        left:0;
+        bottom:-5px;
+    }
+    .card_ganador .bloque_blanco .cont_glogito{
+        margin-bottom:20px;
+    }
+    .card_ganador .bloque_blanco .cont_glogito .boton_redondeado{
+        padding-top:8px;
+        padding-bottom:8px;
+    }
+    .card_ganador .bloque_blanco > div:nth-child(1), .card_ganador .bloque_blanco > div:nth-child(2) {
+        width:100%;
+    }
+    .card_ganador .bloque_blanco .gan_premio .pos_abs{
+        position:static;
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+    }
+    .card_ganador .bloque_blanco .gan_premio p, .card_ganador .bloque_blanco .gan_premio p strong{
+        margin-bottom:20px;
+        font-size:20px;
+    }
+    .card_ganador .bloque_blanco .gan_premio .boton_redondeado{
+        width:100%;
+        text-align: center;
+        font-size:16px;
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+    .card_ganador .bloque_blanco .datos_ganador a{
+        font-weight: 600;
+        font-size:16px;
+    }
+    .card_ganador .bloque_blanco .cont_glogito .boton_redondeado{
+        font-size:16px;
+
+    }
 }
