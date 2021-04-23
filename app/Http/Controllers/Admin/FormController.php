@@ -7,9 +7,6 @@ use App\Databases\FormModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-
-use App\Databases\ContestModel;
-
 class FormController extends Controller
 {
 
