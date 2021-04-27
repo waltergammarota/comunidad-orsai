@@ -69,7 +69,7 @@
                                                 <div class="check_div input_err obligatorio">
                                                     <label class="checkbox-container letra_chica text_regular color_negro">
                                                         Concursos
-                                                        <input type="checkbox" value="Concursos" id="cbox1" name="filtro1" class="check_cond"> 
+                                                        <input type="checkbox" value="Concursos" id="chkcon" name="filtro1" class="check_cond"> 
                                                         <span class="crear_check"></span> 
                                                     </label>
                                                 </div>
@@ -86,7 +86,7 @@
                                                 <div class="check_div input_err obligatorio">
                                                     <label class="checkbox-container letra_chica text_regular color_negro">
                                                         Baldeos
-                                                        <input type="checkbox" value="Baldeos" id="cbox2" name="filtro2" class="check_cond"> 
+                                                        <input type="checkbox" value="Baldeos" id="chkbal" name="filtro2" class="check_cond"> 
                                                         <span class="crear_check"></span> 
                                                     </label>
                                                 </div>
@@ -103,7 +103,7 @@
                                                 <div class="check_div input_err obligatorio">
                                                     <label class="checkbox-container letra_chica text_regular color_negro">
                                                         Donaciones
-                                                        <input type="checkbox" value="Donaciones" id="cbox3" name="filtro3" class="check_cond"> 
+                                                        <input type="checkbox" value="Donaciones" id="chkdon" name="filtro3" class="check_cond"> 
                                                         <span class="crear_check"></span> 
                                                     </label>
                                                 </div>
@@ -120,7 +120,7 @@
                                                 <div class="check_div input_err obligatorio">
                                                     <label class="checkbox-container letra_chica text_regular color_negro">
                                                         Mordidas
-                                                        <input type="checkbox" value="Mordidas" id="cbox4" name="filtro3" class="check_cond"> 
+                                                        <input type="checkbox" value="mordidas" id="chkmor" name="filtro3" class="check_cond"> 
                                                         <span class="crear_check"></span> 
                                                     </label>
                                                 </div>
@@ -132,16 +132,15 @@
                                 <li class="cont_btn_filtro">
                                     <div class="form_ctrl input_">
                                         <div class="align_right">
-                                            <button class="boton_redondeado resaltado_amarillo pd_50_lf_rg">Filtrar</button>
+                                            <button id="btn-filtro" class="boton_redondeado resaltado_amarillo pd_50_lf_rg">Filtrar</button>
                                         </div>
                                     </div>    
                                 </li>
                             </ul>
                         </form>
-                        </div>
-        
-                        <span class="btn_tr fichas active">Fichas</span>
-                        <span class="btn_tr dinero">Dinero</span>
+                        </div>        
+                        <span class="btn_tr fichas active" data-type="fichas">Fichas</span>
+                        <span class="btn_tr dinero" data-type="dinero">Dinero</span>
                     </div>
                     {{-- <div class="tran_creditos transparencia">
                         <div class="cont_tabla">
@@ -166,46 +165,10 @@
                                     <th>Fecha y hora</th>
                                     <th>ID</th>
                                     <th>Descripción</th>
-                                    <th class="" width="120">Débito/Crédito</th>
+                                    <th>Débito/Crédito</th>
                                 </tr>
                                 </thead>
                                 <tbody id="cargar_">
-                                    <tr>
-                                      <td><span class="icono icon-flag tooltip">  <span class="tooltiptext">Reportar</span> </span> 02/12/2020 16:44</td>
-                                      <td class="id_transaccion">19762</td>
-                                      <td>Matías Suárez se postuló al Concurso Internacional de Cuento Corto</td>
-                                        <td class="">
-                                            <div class="fichas fichas_td fichas_negativo"><span class="icono icon-ficha"></span>-5</div> 
-                                            <div class="dinero dinero_td"><span class="icono">$ </span>5.000 </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                      <td><span class="icono icon-flag tooltip">  <span class="tooltiptext">Reportar</span> </span> 15/12/2020 12:13</td>
-                                      <td class="id_transaccion">17621</td>
-                                      <td>Ángela Rodríguez fue mordida por no hacer uso de sus fichas durante 90 días</td>
-                                      <td class="">
-                                        <div class="fichas fichas_td fichas_negativo"><span class="icono icon-ficha"></span>-5.100</div> 
-                                        <div class="dinero dinero_td"><span class="icono">$ </span>5.000 </div>
-                                    </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="icono icon-flag tooltip">  <span class="tooltiptext">Reportar</span> </span> 18/12/2020 10:06</td>
-                                        <td class="id_transaccion">17623</td>
-                                        <td>Lorena Padin apostó al Leit Motiv 009 en el Concurso Internacional de Cuento Corto</td>
-                                        <td class="">
-                                            <div class="fichas fichas_td fichas_negativo"><span class="icono icon-ficha"></span>-2</div> 
-                                            <div class="dinero dinero_td dinero_negativo"><span class="icono">$ </span>-5.000 </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="icono icon-flag tooltip">  <span class="tooltiptext">Reportar</span> </span> 26/12/2020 17:25</td>
-                                        <td class="id_transaccion">17623</td>
-                                        <td>Antonio García recibió fichas de Comunidad Orsai</td>
-                                        <td class="">
-                                            <div class="fichas fichas_td "><span class="icono icon-ficha"></span>50</div> 
-                                            <div class="dinero dinero_td "><span class="icono">$ </span>1.000 </div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -214,7 +177,7 @@
                         <div class="spinner_"><img src="{{url('estilos/front2021/assets/25.gif')}}" alt=""></div>
                         <span class="loading_">Cargando...</span>
                     </div> 
-                    <div id="cargar_texto_2" class="">
+                    <div id="cargar_texto_2">
                         <span class="loading_">No hay más...</span>
                     </div> 
                 </div>
@@ -299,7 +262,7 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/scroller/2.0.3/js/dataTables.scroller.min.js"></script>
     <script>
- 
+        
         const lang = {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -330,134 +293,85 @@
             }
         };
 
-        $(document).ready(function () {
-        $('#mis_fichas_table').DataTable({
-            "searching": false,
-            "lengthChange": false,
-            "paging": false,
-            "info": false,
-            "ordering": true,
-            "order": [[0, "desc"]],
-            language: lang,
-        });
-    }); 
+
+        const colsDinero = [
+            {
+                "data": "date",
+                "render": function (data) {
+                    return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
+                }
+            },
+            { "data": "id" },
+            { "data": "description" },
+            {
+                "data": "type",
+                "render": function (data) {
+                    let classNegativo = "";
+                    if (parseInt(data) < 0) {
+                        classNegativo = "dinero_negativo";
+                    }
+                    return `<div class="dinero_td ${classNegativo} align_right"><span class="icono">USD </span>${data}</div>`;
+                }
+            }
+        ];
+        const colsFichas = [
+            {
+                "data": "date",
+                "width": "20%",
+                "render": function (data) {
+                    return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
+                }
+            },
+            { "data": "id", "width": "10%", },
+            { "data": "description", "width": "60%", },
+            {
+                "data": "type",
+                "width": "10%",
+                "render": function (data) {
+                    let classNegativo = "";
+                    if (parseInt(data) < 0) {
+                        classNegativo = "fichas_negativo";
+                    }
+                    return `<div class="fichas fichas_td ${classNegativo}"><span class="icono icon-ficha"></span><span class="align_right">${data}</span></div>`;
+                }
+            }
+        ];
+
+        
+        const columns = {fichas: colsFichas, dinero: colsDinero};
+        const datos = {fichas: {page: 1, pages: 0, data: []}, dinero: {page: 1, pages: 0, data: []}};
 
         $(document).ready(function () {
-            // const colsDinero = [
-            //     {
-            //         "data": "date",
-            //         "render": function (data) {
-            //             return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
-            //         }
-            //     },
-            //     {"data": "id"},
-            //     {"data": "description"},
-            //     {
-            //         "data": "type",
-            //         "render": function (data) {
-            //             let classNegativo = "";
-            //             if (parseInt(data) < 0) {
-            //                 classNegativo = "dinero_negativo";
-            //             }
-            //             return `<div class="dinero dinero_td ${classNegativo} align_right"><span class="icono">USD </span>${data}</div>`;
-            //         }
-            //     }
-            // ];
-            // const colsFichas = [
-            //     {
-            //         "data": "date",
-            //         "render": function (data) {
-            //             return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
-            //         }
-            //     },
-            //     {"data": "id"},
-            //     {"data": "description"},
-            //     {
-            //         "data": "type",
-            //         "render": function (data) {
-            //             let classNegativo = "";
-            //             if (parseInt(data) < 0) {
-            //                 classNegativo = "fichas_negativo";
-            //             }
-            //             return `<div class="fichas fichas_td ${classNegativo}"><span class="icono icon-ficha"></span><span class="align_right">${data}</span></div>`;
-            //         }
-            //     }
-            // ];
-            // const dineroOptions = {
-            //     "searching": false,
-            //     "lengthChange": false,
-            //     "info": false,
-            //     "ordering": false,
-            //     "order": [[0, "desc"]],
-            //     "serverSide": true,
-            //     "ajax": '{{url('transparencia-json?query=dinero')}}',
-            //     "language": lang,
-            //     "columns": colsDinero
-            // };
-            // const fichasOptions = {
-            //     "searching": false,
-            //     "lengthChange": false,
-            //     "info": false,
-            //     "ordering": false,
-            //     "order": [[0, "desc"]],
-            //     "serverSide": true,
-            //     "ajax": '{{url('transparencia-json?query=fichas')}}',
-            //     "language": lang,
-            //     "columns": colsFichas
-            // };
-            // let table = $('#mis_fichas_table').DataTable(fichasOptions);
-            // const demoOptions = {
-            //     "searching": false,
-            //     "lengthChange": false,
-            //     "info": false,
-            //     "ordering": false,
-            //     "order": [[0, "desc"]],
-            //     "language": lang
-            // };
-            // $('#table_demo').DataTable(demoOptions);
 
-            $(".sort").on("click", function () {
-                if ($(this).hasClass("icon-down-dir")) {
-                    $(".icon-up-dir").addClass("icon-down-dir");
-                    $(".icon-up-dir").removeClass("icon-up-dir");
-                    $(this).addClass("icon-up-dir");
-                    $(this).removeClass("icon-down-dir");
+            $(".btn_fichas_dinero .btn_tr").on("click", function () {
+                if ($(this).hasClass("active")) {
+
                 } else {
-                    $(".icon-up-dir").addClass("icon-down-dir");
-                    $(".icon-up-dir").removeClass("icon-up-dir");
-                    $(this).addClass("icon-down-dir");
-                    $(this).removeClass("icon-up-dir");
+                    $(".tran_creditos.transparencia .fichas").toggle();
+                    $(".tran_creditos.transparencia .dinero").toggle();
+                    $(".btn_fichas_dinero span.active").removeClass("active");
+                    $(this).addClass("active");
+
+                    target = $(this).data('type');
+                    let page = datos[target].page;
+
+                    if (page == 1) {
+                        getData(target);
+                    } else {
+                        setTable(target);
+                    }
+
+                    page = datos[target].page;
+                    let pages = datos[target].pages;
+
+                    if (pages >= page) {
+                        $("#cargar_texto_2").removeClass("activo");
+                    } 
+
+
                 }
             });
 
-            // $(".btn_fichas_dinero span").on("click", function () {
-            //     if ($(this).hasClass("active")) {
-
-            //     } else {
-            //         $(".tran_creditos.transparencia .fichas").toggle();
-            //         $(".tran_creditos.transparencia .dinero").toggle();
-            //         $(".btn_fichas_dinero span.active").removeClass("active");
-            //         $(this).addClass("active");
-            //         table.destroy();
-            //         if ($(this).data('type') == "fichas") {
-            //             table = $('#mis_fichas_table').DataTable(fichasOptions);
-            //         } else {
-            //             table = $('#mis_fichas_table').DataTable(dineroOptions);
-            //         }
-            //     }
-            // });
-
-            $(".btn_fichas_dinero .btn_tr").on("click", function(){
-                if($(this).hasClass("active")){
-
-                }else{
-                        $(".tran_creditos.transparencia .fichas").toggle();
-                        $(".tran_creditos.transparencia .dinero").toggle();
-                        $(".btn_fichas_dinero .btn_tr.active").removeClass("active");
-                        $(this).addClass("active");
-                        // $('#mis_fichas_table').table( "refresh");
-                    }
-            }); 
 
             $(".modal_no").on("click", function () {
                 $("#validacion_requerida").fadeOut();
@@ -472,39 +386,39 @@
                 $('html, body').css('overflowY', 'auto');
             });
 
-            // table.on('click', ".icon-flag", function () {
-            //     const data = table.row($(this).parents('tr')).data();
-            //     $("#report_id").empty().append(data.id);
-            //     $("#report_id_input").val(data.id);
-            //     $('html, body').css('overflowY', 'hidden');
+            table.on('click', ".icon-flag", function () {
+                const data = table.row($(this).parents('tr')).data();
+                $("#report_id").empty().append(data.id);
+                $("#report_id_input").val(data.id);
+                $('html, body').css('overflowY', 'hidden');
 
-            //     @if (Auth::check())
-            //         $("#reportar_transaccion").fadeIn();
-            //     @else
-            //         $("#validacion_requerida").fadeIn();
-            //     @endif
-            // })
-            $("#reportar_transaccion button").on("click", function () {
-                $(".aviso").fadeIn();
-            });
+                @if (Auth:: check())
+            $("#reportar_transaccion").fadeIn();
+            @else
+            $("#validacion_requerida").fadeIn();
+            @endif
+        })
+        $("#reportar_transaccion button").on("click", function () {
+            $(".aviso").fadeIn();
         });
-        
-        function click_flag(){
-            $(".icon-flag").on("click", function(){
+            });
+
+        function click_flag() {
+            $(".icon-flag").on("click", function () {
                 $("#report_id").text($(this).parent().parent().find(".id_transaccion").text())
                 $("#report_id_input").val($(this).parent().parent().find(".id_transaccion").text())
-                $('html, body').css('overflowY', 'hidden'); 
-                
-                @if (Auth::check())
-                    $("#reportar_transaccion").fadeIn();
-                @else
-                    $("#validacion_requerida").fadeIn();
-                @endif
+                $('html, body').css('overflowY', 'hidden');
+
+                @if (Auth:: check())
+            $("#reportar_transaccion").fadeIn();
+            @else
+            $("#validacion_requerida").fadeIn();
+            @endif
         })
-            $("#reportar_transaccion button").on("click", function(){
-                $(".aviso").fadeIn();
-            });
-        }
+        $("#reportar_transaccion button").on("click", function () {
+            $(".aviso").fadeIn();
+        });
+            }
         click_flag();
 
 
@@ -512,65 +426,143 @@
 
         var counter_;
 
+        let target = 'fichas';
 
-        $(window).scroll(function() {
+        let table = $('#mis_fichas_table').DataTable({
+            paging: false,
+            searching: false,
+            lengthChange: false,
+            info: false,
+            ordering: false,
+        });
 
-            if (( $(window).scrollTop() + $(window).height() )  >= ( $(document).height() - 100 )) {
+        getData('fichas');
 
-                if( counter_ != undefined ){
+
+        document.getElementById("btn-filtro").addEventListener('click', function (event) {
+            'use strict';
+            event.preventDefault();
+
+            $("#form_filtro").removeClass("abierto");
+
+            if (target == 'fichas')
+            {
+                datos[target].data = [];
+                datos[target].pages = 0;
+                datos[target].page = 1;
+
+                getData('fichas');
+            }
+
+        }, false);
+
+
+
+
+        $(window).scroll(function () {
+
+            if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 100)) {
+
+                if (counter_ != undefined) {
                     clearInterval(counter_)
                 }
 
+                let page = datos[target].page;
+                let pages = datos[target].pages;
 
-                if (cant_agrega >= 4 || cant_agrega == "no hay mas") {
+                //if (page >= pages + 1 || cant_agrega == "no hay mas") {
+                if (page >= pages + 1) {
                     $("#cargar_texto").removeClass("activo");
                     $("#cargar_texto_2").addClass("activo");
 
-                }else{
+                } else {
 
-                    console.log(cant_agrega)
-                    
                     $("#cargar_texto").addClass("activo");
 
-                    counter_ = setTimeout(function(){
+                    counter_ = setTimeout(function () {
+                        
+                        getData(target);
 
-                        $('#cargar_').append('<tr><td><span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> 26/12/2020 17:25</td><td class="id_transaccion">17623</td><td>Antonio García recibió fichas de Comunidad Orsai</td><td class=""><div class="fichas fichas_td "><span class="icono icon-ficha"></span>50</div><div class="dinero dinero_td "><span class="icono">$ </span>1.000 </div></td></tr><tr><td><span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> 26/12/2020 17:25</td><td class="id_transaccion">17623</td><td>Antonio García recibió fichas de Comunidad Orsai</td><td class=""><div class="fichas fichas_td "><span class="icono icon-ficha"></span>50</div><div class="dinero dinero_td "><span class="icono">$ </span>1.000 </div<td></tr><tr><td><span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> 26/12/2020 17:25</td><td class="id_transaccion">17623</td><td>Antonio García recibió fichas de Comunidad Orsai</td><td class=""><div class="fichas fichas_td "><span class="icono icon-ficha"></span>50</div><div class="dinero dinero_td "><span class="icono">$ </span>1.000 </div></td></tr><tr><td><span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span> </span> 26/12/2020 17:25</td><td class="id_transaccion">17623</td><td>Antonio García recibió fichas de Comunidad Orsai</td><td class=""><div class="fichas fichas_td "><span class="icono icon-ficha"></span>50</div><div class="dinero dinero_td "><span class="icono">$ </span>1.000 </div></td></tr>');
                         click_flag();
                         $("#cargar_texto").removeClass("activo");
 
                         $('body').css('overflow', 'auto')
 
-                        console.log('ok')
-                    cant_agrega++;
-                    }, 2000);
-            }
-                
+                        cant_agrega++;
+                    }, 1000);
+                }
+
             };
         });
 
 
         /* Submenu de busqueda */
 
-        $("#form_filtro .icon-cancel").on("click", function(){
+        $("#form_filtro .icon-cancel").on("click", function () {
             $("#form_filtro").removeClass("abierto");
         })
-        $("#open_menu").on("click", function(){
-            if($("#form_filtro").hasClass("abierto")){
-                
+        $("#open_menu").on("click", function () {
+            if ($("#form_filtro").hasClass("abierto")) {
+
                 $("#form_filtro").removeClass("abierto");
-            }else{
+            } else {
                 $("#form_filtro").addClass("abierto");
             }
         })
-        $(document).ready(function() {
-        $('#form_filtro').submit(function(e) {
-            e.preventDefault();
-        });
+        $(document).ready(function () {
+            $('#form_filtro').submit(function (e) {
+                e.preventDefault();
+            });
         });
 
 
+        function getData(target) {
+
+            const chkcon = document.getElementById('chkcon').checked;
+            const chkdon = document.getElementById('chkdon').checked;
+            const chkbal = document.getElementById('chkbal').checked;
+            const chkmor = document.getElementById('chkmor').checked;
+
+            let url = `{!! url('transparencia/${target}') !!}/?chkcon=${chkcon}&chkdon=${chkdon}&chkbal=${chkbal}&chkmor=${chkmor}&page=${datos[target].page}`
+
+            fetch(url, {
+                method: 'GET',
+            }).then(response => response.text()).then(data => {
+
+                let txs = JSON.parse(data);
+
+                //console.log(`${target}: ${txs.current_page} -> ${txs.last_page} - ${txs.total_page} -`);
+
+                if (txs.last_page >= txs.current_page) {
+                    $("#cargar_texto_2").removeClass("activo");
+                } 
+
+                datos[target].data = datos[target].data.concat(txs.data);
+                datos[target].pages = txs.last_page;
+                datos[target].page++; 
+
+                setTable(target);
+
+            }).catch(error => console.log(error));
+
+        }
+
+        function setTable(target) {
+            table.destroy();
+            table = $('#mis_fichas_table').DataTable({
+                paging: false,
+                searching: false,
+                lengthChange: false,
+                info: false,
+                ordering: false,
+                language: lang,
+                data: datos[target].data,
+                columns: columns[target]
+            });
+        }
 
     </script>
+
 @endsection
 
 

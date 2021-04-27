@@ -103,6 +103,8 @@ Route::post(
 )->name('mercado_pago_webhook');
 
 //TRANSPARENCIA
+Route::get('transparencia/fichas', 'TransparenciaController@fichas')->name('transparencia.fichas');
+Route::get('transparencia/dinero', 'TransparenciaController@dinero')->name('transparencia.dinero');
 Route::get(
     'transparencia',
     'TransparenciaController@index'
