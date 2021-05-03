@@ -367,6 +367,7 @@ class ContestController extends Controller
 
         for ($i = 0; $i < 3; $i++) {
             $ronda = new \stdClass();
+            $ronda->solapa = '';
             $ronda->id = 0;
             $ronda->contest_id = 0;
             $ronda->cost = 0;
