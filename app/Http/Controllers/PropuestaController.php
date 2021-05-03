@@ -8,7 +8,9 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
+use App\Databases\RondaModel;
 use App\Databases\Transaction;
+use App\Databases\VotesModel;
 use App\UseCases\ContestApplication\GetContestApplicationById;
 use App\UseCases\ContestApplication\VoteAContestApplication;
 use App\User;
@@ -117,17 +119,50 @@ class PropuestaController extends Controller
     public function votar(Request $request)
     {
         $user = Auth::user();
-        $cpa = ContestApplicationModel::find($request->cap_id);
-        if ($cpa->user_id != $user->id) {
-            $vote = new VoteAContestApplication(
-                $request->cap_id,
-                Auth::user()->id,
-                $request->amount
-            );
-            $output = $vote->execute();
-            return response()->json(["totalVotes" => $output]);
+        $amount = $request->amount;
+        $rondaOrder = $request->rondaOrder;
+        if ($user->getBalance() < $amount) {
+            return response()->json(["status" => "error", "msg" => "No te alcanzan las fichas", "error" => 100], 400);
         }
-        return response()->json(["status" => "error", "msg" => "No puedes votarte a tí mismo"], 400);
+        $cpa = ContestApplicationModel::find($request->cap_id);
+        $contest = $cpa->contest()->first();
+        if (!$contest->hasVotes()) {
+            return response()->json(["status" => "error", "msg" => "No iniciaron las votaciones", "error" => 110], 400);
+        }
+        $ronda = RondaModel::getRonda($cpa->contest_id, $rondaOrder);
+        $input = $ronda->inputs->first();
+        $answer = AnswerModel::getAnswer($cpa->contest_id, $input->id, $cpa->id);
+        $hasBeenVoted = VotesModel::hasBeenVoted($answer->id, $user->id, $cpa->id, $rondaOrder, $ronda->cost);
+        $previousVotes = VotesModel::getVotesCount($contest->id, $user->id, $rondaOrder, $cpa->id);
+        if ($hasBeenVoted) {
+            return response()->json(["status" => "error", "msg" => "Ya votaste", "error" => 120], 400);
+        }
+        if ($amount < $ronda->cost && $rondaOrder < 3) {
+            return response()->json(["status" => "error", "msg" => "El monto es menor al costo de la ronda", "error" => 130], 400);
+        }
+//        if ($cpa->user_id != $user->id) {
+        if ($user->id) {
+            VotesModel::vote([
+                'user_id' => $user->id,
+                'answer_id' => $answer->id,
+                'cap_id' => $cpa->id,
+                'form_id' => $contest->form_id,
+                'contest_id' => $cpa->contest_id,
+                'input_id' => $input->id,
+                'amount' => $amount,
+                'pool_id' => $contest->pool_id,
+                'order' => $rondaOrder,
+            ], $ronda->cost, $previousVotes);
+            $output = [
+                "balance" => $user->getBalance(),
+                "cap_id" => VotesModel::getVotesCount($contest->id, $user->id, $ronda->order, $cpa->id),
+                "rondas" => VotesModel::getRondasWithVotes($contest, $user->id),
+            ];
+
+            return response()->json(["result" => $output]);
+        }
+
+        return response()->json(["status" => "error", "msg" => "No puedes votarte a tí mismo", "error" => 130], 400);
     }
 
     private function findPropuesta($id)

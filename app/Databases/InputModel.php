@@ -217,7 +217,6 @@ class InputModel extends Model
     }
 
 
-
     public function getRule()
     {
         $rawRules = [
@@ -230,5 +229,29 @@ class InputModel extends Model
             return $item != null;
         });
         return $rules;
+    }
+
+    public function toUserHtml($answer)
+    {
+        switch ($this->type) {
+            case 'input':
+                return $this->inputToUserHtml($answer->answer);
+            case 'nube':
+                return $this->nubeToUserHtml($answer->answer);
+        }
+    }
+
+    private function inputToUserHtml($content)
+    {
+        return $content;
+    }
+
+    private function nubeToUserHtml($content)
+    {
+        $tags = explode(',', $content);
+        $tagsWithSpans = array_map(function ($item) {
+            return "<span>{$item}</span>";
+        }, $tags);
+        return implode(' ', $tagsWithSpans);
     }
 }

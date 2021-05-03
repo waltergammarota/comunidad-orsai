@@ -4,378 +4,53 @@
 @section('description','Linea de tiempo Orsai | Comunidad Orsai')
 
 @section('content')
-    <section class="inscripcion-cuento">
-        <div class="contenedor">
-            <div class="hero">
-                <div class="content-hero">
-                    <p class="pills">Votación</p>
-                    <h2 class="title">{{$concurso->name}}</h2>
-                    <p class="subtitle"><strong class="color_amarillo">¿Estás ok para ser jurado?</strong> Solo tenés
-                        que tener fichas disponibles y muchas ganas de apostarle a las historias que creas mejores. Ya
-                        podés empezar.</p>
-                    <p><strong class="color_amarillo">Recordá que los primeros clics son gratis, pero para seguir
-                            avanzando en tus veredictos vas a necesitar fichas.</strong></p>
-                </div>
-                @if($logo)
-                    <img src="{{url('storage/images/'.$logo->name.".".$logo->extension)}}" alt="" class="img_fondo">
-                @else
-                    <img src="https://dev.comunidadorsai.org/recursos/front2021/fichas-donaciones.jpg" class="img_fondo"
-                         alt="">
-                @endif
-            </div>
-
-            <nav class="hero-nav concurso_nav">
-                <div class="hero-nav-content  owl-carousel owl-theme">
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/reloj.svg')}}" alt="Cierre de votación">
-                        </div>
-                        <div class="content-nav column">
-                            <div>
-                                <span>Cierre de votación</span>
-                                <span class="big-number_2">{{$cierreDiff}}</span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/fichas.svg')}}" alt="Pozo acumulado">
-                        </div>
-                        <div class="content-nav column">
-
-                            <div>
-                                <span>Pozo acumulado</span>
-                                <div class="numero_dividido">
-                                    <span class="big-number_2">{{$cantidadFichasEnJuego}}</span>
-                                    <span class="_barlow_text">Fichas</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/ficha.svg')}}" alt="Modo Pozo">
-                        </div>
-                        <div class="content-nav">
-                            <span class="medio">Modo <br/> <strong>{{$modo}}</strong></span>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="content-nav column bajar">
-                            <div class="numero_dividido">
-                                <span class="big-number_3">{{$cantidadPostulacionesAprobadas}}</span>
-                                <span>Cuentos <br/>enviados</span>
-                            </div>
-                        </div>
-                        <div class="content-nav column  bajar">
-
-                            <div class="numero_dividido">
-                                <span class="big-number_3">{{$cuentistasInscriptos}}</span>
-                                <span>Participantes </span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item">
-                        @if($isJuradoVip)
-                            <div class="content-nav center">
-                                <a href="#" class="btn-postulacion"> Estadísticas </a>
-                            </div>
-                        @else
-                            <div class="content-nav center bloqued">
-                                <a href="#" class="btn-postulacion"> <span class="icon-candado"></span> Estadísticas
+    @include('concursos.concurso-header')
+    <section class="pd_20_">
+        <div class="contenedor titulo_leit_motivs">
+            <div class="cont_card_leitmotiv_">
+            @foreach($cpas as $cpa)
+                <!-- Card -->
+                    <div class="card_leitmotiv_{{$currentRonda->order}}">
+                        <div
+                            class="card-leitmotiv__ @if($cpa->hasBeenVoted) card-leitmotiv-animate color-1 @endif"
+                            href="#">
+                            <span class="id_card">{{str_pad($cpa->order, 3, 0 ,STR_PAD_LEFT)}}</span>
+                            @foreach($currentRonda->inputs as $key => $input)
+                                @if($key == 0)
+                                    <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</h3>
+                                @else
+                                    <span
+                                        class="cat_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
+                            @endif
+                        @endforeach
+                        <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
+                            <div class="button_card">
+                                <a href="#"
+                                   class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
+                                   data-cap_id="{{$cpa->id}}">
+                                    @if($cpa->hasBeenVoted)
+                                        <span class="tip-button__text">Destrabar cuento completo</span>
+                                        <span class="icon icon-flecha_leitmotiv"></span>
+                                    @else
+                                        <span class="tip-button__text">Leer descripción</span>
+                                    @endif
+                                    <span class="icon"></span>
+                                    <div class="coin-wrapper">
+                                        <div class="coin">
+                                            <div class="coin__middle"></div>
+                                            <div class="coin__back"></div>
+                                            <div class="coin__front"></div>
+                                        </div>
+                                    </div>
+                                    <span class="num_coins">{{$currentRonda->cost}}</span>
                                 </a>
                             </div>
-                        @endif
+                        </div>
                     </div>
-                </div>
-            </nav>
+                @endforeach
+            </div>
         </div>
     </section>
-    <main class="cd-main-content resaltado_gris">
-        <div class="cd-tab-filter-wrapper">
-            <div class="cd-tab-filter">
-                <ul class="filtro_menu">
-                    <li class="color_blanco"><span id="open_menu"> <span class="icon icon-filtro"></span><span
-                                class="text_tit_submenu">Filtros </span><span
-                                class="color_amarillo cant_filtros_aplicados">(4)</span></span>
-                        <form action="#" id="form_filtro" autocomplete="off">
-                            <ul class="sub_menu">
-                                <li class="cont_icon_cancel">
-                                    <span class="icon icon-cancel cerrar"></span>
-                                </li>
-                                {{--                                // TODO VERIFICAR COMO NOS DAMOS CUENTA--}}
-                                @if($categories)
-                                    <li>
-                                        <div class="form_ctrl input_">
-                                            <div class="input_err">
-                                                <label class="text_medium">Categorias</label>
-                                                <div class="select">
-                                                    <select id="categorias" name="categorias">
-                                                        @foreach($categories as $item)
-                                                            <option value="{{$item}}">{{$item}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="select__arrow"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endif
-                                <li>
-                                    <div class="form_ctrl input_">
-                                        <div class="input_err">
-                                            <label class="text_medium">Buscar</label>
-                                            <input type="text" name="palabras_buscar" placeholder="palabra"
-                                                   class="obligatorio">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="grilla_form sin_margin">
-                                        <div class="form_ctrl input_ col_6">
-                                            <div class="align_left">
-                                                <div class="input_err">
-                                                    <div class="check_div input_err obligatorio">
-                                                        <label class="checkbox-container letra_chica text_bold">
-                                                            Ver destrabados
-                                                            <input type="checkbox" value="Destrabados" id="cbox3"
-                                                                   name="filtro3" class="check_cond">
-                                                            <span class="crear_check"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="input_err tag-container">
-                                    </div>
-                                </li>
-                                <li class="cont_btn_filtro">
-                                    <div class="form_ctrl input_">
-                                        <div class="align_right">
-                                            <a class="boton_redondeado resaltado_amarillo pd_50_lf_rg">Filtrar</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="cd-filters">
-                    <li class="filter">
-                        <a href="ronda_1" data-type="all" class="selected">
-                            <span class="icon icon-carpeta_abierta"></span>
-                            Leit motivs
-                            <span class="counter_">(12)</span>
-                        </a>
-                    </li>
-                    <li class="filter bloqued" data-filter=".color-1">
-                        <a href="ronda_2" data-type="color-1" class="">
-                            <span class="icon icon-candado"></span>
-                            Descripciones
-                            <span class="counter_">(0)</span>
-                        </a>
-                    </li>
-                    <li class="filter bloqued" data-filter=".color-2"><a href="ronda_3" data-type="color-2">
-                            <span class="icon icon-candado"></span>
-                            Cuentos <span class="counter_">(0)</span>
-                        </a>
-                    </li>
-
-                </ul> <!-- cd-filters -->
-                <div class="desp_mobile_tab">
-                    <span class="icon  icon-angle-down tabs_cli"></span>
-                </div>
-
-
-            </div> <!-- cd-tab-filter -->
-        </div> <!-- cd-tab-filter-wrapper -->
-        <section class="resaltado_gris pd_20_ pd_20_tp_bt ">
-            <div class="contenedor titulo_leit_motivs">
-                <h2>Votá leit motivs</h2>
-                <p class=""><strong>¡Ya podés empezar!</strong> Podés ver el leit motiv de todos los cuentos
-                    presentados, <strong>pero si querés avanzar en alguno te costará dos fichas.</strong> Recordá que
-                    estarás poniendo esa ficha en el cuento al que le hagas clic.</p>
-            </div>
-            <div class="contenedor filtros_aplicados">
-                <div>
-                    <span>4 filtros aplicados  / 18 postulaciones encontradas</span>
-                </div>
-                <div>
-                    <span><span class="icon icon-borrar_filtro"></span> Limpiar filtros</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="pd_20_">
-            <div class="contenedor titulo_leit_motivs">
-                <div class="cont_card_leitmotiv_">
-                    <!-- Card -->
-                    <div class="card_leitmotiv_1">
-                        <div class="card-leitmotiv__" href="#">
-                            <span class="id_card">005</span>
-                            <h3 class="title_card">Geppeto era un humilde carpintero que siempre había deseado tener un
-                                hijo y se le ocurrió la idea de tallar en la madera una marioneta a un niño. Un día, una
-                                hada cumple el sueño de Geppeto dándole vida a la marioneta y convirtiéndola en un niño
-                                de verdad al que Geppeto llamó Pinocho.</h3>
-                            <span class="cat_card"><span>tragedia</span> <span>educacion</span></span>
-                            <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
-                            <div class="button_card">
-                                <a href="#" class="tip-button boton_redondeado resaltado_amarillo width_100">
-                                    <span class="tip-button__text">Destrabar cuento completo</span>
-                                    <span class="icon"></span>
-                                    <div class="coin-wrapper">
-                                        <div class="coin">
-                                            <div class="coin__middle"></div>
-                                            <div class="coin__back"></div>
-                                            <div class="coin__front"></div>
-
-                                        </div>
-                                    </div>
-                                    <span class="num_coins">2</span>
-                                </a>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <!-- Card -->
-                    <div class="card_leitmotiv_1">
-                        <div class="card-leitmotiv__" href="#">
-                            <span class="id_card">005</span>
-                            <h3 class="title_card">Geppeto era un humilde carpintero que siempre había deseado tener un
-                                hijo y se le ocurrió la idea de tallar en la madera una marioneta a un niño. Un día, una
-                                hada cumple el sueño de Geppeto dándole vida a la marioneta y convirtiéndola en un niño
-                                de verdad al que Geppeto llamó Pinocho.</h3>
-                            <span class="cat_card"><span>tragedia</span> <span>educacion</span></span>
-                            <div class="button_card">
-                                <a href="#" class="tip-button  boton_redondeado resaltado_amarillo width_100">
-                                    <span class="tip-button__text">Destrabar cuento completo</span>
-                                    <span class="icon"></span>
-                                    <div class="coin-wrapper">
-                                        <div class="coin">
-                                            <div class="coin__middle"></div>
-                                            <div class="coin__back"></div>
-                                            <div class="coin__front"></div>
-
-                                        </div>
-                                    </div>
-                                    <span class="num_coins">2</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card -->
-                    <div class="card_leitmotiv_1">
-                        <div class="card-leitmotiv__" href="#">
-                            <span class="id_card">005</span>
-                            <h3 class="title_card">Geppeto era un humilde carpintero que siempre había deseado tener un
-                                hijo y se le ocurrió la idea de tallar en la madera una marioneta a un niño. Un día, una
-                                hada cumple el sueño de Geppeto dándole vida a la marioneta y convirtiéndola en un niño
-                                de verdad al que Geppeto llamó Pinocho.</h3>
-                            <span class="cat_card"><span>tragedia</span> <span>educacion</span></span>
-                            <div class="button_card">
-                                <a href="#" class="tip-button  boton_redondeado resaltado_amarillo width_100">
-                                    <span class="tip-button__text">Destrabar cuento completo</span>
-                                    <span class="icon"></span>
-                                    <div class="coin-wrapper">
-                                        <div class="coin">
-                                            <div class="coin__middle"></div>
-                                            <div class="coin__back"></div>
-                                            <div class="coin__front"></div>
-                                        </div>
-                                    </div>
-                                    <span class="num_coins">2</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card -->
-                    <div class="card_leitmotiv_1">
-                        <div class="card-leitmotiv__" href="#">
-                            <span class="id_card">005</span>
-                            <h3 class="title_card">Geppeto era un humilde carpintero que siempre había deseado tener un
-                                hijo y se le ocurrió la idea de tallar en la madera una marioneta a un niño. Un día, una
-                                hada cumple el sueño de Geppeto dándole vida a la marioneta y convirtiéndola en un niño
-                                de verdad al que Geppeto llamó Pinocho.</h3>
-                            <span class="cat_card"><span>tragedia</span> <span>educacion</span></span>
-                            <div class="button_card">
-                                <a href="#" class="tip-button  boton_redondeado resaltado_amarillo width_100">
-                                    <span class="tip-button__text">Destrabar cuento completo</span>
-                                    <span class="icon"></span>
-                                    <div class="coin-wrapper">
-                                        <div class="coin">
-                                            <div class="coin__middle"></div>
-                                            <div class="coin__back"></div>
-                                            <div class="coin__front"></div>
-
-                                        </div>
-                                    </div>
-                                    <span class="num_coins">2</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card -->
-                    <div class="card_leitmotiv_1">
-                        <div class="card-leitmotiv__" href="#">
-                            <span class="id_card">005</span>
-                            <h3 class="title_card">Geppeto era un humilde carpintero que siempre había deseado tener un
-                                hijo y se le ocurrió la idea de tallar en la madera una marioneta a un niño. Un día, una
-                                hada cumple el sueño de Geppeto dándole vida a la marioneta y convirtiéndola en un niño
-                                de verdad al que Geppeto llamó Pinocho.</h3>
-                            <span class="cat_card"><span>tragedia</span> <span>educacion</span></span>
-                            <div class="button_card">
-                                <a href="#" class="tip-button  boton_redondeado resaltado_amarillo width_100">
-                                    <span class="tip-button__text">Destrabar cuento completo</span>
-                                    <span class="icon"></span>
-                                    <div class="coin-wrapper">
-                                        <div class="coin">
-                                            <div class="coin__middle"></div>
-                                            <div class="coin__back"></div>
-                                            <div class="coin__front"></div>
-
-                                        </div>
-                                    </div>
-                                    <span class="num_coins">2</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card -->
-                    <div class="card_leitmotiv_1">
-                        <div class="card-leitmotiv__" href="#">
-                            <span class="id_card">005</span>
-                            <h3 class="title_card">Geppeto era un humilde carpintero que siempre había deseado tener un
-                                hijo y se le ocurrió la idea de tallar en la madera una marioneta a un niño. Un día, una
-                                hada cumple el sueño de Geppeto dándole vida a la marioneta y convirtiéndola en un niño
-                                de verdad al que Geppeto llamó Pinocho.</h3>
-                            <span class="cat_card"><span>tragedia</span> <span>educacion</span></span>
-                            <div class="button_card">
-                                <a href="#" class="tip-button  boton_redondeado resaltado_amarillo width_100">
-                                    <span class="tip-button__text">Destrabar cuento completo</span>
-                                    <span class="icon"></span>
-                                    <div class="coin-wrapper">
-                                        <div class="coin">
-                                            <div class="coin__middle"></div>
-                                            <div class="coin__back"></div>
-                                            <div class="coin__front"></div>
-
-                                        </div>
-                                    </div>
-                                    <span class="num_coins">2</span>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
     </main>
 
@@ -393,7 +68,7 @@
         </div>
         <div class="form_ctrl input_">
             <div class="align_center">
-                <a href="#" class="boton_redondeado resaltado_amarillo width_100">Seguir apostando</a>
+                <a href="#" class="boton_redondeado resaltado_amarillo width_100" rel="modal:close">Seguir apostando</a>
             </div>
         </div>
     </div>
@@ -412,7 +87,7 @@
 
         <div class="form_ctrl input_">
             <div class="align_center">
-                <a href="#" class="boton_redondeado resaltado_amarillo width_100">Donar</a>
+                <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo width_100">Donar</a>
             </div>
         </div>
         <div class="form_ctrl input_">
@@ -420,20 +95,46 @@
                 <a href="#" id="custom-close" class="pd_25_lf_rg subrayado" rel="modal:close">Ahora no</a>
             </div>
         </div>
-
     </div>
 @endsection
 
 @section('footer')
     @include("fundacion.footer-fundacion")
     <script>
+
+        function showModalJuradoVip() {
+            $('#ex1').show();
+        }
+
+        function filtrar() {
+            const url = '{{$baseUrl}}';
+            const busqueda = $('#busqueda').val();
+            const wordDestrabados = 'Destrabados';
+            const filteredTags = tags.filter(item => item != wordDestrabados)
+            const destrabados = tags.includes(wordDestrabados);
+            const params = new URLSearchParams({
+                busqueda: busqueda,
+                etiquetas: filteredTags.join(';'),
+                destrabados: destrabados
+            });
+            location.href = `${url}?${params}`;
+        }
+
+        $('#form_filtro').on('keyup keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                filtrar();
+                return false;
+            }
+        });
+
         /* Submenu de busqueda */
         $("#form_filtro .icon-cancel").on("click", function () {
             $("#form_filtro").removeClass("abierto");
         })
         $("#open_menu").on("click", function () {
             if ($("#form_filtro").hasClass("abierto")) {
-
                 $("#form_filtro").removeClass("abierto");
             } else {
                 $("#form_filtro").addClass("abierto");
@@ -472,27 +173,14 @@
             });
         }
 
-        input.addEventListener('keyup', (e) => {
-            e.preventDefault();
-            if (e.key === 'Enter') {
-                e.target.value.split(',').forEach(tag => {
-                    tags.push(tag);
-                });
-                addTags();
-                input.value = '';
-            }
-        });
-
         select.addEventListener('change', (e) => {
-
             const consulta_tag = e.target.value;
             console.log(tags.indexOf(consulta_tag));
             if (tags.indexOf(consulta_tag) == -1) {
-                e.target.value.split(',').forEach(tag => {
-                    tags.push(tag);
-
-                });
-                addTags();
+                if (e.target.value != 0) {
+                    tags.push(e.target.value);
+                    addTags();
+                }
             }
         });
 
@@ -514,7 +202,6 @@
         }
 
         document.addEventListener('click', (e) => {
-
             if (e.target.tagName === 'I') {
                 const tagLabel = e.target.getAttribute('data-item');
                 const index = tags.indexOf(tagLabel);
@@ -550,67 +237,55 @@
 
         add_click(".cd-filters li a");
 
-        /*Función contador de elementos desbloquedos y se los añade a las solapas*/
-        // function counter_(){
-        //     $(".cd-filters li.filter a").each(function( index ) {
-        //     var data_type= $(this).data('type');
-        //     switch ($(this).data('type')){
-        //             case "all":
-        //                 $(this).find(".counter_").text($(".cd-gallery li").length);
-        //                 break;
-        //             case "color-1":
-        //                 $(this).find(".counter_").text($(".cd-gallery li.color-1").length);
-        //                 if ($(this).find(".counter_").text() > 0){
-        //                     $(this).parent().removeClass("bloqued");
-        //                     $(this).find(".icon").removeClass("icon-candado");
-
-        //                     if (!$(this).hasClass("selected")){
-        //                         if ($(this).find(".counter_").text() == 1){
-        //                             $(this).find(".icon").addClass("icon-carpeta_cerrada");
-        //                             add_click($(this));
-        //                         }
-        //                     }
-        //                 }
-        //                 break;
-        //             case "color-2":
-        //                 $(this).find(".counter_").text($(".cd-gallery li.color-2").length);
-        //                 break;
-        //                 default:
-        //         }
-        //     });
-        // };
-        // counter_();
-
-
         // Boton de tarjeta
         $('.button_card a').on('click', function (e) {
 
-            /*Si se hace por php cambiar link */
+            const rondaOrder = {{$currentRonda->order}};
+            const amount = {{$currentRonda->cost}};
+            const cap_id = $(this).data('cap_id');
+            votar(cap_id, rondaOrder, amount, e, $(this));
+        });
 
-            if (!$(this).hasClass("clicked")) {
+        function changeCardState(e, element) {
+            if (!element.hasClass("clicked")) {
                 e.preventDefault();
-                $(this).attr("href", "ronda_2")
+                element.attr("href", {{$currentRonda->order + 1}})
             }
-            $(this).find(".tip-button__text").text("Leer descripción");
-            $(this).find(".num_fichas").text("");
-            $(this).find(".icon").not(".icon_flip").addClass("icon-flecha_leitmotiv");
-            $(this).find(".num_coins").css("display", "none");
+            element.find(".tip-button__text").text("Leer descripción");
+            element.find(".num_fichas").text("");
+            element.find(".icon").not(".icon_flip").addClass("icon-flecha_leitmotiv");
+            element.find(".num_coins").css("display", "none");
 
-            +$(this).parent().parent().addClass("card-leitmotiv-animate");
-            if ($(this).parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))) {
-                $(this).parent().parent().addClass("color-1")
+            element.parent().parent().addClass("card-leitmotiv-animate");
+            if (element.parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))) {
+                element.parent().parent().addClass("color-1")
             }
 
-            /*Funcion que activa el contador en las solapas, si se hace por php borrar la llamada de la funcion*/
-            // counter_();
+            element.addClass("button_card-animate");
 
-            $(this).addClass("button_card-animate");
-
-            $(this).animate({
-                // left: "+=50"
+            element.animate({
+                left: "+=50"
             }, 5, function () {
             });
-        });
+
+        }
+
+
+        function votar(cap_id, rondaOrder, amount, event, element) {
+            axios.post('{{url('votar')}}', {
+                cap_id: cap_id,
+                amount: amount,
+                rondaOrder: rondaOrder
+            }).then(response => {
+                changeCardState(event, element);
+                console.log(response.data)
+            }).catch(error => {
+                console.log(error);
+                if (error.response.data.error == 100) {
+                    $("#ex2").show();
+                }
+            });
+        }
 
 
         //Animacion de boton ficha
@@ -618,7 +293,7 @@
         tip_Buttons.forEach((button) => {
             button.addEventListener('click', () => {
                 if (button.clicked) return
-                // button.find(".tip-button").classList.add('clicked')
+// button.find(".tip-button").classList.add('clicked')
             })
         })
 
@@ -670,14 +345,14 @@
         }
     </script>
 
-    <SCRIPt>
+    <script>
         const tipButtons = document.querySelectorAll('.tip-button')
 
         // Loop through all buttons (allows for multiple buttons on page)
         tipButtons.forEach((button) => {
             let coin = button.querySelector('.coin')
 
-            // The larger the number, the slower the animation
+// The larger the number, the slower the animation
             coin.maxMoveLoopCount = 90
 
             button.addEventListener('click', () => {
@@ -685,9 +360,9 @@
 
                 button.classList.add('clicked')
 
-                // Wait to start flipping the coin because of the button tilt animation
+// Wait to start flipping the coin because of the button tilt animation
                 setTimeout(() => {
-                    // Randomize the flipping speeds just for fun
+// Randomize the flipping speeds just for fun
                     coin.sideRotationCount = Math.floor(Math.random() * 5) * 90
                     coin.maxFlipAngle = (Math.floor(Math.random() * 4) + 3) * Math.PI
                     button.clicked = true
@@ -707,7 +382,7 @@
                 coin.style.setProperty('--shine-opacity-multiplier', 0.4)
                 coin.style.setProperty('--shine-bg-multiplier', '50%')
                 coin.style.setProperty('opacity', 1)
-                // Delay to give the reset animation some time before you can click again
+// Delay to give the reset animation some time before you can click again
                 setTimeout(() => {
                     button.clicked = false
                 }, 300)
@@ -718,14 +393,14 @@
                 let percentageCompleted = coin.moveLoopCount / coin.maxMoveLoopCount
                 coin.angle = -coin.maxFlipAngle * Math.pow((percentageCompleted - 1), 2) + coin.maxFlipAngle
 
-                // Calculate the scale and position of the coin moving through the air
+// Calculate the scale and position of the coin moving through the air
                 coin.style.setProperty('--coin-y-multiplier', -11 * Math.pow(percentageCompleted * 2 - 1, 4) + 11)
                 coin.style.setProperty('--coin-x-multiplier', percentageCompleted)
                 coin.style.setProperty('--coin-scale-multiplier', percentageCompleted * 0.6)
                 coin.style.setProperty('--coin-rotation-multiplier', percentageCompleted * coin.sideRotationCount)
 
-                // Calculate the scale and position values for the different coin faces
-                // The math uses sin/cos wave functions to similate the circular motion of 3D spin
+// Calculate the scale and position values for the different coin faces
+// The math uses sin/cos wave functions to similate the circular motion of 3D spin
                 coin.style.setProperty('--front-scale-multiplier', Math.max(Math.cos(coin.angle), 0))
                 coin.style.setProperty('--front-y-multiplier', Math.sin(coin.angle))
 
@@ -738,7 +413,7 @@
                 coin.style.setProperty('--shine-opacity-multiplier', 4 * Math.sin((coin.angle + Math.PI / 2) % Math.PI) - 3.2)
                 coin.style.setProperty('--shine-bg-multiplier', -40 * (Math.cos((coin.angle + Math.PI / 2) % Math.PI) - 0.5) + '%')
 
-                // Repeat animation loop
+// Repeat animation loop
                 if (coin.moveLoopCount < coin.maxMoveLoopCount) {
                     if (coin.moveLoopCount === coin.maxMoveLoopCount - 6) button.classList.add('shrink-landing')
                     window.requestAnimationFrame(flipCoinLoop)
@@ -746,7 +421,7 @@
                     button.classList.add('coin-landed')
                     coin.style.setProperty('opacity', 0)
                     setTimeout(() => {
-                        // button.classList.remove('shrink-landing', 'coin-landed')
+// button.classList.remove('shrink-landing', 'coin-landed')
                         setTimeout(() => {
                             resetCoin()
                         }, 300)
@@ -754,7 +429,7 @@
                 }
             }
         })
-    </SCRIPt>
+    </script>
     <script>
         var distance = $('.cd-main-content').offset().top;
 

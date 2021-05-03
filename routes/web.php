@@ -322,25 +322,6 @@ Route::middleware(['verified'])->group(
             'WebController@postulacion_publica'
         )->name('postulacion_publica');
 
-        Route::get(
-            '/ronda_1',
-            'WebController@ronda_1'
-        )->name('ronda_1');
-
-        Route::get(
-            '/ronda_2',
-            'WebController@ronda_2'
-        )->name('ronda_2');
-
-        Route::get(
-            '/ronda_3',
-            'WebController@ronda_3'
-        )->name('ronda_3'); 
-
-        Route::get(
-            '/cuento_completo',
-            'WebController@cuento_completo'
-        )->name('cuento_completo');
 
         Route::get(
             '/ranking',
@@ -369,6 +350,11 @@ Route::middleware(['verified'])->group(
             'Contest\ContestController@show_ronda'
         )->name('concurso-ronda');
 
+        // CUENTO COMPLETO
+        Route::get(
+            'cuentos/{storyId}',
+            'Contest\ContestController@show_cuento'
+        )->name('concurso-cuento-completo');
         // CONCURSOS RONDAS
 
         //FIN DE CONCURSOS

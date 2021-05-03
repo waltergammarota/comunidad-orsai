@@ -213,7 +213,6 @@ class ContestModel extends Model
     }
 
 
-
     public function rondas()
     {
         return $this->hasMany(RondaModel::class, 'contest_id');
@@ -225,7 +224,8 @@ class ContestModel extends Model
      */
     public function getRondaByOrder($rondaOrder)
     {
-        return $this->rondas()->where('order', $rondaOrder)->first();
+        $ronda = $this->rondas()->where('order', $rondaOrder)->with('inputs')->first();
+        return $ronda;
     }
 
 
