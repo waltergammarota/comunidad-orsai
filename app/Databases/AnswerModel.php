@@ -38,7 +38,7 @@ class AnswerModel extends Model
 
     public function input()
     {
-        return $this->hasOne(InputModel::class, 'input_id');
+        return $this->belongsTo(InputModel::class, 'input_id');
     }
 
     public function form()
@@ -46,4 +46,8 @@ class AnswerModel extends Model
         return $this->hasOne(FormModel::class, 'form_id');
     }
 
+    static public function getAnswer($contestId, $inputId, $cpaId)
+    {
+        return AnswerModel::where('contest_id', $contestId)->where('input_id', $inputId)->where('cap_id', $cpaId)->first();
+    }
 }

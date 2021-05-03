@@ -29,10 +29,10 @@
                     </div>
                     <div class="content-nav column">
                         <div>
-                            <span>Cierre de votación</span>
-                            <span class="big-number_2">46:10:22</span>
-
-                        </div>            
+                            {{-- <span>Cierre de votación</span>
+                            <span class="big-number_2">46:10:22</span>   --}}
+                            <span class="big-number_2 finalizado">finalizado</span> 
+                        </div>    
                     </div>
                 </div>
                 <div class="hero-nav-item linea">
@@ -76,15 +76,59 @@
                 </div> 
                 <div class="hero-nav-item">
                     <div class="content-nav center">
-                        <a href="#" class="btn-postulacion">Estadísticas</a>
+                        <a href="#" class="btn-postulacion">Mis Postulaciones</a>
                     </div>
                 </div> 
             </div>
         </nav>
         <div class="subir_postulacion"> 
-            <a href="#" class="btn-postulacion">Estadisticas</a> 
+            <a href="#" class="btn-postulacion">Mis Postulaciones</a> 
         </div>
     </div>
+</section>
+
+<section class="fondo_gris_oscuro pd_50_tp ">
+    <article class="contenedor ft_size form_rel pd_15_extra ">
+        <div class="max_w_1100">
+        <div class="card_ganador">
+            <div class="btn_fichas_dinero">
+                <h2 class="color_amarillo text_regular">Ganador</h2>
+            </div>
+            <!--inicia bloque ganador -->
+            <div class="contenedor_bloques_">
+                <div class="bloque_blanco ">
+                    <div class="datos_ganador">
+                        <div class="cont_glogito">
+                            <span class="boton_redondeado resaltado_amarillo color_negro">1º PUESTO</span>
+                            <span class="numero_linea_bt">007</span>
+                        </div>
+                        <h2 class="titulo">Título del cuento dos líneas</h2>
+                        <a href="#" class="text_medium">Leer cuento <i class="icon icon-flecha_leitmotiv"></i></a>
+                    </div>
+                    <div class="pos_rel gan_premio">
+                        <div class="pos_abs">
+                            <p><strong>Premio:</strong> 100% de las fichas del pozo</p>
+                            <p><strong>450</strong> Fichas recibidas</p>
+                            <p><strong>398</strong> apostadores</p>
+                            <!-- <a href="#" class="boton_redondeado resaltado_negro color_amarillo">Ver todos los ganadores</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="bloque_amarillo_">
+                    <div class="pro_star">
+                        <img src="{{(url('recursos/SVG/estrella.svg'))}}" alt="">
+                    </div>
+                    <div class="img_ganador">
+                        <img src="{{(url('recursos/participantes/participante.jpg'))}}" alt="">
+                    </div>
+                    <div class="datos_ganador">
+                        <span class="text_medium">Autor/a</span>
+                        <span>Nombre y Apellido</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
 </section>
 
 <section class="fondo_gris_oscuro pd_20_tp_bt ">

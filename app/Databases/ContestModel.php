@@ -190,6 +190,29 @@ class ContestModel extends Model
         return $status != "draft";
     }
 
+
+    public function inputs()
+    {
+        return $this->hasManyThrough(RondaInputModel::class, RondaModel::class, 'contest_id', 'ronda_id');
+    }
+
+    public function getRondaInputs($ronda_id)
+    {
+        $inputs = InputModel::selectRaw('inputs.id, inputs.name, inputs.title , inputs.type, rondas_inputs.id as selected')
+            ->leftjoin('rondas_inputs', function ($join) use ($ronda_id) {
+                $join->on('inputs.id', '=', 'rondas_inputs.input_id')->where('rondas_inputs.ronda_id', '=', $ronda_id);
+            })
+            ->where('inputs.form_id', $this->form_id);
+        return $inputs->get();
+    }
+
+
+    public function getFormInputs()
+    {
+        return InputModel::where('form_id', $this->form_id)->get();
+    }
+
+
     public function rondas()
     {
         return $this->hasMany(RondaModel::class, 'contest_id');
@@ -201,7 +224,8 @@ class ContestModel extends Model
      */
     public function getRondaByOrder($rondaOrder)
     {
-        return $this->rondas()->where('order', $rondaOrder)->first();
+        $ronda = $this->rondas()->where('order', $rondaOrder)->with('inputs')->first();
+        return $ronda;
     }
 
 
@@ -214,4 +238,6 @@ class ContestModel extends Model
     {
         return ContestModel::where('pool_id', $poolId)->count() > 0;
     }
+
+
 }

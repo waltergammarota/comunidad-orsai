@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="150" height="150">
+	<defs>
+		<image width="51" height="51" id="img1" href="data:image/png;base64,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"/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #ffe600 } 
+		.shp1 { fill: none;stroke: #1d1d1b } 
+		.shp2 { fill: #000000 } 
+		.txt3 { font-size: 18px;fill: #ffe600;font-weight: 400;font-family: "Roboto-Regular", "Roboto";text-anchor: middle } 
+	</style>
+	<g id="FRENTE">
+		<g id="&lt;Group&gt;">
+			<path id="&lt;Path&gt;" class="shp0" d="M767 310.6L-583 310.6C-588.52 310.6 -593 306.12 -593 300.6L-593 245.6C-593 240.07 -588.52 235.6 -583 235.6L767 235.6C772.52 235.6 777 240.07 777 245.6L777 300.6C777 306.12 772.52 310.6 767 310.6Z" />
+			<path id="&lt;Path&gt;" class="shp1" d="M-293.68 255.24L-293.68 290.24" />
+			<path id="&lt;Path&gt;" class="shp1" d="M443.59 255.24L443.59 290.24" />
+			<use id="&lt;Group&gt;" href="#img1" transform="matrix(1,0,0,1,8,8)"/>
+			<g id="&lt;Group&gt;">
+				<path id="&lt;Path&gt;" class="shp2" d="M687.92 295.6L532.92 295.6C520.5 295.6 510.42 285.52 510.42 273.1L510.42 273.1C510.42 260.67 520.5 250.6 532.92 250.6L687.92 250.6C700.35 250.6 710.42 260.67 710.42 273.1L710.42 273.1C710.42 285.52 700.35 295.6 687.92 295.6Z" />
+				<text id="Subir mi postulación
+" style="transform: matrix(1,0,0,1,610.519,278.897)" >
+					<tspan x="0" y="0" class="txt3">Subir mi postulación</tspan>
+				</text>
+			</g>
+		</g>
+	</g>
+</svg>
