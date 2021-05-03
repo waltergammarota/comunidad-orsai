@@ -238,4 +238,6 @@ class ContestModel extends Model
     {
         return ContestModel::where('pool_id', $poolId)->count() > 0;
     }
+
+
 }

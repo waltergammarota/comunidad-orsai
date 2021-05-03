@@ -71,4 +71,13 @@ class FormModel extends Model
         }
         return $attributes;
     }
+
+    public function getCategories()
+    {
+        $categoria = $this->inputs()->where('type', 'select')->first();
+        if ($categoria) {
+            return $categoria->options;
+        }
+        return [];
+    }
 }

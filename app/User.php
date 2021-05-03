@@ -147,4 +147,9 @@ class User extends Authenticable implements JWTSubject
         return $this->name;
     }
 
+    public function getVotesInContest($contestId)
+    {
+        return Transaction::where('type', 'TRANSFER')->where('to', $contestId)->sum('amount');
+    }
+
 }

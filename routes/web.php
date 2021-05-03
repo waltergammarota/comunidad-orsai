@@ -360,12 +360,20 @@ Route::middleware(['verified'])->group(
             'WebController@getMore'
         )->name('participantes-more');
 
+        // CONCURSOS RONDAS
+
+        Route::get(
+            'concursos/{contestId}/{name}/ronda/{rondaId}',
+            'Contest\ContestController@show_ronda'
+        )->name('concurso-ronda');
+
+        // CONCURSOS RONDAS
+
         //FIN DE CONCURSOS
         Route::post(
             'reportar',
             'TransparenciaController@reportar'
-        )
-            ->name('reportar');
+        )->name('reportar');
         // END OF TRANSPARENCIA
 
         Route::get(
