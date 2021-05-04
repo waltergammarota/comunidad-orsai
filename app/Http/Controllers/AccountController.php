@@ -31,6 +31,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
+
+use App\Databases\NotificacionModel;
+use App\Notifications\GenericNotification;
+use Illuminate\Support\Facades\Notification;
+
+
 class AccountController extends Controller
 {
     public function show_perfil(Request $request)
@@ -685,8 +691,35 @@ class AccountController extends Controller
         $data['txs'] = $txsQuery->orderBy('transactions.id', 'desc')->get();
         $data['baldeo'] = Transaction::getNextBaldeoDate($user);
         $data['mordida'] = Transaction::getNextMordida($user);
+
+
+        //$this->sendNotification($user);
+
+
         return view('2021-mis-fichas', $data);
     }
+
+
+    private function sendNotification($user)
+    {
+        $href = url('mis-fichas');
+
+        $notification = new \stdClass();
+        $notification->subject = "Nueva donación";
+        $notification->title = "¡Gracias por la donación!";
+        $notification->description = "<p>Ya tenés las fichas disponibles en tu cuenta. <a href='" . $href . "'>Ver.</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
+    }
+
+
+
+
 
     public function notificaciones()
     {
