@@ -53,34 +53,4 @@ class NotificacionModel extends Model
         return $this->hasOne('App\User', 'id', "user_id");
     }
 
-    static public function createNotification($from, $amount, $data, $type = "MINT", $currency = "USD", $payment_id = "")
-    {
-        $tx = new NotificacionModel([
-            'user_id' => $from,
-            'type' => $type,
-            'amount' => $amount,
-            'payment_id' => $payment_id
-        ]);
-
-        $notification = new NotificacionModel([
-            "subject" => "¡Ya sos parte de la Comunidad Orsai!",
-            "title" => "Epa, ya sos parte de la Comunidad Orsai.",
-            "description" => "",
-            "deliver_time" => Carbon::now(),
-            "button_url" => "",
-            "button_text" => "",
-            "database" => 1,
-            "users" => json_encode([$user->id]),
-            "template" => "default",
-            "status" => 0,
-            "user_id" => 1
-        ]);
-
-
-
-        $tx->save();
-        return $tx;
-    }
-
-
 }
