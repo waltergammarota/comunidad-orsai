@@ -17,7 +17,7 @@
                                 @if($key == 0)
                                     <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</h3>
                                 @else
-                                    <span class="cat_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
+                                    <span class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
                                 @endif
                             @endforeach
                             <div class="rn_3 selecc_fichas">

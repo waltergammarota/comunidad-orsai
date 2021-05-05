@@ -110,6 +110,7 @@ class ContestController extends Controller
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
+        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value ;
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
         $data['bases'] = $contest->getBases();
@@ -218,6 +219,8 @@ class ContestController extends Controller
         $logo = $contest->logo();
         $cierreDiff = Carbon::now()->diffInHours($contest->end_vote_date) . ':' . Carbon::now()->diff($contest->end_vote_date)->format('%I:%S');
         $cantidadFichasEnJuego = $this->convertToK($contest->cantidadFichasEnJuego());
+        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value ;
+       
         $modo = $contest->getMode()->name;
         $cantidadPostulacionesAprobadas = $this->convertToK($contest->cantidadPostulaciones());
         $cuentistasInscriptos = $this->convertToK($contest->cantidadCuentistasInscriptos());

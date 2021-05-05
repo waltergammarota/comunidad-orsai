@@ -41,8 +41,8 @@
                         <div>
                             <span>Pozo acumulado</span>
                             <div class="numero_dividido">
-                                <span class="big-number_2">{{$cantidadFichasEnJuego}}</span>
-                                <span class="_barlow_text">Fichas</span>
+                                <small>USD</small>
+                                <span class="big-number_2">{{$cantidadDineroEnJuego}}</span> 
                             </div>
                         </div>
                     </div>
