@@ -6,6 +6,8 @@ namespace App\Console\Commands;
 use App\Databases\BaldeoModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
+use App\Notifications\GenericNotification;
+use Illuminate\Support\Facades\Notification;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -58,6 +60,8 @@ class Baldeo extends Command
                                 "porcentaje_baldeo" => env("PORCENTAJE_BALDEO", 10)
                             ]);
                         }
+
+                        $this->sendNotification($user->id);
                     }
                     $baldeoLog = new BaldeoModel([
                         "log" => $log,
@@ -74,6 +78,26 @@ class Baldeo extends Command
             $this->info("Baldeo is not enabled");
         }
     }
+
+
+    private function sendNotification($userId)
+    {
+        $href = url('mis-fichas');
+        $user = User::find($userId);
+
+        $notification = new \stdClass();
+        $notification->subject = "Aviso Baldeo";
+        $notification->title = "¡Ojo, que se viene un baldeo!";
+        $notification->description = "<p><a href='" . $href . "'>Revisá la fecha de vencimiento de tus fichas.</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
+    }
+
 
     private function hasBeenRun($month, $year)
     {
