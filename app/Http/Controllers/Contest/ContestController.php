@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use App\Databases\NotificacionModel;
 
 use function GuzzleHttp\json_encode;
 
@@ -350,6 +351,7 @@ class ContestController extends Controller
                 $contest->active = 0;
             } else {
                 $contest->active = 1;
+                $this->sendNotification($request->id);
             }
             $contest->save();
             return response()->json(["status" => "ok", "message" => "Concurso aprobado"]);
@@ -507,6 +509,11 @@ class ContestController extends Controller
         ];
         $contest = new ContestModel($data);
         $contest->save();
+
+        if ($request->active == 1) {
+            $this->sendNotification($contest->id);
+        }
+
         $this->generateContestPool($contest);
         $contest->rondas()->delete();
 
@@ -817,4 +824,21 @@ class ContestController extends Controller
         $data['toBeJury'] = $toBeJury;
         return $data;
     }
+
+    private function sendNotification($contest_id)
+    {
+        $users = User::whereNotNull('email_verified_at')->get();
+
+        $href = url('concursos') . '/' . $contest_id;
+
+        $notification = new \stdClass();
+        $notification->subject = "Nuevo concurso";
+        $notification->title = "¡Nuevo concurso!";
+        $notification->description = "<p>Comunidad Orsai publicó un nuevo concurso. <a href='" . $href . "'>Mirá de qué se trata.</a></p>";
+        $notification->users = $users->pluck('id');
+
+        NotificacionModel::create($notification);
+    }
+
+
 }

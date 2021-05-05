@@ -6,13 +6,16 @@ use App\Classes\UserException;
 use App\Databases\PaisModel;
 use App\UseCases\UserActivation;
 use App\UseCases\UserRegistration;
+use App\Notifications\GenericNotification;
 use App\User;
 use App\Utils\Mailer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Notification;
 
 class RegistrationController extends Controller
 {
@@ -112,6 +115,7 @@ class RegistrationController extends Controller
         if ($output) {
             $userToLogin = User::find($output['userId']);
             Auth::login($userToLogin);
+            $this->sendNotification(Auth::user());
             return Redirect::to('panel');
         }
         return Redirect::to('ingresar');
@@ -166,5 +170,22 @@ class RegistrationController extends Controller
             $row->nombre = utf8_encode($item['nombre']);
             return $row;
         }, $paises);
+    }
+
+    private function sendNotification($user)
+    {
+        $href = url('perfil');
+
+        $notification = new \stdClass();
+        $notification->subject = "Activación de cuenta";
+        $notification->title = "¡Bien hecho!";
+        $notification->description = "<p>Ya activaste tu cuenta, ahora completá tu perfil para empezar a jugar. <a href='" . $href . "'>Hacelo desde acá</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
     }
 }

@@ -122,11 +122,11 @@ class InputModel extends Model
         $palabras = "";
         switch ($counter_type) {
             case "char":
-                $counterClass = "count-words";
+                $counterClass = "count-characters";
                 $palabras = "caracteres";
                 break;
             case "word":
-                $counterClass = "count-characters";
+                $counterClass = "count-words";
                 $palabras = "palabras";
                 break;
         }

@@ -3,6 +3,7 @@
 
 namespace App\Databases;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -52,5 +53,29 @@ class NotificacionModel extends Model
     {
         return $this->hasOne('App\User', 'id', "user_id");
     }
+
+    static public function create($data)
+    {
+        $users = $data->users ?? [0];
+        $deliver_time = $data->deliver_time ?? Carbon::now();
+
+        $notification = new NotificacionModel([
+            "subject" => $data->subject,
+            "title" => $data->title,
+            "description" => $data->description,
+            "deliver_time" => $deliver_time,
+            "button_url" => "",
+            "button_text" => "",
+            "database" => 1,
+            "users" => json_encode($users),
+            "template" => "default",
+            "status" => 0,
+            "user_id" => 1
+        ]);
+
+        $notification->save();
+        return $notification;
+    }
+
 
 }
