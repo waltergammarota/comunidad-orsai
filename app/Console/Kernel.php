@@ -27,6 +27,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('notificaciones:monitor')->everyMinute();
         $schedule->command('reminder:activation')->daily();
         $schedule->command('contests:winners')->everyFiveMinutes();
+        $schedule->command('reminder:application')->hourly();
+        $schedule->command('reminder:donate')->dailyAt('03:00');
+        $schedule->command('reminder:applicationdaily')->dailyAt('00:00');
         //$schedule->command('baldeo:mes')->monthlyOn(1, '03:00');
     }
 

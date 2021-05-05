@@ -18,6 +18,9 @@ use App\Utils\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Notifications\GenericNotification;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 class PropuestaController extends Controller
 {
@@ -196,6 +199,7 @@ class PropuestaController extends Controller
             $cpa->save();
             $owner = User::find($cpa->user_id);
             $this->sendApproveMail($owner->email, $cpa->id);
+            $this->sendApprovedNotification($owner);
             $this->sendMailToAdministrator($owner->email, $cpa->id, $owner->name, $owner->lastName);
             return response()->json(
                 ["status" => "ok", "message" => "Postulación aprobada"]
@@ -216,6 +220,7 @@ class PropuestaController extends Controller
                 ["status" => "rejected", "cap_id" => $cpa->id]
             );
             $cpaLog->save();
+
             $cpaLog = new CpaLog(["status" => "draft", "cap_id" => $cpa->id]);
             $cpaLog->save();
             $cpa->approved = 0;
@@ -224,6 +229,7 @@ class PropuestaController extends Controller
             $cpa->save();
             $owner = User::find($cpa->user_id);
             $this->sendRejectEmail($owner->email, $request->comment);
+            $this->sendRejectedNotification($owner);
             return response()->json(
                 ["status" => "ok", "message" => "Postulación rechazada"]
             );
@@ -270,4 +276,40 @@ class PropuestaController extends Controller
         $mailer = new Mailer();
         $mailer->sendMailToAdministrator($email, $cpaId, $name, $lastName);
     }
+
+    private function sendApprovedNotification($user)
+    {
+        $href = url('postulacion_publica');
+
+        $notification = new \stdClass();
+        $notification->subject = "Postulación Aprobada";
+        $notification->title = "¡Bien ahí!";
+        $notification->description = "<p>Comunidad Orsai aprobó tu postulación. <a href='" . $href . "'>Ya estás participando del Concurso.</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
+    }
+
+
+    private function sendRejectedNotification($user)
+    {
+        $href = url('mis-postulaciones');
+
+        $notification = new \stdClass();
+        $notification->subject = "Rechazo postulación";
+        $notification->title = "¡Uy, algo anduvo mal!";
+        $notification->description = "<p>Comunidad Orsai rechazó tu postulación. <a href='" . $href . "'>Revisala acá</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
+    }
+
 }
