@@ -515,7 +515,6 @@
             });
         });
 
-
         function getData(target) {
 
             const chkcon = document.getElementById('chkcon').checked;

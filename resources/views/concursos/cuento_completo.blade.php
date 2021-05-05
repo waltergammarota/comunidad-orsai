@@ -25,61 +25,68 @@
     </div>
 
     <section class="resaltado_gris pd_20 pd_20_tp_bt ">
-        <div id="mv_mobile_pro" class="cont_mobile_pro">
-            <aside id="md_pro" class="modulo_pro">
-                <div class="pro_star abierto">
-                    <img src="{{url('estilos/front2021/assets/svg/estrella.svg')}}" alt="">
-                    <span class="icon icon-down-open"></span>
-                </div>
-                <div class="_autor">
-                    <div class="img_autor">
-                        <img src="{{$avatar}}" alt="">
+
+        @if($isJuradoVip)
+            <div id="mv_mobile_pro" class="cont_mobile_pro">
+                <aside id="md_pro" class="modulo_pro">
+                    <div class="pro_star abierto">
+                        <img src="{{url('estilos/front2021/assets/svg/estrella.svg')}}" alt="">
+                        <span class="icon icon-down-open"></span>
                     </div>
-                    <div class="datos_autor">
-                        <span class="text_medium">Autor</span>
-                        <span>{{$author->name}} {{$author->lastName}}</span>
+                    <div class="_autor">
+                        <div class="img_autor">
+                            <img src="{{$avatar}}" alt="">
+                        </div>
+                        <div class="datos_autor">
+                            <span class="text_medium">Autor</span>
+                            <span>{{$author->name}} {{$author->lastName}}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="numeros_">
-                    <div>
-                        <span class="_barlow_text">{{$cpa->views}}</span>
-                        <span class="_barlow_text">Visualizaciones</span>
+                    <div class="numeros_">
+                        <div>
+                            <span class="_barlow_text">{{$cpa->views}}</span>
+                            <span class="_barlow_text">Visualizaciones</span>
+                        </div>
+                        <div>
+                            <span class="_barlow_text">{{$cpa->getTotalVotes()}}</span>
+                            <span class="_barlow_text">Fichas</span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="_barlow_text">{{$cpa->getTotalVotes()}}</span>
-                        <span class="_barlow_text">Fichas</span>
-                    </div>
-                </div>
-                <!-- Meter la lista de apostadores                                     -->
-                <div id="quien_fichas_modal" class="popup">
-                    <div id="quien_fichas">
-                        <div class="contenedor_quien_fichas ">
-                            <div class="header_lista">
-                                <ul>
-                                    <li>
-                                        <span class="text_medium">Apostador</span>
-                                        <span class="text_medium">Fichas</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="content-ltn" class="content pusieron_listas">
-                                <ul id="ul_listas">
-                                    @foreach($txs as $tx)
+                    <!-- Meter la lista de apostadores                                     -->
+                    <div id="quien_fichas_modal" class="popup">
+                        <div id="quien_fichas">
+                            <div class="contenedor_quien_fichas ">
+                                <div class="header_lista">
+                                    <ul>
                                         <li>
-                                            <span
-                                                class="nombre_puso">{{$tx->getFromUser->name}} {{$tx->getFromUser->lastName}}</span>
-                                            <span class="fichas_puso"><span
-                                                    class="icon-ficha"></span> {{$tx->amount}}</span>
+                                            <span class="text_medium">Apostador</span>
+                                            <span class="text_medium">Fichas</span>
                                         </li>
-                                    @endforeach
-                                </ul>
+                                    </ul>
+                                </div>
+                                <div id="content-ltn" class="content pusieron_listas">
+                                    <ul id="ul_listas">
+                                        @foreach($txs as $tx)
+                                            <li>
+                                                <span
+                                                    class="nombre_puso">{{$tx->getFromUser->name}} {{$tx->getFromUser->lastName}}</span>
+                                                <span class="fichas_puso"><span
+                                                        class="icon-ficha"></span> {{$tx->amount}}</span>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </aside>
-        </div>
+                </aside>
+            </div>
+        @endif
+
+
+
         <div class="contenedor cuento_">
+            
             <article class="cuento_texto">
                 <div class="cuerpo_interna">
                     <div class="blog_social">
@@ -100,8 +107,8 @@
                     </div>
                 </div>
             </article>
-            <article id="md_laterales" class="modulos_laterales">
 
+            <article id="md_laterales" class="modulos_laterales"> 
                 <aside class="modulo_texto">
                     @foreach($cpa->answers as $key => $answer)
                         @if($key < 3)
@@ -113,6 +120,7 @@
                     @endforeach
                 </aside>
             </article>
+
             <div class="grilla_form fuera_texto">
                 <div class="form_ctrl col_3">
                     <div class="align_left">
@@ -145,9 +153,10 @@
                 rondaOrder: rondaOrder
             }).then(response => {
                 if (response.data.result.cap_id == {{$currentRonda->cost}}) {
-                    $(".modulos_laterales .selecc_fichas p").text("");
+                    $(".modulos_laterales .selecc_fichas p").text("Ya apostaste el máximo de fichas");
+                    $('.form_ctrl').hide();
                 } else {
-                    $(".modulos_laterales .selecc_fichas p").text("Elegí la cantidad de fichas");
+                    $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
                 }
                 console.log(response.data)
             }).catch(error => {
@@ -232,6 +241,14 @@
             }
         })
 
+        // /*Agregar o quitar fichas Si el usuario ya agrego con anteriorida van con la clase apostadas*/
+        // $(".fichin").each(function (index) {
+        // if (($(".card_rn_3").eq(index).find(".fichin.apostado").length) + ($(".card_rn_3").eq(index).find(".fichin.activo").length) == 5) {
+        //     $(".card_rn_3").eq(index).find(".selecc_fichas").addClass("max_apostado");
+        //     $(".card_rn_3").eq(index).find(".selecc_fichas p").text("Ya apostaste el máximo de fichas");
+        // }
+        // });
+
         /*Abre y cierra desplegables en mobile de fichas y modulo pro*/
         $(".cont_mobile_apostar .cerrar").on("click", function () {
 
@@ -242,7 +259,7 @@
                 $(".cont_mobile_apostar .modulo_apostar_cuento .selecc_fichas p").css("display", "none");
                 $(".cont_mobile_apostar .fichin.activo").css("backgroundColor", "");
                 $(".cont_mobile_apostar .fichin.activo").removeClass("activo");
-                $(".cont_mobile_apostar .selecc_fichas p").text("Elegí la cantidad de fichas");
+                $(".cont_mobile_apostar .selecc_fichas p").text("Ponele fichas");
                 $(".cont_mobile_apostar .form_ctrl").css("display", "none");
             }, 300);
 

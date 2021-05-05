@@ -8,8 +8,9 @@
     <section class="pd_20_">
         <div class="contenedor titulo_leit_motivs">
             <div class="cont_card_leitmotiv_">
+               
             @foreach($cpas as $cpa)
-                <!-- Card -->
+                <!-- Card --> 
                     <div class="card_leitmotiv_{{$currentRonda->order}}">
                         <div
                             class="card-leitmotiv__ @if($cpa->hasBeenVoted) card-leitmotiv-animate color-1 @endif"
@@ -19,20 +20,23 @@
                                 @if($key == 0)
                                     <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</h3>
                                 @else
-                                    <span
-                                        class="cat_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
+                                    <span class="cat_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
                             @endif
                         @endforeach
                         <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
                             <div class="button_card">
-                                <a href="#"
+                                <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}" @else href="#" @endif
                                    class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
-                                   data-cap_id="{{$cpa->id}}">
+                                   data-cap_id="{{$cpa->id}}" order="{{$currentRonda->order}}">
                                     @if($cpa->hasBeenVoted)
-                                        <span class="tip-button__text">Destrabar cuento completo</span>
+                                        @if($currentRonda->order == 1)
+                                            <span class="tip-button__text">Ver descripción</span>
+                                        @else
+                                        <span class="tip-button__text">Ver cuento</span>
+                                        @endif
                                         <span class="icon icon-flecha_leitmotiv"></span>
                                     @else
-                                        <span class="tip-button__text">Leer descripción</span>
+                                        <span class="tip-button__text">Destrabar</span>
                                     @endif
                                     <span class="icon"></span>
                                     <div class="coin-wrapper">
@@ -55,55 +59,107 @@
     </main>
 
     <!-- Ventanas modales -->
-
-    <div id="ex1" class="modal">
-        <div class="modal_flex">
-            <div>
-                <img src="src/assets/svg/modal_star.svg" alt="">
-            </div>
-            <div>
-                <p><strong>¡Convertite en Jurado VIP!</strong> <br/>
-                    Te faltan apostar [50 fichas] para ver las estadísticas del concurso.</p>
-            </div>
+    <div id="jurado_vip" class="modal">
+        <div class="title_modal">
+            <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
+            <h5>¡Convertite en Jurado VIP!</h5>
         </div>
-        <div class="form_ctrl input_">
-            <div class="align_center">
-                <a href="#" class="boton_redondeado resaltado_amarillo width_100" rel="modal:close">Seguir apostando</a>
-            </div>
+        <div class="content_modal">
+            <p>Te faltan apostar {{$toBeJury}} fichas para ver las estadísticas del concurso.</p>
         </div>
+        <div class="align_center">
+            <a href="#" class="boton_redondeado resaltado_amarillo text_bold width_100"  rel="modal:close">Seguir apostando</a> 
+        </div> 
     </div>
 
 
-    <div id="ex2" class="modal">
-        <div class="modal_flex">
-            <div>
-                <img src="src/assets/svg/modal_exc.svg" alt="">
-            </div>
-            <div>
-                <p><strong>No te alcanzan las fichas.</strong></br>
-                    Hacé una donación para seguir.</p>
-            </div>
+    <div id="sin_fichas" class="modal modal_sinfichas">
+        <div class="title_modal">
+            <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
+            <h5>No te alcanzan las Fichas</h5>
         </div>
-
-        <div class="form_ctrl input_">
-            <div class="align_center">
-                <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo width_100">Donar</a>
-            </div>
+        <div class="content_modal">
+            <p>Hacé una donación para conseguir más.</p>
         </div>
-        <div class="form_ctrl input_">
-            <div class="align_center">
-                <a href="#" id="custom-close" class="pd_25_lf_rg subrayado" rel="modal:close">Ahora no</a>
-            </div>
+        <div class="align_center">
+            <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</a>
+            <a href="#" rel="modal:close" class="boton_decline width_100">Ahora no</a>
         </div>
     </div>
 @endsection
 
 @section('footer')
-    @include("fundacion.footer-fundacion")
+@include("fundacion.footer-fundacion")
+    <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script>
 
+        // Animación Coin      
+        let tipButtons = $('.tipButtons')
+        let coin = $('.tipButtons .coin')
+        let button = $('.tip-button')
+
+        coin.maxMoveLoopCount = 90 
+        coin.moveLoopCount = 0 
+
+        const resetCoin = () => {
+            coin.css('--coin-x-multiplier', 0)
+            coin.css('--coin-scale-multiplier', 0)
+            coin.css('--coin-rotation-multiplier', 0)
+            coin.css('--shine-opacity-multiplier', 0.4)
+            coin.css('--shine-bg-multiplier', '50%')
+            coin.css('opacity', 1)
+            // Delay to give the reset animation some time before you can click again
+            setTimeout(function() { 
+                button.clicked = false
+            }, 300)
+        }
+
+        const flipCoinLoop = () => {
+            coin.moveLoopCount++
+            let percentageCompleted = coin.moveLoopCount / coin.maxMoveLoopCount
+            coin.angle = -coin.maxFlipAngle * Math.pow((percentageCompleted - 1), 2) + coin.maxFlipAngle
+
+        // Calculate the scale and position of the coin moving through the air
+            coin.css('--coin-y-multiplier', -11 * Math.pow(percentageCompleted * 2 - 1, 4) + 11)
+            coin.css('--coin-x-multiplier', percentageCompleted)
+            coin.css('--coin-scale-multiplier', percentageCompleted * 0.6)
+            coin.css('--coin-rotation-multiplier', percentageCompleted * coin.sideRotationCount)
+
+            // Calculate the scale and position values for the different coin faces
+            // The math uses sin/cos wave functions to similate the circular motion of 3D spin
+            coin.css('--front-scale-multiplier', Math.max(Math.cos(coin.angle), 0))
+            coin.css('--front-y-multiplier', Math.sin(coin.angle))
+
+            coin.css('--middle-scale-multiplier', Math.abs(Math.cos(coin.angle), 0))
+            coin.css('--middle-y-multiplier', Math.cos((coin.angle + Math.PI / 2) % Math.PI))
+
+            coin.css('--back-scale-multiplier', Math.max(Math.cos(coin.angle - Math.PI), 0))
+            coin.css('--back-y-multiplier', Math.sin(coin.angle - Math.PI))
+
+            coin.css('--shine-opacity-multiplier', 4 * Math.sin((coin.angle + Math.PI / 2) % Math.PI) - 3.2)
+            coin.css('--shine-bg-multiplier', -40 * (Math.cos((coin.angle + Math.PI / 2) % Math.PI) - 0.5) + '%')
+
+            //Repeat animation loop
+            if (coin.moveLoopCount < coin.maxMoveLoopCount) {
+                if (coin.moveLoopCount === coin.maxMoveLoopCount - 6) 
+                button.addClass('shrink-landing')
+                window.requestAnimationFrame(flipCoinLoop)
+            } else {
+                button.addClass('coin-landed')
+                coin.css('opacity', 0)
+                setTimeout(function() { 
+                    button.removeClass('shrink-landing', 'coin-landed')
+                    setTimeout(function() { 
+                        resetCoin();
+                    }, 300)
+                }, 1500)
+            }
+        }
+ 
+
+        // Modal Jurado VIP
         function showModalJuradoVip() {
-            $('#ex1').show();
+            $('#jurado_vip').modal();
         }
 
         function filtrar() {
@@ -119,7 +175,7 @@
             });
             location.href = `${url}?${params}`;
         }
-
+          
         $('#form_filtro').on('keyup keypress', function (e) {
             var keyCode = e.keyCode || e.which;
             if (keyCode === 13) {
@@ -128,7 +184,11 @@
                 return false;
             }
         });
-
+ 
+        $("#borrar_filtro").on("click", function (e) {
+            e.preventDefault();
+            window.location = window.location.href.split("?")[0];
+        })
         /* Submenu de busqueda */
         $("#form_filtro .icon-cancel").on("click", function () {
             $("#form_filtro").removeClass("abierto");
@@ -212,61 +272,78 @@
 
         input.focus();
 
-
-        /*Agrega el click a las solapas a medida que se van desbloqueando funcion*/
-        function add_click(x) {
-            $(x).not(".cd-filters li.bloqued a").on("click", function () {
-                if (!$(this).hasClass("selected")) {
-                    $(".cd-filters li a.selected").find(".icon").removeClass("icon-carpeta_abierta").addClass("icon-carpeta_cerrada");
-
-                    $(".cd-filters li a.selected").removeClass("selected");
-
-                    $(this).addClass("selected");
-                    $(this).find(".icon").addClass("icon-carpeta_abierta");
-                    if ($(this).data('type') === "all") {
-                        $(".cd-gallery li").fadeIn(100, "swing");
-                    } else {
-                        var variable = "." + $(this).data('type');
-                        $(".cd-gallery li" + variable).fadeIn(100, "swing");
-                        $(".cd-gallery li").not(variable).fadeOut();
-
-                    }
-                }
-            });
-        }
-
-        add_click(".cd-filters li a");
-
         // Boton de tarjeta
-        $('.button_card a').on('click', function (e) {
-
-            const rondaOrder = {{$currentRonda->order}};
-            const amount = {{$currentRonda->cost}};
-            const cap_id = $(this).data('cap_id');
-            votar(cap_id, rondaOrder, amount, e, $(this));
-        });
-
-        function changeCardState(e, element) {
-            if (!element.hasClass("clicked")) {
-                e.preventDefault();
-                element.attr("href", {{$currentRonda->order + 1}})
+        $('.button_card a').on('click', function (e) { 
+            if(!$(this).hasClass('clicked')){
+                e.preventDefault(); 
+                const rondaOrder = {{$currentRonda->order}};
+                const amount = {{$currentRonda->cost}};
+                const cap_id = $(this).data('cap_id');
+                votar(cap_id, rondaOrder, amount, e, $(this));
             }
-            element.find(".tip-button__text").text("Leer descripción");
+        }); 
+ 
+        function updateVotes(element, order){ 
+             
+            norder = order+1;
+            filter_update = $('.filter_'+norder); 
+            filter_counter = $('.filter_'+norder+' .counter_'); 
+            destrabados = parseInt(filter_counter.find('small').html()); 
+
+            if(filter_update.find('div').hasClass('bloqued')){
+                
+                link = $("<a>");
+                link.attr("href", norder);  
+                link.html(filter_update.find('div').html());    
+
+                filter_update.html(link);  
+
+                filter_update.find('div').remove();
+
+                filter_update.find('span.icon').removeClass('icon-carpeta_cerrada');
+                filter_update.find('span.icon').addClass('icon-carpeta_abierta'); 
+
+                link.find('.counter_ small').html(destrabados+1); 
+
+            }else{  
+                filter_counter.find('small').html(destrabados+1); 
+            }
+
+        }
+        function changeCardState(e, element, order) {
+
+            //Actualiza el valor en los filtros
+            updateVotes(element, order);
+
+            // setTimeout(function() { 
+            //     // Randomize the flipping speeds just for fun
+            //     coin.sideRotationCount = Math.floor(Math.random() * 5) * 90
+            //     coin.maxFlipAngle = (Math.floor(Math.random() * 4) + 3) * Math.PI 
+            //     flipCoinLoop();
+            // }, 50)
+
+            element.addClass("clicked"); 
+            element.attr("href", {{$currentRonda->order + 1}})
+      
+            if(order==1){
+                element.find(".tip-button__text").text("Leer descripción");
+            }else{
+                element.find(".tip-button__text").text("Leer cuento completo");
+            }
+
+
             element.find(".num_fichas").text("");
             element.find(".icon").not(".icon_flip").addClass("icon-flecha_leitmotiv");
-            element.find(".num_coins").css("display", "none");
+            element.find(".num_coins").hide();
+            element.find(".coin-wrapper").hide();
+            
 
             element.parent().parent().addClass("card-leitmotiv-animate");
             if (element.parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))) {
                 element.parent().parent().addClass("color-1")
             }
-
-            element.addClass("button_card-animate");
-
-            element.animate({
-                left: "+=50"
-            }, 5, function () {
-            });
+            coin.hide();
+            element.addClass("button_card-animate"); 
 
         }
 
@@ -277,35 +354,26 @@
                 amount: amount,
                 rondaOrder: rondaOrder
             }).then(response => {
-                changeCardState(event, element);
+                changeCardState(event, element, rondaOrder);
                 console.log(response.data)
             }).catch(error => {
                 console.log(error);
                 if (error.response.data.error == 100) {
-                    $("#ex2").show();
+                    $("#sin_fichas").modal();
                 }
             });
         }
 
 
         //Animacion de boton ficha
-        const tip_Buttons = document.querySelectorAll('.button_card')
-        tip_Buttons.forEach((button) => {
-            button.addEventListener('click', () => {
-                if (button.clicked) return
-// button.find(".tip-button").classList.add('clicked')
-            })
-        })
-
-        $('.btn-postulacion').on('click', function (e) {
-
-            /*Si se hace por php cambiar link */
-
-            if (!$(this).parent().hasClass(".bloqued .btn-postulacion")) {
-                e.preventDefault();
-            }
-        });
-
+        // const tip_Buttons = document.querySelectorAll('.button_card')
+        // tip_Buttons.forEach((button) => {
+        //     button.addEventListener('click', () => {
+        //         if (button.clicked) return
+        //         // button.find(".tip-button").classList.add('clicked')
+        //     })
+        // })
+ 
 
         $(".desp_mobile_tab .tabs_cli").on("click", function () {
 
@@ -342,95 +410,8 @@
         });
         if (window.matchMedia("(max-width: 1100px)").matches) {
             $('.hero-nav-content').owlCarousel('remove', 4).owlCarousel('update');
-        }
-    </script>
+        } 
 
-    <script>
-        const tipButtons = document.querySelectorAll('.tip-button')
-
-        // Loop through all buttons (allows for multiple buttons on page)
-        tipButtons.forEach((button) => {
-            let coin = button.querySelector('.coin')
-
-// The larger the number, the slower the animation
-            coin.maxMoveLoopCount = 90
-
-            button.addEventListener('click', () => {
-                if (button.clicked) return
-
-                button.classList.add('clicked')
-
-// Wait to start flipping the coin because of the button tilt animation
-                setTimeout(() => {
-// Randomize the flipping speeds just for fun
-                    coin.sideRotationCount = Math.floor(Math.random() * 5) * 90
-                    coin.maxFlipAngle = (Math.floor(Math.random() * 4) + 3) * Math.PI
-                    button.clicked = true
-                    flipCoin()
-                }, 50)
-            })
-
-            const flipCoin = () => {
-                coin.moveLoopCount = 0
-                flipCoinLoop()
-            }
-
-            const resetCoin = () => {
-                coin.style.setProperty('--coin-x-multiplier', 0)
-                coin.style.setProperty('--coin-scale-multiplier', 0)
-                coin.style.setProperty('--coin-rotation-multiplier', 0)
-                coin.style.setProperty('--shine-opacity-multiplier', 0.4)
-                coin.style.setProperty('--shine-bg-multiplier', '50%')
-                coin.style.setProperty('opacity', 1)
-// Delay to give the reset animation some time before you can click again
-                setTimeout(() => {
-                    button.clicked = false
-                }, 300)
-            }
-
-            const flipCoinLoop = () => {
-                coin.moveLoopCount++
-                let percentageCompleted = coin.moveLoopCount / coin.maxMoveLoopCount
-                coin.angle = -coin.maxFlipAngle * Math.pow((percentageCompleted - 1), 2) + coin.maxFlipAngle
-
-// Calculate the scale and position of the coin moving through the air
-                coin.style.setProperty('--coin-y-multiplier', -11 * Math.pow(percentageCompleted * 2 - 1, 4) + 11)
-                coin.style.setProperty('--coin-x-multiplier', percentageCompleted)
-                coin.style.setProperty('--coin-scale-multiplier', percentageCompleted * 0.6)
-                coin.style.setProperty('--coin-rotation-multiplier', percentageCompleted * coin.sideRotationCount)
-
-// Calculate the scale and position values for the different coin faces
-// The math uses sin/cos wave functions to similate the circular motion of 3D spin
-                coin.style.setProperty('--front-scale-multiplier', Math.max(Math.cos(coin.angle), 0))
-                coin.style.setProperty('--front-y-multiplier', Math.sin(coin.angle))
-
-                coin.style.setProperty('--middle-scale-multiplier', Math.abs(Math.cos(coin.angle), 0))
-                coin.style.setProperty('--middle-y-multiplier', Math.cos((coin.angle + Math.PI / 2) % Math.PI))
-
-                coin.style.setProperty('--back-scale-multiplier', Math.max(Math.cos(coin.angle - Math.PI), 0))
-                coin.style.setProperty('--back-y-multiplier', Math.sin(coin.angle - Math.PI))
-
-                coin.style.setProperty('--shine-opacity-multiplier', 4 * Math.sin((coin.angle + Math.PI / 2) % Math.PI) - 3.2)
-                coin.style.setProperty('--shine-bg-multiplier', -40 * (Math.cos((coin.angle + Math.PI / 2) % Math.PI) - 0.5) + '%')
-
-// Repeat animation loop
-                if (coin.moveLoopCount < coin.maxMoveLoopCount) {
-                    if (coin.moveLoopCount === coin.maxMoveLoopCount - 6) button.classList.add('shrink-landing')
-                    window.requestAnimationFrame(flipCoinLoop)
-                } else {
-                    button.classList.add('coin-landed')
-                    coin.style.setProperty('opacity', 0)
-                    setTimeout(() => {
-// button.classList.remove('shrink-landing', 'coin-landed')
-                        setTimeout(() => {
-                            resetCoin()
-                        }, 300)
-                    }, 1500)
-                }
-            }
-        })
-    </script>
-    <script>
         var distance = $('.cd-main-content').offset().top;
 
         $(window).scroll(function () {

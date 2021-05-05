@@ -27,7 +27,7 @@ class ContestApplicationModel extends Model
         'prize_percentage',
         'bases',
         'condiciones',
-        'order'
+        'order',
     ];
 
     /**

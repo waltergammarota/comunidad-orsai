@@ -220,14 +220,15 @@ class ContestController extends Controller
         $modo = $contest->getMode()->name;
         $cantidadPostulacionesAprobadas = $this->convertToK($contest->cantidadPostulaciones());
         $cuentistasInscriptos = $this->convertToK($contest->cantidadCuentistasInscriptos());
-        $user = Auth::user();
+        $user = Auth::User();
 
-        $isJuradoVip = $user->getVotesInContest($contest->id) >= $contest->cost_jury;
+        $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
         $categories = $contest->form()->first()->getCategories();
         $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
         $filters = $this->getFilters($request);
         $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters);
-        $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda);
+        $toBeJury = $contest->cost_jury - $user->getVotesInContest($contest->pool_id);
+        $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury);
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
         $data['user'] = $user;
 
@@ -281,12 +282,13 @@ class ContestController extends Controller
             $data['avatar'] = url('storage/images/' . $avatar->name . "." . $avatar->extension);
         } else {
             $data['avatar'] = url('img/participantes/usuario.png');
-        }
+        } 
         $data['txs'] = $cpa->getTransactions();
         $data['fichasApostadas'] = VotesModel::getVotesCount($contest->id, $user->id, $currentRonda->order, $cpa->id);
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
         $data['backUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$lastRound}");
-
+        $data['isJuradoVip'] = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
+       
         return view('concursos.cuento_completo', $data);
     }
 
@@ -798,7 +800,7 @@ class ContestController extends Controller
      * @param $currentRonda
      * @return array
      */
-    private function compactData($concurso, array $data, $logo, string $cierreDiff, string $cantidadFichasEnJuego, $modo, string $cantidadPostulacionesAprobadas, string $cuentistasInscriptos, bool $isJuradoVip, $categories, $cpas, $rondas, $currentRonda): array
+    private function compactData($concurso, array $data, $logo, string $cierreDiff, string $cantidadFichasEnJuego, $modo, string $cantidadPostulacionesAprobadas, string $cuentistasInscriptos, bool $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury): array
     {
         $data['concurso'] = $concurso;
         $data['logo'] = $logo;
@@ -812,6 +814,7 @@ class ContestController extends Controller
         $data['cpas'] = $cpas;
         $data['rondas'] = $rondas;
         $data['currentRonda'] = $currentRonda;
+        $data['toBeJury'] = $toBeJury;
         return $data;
     }
 }

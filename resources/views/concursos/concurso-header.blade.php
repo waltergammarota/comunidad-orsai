@@ -49,7 +49,7 @@
                 </div>
                 <div class="hero-nav-item linea">
                     <div class="icon">
-                        <img src="{{url('estilos/front2021/assets/ficha.svg')}}" alt="Modo Pozo">
+                        <img src="{{url('estilos/front2021/assets/modo_pozo.svg')}}" alt="Modo Pozo">
                     </div>
                     <div class="content-nav">
                         <span class="medio">Modo <br/> <strong>{{$modo}}</strong></span>
@@ -73,7 +73,7 @@
                 <div class="hero-nav-item">
                     @if($isJuradoVip)
                         <div class="content-nav center">
-                            <a href="#" class="btn-postulacion"> Estadísticas </a>
+                            <a href="{{url('ranking')}}" class="btn-postulacion">Estadísticas</a>
                         </div>
                     @else
                         <div class="content-nav center bloqued">
@@ -92,8 +92,13 @@
         <div class="cd-tab-filter">
             <ul class="filtro_menu">
                 <li class="color_blanco"><span id="open_menu"> <span class="icon icon-filtro"></span><span
-                            class="text_tit_submenu">Filtros </span><span
-                            class="color_amarillo cant_filtros_aplicados">(4)</span></span>
+                            class="text_tit_submenu">Filtros </span>
+                            {{-- 
+                                @if(hayfiltrosaplicados)
+                                <span class="color_amarillo cant_filtros_aplicados">(4)</span> 
+                                @endif
+                            --}}
+                        </span>
                     <form action="#" id="form_filtro" autocomplete="off">
                         <ul class="sub_menu">
                             <li class="cont_icon_cancel">
@@ -160,40 +165,60 @@
                 </li>
             </ul>
             <ul class="cd-filters">
+                
                 @foreach($rondas as $ronda)
-                    <li class="filter @if($ronda->votes == 0 && $ronda->order > 1) bloqued @endif">
-                        <a href="{{$ronda->order}}" data-type="all"
-                           @if($currentRonda->order == $ronda->order) class="selected" @endif>
+                <li class="filter filter_{{$ronda->order}}"> 
+                        @if($ronda->order == 1) 
+                            <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
                             <span class="icon icon-carpeta_abierta"></span>
-                            {{$ronda->solapa}}
-                            @if($ronda->order > 1)
-                                <span class="counter_">({{$rondas->get($loop->index - 1)->votes}})</span>
-                            @else
-                                <span class="counter_">({{$ronda->votes}})</span>
+                        @else
+                            @if($rondas->get($loop->index - 1)->votes > 0)
+                                <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
+                                <span class="icon icon-carpeta_abierta"></span>
+                            @else  
+                            <div class="bloqued">
+                                <span class="icon icon-carpeta_cerrada"></span>
                             @endif
-
-                        </a>
-                    </li>
-                @endforeach
+                        @endif
+                        {{$ronda->solapa}}
+                        @if($ronda->order > 1)
+                            <span class="counter_">(<small>{{$rondas->get($loop->index - 1)->votes}}</small>)</span>
+                        @else
+                            <span class="counter_">(<small>{{$cantidadPostulacionesAprobadas}}</small>)</span>
+                        @endif
+                        
+                        @if($ronda->order == 1) 
+                            </a>
+                        @else
+                            @if($rondas->get($loop->index - 1)->votes > 0) 
+                            </a>
+                            @else   
+                        </div>
+                            @endif
+                        @endif
+                    </li> 
+                    @endforeach
             </ul> <!-- cd-filters -->
+            
             <div class="desp_mobile_tab">
                 <span class="icon  icon-angle-down tabs_cli"></span>
-            </div>
-
-
+            </div> 
         </div> <!-- cd-tab-filter -->
     </div> <!-- cd-tab-filter-wrapper -->
     <section class="resaltado_gris pd_20_ pd_20_tp_bt ">
-        <div class="contenedor titulo_leit_motivs">
-            <h2>{{$ronda->title}}</h2>
-            <p class="">{{$ronda->bajada}}</p>
-        </div>
-        <div class="contenedor filtros_aplicados">
-            <div>
-                <span>4 filtros aplicados  / 18 postulaciones encontradas</span>
-            </div>
-            <div>
-                <span><span class="icon icon-borrar_filtro"></span> Limpiar filtros</span>
-            </div>
-        </div>
+        <div class="contenedor titulo_leit_motivs"> 
+            <h2>{{$currentRonda->title}}</h2>
+            <p class="">{{$currentRonda->bajada}}</p>  
+            <span class="">{{$currentRonda->body}}</span>    
+        </div>  
+            @empty(!request()->all())
+                <div class="contenedor filtros_aplicados">
+                    <div>
+                        <span>{{$cpas->count()}} postulaciones encontradas</span>
+                    </div>
+                    <div>
+                        <a href="#" id="borrar_filtro"><span class="icon icon-borrar_filtro"></span> Limpiar filtros</a>
+                    </div>
+                </div> 
+            @endempty
     </section>

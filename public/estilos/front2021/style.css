@@ -3623,6 +3623,7 @@ div.tagsinput #tags_tag {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    cursor:pointer;
 }
 
 @media (min-width: 992px) {
@@ -12857,8 +12858,7 @@ table#ranking_table.dataTable thead th.sorting::after{
 }
 
 .cuento_ .cuento_texto{
-    max-width:710px;
-
+    width:710px; 
 }
 
 .cuento_ .cuento_texto > .cuerpo_interna{
@@ -12946,11 +12946,16 @@ table#ranking_table.dataTable thead th.sorting::after{
     }
 }
 
+.card-leitmotiv__ .button_card .clicked .num_coins{
+    display:none;
+}
+.card-leitmotiv__ .button_card .clicked .coin-wrapper{
+    display:none;
+}
 
 .card-leitmotiv__ .button_card.clicked{
     color:white;
 }
-
 .card-leitmotiv__ .button_card .icon{
     font-size:12px;
 }
@@ -12977,17 +12982,21 @@ table#ranking_table.dataTable thead th.sorting::after{
     display:inline-block;
 }
 
-.cd-filters li.filter .icon{
+.cd-filters .filter .icon{
     margin-right:10px;
 }
-
-.cd-filters li.filter.bloqued a{
+.cd-filters li{
+    margin:0 0 0 10px;
+}
+.cd-filters .filter.bloqued a,
+.cd-filters .filter.bloqued {
     cursor:context-menu;
 }
-.cd-filters li.filter.bloqued a{
+.cd-filters .filter.bloqued a
+.cd-filters .filter.bloqued {
     color: #808080 !important;
 }
-.cd-filters li.filter .icon .icon-carpeta_cerrada, .cd-filters li.filter .icon .icon-carpeta_abierto{
+.cd-filters .filter .icon .icon-carpeta_cerrada, .cd-filters .filter .icon .icon-carpeta_abierto{
     color: #ffe600 !important;
 }
 .titulo_leit_motivs{
@@ -13365,8 +13374,7 @@ Main Components
   .cd-tab-filter a:not(.boton_redondeado) {
     display: block;
     /* set same size of the .cd-tab-filter */
-    height: 50px;
-    width: 140px;
+    height: 50px; 
     line-height: 50px;
     padding-left: 14px;
   }
@@ -13624,7 +13632,8 @@ Main Components
   .cd-tab-filter a .counter_{
     color: #ffe600;
   }
-  .cd-filters li.filter.bloqued a .counter_{
+  .cd-filters .filter.bloqued a .counter_,
+  .cd-filters .filter.bloqued .counter_{
     color: #808080 !important;
     }
 
@@ -13988,6 +13997,7 @@ Main Components
     -ms-border-radius:10px;
     -o-border-radius:10px;
     height:100%;
+    min-height:330px;
 }
   
   .card-leitmotiv__:before {
@@ -14054,8 +14064,7 @@ Main Components
     flex-basis: auto;
     align-self: auto;
     order: 0;
-    color:#999;
-    margin-bottom:45px;
+    color:#999; 
   }
   .card-leitmotiv__ .cat_card span{
       margin-right:20px;
@@ -14143,18 +14152,20 @@ Main Components
 }
 .cont_card_leitmotiv_ {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    align-content: space-between;
-    justify-content: space-between;
+    align-items: flex-start;
+    align-content: normal;
 }
 .card_leitmotiv_2 {
-    /*margin:20px;
-    */
-    border-radius: 10px;
-    background-color: white;
+
+    margin:10px;
     width: calc(50% - 20px);
-    margin-bottom:40px;
+    
+    border-radius: 10px;
+    background-color: white; 
+    margin-bottom:20px;
     position:relative;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -14169,9 +14180,9 @@ Main Components
 .card_leitmotiv_1{
     border-radius: 10px;
     background-color: white;
-    /* margin: 20px; */
+    margin: 10px;
     margin-bottom:20px;
-    width: calc(33% - 10px);
+    width: calc(33% - 20px);
     position:relative;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -14208,11 +14219,12 @@ Main Components
     -o-transform: scale(160) !important;
 }
 
-.bloqued a{
+.bloqued a,
+.bloqued {
     cursor:context-menu;
     color: #808080 !important;
 }
-.bloqued .btn-postulacion {
+.bloqued .btn-postulacion, {
     opacity: 0.7!important;
 }
 
@@ -14253,6 +14265,7 @@ Main Components
     vertical-align: top;
 }
 .rn_3.selecc_fichas .fichas_ div{
+    cursor:pointer;
     width:35px;
     height:35px;
     background-color: #e6e6e6;
@@ -14292,8 +14305,7 @@ Main Components
 }
 
 .rn_3.selecc_fichas .fichas_ div.activo, .rn_3.selecc_fichas .fichas_ div.apostado{
-    background-color: #ffe600;
-    cursor:default;
+    background-color: #ffe600; 
 }
 
 .rn_3 button:disabled,
@@ -14370,12 +14382,10 @@ Main Components
 margin-top:0;
 }
 
-.modal a.close-modal {
-    top:20px !important;
+.modal a.close-modal { 
     right:20px;
 }
-.modal{
-    padding-top:60px !important;
+.modal{ 
     max-width:420px;
 }
 .modal p{
@@ -14414,15 +14424,87 @@ margin-top:0;
     -moz-transition: transform 50ms ease-in-out, -webkit-transform 50ms ease-in-out;
     -ms-transition: transform 50ms ease-in-out, -webkit-transform 50ms ease-in-out;
     -o-transition: transform 50ms ease-in-out, -webkit-transform 50ms ease-in-out;
+    
 }
   
-  
+
+
+
+/* 
+.tip-button:active {
+    transform: rotate(4deg);
+} 
+.tip-button .tip-button__text {
+    opacity: 0;
+    transition: opacity 100ms linear 200ms;
+}
+.tip-button .clicked::before { 
+    height: 0.5rem;
+    width: 60%;
+}
+.tip-button .clicked {
+    animation: 150ms ease-in-out 1 shakeit;
+    pointer-events: none;
+}
+.tip-button .clicked .coin {
+    transition: margin-bottom 1s linear 200ms;
+    margin-bottom: 0;
+}
+.tip-button .shrink-landing::before {
+    transition: width 200ms ease-in;
+    width: 0; 
+}
+.tip-button.coin-landed {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 50% 100%;
+}
+
+/* Make the little confetti looking dots on this wrapper */
+/* .coin-wrapper {
+    background:
+    radial-gradient(circle at 35% 97%, rgba($bg-button, 0.4) 0.04rem, transparent 0.04rem),
+    radial-gradient(circle at 45% 92%, rgba($bg-button, 0.4) 0.04rem, transparent 0.02rem),
+    radial-gradient(circle at 55% 98%, rgba($bg-button, 0.4) 0.04rem, transparent 0.04rem),
+    radial-gradient(circle at 65% 96%, rgba($bg-button, 0.4) 0.06rem, transparent 0.06rem);
+    background-position: center bottom;
+    background-size: 100%;
+    bottom: -1rem;
+    opacity: 0;
+    transform: scale(2) translateY(-10px);
+}
+ */
+
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*   
   .tip-button.clicked .coin {
     -webkit-transition: margin-bottom 1s linear 200ms;
     transition: margin-bottom 1s linear 200ms;
     margin-bottom: 0;
   }
-  
+   */
   
   .tip-button.coin-landed .coin-wrapper {
     background: radial-gradient(circle at 35% 97%, rgba(255, 230, 0, 0.4) 0.09rem, transparent 0.09rem), radial-gradient(circle at 45% 92%, rgba(255, 230, 0, 0.4) 0.09rem, transparent 0.09rem), radial-gradient(circle at 55% 98%, rgba(255, 230, 0, 0.4) 0.04rem, transparent 0.04rem), radial-gradient(circle at 65% 96%, rgba(255, 230, 0, 0.4) 0.09rem, transparent 0.09rem);
@@ -14491,6 +14573,7 @@ margin-top:0;
     -moz-transform: translateX(50%) scale(calc(0.4 + var(--coin-scale-multiplier))) rotate(calc(var(--coin-rotation-multiplier) * -1deg));
     -ms-transform: translateX(50%) scale(calc(0.4 + var(--coin-scale-multiplier))) rotate(calc(var(--coin-rotation-multiplier) * -1deg));
     -o-transform: translateX(50%) scale(calc(0.4 + var(--coin-scale-multiplier))) rotate(calc(var(--coin-rotation-multiplier) * -1deg));
+
 }
   .num_coins{
       position:absolute;
