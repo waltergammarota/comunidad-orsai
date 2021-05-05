@@ -13934,6 +13934,22 @@ Main Components
         }
   }
   @media (max-width:768px){
+    .card_leitmotiv_2 .card-leitmotiv__ .id_card,
+    .card_leitmotiv_2 .card-leitmotiv__ .title_card,
+    .card_leitmotiv_2 .card-leitmotiv__ .cat_card{
+        width:100%;
+    }
+    .card_leitmotiv_2 .card-leitmotiv__ .title_card{
+        margin:10px 0;
+    }
+    
+    .text_tit_submenu{
+        display:none;
+    }
+    .cant_filtros_aplicados{
+            display:none;
+        }
+    }
   .cd-filter-trigger {
     position: absolute; 
     left: 0;
@@ -14246,30 +14262,6 @@ Main Components
 @media(max-width:768px){
     .card_leitmotiv_2 {
         width: calc(100% - 10px);
-    }
-    .card_leitmotiv_2 .card-leitmotiv__ .id_card,
-    .card_leitmotiv_2 .card-leitmotiv__ .title_card,
-    .card_leitmotiv_2 .card-leitmotiv__ .cat_card{
-        width:100%;
-    }
-    .card_leitmotiv_2 .card-leitmotiv__ .title_card{
-        margin:10px 0;
-    }
-    .card_rn_3 .card-leitmotiv__ .input_1{
-        margin: 0 0 1rem 0;
-    }
-    .selecc_fichas{
-        text-align:center;
-    }
-    .text_tit_submenu{
-        display:none;
-    }
-    .card_rn_3 .card-leitmotiv__ a{
-        margin-bottom:15px;
-    }
-    .cant_filtros_aplicados{
-            display:none;
-        }
     }
 }
 .card_leitmotiv_1{
@@ -15198,6 +15190,15 @@ margin-top:0;
 
 
 @media(max-width:768px){
+    .card_rn_3 .card-leitmotiv__ .input_1{
+        margin: 1rem 0;
+    }
+    .card_rn_3 .selecc_fichas {
+        text-align:center;
+    }
+    .rn_flex_fichas a {
+        margin-bottom:20px;
+    }
     .card_ganador .bloque_blanco, .card_ganador .bloque_amarillo_{
         width:100%;
         margin-bottom:25px;
