@@ -28,7 +28,6 @@
                         <div>
                             <span>Cierre de votación</span>
                             <span class="big-number_2">{{$cierreDiff}}</span>
-
                         </div>
                     </div>
                 </div>

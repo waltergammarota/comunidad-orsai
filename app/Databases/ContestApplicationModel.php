@@ -137,7 +137,7 @@ class ContestApplicationModel extends Model
             foreach ($cpa->answers as $answer) {
                 $answer->ronda = [];
                 foreach ($rondas as $ronda) {
-                    $inputs = $ronda->inputs()->get();
+                    $inputs = $ronda->inputs;
                     if ($inputs->contains(function ($item) use ($answer) {
                         return $answer->input_id == $item->id;
                     })) {
@@ -162,13 +162,21 @@ class ContestApplicationModel extends Model
     }
 
 
-    public function getAnswerByRonda($currentRondaOrder, $key)
+    public function getAnswerByRonda($currentRonda, $key)
     {
-        $answers = $this->answers->filter(function ($item) use ($currentRondaOrder) {
-            return in_array($currentRondaOrder, $item->ronda);
+        $answers = $this->answers->filter(function ($item) use ($currentRonda) {
+            return in_array($currentRonda->order, $item->ronda);
         });
 
-        $answer = $answers->slice($key, 1)->shift();
+        $sorteredAnswers = collect([]);
+        $inputs = $currentRonda->inputs;
+        foreach ($inputs as $input) {
+            $sorteredAnswers->push($answers->first(function ($item) use ($input) {
+                return $item->input_id == $input->id;
+            }));
+        }
+
+        $answer = $sorteredAnswers->slice($key, 1)->shift();
         $input = $answer ? $answer->input->first() : false;
         return $input ? $input->toUserHtml($answer) : '';
     }

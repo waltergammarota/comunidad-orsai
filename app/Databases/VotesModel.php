@@ -47,10 +47,10 @@ class VotesModel extends Model
 
     static public function getRondasWithVotes($contest, $userId)
     {
-        $rondas = $contest->rondas()->get();
+        $rondas = $contest->rondas()->with('inputs')->get();
         $votes = VotesModel::where('user_id', $userId)->where('contest_id', $contest->id)->groupBy('cap_id')->groupBy('order')->get();
         foreach ($rondas as $ronda) {
-            $inputs = $ronda->inputs()->get();
+            $inputs = $ronda->inputs;
             $ronda->votes = 0;
             foreach ($votes as $vote) {
                 if ($inputs->contains(function ($input) use ($vote) {

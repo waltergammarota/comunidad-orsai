@@ -259,7 +259,6 @@ Route::middleware(['verified'])->group(
 
         // INICIO CONCURSOS
 
-
         Route::get(
             '/postulacion/{id}',
             'PropuestaController@show'
@@ -910,7 +909,7 @@ Route::middleware(['verified'])->group(
 
         // CONTEST WINNER ROUTE
         Route::get(
-            '/concurso/ganador/{contest_id}',
+            '/estadisticas/{contestId}/{contestName}',
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
 
