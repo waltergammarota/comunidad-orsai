@@ -15,9 +15,14 @@
                             <span class="id_card">{{str_pad($cpa->order, 3, 0 ,STR_PAD_LEFT)}}</span>
                             @foreach($currentRonda->inputs as $key => $input)
                                 @if($key == 0)
-                                    <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</h3>
+                                    <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
                                 @else
+<<<<<<< HEAD
                                     <span class="cat_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
+=======
+                                    <span
+                                        class="cat_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
+>>>>>>> bd5d83f03401b5b2d01c42b8fde534e478902a94
                                 @endif
                             @endforeach
                             <div class="rn_3 selecc_fichas">

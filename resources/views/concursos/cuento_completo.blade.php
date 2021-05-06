@@ -91,11 +91,11 @@
                 <div class="cuerpo_interna">
                     <div class="blog_social">
                         <span class="numero _barlow_text">{{str_pad($cpa->order,3, 0,STR_PAD_LEFT)}}</span>
-                        <h1 class="titulo_blog">{{$cpa->getAnswerByRonda($currentRonda->order, 0)}}</h1>
+                        <h1 class="titulo_blog">{{$cpa->getAnswerByRonda($currentRonda, 0)}}</h1>
                     </div>
 
                     <div class="blog_texto">
-                        <p>{{$cpa->getAnswerByRonda($currentRonda->order, 1)}}</p>
+                        <p>{{$cpa->getAnswerByRonda($currentRonda, 1)}}</p>
                     </div>
                 </div>
                 <div class="grilla_form">

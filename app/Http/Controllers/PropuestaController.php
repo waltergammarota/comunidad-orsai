@@ -12,7 +12,6 @@ use App\Databases\RondaModel;
 use App\Databases\Transaction;
 use App\Databases\VotesModel;
 use App\UseCases\ContestApplication\GetContestApplicationById;
-use App\UseCases\ContestApplication\VoteAContestApplication;
 use App\User;
 use App\Utils\Mailer;
 use Illuminate\Http\Request;
@@ -47,7 +46,6 @@ class PropuestaController extends Controller
             return view('concursos.concurso-cuento', $data);
         }
         abort(404);
-
     }
 
     public function show_detalle(Request $request)

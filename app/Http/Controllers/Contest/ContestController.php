@@ -138,8 +138,7 @@ class ContestController extends Controller
         }
         // CONCURSO FINALIZADO
         if ($contest->hasEnded()) {
-            $data['estado'] = "finalizado";
-            $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where('contest_id', $contest->id)->get();
+            return Redirect::to('estadisticas/{$contest->id}/{$contest->name}');
         }
         return view('concursos.inscripcion', $data);
     }
@@ -147,49 +146,31 @@ class ContestController extends Controller
     public function ganador(Request $request)
     {
         $contestId = $request->route('id');
-        $userInfo = $this->getUserData();
-        $data = array_merge($userInfo);
+        $data = $this->getUserData();
         $contest = ContestModel::find($contestId);
         if ($contest == null) {
             return Redirect::to(url('no-encontrado'));
         }
-        $data['concurso'] = $contest;
-        $data['diferencia'] = $contest->end_app_date;
-        $data['postulaciones_abiertas'] = false;
+//        if ($contest->end_vote_date > Carbon::now()) {
+//            return Redirect::to("concursos/{$contest->id}/{$contest->name}/ronda/1");
+//        }
+        $user = Auth::user();
+        $data['modo'] = $contest->getMode()->name;
         $data['logo'] = $contest->logo();
+        $data['concurso'] = $contest;
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->first();
+        $lastRonda = 3;
+        $data['currentRonda'] = RondaModel::getRonda($contestId, $lastRonda);
+        $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
+        $data['cpa'] = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $data['currentRonda'], [], $cpa->id)->first();
+        $data['diferencia'] = $contest->end_date;
         $data['bases'] = $contest->getBases();
-        $data['ganadores'] = [];
-        $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);
-        $webController = new WebController;
-        $data['participantes'] = $webController->getParticipantes($request, $contest->id);
-        // CONCURSO POSTULACIONES ABIERTAS
-        $data['estado'] = $contest->getStatus();
-        $user = Auth::user();
-        $data['hasPostulacion'] = false;
-        if ($user) {
-            $data['hasPostulacion'] = ContestModel::hasPostulacion($contest->id, $user->id);
-        }
-        $data['propuesta'] = false;
-        if ($data['hasPostulacion']) {
-            $data['propuestaId'] = ContestApplicationModel::select('id')->where('contest_id', $contest->id)->where("user_id", $user->id)->first()->id;
-        }
-        if ($contest->hasPostulacionesAbiertas()) {
-            $data['estado'] = "abierto";
-            $data['postulaciones_abiertas'] = true;
-        }
-        // CONCURSO INICIO DE LAS APUESTAS
-        if ($contest->hasVotes()) {
-            $data['estado'] = "abierto";
-        }
-        // CONCURSO FINALIZADO
-        if ($contest->hasEnded()) {
-            $data['estado'] = "finalizado";
-            $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where('contest_id', $contest->id)->get();
-        }
+        $data['page'] = $contest->getBases();
+
         return view('concursos.ganador', $data);
     }
 
@@ -308,38 +289,41 @@ class ContestController extends Controller
 
     public function show_winner(Request $request)
     {
-        $contestId = $request->contest_id;
-        $userInfo = $this->getUserData();
-        $data = array_merge($userInfo);
-        $propuesta = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->with(['logos', 'owner'])->first();
-        $logo = $propuesta->logos()->first();
-        $avatar = $propuesta->owner()->first()->avatar()->first();
-        $data['logo'] = url('storage/logo/' . $logo->name . "." . $logo->extension);
+        $contestId = $request->contestId;
+        $contest = ContestModel::find($contestId);
+        $data = $this->getUserData();
+        $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->with(['logos', 'owner'])->orderBy('prize_percentage', 'desc')->first();
+        if (!$cpa) {
+            return Redirect::to('concursos/{$contest->}/{$contest->name}/ronda/1');
+        }
+        $logo = $cpa->logos()->first();
+        $avatar = $cpa->owner()->first()->avatar()->first();
+        $data['logo'] = null;
+        if ($logo) {
+            $data['logo'] = url('storage/logo/' . $logo->name . "." . $logo->extension);
+        }
         if ($avatar != null) {
             $data['avatar'] = url('storage/images/' . $avatar->name . "." . $avatar->extension);
         } else {
             $data['avatar'] = url('img/participantes/usuario.png');
         }
-        $user = $propuesta->owner()->first();
-        $data['propuestaID'] = $propuesta->id;
+        $user = $cpa->owner()->first();
+        $data['propuestaID'] = $cpa->id;
         $data['userName'] = $user->userName;
-        $data['votes'] = $propuesta->votes;
+        $data['votes'] = $cpa->votes;
         $data['name'] = $user->name;
         $data['lastName'] = $user->lastName;
         $data['country'] = $user->country;
         $data['facebook'] = $user->facebook;
         $data['instagram'] = $user->instagram;
-        $data['txs'] = Transaction::where('cap_id', $propuesta->id)->inRandomOrder()->take(10)->get();
-        $data['totalesPresentados'] = ContestApplicationModel::whereNotNull('approved_in')->count();
-        $data['totalSociosApostadores'] = $this->getTotalSociosApostadores($propuesta->id);
-        $data['totalDeFichasEnJuego'] = (new TransactionRepository(new UserRepository()))->getTotalSupply($contestId);
-        return view("logo - ganador", $data);
-    }
+        $data['contest'] = $contest;
+        $data['txs'] = Transaction::where('cap_id', $cpa->id)->inRandomOrder()->take(10)->get();
+        $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
+        $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
+        $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
+        $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
 
-    private function getTotalSociosApostadores()
-    {
-        $txs = Transaction::where('type', 'TRANSFER')->where('from', '>', 1)->groupBy('from')->get();
-        return count($txs);
+        return view("concursos.ranking", $data);
     }
 
     public function approve(Request $request)
@@ -378,7 +362,6 @@ class ContestController extends Controller
             $ronda->title = '';
             $ronda->bajada = '';
             $ronda->body = '';
-
             $rondas[] = $ronda;
         }
 

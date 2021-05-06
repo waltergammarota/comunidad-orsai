@@ -18,9 +18,10 @@
                             <span class="id_card">{{str_pad($cpa->order, 3, 0 ,STR_PAD_LEFT)}}</span>
                             @foreach($currentRonda->inputs as $key => $input)
                                 @if($key == 0)
-                                    <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</h3>
+                                    <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
                                 @else
-                                    <span class="cat_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
+                                    <span
+                                        class="cat_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
                             @endif
                         @endforeach
                         <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
