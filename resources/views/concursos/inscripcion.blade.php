@@ -140,12 +140,12 @@
     @include("fundacion.footer-fundacion")
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
-        $("#countdown_concurso")
-            .countdown("{{$diferencia}}", function (event) {
-                $(this).text(
-                    event.strftime('%D días %H:%M:%S')
-                );
-            });
+       
+       $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
+            $(this).text(
+                event.strftime('%-D día%!D %H:%M:%S')
+            ); 
+        });
         $(".hero-nav-content").owlCarousel({
             responsiveClass: true,
             dots: false,

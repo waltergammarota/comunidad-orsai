@@ -114,7 +114,7 @@
                         @if($key < 3)
                             <div class="leit_motive">
                                 <span class="text_bold">{{$answer->input->title}}</span>
-                                <span>{!!  $answer->input->toUserHtml($answer) !!}</span>
+                                <span>{{$answer->input->toUserHtml($answer)}}</span>
                             </div>
                         @endif
                     @endforeach

@@ -21,7 +21,7 @@
                                     <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
                                 @else
                                     <span
-                                        class="cat_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
+                                        class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
                             @endif
                         @endforeach
                         <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
@@ -92,8 +92,14 @@
 @section('footer')
 @include("fundacion.footer-fundacion")
     <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
+    <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script>
-
+ 
+        $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
+            $(this).text(
+                event.strftime('%-D día%!D %H:%M:%S')
+            ); 
+        });
         // Animación Coin      
         let tipButtons = $('.tipButtons')
         let coin = $('.tipButtons .coin')
@@ -409,9 +415,9 @@
                 }
             }
         });
-        if (window.matchMedia("(max-width: 1100px)").matches) {
-            $('.hero-nav-content').owlCarousel('remove', 4).owlCarousel('update');
-        } 
+        // if (window.matchMedia("(max-width: 1100px)").matches) {
+        //     $('.hero-nav-content').owlCarousel('remove', 4).owlCarousel('update');
+        // } 
 
         var distance = $('.cd-main-content').offset().top;
 

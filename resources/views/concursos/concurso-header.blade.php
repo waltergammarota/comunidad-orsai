@@ -26,8 +26,7 @@
                     </div>
                     <div class="content-nav column">
                         <div>
-                            <span>Cierre de votación</span>
-                            <span class="big-number_2">{{$cierreDiff}}</span>
+                            <span>Cierre de votación<br/><strong id="countdown_concurso"></strong></span>
                         </div>
                     </div>
                 </div>
@@ -40,8 +39,8 @@
                         <div>
                             <span>Pozo acumulado</span>
                             <div class="numero_dividido">
-                                <span class="big-number_2">{{$cantidadFichasEnJuego}}</span>
-                                <span class="_barlow_text">Fichas</span>
+                                <small>USD</small>
+                                <span class="big-number_2">{{$cantidadDineroEnJuego}}</span> 
                             </div>
                         </div>
                     </div>
@@ -164,7 +163,8 @@
                 </li>
             </ul>
             <ul class="cd-filters">
-                
+                  
+                  
                 @foreach($rondas as $ronda)
                 <li class="filter filter_{{$ronda->order}}"> 
                         @if($ronda->order == 1) 
@@ -180,10 +180,10 @@
                             @endif
                         @endif
                         {{$ronda->solapa}}
-                        @if($ronda->order > 1)
-                            <span class="counter_">(<small>{{$rondas->get($loop->index - 1)->votes}}</small>)</span>
-                        @else
+                        @if($ronda->order == 1)
                             <span class="counter_">(<small>{{$cantidadPostulacionesAprobadas}}</small>)</span>
+                        @else
+                            <span class="counter_">(<small>{{$rondas->get($loop->index-1)->votes}}</small>)</span>
                         @endif
                         
                         @if($ronda->order == 1) 
@@ -196,7 +196,7 @@
                             @endif
                         @endif
                     </li> 
-                    @endforeach
+                    @endforeach 
             </ul> <!-- cd-filters -->
             
             <div class="desp_mobile_tab">

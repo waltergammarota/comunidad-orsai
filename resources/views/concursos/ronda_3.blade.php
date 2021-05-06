@@ -17,12 +17,8 @@
                                 @if($key == 0)
                                     <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
                                 @else
-<<<<<<< HEAD
-                                    <span class="cat_card">{{$cpa->getAnswerByRonda($currentRonda->order, $key)}}</span>
-=======
                                     <span
-                                        class="cat_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
->>>>>>> bd5d83f03401b5b2d01c42b8fde534e478902a94
+                                        class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
                                 @endif
                             @endforeach
                             <div class="rn_3 selecc_fichas">
@@ -107,9 +103,16 @@
 @endsection
 
 @section('footer')
+@include("fundacion.footer-fundacion")
     <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
-    @include("fundacion.footer-fundacion")
+    <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script>
+ 
+        $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
+            $(this).text(
+                event.strftime('%-D día%!D %H:%M:%S')
+            ); 
+        });
          
         // Modal Jurado VIP
         function showModalJuradoVip() {
