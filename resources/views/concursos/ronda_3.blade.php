@@ -17,8 +17,11 @@
                                 @if($key == 0)
                                     <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
                                 @else
-                                    <span
-                                        class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
+                                    @if($key == 2 )
+                                        <span class="cat_card input_{{$key}}"> {{substr($cpa->getAnswerByRonda($currentRonda, $key), 0,  300) }}...</span>
+                                    @else 
+                                        <span class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
+                                    @endif
                                 @endif
                             @endforeach
                             <div class="rn_3 selecc_fichas">

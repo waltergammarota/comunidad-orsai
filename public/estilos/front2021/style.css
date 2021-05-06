@@ -12863,7 +12863,7 @@ table#ranking_table.dataTable thead th.sorting::after{
 }
 
 .cuento_ .cuento_texto{
-    width:710px; 
+    width:680px; 
 }
 
 .cuento_ .cuento_texto > .cuerpo_interna{
@@ -14000,7 +14000,7 @@ Main Components
     position: relative;
     width:100%;
     background-color: #ffffff;
-    padding: 20px 20px 70px 20px;
+    padding: 20px 20px 90px 20px;
     text-decoration: none;
     z-index: 0;
     overflow: hidden;
@@ -14010,7 +14010,6 @@ Main Components
     -ms-border-radius:10px;
     -o-border-radius:10px;
     height:100%;
-    min-height:340px;
 }
   
   .card-leitmotiv__:before {
@@ -14074,25 +14073,26 @@ Main Components
     align-self: flex-end;
     order: 0;
   }
-  
   .card_leitmotiv_1 .card-leitmotiv__ .input_1,
   .card_leitmotiv_2 .card-leitmotiv__ .input_2{
     font-size:14px;
     font-weight:400;
     text-align:right;
     padding:0 0 20px 0;
+    right:10px;
     display:block;
     width:100%; 
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto; 
-    order: 0; 
-    align-self: flex-end;
-    order: 0;
+    order: 0;   
+    position: absolute;
+    padding: 0 20px 20px 0;
+    bottom: 60px;
   }
   .card_leitmotiv_2 .card-leitmotiv__ { 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: normal;
     align-items: normal;
@@ -14105,9 +14105,10 @@ Main Components
     flex-basis: auto;
     align-self: auto;
     order: 0;
+    margin:0 0 1rem 0;
     line-height: 35px;
     height: 35px;
-    width:13%;
+    width:100%;
   }
   .card_leitmotiv_2 .title_card{
     display: block;
@@ -14116,50 +14117,84 @@ Main Components
     flex-basis: auto;
     align-self: auto;
     order: 0;
-    margin:0;
-    font-size: 1em;
-    font-weight:bold;
-    line-height: 18px;  
-    height: 35px; 
-    width:87%;
+    margin:0 0 1rem 0;
+    font-size: 1em; 
+    color:#999;
+    line-height: 18px;   
+    width:100%;
   }
- 
   .card_leitmotiv_2 .card-leitmotiv__ .input_1{
     display: block;
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;
     align-self: auto;
+    margin:0 0 1rem 0;
     order: 0;
     font-size:1.5rem;  
     width:100%;
   }
-  .card_rn_3 .card-leitmotiv__ .input_1{
-    margin:1.5rem 0 1rem 0;
-    font-size:1.5em;
+
+ 
+  .card_leitmotiv_2 .card-leitmotiv__ {
+    min-height:360px;
   }
-  .card_rn_3 .card-leitmotiv__ .input_2{ 
-    align-self: flex-start;
-    text-align:left;
+  .card_rn_3 .card_leitmotiv__ {
+    min-height:420px;
+  }
+  .card_rn_3 .title_card{
+    font-size:1.5rem;
+    line-height:2rem;
+    color:#333;
+  } 
+  .card_rn_3 .card-leitmotiv__ .input_1{
+    font-size:0.8rem;
+    font-weight:bold;
+    color:#333;
+    min-height:40px;
+  }
+  .card_rn_3 .card-leitmotiv__ .input_2{  
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    margin: 0 0 3rem 0;
+    min-height:140px;
+    order: 0;
+    font-size: 1.5rem;
+    width: 100%;
     font-size:1rem;
+    font-weight:400;  
+    right:auto;
+    bottom:auto;
+    text-align:left;
+    order: 0;   
+    position: relative;
+    padding: 0 20px 20px 0; 
   }
   .card_rn_3 .card-leitmotiv__ .input_3{ 
     font-size: 14px;
     font-weight: 400;
     text-align: right;
-    padding: 0 0 20px 0;
+    padding: 0 40px 20px 12px;
     display: block;
     width: 100%;
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;
     order: 0;
-    align-self: flex-end;
+    align-self: initial;
     order: 0;
+    position: absolute;
+    bottom: 100px;
   }
   .card_rn_3 .selecc_fichas{
       width:100%;
       border-top:1px solid #ccc;
+      bottom: 0;
+      position: relative;
+      left: 0; 
   }
   .card-leitmotiv__ .button_card{
     text-decoration:none;
