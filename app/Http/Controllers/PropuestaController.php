@@ -158,6 +158,7 @@ class PropuestaController extends Controller
                 "balance" => $user->getBalance(),
                 "cap_id" => VotesModel::getVotesCount($contest->id, $user->id, $ronda->order, $cpa->id),
                 "rondas" => VotesModel::getRondasWithVotes($contest, $user->id),
+                "rondasCounter" => VotesModel::getRondasCounter($contest->id, $user->id)
             ];
 
             return response()->json(["result" => $output]);
