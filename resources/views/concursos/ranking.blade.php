@@ -157,15 +157,17 @@
                           <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 156</td>
                           <td class="align_right">
                             <div class="color_blanco_gris imagen_usuario">
-                                  <div>
-                                    <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
-                                  </div>
-                                  <div>
-                                      <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}" alt="">
-                                  </div>
-                                  <div>
-                                      <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
-                                  </div>
+                                <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip" title="Transparencia Ecónomica">
+                                    <div>
+                                        <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
+                                      </div>
+                                      <div>
+                                          <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}" alt="">
+                                      </div>
+                                      <div>
+                                          <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
+                                      </div> 
+                                </a>
                             </div>
                             <div class="cont_cant_apuestas">
                                 <span class="color_blanco_gris">55</span>
@@ -178,15 +180,17 @@
                             <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 95</td>
                             <td class="align_right">
                                 <div class="color_blanco_gris imagen_usuario">
-                                    <div>
-                                      <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
-                                    </div>
+                                    <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip" title="Transparencia Ecónomica">
+                                        <div>
+                                            <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
+                                          </div>
+                                          <div>
+                                              <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}" alt="">
+                                          </div>
+                                          <div>
+                                              <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
+                                          </div> 
+                                    </a>
                                 </div>
                                 <div class="cont_cant_apuestas">
                                     <span class="color_blanco_gris">85</span>
@@ -199,15 +203,17 @@
                             <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 78</td>
                               <td class="align_right">
                                   <div class="color_blanco_gris imagen_usuario">
-                                    <div>
-                                      <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
-                                    </div>  
+                                    <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip" title="Transparencia Ecónomica">
+                                        <div>
+                                            <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
+                                          </div>
+                                          <div>
+                                              <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}" alt="">
+                                          </div>
+                                          <div>
+                                              <img src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}" alt="">
+                                          </div> 
+                                    </a>
                                   </div>
                                   <div class="cont_cant_apuestas">
                                       <span class="color_blanco_gris">55</span>
