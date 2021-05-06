@@ -3,6 +3,7 @@
 namespace App\Databases;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class VotesModel extends Model
 {
@@ -48,7 +49,7 @@ class VotesModel extends Model
     static public function getRondasWithVotes($contest, $userId)
     {
         $rondas = $contest->rondas()->with('inputs')->get();
-        $votes = VotesModel::where('user_id', $userId)->where('contest_id', $contest->id)->groupBy('cap_id')->groupBy('order')->get();
+        $votes = VotesModel::where('user_id', $userId)->where('contest_id', $contest->id)->groupBy('cap_id', 'order')->get();
         foreach ($rondas as $ronda) {
             $inputs = $ronda->inputs;
             $ronda->votes = 0;
@@ -61,6 +62,22 @@ class VotesModel extends Model
             }
         }
         return $rondas;
+    }
+
+    static public function getRondasCounter($contestId, $userId)
+    {
+        $votes = VotesModel::select('order', DB::raw('sum(1) as cant'))->where('user_id', $userId)->where('contest_id', $contestId)->groupBy('order')->orderBy('order')->get();
+        $rondasVotes = collect([]);
+        for ($i = 0; $i < 3; $i++) {
+            $ronda = new \stdClass();
+            $ronda->order = $i + 1;
+            $ronda->cpas = 0;
+            if ($votes->get(0)) {
+                $ronda->cpas = $votes[$i]->cant;
+            }
+            $rondasVotes->push($ronda);
+        }
+        return $rondasVotes;
     }
 
     static public function hasBeenVoted($answerId, $userId, $capId, $rondaOrder, $rondaCost)
