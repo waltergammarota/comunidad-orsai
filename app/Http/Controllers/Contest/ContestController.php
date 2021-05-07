@@ -110,7 +110,7 @@ class ContestController extends Controller
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
-        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value ;
+        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value;
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
         $data['bases'] = $contest->getBases();
@@ -200,8 +200,8 @@ class ContestController extends Controller
         $logo = $contest->logo();
         $cierreDiff = Carbon::now()->diffInHours($contest->end_vote_date) . ':' . Carbon::now()->diff($contest->end_vote_date)->format('%I:%S');
         $cantidadFichasEnJuego = $this->convertToK($contest->cantidadFichasEnJuego());
-        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value ;
-       
+        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value;
+
         $modo = $contest->getMode()->name;
         $cantidadPostulacionesAprobadas = $this->convertToK($contest->cantidadPostulaciones());
         $cuentistasInscriptos = $this->convertToK($contest->cantidadCuentistasInscriptos());
@@ -215,7 +215,6 @@ class ContestController extends Controller
         $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters);
         $toBeJury = $contest->cost_jury - $user->getVotesInContest($contest->pool_id);
         $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas);
-        
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
         $data['user'] = $user;
@@ -270,13 +269,13 @@ class ContestController extends Controller
             $data['avatar'] = url('storage/images/' . $avatar->name . "." . $avatar->extension);
         } else {
             $data['avatar'] = url('img/participantes/usuario.png');
-        } 
+        }
         $data['txs'] = $cpa->getTransactions();
         $data['fichasApostadas'] = VotesModel::getVotesCount($contest->id, $user->id, $currentRonda->order, $cpa->id);
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
         $data['backUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$lastRound}");
         $data['isJuradoVip'] = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
-       
+
         return view('concursos.cuento_completo', $data);
     }
 
