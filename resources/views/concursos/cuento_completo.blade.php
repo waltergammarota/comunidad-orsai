@@ -94,8 +94,8 @@
                         <h1 class="titulo_blog">{{$cpa->getAnswerByRonda($currentRonda, 0)}}</h1>
                     </div>
 
-                    <div class="blog_texto">
-                        <p>{{$cpa->getAnswerByRonda($currentRonda, 1)}}</p>
+                    <div class="blog_texto"> 
+                        <p>{{$cpa->getAnswerByRonda($currentRonda, 2)}}</p>
                     </div>
                 </div>
                 <div class="grilla_form">
@@ -110,11 +110,11 @@
 
             <article id="md_laterales" class="modulos_laterales"> 
                 <aside class="modulo_texto">
-                    @foreach($cpa->answers as $key => $answer)
+                    @foreach($cpa->answers as $key => $answer) 
                         @if($key < 3)
                             <div class="leit_motive">
-                                <span class="text_bold">{{$answer->input->title}}</span>
-                                <span>{{$answer->input->toUserHtml($answer)}}</span>
+                                <span class="text_bold">{{$answer->input->title}}</span> 
+                                <span>{!! $answer->input->toUserHtml($answer) !!}</span> 
                             </div>
                         @endif
                     @endforeach

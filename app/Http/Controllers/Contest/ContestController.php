@@ -210,10 +210,11 @@ class ContestController extends Controller
         $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
         $categories = $contest->form()->first()->getCategories();
         $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
+        $counterRondas = VotesModel::getRondasCounter($contest->id, $user->id);
         $filters = $this->getFilters($request);
         $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters);
         $toBeJury = $contest->cost_jury - $user->getVotesInContest($contest->pool_id);
-        $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury);
+        $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas);
         
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
@@ -795,7 +796,7 @@ class ContestController extends Controller
      * @param $currentRonda
      * @return array
      */
-    private function compactData($concurso, array $data, $logo, string $cierreDiff, string $cantidadFichasEnJuego, $modo, string $cantidadPostulacionesAprobadas, string $cuentistasInscriptos, bool $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury): array
+    private function compactData($concurso, array $data, $logo, string $cierreDiff, string $cantidadFichasEnJuego, $modo, string $cantidadPostulacionesAprobadas, string $cuentistasInscriptos, bool $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas): array
     {
         $data['concurso'] = $concurso;
         $data['logo'] = $logo;
@@ -810,6 +811,7 @@ class ContestController extends Controller
         $data['rondas'] = $rondas;
         $data['currentRonda'] = $currentRonda;
         $data['toBeJury'] = $toBeJury;
+        $data['counterRondas'] = $counterRondas;
         return $data;
     }
 

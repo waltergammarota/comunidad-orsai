@@ -20,8 +20,7 @@
                                 @if($key == 0)
                                     <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
                                 @else
-                                    <span
-                                        class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
+                                    <span class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
                             @endif
                         @endforeach
                         <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
@@ -30,10 +29,10 @@
                                    class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
                                    data-cap_id="{{$cpa->id}}" order="{{$currentRonda->order}}">
                                     @if($cpa->hasBeenVoted)
-                                        @if($currentRonda->order == 1)
-                                            <span class="tip-button__text">Ver descripción</span>
+                                        @if($currentRonda->order == 1) 
+                                            <span class="tip-button__text">Leer descripción</span>
                                         @else
-                                        <span class="tip-button__text">Ver cuento</span>
+                                        <span class="tip-button__text">Leer cuento</span>
                                         @endif
                                         <span class="icon icon-flecha_leitmotiv"></span>
                                     @else

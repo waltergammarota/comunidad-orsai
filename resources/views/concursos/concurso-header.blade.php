@@ -163,15 +163,13 @@
                 </li>
             </ul>
             <ul class="cd-filters">
-                  
-                  
-                @foreach($rondas as $ronda)
+                @foreach($counterRondas as $ronda)
                 <li class="filter filter_{{$ronda->order}}"> 
                         @if($ronda->order == 1) 
                             <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
                             <span class="icon icon-carpeta_abierta"></span>
                         @else
-                            @if($rondas->get($loop->index - 1)->votes > 0)
+                            @if($counterRondas->get($loop->index - 1)->cpas > 0)
                                 <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
                                 <span class="icon icon-carpeta_abierta"></span>
                             @else  
@@ -179,17 +177,17 @@
                                 <span class="icon icon-carpeta_cerrada"></span>
                             @endif
                         @endif
-                        {{$ronda->solapa}}
+                        {{$rondas->get($loop->index)->solapa}}
                         @if($ronda->order == 1)
                             <span class="counter_">(<small>{{$cantidadPostulacionesAprobadas}}</small>)</span>
                         @else
-                            <span class="counter_">(<small>{{$rondas->get($loop->index-1)->votes}}</small>)</span>
+                            <span class="counter_">(<small>{{$counterRondas->get($loop->index - 1)->cpas}}</small>)</span>
                         @endif
                         
                         @if($ronda->order == 1) 
                             </a>
                         @else
-                            @if($rondas->get($loop->index - 1)->votes > 0) 
+                            @if($counterRondas->get($loop->index - 1)->cpas > 0) 
                             </a>
                             @else   
                         </div>

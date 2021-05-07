@@ -238,6 +238,8 @@ class InputModel extends Model
                 return $this->inputToUserHtml($answer->answer);
             case 'nube':
                 return $this->nubeToUserHtml($answer->answer);
+            default:
+                return $this->inputToUserHtml($answer->answer);
         }
     }
 
@@ -252,6 +254,6 @@ class InputModel extends Model
         $tagsWithSpans = array_map(function ($item) {
             return "<span>{$item}</span>";
         }, $tags);
-        return implode(' ', $tagsWithSpans);
+        return implode(', ', $tagsWithSpans);
     }
 }
