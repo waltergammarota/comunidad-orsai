@@ -153,7 +153,7 @@ class PropuestaController extends Controller
                 'amount' => $amount,
                 'pool_id' => $contest->pool_id,
                 'order' => $rondaOrder,
-            ], $ronda->cost, $previousVotes);
+            ], $ronda->cost, $previousVotes, $contest);
             $output = [
                 "balance" => $user->getBalance(),
                 "cap_id" => VotesModel::getVotesCount($contest->id, $user->id, $ronda->order, $cpa->id),

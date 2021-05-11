@@ -26,6 +26,9 @@ class TransparenciaController extends Controller
         $data['fichasEnJuego'] = $this->changeNumberFormat($fichasEnJuego);
         $fichasEnBilleteras = Transaction::getFichasEnBilleteras();
         $data['fichasEnBilleteras'] = $this->changeNumberFormat($fichasEnBilleteras);
+        $data['user_id'] = $request->route('user_id');
+        $data['contest_id'] = $request->route('contest_id');
+
         return view('transparencia.index', $data);
     }
 
@@ -46,10 +49,11 @@ class TransparenciaController extends Controller
         $chk_bal = $request->query('chkbal');
         $chk_mor = $request->query('chkmor');
 
-        $txsQuery = Transaction::select('transactions.*');
+
+        $txsQuery = Transaction::select('transactions.*')->leftjoin('contests', 'transactions.to', '=', 'contests.pool_id');
 
         if ($chk_con == 'true') {
-            $txsQuery = $txsQuery->join('contests', 'transactions.to', '=', 'contests.pool_id')->where('contests.pool_id', '<>', 0);
+            $txsQuery = $txsQuery->where('contests.pool_id', '<>', 0);
         };
 
         if ($chk_don == 'true') {
@@ -64,7 +68,18 @@ class TransparenciaController extends Controller
             $txsQuery = $txsQuery->orWhere('transactions.tags', 'like', '%mordida%');
         };
 
-        $txs = $txsQuery->paginate(5);
+        if ($request->query('user_id')) {
+            $user_id = $request->query('user_id');
+            $txsQuery = $txsQuery->where('transactions.from', '=', $user_id)->orWhere('transactions.to', '=', $user_id);
+        };
+
+        if ($request->query('contest_id')) {
+            $contest_id = $request->query('contest_id');
+            $txsQuery = $txsQuery->where('contests.id', '=', $contest_id);
+        };
+
+
+        $txs = $txsQuery->orderBy('created_at', 'desc')->paginate(5);
 
         foreach ($txs as $tx) {
             $row = [];
@@ -79,6 +94,7 @@ class TransparenciaController extends Controller
             "current_page" => $txs->currentPage(),
             "last_page" => $txs->lastPage(),
             "total_page" => $txs->total(),
+            "user_id" => $request->query('user_id'),
             "data" => $data,
         ];
 
@@ -90,11 +106,18 @@ class TransparenciaController extends Controller
     {
         $data = [];
 
-        $txsQuery = DB::table('compras')->join('users', 'compras.user_id', '=', 'users.id')
+        $txsQuery = DB::table('compras')
+            ->join('users', 'compras.user_id', '=', 'users.id')
             ->join('productos', 'productos.id', '=', 'compras.producto_id')
             ->where('compras.processed', '=', 1)->select(DB::raw('compras.*, users.*, productos.*, compras.user_id as comprador'));
 
-        $txs = $txsQuery->paginate(5);
+        if ($request->query('user_id')) {
+            $user_id = $request->query('user_id');
+            $txsQuery = $txsQuery->where('compras.user_id', '=', $user_id);
+        };
+
+        $txs = $txsQuery->orderBy('compras.created_at', 'desc')->paginate(5);
+
         foreach ($txs as $tx) {
             $row = [];
             $row['id'] = $tx->payment_id;

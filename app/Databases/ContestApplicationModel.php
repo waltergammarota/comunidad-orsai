@@ -167,7 +167,6 @@ class ContestApplicationModel extends Model
         $answers = $this->answers->filter(function ($item) use ($currentRonda) {
             return in_array($currentRonda->order, $item->ronda);
         });
-
         $sorteredAnswers = collect([]);
         $inputs = $currentRonda->inputs;
         foreach ($inputs as $input) {
@@ -177,8 +176,8 @@ class ContestApplicationModel extends Model
         }
 
         $answer = $sorteredAnswers->slice($key, 1)->shift();
-        $input = $answer ? $answer->input->first() : false;
-        return $input ? $input->toUserHtml($answer) : '';
+        $selectedInput = $answer ? $answer->input : false;
+        return $selectedInput ? $selectedInput->toUserHtml($answer) : '';
     }
 
     static public function getCompleteCpa($capId)

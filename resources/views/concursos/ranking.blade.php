@@ -248,6 +248,137 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="fondo_gris_oscuro pd_20_tp_bt ">
+        <article class="contenedor ft_size form_rel pd_15_extra ">
+            <div class="max_w_1100">
+
+                <div class="form_central_3 ">
+                    <div class="btn_fichas_dinero">
+                        <h2 class="color_amarillo text_regular">Ranking</h2>
+                    </div>
+                    <div class="tran_creditos transparencia ranking">
+                        <div class="cont_tabla">
+                            <table class="light-3" id="ranking_table">
+                                <thead>
+                                <tr>
+                                    <th class="color_blanco">Puesto</th>
+                                    <th class="color_blanco">Cuento</th>
+                                    <th class="color_blanco">Fichas</th>
+                                    <th class="color_blanco">Apostadores</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="color_amarillo">1.</td>
+                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
+                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
+                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 156
+                                    </td>
+                                    <td class="align_right">
+                                        <div class="color_blanco_gris imagen_usuario">
+                                            <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip"
+                                               title="Transparencia Ecónomica">
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
+                                                        alt="">
+                                                </div>
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
+                                                        alt="">
+                                                </div>
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
+                                                        alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="cont_cant_apuestas">
+                                            <span class="color_blanco_gris">55</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="color_amarillo">2.</td>
+                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
+                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
+                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 95
+                                    </td>
+                                    <td class="align_right">
+                                        <div class="color_blanco_gris imagen_usuario">
+                                            <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip"
+                                               title="Transparencia Ecónomica">
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
+                                                        alt="">
+                                                </div>
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
+                                                        alt="">
+                                                </div>
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
+                                                        alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="cont_cant_apuestas">
+                                            <span class="color_blanco_gris">85</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="color_amarillo">3.</td>
+                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
+                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
+                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 78
+                                    </td>
+                                    <td class="align_right">
+                                        <div class="color_blanco_gris imagen_usuario">
+                                            <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip"
+                                               title="Transparencia Ecónomica">
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
+                                                        alt="">
+                                                </div>
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
+                                                        alt="">
+                                                </div>
+                                                <div>
+                                                    <img
+                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
+                                                        alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="cont_cant_apuestas">
+                                            <span class="color_blanco_gris">55</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="grilla_form">
+                    <div class="form_ctrl col_3">
+                        <div class="align_left">
+                            <a href="#" class="boton_redondeado btn_transparente_amarillo">Volver al concurso</a>
+                            >>>>>>> comunidad-beta-01
+                        </div>
         </article>
 
     </section>
