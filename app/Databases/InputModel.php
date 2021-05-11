@@ -233,9 +233,9 @@ class InputModel extends Model
 
     public function toUserHtml($answer)
     {
-        switch ($this->type) {
-            case 'input':
-                return $this->inputToUserHtml($answer->answer);
+        $type = $this->type;
+        $caca = "holla";
+        switch ($type) {
             case 'nube':
                 return $this->nubeToUserHtml($answer->answer);
             default:
@@ -252,7 +252,7 @@ class InputModel extends Model
     {
         $tags = explode(',', $content);
         $tagsWithSpans = array_map(function ($item) {
-            return "<span>{$item}</span>";
+            return $item;
         }, $tags);
         return implode(', ', $tagsWithSpans);
     }

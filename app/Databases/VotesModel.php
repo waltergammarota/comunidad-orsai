@@ -33,7 +33,7 @@ class VotesModel extends Model
         return $this->hasManyThrough(InputModel::class, RondaInputModel::class, 'ronda_id', 'id');
     }
 
-    static public function vote($args, $cost, $previousVotes)
+    static public function vote($args, $cost, $previousVotes, $contest)
     {
         $amount = $args['amount'];
         if (($amount + $previousVotes) > $cost) {
@@ -42,7 +42,9 @@ class VotesModel extends Model
         if ($args['amount'] > 0) {
             $vote = new VotesModel($args);
             $vote->save();
-            Transaction::createTransaction($args['user_id'], $args['pool_id'], $args['amount'], '', $args['cap_id'], 'TRANSFER');
+            Transaction::createTransaction($args['user_id'], $args['pool_id'], $args['amount'],
+                "Votacion al concurso {$contest->name}",
+                $args['cap_id'], 'TRANSFER');
         }
     }
 

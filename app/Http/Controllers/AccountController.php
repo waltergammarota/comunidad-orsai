@@ -670,7 +670,6 @@ class AccountController extends Controller
 
     public function transacciones()
     {
-
         $data = $this->getUserData();
         $user = Auth::user();
         $data['hasStarted'] = $this->hasStarted(1);
@@ -685,6 +684,7 @@ class AccountController extends Controller
         $data['txs'] = $txsQuery->orderBy('transactions.id', 'desc')->get();
         $data['baldeo'] = Transaction::getNextBaldeoDate($user);
         $data['mordida'] = Transaction::getNextMordida($user);
+
         return view('2021-mis-fichas', $data);
     }
 

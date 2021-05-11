@@ -48,6 +48,9 @@
                         <span class="color_gris">País</span>
                         <span>{{$user->country}}</span>
                     </div> 
+                    <div class="transparencia_box">
+                        <a href="{{ route('transparencia.user', $user->id) }}" class="boton_redondeado resaltado_gris_oscuro align_left">Ver movimientos</a>
+                    </div>
                 </div>
             </div>
         </div>

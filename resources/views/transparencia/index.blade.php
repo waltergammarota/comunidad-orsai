@@ -12,7 +12,6 @@
                 listados de benefactores, adherentes y aportantes económicos que bancan los proyectos.</p>
         </div>
     </section>
- 
     <section class="resaltado_gris_oscuro pd_tp_bt pd_20">
         <div class="center_div">
             <div class="contenedor mg_0 dis_flex ">
@@ -427,6 +426,9 @@
         var counter_;
 
         let target = 'fichas';
+        
+        const user_id = {!! json_encode($user_id) !!};
+        const contest_id = {!! json_encode($contest_id) !!};
 
         let table = $('#mis_fichas_table').DataTable({
             paging: false,
@@ -522,15 +524,21 @@
             const chkbal = document.getElementById('chkbal').checked;
             const chkmor = document.getElementById('chkmor').checked;
 
-            let url = `{!! url('transparencia/${target}') !!}/?chkcon=${chkcon}&chkdon=${chkdon}&chkbal=${chkbal}&chkmor=${chkmor}&page=${datos[target].page}`
+            let url = `{!! url('transparencia/${target}') !!}/?chkcon=${chkcon}&chkdon=${chkdon}&chkbal=${chkbal}&chkmor=${chkmor}&page=${datos[target].page}`;
+
+            if (user_id) {
+                url += `&user_id=${user_id}`;
+            } 
+
+            if (contest_id) {
+                url += `&contest_id=${contest_id}`;
+            } 
 
             fetch(url, {
                 method: 'GET',
             }).then(response => response.text()).then(data => {
 
                 let txs = JSON.parse(data);
-
-                //console.log(`${target}: ${txs.current_page} -> ${txs.last_page} - ${txs.total_page} -`);
 
                 if (txs.last_page >= txs.current_page) {
                     $("#cargar_texto_2").removeClass("activo");
