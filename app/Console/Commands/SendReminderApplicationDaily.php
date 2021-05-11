@@ -133,11 +133,11 @@ class SendReminderApplicationDaily extends Command
                 $href = url('estadisticas/' . $contest->id . '/' . $contest->name);
 
                 $notification = new \stdClass();
-                $notification->subject = "Concurso #$contest->id Finalizado";
-                $notification->title = "¡Concurso #$contest->id Finalizado!";
-                $notification->description = "<p>Ya finalizó el Concurso. <a href='" . $href . "'>Mirá quiénes ganaron.</a></p>";
-                $notification->button_url = '';
-                $notification->button_text = '';
+                $notification->subject = "Concurso Finalizado";
+                $notification->title = "¡Concurso Finalizado!";
+                $notification->description = "<p>Ya finalizó el ".$contest->name."</p>";
+                $notification->button_url = $href;
+                $notification->button_text = 'Mirá quiénes ganaron';
                 $notification->user_id = 1;
                 $notification->deliver_time = Carbon::now();
                 $notification->id = 0;

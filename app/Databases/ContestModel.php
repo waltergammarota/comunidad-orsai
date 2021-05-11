@@ -134,6 +134,13 @@ class ContestModel extends Model
         return $amount;
     }
 
+    public function cantidadUsuariosqueVotaron()
+    {
+        $cuentistas = DB::select(DB::raw("select count(*) as cantidad from (select user_id from answers_votes where contest_id = {$this->id} group by user_id) t1"));
+        $amount = count($cuentistas) > 0 ? $cuentistas[0]->cantidad : 0;
+        return $amount;
+    }
+
     public function cantidadPostulacionesEnTotal()
     {
         $amount = ContestApplicationModel::where('contest_id', $this->id)->count();

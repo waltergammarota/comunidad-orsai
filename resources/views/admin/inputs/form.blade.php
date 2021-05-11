@@ -58,6 +58,7 @@
                                     @endif
                                 @endforeach
                             </select>
+                            <strong id="div-data"></strong>
                             @error('type') <span class="help-block">{{ $message }}</span> @enderror
                         </div>
 
@@ -168,35 +169,43 @@
             const counter = document.getElementById("div-counter");
             const options = document.getElementById("div-options");
             const textarea = document.getElementById("div-textarea");
+            const datainput = document.getElementById("div-data");
 
             counter.removeAttribute('style');
             options.removeAttribute('style');
             textarea.removeAttribute('style');
+            datainput.removeAttribute('style');
 
             switch (type) {
                 case 'input':
                     options.style.display = 'none'
                     textarea.style.display = 'none'
+                    datainput.style.display = 'none'
                     break;
 
                 case 'select':
                     counter.style.display = 'none'
                     textarea.style.display = 'none'
+                    datainput.style.display = 'block'
+                    datainput.innerHTML = 'Únicamente el primer Select que incorpores al formulario será considerado para los filtros de las rondas'
                     break;
 
                 case 'textarea':
                     options.style.display = 'none'
+                    datainput.style.display = 'none'
                     break;
 
                 case 'nube':
                     options.style.display = 'none'
                     textarea.style.display = 'none'
+                    datainput.style.display = 'none'
                     break;
 
                 default:
                     options.style.display = 'none'
                     counter.style.display = 'none'
-                    textarea.style.display = 'none'
+                    textarea.style.display = 'none' 
+                    datainput.style.display = 'none'
             }
         };
 

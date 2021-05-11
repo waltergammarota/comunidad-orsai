@@ -20,7 +20,7 @@
     <div class="form_ctrl input_">
         <div class="align_center">
             <button class="boton_redondeado resaltado_amarillo width_100" onclick="apostar()"
-                    data-cap_id="{{$cpa->id}}">Apostar
+                    data-cap_id="{{$cpa->id}}" disabled>Apostar
             </button>
         </div>
     </div>

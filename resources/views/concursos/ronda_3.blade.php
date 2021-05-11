@@ -112,9 +112,15 @@
     <script>
  
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
-            $(this).text(
-                event.strftime('%-D día%!D %H:%M:%S')
-            ); 
+            if(event.offset['days'] != 0){
+                $(this).text(
+                    event.strftime('%-D día%!D %H:%M:%S')
+                ); 
+            }else{
+                $(this).text(
+                    event.strftime('%H:%M:%S')
+                ); 
+            }
         });
          
         // Modal Jurado VIP
@@ -322,7 +328,7 @@
                 // console.log(response.data);
             }).catch(error => {
                 if (error.response.data.error == 100) {
-                    $("#sin_fichas").show();
+                    $("#sin_fichas").modal();
                 }
             });
         } 
@@ -484,6 +490,7 @@
             $(element).attr("disabled", true);
            // $(element).parent().find("form").val(cantidad);
         }
+
         $(".fichin").on("click", function () { 
             var indice_click_ = $(this).parent().find(".fichin").index(this);
             var obj_fichin = $(this).parent();
@@ -498,8 +505,13 @@
             $("#ap_fichas").val(cantidad); 
             if (cantidad > 0) {
                 $(obj_fichin).parent().find(".form_ctrl button").attr("disabled", false);
-                $(obj_fichin).parent().parent().find("p").text("Vas a sumar " + cantidad + " fichas");
-                $(obj_fichin).parent().find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
+                if(cantidad==1){
+                    $(obj_fichin).parent().find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
+                    $(obj_fichin).parent().parent().find("p").text("Vas a sumar " + cantidad + " ficha");
+                }else{
+                    $(obj_fichin).parent().parent().find("p").text("Vas a sumar " + cantidad + " fichas");
+                    $(obj_fichin).parent().find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
+                }
                 $(obj_fichin).parent().find("form").val(cantidad);
             } else {
                 $(obj_fichin).parent().parent().find("p").text("Ponele fichas");

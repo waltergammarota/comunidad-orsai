@@ -15,6 +15,7 @@ use App\Databases\RondaModel;
 use App\Databases\RondaInputModel;
 use App\Databases\Transaction;
 use App\Databases\VotesModel;
+use App\Databases\CotizacionModel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
@@ -110,9 +111,12 @@ class ContestController extends Controller
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
-        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value;
+        
+        $cotizacion = CotizacionModel::getCurrentCotizacion();
+        $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $data['bases'] = $contest->getBases();
         $data['ganadores'] = [];
         $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);
@@ -163,6 +167,7 @@ class ContestController extends Controller
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->first();
         $lastRonda = 3;
         $data['currentRonda'] = RondaModel::getRonda($contestId, $lastRonda);
@@ -200,11 +205,12 @@ class ContestController extends Controller
         $logo = $contest->logo();
         $cierreDiff = Carbon::now()->diffInHours($contest->end_vote_date) . ':' . Carbon::now()->diff($contest->end_vote_date)->format('%I:%S');
         $cantidadFichasEnJuego = $this->convertToK($contest->cantidadFichasEnJuego());
-        $data['cantidadDineroEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value;
-
+        $cotizacion = CotizacionModel::getCurrentCotizacion(); 
+        $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $modo = $contest->getMode()->name;
         $cantidadPostulacionesAprobadas = $this->convertToK($contest->cantidadPostulaciones());
         $cuentistasInscriptos = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        $usuariosqueVotaron = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $user = Auth::User();
 
         $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
@@ -214,7 +220,7 @@ class ContestController extends Controller
         $filters = $this->getFilters($request);
         $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters);
         $toBeJury = $contest->cost_jury - $user->getVotesInContest($contest->pool_id);
-        $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas);
+        $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas, $usuariosqueVotaron);
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
         $data['user'] = $user;
@@ -795,7 +801,7 @@ class ContestController extends Controller
      * @param $currentRonda
      * @return array
      */
-    private function compactData($concurso, array $data, $logo, string $cierreDiff, string $cantidadFichasEnJuego, $modo, string $cantidadPostulacionesAprobadas, string $cuentistasInscriptos, bool $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas): array
+    private function compactData($concurso, array $data, $logo, string $cierreDiff, string $cantidadFichasEnJuego, $modo, string $cantidadPostulacionesAprobadas, string $cuentistasInscriptos, bool $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas, $usuariosqueVotaron): array
     {
         $data['concurso'] = $concurso;
         $data['logo'] = $logo;
@@ -811,6 +817,7 @@ class ContestController extends Controller
         $data['currentRonda'] = $currentRonda;
         $data['toBeJury'] = $toBeJury;
         $data['counterRondas'] = $counterRondas;
+        $data['usuariosqueVotaron'] = $usuariosqueVotaron;
         return $data;
     }
 

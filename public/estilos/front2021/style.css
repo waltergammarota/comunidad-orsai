@@ -4717,7 +4717,14 @@ div.tagsinput #tags_tag {
     align-items: center;
     margin-right:10px;
 }
-
+#countdown_concurso{
+    font-size:2rem;
+    font-family: 'Barlow Condensed';
+    width: 150px; 
+    display:block;
+    position: relative;
+    top: -5px;
+}
 .inscripcion-cuento .hero-nav .hero-nav-content .linea {
     position:relative;
     margin-right:5px;
@@ -4735,12 +4742,22 @@ div.tagsinput #tags_tag {
         border-right:2px solid black;
 }
 }
-
+ 
+.inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column .numero_dividido .currency{
+    font-size: 0.8em; 
+    margin-right: 3px;
+    display: inline-block; 
+    padding-top:5px;
+}
+.inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column  small{
+    font-size: 0.8rem;
+}
 .inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column .numero_dividido small{
-    font-size: 0.8em;
-    line-height: 40px;
+    font-size: 1em; 
     margin-right: 3px;
     display: inline-block;
+    width: 1.5rem;
+    line-height: 1rem;
 }
 .inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column .numero_dividido span{ 
     vertical-align: top;
@@ -4752,8 +4769,7 @@ div.tagsinput #tags_tag {
     margin-right: 10px;
     letter-spacing: -1px;
     display:block;
-    line-height: 80%;
-    width:100%;
+    line-height: 80%; 
     padding-top:5px;
     /* height:50px; */
     width:100%;
@@ -12684,14 +12700,9 @@ table#ranking_table.dataTable thead th.sorting::after{
 .content.light{
 	background-color: black;
 	color: #333;
-}
-
-
-
-
+} 
 .modulo_apostar_cuento{
     background-color: #333333;
-
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -12699,10 +12710,10 @@ table#ranking_table.dataTable thead th.sorting::after{
     -o-border-radius: 10px; 
 }
 .cont_mobile_apostar{
-    position:sticky;
-    position: -webkit-sticky;
-    top: -1px; /* required */
-    z-index: 300;
+    position: fixed;  
+    bottom: 0; /* required */
+    width:100%;
+    z-index: 5;
 }
 .cont_mobile_apostar .cerrar{
     position:absolute;
@@ -12860,12 +12871,7 @@ table#ranking_table.dataTable thead th.sorting::after{
     width:calc(100% - 710px);
     position:relative;
     left:10px;
-}
-
-.cuento_ .cuento_texto{
-    width:680px; 
-}
-
+} 
 .cuento_ .cuento_texto > .cuerpo_interna{
     -webkit-box-shadow: 0px 5px 10px 0px rgba(224, 224, 224, 1);
     -moz-box-shadow: 0px 5px 10px 0px rgba(224, 224, 224, 1);
@@ -12885,8 +12891,15 @@ table#ranking_table.dataTable thead th.sorting::after{
     margin-bottom:35px;
 }
 
+.cuento_ .cuento_texto{
+    width:680px; 
+}
 
 @media(max-width:992px){
+    .cuento_ #md_laterales{
+        width:100%;
+        left:0;
+    }
     .cuento_ {
         display: flex;
         flex-direction: column;
@@ -13571,6 +13584,7 @@ Main Components
       margin-top:0;
   }
   @media only screen and (min-width: 768px) {
+      
     .cd-tab-filter {
       /* tabbed navigation style on medium devices */
       width: auto;
@@ -13934,6 +13948,10 @@ Main Components
         }
   }
   @media (max-width:768px){
+      
+    .cuento_ .cuento_texto{
+        width:100%; 
+    }
     .card_leitmotiv_2 .card-leitmotiv__ .id_card,
     .card_leitmotiv_2 .card-leitmotiv__ .title_card,
     .card_leitmotiv_2 .card-leitmotiv__ .cat_card{
@@ -14833,6 +14851,14 @@ margin-top:0;
     display: inline-block;
     font-style: italic;
     color:#808080;
+}
+
+
+.codigo_error_light{ 
+    font-size: 4rem;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+    display: block;
 }
 
 

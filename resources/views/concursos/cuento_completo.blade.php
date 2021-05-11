@@ -130,10 +130,24 @@
             </div>
         </div>
     </section>
+    <div id="sin_fichas" class="modal modal_sinfichas">
+        <div class="title_modal">
+            <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
+            <h5>No te alcanzan las Fichas</h5>
+        </div>
+        <div class="content_modal">
+            <p>Hacé una donación para conseguir más.</p>
+        </div>
+        <div class="align_center">
+            <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo text_bold width_100">Donar</a>
+            <a href="#" rel="modal:close" class="boton_decline width_100">Ahora no</a>
+        </div>
+    </div>
 @endsection
 
 @section('footer')
     @include("fundacion.footer-fundacion")
+    <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script src="{{url('js/front2021/mCustomScrollbar/jquery.mCustomScrollbar.js')}}"></script>
     <script>
         let _contador = 1;
@@ -141,7 +155,11 @@
         function apostar() {
             const cap_id = {{$cpa->id}};
             const rondaOrder = 3;
-            const amount = $(".modulos_laterales .fichin.activo").length;
+            const amount = $("#md_apostar .activo").length;
+
+
+
+            console.log(amount);
             votar(cap_id, rondaOrder, amount);
 
         }
@@ -158,16 +176,17 @@
                 } else {
                     $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
                 }
-                console.log(response.data)
+                //console.log(response.data)
             }).catch(error => {
                 console.log(error);
                 if (error.response.data.error == 100) {
-                    $("#ex2").show();
+                    $("#sin_fichas").modal();
                 }
             });
         }
 
         /* Efecto hover en fichas */
+        
         $(".fichin")
             .mouseenter(function () {
                 var indice_ = $(".fichin").index(this);
@@ -217,9 +236,17 @@
                 $(".modulo_apostar_cuento .form_ctrl button").attr("disabled", true);
             }
 
+                
             if (window.matchMedia("(max-width: 992px)").matches) {
                 var cantidad = $(".cont_mobile_apostar .fichin.activo").length;
-                $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
+                if(cantidad==1){
+                    $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
+                    $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
+                }else{
+                    $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
+                    $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
+                }
+                $(".cont_mobile_apostar").find("form").val(cantidad);
                 $(".cont_mobile_apostar .modulo_apostar_cuento").css("max-height", "600px");
                 $(".cont_mobile_apostar .modulo_apostar_cuento .titulo").css("display", "block");
                 $(".cont_mobile_apostar .cerrar").css("display", "block");
@@ -228,7 +255,14 @@
                 $(".cont_mobile_apostar .modulo_apostar_cuento .selecc_fichas p").css("display", "block");
             } else {
                 var cantidad = $(".modulos_laterales .fichin.activo").length;
+                $(".modulos_laterales").find("form").val(cantidad);
+                if(cantidad==1){
+                $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
+                $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
+                }else{
+                $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
                 $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
+                }
             }
         });
 

@@ -26,7 +26,7 @@
                     </div>
                     <div class="content-nav column">
                         <div>
-                            <span>Cierre de votación<br/><strong id="countdown_concurso"></strong></span>
+                            <span><small>Cierre de votación</small><span id="countdown_concurso"></span></span>
                         </div>
                     </div>
                 </div>
@@ -37,22 +37,21 @@
                     <div class="content-nav column">
 
                         <div>
-                            <span>Pozo acumulado</span>
-                            <div class="numero_dividido">
-                                <small>USD</small>
-                                <span class="big-number_2">{{$cantidadDineroEnJuego}}</span> 
+                            <div class="numero_dividido"> 
+                                <span class="big-number_2">{{$cantidadDineroEnJuego}} USD</span>
+                                <small>Pozo total</small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="hero-nav-item linea">
+                {{-- <div class="hero-nav-item linea">
                     <div class="icon">
                         <img src="{{url('estilos/front2021/assets/modo_pozo.svg')}}" alt="Modo Pozo">
                     </div>
                     <div class="content-nav">
                         <span class="medio">Modo <br/> <strong>{{$modo}}</strong></span>
                     </div>
-                </div>
+                </div> --}}
                 <div class="hero-nav-item linea">
                     <div class="content-nav column bajar">
                         <div class="numero_dividido">
@@ -63,8 +62,9 @@
                     <div class="content-nav column  bajar">
 
                         <div class="numero_dividido">
-                            <span class="big-number_3">{{$cuentistasInscriptos}}</span>
-                            <span>Participantes </span>
+                            
+                            <span class="big-number_3">{{$usuariosqueVotaron}}</span>
+                            <span>@if($usuariosqueVotaron > 1) Jurados @else Jurado @endif</span>
                         </div>
                     </div>
                 </div>

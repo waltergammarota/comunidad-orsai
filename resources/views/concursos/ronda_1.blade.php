@@ -95,9 +95,15 @@
     <script>
  
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
-            $(this).text(
-                event.strftime('%-D día%!D %H:%M:%S')
-            ); 
+            if(event.offset['days'] != 0){
+                $(this).text(
+                    event.strftime('%-D día%!D %H:%M:%S')
+                ); 
+            }else{
+                $(this).text(
+                    event.strftime('%H:%M:%S')
+                ); 
+            }
         });
         // Animación Coin      
         let tipButtons = $('.tipButtons')
