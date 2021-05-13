@@ -109,7 +109,7 @@
                                             <label class="text_medium">Categorias</label>
                                             <div class="select">
                                                 <select id="categorias" name="categorias">
-                                                    <option value="0">Sin categoria</option>
+                                                        <option value="0" disabled selected>Sin categoría</option>
                                                     @foreach($categories as $item)
                                                         <option value="{{$item}}">{{$item}}</option>
                                                     @endforeach
@@ -166,11 +166,11 @@
                 @foreach($counterRondas as $ronda)
                 <li class="filter filter_{{$ronda->order}}"> 
                         @if($ronda->order == 1) 
-                            <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
+                            <a href="{{$ronda->order}}{{$queryParams}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
                             <span class="icon icon-carpeta_abierta"></span>
                         @else
                             @if($counterRondas->get($loop->index - 1)->cpas > 0)
-                                <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
+                                <a href="{{$ronda->order}}{{$queryParams}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
                                 <span class="icon icon-carpeta_abierta"></span>
                             @else  
                             <div class="bloqued">
@@ -211,10 +211,10 @@
             @empty(!request()->all())
                 <div class="contenedor filtros_aplicados">
                     <div>
-                        <span>{{$cpas->count()}} postulaciones encontradas</span>
+                        <span>{{$cpas->count()}} postulaciones encontradas para: {{$categoriasSeleccionadas}}</span>
                     </div>
                     <div>
-                        <a href="#" id="borrar_filtro"><span class="icon icon-borrar_filtro"></span> Limpiar filtros</a>
+                        <a href="{{$baseUrl}}" id="borrar_filtro"><span class="icon icon-borrar_filtro"></span> Limpiar filtros</a>
                     </div>
                 </div> 
             @endempty

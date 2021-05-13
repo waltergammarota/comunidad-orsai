@@ -239,5 +239,8 @@ class ContestModel extends Model
         return ContestModel::where('pool_id', $poolId)->count() > 0;
     }
 
+    public function getUrlName() {
+        return str_replace(' ', '-', $this->name);
+    }
 
 }

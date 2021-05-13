@@ -26,7 +26,7 @@
                         @endforeach
                         <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
                             <div class="button_card">
-                                <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}" @else href="#" @endif
+                                <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}?id={{$cpa->id}}" @else href="#" @endif
                                 class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
                                    data-cap_id="{{$cpa->id}}" order="{{$currentRonda->order}}">
                                     @if($cpa->hasBeenVoted)

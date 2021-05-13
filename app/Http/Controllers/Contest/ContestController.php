@@ -78,7 +78,7 @@ class ContestController extends Controller
         // TODO REMOVER CUANDO SE PUBLIQUE EL SEGUNDO
         if ($data['total'] == 1) {
             $firstContest = $data['concursos'][0];
-            return Redirect::to('concursos/' . $firstContest->id . '/' . $firstContest->name);
+            return Redirect::to('concursos/' . $firstContest->id . '/' . $firstContest->getUrlName());
         }
         return view("concursos.concursos-nuevos", $data);
     }
@@ -115,7 +115,7 @@ class ContestController extends Controller
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
         $data['bases'] = $contest->getBases();
         $data['ganadores'] = [];
-        $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->name);
+        $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->getUrlName());
         $webController = new WebController;
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
         // CONCURSO POSTULACIONES ABIERTAS
@@ -135,11 +135,11 @@ class ContestController extends Controller
         }
         // CONCURSO INICIO DE LAS APUESTAS
         if ($contest->hasVotes()) {
-            return Redirect::to("concursos/{$contest->id}/{$contest->name}/ronda/1");
+            return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/1");
         }
         // CONCURSO FINALIZADO
         if ($contest->hasEnded()) {
-            return Redirect::to('estadisticas/{$contest->id}/{$contest->name}');
+            return Redirect::to('estadisticas/{$contest->id}/{$contest->getUrlName()}');
         }
         return view('concursos.inscripcion', $data);
     }
@@ -153,7 +153,7 @@ class ContestController extends Controller
             return Redirect::to(url('no-encontrado'));
         }
 //        if ($contest->end_vote_date > Carbon::now()) {
-//            return Redirect::to("concursos/{$contest->id}/{$contest->name}/ronda/1");
+//            return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/1");
 //        }
         $user = Auth::user();
         $data['modo'] = $contest->getMode()->name;
@@ -188,7 +188,7 @@ class ContestController extends Controller
         }
         // EL CONCURSO NO PERMITE VOTAR TODAVIA
         if (!$contest->hasVotes()) {
-            $contestRoute = "'/concursos/{$contest->id}/{$contest->name}'";
+            $contestRoute = "'/concursos/{$contest->id}/{$contest->getUrlName()}'";
             return Redirect::to($contestRoute);
         }
 
@@ -212,16 +212,30 @@ class ContestController extends Controller
         $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
         $counterRondas = VotesModel::getRondasCounter($contest->id, $user->id);
         $filters = $this->getFilters($request);
-        $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters);
+        $id = $request->query('id');
+        $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters, $id);
         $toBeJury = $contest->cost_jury - $user->getVotesInContest($contest->pool_id);
         $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas);
         $data['diferencia'] = $contest->end_vote_date;
-        $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
+        $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$currentRonda->order}");
+        $data['queryParams'] = count($request->query())? '?'.http_build_query($request->query()): '';
+        $data['categoriasSeleccionadas'] = $this->getCategoriasSeleccionadas($request, $filters); 
         $data['user'] = $user;
 
         return view($view, $data);
     }
 
+    private function getCategoriasSeleccionadas($request, $filters) {
+        $hasFilters = count($request->query());
+        if($hasFilters) {
+            $text = array_key_exists('etiquetas', $filters)? str_replace(';',' - ', $filters['etiquetas']): '';
+            $text .= array_key_exists('busqueda', $filters)? $filters['busqueda']: '';
+
+            return $text;
+        }
+
+        return '';
+    }
     private function getFilters(Request $request)
     {
         $params = $request->all();
@@ -252,7 +266,7 @@ class ContestController extends Controller
         $userHasVoted = VotesModel::hasEnoughVotes($storyId, $user->id);
         if (!$userHasVoted) {
             $contest = ContestModel::find($cpa->contest_id);
-            return Redirect::to("concursos/{$contest->id}/{$contest->name}");
+            return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}");
         }
         // SUMAMOS UNA VISTA
         $this->addOneViewMore($cpa);
@@ -272,8 +286,8 @@ class ContestController extends Controller
         }
         $data['txs'] = $cpa->getTransactions();
         $data['fichasApostadas'] = VotesModel::getVotesCount($contest->id, $user->id, $currentRonda->order, $cpa->id);
-        $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$currentRonda->order}");
-        $data['backUrl'] = url("concursos/{$contest->id}/{$contest->name}/ronda/{$lastRound}");
+        $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$currentRonda->order}");
+        $data['backUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$lastRound}");
         $data['isJuradoVip'] = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
 
         return view('concursos.cuento_completo', $data);
@@ -299,7 +313,7 @@ class ContestController extends Controller
         $data = $this->getUserData();
         $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->with(['logos', 'owner'])->orderBy('prize_percentage', 'desc')->first();
         if (!$cpa) {
-            return Redirect::to('concursos/{$contest->}/{$contest->name}/ronda/1');
+            return Redirect::to('concursos/{$contest->}/{$contest->getUrlName()}/ronda/1');
         }
         $logo = $cpa->logos()->first();
         $avatar = $cpa->owner()->first()->avatar()->first();
