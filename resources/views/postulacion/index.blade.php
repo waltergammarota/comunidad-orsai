@@ -261,7 +261,7 @@
         @endif
         <section class="contenedor otras_prop">
             <div class="miga_orsai">
-                <a href="{{url('concursos/'.$concurso->id.'/'.$concurso->name)}}"
+                <a href="{{url('concursos/'.$concurso->id.'/'.$concurso->getUrlName())}}"
                    class="text_bold boton_redondeado resaltado_gris">&laquo; Volver al
                     concurso</a>
             </div>

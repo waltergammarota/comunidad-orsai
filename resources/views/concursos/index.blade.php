@@ -63,7 +63,7 @@
                                 @else
                                     <div class="cont_concurso">
                                         @endif
-                                        <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->name))}}">
+                                        <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->getUrlName()))}}">
                                             <div class="padding_item">
                                                 <div class="portada_item">
                                                     @if($concurso->image > 0)
