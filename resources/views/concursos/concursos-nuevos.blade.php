@@ -107,7 +107,7 @@
                                             @else
                                                 <div class="card active">
                                                     @endif
-                                                    <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->name))}}">
+                                                    <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->getUrlName()))}}">
                                                         <div class="thumbnail">
                                                             @if($concurso->image > 0)
                                                                 <img

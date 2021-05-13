@@ -138,7 +138,7 @@
 
         function goToCpa() {
             event.preventDefault();
-            window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}`;
+            window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}`;
         }
 
     </script>

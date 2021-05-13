@@ -41,7 +41,7 @@
                                     <div class="align_left">
                                         @if($estado == "abierto")
                                             @if(!$hasPostulacion && $concurso->hasPostulacionesAbiertas())
-                                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}"
                                                    class="boton_redondeado resaltado_amarillo text_bold pd_50_lf_rg font_16">Subir
                                                     postulación &raquo;</a>
                                             @endif

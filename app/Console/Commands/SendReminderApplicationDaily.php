@@ -79,7 +79,7 @@ class SendReminderApplicationDaily extends Command
 
             /* Anuncio Votaciones abiertas */
             foreach ($users as $user) {
-                $href = url('concursos/' . $contest->id . '/' . $contest->name . '/ronda/1');
+                $href = url('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1');
 
                 $notification = new \stdClass();
                 $notification->subject = "Votaciones abiertas";
@@ -105,7 +105,7 @@ class SendReminderApplicationDaily extends Command
         foreach ($contests as $contest) {
 
             foreach ($users as $user) {
-                $href = route('concursos-show', [$contest->id, preg_replace('/\s+/', '-', $contest->name)]);
+                $href = route('concursos-show', [$contest->id, preg_replace('/\s+/', '-', $contest->getUrlName())]);
 
                 $notification = new \stdClass();
                 $notification->subject = "Cierre Postulación #" . $contest->id;
@@ -130,7 +130,7 @@ class SendReminderApplicationDaily extends Command
         foreach ($contests as $contest) {
 
             foreach ($users as $user) {
-                $href = url('estadisticas/' . $contest->id . '/' . $contest->name);
+                $href = url('estadisticas/' . $contest->id . '/' . $contest->getUrlName());
 
                 $notification = new \stdClass();
                 $notification->subject = "Concurso Finalizado";

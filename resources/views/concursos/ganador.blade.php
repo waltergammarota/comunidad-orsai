@@ -105,7 +105,7 @@
                         <div class="pos_rel gan_premio">
                             <div class="pos_abs">
                                 <p><strong>Premio:</strong> {{$cpa->prize_percentage}}% de las fichas del pozo</p>
-                                <a href="{{url('estadisticas/'.$concurso->id.'/'.$concurso->name.'?force=1')}}"
+                                <a href="{{url('estadisticas/'.$concurso->id.'/'.$concurso->getUrlName().'?force=1')}}"
                                    class="boton_redondeado resaltado_negro color_amarillo">Ver todos los
                                     ganadores</a>
                             </div>

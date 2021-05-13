@@ -87,7 +87,7 @@
                         @if($concurso->hasPostulacionesAbiertas())
                             <div class="hero-nav-item">
                                 <div class="content-nav center">
-                                    <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                    <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}"
                                        class="btn-postulacion">Subir mi postulación</a>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
             @if($estado == "abierto")
                 @if($concurso->hasPostulacionesAbiertas())
                     <div class="subir_postulacion">
-                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="btn-postulacion">Subir
+                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}" class="btn-postulacion">Subir
                             mi postulación</a>
                     </div>
                 @endif
@@ -108,7 +108,7 @@
     <section class="resaltado_gris cuerpo_inscripcion">
         <div class="contenedor_interna">
             <div class="cuerpo_interna">
-                {{-- <h2 class="cuerpo_inscripcion_title">{{$concurso->name}}</h2> --}}
+                {{-- <h2 class="cuerpo_inscripcion_title">{{$concurso->getUrlName()}}</h2> --}}
                 {!! $concurso->bajada_completa !!}
                 <div class="center-columns">
                     @if($bases)
@@ -117,7 +117,7 @@
                     @if($estado == "abierto")
                         @if($concurso->hasPostulacionesAbiertas())
                             <div class="align_center">
-                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}"
                                    class="boton_redondeado resaltado_amarillo text_bold width_100">Subir mi
                                     postulación</a>
                             </div>

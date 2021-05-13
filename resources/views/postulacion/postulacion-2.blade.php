@@ -266,12 +266,12 @@
 
         function goToChapter(chapterNumber) {
             event.preventDefault();
-            window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->name.'/capitulos')}}/${chapterNumber}`;
+            window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName().'/capitulos')}}/${chapterNumber}`;
         }
 
         function goToCpa() {
             event.preventDefault();
-            window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}`;
+            window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}`;
         }
 
         function deleteCpa(orden) {
@@ -330,7 +330,7 @@
                     "title": title,
                     "body": body
                 }).then(response => {
-                    window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->name.'/finalizar')}}/${capId}`;
+                    window.location = `{{url('postulaciones/'.$concurso->id.'/'.$concurso->geUrlName().'/finalizar')}}/${capId}`;
                 }).catch(error => {
                     console.log(error);
                     alert("Ha ocurrido un error");

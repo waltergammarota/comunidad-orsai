@@ -1,7 +1,7 @@
 @foreach($concursos as $concurso)
     <div class="col-12 col-md-6 col-lg-4 article">
         <div class="card active">
-            <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->name))}}">
+            <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->getUrlName()))}}">
                 <div class="thumbnail">
                     @if($concurso->image > 0)
                         <img
