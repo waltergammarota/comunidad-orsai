@@ -225,27 +225,69 @@ class ContestController extends Controller
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$currentRonda->order}");
         $data['queryParams'] = count($request->query())? '?'.http_build_query($request->query()): '';
-        $data['categoriasSeleccionadas'] = $this->getCategoriasSeleccionadas($request, $filters); 
+        $data['categoriasSeleccionadas'] = $this->getCategoriasSeleccionadas($request, $filters, $contest);  
+        $data['filters'] = $this->getCountFilters($request);
         $data['user'] = $user;
 
         return view($view, $data);
     }
 
-    private function getCategoriasSeleccionadas($request, $filters) {
+    private function getCategoriasSeleccionadas($request, $filters, $contest) {
         $hasFilters = count($request->query());
+        $etiquetas = []; 
         if($hasFilters) {
-            $text = array_key_exists('etiquetas', $filters)? str_replace(';',' - ', $filters['etiquetas']): '';
-            $text .= array_key_exists('busqueda', $filters)? $filters['busqueda']: '';
+            $resultFilters = []; 
+            if(array_key_exists('etiquetas', $filters)){
+                $etiquetas = explode(';', $filters['etiquetas']);
+                for ($i = 0; $i < count($etiquetas); $i++) {
+                    $resultFilters[] = $etiquetas[$i];
+                } 
+            }
+            if(array_key_exists('busqueda', $filters)){
+                $resultFilters[] = $filters['busqueda'];
+            }
+            if(array_key_exists('destrabados', $filters)){
+                $resultFilters[] = 'Ver Destrabados';
+            }
+            if(array_key_exists('id', $filters)){
+                $order = ContestApplicationModel::getAnswersById($contest, $filters['id']);
+        
+                $resultFilters[] = $order;
+            } 
+           
+        return $resultFilters; 
 
-            return $text;
         }
 
         return '';
     }
-    private function getFilters(Request $request)
+    private function getCountFilters(Request $request)
     {
         $params = $request->all();
         $filters = [];
+        $count= 0;
+        if (array_key_exists('busqueda', $params) && $params['busqueda'] != '') {
+            $count++;
+        }
+        if (array_key_exists('etiquetas', $params) && $params['etiquetas'] != '') { 
+            $etiquetas = explode(';', $params['etiquetas']);
+            for ($i = 0; $i < count($etiquetas); $i++) {
+                $count++;
+            } 
+        }
+        if (array_key_exists('destrabados', $params) && $params['destrabados'] != "false") {
+            $count++;
+        }
+        if (array_key_exists('id', $params) && $params['id'] != "false") {
+            $count++;
+        }
+
+        return $count;
+    }
+    private function getFilters(Request $request)
+    {
+        $params = $request->all();
+         $filters = [];
         if (array_key_exists('busqueda', $params) && $params['busqueda'] != '') {
             $filters['busqueda'] = $params['busqueda'];
         }
@@ -255,7 +297,10 @@ class ContestController extends Controller
         if (array_key_exists('destrabados', $params) && $params['destrabados'] != "false") {
             $filters['destrabados'] = $params['destrabados'];
         }
-
+        if (array_key_exists('id', $params) && $params['id'] != '') {
+            $filters['id'] = $params['id'];
+        }
+ 
         return $filters;
     }
 

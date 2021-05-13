@@ -13037,20 +13037,22 @@ table#ranking_table.dataTable thead th.sorting::after{
     display:inline-block;
     width:50%;
 }
-.filtros_aplicados div:nth-child(2){
+.filtros_aplicados .cleanfilters{
     text-align: right;
-
 }
 .filtros_aplicados div:nth-child(1) span{
     font-size:14px;
     color:#808080;
 }
-.filtros_aplicados div:nth-child(2) span{
-    font-size:14px;
-    color:#333333;
-    cursor: pointer;
-    padding:20px 0px;
-
+.filtros_aplicados .tag-container{
+    width:100%;
+    text-align:left;
+}
+.filtros_aplicados .tag-container .tag{
+    color:#fff;
+    display: inline-block;
+    font-size: 0.8rem;
+    line-height: 21px;
 }
 
 

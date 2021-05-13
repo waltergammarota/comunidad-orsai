@@ -66,9 +66,9 @@ class SendReminderApplicationDaily extends Command
                     $notification = new \stdClass();
                     $notification->subject = "Inicio de Votaciones";
                     $notification->title = "¡Compartí tu postulación!";
-                    $notification->description = "<p><a href='" . $href . "'>Compartí tu postulación y sumá fichas para ganar el Concurso.</a></p>";
+                    $notification->description = "<p>Compartí tu postulación y sumá fichas para ganar el".$contest->name.".</p>";
                     $notification->button_url = $href;
-                    $notification->button_text = 'Mi postulación pública';
+                    $notification->button_text = 'Compartir mi postulación';
                     $notification->user_id = 1;
                     $notification->deliver_time = Carbon::now();
                     $notification->id = 0;
@@ -84,7 +84,7 @@ class SendReminderApplicationDaily extends Command
                 $notification = new \stdClass();
                 $notification->subject = "Votaciones abiertas";
                 $notification->title = "Votaciones abiertas";
-                $notification->description = "<p>Arrancan las apuestas del Concurso. <a href='" . $href . "'>¡Ponele fichas a las postulaciones que quieras!</a></p>";
+                $notification->description = "<p>Arrancan las apuestas del ". $contest->name .".<br/>¡Ponele fichas a las postulaciones que quieras!</p>";
                 $notification->button_url = $href;
                 $notification->button_text = 'Ir a Votaciones';
                 $notification->user_id = 1;
@@ -108,11 +108,11 @@ class SendReminderApplicationDaily extends Command
                 $href = route('concursos-show', [$contest->id, preg_replace('/\s+/', '-', $contest->getUrlName())]);
 
                 $notification = new \stdClass();
-                $notification->subject = "Cierre Postulación #" . $contest->id;
-                $notification->title = "¡Último día del Concurso #" . $contest->id ."!";
-                $notification->description = "<p>Último día para participar del Concurso. <a href='" . $href . "'>Cargá tu postulación acá</a></p>";
-                $notification->button_url = '';
-                $notification->button_text = '';
+                $notification->subject = "Cierre Postulaciones";
+                $notification->title = "¡Último día del Concurso!";
+                $notification->description = "<p>Último día para participar en el " . $contest->name .".</p>";
+                $notification->button_url = $href;
+                $notification->button_text = 'Cargá tu postulación';
                 $notification->user_id = 1;
                 $notification->deliver_time = Carbon::now();
                 $notification->id = 0;
@@ -135,7 +135,7 @@ class SendReminderApplicationDaily extends Command
                 $notification = new \stdClass();
                 $notification->subject = "Concurso Finalizado";
                 $notification->title = "¡Concurso Finalizado!";
-                $notification->description = "<p>Ya finalizó el ".$contest->name."</p>";
+                $notification->description = "<p>Ya finalizó el ".$contest->name.".</p>";
                 $notification->button_url = $href;
                 $notification->button_text = 'Mirá quiénes ganaron';
                 $notification->user_id = 1;

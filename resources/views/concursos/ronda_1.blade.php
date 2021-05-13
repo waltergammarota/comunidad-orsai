@@ -223,7 +223,7 @@
         input.focus();
 
         // Boton de tarjeta
-        $('.button_card a').on('click', function (e) {
+        $('.button_card a').on('click', function (e) { 
             if (!$(this).hasClass('clicked')) {
                 e.preventDefault();
                 const rondaOrder = {{$currentRonda->order}};
@@ -315,8 +315,13 @@
             updateVotes(element, order);
             
             animateCoin(element);
+                let rorder = parseInt(element.attr("order")) + 1; 
+                let cap_id = element.attr("data-cap_id"); 
 
-                element.attr("href", {{$currentRonda->order + 1}})
+                console.log(rorder);
+                console.log(cap_id);
+
+                element.attr("href", rorder+"?id="+cap_id)
 
                 if (order == 1) {
                     element.find(".tip-button__text").text("Leer descripción");

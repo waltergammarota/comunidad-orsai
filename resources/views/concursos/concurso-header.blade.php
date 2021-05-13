@@ -208,12 +208,32 @@
             <p class="">{{$currentRonda->bajada}}</p>  
             <span class="">{{$currentRonda->body}}</span>    
         </div>  
+
+        @php
+       //  var_dump(request()->all());   
+        @endphp
             @empty(!request()->all())
                 <div class="contenedor filtros_aplicados">
-                    <div>
-                        <span>{{$cpas->count()}} postulaciones encontradas para: {{$categoriasSeleccionadas}}</span>
+                    <div style="width:100%;">
+                        <span> 
+                            @if($filters>1)
+                            {{$filters}} filtros aplicados
+                            @else
+                            {{$filters}} filtro aplicado 
+                            @endif  
+                            @if($cpas->count()>1)
+                            / {{$cpas->count()}} postulaciones encontradas
+                            @else
+                            / {{$cpas->count()}} postulacion encontrada 
+                            @endif 
+                        </span>
+                        <div class="tag-container"> 
+                            @foreach ($categoriasSeleccionadas as $cat)  
+                                    <span class="tag">{{$cat}}</span> 
+                            @endforeach 
+                        </div>  
                     </div>
-                    <div>
+                    <div class="cleanfilters">
                         <a href="{{$baseUrl}}" id="borrar_filtro"><span class="icon icon-borrar_filtro"></span> Limpiar filtros</a>
                     </div>
                 </div> 
