@@ -39,15 +39,9 @@
                                     @else
                                         <span class="tip-button__text">Destrabar</span>
                                     @endif
-                                    <span class="icon"></span>
-                                    <div class="coin-wrapper">
-                                        <div class="coin">
-                                            <div class="coin__middle"></div>
-                                            <div class="coin__back"></div>
-                                            <div class="coin__front"></div>
-                                        </div>
-                                    </div>
-                                    <span class="num_coins">{{$currentRonda->cost}}</span>
+                                    <span class="icon icon-flecha_leitmotiv"></span>
+                                    <div class="num_coins"><span class="coin">
+                                        <img src="{{url('recursos/coin.svg')}}" /></span> <span class="coin_price">{{$currentRonda->cost}}</span></div>
                                 </a>
                             </div>
                         </div>
@@ -92,14 +86,19 @@
 
 @section('footer')
     @include("fundacion.footer-fundacion")
-    <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+    <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
+    <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
     <script>
-
+        @if($currentRonda->order == 2) 
+            $('html, body').animate({
+                scrollTop: $("#hero_fixed").offset().top
+            }, 1);
+        @endif
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
             if(event.offset['days'] != 0){
                 $(this).text(
-                    event.strftime('%-D día%!D %H:%M:%S')
+                    event.strftime('%-D día%!D %H:%M')
                 ); 
             }else{
                 $(this).text(
@@ -107,70 +106,7 @@
                 ); 
             }
         });
-        // Animación Coin
-        let tipButtons = $('.tipButtons')
-        let coin = $('.tipButtons .coin')
-        let button = $('.tip-button')
-
-        coin.maxMoveLoopCount = 90
-        coin.moveLoopCount = 0
-
-        const resetCoin = () => {
-            coin.css('--coin-x-multiplier', 0)
-            coin.css('--coin-scale-multiplier', 0)
-            coin.css('--coin-rotation-multiplier', 0)
-            coin.css('--shine-opacity-multiplier', 0.4)
-            coin.css('--shine-bg-multiplier', '50%')
-            coin.css('opacity', 1)
-            // Delay to give the reset animation some time before you can click again
-            setTimeout(function () {
-                button.clicked = false
-            }, 300)
-        }
-
-        const flipCoinLoop = () => {
-            coin.moveLoopCount++
-            let percentageCompleted = coin.moveLoopCount / coin.maxMoveLoopCount
-            coin.angle = -coin.maxFlipAngle * Math.pow((percentageCompleted - 1), 2) + coin.maxFlipAngle
-
-            // Calculate the scale and position of the coin moving through the air
-            coin.css('--coin-y-multiplier', -11 * Math.pow(percentageCompleted * 2 - 1, 4) + 11)
-            coin.css('--coin-x-multiplier', percentageCompleted)
-            coin.css('--coin-scale-multiplier', percentageCompleted * 0.6)
-            coin.css('--coin-rotation-multiplier', percentageCompleted * coin.sideRotationCount)
-
-            // Calculate the scale and position values for the different coin faces
-            // The math uses sin/cos wave functions to similate the circular motion of 3D spin
-            coin.css('--front-scale-multiplier', Math.max(Math.cos(coin.angle), 0))
-            coin.css('--front-y-multiplier', Math.sin(coin.angle))
-
-            coin.css('--middle-scale-multiplier', Math.abs(Math.cos(coin.angle), 0))
-            coin.css('--middle-y-multiplier', Math.cos((coin.angle + Math.PI / 2) % Math.PI))
-
-            coin.css('--back-scale-multiplier', Math.max(Math.cos(coin.angle - Math.PI), 0))
-            coin.css('--back-y-multiplier', Math.sin(coin.angle - Math.PI))
-
-            coin.css('--shine-opacity-multiplier', 4 * Math.sin((coin.angle + Math.PI / 2) % Math.PI) - 3.2)
-            coin.css('--shine-bg-multiplier', -40 * (Math.cos((coin.angle + Math.PI / 2) % Math.PI) - 0.5) + '%')
-
-            //Repeat animation loop
-            if (coin.moveLoopCount < coin.maxMoveLoopCount) {
-                if (coin.moveLoopCount === coin.maxMoveLoopCount - 6)
-                    button.addClass('shrink-landing')
-                window.requestAnimationFrame(flipCoinLoop)
-            } else {
-                button.addClass('coin-landed')
-                coin.css('opacity', 0)
-                setTimeout(function () {
-                    button.removeClass('shrink-landing', 'coin-landed')
-                    setTimeout(function () {
-                        resetCoin();
-                    }, 300)
-                }, 1500)
-            }
-        }
-
-
+          
         // Modal Jurado VIP
         function showModalJuradoVip() {
             $('#jurado_vip').modal();
@@ -324,41 +260,86 @@
             }
 
         }
+        function animateCoin(element){   
+            element.find('.coin img').css('position','absolute');    
+            element.find('.coin img').first().animate({
+                    width: "102%", 
+                    opacity: 0,  
+                    top: "-=100px",
+                    deg: 360}, 
+                    {
+                    duration: 500,
+                    step: function(now){ 
+                        element.find('.coin img').css({
+                            transform: "rotate(" + now + "deg)"
+                        });
+                    }
+                });
+
+            element.find('.coin img').clone().appendTo(element.find('.coin'));
+
+            setTimeout(function () { 
+                element.find('.coin img').last().animate({ 
+                    width: "102%", 
+                    opacity: 0,  
+                    top: "-=100px",
+                    deg: 360}, 
+                    {
+                    duration: 500,
+                    step: function(now){ 
+                        element.find('.coin img').last().css({
+                            transform: "rotate(" + now + "deg)"
+                        });
+                    }
+                });
+            }, 200)
+        }
+
+        // $('.coin').animate({
+        //     width: "toggle",
+        //     height: "toggle"
+        // }, {
+        //     duration: 5000,
+        //     specialEasing: {
+        //     width: "linear",
+        //     height: "easeOutBounce"
+        //     },
+        //     complete: function() {
+        //   //  $( this ).after( "<div>Animation complete.</div>" );
+        //     }
+        // });
 
         function changeCardState(e, element, order) {
 
             //Actualiza el valor en los filtros
             updateVotes(element, order);
+            
+            animateCoin(element);
 
-            // setTimeout(function() {
-            //     // Randomize the flipping speeds just for fun
-            //     coin.sideRotationCount = Math.floor(Math.random() * 5) * 90
-            //     coin.maxFlipAngle = (Math.floor(Math.random() * 4) + 3) * Math.PI
-            //     flipCoinLoop();
-            // }, 50)
+                element.attr("href", {{$currentRonda->order + 1}})
 
-            element.addClass("clicked");
-            element.attr("href", {{$currentRonda->order + 1}})
+                if (order == 1) {
+                    element.find(".tip-button__text").text("Leer descripción");
+                } else {
+                    element.find(".tip-button__text").text("Leer cuento completo");
+                }
+ 
+            
+            element.addClass("clicked"); 
+            setTimeout(function () { 
+                element.addClass("button_card-animate"); 
+                element.parent().parent().addClass("card-leitmotiv-animate");
 
-            if (order == 1) {
-                element.find(".tip-button__text").text("Leer descripción");
-            } else {
-                element.find(".tip-button__text").text("Leer cuento completo");
-            }
+            }, 400)
 
-
-            element.find(".num_fichas").text("");
-            element.find(".icon").not(".icon_flip").addClass("icon-flecha_leitmotiv");
-            element.find(".num_coins").hide();
-            element.find(".coin-wrapper").hide();
-
-
-            element.parent().parent().addClass("card-leitmotiv-animate");
-            if (element.parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))) {
-                element.parent().parent().addClass("color-1")
-            }
-            coin.hide();
-            element.addClass("button_card-animate");
+            setTimeout(function () { 
+                element.find(".num_fichas").text("");
+                if (element.parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))) {
+                    element.parent().parent().addClass("color-1")
+                }
+                element.find(".num_coins .coin_price").hide(); 
+                coin.hide();
+            }, 500)
 
         }
 
@@ -378,16 +359,7 @@
                 }
             });
         }
-
-
-        //Animacion de boton ficha
-        // const tip_Buttons = document.querySelectorAll('.button_card')
-        // tip_Buttons.forEach((button) => {
-        //     button.addEventListener('click', () => {
-        //         if (button.clicked) return
-        //         // button.find(".tip-button").classList.add('clicked')
-        //     })
-        // })
+ 
 
 
         $(".desp_mobile_tab .tabs_cli").on("click", function () {

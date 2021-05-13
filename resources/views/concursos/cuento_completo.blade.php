@@ -30,7 +30,7 @@
             <div id="mv_mobile_pro" class="cont_mobile_pro">
                 <aside id="md_pro" class="modulo_pro">
                     <div class="pro_star abierto">
-                        <img src="{{url('estilos/front2021/assets/svg/estrella.svg')}}" alt="">
+                        <img src="{{url('estilos/front2021/assets/SVG/estrella.svg')}}" alt="">
                         <span class="icon icon-down-open"></span>
                     </div>
                     <div class="_autor">
@@ -95,14 +95,14 @@
                     </div>
 
                     <div class="blog_texto"> 
-                        <p>{{$cpa->getAnswerByRonda($currentRonda, 2)}}</p>
+                        <p>{!! $cpa->getAnswerByRonda($currentRonda, 2) !!}</p>
                     </div>
                 </div>
                 <div class="grilla_form">
                     <div class="form_ctrl col_3">
                         <div class="align_left">
                             <a href="{{$backUrl}}"
-                               class="boton_redondeado btn_transparente_negro pd_50_lf_rg">Volver</a>
+                               class="boton_redondeado btn_transparente"><span class="icon-angle-left"></span> Volver</a>
                         </div>
                     </div>
                 </div>
@@ -151,28 +151,31 @@
     <script src="{{url('js/front2021/mCustomScrollbar/jquery.mCustomScrollbar.js')}}"></script>
     <script>
         let _contador = 1;
+ 
+        $(".apostarBtn").click(function (event) {
 
-        function apostar() {
+            event.preventDefault(); 
             const cap_id = {{$cpa->id}};
             const rondaOrder = 3;
             const amount = $("#md_apostar .activo").length;
 
-
-
             console.log(amount);
-            votar(cap_id, rondaOrder, amount);
+            votar(cap_id, rondaOrder, amount, $(this));
 
-        }
+         });
 
-        function votar(cap_id, rondaOrder, amount) {
+
+        function votar(cap_id, rondaOrder, amount, element) {
             axios.post('{{url('votar')}}', {
                 cap_id: cap_id,
                 amount: amount,
                 rondaOrder: rondaOrder
             }).then(response => {
+                $(element).closest('.selecc_fichas').find('.activo').addClass('apostado');
+                $(element).closest('.selecc_fichas').find('.activo').removeClass('activo');  
                 if (response.data.result.cap_id == {{$currentRonda->cost}}) {
                     $(".modulos_laterales .selecc_fichas p").text("Ya apostaste el máximo de fichas");
-                    $('.form_ctrl').hide();
+                    $('.modulo_apostar_cuento .form_ctrl').hide();
                 } else {
                     $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
                 }
@@ -191,52 +194,50 @@
             .mouseenter(function () {
                 var indice_ = $(".fichin").index(this);
 
-                for (var x = 0; x <= indice_; x++) {
-                    $(".fichin").eq(x).css("backgroundColor", "#ffe600");
-
+                for (var x = 0; x <= indice_; x++) { 
+                    if (!$(".fichin").eq(x).hasClass("apostado")) { 
+                        $(".fichin").eq(x).addClass("select");
+                    }
                 }
             })
             .mouseleave(function () {
                 var indice_ = $(".fichin").index(this);
                 for (var x = 0; x <= indice_; x++) {
-                    if (!$(".fichin").eq(x).hasClass("activo")) {
-                        if (!$(".fichin").eq(x).hasClass("apostado")) {
-                            $(".fichin").eq(x).css("backgroundColor", "");
-                        }
-                    }
+                    
+                if ($(".fichin").eq(x).hasClass("select")) {  
+                    $(".fichin").eq(x).removeClass("select");
+                }
+
+
+                    // if (!$(".fichin").eq(x).hasClass("activo")) {
+                    //     if (!$(".fichin").eq(x).hasClass("apostado")) {
+                    //         $(".fichin").eq(x).css("backgroundColor", "");
+                    //     }
+                    // }
 
                 }
             });
 
         /*Agregar o quitar fichas Si el usuario ya agrego con anteriorida van con la clase apostadas*/
         $(".fichin").on("click", function () {
-            var indice_click_ = $(".fichin").index(this);
-            $(".fichin.activo").css("backgroundColor", "");
+            var indice_click_ = $(".fichin").index(this); 
 
-            if ($(this).hasClass("activo")) {
-                var cant_fichas_apostar = $(".fichin.activo").length
-                $(".fichin.activo").removeClass("activo");
-                for (var x = 0; x < $(".fichin").length; x++) {
-                    if (!$(".fichin").eq(x).hasClass("apostado") && _contador < cant_fichas_apostar) {
-                        $(".fichin").eq(x).addClass("activo");
-                        _contador++;
-                    }
+            var obj_fichin = $(this).parent();
+            $(obj_fichin).find(".fichin.activo").removeClass("activo");   
+               
+            for (var x = 0; x <= indice_click_; x++) {
+                if (!$(".fichin").eq(x).hasClass("apostado")) {
+                    $(".fichin").eq(x).addClass("activo"); 
                 }
-            } else {
-                for (var x = 0; x <= indice_click_; x++) {
-                    if (!$(".fichin").eq(x).hasClass("apostado")) {
-                        $(".fichin").eq(x).addClass("activo");
-                    }
-                }
+            } 
 
-            }
             if ($(".fichin").hasClass("activo")) {
                 $(".modulo_apostar_cuento .form_ctrl button").attr("disabled", false);
             } else {
                 $(".modulo_apostar_cuento .form_ctrl button").attr("disabled", true);
             }
 
-                
+                   
             if (window.matchMedia("(max-width: 992px)").matches) {
                 var cantidad = $(".cont_mobile_apostar .fichin.activo").length;
                 if(cantidad==1){

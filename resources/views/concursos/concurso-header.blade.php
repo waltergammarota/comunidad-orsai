@@ -1,23 +1,23 @@
 <section class="inscripcion-cuento">
     <div class="contenedor">
-        <div class="hero">
-            <div class="content-hero">
-                <p class="pills">Votación</p>
-                <h2 class="title">{{$concurso->name}}</h2>
-                <p class="subtitle"><strong class="color_amarillo">¿Estás ok para ser jurado?</strong> Solo tenés
-                    que tener fichas disponibles y muchas ganas de apostarle a las historias que creas mejores. Ya
-                    podés empezar.</p>
-                <p><strong class="color_amarillo">Recordá que los primeros clics son gratis, pero para seguir
-                        avanzando en tus veredictos vas a necesitar fichas.</strong></p>
-            </div>
+        <div class="hero" 
             @if($logo)
-                <img src="{{url('storage/images/'.$logo->name.".".$logo->extension)}}" alt="" class="img_fondo">
+            style="background-image:url('{{url('storage/images/'.$logo->name.".".$logo->extension)}}')"
             @else
-                <img src="https://dev.comunidadorsai.org/recursos/front2021/fichas-donaciones.jpg" class="img_fondo"
-                     alt="">
+            style="background-image:url('{{'/recursos/front2021/fichas-donaciones.jpg'}}')"
             @endif
+        >
+            <div class="content-hero">  
+                    <p class="pills">Votación</p> 
+                <h2 class="title">{{$concurso->name}}</h2> 
+                    <p class="subtitle"><strong class="color_amarillo">¿Estás ok para ser jurado?</strong> Solo tenés
+                        que tener fichas disponibles y muchas ganas de apostarle a las historias que creas mejores. Ya
+                        podés empezar.</p>
+                    <p><strong class="color_amarillo">Recordá que los primeros clics son gratis, pero para seguir
+                            avanzando en tus veredictos vas a necesitar fichas.</strong></p> 
+                <div id="hero_fixed"></div>
+            </div> 
         </div>
-
         <nav class="hero-nav concurso_nav">
             <div class="hero-nav-content  owl-carousel owl-theme">
                 <div class="hero-nav-item linea">

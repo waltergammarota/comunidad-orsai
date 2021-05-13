@@ -7,7 +7,13 @@
 @section('content')
     <section class="inscripcion-cuento">
         <div class="contenedor">
-            <div class="hero">
+            <div class="hero" 
+                @if($logo)
+                style="background-image:url('{{url('storage/images/'.$logo->name.".".$logo->extension)}}')"
+                @else
+                style="background-image:url('{{'/recursos/front2021/fichas-donaciones.jpg'}}')"
+                @endif
+            >
                 <div class="content-hero ganador_hero">
                     <p class="pills">Finalizado</p>
                     <h2 class="title">{{$concurso->name}}</h2>
@@ -15,13 +21,7 @@
                     @if($bases)
                         <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
                     @endif
-                </div>
-                @if($logo)
-                    <img src="{{url('storage/images/'.$logo->name.".".$logo->extension)}}" alt="" class="img_fondo">
-                @else
-                    <img src="https://dev.comunidadorsai.org/recursos/front2021/fichas-donaciones.jpg" class="img_fondo"
-                         alt="">
-                @endif
+                </div> 
             </div>
 
 
@@ -131,12 +131,18 @@
     @include("fundacion.footer-fundacion")
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
-        $("#countdown_concurso")
-            .countdown("{{$diferencia}}", function (event) {
+        
+        $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
+            if(event.offset['days'] != 0){
                 $(this).text(
-                    event.strftime('%D días %H:%M:%S')
-                );
-            });
+                    event.strftime('%-D día%!D %H:%M')
+                ); 
+            }else{
+                $(this).text(
+                    event.strftime('%H:%M:%S')
+                ); 
+            }
+        });
         $(".hero-nav-content").owlCarousel({
             responsiveClass: true,
             dots: false,

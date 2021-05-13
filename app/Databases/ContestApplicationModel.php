@@ -192,6 +192,6 @@ class ContestApplicationModel extends Model
 
     public function getTransactions()
     {
-        return Transaction::where('cap_id', $this->id)->with('getFromUser')->get();
+        return Transaction::where('cap_id', $this->id)->with('getFromUser')->orderByDesc('id')->get();
     }
 }

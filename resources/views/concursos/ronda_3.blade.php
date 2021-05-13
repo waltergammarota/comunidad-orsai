@@ -110,11 +110,14 @@
     <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script>
- 
+            $('html, body').animate({
+                scrollTop: $("#hero_fixed").offset().top
+            }, 1); 
+
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
             if(event.offset['days'] != 0){
                 $(this).text(
-                    event.strftime('%-D día%!D %H:%M:%S')
+                    event.strftime('%-D día%!D %H:%M')
                 ); 
             }else{
                 $(this).text(
@@ -491,14 +494,35 @@
            // $(element).parent().find("form").val(cantidad);
         }
 
-        $(".fichin").on("click", function () { 
+        $(".fichin")
+            .mouseenter(function () {
+                var indice_click_ = $(this).parent().find(".fichin").index(this); 
+                var obj_fichin = $(this).parent(); 
+                
+                for (var x = 0; x <= indice_click_; x++) {
+                    if (!$(obj_fichin).find(".fichin").eq(x).hasClass("apostado")) { 
+                        $(obj_fichin).find(".fichin").eq(x).addClass("select");
+                    }
+                }
+            })
+            .mouseleave(function () {
+            var indice_click_ = $(this).parent().find(".fichin").index(this); 
+            var obj_fichin = $(this).parent(); 
+            for (var x = 0; x <= indice_click_; x++) {
+                if ($(obj_fichin).find(".fichin").eq(x).hasClass("select")) {  
+                    $(obj_fichin).find(".fichin").eq(x).removeClass("select");
+                }
+            }
+            }); 
+
+        $(".fichin").on("click", function () {
             var indice_click_ = $(this).parent().find(".fichin").index(this);
             var obj_fichin = $(this).parent();
-            $(obj_fichin).find(".fichin.activo").removeClass("activo");
+            $(obj_fichin).find(".fichin.activo").removeClass("activo"); 
             for (var x = 0; x <= indice_click_; x++) {
                 if (!$(obj_fichin).find(".fichin").eq(x).hasClass("apostado")) {
                     $(obj_fichin).find(".fichin").eq(x).addClass("activo")
-                }
+                } 
             }
 
             var cantidad = $(obj_fichin).find(".fichin.activo").length;
@@ -570,15 +594,18 @@
 
 
     //     var distance = $('.cd-main-content').offset().top;
+  
 
-    //     $(window).scroll(function () {
-    //         if ($(window).width() >= 1101) {
-    //             if ($(this).scrollTop() >= distance) {
-    //                 $(".cd-tab-filter").css("padding-top", "0px");
-    //             } else {
-    //                 $(".cd-tab-filter").css("padding-top", "40px");
-    //             }
-    //         }
-    //     });
+
+
+        // $(window).scroll(function () {
+        //     if ($(window).width() >= 1101) {
+        //         if ($(this).scrollTop() >= distance) {
+        //             $(".cd-tab-filter").css("padding-top", "0px");
+        //         } else {
+        //             $(".cd-tab-filter").css("padding-top", "40px");
+        //         }
+        //     }
+        // });
     // </script>
 @endsection

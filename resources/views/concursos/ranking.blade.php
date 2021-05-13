@@ -9,17 +9,21 @@
 
 @section('content')
     <section class="inscripcion-cuento">
-        <div class="contenedor">
-            <div class="hero">
+        <div class="contenedor"> 
+                <div class="hero" 
+                    @if($logo)
+                    style="background-image:url('{{url('storage/images/'.$logo->name.".".$logo->extension)}}')"
+                    @else
+                    style="background-image:url('{{'/recursos/front2021/fichas-donaciones.jpg'}}')"
+                    @endif
+                >
                 <div class="content-hero">
                     <p class="pills">Acá empieza la timba</p>
                     <h2 class="title">{{$contest->title}}</h2>
                     <p class="subtitle">Minuto a minuto te spoileamos todo lo que está pasando tras bambalinas para que
                         puedas apostar a las postulaciones <strong class="color_amarillo">más elegidas por la
                             Comunidad.</strong></p>
-                </div>
-                <img src="https://dev.comunidadorsai.org/recursos/front2021/fichas-donaciones.jpg" class="img_fondo"
-                     alt="">
+                </div> 
             </div>
 
 
