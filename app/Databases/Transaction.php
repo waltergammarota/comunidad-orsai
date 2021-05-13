@@ -117,7 +117,7 @@ class Transaction extends Model
         $porcentaje = env("PORCENTAJE_BALDEO", 10);
         return
             ["fechaProximoBaldeo" => Carbon::create($year, $nextMonth, $day),
-                "balance" => $balance * (1 - ($porcentaje / 100))
+                "balance" => round(ceil($balance * (1 - ($porcentaje / 100))),0)
             ];
     }
 

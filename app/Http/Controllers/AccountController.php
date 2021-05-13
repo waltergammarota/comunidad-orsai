@@ -230,11 +230,11 @@ class AccountController extends Controller
         }
         // EL CONCURSO TERMINÓ O YA HAY UN GANADOR
         if ($this->checkWinner($contestId) || $contest->end_date < now()) {
-            return Redirect::to("concursos/{$contest->id}/{$contest->name}");
+            return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}");
         }
         // YA NO SE PUEDE POSTULAR MÁS
         if (!$contest->hasPostulacionesAbiertas()) {
-            return Redirect::to("concursos/{$contest->id}/{$contest->name}");
+            return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}");
         }
         $data = $this->getUserData();
         // NO SE POSTULÓ O ESTÁ EN DRAFT
@@ -269,7 +269,7 @@ class AccountController extends Controller
             }
             return view("concursos.concurso-cuento", $data);
         }
-        return Redirect::to('concursos/' . $contest->id . '/' . $contest->name);
+        return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName());
     }
 
     public function preview(Request $request)
@@ -343,10 +343,10 @@ class AccountController extends Controller
         $contest = $cpa->contest()->first();
         $this->reorganizeChapters($capId, $orden);
         if ($orden == 1) {
-            $url = url("postulaciones/{$contest->id}/{$contest->name}");
+            $url = url("postulaciones/{$contest->id}/{$contest->getUrlName()}");
         } else {
             $ordenAnterior = $orden - 1;
-            $url = url("postulaciones/{$contest->id}/{$contest->name}/capitulos/1");
+            $url = url("postulaciones/{$contest->id}/{$contest->getUrlName()}/capitulos/1");
         }
         return response()->json(["status" => "sucess", "url" => $url]);
     }
@@ -389,7 +389,7 @@ class AccountController extends Controller
             $chapter->save();
         }
         $ordenSiguiente = $orden + 1;
-        return Redirect::to("postulaciones/{$cpa->contest_id}/{$contest->name}/capitulos/{$ordenSiguiente}");
+        return Redirect::to("postulaciones/{$cpa->contest_id}/{$contest->getUrlName()}/capitulos/{$ordenSiguiente}");
     }
 
     private function checkWinner($contestId)
