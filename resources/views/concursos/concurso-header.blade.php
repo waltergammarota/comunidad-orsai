@@ -166,7 +166,7 @@
                 @foreach($counterRondas as $ronda)
                 <li class="filter filter_{{$ronda->order}}"> 
                         @if($ronda->order == 1) 
-                            <a href="{{$ronda->order}}{{$queryParams}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
+                            <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
                             <span class="icon icon-carpeta_abierta"></span>
                         @else
                             @if($counterRondas->get($loop->index - 1)->cpas > 0)
