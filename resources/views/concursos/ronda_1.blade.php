@@ -26,8 +26,9 @@
                         @endforeach
                         <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
                             <div class="button_card">
-                                <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}?id={{$cpa->id}}" @else href="#" @endif
-                                class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
+                                <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}?id={{$cpa->id}}"
+                                   @else href="#" @endif
+                                   class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
                                    data-cap_id="{{$cpa->id}}" order="{{$currentRonda->order}}">
                                     @if($cpa->hasBeenVoted)
                                         @if($currentRonda->order == 1)
@@ -41,7 +42,8 @@
                                     @endif
                                     <span class="icon icon-flecha_leitmotiv"></span>
                                     <div class="num_coins"><span class="coin">
-                                        <img src="{{url('recursos/coin.svg')}}" /></span> <span class="coin_price">{{$currentRonda->cost}}</span></div>
+                                        <img src="{{url('recursos/coin.svg')}}"/></span> <span
+                                            class="coin_price">{{$currentRonda->cost}}</span></div>
                                 </a>
                             </div>
                         </div>
@@ -90,23 +92,23 @@
     <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
     <script>
-        @if($currentRonda->order == 2) 
-            $('html, body').animate({
-                scrollTop: $("#hero_fixed").offset().top
-            }, 1);
+        @if($currentRonda->order == 2)
+        $('html, body').animate({
+            scrollTop: $("#hero_fixed").offset().top
+        }, 1);
         @endif
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
-            if(event.offset['days'] != 0){
+            if (event.offset['days'] != 0) {
                 $(this).text(
                     event.strftime('%-D día%!D %H:%M')
-                ); 
-            }else{
+                );
+            } else {
                 $(this).text(
                     event.strftime('%H:%M:%S')
-                ); 
+                );
             }
         });
-          
+
         // Modal Jurado VIP
         function showModalJuradoVip() {
             $('#jurado_vip').modal();
@@ -223,7 +225,7 @@
         input.focus();
 
         // Boton de tarjeta
-        $('.button_card a').on('click', function (e) { 
+        $('.button_card a').on('click', function (e) {
             if (!$(this).hasClass('clicked')) {
                 e.preventDefault();
                 const rondaOrder = {{$currentRonda->order}};
@@ -260,16 +262,18 @@
             }
 
         }
-        function animateCoin(element){   
-            element.find('.coin img').css('position','absolute');    
+
+        function animateCoin(element) {
+            element.find('.coin img').css('position', 'absolute');
             element.find('.coin img').first().animate({
-                    width: "102%", 
-                    opacity: 0,  
+                    width: "102%",
+                    opacity: 0,
                     top: "-=100px",
-                    deg: 360}, 
-                    {
+                    deg: 360
+                },
+                {
                     duration: 500,
-                    step: function(now){ 
+                    step: function (now) {
                         element.find('.coin img').css({
                             transform: "rotate(" + now + "deg)"
                         });
@@ -278,20 +282,21 @@
 
             element.find('.coin img').clone().appendTo(element.find('.coin'));
 
-            setTimeout(function () { 
-                element.find('.coin img').last().animate({ 
-                    width: "102%", 
-                    opacity: 0,  
-                    top: "-=100px",
-                    deg: 360}, 
+            setTimeout(function () {
+                element.find('.coin img').last().animate({
+                        width: "102%",
+                        opacity: 0,
+                        top: "-=100px",
+                        deg: 360
+                    },
                     {
-                    duration: 500,
-                    step: function(now){ 
-                        element.find('.coin img').last().css({
-                            transform: "rotate(" + now + "deg)"
-                        });
-                    }
-                });
+                        duration: 500,
+                        step: function (now) {
+                            element.find('.coin img').last().css({
+                                transform: "rotate(" + now + "deg)"
+                            });
+                        }
+                    });
             }, 200)
         }
 
@@ -313,36 +318,32 @@
 
             //Actualiza el valor en los filtros
             updateVotes(element, order);
-            
+
             animateCoin(element);
-                let rorder = parseInt(element.attr("order")) + 1; 
-                let cap_id = element.attr("data-cap_id"); 
+            let rorder = parseInt(element.attr("order")) + 1;
+            let cap_id = element.attr("data-cap_id");
+            element.attr("href", rorder + "?id=" + cap_id)
 
-                console.log(rorder);
-                console.log(cap_id);
+            if (order == 1) {
+                element.find(".tip-button__text").text("Leer descripción");
+            } else {
+                element.find(".tip-button__text").text("Leer cuento completo");
+            }
 
-                element.attr("href", rorder+"?id="+cap_id)
 
-                if (order == 1) {
-                    element.find(".tip-button__text").text("Leer descripción");
-                } else {
-                    element.find(".tip-button__text").text("Leer cuento completo");
-                }
- 
-            
-            element.addClass("clicked"); 
-            setTimeout(function () { 
-                element.addClass("button_card-animate"); 
+            element.addClass("clicked");
+            setTimeout(function () {
+                element.addClass("button_card-animate");
                 element.parent().parent().addClass("card-leitmotiv-animate");
 
             }, 400)
 
-            setTimeout(function () { 
+            setTimeout(function () {
                 element.find(".num_fichas").text("");
                 if (element.parent().parent($(".cd-gallery li.color-1")) && $(this).parent().parent($(".cd-gallery li.color-1"))) {
                     element.parent().parent().addClass("color-1")
                 }
-                element.find(".num_coins .coin_price").hide(); 
+                element.find(".num_coins .coin_price").hide();
                 coin.hide();
             }, 500)
 
@@ -364,7 +365,6 @@
                 }
             });
         }
- 
 
 
         $(".desp_mobile_tab .tabs_cli").on("click", function () {

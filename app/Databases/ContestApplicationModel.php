@@ -94,15 +94,16 @@ class ContestApplicationModel extends Model
     }
 
     static function getAnswersById($contest, $id)
-    { 
+    {
         $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->with('answers.input');
-        $cpas = $cpas->where('id', $id); 
-        $num_id = ''; 
+        $cpas = $cpas->where('id', $id);
+        $num_id = '';
         foreach ($cpas->get() as $cpa) {
-            $num_id = str_pad($cpa->order, 3, 0 ,STR_PAD_LEFT);
+            $num_id = str_pad($cpa->order, 3, 0, STR_PAD_LEFT);
         }
-        return($num_id);
+        return ($num_id);
     }
+
     static function getApplications($contest, $rondas, $userId, $currentRonda, $filters, $id = false)
     {
         $previousRondaVotes = VotesModel::getVotes($contest->id, $userId, $currentRonda->order - 1);
