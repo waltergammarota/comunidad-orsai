@@ -109,7 +109,7 @@ class ContestController extends Controller
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
-
+        $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
         $cotizacion = CotizacionModel::getCurrentCotizacion();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
