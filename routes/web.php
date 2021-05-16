@@ -107,7 +107,7 @@ Route::get('transparencia/fichas', 'TransparenciaController@fichas')->name('tran
 Route::get('transparencia/dinero', 'TransparenciaController@dinero')->name('transparencia.dinero');
 Route::get('transparencia/usuario/{user_id}', 'TransparenciaController@index')->name('transparencia.user');
 Route::get('transparencia/cuento/{contest_id}', 'TransparenciaController@index')->name('transparencia.contest');
-Route::get('transparencia','TransparenciaController@index')->name('transparencia');
+Route::get('transparencia', 'TransparenciaController@index')->name('transparencia');
 
 Route::get(
     'transparencia-json',
@@ -127,8 +127,8 @@ Route::get(
 )->name("concursos-show");
 
 Route::get(
-    '/concursos/{id}/{name}/ganador',
-    'Contest\ContestController@ganador'
+    '/concursos/{contestId}/{contestName}/{ganador}',
+    'Contest\ContestController@show_winner'
 )->name("ganador");
 
 /* ACCESO RESTRINGIDO */

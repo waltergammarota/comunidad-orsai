@@ -8,6 +8,7 @@ use App\Databases\Transaction;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class checkWinners extends Command
 {

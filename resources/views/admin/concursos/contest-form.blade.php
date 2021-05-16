@@ -481,6 +481,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="bases">Texto página ganador</label>
+                                        @if ($contest && $contest->getPaginaGanador())
+                                            <input type="hidden" id="editar_pagina" value="0" name="editar_pagina">
+                                            <div class="form-control">
+                                                <a href="{{ url('admin/contenidos/' . $contest->getPaginaGanador()->id . '?concurso=' . $contest->id) }}">{{ $contest->getPaginaGanador()->title }}</a>
+                                            </div>
+                                            <button type="submit" class="btn btn-success" onclick="editarPagina()">
+                                                Guardar y Editar página de ganador
+                                            </button>
+                                        @else
+                                            <input type="hidden" id="crear_pagina" value="0" name="crear_pagina">
+                                            <button type="submit" class="btn btn-success" onclick="crearPagina()">
+                                                Guardar y
+                                                crear página
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-success float-right" id="submitBtn">Guardar</button>

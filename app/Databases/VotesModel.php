@@ -45,6 +45,9 @@ class VotesModel extends Model
             Transaction::createTransaction($args['user_id'], $args['pool_id'], $args['amount'],
                 "Votacion al concurso {$contest->name}",
                 $args['cap_id'], 'TRANSFER');
+            $cpa = ContestApplicationModel::find($args['cap_id']);
+            $cpa->votes = $cpa->votes + $args['amount'];
+            $cpa->save();
         }
     }
 

@@ -165,6 +165,11 @@ class ContestModel extends Model
         return ContenidoModel::where('contest_id', $this->id)->first();
     }
 
+    public function getPaginaGanador()
+    {
+        return ContenidoModel::where('contest_id', $this->id)->skip(1)->first();
+    }
+
     public function hasStarted()
     {
         return $this->start_date < now();
@@ -246,8 +251,31 @@ class ContestModel extends Model
         return ContestModel::where('pool_id', $poolId)->count() > 0;
     }
 
-    public function getUrlName() {
+    public function getUrlName()
+    {
         return str_replace(' ', '-', $this->name);
     }
 
+    public function getRanking()
+    {
+        return Transaction::select(DB::raw('sum(amount) as cant, transactions.*'))
+            ->where('to', $this->pool_id)
+            ->whereNotNull('cap_id')
+            ->groupBy('cap_id')
+            ->with('capId.owner')
+            ->limit(15)
+            ->orderByRaw('SUM(amount) DESC')
+            ->get();
+    }
+
+    public function getApostadores()
+    {
+        $querySql = "select count(*) as apostadores, t1.cap_id, votantes from (        select `from`, cap_id        from transactions        where `to` = {$this->pool_id}        and cap_id is not null        group by `cap_id`, `from`) t1        join (select cap_id, group_concat(DISTINCT `from`) as votantes        from transactions where `to` = {$this->pool_id}        and cap_id is not null        group by cap_id        ) t2        on t1.cap_id = t2.cap_id        group by t1.cap_id";
+        return DB::select($querySql);
+    }
+
+    public function hasWinner()
+    {
+        return ContestApplicationModel::where(["is_winner" => 1, "contest_id" => $this->id])->count();
+    }
 }

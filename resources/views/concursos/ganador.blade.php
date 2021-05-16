@@ -5,86 +5,8 @@
 
 
 @section('content')
-    <section class="inscripcion-cuento">
-        <div class="contenedor">
-            <div class="hero" 
-                @if($logo)
-                style="background-image:url('{{url('storage/images/'.$logo->name.".".$logo->extension)}}')"
-                @else
-                style="background-image:url('{{'/recursos/front2021/fichas-donaciones.jpg'}}')"
-                @endif
-            >
-                <div class="content-hero ganador_hero">
-                    <p class="pills">Finalizado</p>
-                    <h2 class="title">{{$concurso->name}}</h2>
-                    <p class="subtitle">{{$concurso->bajada_corta}}</p>
-                    @if($bases)
-                        <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
-                    @endif
-                </div> 
-            </div>
+    @include('concursos.concurso-header')
 
-
-            <nav class="hero-nav concurso_nav">
-                <div class="hero-nav-content  owl-carousel owl-theme">
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/reloj.svg')}}" alt="Cierre de votación">
-                        </div>
-                        <div class="content-nav column">
-                            <div>
-                                <span class="big-number_2 finalizado">finalizado</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/fichas.svg')}}" alt="Pozo acumulado">
-                        </div>
-                        <div class="content-nav column">
-
-                            <div>
-                                <span>Pozo acumulado</span>
-                                <div class="numero_dividido">
-                                    <span class="big-number_2">{{$cantidadFichasEnJuego}}</span>
-                                    <span class="_barlow_text">Fichas</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/ficha.svg')}}" alt="Modo Pozo">
-                        </div>
-                        <div class="content-nav">
-                            <span class="medio">Modo <br/> <strong>{{$modo}}</strong></span>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="content-nav column bajar">
-                            <div class="numero_dividido">
-                                <span class="big-number_3">{{$cantidadPostulacionesAprobadas}}</span>
-                                <span>Cuentos <br/>enviados</span>
-                            </div>
-                        </div>
-                        <div class="content-nav column  bajar">
-
-                            <div class="numero_dividido">
-                                <span class="big-number_3">{{$cuentistasInscriptos}}</span>
-                                <span>Participantes </span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item">
-                        <div class="content-nav center">
-                            <a href="{{url('mis-postulaciones')}}" class="btn-postulacion">Mis Postulaciones</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </section>
     <main class="cd-main-content resaltado_gris reset_min_height">
         <div class="height_50"></div>
         <div class="height_50"></div>
@@ -97,7 +19,7 @@
                                 <span class="boton_redondeado resaltado_negro color_amarillo">1º PUESTO</span>
                                 <span class="numero_linea_bt">{{str_pad($cpa->order,3,0, STR_PAD_LEFT)}}</span>
                             </div>
-                            <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 0)}}</h2>
+                            <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 1)}}</h2>
                             <a href="{{url('cuentos/'.$cpa->id)}}">Leer
                                 cuento <i
                                     class="icon icon-flecha_leitmotiv"></i></a>
@@ -131,16 +53,16 @@
     @include("fundacion.footer-fundacion")
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
-        
+
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
-            if(event.offset['days'] != 0){
+            if (event.offset['days'] != 0) {
                 $(this).text(
                     event.strftime('%-D día%!D %H:%M')
-                ); 
-            }else{
+                );
+            } else {
                 $(this).text(
                     event.strftime('%H:%M:%S')
-                ); 
+                );
             }
         });
         $(".hero-nav-content").owlCarousel({

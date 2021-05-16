@@ -8,138 +8,59 @@
 @endsection
 
 @section('content')
-    <section class="inscripcion-cuento">
-        <div class="contenedor"> 
-                <div class="hero" 
-                    @if($logo)
-                    style="background-image:url('{{url('storage/images/'.$logo->name.".".$logo->extension)}}')"
-                    @else
-                    style="background-image:url('{{'/recursos/front2021/fichas-donaciones.jpg'}}')"
-                    @endif
-                >
-                <div class="content-hero">
-                    <p class="pills">Acá empieza la timba</p>
-                    <h2 class="title">{{$contest->title}}</h2>
-                    <p class="subtitle">Minuto a minuto te spoileamos todo lo que está pasando tras bambalinas para que
-                        puedas apostar a las postulaciones <strong class="color_amarillo">más elegidas por la
-                            Comunidad.</strong></p>
-                </div> 
-            </div>
+    @include('concursos.concurso-header')
 
-
-            <nav class="hero-nav concurso_nav">
-                <div class="hero-nav-content  owl-carousel owl-theme">
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/reloj.svg')}}" alt="Cierre de votación">
+    @if($hasWinner)
+        <section class="fondo_gris_oscuro pd_50_tp ">
+            <article class="contenedor ft_size form_rel pd_15_extra ">
+                <div class="max_w_1100">
+                    <div class="card_ganador">
+                        <div class="btn_fichas_dinero">
+                            <h2 class="color_amarillo text_regular">Ganador</h2>
                         </div>
-                        <div class="content-nav column">
-                            <div>
-                                <span class="big-number_2 finalizado">finalizado</span>
+                        <!--inicia bloque ganador -->
+                        <div class="contenedor_bloques_">
+                            <div class="bloque_blanco ">
+                                <div class="datos_ganador">
+                                    <div class="cont_glogito">
+                                        <span class="boton_redondeado resaltado_amarillo color_negro">1º PUESTO</span>
+                                        <span class="numero_linea_bt">007</span>
+                                    </div>
+                                    <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 1)}}</h2>
+                                    <a href="{{url('cuentos/'.$cpa->id)}}" class="text_medium">Leer cuento <i
+                                            class="icon icon-flecha_leitmotiv"></i></a>
+                                </div>
+                                <div class="pos_rel gan_premio">
+                                    <div class="pos_abs">
+                                        <p><strong>Premio:</strong> {{$cpa->prize_percentage}} de las fichas del pozo
+                                        </p>
+                                        <p><strong>{{$cpa->prize_amount}}</strong> Fichas recibidas</p>
+                                        <p><strong>{{$cpa->getTotalVotes()}}</strong> apostadores</p>
+                                        <!-- <a href="#" class="boton_redondeado resaltado_negro color_amarillo">Ver todos los ganadores</a> -->
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/fichas.svg')}}" alt="Pozo acumulado">
-                        </div>
-                        <div class="content-nav column">
-
-                            <div>
-                                <span>Pozo acumulado</span>
-                                <div class="numero_dividido">
-                                    <span class="big-number_2">4502 </span>
-                                    <span class="_barlow_text">Fichas</span>
+                            <div class="bloque_amarillo_">
+                                <div class="pro_star">
+                                    <img src="{{(url('recursos/SVG/estrella.svg'))}}" alt="">
+                                </div>
+                                <div class="img_ganador">
+                                    <img src="{{(url('recursos/participantes/participante.jpg'))}}" alt="">
+                                </div>
+                                <div class="datos_ganador">
+                                    <span class="text_medium">Autor/a</span>
+                                    <span>{{$name}} {{$lastName}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="hero-nav-item linea">
-                        <div class="icon">
-                            <img src="{{url('estilos/front2021/assets/ficha.svg')}}" alt="Modo Pozo">
-                        </div>
-                        <div class="content-nav">
-                            <span class="medio">Modo <br/> <strong>Pozo</strong></span>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item linea">
-                        <div class="content-nav column bajar">
-                            <div class="numero_dividido">
-                                <span class="big-number_3">46 </span>
-                                <span>Cuentos <br/>enviados</span>
-                            </div>
-                        </div>
-                        <div class="content-nav column  bajar">
-
-                            <div class="numero_dividido">
-                                <span class="big-number_3">46 </span>
-                                <span>Participantes </span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-nav-item">
-                        <div class="content-nav center">
-                            <a href="#" class="btn-postulacion">Mis Postulaciones</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div class="subir_postulacion">
-                <a href="#" class="btn-postulacion">Mis Postulaciones</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="fondo_gris_oscuro pd_50_tp ">
-        <article class="contenedor ft_size form_rel pd_15_extra ">
-            <div class="max_w_1100">
-                <div class="card_ganador">
-                    <div class="btn_fichas_dinero">
-                        <h2 class="color_amarillo text_regular">Ganador</h2>
-                    </div>
-                    <!--inicia bloque ganador -->
-                    <div class="contenedor_bloques_">
-                        <div class="bloque_blanco ">
-                            <div class="datos_ganador">
-                                <div class="cont_glogito">
-                                    <span class="boton_redondeado resaltado_amarillo color_negro">1º PUESTO</span>
-                                    <span class="numero_linea_bt">007</span>
-                                </div>
-                                <h2 class="titulo">Título del cuento dos líneas</h2>
-                                <a href="#" class="text_medium">Leer cuento <i
-                                        class="icon icon-flecha_leitmotiv"></i></a>
-                            </div>
-                            <div class="pos_rel gan_premio">
-                                <div class="pos_abs">
-                                    <p><strong>Premio:</strong> 100% de las fichas del pozo</p>
-                                    <p><strong>450</strong> Fichas recibidas</p>
-                                    <p><strong>398</strong> apostadores</p>
-                                    <!-- <a href="#" class="boton_redondeado resaltado_negro color_amarillo">Ver todos los ganadores</a> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bloque_amarillo_">
-                            <div class="pro_star">
-                                <img src="{{(url('recursos/SVG/estrella.svg'))}}" alt="">
-                            </div>
-                            <div class="img_ganador">
-                                <img src="{{(url('recursos/participantes/participante.jpg'))}}" alt="">
-                            </div>
-                            <div class="datos_ganador">
-                                <span class="text_medium">Autor/a</span>
-                                <span>Nombre y Apellido</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </article>
-    </section>
+            </article>
+        </section>
+    @endif
 
     <section class="fondo_gris_oscuro pd_20_tp_bt ">
         <article class="contenedor ft_size form_rel pd_15_extra ">
             <div class="max_w_1100">
-
                 <div class="form_central_3 ">
                     <div class="btn_fichas_dinero">
                         <h2 class="color_amarillo text_regular">Ranking</h2>
@@ -156,90 +77,33 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="color_amarillo">1.</td>
-                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
-                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
-                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 156
-                                    </td>
-                                    <td class="align_right">
-                                        <div class="color_blanco_gris imagen_usuario">
-                                            <div>
-                                                <img
-                                                    src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                    alt="">
+                                @foreach($ranking as $row)
+                                    <tr>
+                                        <td class="color_amarillo">{{$loop->index + 1}}</td>
+                                        <td class="color_blanco_gris"><a href="#" target="_blank"
+                                                                         rel="noopener noreferrer"
+                                                                         class="color_blanco_gris">Cuento
+                                                ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}}</a>
+                                        </td>
+                                        <td class="color_amarillo align_right"><span class="icono icon-ficha"></span>
+                                            {{$row->cant}} votantes:
+                                        </td>
+                                        <td class="align_right">
+                                            <div class="color_blanco_gris imagen_usuario">
+                                                @foreach($avatares($row->cap_id) as $userId)
+                                                    <div>
+                                                        <img
+                                                            src="{{$getAvatar($userId)}}"
+                                                            alt="{{$userId}}">
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                            <div>
-                                                <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
-                                                     alt="">
+                                            <div class="cont_cant_apuestas">
+                                                <span class="color_blanco_gris">{{$apostadores($row->cap_id)}}</span>
                                             </div>
-                                            <div>
-                                                <img
-                                                    src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                    alt="">
-                                            </div>
-                                        </div>
-                                        <div class="cont_cant_apuestas">
-                                            <span class="color_blanco_gris">55</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="color_amarillo">2.</td>
-                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
-                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
-                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 95
-                                    </td>
-                                    <td class="align_right">
-                                        <div class="color_blanco_gris imagen_usuario">
-                                            <div>
-                                                <img
-                                                    src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                    alt="">
-                                            </div>
-                                            <div>
-                                                <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
-                                                     alt="">
-                                            </div>
-                                            <div>
-                                                <img
-                                                    src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                    alt="">
-                                            </div>
-                                        </div>
-                                        <div class="cont_cant_apuestas">
-                                            <span class="color_blanco_gris">85</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="color_amarillo">3.</td>
-                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
-                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
-                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 78
-                                    </td>
-                                    <td class="align_right">
-                                        <div class="color_blanco_gris imagen_usuario">
-                                            <div>
-                                                <img
-                                                    src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                    alt="">
-                                            </div>
-                                            <div>
-                                                <img src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
-                                                     alt="">
-                                            </div>
-                                            <div>
-                                                <img
-                                                    src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                    alt="">
-                                            </div>
-                                        </div>
-                                        <div class="cont_cant_apuestas">
-                                            <span class="color_blanco_gris">55</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -248,143 +112,14 @@
                 <div class="grilla_form">
                     <div class="form_ctrl col_3">
                         <div class="align_left">
-                            <a href="#" class="boton_redondeado btn_transparente_amarillo">Volver al concurso</a>
+                            <a href="{{url('concursos/'.$contest->id.'/'.$contest->getUrlName())}}"
+                               class="boton_redondeado btn_transparente_amarillo">Volver
+                                al concurso</a>
                         </div>
                     </div>
                 </div>
             </div>
         </article>
-    </section>
-
-    <section class="fondo_gris_oscuro pd_20_tp_bt ">
-        <article class="contenedor ft_size form_rel pd_15_extra ">
-            <div class="max_w_1100">
-
-                <div class="form_central_3 ">
-                    <div class="btn_fichas_dinero">
-                        <h2 class="color_amarillo text_regular">Ranking</h2>
-                    </div>
-                    <div class="tran_creditos transparencia ranking">
-                        <div class="cont_tabla">
-                            <table class="light-3" id="ranking_table">
-                                <thead>
-                                <tr>
-                                    <th class="color_blanco">Puesto</th>
-                                    <th class="color_blanco">Cuento</th>
-                                    <th class="color_blanco">Fichas</th>
-                                    <th class="color_blanco">Apostadores</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="color_amarillo">1.</td>
-                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
-                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
-                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 156
-                                    </td>
-                                    <td class="align_right">
-                                        <div class="color_blanco_gris imagen_usuario">
-                                            <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip"
-                                               title="Transparencia Ecónomica">
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                        alt="">
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="cont_cant_apuestas">
-                                            <span class="color_blanco_gris">55</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="color_amarillo">2.</td>
-                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
-                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
-                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 95
-                                    </td>
-                                    <td class="align_right">
-                                        <div class="color_blanco_gris imagen_usuario">
-                                            <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip"
-                                               title="Transparencia Ecónomica">
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                        alt="">
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="cont_cant_apuestas">
-                                            <span class="color_blanco_gris">85</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="color_amarillo">3.</td>
-                                    <td class="color_blanco_gris"><a href="#" target="_blank" rel="noopener noreferrer"
-                                                                     class="color_blanco_gris">Cuento ID 675528</a></td>
-                                    <td class="color_amarillo align_right"><span class="icono icon-ficha"></span> 78
-                                    </td>
-                                    <td class="align_right">
-                                        <div class="color_blanco_gris imagen_usuario">
-                                            <a href="{{ route('transparencia.contest', 16) }}" data-toggle="tooltip"
-                                               title="Transparencia Ecónomica">
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/usuario.png')}}"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <img
-                                                        src="{{url('estilos/front2021/assets/participantes/participante.jpg')}}"
-                                                        alt="">
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="cont_cant_apuestas">
-                                            <span class="color_blanco_gris">55</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="grilla_form">
-                    <div class="form_ctrl col_3">
-                        <div class="align_left">
-                            <a href="#" class="boton_redondeado btn_transparente_amarillo">Volver al concurso</a>
-                            >>>>>>> comunidad-beta-01
-                        </div>
-        </article>
-
     </section>
 @endsection
 
@@ -431,8 +166,7 @@
                 "lengthChange": false,
                 "paging": false,
                 "info": false,
-                "ordering": true,
-                "order": [[0, "asc"]],
+                "ordering": false,
                 language: lang,
             });
         });

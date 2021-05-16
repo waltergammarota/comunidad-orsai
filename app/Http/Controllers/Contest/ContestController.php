@@ -19,8 +19,6 @@ use App\Databases\CotizacionModel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\WebController;
 use App\Repositories\FileRepository;
-use App\Repositories\TransactionRepository;
-use App\Repositories\UserRepository;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -111,7 +109,7 @@ class ContestController extends Controller
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
-        
+
         $cotizacion = CotizacionModel::getCurrentCotizacion();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
@@ -148,38 +146,6 @@ class ContestController extends Controller
         return view('concursos.inscripcion', $data);
     }
 
-    public function ganador(Request $request)
-    {
-        $contestId = $request->route('id');
-        $data = $this->getUserData();
-        $contest = ContestModel::find($contestId);
-        if ($contest == null) {
-            return Redirect::to(url('no-encontrado'));
-        }
-//        if ($contest->end_vote_date > Carbon::now()) {
-//            return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/1");
-//        }
-        $user = Auth::user();
-        $data['modo'] = $contest->getMode()->name;
-        $data['logo'] = $contest->logo();
-        $data['concurso'] = $contest;
-        $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
-        $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
-        $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
-        $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
-        $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
-        $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->first();
-        $lastRonda = 3;
-        $data['currentRonda'] = RondaModel::getRonda($contestId, $lastRonda);
-        $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
-        $data['cpa'] = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $data['currentRonda'], [], $cpa->id)->first();
-        $data['diferencia'] = $contest->end_date;
-        $data['bases'] = $contest->getBases();
-        $data['page'] = $contest->getBases();
-
-        return view('concursos.ganador', $data);
-    }
-
     public function show_ronda(Request $request)
     {
         $data = $this->getUserData();
@@ -197,6 +163,10 @@ class ContestController extends Controller
             return Redirect::to($contestRoute);
         }
 
+        if ($contest->hasWinner()) {
+            return Redirect::to('estadisticas/' . $contest->id . '/' . $contest->getUrlName());
+        }
+
         $view = "concursos/ronda_1";
         if ($currentRonda->order > 2) {
             $view = "concursos/ronda_{$currentRonda->order}";
@@ -205,7 +175,7 @@ class ContestController extends Controller
         $logo = $contest->logo();
         $cierreDiff = Carbon::now()->diffInHours($contest->end_vote_date) . ':' . Carbon::now()->diff($contest->end_vote_date)->format('%I:%S');
         $cantidadFichasEnJuego = $this->convertToK($contest->cantidadFichasEnJuego());
-        $cotizacion = CotizacionModel::getCurrentCotizacion(); 
+        $cotizacion = CotizacionModel::getCurrentCotizacion();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $modo = $contest->getMode()->name;
         $cantidadPostulacionesAprobadas = $this->convertToK($contest->cantidadPostulaciones());
@@ -224,56 +194,38 @@ class ContestController extends Controller
         $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas, $usuariosqueVotaron);
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$currentRonda->order}");
-        $data['queryParams'] = count($request->query())? '?'.http_build_query($request->query()): '';
-        $data['categoriasSeleccionadas'] = $this->getCategoriasSeleccionadas($request, $filters, $contest);  
-        $data['filters'] = $this->getCountFilters($request);
+        $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
+        $data['categoriasSeleccionadas'] = $this->getCategoriasSeleccionadas($request, $filters);
         $data['user'] = $user;
+        $data['hasWinner'] = $contest->hasWinner();
 
         return view($view, $data);
     }
 
-    private function getCategoriasSeleccionadas($request, $filters, $contest) {
+    private function getCategoriasSeleccionadas($request, $filters)
+    {
         $hasFilters = count($request->query());
-        $etiquetas = []; 
-        if($hasFilters) {
-            $resultFilters = []; 
-            if(array_key_exists('etiquetas', $filters)){
-                $etiquetas = explode(';', $filters['etiquetas']);
-                for ($i = 0; $i < count($etiquetas); $i++) {
-                    $resultFilters[] = $etiquetas[$i];
-                } 
-            }
-            if(array_key_exists('busqueda', $filters)){
-                $resultFilters[] = $filters['busqueda'];
-            }
-            if(array_key_exists('destrabados', $filters)){
-                $resultFilters[] = 'Ver Destrabados';
-            }
-            if(array_key_exists('id', $filters)){
-                $order = ContestApplicationModel::getAnswersById($contest, $filters['id']);
-        
-                $resultFilters[] = $order;
-            } 
-           
-        return $resultFilters; 
-
+        if ($hasFilters) {
+            $text = array_key_exists('etiquetas', $filters) ? str_replace(';', ' - ', $filters['etiquetas']) : '';
+            $text .= array_key_exists('busqueda', $filters) ? $filters['busqueda'] : '';
         }
 
         return '';
     }
-    private function getCountFilters(Request $request)
+
+    private function getFilters(Request $request)
     {
         $params = $request->all();
         $filters = [];
-        $count= 0;
+        $count = 0;
         if (array_key_exists('busqueda', $params) && $params['busqueda'] != '') {
             $count++;
         }
-        if (array_key_exists('etiquetas', $params) && $params['etiquetas'] != '') { 
+        if (array_key_exists('etiquetas', $params) && $params['etiquetas'] != '') {
             $etiquetas = explode(';', $params['etiquetas']);
             for ($i = 0; $i < count($etiquetas); $i++) {
                 $count++;
-            } 
+            }
         }
         if (array_key_exists('destrabados', $params) && $params['destrabados'] != "false") {
             $count++;
@@ -284,25 +236,7 @@ class ContestController extends Controller
 
         return $count;
     }
-    private function getFilters(Request $request)
-    {
-        $params = $request->all();
-         $filters = [];
-        if (array_key_exists('busqueda', $params) && $params['busqueda'] != '') {
-            $filters['busqueda'] = $params['busqueda'];
-        }
-        if (array_key_exists('etiquetas', $params) && $params['etiquetas'] != '') {
-            $filters['etiquetas'] = $params['etiquetas'];
-        }
-        if (array_key_exists('destrabados', $params) && $params['destrabados'] != "false") {
-            $filters['destrabados'] = $params['destrabados'];
-        }
-        if (array_key_exists('id', $params) && $params['id'] != '') {
-            $filters['id'] = $params['id'];
-        }
- 
-        return $filters;
-    }
+
 
     public function show_cuento(Request $request)
     {
@@ -320,6 +254,7 @@ class ContestController extends Controller
             return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}");
         }
         // SUMAMOS UNA VISTA
+
         $this->addOneViewMore($cpa);
         $contest = ContestModel::find($cpa->contest_id);
         $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
@@ -344,14 +279,12 @@ class ContestController extends Controller
         return view('concursos.cuento_completo', $data);
     }
 
-
     private function convertToK($amount)
     {
         if ($amount > 1000) {
             $amount = $amount / 1000;
 
-            return "{
-                $amount}K";
+            return "{$amount}K";
         }
 
         return $amount;
@@ -362,36 +295,88 @@ class ContestController extends Controller
         $contestId = $request->contestId;
         $contest = ContestModel::find($contestId);
         $data = $this->getUserData();
-        $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->with(['logos', 'owner'])->orderBy('prize_percentage', 'desc')->first();
-        if (!$cpa) {
-            return Redirect::to('concursos/{$contest->}/{$contest->getUrlName()}/ronda/1');
+        $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->with(['logos', 'owner', 'answers'])->orderBy('prize_percentage', 'desc')->first();
+        $data['hasWinner'] = false;
+        if ($cpa) {
+            $data['hasWinner'] = true;
+            $logo = $cpa->logos()->first();
+            $avatar = $cpa->owner()->first()->avatar()->first();
+            $data['logo'] = null;
+            if ($logo) {
+                $data['logo'] = url('storage/logo/' . $logo->name . "." . $logo->extension);
+            }
+            if ($avatar != null) {
+                $data['avatar'] = url('storage/images/' . $avatar->name . "." . $avatar->extension);
+            } else {
+                $data['avatar'] = url('img/participantes/usuario.png');
+            }
+            $user = $cpa->owner;
+            $data['propuestaID'] = $cpa->id;
+            $data['userName'] = $user->userName;
+            $data['votes'] = $cpa->votes;
+            $data['name'] = $user->name;
+            $data['lastName'] = $user->lastName;
+            $data['country'] = $user->country;
+            $data['facebook'] = $user->facebook;
+            $data['instagram'] = $user->instagram;
+            $data['contest'] = $contest;
+            $data['concurso'] = $contest;
+            $data['rondas'] = VotesModel::getRondasWithVotes($contest, $user->id);
+            $lastRound = 3;
+            $data['currentRonda'] = $contest->getRondaByOrder($lastRound);
+            $cpa = ContestApplicationModel::getApplications($contest, $data['rondas'], $user->id, $data['currentRonda'], [], $cpa->id)[0];
+            $data['cpa'] = $cpa;
         }
-        $logo = $cpa->logos()->first();
-        $avatar = $cpa->owner()->first()->avatar()->first();
-        $data['logo'] = null;
-        if ($logo) {
-            $data['logo'] = url('storage/logo/' . $logo->name . "." . $logo->extension);
-        }
-        if ($avatar != null) {
-            $data['avatar'] = url('storage/images/' . $avatar->name . "." . $avatar->extension);
-        } else {
-            $data['avatar'] = url('img/participantes/usuario.png');
-        }
-        $user = $cpa->owner()->first();
-        $data['propuestaID'] = $cpa->id;
-        $data['userName'] = $user->userName;
-        $data['votes'] = $cpa->votes;
-        $data['name'] = $user->name;
-        $data['lastName'] = $user->lastName;
-        $data['country'] = $user->country;
-        $data['facebook'] = $user->facebook;
-        $data['instagram'] = $user->instagram;
-        $data['contest'] = $contest;
         $data['txs'] = Transaction::where('cap_id', $cpa->id)->inRandomOrder()->take(10)->get();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        $cotizacion = CotizacionModel::getCurrentCotizacion();
+        $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
+        $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
+        $data['isJuradoVip'] = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
+        $data['categories'] = $contest->form()->first()->getCategories();
+        $data['counterRondas'] = VotesModel::getRondasCounter($contest->id, $user->id);
+        $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
+        $data['hideFilterBar'] = true;
+        $data['ranking'] = $contest->getRanking();
+        $apostadores = collect($contest->getApostadores());
+        $votantes = rtrim($apostadores->reduce(function ($prev, $current) {
+            return $prev . $current->votantes . ',';
+        }), ',');
+
+        $votantesUsers = User::whereIn('id', explode(',', $votantes))->with('avatar')->get();
+        $data['getAvatar'] = function ($userId) use ($votantesUsers) {
+            $user = $votantesUsers->firstWhere('id', $userId);
+            if ($user && $user->avatar) {
+                return $user->getAvatarLink();
+            }
+            return 'http://orsai.test/estilos/front2021/assets/participantes/participante.jpg';
+        };
+
+        $data['avatares'] = function ($capId) use ($apostadores) {
+            return array_slice(explode(',', $apostadores->firstWhere('cap_id', $capId)->votantes), 0, 3);
+        };
+        $data['apostadores'] = function ($capId) use ($apostadores) {
+            return $apostadores->firstWhere('cap_id', $capId)->apostadores;
+        };
+
+        $data['hasWinner'] = $contest->hasWinner();
+        $data['modo'] = $contest->getMode()->name;
+        $data['page'] = $contest->getPaginaGanador();
+        // SI HERNAN ESCRIBIÓ ALGO PARA EL GANADOR ENTONCES REDIRIGIMOS A LA PAGINA DE GANADOR CON HTML
+        if ($contest->hasWinner() && $data['page'] && $request->ganador != "ganador" && !$request->get('force')) {
+            return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ganador');
+        }
+        $data['rankingPage'] = true;
+        // ESTAMOS EN LA PAGINA GANADOR CON HTML
+        if ($request->ganador == "ganador") {
+            $data['diferencia'] = $contest->end_date;
+            $data['bases'] = $contest->getBases();
+            return view('concursos.ganador', $data);
+        }
+        // SACAMOS LA URL DE ESTADISTICAS CUANDO ESTÁS PARADO AHÍ
 
         return view("concursos.ranking", $data);
     }
@@ -437,72 +422,6 @@ class ContestController extends Controller
 
         $forms = FormModel::all();
         return view('admin.concursos.contest-form', compact('contest', 'modes', 'now', 'imageUrl', 'types', 'per_winner', 'rondas', 'forms'));
-    }
-
-    private function validCantCaracteres($type, $cant_caracteres)
-    {
-        if (($type == 1 || $type == 2) && $cant_caracteres > 0) {
-            return true;
-        }
-        if ($type == 3) {
-            return true;
-        }
-        return false;
-    }
-
-    private function validCantMaxChapters($type, $cant_capitulos)
-    {
-        if ($type == 1 || $type == 3) {
-            return true;
-        }
-        if ($type == 2 && $cant_capitulos > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    private function validPrizeAmount($mode, $per_winner)
-    {
-        if ($mode == 1 && !in_array(0, $per_winner)) {
-            return true;
-        }
-        if ($mode > 1) {
-            return true;
-        }
-        return false;
-    }
-
-    private function validRequiredAmount($mode, $required_amount)
-    {
-        if ($mode == 1) {
-            return true;
-        }
-        if ($required_amount > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    private function validAmountUsd($mode, $amount_usd)
-    {
-        if ($mode == 1) {
-            return true;
-        }
-        if ($amount_usd > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    private function validAmountWinner($mode, $amount_winner)
-    {
-        if ($mode == 1 || $mode == 2) {
-            return true;
-        }
-        if ($mode == 2 && $amount_winner > 0) {
-            return true;
-        }
-        return false;
     }
 
     public function store(Request $request)
@@ -573,7 +492,6 @@ class ContestController extends Controller
         if ($contest->type == 1) {
             foreach ($request->title as $key => $value) {
                 $inputs = $request->inputs[$key] ?? [];
-
                 $ronda = new RondaModel();
                 $ronda->contest_id = $contest->id;
                 $ronda->solapa = $request->solapa[$key] ?? '';
@@ -618,7 +536,7 @@ class ContestController extends Controller
             "city" => null,
             "birth_date" => Carbon::now(),
             "birth_country" => "Argentina",
-            "email" => "concurso +{$contest->id}@gmail . com",
+            "email" => "concurso+{$contest->id}@gmail.com",
             "email_verified_at" => null,
             "password" => uniqid(),
             "role" => "user",
@@ -675,6 +593,7 @@ class ContestController extends Controller
             $imageKey = $image->id;
             $imageUrl = url('storage/images/' . $image->name . " . " . $image->extension);
         }
+
         return view('admin.concursos.contest-form', compact('contest', 'types', 'modes', 'now', 'imageUrl', 'per_winner', 'imageKey', 'rondas', 'forms'));
     }
 
@@ -822,6 +741,7 @@ class ContestController extends Controller
             ContestModel::where("id", $contest->id)->delete();
             return response()->json(["status" => "success", "msg" => "Concurso borrado"]);
         }
+
         return response()->json(["status" => "error", "message" => "Concurso no encontrado"], 400);
     }
 
@@ -844,22 +764,6 @@ class ContestController extends Controller
         $cpa->save();
     }
 
-    /**
-     * @param $concurso
-     * @param array $data
-     * @param $logo
-     * @param string $cierreDiff
-     * @param string $cantidadFichasEnJuego
-     * @param $modo
-     * @param string $cantidadPostulacionesAprobadas
-     * @param string $cuentistasInscriptos
-     * @param bool $isJuradoVip
-     * @param $categories
-     * @param $cpas
-     * @param $rondas
-     * @param $currentRonda
-     * @return array
-     */
     private function compactData($concurso, array $data, $logo, string $cierreDiff, string $cantidadFichasEnJuego, $modo, string $cantidadPostulacionesAprobadas, string $cuentistasInscriptos, bool $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas, $usuariosqueVotaron): array
     {
         $data['concurso'] = $concurso;
@@ -877,6 +781,7 @@ class ContestController extends Controller
         $data['toBeJury'] = $toBeJury;
         $data['counterRondas'] = $counterRondas;
         $data['usuariosqueVotaron'] = $usuariosqueVotaron;
+
         return $data;
     }
 
