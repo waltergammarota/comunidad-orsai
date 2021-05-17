@@ -159,7 +159,7 @@ class ContestController extends Controller
         }
         // EL CONCURSO NO PERMITE VOTAR TODAVIA
         if (!$contest->hasVotes()) {
-            $contestRoute = "'/concursos/{$contest->id}/{$contest->getUrlName()}'";
+            $contestRoute = "/concursos/{$contest->id}/{$contest->getUrlName()}";
             return Redirect::to($contestRoute);
         }
 
@@ -338,8 +338,8 @@ class ContestController extends Controller
             $data['currentRonda'] = $contest->getRondaByOrder($lastRound);
             $cpa = ContestApplicationModel::getApplications($contest, $data['rondas'], $user->id, $data['currentRonda'], [], $cpa->id)[0];
             $data['cpa'] = $cpa;
+            $data['txs'] = Transaction::where('cap_id', $cpa->id)->inRandomOrder()->take(10)->get();
         }
-        $data['txs'] = Transaction::where('cap_id', $cpa->id)->inRandomOrder()->take(10)->get();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
