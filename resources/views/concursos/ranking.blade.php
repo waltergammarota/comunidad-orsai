@@ -76,10 +76,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($ranking as $row) 
-                                @php
-                                //var_dump($row->capId );
-                                @endphp
+                                @foreach($ranking as $row)  
                                     <tr>
                                         <td class="color_amarillo">{{$loop->index + 1}}</td>
                                         <td class="color_blanco_gris"><a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
