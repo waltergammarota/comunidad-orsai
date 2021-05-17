@@ -309,14 +309,11 @@ class ContestController extends Controller
         $data = $this->getUserData();
         $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->with(['logos', 'owner', 'answers'])->orderBy('prize_percentage', 'desc')->first();
         $data['hasWinner'] = false;
+        $data['logo'] = $contest->logo();
         if ($cpa) {
             $data['hasWinner'] = true;
             $logo = $cpa->logos()->first();
             $avatar = $cpa->owner()->first()->avatar()->first();
-            $data['logo'] = null;
-            if ($logo) {
-                $data['logo'] = url('storage/logo/' . $logo->name . "." . $logo->extension);
-            }
             if ($avatar != null) {
                 $data['avatar'] = url('storage/images/' . $avatar->name . "." . $avatar->extension);
             } else {
