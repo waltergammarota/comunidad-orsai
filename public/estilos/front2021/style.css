@@ -5167,7 +5167,7 @@ div.tagsinput #tags_tag {
     .cuerpo_inscripcion {
         padding-top: 2rem;
     }
-
+ 
 
 
 
@@ -12718,7 +12718,7 @@ table#ranking_table.dataTable thead th.sorting::after{
     position: fixed;  
     bottom: 0; /* required */
     width:100%;
-    z-index: 5;
+    z-index: 9;
 }
 .cont_mobile_apostar .cerrar{
     position:absolute;
@@ -12741,7 +12741,7 @@ table#ranking_table.dataTable thead th.sorting::after{
 }
 .cont_mobile_apostar .modulo_apostar_cuento{
     padding:15px 30px;
-    max-height: 80px;
+    max-height: 120px;
     border-radius: 0px;
     overflow: hidden;
     -webkit-border-radius: 0px;
@@ -12785,9 +12785,8 @@ table#ranking_table.dataTable thead th.sorting::after{
 }
 
 .cont_mobile_apostar .modulo_apostar_cuento .selecc_fichas .fichas_{
-    margin:0 auto;
-    text-align: center;
-    margin-bottom:20px;
+    margin:20px auto;
+    text-align: center; 
 }
 .modulo_apostar_cuento .selecc_fichas .fichas_ div{
     width:40px;
@@ -15079,6 +15078,11 @@ margin-top:0;
 @media(max-width:768px){
     .card_rn_3 .card-leitmotiv__ .input_1{
         margin: 1rem 0;
+    }
+    .card_rn_3 .card-leitmotiv__ .input_3{
+        bottom: 0;
+        position:relative;
+        padding-right:0;
     }
     .card_rn_3 .selecc_fichas {
         text-align:center;

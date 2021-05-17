@@ -8,8 +8,7 @@
 @endsection
 
 @section('content')
-    @include('concursos.concurso-header')
-
+    @include('concursos.concurso-header') 
     @if($hasWinner)
         <section class="fondo_gris_oscuro pd_50_tp ">
             <article class="contenedor ft_size form_rel pd_15_extra ">
@@ -35,7 +34,7 @@
                                         <p><strong>Premio:</strong> {{$cpa->prize_percentage}} de las fichas del pozo
                                         </p>
                                         <p><strong>{{$cpa->prize_amount}}</strong> Fichas recibidas</p>
-                                        <p><strong>{{$cpa->getTotalVotes()}}</strong> apostadores</p>
+                                        <p><strong>{{$cpa->getTotalVotes()}}</strong> Jurados</p>
                                         <!-- <a href="#" class="boton_redondeado resaltado_negro color_amarillo">Ver todos los ganadores</a> -->
                                     </div>
                                 </div>
@@ -73,20 +72,23 @@
                                     <th class="color_blanco">Puesto</th>
                                     <th class="color_blanco">Cuento</th>
                                     <th class="color_blanco">Fichas</th>
-                                    <th class="color_blanco">Apostadores</th>
+                                    <th class="color_blanco">Jurados</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($ranking as $row)
+                                @foreach($ranking as $row) 
+                                @php
+                                //var_dump($row->capId );
+                                @endphp
                                     <tr>
                                         <td class="color_amarillo">{{$loop->index + 1}}</td>
-                                        <td class="color_blanco_gris"><a href="#" target="_blank"
+                                        <td class="color_blanco_gris"><a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
                                                                          rel="noopener noreferrer"
-                                                                         class="color_blanco_gris">Cuento
+                                                                         class="color_blanco_gris">
                                                 ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}}</a>
                                         </td>
                                         <td class="color_amarillo align_right"><span class="icono icon-ficha"></span>
-                                            {{$row->cant}} votantes:
+                                            {{$row->cant}} votantes
                                         </td>
                                         <td class="align_right">
                                             <div class="color_blanco_gris imagen_usuario">
@@ -113,7 +115,7 @@
                     <div class="form_ctrl col_3">
                         <div class="align_left">
                             <a href="{{url('concursos/'.$contest->id.'/'.$contest->getUrlName())}}"
-                               class="boton_redondeado btn_transparente_amarillo">Volver
+                               class="boton_redondeado btn_transparente_amarillo"><span class="icon-angle-left"></span> Volver
                                 al concurso</a>
                         </div>
                     </div>
@@ -128,7 +130,24 @@
     <link rel="stylesheet"
           href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script>
+    <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+    <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
+    <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+    <script> 
+        $('html, body').animate({
+            scrollTop: $("#hero_fixed").offset().top
+        }, 1); 
+        $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
+            if (event.offset['days'] != 0) {
+                $(this).text(
+                    event.strftime('%-D día%!D %H:%M')
+                );
+            } else {
+                $(this).text(
+                    event.strftime('%H:%M:%S')
+                );
+            }
+        });
 
         const lang = {
             "sProcessing": "Procesando...",

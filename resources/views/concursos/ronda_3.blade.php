@@ -109,10 +109,11 @@
 @include("fundacion.footer-fundacion")
     <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+    <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
     <script>
-            $('html, body').animate({
-                scrollTop: $("#hero_fixed").offset().top
-            }, 1); 
+        $('html, body').animate({
+            scrollTop: $("#hero_fixed").offset().top
+        }, 1);         
 
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
             if(event.offset['days'] != 0){

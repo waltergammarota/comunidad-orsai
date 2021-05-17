@@ -141,7 +141,7 @@ class ContestController extends Controller
         }
         // CONCURSO FINALIZADO
         if ($contest->hasEnded()) {
-            return Redirect::to('estadisticas/{$contest->id}/{$contest->getUrlName()}');
+            return Redirect::to("estadisticas/{$contest->id}/{$contest->getUrlName()}");
         }
         return view('concursos.inscripcion', $data);
     }
@@ -194,38 +194,65 @@ class ContestController extends Controller
         $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas, $usuariosqueVotaron);
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$currentRonda->order}");
-        $data[''] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
+        $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : ''; 
         $data['categoriasSeleccionadas'] = $this->getCategoriasSeleccionadas($request, $filters, $contest);
+        $data['filters'] = $this->getCountFilters($request);
         $data['user'] = $user;
+        $data['contest'] = $contest;
         $data['hasWinner'] = $contest->hasWinner();
 
         return view($view, $data);
     }
 
+    private function getCountFilters(Request $request)
+    {
+        $params = $request->all();
+        $count = 0;
+        if (array_key_exists('busqueda', $params) && $params['busqueda'] != '') {
+            $count++;
+        }
+        if (array_key_exists('etiquetas', $params) && $params['etiquetas'] != '') {
+            $etiquetas = explode(';', $params['etiquetas']);
+            for ($i = 0; $i < count($etiquetas); $i++) {
+                $count++;
+            }
+        }
+        if (array_key_exists('destrabados', $params) && $params['destrabados'] != "false") {
+            $count++;
+        }
+        if (array_key_exists('id', $params) && $params['id'] != "false") {
+            $count++;
+        }
+
+        return $count;
+    }
+
     private function getCategoriasSeleccionadas($request, $filters, $contest)
     {
         $hasFilters = count($request->query());
-        if ($hasFilters) {
-            $resultFilters = [];
-            if (array_key_exists('etiquetas', $filters)) {
+        $etiquetas = []; 
+        if($hasFilters) {
+            $resultFilters = []; 
+            if(array_key_exists('etiquetas', $filters)){
                 $etiquetas = explode(';', $filters['etiquetas']);
                 for ($i = 0; $i < count($etiquetas); $i++) {
                     $resultFilters[] = $etiquetas[$i];
-                }
+                } 
             }
-            if (array_key_exists('busqueda', $filters)) {
+            if(array_key_exists('busqueda', $filters)){
                 $resultFilters[] = $filters['busqueda'];
             }
-            if (array_key_exists('destrabados', $filters)) {
+            if(array_key_exists('destrabados', $filters)){
                 $resultFilters[] = 'Ver Destrabados';
             }
-            if (array_key_exists('id', $filters)) {
+            if(array_key_exists('id', $filters)){
                 $order = ContestApplicationModel::getAnswersById($contest, $filters['id']);
-
+        
                 $resultFilters[] = $order;
-            }
+            } 
+           
+        return $resultFilters; 
 
-            return $resultFilters;
         }
 
         return '';
@@ -234,18 +261,20 @@ class ContestController extends Controller
     private function getFilters(Request $request)
     {
         $params = $request->all();
-        $filters = [];
+         $filters = [];
         if (array_key_exists('busqueda', $params) && $params['busqueda'] != '') {
             $filters['busqueda'] = $params['busqueda'];
+        }
+        if (array_key_exists('etiquetas', $params) && $params['etiquetas'] != '') {
+            $filters['etiquetas'] = $params['etiquetas'];
         }
         if (array_key_exists('destrabados', $params) && $params['destrabados'] != "false") {
             $filters['destrabados'] = $params['destrabados'];
         }
-
         if (array_key_exists('id', $params) && $params['id'] != '') {
             $filters['id'] = $params['id'];
         }
-
+ 
         return $filters;
     }
 
@@ -310,6 +339,9 @@ class ContestController extends Controller
         $cpa = ContestApplicationModel::where("is_winner", 1)->where('contest_id', $contestId)->with(['logos', 'owner', 'answers'])->orderBy('prize_percentage', 'desc')->first();
         $data['hasWinner'] = false;
         $data['logo'] = $contest->logo();
+        $user = Auth::user();
+        $data['concurso'] = $contest;
+        $data['contest'] = $contest;
         if ($cpa) {
             $data['hasWinner'] = true;
             $logo = $cpa->logos()->first();
@@ -329,7 +361,6 @@ class ContestController extends Controller
             $data['facebook'] = $user->facebook;
             $data['instagram'] = $user->instagram;
             $data['contest'] = $contest;
-            $data['concurso'] = $contest;
             $data['rondas'] = VotesModel::getRondasWithVotes($contest, $user->id);
             $lastRound = 3;
             $data['currentRonda'] = $contest->getRondaByOrder($lastRound);
@@ -337,6 +368,7 @@ class ContestController extends Controller
             $data['cpa'] = $cpa;
             $data['txs'] = Transaction::where('cap_id', $cpa->id)->inRandomOrder()->take(10)->get();
         }
+        $data['diferencia'] = $contest->end_date;
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
@@ -391,29 +423,6 @@ class ContestController extends Controller
         // SACAMOS LA URL DE ESTADISTICAS CUANDO ESTÁS PARADO AHÍ
 
         return view("concursos.ranking", $data);
-    }
-
-    private function getCountFilters(Request $request)
-    {
-        $params = $request->all();
-        $count = 0;
-        if (array_key_exists('busqueda', $params) && $params['busqueda'] != '') {
-            $count++;
-        }
-        if (array_key_exists('etiquetas', $params) && $params['etiquetas'] != '') {
-            $etiquetas = explode(';', $params['etiquetas']);
-            for ($i = 0; $i < count($etiquetas); $i++) {
-                $count++;
-            }
-        }
-        if (array_key_exists('destrabados', $params) && $params['destrabados'] != "false") {
-            $count++;
-        }
-        if (array_key_exists('id', $params) && $params['id'] != "false") {
-            $count++;
-        }
-
-        return $count;
     }
 
     public function approve(Request $request)

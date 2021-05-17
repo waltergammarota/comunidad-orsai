@@ -1,6 +1,12 @@
 <section class="inscripcion-cuento">
     <div class="contenedor">
-        <div class="hero">
+        <div class="hero" 
+            @if($logo)    
+                style="background-image:url('{{url('storage/images/'.$logo->name.".".$logo->extension)}}')"
+            @else 
+                style="background-image:url('{{'/recursos/front2021/fichas-donaciones.jpg'}}')"
+            @endif
+            >
             @if($hasWinner)
                 <div class="content-hero ganador_hero">
                     <p class="pills">Finalizado</p>
@@ -23,15 +29,8 @@
                             @isset($bases)
                                 <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
                             @endisset
-                        </div>
-                        @if($logo)
-                            <img src="{{url('storage/images/'.$logo->name.".".$logo->extension)}}" alt=""
-                                 class="img_fondo">
-                        @else
-                            <img src="https://dev.comunidadorsai.org/recursos/front2021/fichas-donaciones.jpg"
-                                 class="img_fondo"
-                                 alt="">
-                        @endif
+                        </div> 
+                        <div id="hero_fixed"></div>
                 </div>
 
                 <nav class="hero-nav concurso_nav">
@@ -67,14 +66,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hero-nav-item linea">
+                        {{-- <div class="hero-nav-item linea">
                             <div class="icon">
                                 <img src="{{url('estilos/front2021/assets/modo_pozo.svg')}}" alt="Modo Pozo">
                             </div>
                             <div class="content-nav">
                                 <span class="medio">Modo <br/> <strong>{{$modo}}</strong></span>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="hero-nav-item linea">
                             <div class="content-nav column bajar">
                                 <div class="numero_dividido">
@@ -198,41 +197,41 @@
                 </ul>
                 <ul class="cd-filters">
                     @foreach($counterRondas as $ronda)
-                        <li class="filter filter_{{$ronda->order}}">
-                            @if($ronda->order == 1)
-                                <a href="{{$ronda->order}}{{$queryParams}}" data-type="all"
-                                   @if($currentRonda->order == $ronda->order) class="selected" @endif>
+                    @php
+                        //var_dump($ronda);
+                    @endphp
+                    <li class="filter filter_{{$ronda->order}}"> 
+                            @if($ronda->order == 1) 
+                                <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
+                                <span class="icon icon-carpeta_abierta"></span>
+                            @else
+                                @if($counterRondas->get($loop->index - 1)->cpas > 0)
+                                    <a href="{{$ronda->order}}{{$queryParams}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
                                     <span class="icon icon-carpeta_abierta"></span>
-                                    @else
-                                        @if($counterRondas->get($loop->index - 1)->cpas > 0)
-                                            <a href="{{$ronda->order}}{{$queryParams}}" data-type="all"
-                                               @if($currentRonda->order == $ronda->order) class="selected" @endif>
-                                                <span class="icon icon-carpeta_abierta"></span>
-                                                @else
-                                                    <div class="bloqued">
-                                                        <span class="icon icon-carpeta_cerrada"></span>
-                                                        @endif
-                                                        @endif
-                                                        {{$rondas->get($loop->index)->solapa}}
-                                                        @if($ronda->order == 1)
-                                                            <span
-                                                                class="counter_">(<small>{{$cantidadPostulacionesAprobadas}}</small>)</span>
-                                                        @else
-                                                            <span
-                                                                class="counter_">(<small>{{$counterRondas->get($loop->index - 1)->cpas}}</small>)</span>
-                                                @endif
-
-                                                @if($ronda->order == 1)
-                                            </a>
-                                        @else
-                                            @if($counterRondas->get($loop->index - 1)->cpas > 0)
+                                @else  
+                                <div class="bloqued">
+                                    <span class="icon icon-carpeta_cerrada"></span>
+                                @endif
+                            @endif
+                            {{$rondas->get($loop->index)->solapa}}
+                            @if($ronda->order == 1)
+                                <span class="counter_">(<small>{{$cantidadPostulacionesAprobadas}}</small>)</span>
+                            @else 
+                                <span class="counter_">(<small>{{$counterRondas->get($loop->index - 1)->cpas}}</small>)</span>
+                            @endif
+                            
+                            @if($ronda->order == 1) 
                                 </a>
-                @else
-            </div>
-            @endif
-            @endif
-            </li>
-            @endforeach
+                            @else
+                                @if($counterRondas->get($loop->index - 1)->cpas > 0) 
+                                </a>
+                                @else   
+                            </div>
+                                @endif
+                            @endif
+                        </li> 
+                        @endforeach 
+ 
             </ul> <!-- cd-filters -->
 
             <div class="desp_mobile_tab">
@@ -267,10 +266,9 @@
                             @endforeach
                         </div>
                     </div>
-                    <div>
+                    <div class="cleanfilters">
                         <a href="{{$baseUrl}}" id="borrar_filtro"><span class="icon icon-borrar_filtro"></span>
-                            Limpiar
-                            filtros</a>
+                            Limpiar filtros</a>
                     </div>
                 </div>
             @endempty

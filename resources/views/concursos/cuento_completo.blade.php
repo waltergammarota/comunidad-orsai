@@ -124,7 +124,7 @@
             <div class="grilla_form fuera_texto">
                 <div class="form_ctrl col_3">
                     <div class="align_left">
-                        <a href="#" class="boton_redondeado btn_transparente_negro pd_50_lf_rg">Volver</a>
+                        <a href="{{$backUrl}}" class="boton_redondeado btn_transparente"> <span class="icon-angle-left"></span>Volver</a>
                     </div>
                 </div>
             </div>
@@ -176,8 +176,12 @@
                 if (response.data.result.cap_id == {{$currentRonda->cost}}) {
                     $(".modulos_laterales .selecc_fichas p").text("Ya apostaste el máximo de fichas");
                     $('.modulo_apostar_cuento .form_ctrl').hide();
+                    $(".cont_mobile_apostar .selecc_fichas p").text("Ya apostaste el máximo de fichas");
                 } else {
                     $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
+                    $(".modulos_laterales").find(".form_ctrl button").text("Apostar");
+                    $(".cont_mobile_apostar .selecc_fichas p").text("Ponele fichas");
+                    $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar");
                 }
                 //console.log(response.data)
             }).catch(error => {
@@ -208,7 +212,6 @@
                     $(".fichin").eq(x).removeClass("select");
                 }
 
-
                     // if (!$(".fichin").eq(x).hasClass("activo")) {
                     //     if (!$(".fichin").eq(x).hasClass("apostado")) {
                     //         $(".fichin").eq(x).css("backgroundColor", "");
@@ -221,12 +224,14 @@
         /*Agregar o quitar fichas Si el usuario ya agrego con anteriorida van con la clase apostadas*/
         $(".fichin").on("click", function () {
             var indice_click_ = $(".fichin").index(this); 
+            var cantmax = 0;
 
             var obj_fichin = $(this).parent();
             $(obj_fichin).find(".fichin.activo").removeClass("activo");   
                
             for (var x = 0; x <= indice_click_; x++) {
                 if (!$(".fichin").eq(x).hasClass("apostado")) {
+                    cantmax = cantmax +1;
                     $(".fichin").eq(x).addClass("activo"); 
                 }
             } 
@@ -238,33 +243,45 @@
             }
 
                    
-            if (window.matchMedia("(max-width: 992px)").matches) {
-                var cantidad = $(".cont_mobile_apostar .fichin.activo").length;
-                if(cantidad==1){
-                    $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
-                    $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
-                }else{
-                    $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
-                    $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
-                }
-                $(".cont_mobile_apostar").find("form").val(cantidad);
-                $(".cont_mobile_apostar .modulo_apostar_cuento").css("max-height", "600px");
-                $(".cont_mobile_apostar .modulo_apostar_cuento .titulo").css("display", "block");
-                $(".cont_mobile_apostar .cerrar").css("display", "block");
-                $(".cont_mobile_apostar .cerrar").css("display", "block");
-                $(".cont_mobile_apostar .form_ctrl").css("display", "block");
-                $(".cont_mobile_apostar .modulo_apostar_cuento .selecc_fichas p").css("display", "block");
-            } else {
-                var cantidad = $(".modulos_laterales .fichin.activo").length;
-                $(".modulos_laterales").find("form").val(cantidad);
-                if(cantidad==1){
-                $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
-                $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
-                }else{
-                $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
-                $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
-                }
-            }
+                if (window.matchMedia("(max-width: 992px)").matches) {
+                    var cantidad = $(".cont_mobile_apostar .fichin.activo").length; 
+                        if(cantidad==1){
+                            $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
+                            $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
+                        }else{
+                            if(cantidad==0){ 
+                                $(".cont_mobile_apostar .selecc_fichas p").text("Ponele fichas");
+                                $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar");
+                            }else{
+                                $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
+                                $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
+                            }
+                        } 
+                        $(".cont_mobile_apostar").find("form").val(cantidad);
+                        $(".cont_mobile_apostar .modulo_apostar_cuento").css("max-height", "600px");
+                        $(".cont_mobile_apostar .modulo_apostar_cuento .titulo").css("display", "block");
+                        $(".cont_mobile_apostar .cerrar").css("display", "block"); 
+                        $(".cont_mobile_apostar .form_ctrl").css("display", "block");
+                        $(".cont_mobile_apostar .modulo_apostar_cuento .selecc_fichas p").css("display", "block");
+                    
+                } else {
+                    var cantidad = $(".modulos_laterales .fichin.activo").length;
+                  //  if(cantidad < cantmax){
+                        $(".modulos_laterales").find("form").val(cantidad);
+                        if(cantidad==1){
+                            $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
+                            $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
+                        }else{
+                            if(cantidad==0){ 
+                                $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
+                                $(".modulos_laterales").find(".form_ctrl button").text("Apostar");
+                            }else{
+                                $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
+                                $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
+                            }
+                        }
+                   // }
+                }  
         });
 
         /*Evita avanzar si el usuario no realiza una nueva apuesta*/
@@ -287,14 +304,13 @@
         /*Abre y cierra desplegables en mobile de fichas y modulo pro*/
         $(".cont_mobile_apostar .cerrar").on("click", function () {
 
-            $(".cont_mobile_apostar .modulo_apostar_cuento").css("max-height", "80px");
+            $(".cont_mobile_apostar .modulo_apostar_cuento").css("max-height", "120px");
             setTimeout(function () {
                 $(".cont_mobile_apostar .modulo_apostar_cuento .titulo").css("display", "none");
                 $(".cont_mobile_apostar .cerrar").css("display", "none");
                 $(".cont_mobile_apostar .modulo_apostar_cuento .selecc_fichas p").css("display", "none");
                 $(".cont_mobile_apostar .fichin.activo").css("backgroundColor", "");
-                $(".cont_mobile_apostar .fichin.activo").removeClass("activo");
-                $(".cont_mobile_apostar .selecc_fichas p").text("Ponele fichas");
+                $(".cont_mobile_apostar .fichin.activo").removeClass("activo"); 
                 $(".cont_mobile_apostar .form_ctrl").css("display", "none");
             }, 300);
 
@@ -327,7 +343,7 @@
                 }
                 if (!$("#mv_apostar").find("#md_apostar").length > 0) {
                     $("#mv_apostar").append($("#md_apostar"));
-                    $("#md_apostar.modulo_apostar_cuento").css("max-height", "80px");
+                    $("#md_apostar.modulo_apostar_cuento").css("max-height", "120px");
                 }
             } else {
                 if ($("#mv_mobile_pro").find("#md_pro").length > 0) {
@@ -347,7 +363,7 @@
             }
             if (!$("#mv_apostar").find("#md_apostar").length > 0) {
                 $("#mv_apostar").append($("#md_apostar"));
-                $("#md_apostar.modulo_apostar_cuento").css("max-height", "80px");
+                $("#md_apostar.modulo_apostar_cuento").css("max-height", "120px");
             }
         } else {
 
