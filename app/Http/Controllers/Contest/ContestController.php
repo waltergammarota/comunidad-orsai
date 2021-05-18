@@ -437,6 +437,9 @@ class ContestController extends Controller
         $capIds = implode(',', $ranking->toArray());
         $answers = AnswerModel::getAnswersByOrder($contest->id, $lastRound, $capIds);
         $data['getAnswer'] = function ($capId, $key) use ($answers) {
+            if ($answers->isEmpty()) {
+                return '';
+            }
             $inputs = $answers->filter(function ($answer) use ($capId) {
                 return $answer->cap_id == $capId;
             });

@@ -80,7 +80,7 @@ class checkWinners extends Command
                 case 2:
                     $this->info("completo");
                     $pozo = User::find($contest->pool_id)->getBalance();
-                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('votes', '>=', $contest->required_amount)->get();
+                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->where('votes', '>=', $contest->required_amount)->get();
                     foreach ($cpas as $cpa) {
                         $cpa->is_winner = 1;
                         $cpa->prize_amount = $contest->prize_amount;

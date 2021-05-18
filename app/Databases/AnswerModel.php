@@ -54,6 +54,9 @@ class AnswerModel extends Model
 
     static public function getAnswersByOrder($contestId, $order, $ids)
     {
+        if ($ids == "") {
+            return collect([]);
+        }
         return collect(DB::select("select ca.id, a.answer, a.input_id, a.cap_id from answers a
             join contest_applications ca on ca.id = a.cap_id
             where a.contest_id = {$contestId} and a.input_id IN (
