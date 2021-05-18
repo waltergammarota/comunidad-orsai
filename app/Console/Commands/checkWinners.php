@@ -62,10 +62,10 @@ class checkWinners extends Command
                         $data = "Ganador concurso {$contest->name}";
                         $tx = new Transaction(
                             [
-                                "from" => 1,
+                                "from" => $contest->pool_id,
                                 "to" => $cpa->user_id,
                                 "amount" => $prizeAmount,
-                                "type" => "MINT",
+                                "type" => "TRANSFER",
                                 "data" => $data
                             ]
                         );
