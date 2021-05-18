@@ -169,6 +169,10 @@ class ContestController extends Controller
             return Redirect::to('estadisticas/' . $contest->id . '/' . $contest->getUrlName());
         }
 
+        if ($contest->end_vote_date < Carbon::now() && !$contest->hasEnded() && !$contest->hasWinner()) {
+            return Redirect::to('estadisticas/' . $contest->id . '/' . $contest->getUrlName());
+        }
+
         $view = "concursos/ronda_1";
         if ($currentRonda->order > 2) {
             $view = "concursos/ronda_{$currentRonda->order}";
@@ -379,7 +383,7 @@ class ContestController extends Controller
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $data['isJuradoVip'] = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
-        if (!$data['hasWinner'] && !$data['isJuradoVip']) {
+        if (!$data['hasWinner'] && !$data['isJuradoVip'] && $contest->end_vote_date >= Carbon::now()) {
             return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1');
         }
         $data['categories'] = $contest->form()->first()->getCategories();
