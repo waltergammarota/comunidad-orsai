@@ -51,7 +51,7 @@ class checkWinners extends Command
                     $this->info("pozo");
                     $pozo = User::find($contest->pool_id)->getBalance();
                     $winnersDistribution = json_decode($contest->per_winner);
-                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->orderBy('votes', 'DESC')->take($contest->cant_winners)->get();
+                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->orderBy('votes', 'DESC')->take($contest->cant_winners)->get();
                     foreach ($cpas as $cpa) {
                         $counter = 0;
                         $cpa->is_winner = 1;

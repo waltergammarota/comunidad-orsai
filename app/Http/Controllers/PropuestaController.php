@@ -141,8 +141,8 @@ class PropuestaController extends Controller
         if ($amount < $ronda->cost && $rondaOrder < 3) {
             return response()->json(["status" => "error", "msg" => "El monto es menor al costo de la ronda", "error" => 130], 400);
         }
-//        if ($cpa->user_id != $user->id) {
-        if ($user->id) {
+        // CAMBIAR SI QUIERO VOTARME A MÍ MISMO
+        if ($cpa->user_id != $user->id) {
             VotesModel::vote([
                 'user_id' => $user->id,
                 'answer_id' => $answer->id,
