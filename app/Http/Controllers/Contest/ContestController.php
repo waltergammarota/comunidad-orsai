@@ -379,6 +379,9 @@ class ContestController extends Controller
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $data['isJuradoVip'] = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
+        if (!$data['hasWinner'] && !$data['isJuradoVip']) {
+            return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1');
+        }
         $data['categories'] = $contest->form()->first()->getCategories();
         $data['counterRondas'] = VotesModel::getRondasCounter($contest->id, $user->id);
         $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
@@ -440,6 +443,7 @@ class ContestController extends Controller
             $inputs = $inputs->values()->all();
             return $inputs[$key] ? $inputs[$key]->answer : '';
         };
+
         // ESTAMOS EN LA PAGINA GANADOR CON HTML
         if ($request->ganador == "ganador" && $data['page']) {
             $data['diferencia'] = $contest->end_date;
