@@ -142,7 +142,7 @@ class ContestController extends Controller
             return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/1");
         }
         // CONCURSO FINALIZADO
-        if ($contest->hasEnded()) {
+        if ($contest->hasEnded() || !$contest->hasVotes()) {
             return Redirect::to("estadisticas/{$contest->id}/{$contest->getUrlName()}");
         }
         return view('concursos.inscripcion', $data);
