@@ -300,20 +300,6 @@
             }, 200)
         }
 
-        // $('.coin').animate({
-        //     width: "toggle",
-        //     height: "toggle"
-        // }, {
-        //     duration: 5000,
-        //     specialEasing: {
-        //     width: "linear",
-        //     height: "easeOutBounce"
-        //     },
-        //     complete: function() {
-        //   //  $( this ).after( "<div>Animation complete.</div>" );
-        //     }
-        // });
-
         function changeCardState(e, element, order) {
 
             //Actualiza el valor en los filtros

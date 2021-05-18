@@ -270,7 +270,7 @@ class ContestModel extends Model
 
     public function getApostadores()
     {
-        $querySql = "select count(*) as apostadores, t1.cap_id, votantes from (        select `from`, cap_id        from transactions        where `to` = {$this->pool_id}        and cap_id is not null        group by `cap_id`, `from`) t1        join (select cap_id, group_concat(DISTINCT `from`) as votantes        from transactions where `to` = {$this->pool_id}        and cap_id is not null        group by cap_id        ) t2        on t1.cap_id = t2.cap_id        group by t1.cap_id";
+        $querySql = "select count(*) as apostadores, t1.cap_id, votantes from (        select `from`, cap_id        from transactions        where `to` = {$this->pool_id}        and cap_id is not null        group by `cap_id`, `from`) t1        join (select cap_id, substring_index(group_concat(DISTINCT `from`),',',3) as votantes        from transactions where `to` = {$this->pool_id}        and cap_id is not null        group by cap_id        ) t2        on t1.cap_id = t2.cap_id        group by t1.cap_id";
         return DB::select($querySql);
     }
 

@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Contest;
 
+use App\Databases\AnswerModel;
 use App\Databases\ContenidoModel;
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
@@ -23,6 +24,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Databases\NotificacionModel;
@@ -342,6 +344,7 @@ class ContestController extends Controller
         $user = Auth::user();
         $data['concurso'] = $contest;
         $data['contest'] = $contest;
+        $lastRound = 3;
         if ($cpa) {
             $data['hasWinner'] = true;
             $logo = $cpa->logos()->first();
@@ -362,7 +365,6 @@ class ContestController extends Controller
             $data['instagram'] = $user->instagram;
             $data['contest'] = $contest;
             $data['rondas'] = VotesModel::getRondasWithVotes($contest, $user->id);
-            $lastRound = 3;
             $data['currentRonda'] = $contest->getRondaByOrder($lastRound);
             $cpa = ContestApplicationModel::getApplications($contest, $data['rondas'], $user->id, $data['currentRonda'], [], $cpa->id)[0];
             $data['cpa'] = $cpa;
@@ -391,6 +393,17 @@ class ContestController extends Controller
         }), ',');
 
         $votantesUsers = User::whereIn('id', explode(',', $votantes))->with('avatar')->get();
+        $cuentosVotadosPorUsuario = VotesModel::select(DB::raw('sum(amount) as votes, max(`order`), cap_id'))->where([
+            'user_id' => $user->id,
+            'contest_id' => $contest->id,
+        ])->groupBy('cap_id')->having('max(`order`)', '>=', 2)->get();
+
+        $data['userHasVoted'] = function ($capId) use ($cuentosVotadosPorUsuario) {
+            if ($cuentosVotadosPorUsuario->firstWhere('cap_id', $capId)) {
+                return true;
+            }
+            return false;
+        };
         $data['getAvatar'] = function ($userId) use ($votantesUsers) {
             $user = $votantesUsers->firstWhere('id', $userId);
             if ($user && $user->avatar) {
@@ -409,11 +422,24 @@ class ContestController extends Controller
         $data['hasWinner'] = $contest->hasWinner();
         $data['modo'] = $contest->getMode()->name;
         $data['page'] = $contest->getPaginaGanador();
+
         // SI HERNAN ESCRIBIÓ ALGO PARA EL GANADOR ENTONCES REDIRIGIMOS A LA PAGINA DE GANADOR CON HTML
         if ($contest->hasWinner() && $data['page'] && $request->ganador != "ganador" && !$request->get('force')) {
             return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ganador');
         }
         $data['rankingPage'] = true;
+        $ranking = $data['ranking']->map(function ($item) {
+            return $item->cap_id;
+        });
+        $capIds = implode(',', $ranking->toArray());
+        $answers = AnswerModel::getAnswersByOrder($contest->id, $lastRound, $capIds);
+        $data['getAnswer'] = function ($capId, $key) use ($answers) {
+            $inputs = $answers->filter(function ($answer) use ($capId) {
+                return $answer->cap_id == $capId;
+            });
+            $inputs = $inputs->values()->all();
+            return $inputs[$key] ? $inputs[$key]->answer : '';
+        };
         // ESTAMOS EN LA PAGINA GANADOR CON HTML
         if ($request->ganador == "ganador" && $data['page']) {
             $data['diferencia'] = $contest->end_date;

@@ -83,17 +83,17 @@
                                     <tr>
                                         <td class="color_amarillo">{{$loop->index + 1}}</td>
                                         <td class="color_blanco_gris">
-                                            {{-- if(detrabado) --}}
-                                            <a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
-                                               rel="noopener noreferrer" class="color_blanco_gris">
-                                                ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} - TITULO DEL
-                                                CUENTO</a>
-                                            {{-- else --}}
-                                            <p class="color_blanco_gris">
-                                                ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} - TITULO DEL
-                                                CUENTO</p>
-                                            {{-- endif --}}
-
+                                            @if($userHasVoted($row->capId->id))
+                                                <a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
+                                                   rel="noopener noreferrer" class="color_blanco_gris">
+                                                    ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}}
+                                                    - {{$getAnswer($row->capId->id, 1)}}
+                                                </a>
+                                            @else
+                                                <p class="color_blanco_gris">
+                                                    ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} -
+                                                    {{$getAnswer($row->capId->id, 1)}}</p>
+                                            @endif
                                         </td>
                                         <td class="color_amarillo align_right"><span class="icono icon-ficha"></span>
                                             {{$row->cant}} votantes
