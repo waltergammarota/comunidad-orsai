@@ -396,7 +396,7 @@ class ContestController extends Controller
             if ($user && $user->avatar) {
                 return $user->getAvatarLink();
             }
-            return 'http://orsai.test/estilos/front2021/assets/participantes/participante.jpg';
+            return 'https://orsai.test/estilos/front2021/assets/participantes/participante.jpg';
         };
 
         $data['avatares'] = function ($capId) use ($apostadores) {
