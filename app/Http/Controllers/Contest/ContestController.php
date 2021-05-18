@@ -141,6 +141,11 @@ class ContestController extends Controller
         if ($contest->hasVotes()) {
             return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/1");
         }
+
+        //CONCURSO CON VOTACIONES FINALIZADAS PERO NO FINALIZÓ EL CONCURSO, LO LLEVAMOS A RANKING
+        if ($contest->end_vote_date <= Carbon::now() && !$contest->hasWinner()) {
+            return Redirect::to("estadisticas/{$contest->id}/{$contest->getUrlName()}");
+        }
         // CONCURSO FINALIZADO
         if ($contest->hasEnded()) {
             return Redirect::to("estadisticas/{$contest->id}/{$contest->getUrlName()}");
