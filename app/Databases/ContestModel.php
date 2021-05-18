@@ -263,7 +263,7 @@ class ContestModel extends Model
             ->whereNotNull('cap_id')
             ->groupBy('cap_id')
             ->with('capId.owner')
-            ->limit(15)
+            ->limit(20)
             ->orderByRaw('SUM(amount) DESC')
             ->get();
     }

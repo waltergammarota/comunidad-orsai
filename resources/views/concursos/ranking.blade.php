@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    @include('concursos.concurso-header') 
+    @include('concursos.concurso-header')
     @if($hasWinner)
         <section class="fondo_gris_oscuro pd_50_tp ">
             <article class="contenedor ft_size form_rel pd_15_extra ">
@@ -76,16 +76,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($ranking as $row)  
+                                @foreach($ranking as $row)
+                                    @if($row->capId == null)
+                                        @continue
+                                    @endif
                                     <tr>
                                         <td class="color_amarillo">{{$loop->index + 1}}</td>
                                         <td class="color_blanco_gris">
                                             {{-- if(detrabado) --}}
-                                            <a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank" rel="noopener noreferrer" class="color_blanco_gris">
-                                                ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} - TITULO DEL CUENTO</a>
-                                             {{-- else --}}
-                                           <p class="color_blanco_gris">
-                                                ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} - TITULO DEL CUENTO</p>
+                                            <a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
+                                               rel="noopener noreferrer" class="color_blanco_gris">
+                                                ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} - TITULO DEL
+                                                CUENTO</a>
+                                            {{-- else --}}
+                                            <p class="color_blanco_gris">
+                                                ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} - TITULO DEL
+                                                CUENTO</p>
                                             {{-- endif --}}
 
                                         </td>
@@ -117,7 +123,8 @@
                     <div class="form_ctrl col_3">
                         <div class="align_left">
                             <a href="{{url('concursos/'.$contest->id.'/'.$contest->getUrlName())}}"
-                               class="boton_redondeado btn_transparente_amarillo"><span class="icon-angle-left"></span> Volver
+                               class="boton_redondeado btn_transparente_amarillo"><span class="icon-angle-left"></span>
+                                Volver
                                 al concurso</a>
                         </div>
                     </div>
@@ -135,10 +142,10 @@
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script src="{{url('js/front2021/jquery.modal/jquery.modal.min.js')}}"></script>
     <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
-    <script> 
+    <script>
         $('html, body').animate({
             scrollTop: $("#hero_fixed").offset().top
-        }, 1); 
+        }, 1);
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
             if (event.offset['days'] != 0) {
                 $(this).text(
