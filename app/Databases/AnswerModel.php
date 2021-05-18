@@ -57,13 +57,12 @@ class AnswerModel extends Model
         if ($ids == "") {
             return collect([]);
         }
-        return collect(DB::select("select ca.id, a.answer, a.input_id, a.cap_id from answers a
-            join contest_applications ca on ca.id = a.cap_id
-            where a.contest_id = {$contestId} and a.input_id IN (
-            select ri.input_id from rondas r
-            join rondas_inputs ri on ri.ronda_id = r.id
-            where `order` = {$order} and contest_id = {$contestId})
-            and ca.id IN ({$ids})
-            order by cap_id"));
+        return collect(DB::select("select ri.id, ri.input_id, r.order, a.answer, a.cap_id from rondas r
+            join rondas_inputs ri on r.id = ri.ronda_id
+            join answers a on a.input_id = ri.input_id and a.contest_id = {$contestId}
+            where r.order = {$order}
+            and cap_id IN ({$ids})
+            and r.contest_id = {$contestId}
+            order by ri.id"));
     }
 }
