@@ -54,7 +54,10 @@ class VotesModel extends Model
     static public function getRondasWithVotes($contest, $userId)
     {
         $rondas = $contest->rondas()->with('inputs')->get();
-        $votes = VotesModel::where('user_id', $userId)->where('contest_id', $contest->id)->groupBy('cap_id', 'order')->get();
+        $votes = [];
+        if ($userId > 0) {
+            $votes = VotesModel::where('user_id', $userId)->where('contest_id', $contest->id)->groupBy('cap_id', 'order')->get();
+        }
         foreach ($rondas as $ronda) {
             $inputs = $ronda->inputs;
             $ronda->votes = 0;
@@ -72,7 +75,10 @@ class VotesModel extends Model
     static public function getRondasCounter($contestId, $userId)
     {
         $query = "select `order`, sum(1) as cant from (select cap_id ,`order` from answers_votes where user_id = :userId and contest_id = :contestId group by `order`, cap_id) t1 group by `order` ";
-        $votes = DB::select(DB::raw($query), ['userId' => $userId, 'contestId' => $contestId]);
+        $votes = [];
+        if ($userId > 0) {
+            $votes = DB::select(DB::raw($query), ['userId' => $userId, 'contestId' => $contestId]);
+        }
         $rondasVotes = collect([]);
         for ($i = 0; $i < 3; $i++) {
             $ronda = new \stdClass();

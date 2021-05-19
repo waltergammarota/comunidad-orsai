@@ -131,6 +131,11 @@ Route::get(
     'Contest\ContestController@show_winner'
 )->name("ganador");
 
+Route::get(
+    'concursos/{contestId}/{name}/ronda/{rondaId}',
+    'Contest\ContestController@show_ronda'
+)->name('concurso-ronda');
+
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
     function () {
@@ -342,10 +347,6 @@ Route::middleware(['verified'])->group(
 
         // CONCURSOS RONDAS
 
-        Route::get(
-            'concursos/{contestId}/{name}/ronda/{rondaId}',
-            'Contest\ContestController@show_ronda'
-        )->name('concurso-ronda');
 
         // CUENTO COMPLETO
         Route::get(

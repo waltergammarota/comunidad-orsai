@@ -106,8 +106,12 @@ class ContestApplicationModel extends Model
 
     static function getApplications($contest, $rondas, $userId, $currentRonda, $filters, $id = false)
     {
-        $previousRondaVotes = VotesModel::getVotes($contest->id, $userId, $currentRonda->order - 1);
-        $currentRondaVotes = VotesModel::getVotes($contest->id, $userId, $currentRonda->order);
+        $previousRondaVotes = collect([]);
+        $currentRondaVotes = collect([]);
+        if ($userId > 0) {
+            $previousRondaVotes = VotesModel::getVotes($contest->id, $userId, $currentRonda->order - 1);
+            $currentRondaVotes = VotesModel::getVotes($contest->id, $userId, $currentRonda->order);
+        }
         $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->with('answers.input');
         if (array_key_exists('busqueda', $filters)) {
             $busqueda = $filters['busqueda'];
@@ -169,6 +173,10 @@ class ContestApplicationModel extends Model
 
     public function getVotesByUser($userId, $order)
     {
+        if ($userId == 0) {
+            return 0;
+        }
+
         return VotesModel::getVotesCount($this->contest_id, $userId, $order, $this->id);
     }
 

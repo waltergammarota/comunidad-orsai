@@ -231,7 +231,12 @@
                 const rondaOrder = {{$currentRonda->order}};
                 const amount = {{$currentRonda->cost}};
                 const cap_id = $(this).data('cap_id');
-                votar(cap_id, rondaOrder, amount, e, $(this));
+                const userId = {{$user->id}};
+                if (userId > 0) {
+                    votar(cap_id, rondaOrder, amount, e, $(this));
+                } else {
+                    window.location = "{{url('ingresar')}}";
+                }
             }
         });
 

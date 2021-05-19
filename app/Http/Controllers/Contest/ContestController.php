@@ -193,15 +193,21 @@ class ContestController extends Controller
         $cuentistasInscriptos = $this->convertToK($contest->cantidadCuentistasInscriptos());
         $usuariosqueVotaron = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $user = Auth::User();
-
-        $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
-        $categories = $contest->form()->first()->getCategories();
+        $isJuradoVip = false;
+        if ($user) {
+            $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
+            $toBeJury = $contest->cost_jury - $user->getVotesInContest($contest->pool_id);
+        } else {
+            $user = new \stdClass();
+            $user->id = 0;
+            $toBeJury = $contest->cost_jury;
+        }
         $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
+        $categories = $contest->form()->first()->getCategories();
         $counterRondas = VotesModel::getRondasCounter($contest->id, $user->id);
         $filters = $this->getFilters($request);
         $id = $request->query('id');
         $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters, $id);
-        $toBeJury = $contest->cost_jury - $user->getVotesInContest($contest->pool_id);
         $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas, $usuariosqueVotaron);
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$currentRonda->order}");
