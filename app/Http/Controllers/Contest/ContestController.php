@@ -106,7 +106,7 @@ class ContestController extends Controller
             return Redirect::to(url('no-encontrado'));
         }
         $data['concurso'] = $contest;
-        $data['diferencia'] = $contest->end_app_date;
+        $data['diferencia'] = $contest->end_vote_date;
         $data['postulaciones_abiertas'] = false;
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
@@ -194,6 +194,7 @@ class ContestController extends Controller
         $usuariosqueVotaron = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $user = Auth::User();
 
+        $data['estado'] = $contest->getStatus();
         $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
         $categories = $contest->form()->first()->getCategories();
         $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
@@ -258,7 +259,6 @@ class ContestController extends Controller
             }
             if (array_key_exists('id', $filters)) {
                 $order = ContestApplicationModel::getAnswersById($contest, $filters['id']);
-
                 $resultFilters[] = $order;
             }
 
@@ -398,6 +398,7 @@ class ContestController extends Controller
         $data['categoriasSeleccionadas'] = $this->getCategoriasSeleccionadas($request, $filters, $contest);
         $data['filters'] = $this->getCountFilters($request);
         $data['hideFilterBar'] = true;
+        $data['estado'] = $contest->getStatus();
         $data['ranking'] = $contest->getRanking();
         $apostadores = collect($contest->getApostadores());
         $votantes = rtrim($apostadores->reduce(function ($prev, $current) {

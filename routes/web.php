@@ -106,7 +106,8 @@ Route::post(
 Route::get('transparencia/fichas', 'TransparenciaController@fichas')->name('transparencia.fichas');
 Route::get('transparencia/dinero', 'TransparenciaController@dinero')->name('transparencia.dinero');
 Route::get('transparencia/usuario/{user_id}', 'TransparenciaController@index')->name('transparencia.user');
-Route::get('transparencia/cuento/{contest_id}', 'TransparenciaController@index')->name('transparencia.contest');
+Route::get('transparencia/cuento/{cap_id}', 'TransparenciaController@index')->name('transparencia.cap_id');
+Route::get('transparencia/concurso/{contest_id}', 'TransparenciaController@index')->name('transparencia.contest');
 Route::get('transparencia', 'TransparenciaController@index')->name('transparencia');
 
 Route::get(

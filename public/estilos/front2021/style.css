@@ -4666,6 +4666,9 @@ div.tagsinput #tags_tag {
     border-radius: 20px;
     padding: 10px 20px;
 }
+.btn-postulacion:active{
+    color:#fff;
+}
 .inscripcion-cuento .hero-nav .hero-nav-item .content-nav.column div{
     vertical-align: top;
 }
@@ -12297,6 +12300,10 @@ z-index: 20000;
 .tran_creditos.transparencia.ranking .cont_tabla table tr th:nth-child(2){
     width:60%;
 }
+.tran_creditos.transparencia.ranking .cont_tabla table tr th:nth-child(3),
+.tran_creditos.transparencia.ranking .cont_tabla table tr th:nth-child(4){
+    text-align:right;
+}
 .tran_creditos.ranking .cont_tabla table tr th{
     padding: 25px 20px 10px 10px !important;
 }
@@ -12331,7 +12338,7 @@ z-index: 20000;
     position:absolute;
     left:0;
     top:0;
-    border:1px solid #ffe600;
+    border:1px solid #333;
     z-index: 2;
 }
 .tran_creditos.transparencia.ranking .imagen_usuario div:nth-child(2){

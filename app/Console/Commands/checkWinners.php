@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
+use App\Databases\CotizacionModel;
 use App\Databases\Transaction;
 use App\User;
 use Carbon\Carbon;
@@ -49,14 +50,16 @@ class checkWinners extends Command
             switch ($contest->mode) {
                 case 1:
                     $this->info("pozo");
-                    $pozo = User::find($contest->pool_id)->getBalance();
+                    //$pozo = User::find($contest->pool_id)->getBalance();
+                    $cotizacion = CotizacionModel::getCurrentCotizacion();
+                    $pozo = $contest->cantidadFichasEnJuego() * $contest->token_value * $cotizacion->precio;
                     $winnersDistribution = json_decode($contest->per_winner);
-                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->orderBy('votes', 'DESC')->take($contest->cant_winners)->get();
+                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->orderBy('votes', 'DESC')->take($contest->cant_winners)->get();    
+                    $counter = 0;
                     foreach ($cpas as $cpa) {
-                        $counter = 0;
                         $cpa->is_winner = 1;
-                        $prizeAmount = round($pozo * $winnersDistribution[$counter] / 100, 0);
-                        $cpa->prize_amount = $prizeAmount;
+                        $prizeAmount = $pozo * $winnersDistribution[$counter] / 100;
+                        $cpa->prize_amount = number_format($prizeAmount, 2, ',', '.');
                         $cpa->prize_percentage = $winnersDistribution[$counter];
                         $cpa->save();
                         $data = "Ganador concurso {$contest->name}";
@@ -70,9 +73,9 @@ class checkWinners extends Command
                             ]
                         );
                         $tx->save();
+                        $this->info("pozo: {$pozo} - wD: {$winnersDistribution[$counter]}- user: {$cpa->user_id} - prize: {$prizeAmount}");
                         $counter++;
-                        $this->info("user: {$cpa->user_id} - prize: {$prizeAmount}");
-                    }
+                   }
                     $contest->winner_check = 1;
                     $contest->save();
                     Transaction::createTransaction(1, $contest->pool_id, $pozo, "Finalización concurso {$contest->name}", null, "BURN", ["concurso: {$contest->id}"]);

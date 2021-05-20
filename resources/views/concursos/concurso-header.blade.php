@@ -40,7 +40,7 @@
                                 <img src="{{url('estilos/front2021/assets/reloj.svg')}}" alt="Cierre de votación">
                             </div>
                             <div class="content-nav column">
-                                @if($hasWinner)
+                                @if($estado == "finalizado")
                                     <div>
                                         <span class="big-number_2 finalizado">finalizado</span>
                                     </div>
