@@ -1,7 +1,7 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Linea de tiempo Orsai | Comunidad Orsai')
-@section('description','Linea de tiempo Orsai | Comunidad Orsai')
+@section('title', 'Estadísticas del Concurso| Comunidad Orsai')
+@section('description','Estadísticas del Concurso | Comunidad Orsai')
 
 
 @section('content')
@@ -19,7 +19,7 @@
                                 <span class="boton_redondeado resaltado_negro color_amarillo">1º PUESTO</span>
                                 <span class="numero_linea_bt">{{str_pad($cpa->order,3,0, STR_PAD_LEFT)}}</span>
                             </div>
-                            <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 1)}}</h2>
+                            <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 0)}}</h2>
                             <a href="{{url('cuentos/'.$cpa->id)}}">Leer
                                 cuento <i
                                     class="icon icon-flecha_leitmotiv"></i></a>
@@ -36,14 +36,7 @@
 
                     <h2 class="super_titulo">{{$page->title}}</h2>
                     <p>{!! $page->texto !!}</p>
-                </div>
-                <div class="form_ctrl input_" style="margin-top:20px;">
-                    <div class="align_left btn_noti_ico">
-                        <a href="{{url('concursos')}}"
-                           class="boton_redondeado btn_transparente"><span class="icon-angle-left"></span>
-                            Volver a concursos</a>
-                    </div>
-                </div>
+                </div> 
             </div>
         </section>
     </main>

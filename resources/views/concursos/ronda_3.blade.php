@@ -1,7 +1,7 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Linea de tiempo Orsai | Comunidad Orsai')
-@section('description','Linea de tiempo Orsai | Comunidad Orsai')
+@section('title', 'Concurso | Comunidad Orsai')
+@section('description','Concurso | Comunidad Orsai')
 
 @section('content')
     @include('concursos.concurso-header')
@@ -527,7 +527,8 @@
             }
 
             var cantidad = $(obj_fichin).find(".fichin.activo").length;
-            $("#ap_fichas").val(cantidad); 
+            var apostado = $(obj_fichin).find(".fichin.apostado").length;
+            $("#ap_fichas").val(cantidad);  
             if (cantidad > 0) {
                 $(obj_fichin).parent().find(".form_ctrl button").attr("disabled", false);
                 if(cantidad==1){
@@ -538,11 +539,13 @@
                     $(obj_fichin).parent().find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
                 }
                 $(obj_fichin).parent().find("form").val(cantidad);
-            } else {
-                $(obj_fichin).parent().parent().find("p").text("Ponele fichas");
-                $(obj_fichin).parent().find(".form_ctrl button").text("Apostar");
-                $(obj_fichin).parent().find(".form_ctrl button").attr("disabled", true);
-                $(obj_fichin).parent().find("form").val(cantidad);
+            } else { 
+                if (!$(obj_fichin).find(".fichin").hasClass("apostado")) { 
+                    $(obj_fichin).parent().parent().find("p").text("Ponele fichas");
+                    $(obj_fichin).parent().find(".form_ctrl button").text("Apostar");
+                    $(obj_fichin).parent().find(".form_ctrl button").attr("disabled", true);
+                    $(obj_fichin).parent().find("form").val(cantidad);
+                }
             }
         });
 

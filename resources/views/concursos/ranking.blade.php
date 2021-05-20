@@ -1,7 +1,7 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Linea de tiempo Orsai | Comunidad Orsai')
-@section('description','Linea de tiempo Orsai | Comunidad Orsai')
+@section('title', 'Estadísticas del Concurso | Comunidad Orsai')
+@section('description','Estadísticas del Concurso | Comunidad Orsai')
 
 @section('header')
     <link rel="stylesheet" href="{{url('js/front2021/mCustomScrollbar/jquery.mCustomScrollbar.css')}}">
@@ -9,7 +9,7 @@
 
 @section('content')
     @include('concursos.concurso-header')
-    @if($hasWinner)
+    @if($hasWinner) 
         <section class="fondo_gris_oscuro pd_50_tp ">
             <article class="contenedor ft_size form_rel pd_15_extra ">
                 <div class="max_w_1100">
@@ -24,17 +24,18 @@
                                     <div class="cont_glogito">
                                         <span class="boton_redondeado resaltado_amarillo color_negro">1º PUESTO</span>
                                         <span class="numero_linea_bt">007</span>
-                                    </div>
-                                    <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 1)}}</h2>
+                                    </div> 
+                                    <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 0)}}</h2>
                                     <a href="{{url('cuentos/'.$cpa->id)}}" class="text_medium">Leer cuento <i
                                             class="icon icon-flecha_leitmotiv"></i></a>
                                 </div>
                                 <div class="pos_rel gan_premio">
                                     <div class="pos_abs">
-                                        <p><strong>Premio:</strong> {{$cpa->prize_percentage}} de las fichas del pozo
+                                        <p><strong>Premio:</strong> {{$cpa->prize_percentage}}% de las fichas del pozo
                                         </p>
-                                        <p><strong>{{$cpa->prize_amount}}</strong> Fichas recibidas</p>
-                                        <p><strong>{{$cpa->getTotalVotes()}}</strong> Jurados</p>
+                                        <p><strong>{{$cpa->getTotalVotes()}}</strong> Fichas recibidas</p>
+                                        <p><strong>{{$cpa->getTotalUniqueVotes()}}</strong> Jurados</p>
+                                        {{-- <p><strong>{{$cpa->prize_amount}}</strong> USD</p> --}}
                                         <!-- <a href="#" class="boton_redondeado resaltado_negro color_amarillo">Ver todos los ganadores</a> -->
                                     </div>
                                 </div>
@@ -87,25 +88,27 @@
                                                 <a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
                                                    rel="noopener noreferrer" class="color_blanco_gris">
                                                     ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}}
-                                                    - {{$getAnswer($row->capId->id, 1)}}
+                                                    - {{$getAnswer($row->capId->id, 0)}}
                                                 </a>
                                             @else
                                                 <p class="color_blanco_gris">
                                                     ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} -
-                                                    {{$getAnswer($row->capId->id, 1)}}</p>
+                                                    {{$getAnswer($row->capId->id, 0)}}</p>
                                             @endif
                                         </td>
                                         <td class="color_amarillo align_right"><span class="icono icon-ficha"></span>
-                                            {{$row->cant}} votantes
+                                            {{$row->cant}}
                                         </td>
                                         <td class="align_right">
                                             <div class="color_blanco_gris imagen_usuario">
                                                 @foreach($avatares($row->cap_id) as $userId)
-                                                    <div>
+                                                <div>
+                                                    <a href="{{ route('transparencia.cap_id', $row->cap_id) }}">
                                                         <img
                                                             src="{{$getAvatar($userId)}}"
                                                             alt="{{$userId}}">
-                                                    </div>
+                                                    </a>
+                                                </div>
                                                 @endforeach
                                             </div>
                                             <div class="cont_cant_apuestas">
@@ -118,7 +121,8 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> 
+                @if($estado != "finalizado" || $page)
                 <div class="grilla_form">
                     <div class="form_ctrl col_3">
                         <div class="align_left">
@@ -129,6 +133,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </article>
     </section>
