@@ -9,7 +9,7 @@
 
 @section('content')
     @include('concursos.concurso-header')
-    @if($hasWinner) 
+    @if($hasWinner)  
         <section class="fondo_gris_oscuro pd_50_tp ">
             <article class="contenedor ft_size form_rel pd_15_extra ">
                 <div class="max_w_1100">
@@ -57,7 +57,6 @@
             </article>
         </section>
     @endif
-
     <section class="fondo_gris_oscuro pd_20_tp_bt ">
         <article class="contenedor ft_size form_rel pd_15_extra ">
             <div class="max_w_1100">
@@ -122,7 +121,7 @@
                         </div>
                     </div>
                 </div> 
-                @if($estado != "finalizado" || $page)
+                @if($estado != "standby" && $estado != "finalizado" || $page)
                 <div class="grilla_form">
                     <div class="form_ctrl col_3">
                         <div class="align_left">

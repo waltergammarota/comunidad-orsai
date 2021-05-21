@@ -124,7 +124,12 @@ class ContestModel extends Model
 
     public function hasEnded()
     {
-        return $this->end_date < Carbon::now();
+        return $this->end_vote_date <= Carbon::now() && $this->end_date < Carbon::now();
+    }
+
+    public function hasVotesEnded()
+    {
+        return $this->end_vote_date <= Carbon::now();
     }
 
     public function cantidadCuentistasInscriptos()
@@ -179,6 +184,9 @@ class ContestModel extends Model
     {
         if ($this->hasEnded()) {
             return "finalizado";
+        }
+        if ($this->hasVotesEnded()) {
+            return "standby";
         }
         if ($this->hasStarted() && !$this->hasEnded()) {
             return "abierto";
@@ -267,7 +275,17 @@ class ContestModel extends Model
             ->orderByRaw('SUM(amount) DESC')
             ->get();
     }
-
+    public function getWinners()
+    { 
+        // return ContestApplicationModel::where("contest_id", $this->pool_id)
+        // ->where('is_winner', 1)
+        // ->with(['logos', 'owner', 'answers'])
+        // ->get();  
+        // return ContestApplicationModel::where(["is_winner" => 1, "contest_id" => $this->id])
+        // ->with(['logos', 'owner', 'answers'])
+        // ->get();
+    }
+        
     public function getApostadores()
     {
         $querySql = "select count(*) as apostadores, t1.cap_id, votantes from (        select `from`, cap_id        from transactions        where `to` = {$this->pool_id}        and cap_id is not null        group by `cap_id`, `from`) t1        join (select cap_id, substring_index(group_concat(DISTINCT `from`),',',3) as votantes        from transactions where `to` = {$this->pool_id}        and cap_id is not null        group by cap_id        ) t2        on t1.cap_id = t2.cap_id        group by t1.cap_id";

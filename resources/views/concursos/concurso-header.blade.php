@@ -40,14 +40,14 @@
                                 <img src="{{url('estilos/front2021/assets/reloj.svg')}}" alt="Cierre de votación">
                             </div>
                             <div class="content-nav column">
-                                @if($estado == "finalizado")
+                                @if($estado == "standby" || $estado == "finalizado")
                                     <div>
                                         <span class="big-number_2 finalizado">finalizado</span>
                                     </div>
                                 @else
                                     <div>
-                                        <span><small>Cierre de votación</small><span
-                                                id="countdown_concurso"></span></span>
+                                        <span><small>Cierre de votación</small><strong
+                                                id="countdown_concurso"></strong></span>
                                     </div>
                                 @endif
                             </div>

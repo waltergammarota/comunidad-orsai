@@ -9,20 +9,22 @@
 
 @section('content')
 
-    <div id="mv_apostar" class="cont_mobile_apostar">
+    @if($estado != "standby" && $estado != "finalizado")
+        <div id="mv_apostar" class="cont_mobile_apostar">
 
-        <aside id="md_apostar" class="modulo_apostar_cuento">
-            <div class="cerrar">
-                <span class="icon icon-cancel-circle"></span>
-            </div>
-            <div class="titulo">
-                <p>Recuerda que este concurso permite un máximo de <strong
-                        class="color_amarillo">{{$currentRonda->cost}} fichas por
-                        postulación.</strong></p>
-            </div>
-            @include('concursos.fichas-apostadas')
-        </aside>
-    </div>
+            <aside id="md_apostar" class="modulo_apostar_cuento">
+                <div class="cerrar">
+                    <span class="icon icon-cancel-circle"></span>
+                </div>
+                <div class="titulo">
+                    <p>Recuerda que este concurso permite un máximo de <strong
+                            class="color_amarillo">{{$currentRonda->cost}} fichas por
+                            postulación.</strong></p>
+                </div>
+                    @include('concursos.fichas-apostadas')
+            </aside>
+        </div>
+    @endif
 
     <section class="resaltado_gris pd_20 pd_20_tp_bt ">
 
@@ -178,10 +180,10 @@
                     $('.modulo_apostar_cuento .form_ctrl').hide();
                     $(".cont_mobile_apostar .selecc_fichas p").text("Ya apostaste el máximo de fichas");
                 } else {
-                    $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
-                    $(".modulos_laterales").find(".form_ctrl button").text("Apostar");
-                    $(".cont_mobile_apostar .selecc_fichas p").text("Ponele fichas");
-                    $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar");
+                        $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
+                        $(".modulos_laterales").find(".form_ctrl button").text("Apostar");
+                        $(".cont_mobile_apostar .selecc_fichas p").text("Ponele fichas");
+                        $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar"); 
                 }
                 //console.log(response.data)
             }).catch(error => {
@@ -249,10 +251,7 @@
                             $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
                             $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
                         }else{
-                            if(cantidad==0){ 
-                                $(".cont_mobile_apostar .selecc_fichas p").text("Ponele fichas");
-                                $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar");
-                            }else{
+                            if(cantidad!=0){  
                                 $(".cont_mobile_apostar .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
                                 $(".cont_mobile_apostar").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
                             }
@@ -272,10 +271,7 @@
                             $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " ficha");
                             $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " ficha");
                         }else{
-                            if(cantidad==0){ 
-                                $(".modulos_laterales .selecc_fichas p").text("Ponele fichas");
-                                $(".modulos_laterales").find(".form_ctrl button").text("Apostar");
-                            }else{
+                            if(cantidad!=0){  
                                 $(".modulos_laterales").find(".form_ctrl button").text("Apostar " + cantidad + " fichas");
                                 $(".modulos_laterales .selecc_fichas p").text("Vas a sumar " + cantidad + " fichas");
                             }
