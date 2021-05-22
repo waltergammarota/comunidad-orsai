@@ -429,6 +429,7 @@
         
         const user_id = {!! json_encode($user_id) !!};
         const contest_id = {!! json_encode($contest_id) !!};
+        const cap_id = {!! json_encode($cap_id) !!};
 
         let table = $('#mis_fichas_table').DataTable({
             paging: false,
@@ -532,6 +533,9 @@
 
             if (contest_id) {
                 url += `&contest_id=${contest_id}`;
+            } 
+            if (cap_id) {
+                url += `&cap_id=${cap_id}`;
             } 
 
             fetch(url, {

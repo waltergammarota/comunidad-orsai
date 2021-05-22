@@ -335,6 +335,7 @@ class ContestController extends Controller
         $data['backUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$lastRound}");
         $data['isJuradoVip'] = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
 
+        $data['estado'] = $contest->getStatus();
         return view('concursos.cuento_completo', $data);
     }
 
@@ -386,7 +387,7 @@ class ContestController extends Controller
             $data['cpa'] = $cpa;
             $data['txs'] = Transaction::where('cap_id', $cpa->id)->inRandomOrder()->take(10)->get();
         }
-        $data['diferencia'] = $contest->end_date;
+        $data['diferencia'] = $contest->end_vote_date;
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
@@ -407,6 +408,8 @@ class ContestController extends Controller
         $data['hideFilterBar'] = true;
         $data['estado'] = $contest->getStatus();
         $data['ranking'] = $contest->getRanking();
+      //  $data['ganadores'] = $contest->getWinners(); 
+        //$data['ganadores'] = ContestApplicationModel::->where('is_winner', 1)->where("contest_id", $contest->id)->with(['logos', 'owner', 'answers'])->get();
         $apostadores = collect($contest->getApostadores());
         $votantes = rtrim($apostadores->reduce(function ($prev, $current) {
             return $prev . $current->votantes . ',';
@@ -466,7 +469,7 @@ class ContestController extends Controller
 
         // ESTAMOS EN LA PAGINA GANADOR CON HTML
         if ($request->ganador == "ganador" && $data['page']) {
-            $data['diferencia'] = $contest->end_date;
+            $data['diferencia'] = $contest->end_vote_date;
             $data['bases'] = $contest->getBases();
             return view('concursos.ganador', $data);
         }
