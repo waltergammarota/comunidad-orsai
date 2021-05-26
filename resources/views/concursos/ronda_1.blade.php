@@ -6,50 +6,94 @@
 @section('content')
     @include('concursos.concurso-header')
     <section class="pd_20_">
-        <div class="contenedor titulo_leit_motivs">
+        <div class="contenedor titulo_leit_motivs @if (!Auth::check() && count($cpas) == 1) postulacion_publica @endif">
             <div class="cont_card_leitmotiv_">
-
-            @foreach($cpas as $cpa)
-                <!-- Card -->
-                    <div class="card_leitmotiv_{{$currentRonda->order}}">
-                        <div
-                            class="card-leitmotiv__ @if($cpa->hasBeenVoted) card-leitmotiv-animate color-1 @endif"
-                            href="#">
-                            <span class="id_card">{{str_pad($cpa->order, 3, 0 ,STR_PAD_LEFT)}}</span>
-                            @foreach($currentRonda->inputs as $key => $input)
-                                @if($key == 0)
-                                    <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
-                                @else
-                                    <span
-                                        class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
-                            @endif
-                        @endforeach
-                        <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
-                            <div class="button_card">
-                                <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}?id={{$cpa->id}}"
-                                   @else href="#" @endif
-                                   class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
-                                   data-cap_id="{{$cpa->id}}" order="{{$currentRonda->order}}">
-                                    @if($cpa->hasBeenVoted)
-                                        @if($currentRonda->order == 1)
-                                            <span class="tip-button__text">Leer descripción</span>
+                @foreach($cpas as $cpa)
+                    @if (Auth::check() && count($cpas) != 1)
+                        <!-- Card -->
+                        <div class="card_leitmotiv_{{$currentRonda->order}}">
+                            <div
+                                class="card-leitmotiv__ @if($cpa->hasBeenVoted) card-leitmotiv-animate color-1 @endif"
+                                href="#">
+                                <span class="id_card">{{str_pad($cpa->order, 3, 0 ,STR_PAD_LEFT)}}</span>
+                                @foreach($currentRonda->inputs as $key => $input)
+                                        @if($key == 0)
+                                            <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
                                         @else
-                                            <span class="tip-button__text">Leer cuento</span>
+                                            <span
+                                                class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
+                                    @endif
+                                @endforeach
+                            <!-- <a href="#" class="button_card boton_redondeado resaltado_amarillo width_100"><span class="desc_boton">Destrabar cuento completo</span><span class="cant_fichas"><span class="icon icon_flip icon-ficha"></span><span class="icon icon-ficha"></span> <span class="num_fichas">2</span></span></a> -->
+                                <div class="button_card">
+                                    <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}?id={{$cpa->id}}"
+                                    @else href="#" @endif
+                                    class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
+                                    data-cap_id="{{$cpa->id}}" order="{{$currentRonda->order}}">
+                                        @if($cpa->hasBeenVoted)
+                                            @if($currentRonda->order == 1)
+                                                <span class="tip-button__text">Leer descripción</span>
+                                            @else
+                                                <span class="tip-button__text">Leer cuento</span>
+                                            @endif
+                                            <span class="icon icon-flecha_leitmotiv"></span>
+                                        @else
+                                            <span class="tip-button__text">Destrabar</span>
                                         @endif
                                         <span class="icon icon-flecha_leitmotiv"></span>
-                                    @else
-                                        <span class="tip-button__text">Destrabar</span>
-                                    @endif
-                                    <span class="icon icon-flecha_leitmotiv"></span>
-                                    <div class="num_coins"><span class="coin">
-                                        <img src="{{url('recursos/coin.svg')}}"/></span> <span
-                                            class="coin_price">{{$currentRonda->cost}}</span></div>
-                                </a>
+                                        <div class="num_coins"><span class="coin">
+                                            <img src="{{url('recursos/coin.svg')}}"/></span> <span
+                                                class="coin_price">{{$currentRonda->cost}}</span></div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @else
+                        <div class="card_leitmotiv_1">
+                            <div class="card-leitmotiv__" href="#">
+                                <span class="id_card">{{str_pad($cpa->order, 3, 0 ,STR_PAD_LEFT)}}</span>
+                                @foreach($currentRonda->inputs as $key => $input)
+                                    @if($key == 0)
+                                        <h3 class="title_card">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</h3>
+                                    @else
+                                        <span class="cat_card input_{{$key}}">{{$cpa->getAnswerByRonda($currentRonda, $key)}}</span>
+                                    @endif
+                                @endforeach 
+                                
+                                <div class="button_card">
+                                    <a @if($cpa->hasBeenVoted) href="{{$currentRonda->order+1}}?id={{$cpa->id}}"
+                                    @else href="#" @endif
+                                    class="tip-button boton_redondeado resaltado_amarillo width_100 @if($cpa->hasBeenVoted) button_card-animate clicked shrink-landing coin-landed @endif"
+                                    data-cap_id="{{$cpa->id}}" order="{{$currentRonda->order}}">
+                                        @if($cpa->hasBeenVoted)
+                                            @if($currentRonda->order == 1)
+                                                <span class="tip-button__text">Leer descripción</span>
+                                            @else
+                                                <span class="tip-button__text">Leer cuento</span>
+                                            @endif
+                                            <span class="icon icon-flecha_leitmotiv"></span>
+                                        @else
+                                            <span class="tip-button__text">Destrabar</span>
+                                        @endif
+                                        <span class="icon icon-flecha_leitmotiv"></span>
+                                        <div class="num_coins"><span class="coin">
+                                            <img src="{{url('recursos/coin.svg')}}"/></span> <span
+                                                class="coin_price">{{$currentRonda->cost}}</span></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach 
             </div>
+            
+            @if (!Auth::check() && count($cpas) == 1)
+            <div class="form_ctrl input_">
+                <div class="align_center">
+                    <a href="{{$baseUrl}}" class="boton_redondeado btn_transparente">Ver otras postulaciones en este concurso</a>
+                </div>
+            </div>
+            @endif
         </div>
     </section>
 

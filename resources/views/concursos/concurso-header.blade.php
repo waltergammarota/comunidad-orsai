@@ -95,7 +95,7 @@
                                 <div class="content-nav center">
                                     <a href="{{url('mis-postulaciones')}}" class="btn-postulacion">Mis Postulaciones</a>
                                 </div>
-                            </div
+                            </div>
                         @else
                             <div class="hero-nav-item">
                                 @if($isJuradoVip)
@@ -240,37 +240,46 @@
         </div> <!-- cd-tab-filter -->
         </div> <!-- cd-tab-filter-wrapper -->
         <section class="resaltado_gris pd_20_ pd_20_tp_bt ">
-            <div class="contenedor titulo_leit_motivs">
-                <h2>{{$currentRonda->title}}</h2>
-                <p class="">{{$currentRonda->bajada}}</p>
-                <span class="">{{$currentRonda->body}}</span>
-            </div>
-            @empty(!request()->all())
-                <div class="contenedor filtros_aplicados">
-                    <div style="width:100%;">
-                        <span>
-                            @if($filters>1)
-                                {{$filters}} filtros aplicados
-                            @else
-                                {{$filters}} filtro aplicado
-                            @endif
-                            @if($cpas->count()>1)
-                                / {{$cpas->count()}} postulaciones encontradas
-                            @else
-                                / {{$cpas->count()}} postulacion encontrada
-                            @endif
-                        </span>
-                        <div class="tag-container">
-                            @foreach ($categoriasSeleccionadas as $cat)
-                                <span class="tag">{{$cat}}</span>
-                            @endforeach
+            
+            @if (Auth::check())
+                <div class="contenedor titulo_leit_motivs">
+                    <h2>{{$currentRonda->title}}</h2>
+                    <p class="">{{$currentRonda->bajada}}</p>
+                    <span class="">{{$currentRonda->body}}</span>
+                </div>
+            @else
+                <div class="contenedor titulo_leit_motivs">
+                    <h2>Ponele fichas a la narrativa</h2>
+                    <p class="">Si llegaste hasta acá, no es azar. Una historia necesita tus fichas para ganar el <strong>primer concurso de cuento con premio incalculable en dólares.</strong> Del otro lado, un socio de Comunidad Orsai espera una apuesta a su narrativa ¡Ponele fichas!</p>
+                    <a href="{{$baseUrl}}" class="link_subrayado">Ver otras postulaciones del concurso</a>
+                </div>
+            @endif
+                @empty(!request()->all())
+                    <div class="contenedor filtros_aplicados">
+                        <div style="width:100%;">
+                            <span>
+                                @if($filters>1)
+                                    {{$filters}} filtros aplicados
+                                @else
+                                    {{$filters}} filtro aplicado
+                                @endif
+                                @if($cpas->count()>1)
+                                    / {{$cpas->count()}} postulaciones encontradas
+                                @else
+                                    / {{$cpas->count()}} postulacion encontrada
+                                @endif
+                            </span>
+                            <div class="tag-container">
+                                @foreach ($categoriasSeleccionadas as $cat)
+                                    <span class="tag">{{$cat}}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="cleanfilters">
+                            <a href="{{$baseUrl}}" id="borrar_filtro"><span class="icon icon-borrar_filtro"></span>
+                                Limpiar filtros</a>
                         </div>
                     </div>
-                    <div class="cleanfilters">
-                        <a href="{{$baseUrl}}" id="borrar_filtro"><span class="icon icon-borrar_filtro"></span>
-                            Limpiar filtros</a>
-                    </div>
-                </div>
-            @endempty
+                @endempty
         </section>
 @endif

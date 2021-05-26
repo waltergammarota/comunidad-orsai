@@ -54,7 +54,7 @@ class checkWinners extends Command
                     $cotizacion = CotizacionModel::getCurrentCotizacion();
                     $pozo = $contest->cantidadFichasEnJuego() * $contest->token_value * $cotizacion->precio;
                     $winnersDistribution = json_decode($contest->per_winner);
-                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->orderBy('votes', 'DESC')->take($contest->cant_winners)->get(); 
+                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->orderBy('votes', 'DESC')->orderBy('id', 'ASC')->take($contest->cant_winners)->get(); 
                     //$maxVotesContest = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->max('votes');
                     //$cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->where('votes', $maxVotesContest)->get();
                     
@@ -77,7 +77,7 @@ class checkWinners extends Command
                             ]
                         );
                         $tx->save();
-                        $this->info("pozo: {$pozo} - wD: {$winnersDistribution[$counter]}- user: {$cpa->user_id} - prize: {$prizeAmount}");
+                        $this->info("id: {$cpa->id} - pozo: {$pozo} - wD: {$winnersDistribution[$counter]} - user: {$cpa->user_id} - prize: {$prizeAmount}");
                         $counter++;
                    }
                     $contest->winner_check = 1;
