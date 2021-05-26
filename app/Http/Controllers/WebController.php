@@ -119,13 +119,7 @@ class WebController extends Controller
         $data = $this->getUserData();
         return view('fundacion.2021-historia', $data);
     }
-
-    public function postulacion_publica()
-    {
-        $data = $this->getUserData();
-        return view('concursos.postulacion_publica', $data);
-    }
-
+    
     public function cuento_completo()
     {
         $data = $this->getUserData();

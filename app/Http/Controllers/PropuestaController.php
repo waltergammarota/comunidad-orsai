@@ -198,7 +198,7 @@ class PropuestaController extends Controller
             $cpa->save();
             $owner = User::find($cpa->user_id);
             $this->sendApproveMail($owner->email, $cpa->id);
-            $this->sendApprovedNotification($owner);
+            $this->sendApprovedNotification($owner, $contest, $cpa);
             $this->sendMailToAdministrator($owner->email, $cpa->id, $owner->name, $owner->lastName);
             return response()->json(
                 ["status" => "ok", "message" => "Postulación aprobada"]
@@ -276,10 +276,10 @@ class PropuestaController extends Controller
         $mailer->sendMailToAdministrator($email, $cpaId, $name, $lastName);
     }
 
-    private function sendApprovedNotification($user)
-    {
-        $href = url('postulacion_publica');
-
+    private function sendApprovedNotification($user, $contest, $cpa)
+    { 
+        $href = url('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1?id='.$cpa->id);
+               
         $notification = new \stdClass();
         $notification->subject = "Postulación Aprobada";
         $notification->title = "¡Bien ahí!";

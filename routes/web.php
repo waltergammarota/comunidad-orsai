@@ -321,12 +321,6 @@ Route::middleware(['verified'])->group(
         )->name('concurso-finalizado');
 
         Route::get(
-            '/postulacion_publica',
-            'WebController@postulacion_publica'
-        )->name('postulacion_publica');
-
-
-        Route::get(
             '/ranking',
             'WebController@ranking'
         )->name('ranking');

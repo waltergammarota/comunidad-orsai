@@ -61,8 +61,9 @@ class SendReminderApplicationDaily extends Command
                 $app = ContestApplicationModel::find($cpa->id);
 
                 if ($app->getCurrentStatus() == "approved") {
-
-                    $href = url('postulacion_publica');
+ 
+                    $href = url('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1?id='.$cpa->id);
+               
                     $notification = new \stdClass();
                     $notification->subject = "Inicio de Votaciones";
                     $notification->title = "¡Compartí tu postulación!";
@@ -79,7 +80,7 @@ class SendReminderApplicationDaily extends Command
 
             /* Anuncio Votaciones abiertas */
             foreach ($users as $user) {
-                $href = url('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1');
+                $href = url('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1'); 
 
                 $notification = new \stdClass();
                 $notification->subject = "Votaciones abiertas";
