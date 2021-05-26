@@ -14698,8 +14698,8 @@ margin-top:0;
 .postulacion_publica{
     border-bottom:0;
 }
-.postulacion_publica .cont_card_leitmotiv{
-    justify-content: center!important;
+.postulacion_publica .cont_card_leitmotiv_{
+    justify-content: center !important;
 }
 .postulacion_publica .btn_transparente{
     color:#333333;
@@ -14707,7 +14707,7 @@ margin-top:0;
     padding:10px 50px;   
    }
 @media(max-width:768px){
-    .postulacion_publica .cont_card_leitmotiv .card_leitmotiv_2{
+    .postulacion_publica .cont_card_leitmotiv_ .card_leitmotiv_1{
         width: 100%;
     }
     .postulacion_publica .btn_transparente{
@@ -14716,13 +14716,13 @@ margin-top:0;
        }
 }
 @media(min-width:768px) and (max-width:991px){
-    .postulacion_publica .cont_card_leitmotiv .card_leitmotiv_2{
+    .postulacion_publica .cont_card_leitmotiv_ .card_leitmotiv_1{
         max-width: 890px;
         width:100%;
     }
 }
 @media(min-width:991px){
-    .postulacion_publica .cont_card_leitmotiv .card_leitmotiv_2{
+    .postulacion_publica .cont_card_leitmotiv_ .card_leitmotiv_1{
         width: 650px;
         padding:20px 20px;
     }
