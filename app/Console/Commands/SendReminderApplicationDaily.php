@@ -67,7 +67,7 @@ class SendReminderApplicationDaily extends Command
                     $notification = new \stdClass();
                     $notification->subject = "Inicio de Votaciones";
                     $notification->title = "¡Compartí tu postulación!";
-                    $notification->description = "<p>Compartí tu postulación y sumá fichas para ganar el".$contest->name.".</p>";
+                    $notification->description = "<p>Compartí tu postulación y sumá fichas para ganar el ".$contest->name.".</p>";
                     $notification->button_url = $href;
                     $notification->button_text = 'Compartir mi postulación';
                     $notification->user_id = 1;

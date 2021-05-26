@@ -1,7 +1,7 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Linea de tiempo Orsai | Comunidad Orsai')
-@section('description','Linea de tiempo Orsai | Comunidad Orsai')
+@section('title', $cpa->getAnswerByRonda($currentRonda, 0).' | Comunidad Orsai')
+@section('description','Concurso | Comunidad Orsai')
 
 @section('header')
     <link rel="stylesheet" href="{{url('js/front2021/mCustomScrollbar/jquery.mCustomScrollbar.css')}}">

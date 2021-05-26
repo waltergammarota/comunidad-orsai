@@ -1,7 +1,7 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Estadísticas del Concurso| Comunidad Orsai')
-@section('description','Estadísticas del Concurso | Comunidad Orsai')
+@section('title', 'Ganadores - '.$concurso->name.' |  Comunidad Orsai')
+@section('description','Ganadores del Concurso | Comunidad Orsai')
 
 
 @section('content')

@@ -1,6 +1,6 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Concursos| Comunidad Orsai')
+@section('title', 'Concursos | Comunidad Orsai')
 @section('description','Concursos | Comunidad Orsai')
 
 
