@@ -15,47 +15,56 @@
                 <div class="max_w_1100">
                     <div class="card_ganador">
                         <div class="btn_fichas_dinero">
-                            <h2 class="color_amarillo text_regular">Ganador</h2>
+                            @if($hasWinner > 1)
+                                <h2 class="color_amarillo text_regular">Ganadores</h2>
+                            @else
+                                <h2 class="color_amarillo text_regular">Ganador</h2>
+                            @endif
                         </div>
-                        <!--inicia bloque ganador -->
-                        <div class="contenedor_bloques_">
-                            <div class="bloque_blanco ">
-                                <div class="datos_ganador">
-                                    <div class="cont_glogito">
-                                        <span class="boton_redondeado resaltado_amarillo color_negro">1º PUESTO</span>
-                                        <span class="numero_linea_bt">007</span>
-                                    </div> 
-                                    <h2 class="titulo">{{$cpa->getAnswerByRonda($currentRonda, 0)}}</h2>
-                                    <a href="{{url('cuentos/'.$cpa->id)}}" class="text_medium">Leer cuento <i
-                                            class="icon icon-flecha_leitmotiv"></i></a>
+                        @foreach($ganadores as $ganador)  
+                            <!--inicia bloque ganador -->
+                            <div class="contenedor_bloques_">
+                                <div class="bloque_blanco ">
+                                    <div class="datos_ganador">
+                                        <div class="cont_glogito">
+                                            <span class="boton_redondeado resaltado_amarillo color_negro">{{$loop->index+1}}° PUESTO</span>
+                                            <span class="numero_linea_bt">{{str_pad($ganador->order,3,0, STR_PAD_LEFT)}}</span>
+                                        </div> 
+                                        <h2 class="titulo">{{$getAnswer($ganador->id, 0)}}</h2>
+                                        
+                                        <a href="{{url('cuentos/'.$ganador->id)}}" class="text_medium">Leer cuento <i
+                                                class="icon icon-flecha_leitmotiv"></i></a>
+                                    </div>
+                                    <div class="pos_rel gan_premio">
+                                        <div class="pos_abs">
+                                            <p><strong>Premio:</strong> {{$ganador->prize_percentage}}% de las fichas del pozo
+                                            </p>
+                                            <p><strong>{{$ganador->getTotalVotes()}}</strong> Fichas recibidas</p>
+                                            <p><strong>{{$apostadores($ganador->id)}}</strong> Jurados</p>
+                                            {{-- <p><strong>{{$cpa->prize_amount}}</strong> USD</p> --}}
+                                            <!-- <a href="#" class="boton_redondeado resaltado_negro color_amarillo">Ver todos los ganadores</a> -->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="pos_rel gan_premio">
-                                    <div class="pos_abs">
-                                        <p><strong>Premio:</strong> {{$cpa->prize_percentage}}% de las fichas del pozo
-                                        </p>
-                                        <p><strong>{{$cpa->getTotalVotes()}}</strong> Fichas recibidas</p>
-                                        <p><strong>{{$cpa->getTotalUniqueVotes()}}</strong> Jurados</p>
-                                        {{-- <p><strong>{{$cpa->prize_amount}}</strong> USD</p> --}}
-                                        <!-- <a href="#" class="boton_redondeado resaltado_negro color_amarillo">Ver todos los ganadores</a> -->
+                                <div class="bloque_amarillo_">
+                                    <div class="pro_star">
+                                        <img src="{{(url('recursos/SVG/estrella.svg'))}}" alt="">
+                                    </div>
+                                    <div class="img_ganador">
+                                        <img
+                                        src="{{$getAvatar($ganador->user_id)}}"
+                                        alt="{{$ganador->user_id}}">
+                                    </div>
+                                    <div class="datos_ganador">
+                                        <span class="text_medium">Autor/a</span>
+                                        <span>{{$name}} {{$lastName}}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="bloque_amarillo_">
-                                <div class="pro_star">
-                                    <img src="{{(url('recursos/SVG/estrella.svg'))}}" alt="">
-                                </div>
-                                <div class="img_ganador">
-                                    <img src="{{(url('recursos/participantes/participante.jpg'))}}" alt="">
-                                </div>
-                                <div class="datos_ganador">
-                                    <span class="text_medium">Autor/a</span>
-                                    <span>{{$name}} {{$lastName}}</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach 
                     </div>
             </article>
-        </section>
+        </section> 
     @endif
     <section class="fondo_gris_oscuro pd_20_tp_bt ">
         <article class="contenedor ft_size form_rel pd_15_extra ">
@@ -85,7 +94,7 @@
                                         <td class="color_blanco_gris">
                                             @if($userHasVoted($row->capId->id))
                                                 <a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
-                                                   rel="noopener noreferrer" class="color_blanco_gris">
+                                                   rel="noopener noreferrer" class="color_amarillo">
                                                     ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}}
                                                     - {{$getAnswer($row->capId->id, 0)}}
                                                 </a>

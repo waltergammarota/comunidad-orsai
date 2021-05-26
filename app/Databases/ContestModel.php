@@ -273,6 +273,7 @@ class ContestModel extends Model
             ->with('capId.owner')
             ->limit(20)
             ->orderByRaw('SUM(amount) DESC')
+            ->orderBy('cap_id','ASC')
             ->get();
     }
     public function getWinners()

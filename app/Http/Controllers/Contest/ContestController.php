@@ -402,7 +402,7 @@ class ContestController extends Controller
         $data['estado'] = $contest->getStatus();
         $data['ranking'] = $contest->getRanking();
       //  $data['ganadores'] = $contest->getWinners(); 
-        //$data['ganadores'] = ContestApplicationModel::->where('is_winner', 1)->where("contest_id", $contest->id)->with(['logos', 'owner', 'answers'])->get();
+        $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where("contest_id", $contest->id)->with('answers.input')->orderBy('votes','DESC')->orderBy('id','ASC')->get();
         $apostadores = collect($contest->getApostadores());
         $votantes = rtrim($apostadores->reduce(function ($prev, $current) {
             return $prev . $current->votantes . ',';

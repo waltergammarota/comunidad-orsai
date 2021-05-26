@@ -200,12 +200,7 @@ class ContestApplicationModel extends Model
     {
         return Transaction::where('cap_id', $this->id)->sum('amount');
     }
-
-    public function getTotalUniqueVotes()
-    {
-        return Transaction::where('cap_id', $this->id)->groupBy('from')->count();
-    }
-
+ 
     public function getTransactions()
     {
         return Transaction::where('cap_id', $this->id)->with('getFromUser')->orderByDesc('id')->get();
