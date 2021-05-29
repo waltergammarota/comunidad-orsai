@@ -209,7 +209,20 @@ class ContestController extends Controller
         $counterRondas = VotesModel::getRondasCounter($contest->id, $user->id);
         $filters = $this->getFilters($request);
         $id = $request->query('id');
-        $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters, $id);
+        $realId = false;
+        if ($id) {
+            if ($currentRonda->order == 1) {
+                $realId = $id;
+            } else {
+                $selectedCpa = ContestApplicationModel::find($id);
+                if ($selectedCpa && $selectedCpa->getVotesByUser($user->id, $currentRonda)) {
+                    $realId = $id;
+                } else {
+                    $realId = false;
+                }
+            }
+        }
+        $cpas = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, $filters, $realId);
         $data = $this->compactData($concurso, $data, $logo, $cierreDiff, $cantidadFichasEnJuego, $modo, $cantidadPostulacionesAprobadas, $cuentistasInscriptos, $isJuradoVip, $categories, $cpas, $rondas, $currentRonda, $toBeJury, $counterRondas, $usuariosqueVotaron);
         $data['diferencia'] = $contest->end_vote_date;
         $data['baseUrl'] = url("concursos/{$contest->id}/{$contest->getUrlName()}/ronda/{$currentRonda->order}");
@@ -308,14 +321,15 @@ class ContestController extends Controller
         }
         $user = Auth::user();
         $userHasVoted = VotesModel::hasEnoughVotes($storyId, $user->id);
-        if (!$userHasVoted) {
+        $contest = ContestModel::find($cpa->contest_id);
+        $hasEnded = $contest->hasEnded();
+        if (!$userHasVoted && !$hasEnded) {
             $contest = ContestModel::find($cpa->contest_id);
             return Redirect::to("concursos/{$contest->id}/{$contest->getUrlName()}");
         }
         // SUMAMOS UNA VISTA
 
         $this->addOneViewMore($cpa);
-        $contest = ContestModel::find($cpa->contest_id);
         $rondas = VotesModel::getRondasWithVotes($contest, $user->id);
         $currentRonda = $contest->getRondaByOrder($lastRound);
         $cpa = ContestApplicationModel::getApplications($contest, $rondas, $user->id, $currentRonda, [], $storyId)[0];
@@ -408,8 +422,8 @@ class ContestController extends Controller
         $data['hideFilterBar'] = true;
         $data['estado'] = $contest->getStatus();
         $data['ranking'] = $contest->getRanking();
-      //  $data['ganadores'] = $contest->getWinners(); 
-        $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where("contest_id", $contest->id)->with('answers.input')->orderBy('votes','DESC')->orderBy('id','ASC')->get();
+        //  $data['ganadores'] = $contest->getWinners();
+        $data['ganadores'] = ContestApplicationModel::where('is_winner', 1)->where("contest_id", $contest->id)->with('answers.input')->orderBy('votes', 'DESC')->orderBy('id', 'ASC')->get();
         $apostadores = collect($contest->getApostadores());
         $votantes = rtrim($apostadores->reduce(function ($prev, $current) {
             return $prev . $current->votantes . ',';
