@@ -163,6 +163,7 @@ class ContestApplicationModel extends Model
                 }
             }
         }
+
         return $apps->sort(function ($cpa) {
             if ($cpa->hasBeenVoted) {
                 return -1;
@@ -208,7 +209,7 @@ class ContestApplicationModel extends Model
     {
         return Transaction::where('cap_id', $this->id)->sum('amount');
     }
- 
+
     public function getTransactions()
     {
         return Transaction::where('cap_id', $this->id)->with('getFromUser')->orderByDesc('id')->get();
