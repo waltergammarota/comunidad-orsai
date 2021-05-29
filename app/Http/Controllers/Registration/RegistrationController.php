@@ -85,12 +85,11 @@ class RegistrationController extends Controller
         $request->session()->flash('alert', 'activation_email');
         $usertoLogin = User::find($data['id']);
         Auth::login($usertoLogin);
-
-//        if(session('last_visited') != null) {
-//            $lastVisited = session('last_visited');
-//            session()->forget('last_visited');
-//            return Redirect::to($lastVisited);
-//        }
+        $route = session('redirectLink');
+        if ($route) {
+            session(['redirectLink' => false]);
+            return Redirect::to($route);
+        }
 
         return redirect('/panel');
     }
