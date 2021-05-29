@@ -1,5 +1,4 @@
 
-.icon-mail:before { content: '\e800'; } /* '' */
 .icon-left-open:before { content: '\e801'; } /* '' */
 .icon-right-open:before { content: '\e802'; } /* '' */
 .icon-up-open:before { content: '\e803'; } /* '' */
@@ -13,12 +12,10 @@
 .icon-ficha:before { content: '\e80b'; } /* '' */
 .icon-instagram:before { content: '\e80c'; } /* '' */
 .icon-talk:before { content: '\e80d'; } /* '' */
-.icon-tw:before { content: '\e80e'; } /* '' */
 .icon-whatsapp:before { content: '\e80f'; } /* '' */
 .icon-aviso:before { content: '\e810'; } /* '' */
 .icon-vista:before { content: '\e811'; } /* '' */
 .icon-mensaje:before { content: '\e812'; } /* '' */
-.icon-right_arrow:before { content: '\e813'; } /* '' */
 .icon-mail-alt-1:before { content: '\e814'; } /* '' */
 .icon-mail-open-regular:before { content: '\e815'; } /* '' */
 .icon-trash-empty:before { content: '\e816'; } /* '' */
@@ -37,7 +34,6 @@
 .icon-editar:before { content: '\e823'; } /* '' */
 .icon-check_2:before { content: '\e824'; } /* '' */
 .icon-check_circle:before { content: '\e825'; } /* '' */
-.icon-exclamacion_circle:before { content: '\e826'; } /* '' */
 .icon-down-dir-1:before { content: '\e827'; } /* '' */
 .icon-arrow_down_rellena:before { content: '\e828'; } /* '' */
 .icon-flag:before { content: '\e829'; } /* '' */
@@ -61,7 +57,6 @@
 .icon-flecha_leitmotiv:before { content: '\e83b'; } /* '' */
 .icon-carpeta_abierta:before { content: '\e83c'; } /* '' */
 .icon-borrar_filtro:before { content: '\e83d'; } /* '' */
-.icon-candado:before { content: '\e83e'; } /* '' */
 .icon-angle-double-left:before { content: '\f100'; } /* '' */
 .icon-angle-double-right:before { content: '\f101'; } /* '' */
 .icon-angle-double-up:before { content: '\f102'; } /* '' */
@@ -70,7 +65,5 @@
 .icon-angle-right:before { content: '\f105'; } /* '' */
 .icon-angle-up:before { content: '\f106'; } /* '' */
 .icon-angle-down:before { content: '\f107'; } /* '' */
-.icon-angle-circled-left:before { content: '\f137'; } /* '' */
 .icon-angle-circled-right:before { content: '\f138'; } /* '' */
-.icon-angle-circled-up:before { content: '\f139'; } /* '' */
-.icon-angle-circled-down:before { content: '\f13a'; } /* '' */
+.icon-share:before { content: '\f1e0'; } /* '' */

@@ -103,6 +103,18 @@
             <a href="#" rel="modal:close" class="boton_decline width_100">Ahora no</a>
         </div>
     </div>
+
+    <div id="tu_postulacion" class="modal modal_tupostulacion">
+        <div class="title_modal">
+            <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
+            <h5>No podes votar tu postulación</h5>
+        </div> 
+        <div class="content_modal"> 
+        </div>
+        <div class="align_center"> 
+            <a href="#" rel="modal:close" class="boton_redondeado resaltado_amarillo text_bold">Volver</a>
+        </div>
+    </div>
 @endsection
 
 @section('footer')
@@ -111,9 +123,9 @@
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
     <script>
-        $('html, body').animate({
-            scrollTop: $("#hero_fixed").offset().top
-        }, 1);         
+        // $('html, body').animate({
+        //     scrollTop: $("#hero_fixed").offset().top
+        // }, 1);         
 
         $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
             if(event.offset['days'] != 0){
@@ -333,6 +345,9 @@
             }).catch(error => {
                 if (error.response.data.error == 100) {
                     $("#sin_fichas").modal();
+                }
+                if (error.response.data.error == 130) {
+                    $("#tu_postulacion").modal();
                 }
             });
         } 

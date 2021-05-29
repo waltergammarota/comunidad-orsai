@@ -664,7 +664,7 @@ class AccountController extends Controller
     {
         $data = $this->getUserData();
         $user = Auth::user();
-        $data['postulaciones'] = ContestApplicationModel::where('user_id', $user->id)->get();
+        $data['postulaciones'] = ContestApplicationModel::where('user_id', $user->id)->get(); 
         return view('2021-mis-postulaciones', $data);
     }
 

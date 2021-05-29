@@ -92,7 +92,7 @@
                                     <tr>
                                         <td class="color_amarillo">{{$loop->index + 1}}</td>
                                         <td class="color_blanco_gris">
-                                            @if($userHasVoted($row->capId->id))
+                                            @if($userHasVoted($row->capId->id) || $estado == "finalizado")
                                                 <a href="{{url('cuentos/'.$row->capId->id)}}" target="_blank"
                                                    rel="noopener noreferrer" class="color_amarillo">
                                                     ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}}

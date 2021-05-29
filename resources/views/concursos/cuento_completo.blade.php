@@ -61,7 +61,7 @@
                                 <div class="header_lista">
                                     <ul>
                                         <li>
-                                            <span class="text_medium">Apostador</span>
+                                            <span class="text_medium">Jurado</span>
                                             <span class="text_medium">Fichas</span>
                                         </li>
                                     </ul>

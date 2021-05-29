@@ -62,14 +62,15 @@ class SendReminderApplicationDaily extends Command
 
                 if ($app->getCurrentStatus() == "approved") {
  
-                    $href = url('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1?id='.$cpa->id);
+                    $href1 = url('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1?id='.$cpa->id);
+                    $href2 = url('mis-postulaciones');
                
                     $notification = new \stdClass();
                     $notification->subject = "Inicio de Votaciones";
                     $notification->title = "¡Compartí tu postulación!";
-                    $notification->description = "<p>Compartí tu postulación y sumá fichas para ganar el ".$contest->name.".</p>";
-                    $notification->button_url = $href;
-                    $notification->button_text = 'Compartir mi postulación';
+                    $notification->description = "<p>Compartí tu postulación y sumá fichas para ganar el ".$contest->name.".</p><br/><br/>".$href1;
+                    $notification->button_url = $href2;
+                    $notification->button_text = 'Ir a Mis Postulaciones';
                     $notification->user_id = 1;
                     $notification->deliver_time = Carbon::now();
                     $notification->id = 0;
@@ -87,7 +88,7 @@ class SendReminderApplicationDaily extends Command
                 $notification->title = "Votaciones abiertas";
                 $notification->description = "<p>Arrancan las apuestas del ". $contest->name .".<br/>¡Ponele fichas a las postulaciones que quieras!</p>";
                 $notification->button_url = $href;
-                $notification->button_text = 'Ir a Votaciones';
+                $notification->button_text = 'Ir al Concurso';
                 $notification->user_id = 1;
                 $notification->deliver_time = Carbon::now();
                 $notification->id = 0;

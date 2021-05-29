@@ -155,6 +155,7 @@ class ContestController extends Controller
 
     public function show_ronda(Request $request)
     {
+        $user = Auth::user();
         $data = $this->getUserData();
         $contestId = $request->route('contestId');
         $rondaId = $request->route('rondaId');
@@ -180,7 +181,11 @@ class ContestController extends Controller
 
         $view = "concursos/ronda_1";
         if ($currentRonda->order > 2) {
-            $view = "concursos/ronda_{$currentRonda->order}";
+            if($user){
+             $view = "concursos/ronda_{$currentRonda->order}";
+            }else{
+                abort(404);
+            }
         }
         $concurso = $contest;
         $logo = $contest->logo();
@@ -191,8 +196,7 @@ class ContestController extends Controller
         $modo = $contest->getMode()->name;
         $cantidadPostulacionesAprobadas = $this->convertToK($contest->cantidadPostulaciones());
         $cuentistasInscriptos = $this->convertToK($contest->cantidadCuentistasInscriptos());
-        $usuariosqueVotaron = $this->convertToK($contest->cantidadUsuariosqueVotaron());
-        $user = Auth::User();
+        $usuariosqueVotaron = $this->convertToK($contest->cantidadUsuariosqueVotaron()); 
         $isJuradoVip = false;
         if ($user) {
             $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;

@@ -54,6 +54,8 @@
                                     class="help-block">Este campo es obligatorio</span> @enderror
                             </div>
                             <div class="row">
+                                <div class="col-md-12" style="border-bottom:1px solid #ccc;padding:0;margin:10px;">La hora del servidor es UTC +0. Programar para Argentina 3 horas menos (UTC -3)</div>
+                                <br/>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Fecha inicio del

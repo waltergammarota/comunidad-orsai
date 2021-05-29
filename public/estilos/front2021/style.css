@@ -4725,7 +4725,7 @@ div.tagsinput #tags_tag {
 #countdown_concurso{
     font-size:2rem;
     font-family: 'Barlow Condensed';
-    width: 150px; 
+    width: 155px; 
     display:block;
     position: relative;
     top: -5px;
@@ -7109,7 +7109,7 @@ footer .sub_footer .sub_footer_ri ul li a {
     background-color: #efefef;
     border: 0;
     width: 100%;
-    height: 135px;
+    height: 130px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -7119,7 +7119,9 @@ footer .sub_footer .sub_footer_ri ul li a {
     resize: none;
     font-size: 14px;
 }
-
+.concurso__form .form_ctrl:nth-child(6) textarea {
+    height: 500px;
+}
 .form_ctrl #cuento {
     height: 450px;
 }
