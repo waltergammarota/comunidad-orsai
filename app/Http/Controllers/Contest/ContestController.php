@@ -95,9 +95,21 @@ class ContestController extends Controller
         return $links;
     }
 
+    private function saveRedirectInSession()
+    {
+        $user = Auth::user();
+        $route = url()->current();
+        if (!$user) {
+            session(['redirectLink' => $route]);
+        } else {
+            session(['redirectLink' => false]);
+        }
+    }
+
 
     public function show(Request $request)
     {
+        $this->saveRedirectInSession();
         $contestId = $request->route('id');
         $userInfo = $this->getUserData();
         $data = array_merge($userInfo);
@@ -150,17 +162,20 @@ class ContestController extends Controller
         if ($contest->hasEnded()) {
             return Redirect::to("estadisticas/{$contest->id}/{$contest->getUrlName()}");
         }
+
         return view('concursos.inscripcion', $data);
     }
 
     public function show_ronda(Request $request)
     {
+        $this->saveRedirectInSession();
         $user = Auth::user();
         $data = $this->getUserData();
         $contestId = $request->route('contestId');
         $rondaId = $request->route('rondaId');
         $contest = ContestModel::find($contestId);
         $currentRonda = $contest->getRondaByOrder($rondaId);
+
         // NO EXISTE EL CONCURSO
         if (!$contest || !$currentRonda) {
             abort(404);
@@ -181,9 +196,9 @@ class ContestController extends Controller
 
         $view = "concursos/ronda_1";
         if ($currentRonda->order > 2) {
-            if($user){
-             $view = "concursos/ronda_{$currentRonda->order}";
-            }else{
+            if ($user) {
+                $view = "concursos/ronda_{$currentRonda->order}";
+            } else {
                 abort(404);
             }
         }
@@ -196,7 +211,7 @@ class ContestController extends Controller
         $modo = $contest->getMode()->name;
         $cantidadPostulacionesAprobadas = $this->convertToK($contest->cantidadPostulaciones());
         $cuentistasInscriptos = $this->convertToK($contest->cantidadCuentistasInscriptos());
-        $usuariosqueVotaron = $this->convertToK($contest->cantidadUsuariosqueVotaron()); 
+        $usuariosqueVotaron = $this->convertToK($contest->cantidadUsuariosqueVotaron());
         $isJuradoVip = false;
         if ($user) {
             $isJuradoVip = $user->getVotesInContest($contest->pool_id) >= $contest->cost_jury;
