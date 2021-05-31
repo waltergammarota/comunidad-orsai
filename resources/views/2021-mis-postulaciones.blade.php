@@ -94,7 +94,7 @@
                                 <div class="form_ctrl buttons">
                                     <div class="input_err">
                                         <div class="label-centers">
-                                            <a class="boton_redondeado resaltado_ama-rillo" href="{{url('concursos')}}"
+                                            <a class="boton_redondeado resaltado_amarillo" href="{{url('concursos')}}"
                                                rel="modal:open">Ver concursos</a>
                                         </div>
                                     </div>

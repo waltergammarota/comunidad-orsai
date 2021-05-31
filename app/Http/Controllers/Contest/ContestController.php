@@ -463,7 +463,6 @@ class ContestController extends Controller
         $data['hasWinner'] = $contest->hasWinner();
         $data['modo'] = $contest->getMode()->name;
         $data['page'] = $contest->getPaginaGanador();
-
         // SI HERNAN ESCRIBIÓ ALGO PARA EL GANADOR ENTONCES REDIRIGIMOS A LA PAGINA DE GANADOR CON HTML
         if ($contest->hasWinner() && $data['page'] && $request->ganador != "ganador" && !$request->get('force')) {
             return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ganador');
@@ -492,7 +491,7 @@ class ContestController extends Controller
             return view('concursos.ganador', $data);
         }
         // SACAMOS LA URL DE ESTADISTICAS CUANDO ESTÁS PARADO AHÍ
-
+ 
         return view("concursos.ranking", $data);
     }
 

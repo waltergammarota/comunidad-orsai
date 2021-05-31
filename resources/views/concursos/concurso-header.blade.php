@@ -16,22 +16,24 @@
                             @endif
 
                             <h2 class="title">{{$concurso->name}}</h2> 
-                            @if($currentRonda->order == 1)
-                                @if(!$hasWinner)
-                                    <p class="subtitle"><strong class="color_amarillo">¿Estás ok para ser jurado?</strong>
-                                        Solo tenés
-                                        que tener fichas disponibles y muchas ganas de apostarle a las historias que creas
-                                        mejores. Ya
-                                        podés empezar.</p>
-                                    <p><strong class="color_amarillo">Recordá que los primeros clics son gratis, pero para
-                                            seguir
-                                            avanzando en tus veredictos vas a necesitar fichas.</strong></p>
+                            @isset($currentRonda)
+                                @if($currentRonda->order == 1)
+                                    @if(!$hasWinner)
+                                        <p class="subtitle"><strong class="color_amarillo">¿Estás ok para ser jurado?</strong>
+                                            Solo tenés
+                                            que tener fichas disponibles y muchas ganas de apostarle a las historias que creas
+                                            mejores. Ya
+                                            podés empezar.</p>
+                                        <p><strong class="color_amarillo">Recordá que los primeros clics son gratis, pero para
+                                                seguir
+                                                avanzando en tus veredictos vas a necesitar fichas.</strong></p>
+                                    @endif
+                                    <p class="subtitle">{{$concurso->bajada_corta}}</p>
+                                    @isset($bases)
+                                        <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
+                                    @endisset
                                 @endif
-                                <p class="subtitle">{{$concurso->bajada_corta}}</p>
-                                @isset($bases)
-                                    <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
-                                @endisset
-                            @endif
+                            @endisset
                         </div> 
                         <div id="hero_fixed"></div>
                 </div>
@@ -200,9 +202,6 @@
                 </ul>
                 <ul class="cd-filters">
                     @foreach($counterRondas as $ronda)
-                    @php
-                        //var_dump($ronda);
-                    @endphp
                     <li class="filter filter_{{$ronda->order}}"> 
                             @if($ronda->order == 1) 
                                 <a href="{{$ronda->order}}" data-type="all" @if($currentRonda->order == $ronda->order) class="selected" @endif>
