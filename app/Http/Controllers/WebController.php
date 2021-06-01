@@ -62,15 +62,7 @@ class WebController extends Controller
         $data = $this->getUserData();
         $data['totalusers'] = User::where('email_verified_at', '!=', null)->count();
         $data['sociosPosta'] = User::whereNotNull('email_verified_at')->whereNotNull('phone_verified_at')->count();
-//        if(!session()->has('last_visited'))
-//        {
-//            $urlPrevious = url()->previous();
-//            $urlBase = url()->to('/');
-//            if(($urlPrevious != $urlBase . '/ingresar') && (substr($urlPrevious, 0, strlen($urlBase)) === $urlBase)) {
-//                session(['last_visited' => $urlPrevious]);
-//            }
-//
-//        }
+
         return view('2021-login', $data);
     }
 
@@ -78,6 +70,7 @@ class WebController extends Controller
     {
         $data = $this->getUserData();
         $data['title'] = "Reenviar mail activación";
+
         return view('2021-reenviar-mail-activacion', $data);
     }
 
@@ -127,32 +120,12 @@ class WebController extends Controller
         return view('fundacion.2021-historia', $data);
     }
     
-    public function concurso_cuento()
-    {
-        $data = $this->getUserData();
-        return view('concursos.concurso-cuento', $data);
-    }
-    
-    public function ronda_1()
-    {
-        $data = $this->getUserData();
-        return view('concursos.ronda_1', $data);
-    }
-    public function ronda_2()
-    {
-        $data = $this->getUserData();
-        return view('concursos.ronda_2', $data);
-    }
-    public function ronda_3()
-    {
-        $data = $this->getUserData();
-        return view('concursos.ronda_3', $data);
-    }
     public function cuento_completo()
     {
         $data = $this->getUserData();
         return view('concursos.cuento_completo', $data);
     }
+
     public function ranking()
     {
         $data = $this->getUserData();
@@ -163,8 +136,8 @@ class WebController extends Controller
     {
         $data = $this->getUserData();
         return view('concursos.concursos-nuevos', $data);
-    } 
-     
+    }
+
     public function areas()
     {
         $data = $this->getUserData();

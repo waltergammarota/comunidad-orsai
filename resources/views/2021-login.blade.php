@@ -19,7 +19,7 @@
             <div class="cuerpo_interna">
         <div id="login_js" class="form_central">
             <div class="titulo">
-                <h1 class="text_regular">Los primeros 15.000 socios posta serán llamados "socios fundadores".</h1>
+                <h1 class="text_regular">Para participar de Comunidad Orsai tenes que estar registrado y logueado.</h1>
             </div>
 	        <form method="POST" action="{{url('ingresar')}}" id="ingresar-form">
 	            @csrf

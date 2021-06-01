@@ -15,6 +15,7 @@ class RondaModel extends Model
         'cost',
         'title',
         'bajada',
+        'order',
         'body',
     ];
 
@@ -27,6 +28,11 @@ class RondaModel extends Model
 
     public function inputs()
     {
-        return $this->hasManyThrough(InputModel::class, RondaInputModel::class, 'ronda_id', 'id');
+        return $this->hasManyThrough(InputModel::class, RondaInputModel::class, 'ronda_id', 'id', 'id', 'input_id');
+    }
+
+    static public function getRonda($contestId, $rondaOrder)
+    {
+        return RondaModel::where('contest_id', $contestId)->where('order', $rondaOrder)->with('inputs')->first();
     }
 }

@@ -363,44 +363,44 @@ if (document.getElementById("content-ltn")) {
         });
     })(jQuery);
 }
-if (document.getElementById("quien_fichas_modal")) {
-    var quien_fichas = document.getElementById("quien_fichas_modal");
-    var btn_ver_quien_fichas = document.getElementById("btn_ver_quien");
-    var quien_fichas_dos = document.getElementById("quien_fichas");
-    var cerrar_fichas = quien_fichas.getElementsByClassName("cerrar")[0];
-    btn_ver_quien_fichas.onclick = function() {
-        open_modal(quien_fichas);
-        quien_fichas.classList.add("abierto_fichas");
-        var scrollTop = $(window).scrollTop();
-        if ($(window).width() >= 590 && $(window).width() < 992) {
-            $("html, body").animate({
-                scrollTop: "831"
-            });
-        } else if ($(window).width() < 590) {
-            $("html, body").animate({
-                scrollTop: "600"
-            });
-        } else if ($(window).width() >= 992) {
-            $("html, body").animate({
-                scrollTop: "200"
-            });
-        }
-    }
-    cerrar_fichas.onclick = function() {
-        close(quien_fichas);
-    }
-    $(document).mouseup(function(e) {
-        if (quien_fichas.classList.contains("abierto_fichas")) {
-            var container = $("#quien_fichas_modal");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                quien_fichas.classList.remove("abierto_fichas");
-                container.fadeOut();
-                document.body.style.overflowY = "scroll";
-                document.body.style.overflowX = "hidden";
-            }
-        }
-    });
-}
+// if (document.getElementById("quien_fichas_modal")) {
+//     var quien_fichas = document.getElementById("quien_fichas_modal");
+//     var btn_ver_quien_fichas = document.getElementById("btn_ver_quien");
+//     var quien_fichas_dos = document.getElementById("quien_fichas");
+//     var cerrar_fichas = quien_fichas.getElementsByClassName("cerrar")[0];
+//     btn_ver_quien_fichas.onclick = function() {
+//         open_modal(quien_fichas);
+//         quien_fichas.classList.add("abierto_fichas");
+//         var scrollTop = $(window).scrollTop();
+//         if ($(window).width() >= 590 && $(window).width() < 992) {
+//             $("html, body").animate({
+//                 scrollTop: "831"
+//             });
+//         } else if ($(window).width() < 590) {
+//             $("html, body").animate({
+//                 scrollTop: "600"
+//             });
+//         } else if ($(window).width() >= 992) {
+//             $("html, body").animate({
+//                 scrollTop: "200"
+//             });
+//         }
+//     }
+//     cerrar_fichas.onclick = function() {
+//         close(quien_fichas);
+//     }
+//     $(document).mouseup(function(e) {
+//         if (quien_fichas.classList.contains("abierto_fichas")) {
+//             var container = $("#quien_fichas_modal");
+//             if (!container.is(e.target) && container.has(e.target).length === 0) {
+//                 quien_fichas.classList.remove("abierto_fichas");
+//                 container.fadeOut();
+//                 document.body.style.overflowY = "scroll";
+//                 document.body.style.overflowX = "hidden";
+//             }
+//         }
+//     });
+// }
 
 if (document.getElementById("menu_logueado")) {
     var menu_logueado = document.getElementById("menu_logueado");

@@ -44,6 +44,7 @@
                     <th>Nombre</th>
                     <th>Título</th>
                     <th>Descripción</th>
+                    <th class="text-center">Concursos</th>
                     <th>Creado</th>
                     <th class="text-center">Acciones</th>
                 </tr>
@@ -63,6 +64,9 @@
                         </td>
                         <td>
                             {{ $form->description }}
+                        </td>
+                        <td class="text-center">
+                            {{ $form->contests }}
                         </td>
                         <td>
                             {{ date('j/m/Y G:i', strtotime($form->created_at)) }}

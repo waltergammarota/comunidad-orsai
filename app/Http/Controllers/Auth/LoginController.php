@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Utils\Mailer;
+use App\Notifications\GenericNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Carbon;
+
 
 class LoginController extends Controller
 {
@@ -66,14 +70,20 @@ class LoginController extends Controller
             ])->withInput();
         }
 
+
         $credentials = $request->only('email', 'password');
         if ($this->guard()->attempt($credentials)) {
             if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
-                if (session('last_visited') != null) {
-                    $lastVisited = session('last_visited');
-                    session()->forget('last_visited');
-                    return Redirect::to($lastVisited);
+                $route = session('redirectLink');
+                if ($route) {
+                    session(['redirectLink' => false]);
+                    return Redirect::to($route);
                 }
+
+                if (Auth::user()->phone_verified_at == null) {
+                    $this->sendValidateNotification(Auth::user());
+                }
+
                 return Redirect::to('novedades');
             }
             if (Auth::user()->blocked != 0) {
@@ -167,5 +177,23 @@ class LoginController extends Controller
             ]
         )->withInput();
     }
+
+    private function sendValidateNotification($user)
+    {
+        $href = url('validacion-usuario');
+
+        $notification = new \stdClass();
+        $notification->subject = "Validación de perfil";
+        $notification->title = "¿Qué estás esperando?";
+        $notification->description = "<p>Validá tu perfil para acelerar el juego. <a href='" . $href . "'>Hacelo desde acá</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
+    }
+
 
 }

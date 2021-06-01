@@ -10,6 +10,8 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\GenericNotification;
+use Illuminate\Support\Facades\Notification;
 
 class Mordida extends Command
 {
@@ -60,6 +62,7 @@ class Mordida extends Command
                                     $tx = Transaction::createTransaction(1, $user->id, $mintAmount - $consumedAmount, "Mordida dia {$fecha}", null, 'BURN', ["mordida: {$fecha}"]);
                                     array_push($logs, $tx);
                                 }
+                                $this->sendNotification($user->id);
                                 $this->markAsProcessed($burnedTxs);
                                 $this->markAsProcessed($transferTxs);
                                 $this->markAsProcessed($mintTxs);
@@ -74,6 +77,24 @@ class Mordida extends Command
         } else {
             $this->info("Mordida is not enabled");
         }
+    }
+
+    private function sendNotification($userId)
+    {
+        $href = url('mis-fichas');
+        $user = User::find($userId);
+
+        $notification = new \stdClass();
+        $notification->subject = "Aviso Mordida";
+        $notification->title = "¡Cuidado! Una mordida está cerca.";
+        $notification->description = "<p><a href='" . $href . "'>Revisá el próximo vencimiento de tus fichas.</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
     }
 
     private function markAsProcessed($txs)

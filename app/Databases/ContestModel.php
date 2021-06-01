@@ -124,12 +124,24 @@ class ContestModel extends Model
 
     public function hasEnded()
     {
-        return $this->end_date < Carbon::now();
+        return $this->end_vote_date <= Carbon::now() && $this->end_date < Carbon::now();
+    }
+
+    public function hasVotesEnded()
+    {
+        return $this->end_vote_date <= Carbon::now();
     }
 
     public function cantidadCuentistasInscriptos()
     {
         $cuentistas = DB::select(DB::raw("select count(*) as cantidad from (select user_id from contest_applications where contest_id = {$this->id} group by user_id) t1"));
+        $amount = count($cuentistas) > 0 ? $cuentistas[0]->cantidad : 0;
+        return $amount;
+    }
+
+    public function cantidadUsuariosqueVotaron()
+    {
+        $cuentistas = DB::select(DB::raw("select count(*) as cantidad from (select user_id from answers_votes where contest_id = {$this->id} group by user_id) t1"));
         $amount = count($cuentistas) > 0 ? $cuentistas[0]->cantidad : 0;
         return $amount;
     }
@@ -158,6 +170,11 @@ class ContestModel extends Model
         return ContenidoModel::where('contest_id', $this->id)->first();
     }
 
+    public function getPaginaGanador()
+    {
+        return ContenidoModel::where('contest_id', $this->id)->skip(1)->first();
+    }
+
     public function hasStarted()
     {
         return $this->start_date < now();
@@ -167,6 +184,9 @@ class ContestModel extends Model
     {
         if ($this->hasEnded()) {
             return "finalizado";
+        }
+        if ($this->hasVotesEnded()) {
+            return "standby";
         }
         if ($this->hasStarted() && !$this->hasEnded()) {
             return "abierto";
@@ -190,6 +210,29 @@ class ContestModel extends Model
         return $status != "draft";
     }
 
+
+    public function inputs()
+    {
+        return $this->hasManyThrough(RondaInputModel::class, RondaModel::class, 'contest_id', 'ronda_id');
+    }
+
+    public function getRondaInputs($ronda_id)
+    {
+        $inputs = InputModel::selectRaw('inputs.id, inputs.name, inputs.title , inputs.type, rondas_inputs.id as selected')
+            ->leftjoin('rondas_inputs', function ($join) use ($ronda_id) {
+                $join->on('inputs.id', '=', 'rondas_inputs.input_id')->where('rondas_inputs.ronda_id', '=', $ronda_id);
+            })
+            ->where('inputs.form_id', $this->form_id);
+        return $inputs->get();
+    }
+
+
+    public function getFormInputs()
+    {
+        return InputModel::where('form_id', $this->form_id)->get();
+    }
+
+
     public function rondas()
     {
         return $this->hasMany(RondaModel::class, 'contest_id');
@@ -201,7 +244,8 @@ class ContestModel extends Model
      */
     public function getRondaByOrder($rondaOrder)
     {
-        return $this->rondas()->where('order', $rondaOrder)->first();
+        $ronda = $this->rondas()->where('order', $rondaOrder)->with('inputs')->first();
+        return $ronda;
     }
 
 
@@ -213,5 +257,44 @@ class ContestModel extends Model
     static public function isPool($poolId)
     {
         return ContestModel::where('pool_id', $poolId)->count() > 0;
+    }
+
+    public function getUrlName()
+    {
+        return str_replace(' ', '-', $this->name);
+    }
+
+    public function getRanking()
+    {
+        return Transaction::select(DB::raw('sum(amount) as cant, transactions.*'))
+            ->where('to', $this->pool_id)
+            ->whereNotNull('cap_id')
+            ->groupBy('cap_id')
+            ->with('capId.owner')
+            ->limit(20)
+            ->orderByRaw('SUM(amount) DESC')
+            ->orderBy('cap_id','ASC')
+            ->get();
+    }
+    public function getWinners()
+    { 
+        // return ContestApplicationModel::where("contest_id", $this->pool_id)
+        // ->where('is_winner', 1)
+        // ->with(['logos', 'owner', 'answers'])
+        // ->get();  
+        // return ContestApplicationModel::where(["is_winner" => 1, "contest_id" => $this->id])
+        // ->with(['logos', 'owner', 'answers'])
+        // ->get();
+    }
+        
+    public function getApostadores()
+    {
+        $querySql = "select count(*) as apostadores, t1.cap_id, votantes from (        select `from`, cap_id        from transactions        where `to` = {$this->pool_id}        and cap_id is not null        group by `cap_id`, `from`) t1        join (select cap_id, substring_index(group_concat(DISTINCT `from`),',',3) as votantes        from transactions where `to` = {$this->pool_id}        and cap_id is not null        group by cap_id        ) t2        on t1.cap_id = t2.cap_id        group by t1.cap_id";
+        return DB::select($querySql);
+    }
+
+    public function hasWinner()
+    {
+        return ContestApplicationModel::where(["is_winner" => 1, "contest_id" => $this->id])->count();
     }
 }

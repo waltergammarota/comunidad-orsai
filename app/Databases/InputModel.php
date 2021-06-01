@@ -63,6 +63,10 @@ class InputModel extends Model
                 return $this->nubeToHtml($answers);
             case "select":
                 return $this->selectToHtml($answers);
+            case "image":
+                return $this->mediaToHtml($answers);
+            case "audio":
+                return $this->mediaToHtml($answers);
         }
     }
 
@@ -110,6 +114,7 @@ class InputModel extends Model
         return $html;
     }
 
+
     private function textAreaToHtml($answers)
     {
         $counter_type = $this->counter_type;
@@ -117,11 +122,11 @@ class InputModel extends Model
         $palabras = "";
         switch ($counter_type) {
             case "char":
-                $counterClass = "count-words";
+                $counterClass = "count-characters";
                 $palabras = "caracteres";
                 break;
             case "word":
-                $counterClass = "count-characters";
+                $counterClass = "count-words";
                 $palabras = "palabras";
                 break;
         }
@@ -179,6 +184,39 @@ class InputModel extends Model
         return $html;
     }
 
+
+    private function mediaToHtml($answers)
+    {
+        $counter_type = $this->counter_type;
+        $counterClass = "";
+        $palabras = "";
+        switch ($counter_type) {
+            case "word":
+                $counterClass = "count-words";
+                $palabras = "palabras";
+                break;
+            case "char":
+                $counterClass = "count-characters";
+                $palabras = "caracteres";
+                break;
+        }
+        $data = [
+            "id" => $this->id,
+            "tutorial" => $this->tutorial,
+            "title" => $this->title,
+            "description" => $this->description,
+            "inputName" => $this->getInputName(),
+            "value" => $this->getValue($answers),
+            "counterClass" => $counterClass,
+            "palabras" => $palabras,
+            "placeholder" => $this->placeholder,
+            "counter_max" => $this->counter_max
+        ];
+        $html = view('concursos.inputMediaHtml', $data);
+        return $html;
+    }
+
+
     public function getRule()
     {
         $rawRules = [
@@ -191,5 +229,31 @@ class InputModel extends Model
             return $item != null;
         });
         return $rules;
+    }
+
+    public function toUserHtml($answer)
+    {
+        $type = $this->type;
+        $caca = "holla";
+        switch ($type) {
+            case 'nube':
+                return $this->nubeToUserHtml($answer->answer);
+            default:
+                return $this->inputToUserHtml($answer->answer);
+        }
+    }
+
+    private function inputToUserHtml($content)
+    {
+        return $content;
+    }
+
+    private function nubeToUserHtml($content)
+    {
+        $tags = explode(',', $content);
+        $tagsWithSpans = array_map(function ($item) {
+            return $item;
+        }, $tags);
+        return implode(', ', $tagsWithSpans);
     }
 }

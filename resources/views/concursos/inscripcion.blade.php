@@ -1,13 +1,19 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Linea de tiempo Orsai | Comunidad Orsai')
-@section('description','Linea de tiempo Orsai | Comunidad Orsai')
+@section('title', $concurso->name.' | Comunidad Orsai')
+@section('description','Concurso | Comunidad Orsai')
 
 
 @section('content')
     <section class="inscripcion-cuento">
         <div class="contenedor">
-            <div class="hero">
+            <div class="hero" 
+                @if($logo)
+                style="background-image:url('{{url('storage/images/'.$logo->name.".".$logo->extension)}}')"
+                @else
+                style="background-image:url('{{'/recursos/front2021/fichas-donaciones.jpg'}}')"
+                @endif
+            >
                 <div class="content-hero">
                     <p class="pills">Inscripción</p>
                     <h2 class="title">{{$concurso->name}}</h2>
@@ -15,13 +21,7 @@
                     @if($bases)
                         <a href="{{url($bases->slug)}}" class="link">Leer bases y condiciones</a>
                     @endif
-                </div>
-                @if($logo)
-                    <img src="{{url('storage/images/'.$logo->name.".".$logo->extension)}}" alt="" class="img_fondo">
-                @else
-                    <img src="https://dev.comunidadorsai.org/recursos/front2021/fichas-donaciones.jpg" class="img_fondo"
-                         alt="">
-                @endif
+                </div> 
             </div>
 
             <nav class="hero-nav concurso_nav">
@@ -32,7 +32,7 @@
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav">
-                            <span>Te quedan<br/><strong id="countdown_concurso"></strong></span>
+                            <span>Te queda<br/><strong id="countdown_concurso"></strong></span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
@@ -87,7 +87,7 @@
                         @if($concurso->hasPostulacionesAbiertas())
                             <div class="hero-nav-item">
                                 <div class="content-nav center">
-                                    <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                    <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}"
                                        class="btn-postulacion">Subir mi postulación</a>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
             @if($estado == "abierto")
                 @if($concurso->hasPostulacionesAbiertas())
                     <div class="subir_postulacion">
-                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}" class="btn-postulacion">Subir
+                        <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}" class="btn-postulacion">Subir
                             mi postulación</a>
                     </div>
                 @endif
@@ -108,7 +108,7 @@
     <section class="resaltado_gris cuerpo_inscripcion">
         <div class="contenedor_interna">
             <div class="cuerpo_interna">
-                {{-- <h2 class="cuerpo_inscripcion_title">{{$concurso->name}}</h2> --}}
+                {{-- <h2 class="cuerpo_inscripcion_title">{{$concurso->getUrlName()}}</h2> --}}
                 {!! $concurso->bajada_completa !!}
                 <div class="center-columns">
                     @if($bases)
@@ -117,7 +117,7 @@
                     @if($estado == "abierto")
                         @if($concurso->hasPostulacionesAbiertas())
                             <div class="align_center">
-                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->name)}}"
+                                <a href="{{url('postulaciones/'.$concurso->id.'/'.$concurso->getUrlName())}}"
                                    class="boton_redondeado resaltado_amarillo text_bold width_100">Subir mi
                                     postulación</a>
                             </div>
@@ -140,12 +140,18 @@
     @include("fundacion.footer-fundacion")
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
-        $("#countdown_concurso")
-            .countdown("{{$diferencia}}", function (event) {
+       
+        $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
+            if(event.offset['days'] != 0){
                 $(this).text(
-                    event.strftime('%D días %H:%M:%S')
-                );
-            });
+                    event.strftime('%-D día%!D %H:%M')
+                ); 
+            }else{
+                $(this).text(
+                    event.strftime('%H:%M:%S')
+                ); 
+            }
+        });
         $(".hero-nav-content").owlCarousel({
             responsiveClass: true,
             dots: false,

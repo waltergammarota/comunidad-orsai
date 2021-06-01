@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Databases\CompraModel;
 use App\Databases\ContestModel;
+use App\Databases\ContestApplicationModel;
 use App\Databases\Transaction;
 use App\User;
 use App\Utils\Mailer;
@@ -26,13 +27,122 @@ class TransparenciaController extends Controller
         $data['fichasEnJuego'] = $this->changeNumberFormat($fichasEnJuego);
         $fichasEnBilleteras = Transaction::getFichasEnBilleteras();
         $data['fichasEnBilleteras'] = $this->changeNumberFormat($fichasEnBilleteras);
+        $data['user_id'] = $request->route('user_id');
+        $data['contest_id'] = $request->route('contest_id');
+        $data['cap_id'] = $request->route('cap_id'); 
         return view('transparencia.index', $data);
+        
     }
 
     public function changeNumberFormat($number)
     {
         $number = number_format($number, 0, ',', '.');
         return $number;
+    }
+
+
+    public function fichas(Request $request)
+    {
+        $data = [];
+        $contests = ContestModel::all();
+
+        $chk_con = $request->query('chkcon');
+        $chk_don = $request->query('chkdon');
+        $chk_bal = $request->query('chkbal');
+        $chk_mor = $request->query('chkmor');
+
+
+        $txsQuery = Transaction::select('transactions.*')
+        ->leftjoin('contests', 'transactions.to', '=', 'contests.pool_id');
+        //->leftjoin('answers', 'transactions.cap_id', '=', 'answers.cap_id');
+ 
+        if ($chk_con == 'true') {
+            $txsQuery = $txsQuery->where('contests.pool_id', '<>', 0);
+        };
+
+        if ($chk_don == 'true') {
+            $txsQuery = $txsQuery->join('compras', 'transactions.id', '=', 'compras.delivered')->where('transactions.type', '=', 'MINT');
+        };
+
+        if ($chk_bal == 'true') {
+            $txsQuery = $txsQuery->orWhere('transactions.tags', 'like', '%baldeo%');
+        };
+
+        if ($chk_mor == 'true') {
+            $txsQuery = $txsQuery->orWhere('transactions.tags', 'like', '%mordida%');
+        };
+
+        if ($request->query('user_id')) {
+            $user_id = $request->query('user_id');
+            $txsQuery = $txsQuery->where('transactions.from', '=', $user_id)->orWhere('transactions.to', '=', $user_id);
+        };
+
+        if ($request->query('contest_id')) {
+            $contest_id = $request->query('contest_id');
+            $txsQuery = $txsQuery->where('contests.id', '=', $contest_id);
+        };
+
+        if ($request->query('cap_id')) {
+            $cap_id = $request->query('cap_id');
+            $txsQuery = $txsQuery->where('transactions.cap_id', '=', $cap_id);
+        };
+ 
+        $txs = $txsQuery->orderBy('created_at', 'desc')->paginate(5);
+
+        foreach ($txs as $tx) {
+            $row = [];
+            $row['id'] = $tx->id;
+            $row['description'] = $this->getFichasDescription($tx, $contests);
+            $row['date'] = $tx->created_at->format("d/m/Y H:i");
+            $row['type'] = $this->changeNumberFormat($tx->getAmountForReport());
+            array_push($data, $row);
+        }
+
+        $response = [
+            "current_page" => $txs->currentPage(),
+            "last_page" => $txs->lastPage(),
+            "total_page" => $txs->total(),
+            "user_id" => $request->query('user_id'),
+            "data" => $data,
+        ];
+
+        return response()->json($response);
+    }
+
+
+    public function dinero(Request $request)
+    {
+        $data = [];
+
+        $txsQuery = DB::table('compras')
+            ->join('users', 'compras.user_id', '=', 'users.id')
+            ->join('productos', 'productos.id', '=', 'compras.producto_id')
+            ->where('compras.processed', '=', 1)->select(DB::raw('compras.*, users.*, productos.*, compras.user_id as comprador'));
+
+        if ($request->query('user_id')) {
+            $user_id = $request->query('user_id');
+            $txsQuery = $txsQuery->where('compras.user_id', '=', $user_id);
+        };
+
+        $txs = $txsQuery->orderBy('compras.created_at', 'desc')->paginate(5);
+
+        foreach ($txs as $tx) {
+            $row = [];
+            $row['id'] = $tx->payment_id;
+            $row['description'] = $this->getDineroDescription($tx);
+            $row['date'] = Carbon::create($tx->created_at)->format("d/m/Y H:i");
+            $row['type'] = $this->changeNumberFormat($tx->amount);
+            array_push($data, $row);
+        }
+
+        $response = [
+            "draw" => $request->draw,
+            "current_page" => $txs->currentPage(),
+            "last_page" => $txs->lastPage(),
+            "total_page" => $txs->total(),
+            "data" => $data,
+        ];
+        return response()->json($response);
     }
 
     public function transparencia_json(Request $request)
@@ -105,10 +215,14 @@ class TransparenciaController extends Controller
         if ($userFrom->id == 1) {
             return "{$to} recibió fichas de {$from}";
         }
-        if (in_array($userTo->id, $pools)) {
-            $contest_url = "concursos/{$contests->firstWhere("pool_id", $userTo->id)->id}/" . urlencode($contests->firstWhere("pool_id", $userTo->id)->name);
-            return "{$from} se postuló al <a href='{
-                $contest_url}'>{$contests->firstWhere("pool_id", $userTo->id)->name}</a>";
+        if (in_array($userTo->id, $pools) && $tx->cap_id == null) {
+            $contest_url = "concursos/{$contests->firstWhere("pool_id",$userTo->id)->id}/" . urlencode($contests->firstWhere("pool_id", $userTo->id)->name);
+            return "{$from} se postuló al <a href='".url($contest_url)."'>{$contests->firstWhere("pool_id",$userTo->id)->name}</a>";
+        }
+        if (in_array($userTo->id, $pools)) { 
+            $contest_url = "concursos/{$contests->firstWhere("pool_id",$userTo->id)->id}/" . urlencode($contests->firstWhere("pool_id", $userTo->id)->name);
+            $cap_url = "concursos/{$contests->firstWhere("pool_id",$userTo->id)->id}/" . urlencode($contests->firstWhere("pool_id", $userTo->id)->name) . "/ronda/1?id=" .$tx->cap_id;
+            return "{$from} apostó a <a href='".url($cap_url)."'>".str_pad($tx->capId->order,3,0, STR_PAD_LEFT)."</a> en el <a href='".url($contest_url)."'>{$contests->firstWhere("pool_id",$userTo->id)->name}</a>";
         }
         // TODO AGREGAR VOTACION LEYENDA
         return "{$from} envió al Usuario {$to}";

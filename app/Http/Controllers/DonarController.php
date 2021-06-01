@@ -7,6 +7,7 @@ use App\Databases\DolarModel;
 use App\Databases\MoneyTransactionModel;
 use App\Databases\ProductoModel;
 use App\Databases\Transaction;
+use App\Notifications\GenericNotification;
 use App\User;
 use App\Utils\Mailer;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use MercadoPago\Item;
 use MercadoPago\Payer;
 use MercadoPago\Preference;
@@ -187,6 +189,7 @@ class DonarController extends Controller
                     $compra->delivered = $tx->id;
                     $compra->save();
                     $this->sendPaymentMail($user, $producto, $compra);
+                    $this->sendNotification($user);
                     $data = array_merge($data, $this->getUserData());
                     $data['producto'] = $producto;
                     $producto->setCotizacion($compra->price_ars);
@@ -271,6 +274,7 @@ class DonarController extends Controller
                             MoneyTransactionModel::createMoneyTransaction($compra->user_id, $producto->price, "Ingreso compra producto {$producto->id}", "MINT", "USD", $compra->payment_id);
                             $user = User::find($compra->user_id);
                             $this->sendPaymentMail($user, $producto, $compra);
+                            $this->sendNotification($user);
                             $compra->delivered = $tx->id;
                             $compra->save();
                         }
@@ -311,6 +315,7 @@ class DonarController extends Controller
             MoneyTransactionModel::createMoneyTransaction($compra->user_id, $producto->price, "Ingreso compra producto {$producto->id}", "MINT", "USD", $compra->payment_id);
             $user = Auth::user();
             $this->sendPaymentMail($user, $producto, $compra);
+            $this->sendNotification($user);
             $compra->delivered = $tx->id;
             $compra->save();
         }
@@ -405,4 +410,23 @@ class DonarController extends Controller
         $mailer = new Mailer();
         $mailer->sendDonationEmail($emailData);
     }
+
+    private function sendNotification($user)
+    {
+        $href = url('mis-fichas');
+
+        $notification = new \stdClass();
+        $notification->subject = "Nueva donación";
+        $notification->title = "¡Gracias por la donación!";
+        $notification->description = "<p>Ya tenés las fichas disponibles en tu cuenta. <a href='" . $href . "'>Ver.</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
+    }
+
+
 }

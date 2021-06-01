@@ -41,20 +41,29 @@
                                 <table class="light-3" id="mis_postulaciones_table">
                                     <thead>
                                     <tr>
-                                        <th>Postulación</th>
+                                        <th>Postulación</th> 
                                         <th>Concurso</th>
                                         <th>Fecha y hora de postulación</th>
                                         <th>Estado</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($postulaciones as $postulacion)
+                                    @foreach($postulaciones as $postulacion)  
+                                    <?php $status = $postulacion->status()->first(); ?>
                                         <tr>
-                                            <td>{{$postulacion->id}}</td>
+                                            <td>
+                                                @if($status->status  == 'approved' && $postulacion->contest_id != 1 && $postulacion->contest()->first()->start_vote_date->format('d/m/Y H:i') <= date('d/m/Y H:i')) 
+                                                    @php 
+                                                    $href = url('concursos/' . $postulacion->contest_id . '/' . str_replace(' ', '-', $postulacion->contest()->first()->name) . '/ronda/1?id='.$postulacion->id);
+                                                    @endphp
+                                                    <a href="{{$href}}" class="postulacion_url tooltip">{{$postulacion->id}} <span class="icon-share"><span class="tooltiptext">Copiar URL</span></a>
+                                                @else
+                                                {{$postulacion->id}}
+                                                @endif 
+                                                </td>
                                             {{-- TODO DEFINIR IMAGEN DE CADA TIPO--}}
                                             <td>{{$postulacion->contest()->first()->name}}</td>
                                             <td>{{$postulacion->created_at->subHours(3)->format('d/m/Y H:i')}}</td>
-                                            <?php $status = $postulacion->status()->first(); ?>
                                             @if($status && $status->status  == 'approved')
                                                 <td><span class="estado_postulacion estado_aprobado"><p>Aprobada</p><span
                                                             class="icon-check"></span></span></td>
@@ -104,6 +113,24 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script>
+ 
+       // var url = $('.postulacion_url').attr('href');
+
+        $('.postulacion_url').on('click', function(e) { 
+            e.preventDefault(); 
+            $(this).find('.tooltiptext').text('¡URL Copiada!');
+            url = $(this).attr('href'); 
+            var input = document.body.appendChild(document.createElement("input"));
+            input.value = $(this).attr('href'); 
+            input.select();
+            document.execCommand("copy"); 
+            input.parentNode.removeChild(input);
+        });
+        $('.postulacion_url').on('mouseleave', function(e) { 
+            $(this).find('.tooltiptext').text('Copiar URL');
+        });
+
+
         const lang = {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",

@@ -18,7 +18,6 @@ yarn-error.log
 .vscode
 data
 forsai.pem
-composer.lock
 orsai-local Session.sql
 .php_cs.cache
 .DS_Store

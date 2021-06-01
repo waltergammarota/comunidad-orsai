@@ -103,11 +103,12 @@ Route::post(
 )->name('mercado_pago_webhook');
 
 //TRANSPARENCIA
-Route::get(
-    'transparencia',
-    'TransparenciaController@index'
-)
-    ->name('transparencia');
+Route::get('transparencia/fichas', 'TransparenciaController@fichas')->name('transparencia.fichas');
+Route::get('transparencia/dinero', 'TransparenciaController@dinero')->name('transparencia.dinero');
+Route::get('transparencia/usuario/{user_id}', 'TransparenciaController@index')->name('transparencia.user');
+Route::get('transparencia/cuento/{cap_id}', 'TransparenciaController@index')->name('transparencia.cap_id');
+Route::get('transparencia/concurso/{contest_id}', 'TransparenciaController@index')->name('transparencia.contest');
+Route::get('transparencia', 'TransparenciaController@index')->name('transparencia');
 
 Route::get(
     'transparencia-json',
@@ -125,6 +126,16 @@ Route::get(
     '/concursos/{id}/{name}',
     'Contest\ContestController@show'
 )->name("concursos-show");
+
+Route::get(
+    '/concursos/{contestId}/{contestName}/{ganador}',
+    'Contest\ContestController@show_winner'
+)->name("ganador");
+
+Route::get(
+    'concursos/{contestId}/{name}/ronda/{rondaId}',
+    'Contest\ContestController@show_ronda'
+)->name('concurso-ronda');
 
 /* ACCESO RESTRINGIDO */
 Route::middleware(['verified'])->group(
@@ -252,7 +263,6 @@ Route::middleware(['verified'])->group(
 
         // INICIO CONCURSOS
 
-
         Route::get(
             '/postulacion/{id}',
             'PropuestaController@show'
@@ -311,26 +321,6 @@ Route::middleware(['verified'])->group(
         )->name('concurso-finalizado');
 
         Route::get(
-            '/ronda_1',
-            'WebController@ronda_1'
-        )->name('ronda_1');
-
-        Route::get(
-            '/ronda_2',
-            'WebController@ronda_2'
-        )->name('ronda_2');
-
-        Route::get(
-            '/ronda_3',
-            'WebController@ronda_3'
-        )->name('ronda_3');
-
-        Route::get(
-            '/cuento_completo',
-            'WebController@cuento_completo'
-        )->name('cuento_completo');
-
-        Route::get(
             '/ranking',
             'WebController@ranking'
         )->name('ranking');
@@ -350,12 +340,21 @@ Route::middleware(['verified'])->group(
             'WebController@getMore'
         )->name('participantes-more');
 
+        // CONCURSOS RONDAS
+
+
+        // CUENTO COMPLETO
+        Route::get(
+            'cuentos/{storyId}',
+            'Contest\ContestController@show_cuento'
+        )->name('concurso-cuento-completo');
+        // CONCURSOS RONDAS
+
         //FIN DE CONCURSOS
         Route::post(
             'reportar',
             'TransparenciaController@reportar'
-        )
-            ->name('reportar');
+        )->name('reportar');
         // END OF TRANSPARENCIA
 
         Route::get(
@@ -816,6 +815,7 @@ Route::middleware(['verified'])->group(
         Route::get('admin/concursos/crear', 'Contest\ContestController@create')->name('concurso-crear')->middleware('admin_role');
 
         Route::get('admin/contest/editar/{id}', 'Contest\ContestController@edit')->name('concurso-editar')->middleware('admin_role');
+        Route::get('admin/contest/inputs/{id}', 'Contest\ContestController@inputs')->name('contest.inputs')->middleware('admin_role');
 
         Route::post(
             'admin/contest/deleteAll',
@@ -903,7 +903,7 @@ Route::middleware(['verified'])->group(
 
         // CONTEST WINNER ROUTE
         Route::get(
-            '/concurso/ganador/{contest_id}',
+            '/estadisticas/{contestId}/{contestName}',
             'Contest\ContestController@show_winner'
         )->name("concurso-ganador");
 

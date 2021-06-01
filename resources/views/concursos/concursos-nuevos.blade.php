@@ -1,6 +1,6 @@
 @extends('2021-orsai-template')
 
-@section('title', 'Concursos| Comunidad Orsai')
+@section('title', 'Concursos | Comunidad Orsai')
 @section('description','Concursos | Comunidad Orsai')
 
 
@@ -107,7 +107,7 @@
                                             @else
                                                 <div class="card active">
                                                     @endif
-                                                    <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->name))}}">
+                                                    <a href="{{url('concursos/'.$concurso->id.'/'.urlencode($concurso->getUrlName()))}}">
                                                         <div class="thumbnail">
                                                             @if($concurso->image > 0)
                                                                 <img

@@ -12,7 +12,6 @@
                 listados de benefactores, adherentes y aportantes económicos que bancan los proyectos.</p>
         </div>
     </section>
- 
     <section class="resaltado_gris_oscuro pd_tp_bt pd_20">
         <div class="center_div">
             <div class="contenedor mg_0 dis_flex ">
@@ -51,10 +50,98 @@
             <div class="">
                 <div class="form_central_3 ">
                     <div class="btn_fichas_dinero">
-                        <span class="fichas active" data-type="fichas">Fichas</span>
-                        <span class="dinero" data-type="dinero">Dinero</span>
+                        <div class="icon">
+                            <i id="open_menu" class="icon-filtro"></i>
+                            <form action="#" id="form_filtro" autocomplete="off">
+                            <ul class="sub_menu">
+                                <li class="cont_icon_cancel"> <span class="icon icon-cancel"></span></li>
+                                <li class="titulo_checkbox">
+                                    <div>
+                                        <span class="text_regular color_negro">Mis filtros</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="grilla_form sin_margin ">
+                                        <div class="form_ctrl input_ col_6">
+                                            <div class="align_left">
+                                            <div class="input_err">
+                                                <div class="check_div input_err obligatorio">
+                                                    <label class="checkbox-container letra_chica text_regular color_negro">
+                                                        Concursos
+                                                        <input type="checkbox" value="Concursos" id="chkcon" name="filtro1" class="check_cond"> 
+                                                        <span class="crear_check"></span> 
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="grilla_form sin_margin">
+                                        <div class="form_ctrl input_ col_6">
+                                            <div class="align_left">
+                                            <div class="input_err">
+                                                <div class="check_div input_err obligatorio">
+                                                    <label class="checkbox-container letra_chica text_regular color_negro">
+                                                        Baldeos
+                                                        <input type="checkbox" value="Baldeos" id="chkbal" name="filtro2" class="check_cond"> 
+                                                        <span class="crear_check"></span> 
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="grilla_form sin_margin">
+                                        <div class="form_ctrl input_ col_6">
+                                            <div class="align_left">
+                                            <div class="input_err">
+                                                <div class="check_div input_err obligatorio">
+                                                    <label class="checkbox-container letra_chica text_regular color_negro">
+                                                        Donaciones
+                                                        <input type="checkbox" value="Donaciones" id="chkdon" name="filtro3" class="check_cond"> 
+                                                        <span class="crear_check"></span> 
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="grilla_form sin_margin">
+                                        <div class="form_ctrl input_ col_6">
+                                            <div class="align_left">
+                                            <div class="input_err">
+                                                <div class="check_div input_err obligatorio">
+                                                    <label class="checkbox-container letra_chica text_regular color_negro">
+                                                        Mordidas
+                                                        <input type="checkbox" value="mordidas" id="chkmor" name="filtro3" class="check_cond"> 
+                                                        <span class="crear_check"></span> 
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </li>
+                                <li class="cont_btn_filtro">
+                                    <div class="form_ctrl input_">
+                                        <div class="align_right">
+                                            <button id="btn-filtro" class="boton_redondeado resaltado_amarillo pd_50_lf_rg">Filtrar</button>
+                                        </div>
+                                    </div>    
+                                </li>
+                            </ul>
+                        </form>
+                        </div>        
+                        <span class="btn_tr fichas active" data-type="fichas">Fichas</span>
+                        <span class="btn_tr dinero" data-type="dinero">Dinero</span>
                     </div>
-                    <div class="tran_creditos transparencia">
+                    {{-- <div class="tran_creditos transparencia">
                         <div class="cont_tabla">
                             <table class="light-3" class="display nowrap" style="width:100%height:500px;"
                                     id="mis_fichas_table">
@@ -68,7 +155,30 @@
                                 </thead>
                             </table>
                         </div>
+                    </div> --}}
+                    <div class="tran_creditos transparencia">
+                        <div class="cont_tabla">
+                            <table class="light-3" id="mis_fichas_table">
+                                <thead>
+                                <tr>
+                                    <th>Fecha y hora</th>
+                                    <th>ID</th>
+                                    <th>Descripción</th>
+                                    <th>Débito/Crédito</th>
+                                </tr>
+                                </thead>
+                                <tbody id="cargar_">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <div id="cargar_texto" class="">
+                        <div class="spinner_"><img src="{{url('estilos/front2021/assets/25.gif')}}" alt=""></div>
+                        <span class="loading_">Cargando...</span>
+                    </div> 
+                    <div id="cargar_texto_2">
+                        <span class="loading_">No hay más...</span>
+                    </div> 
                 </div>
         </article>
     </section>
@@ -151,7 +261,7 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/scroller/2.0.3/js/dataTables.scroller.min.js"></script>
     <script>
- 
+        
         const lang = {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -182,95 +292,57 @@
             }
         };
 
+
+        const colsDinero = [
+            {
+                "data": "date",
+                "render": function (data) {
+                    return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
+                }
+            },
+            { "data": "id" },
+            { "data": "description" },
+            {
+                "data": "type",
+                "render": function (data) {
+                    let classNegativo = "";
+                    if (parseInt(data) < 0) {
+                        classNegativo = "dinero_negativo";
+                    }
+                    return `<div class="dinero_td ${classNegativo} align_right"><span class="icono">USD </span>${data}</div>`;
+                }
+            }
+        ];
+        const colsFichas = [
+            {
+                "data": "date",
+                "width": "20%",
+                "render": function (data) {
+                    return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
+                }
+            },
+            { "data": "id", "width": "10%", },
+            { "data": "description", "width": "60%", },
+            {
+                "data": "type",
+                "width": "10%",
+                "render": function (data) {
+                    let classNegativo = "";
+                    if (parseInt(data) < 0) {
+                        classNegativo = "fichas_negativo";
+                    }
+                    return `<div class="fichas fichas_td ${classNegativo}"><span class="icono icon-ficha"></span><span class="align_right">${data}</span></div>`;
+                }
+            }
+        ];
+
+        
+        const columns = {fichas: colsFichas, dinero: colsDinero};
+        const datos = {fichas: {page: 1, pages: 0, data: []}, dinero: {page: 1, pages: 0, data: []}};
+
         $(document).ready(function () {
-            const colsDinero = [
-                {
-                    "data": "date",
-                    "render": function (data) {
-                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
-                    }
-                },
-                {"data": "id"},
-                {"data": "description"},
-                {
-                    "data": "type",
-                    "render": function (data) {
-                        let classNegativo = "";
-                        if (parseInt(data) < 0) {
-                            classNegativo = "dinero_negativo";
-                        }
-                        return `<div class="dinero dinero_td ${classNegativo} align_right"><span class="icono">USD </span>${data}</div>`;
-                    }
-                }
-            ];
-            const colsFichas = [
-                {
-                    "data": "date",
-                    "render": function (data) {
-                        return `<span class="icono icon-flag tooltip"><span class="tooltiptext">Reportar</span></span> ${data}`;
-                    }
-                },
-                {"data": "id"},
-                {"data": "description"},
-                {
-                    "data": "type",
-                    "render": function (data) {
-                        let classNegativo = "";
-                        if (parseInt(data) < 0) {
-                            classNegativo = "fichas_negativo";
-                        }
-                        return `<div class="fichas fichas_td ${classNegativo}"><span class="icono icon-ficha"></span><span class="align_right">${data}</span></div>`;
-                    }
-                }
-            ];
-            const dineroOptions = {
-                "searching": false,
-                "lengthChange": false,
-                "info": false,
-                "ordering": false,
-                "order": [[0, "desc"]],
-                "serverSide": true,
-                "ajax": '{{url('transparencia-json?query=dinero')}}',
-                "language": lang,
-                "columns": colsDinero
-            };
-            const fichasOptions = {
-                "searching": false,
-                "lengthChange": false,
-                "info": false,
-                "ordering": false,
-                "order": [[0, "desc"]],
-                "serverSide": true,
-                "ajax": '{{url('transparencia-json?query=fichas')}}',
-                "language": lang,
-                "columns": colsFichas
-            };
-            let table = $('#mis_fichas_table').DataTable(fichasOptions);
-            const demoOptions = {
-                "searching": false,
-                "lengthChange": false,
-                "info": false,
-                "ordering": false,
-                "order": [[0, "desc"]],
-                "language": lang
-            };
-            $('#table_demo').DataTable(demoOptions);
 
-            $(".sort").on("click", function () {
-                if ($(this).hasClass("icon-down-dir")) {
-                    $(".icon-up-dir").addClass("icon-down-dir");
-                    $(".icon-up-dir").removeClass("icon-up-dir");
-                    $(this).addClass("icon-up-dir");
-                    $(this).removeClass("icon-down-dir");
-                } else {
-                    $(".icon-up-dir").addClass("icon-down-dir");
-                    $(".icon-up-dir").removeClass("icon-up-dir");
-                    $(this).addClass("icon-down-dir");
-                    $(this).removeClass("icon-up-dir");
-                }
-            });
-
-            $(".btn_fichas_dinero span").on("click", function () {
+            $(".btn_fichas_dinero .btn_tr").on("click", function () {
                 if ($(this).hasClass("active")) {
 
                 } else {
@@ -278,14 +350,27 @@
                     $(".tran_creditos.transparencia .dinero").toggle();
                     $(".btn_fichas_dinero span.active").removeClass("active");
                     $(this).addClass("active");
-                    table.destroy();
-                    if ($(this).data('type') == "fichas") {
-                        table = $('#mis_fichas_table').DataTable(fichasOptions);
+
+                    target = $(this).data('type');
+                    let page = datos[target].page;
+
+                    if (page == 1) {
+                        getData(target);
                     } else {
-                        table = $('#mis_fichas_table').DataTable(dineroOptions);
+                        setTable(target);
                     }
+
+                    page = datos[target].page;
+                    let pages = datos[target].pages;
+
+                    if (pages >= page) {
+                        $("#cargar_texto_2").removeClass("activo");
+                    } 
+
+
                 }
             });
+
 
             $(".modal_no").on("click", function () {
                 $("#validacion_requerida").fadeOut();
@@ -295,6 +380,7 @@
 
             $(".cerrar").on("click", function () {
                 $("#reportar_transaccion").fadeOut();
+                $("#validacion_requerida").fadeOut();
                 $(".aviso").fadeOut();
                 $('html, body').css('overflowY', 'auto');
             });
@@ -305,17 +391,189 @@
                 $("#report_id_input").val(data.id);
                 $('html, body').css('overflowY', 'hidden');
 
-                @if (Auth::check())
-                    $("#reportar_transaccion").fadeIn();
-                @else
-                    $("#validacion_requerida").fadeIn();
-                @endif
-            })
-            $("#reportar_transaccion button").on("click", function () {
-                $(".aviso").fadeIn();
+                @if (Auth:: check())
+            $("#reportar_transaccion").fadeIn();
+            @else
+            $("#validacion_requerida").fadeIn();
+            @endif
+        })
+        $("#reportar_transaccion button").on("click", function () {
+            $(".aviso").fadeIn();
+        });
+            });
+
+        function click_flag() {
+            $(".icon-flag").on("click", function () {
+                $("#report_id").text($(this).parent().parent().find(".id_transaccion").text())
+                $("#report_id_input").val($(this).parent().parent().find(".id_transaccion").text())
+                $('html, body').css('overflowY', 'hidden');
+
+                @if (Auth:: check())
+            $("#reportar_transaccion").fadeIn();
+            @else
+            $("#validacion_requerida").fadeIn();
+            @endif
+        })
+        $("#reportar_transaccion button").on("click", function () {
+            $(".aviso").fadeIn();
+        });
+            }
+        click_flag();
+
+
+        var cant_agrega = 0;
+
+        var counter_;
+
+        let target = 'fichas';
+        
+        const user_id = {!! json_encode($user_id) !!};
+        const contest_id = {!! json_encode($contest_id) !!};
+        const cap_id = {!! json_encode($cap_id) !!};
+
+        let table = $('#mis_fichas_table').DataTable({
+            paging: false,
+            searching: false,
+            lengthChange: false,
+            info: false,
+            ordering: false,
+        });
+
+        getData('fichas');
+
+
+        document.getElementById("btn-filtro").addEventListener('click', function (event) {
+            'use strict';
+            event.preventDefault();
+
+            $("#form_filtro").removeClass("abierto");
+
+            if (target == 'fichas')
+            {
+                datos[target].data = [];
+                datos[target].pages = 0;
+                datos[target].page = 1;
+
+                getData('fichas');
+            }
+
+        }, false);
+
+
+
+
+        $(window).scroll(function () {
+
+            if (($(window).scrollTop() + $(window).height()) >= ($(document).height() - 100)) {
+
+                if (counter_ != undefined) {
+                    clearInterval(counter_)
+                }
+
+                let page = datos[target].page;
+                let pages = datos[target].pages;
+
+                //if (page >= pages + 1 || cant_agrega == "no hay mas") {
+                if (page >= pages + 1) {
+                    $("#cargar_texto").removeClass("activo");
+                    $("#cargar_texto_2").addClass("activo");
+
+                } else {
+
+                    $("#cargar_texto").addClass("activo");
+
+                    counter_ = setTimeout(function () {
+                        
+                        getData(target);
+
+                        click_flag();
+                        $("#cargar_texto").removeClass("activo");
+
+                        $('body').css('overflow', 'auto')
+
+                        cant_agrega++;
+                    }, 1000);
+                }
+
+            };
+        });
+
+
+        /* Submenu de busqueda */
+
+        $("#form_filtro .icon-cancel").on("click", function () {
+            $("#form_filtro").removeClass("abierto");
+        })
+        $("#open_menu").on("click", function () {
+            if ($("#form_filtro").hasClass("abierto")) {
+
+                $("#form_filtro").removeClass("abierto");
+            } else {
+                $("#form_filtro").addClass("abierto");
+            }
+        })
+        $(document).ready(function () {
+            $('#form_filtro').submit(function (e) {
+                e.preventDefault();
             });
         });
+
+        function getData(target) {
+
+            const chkcon = document.getElementById('chkcon').checked;
+            const chkdon = document.getElementById('chkdon').checked;
+            const chkbal = document.getElementById('chkbal').checked;
+            const chkmor = document.getElementById('chkmor').checked;
+
+            let url = `{!! url('transparencia/${target}') !!}/?chkcon=${chkcon}&chkdon=${chkdon}&chkbal=${chkbal}&chkmor=${chkmor}&page=${datos[target].page}`;
+
+            if (user_id) {
+                url += `&user_id=${user_id}`;
+            } 
+
+            if (contest_id) {
+                url += `&contest_id=${contest_id}`;
+            } 
+            if (cap_id) {
+                url += `&cap_id=${cap_id}`;
+            } 
+
+            fetch(url, {
+                method: 'GET',
+            }).then(response => response.text()).then(data => {
+
+                let txs = JSON.parse(data);
+
+                if (txs.last_page >= txs.current_page) {
+                    $("#cargar_texto_2").removeClass("activo");
+                } 
+
+                datos[target].data = datos[target].data.concat(txs.data);
+                datos[target].pages = txs.last_page;
+                datos[target].page++; 
+
+                setTable(target);
+
+            }).catch(error => console.log(error));
+
+        }
+
+        function setTable(target) {
+            table.destroy();
+            table = $('#mis_fichas_table').DataTable({
+                paging: false,
+                searching: false,
+                lengthChange: false,
+                info: false,
+                ordering: false,
+                language: lang,
+                data: datos[target].data,
+                columns: columns[target]
+            });
+        }
+
     </script>
+
 @endsection
 
 

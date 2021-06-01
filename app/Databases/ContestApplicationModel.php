@@ -27,7 +27,7 @@ class ContestApplicationModel extends Model
         'prize_percentage',
         'bases',
         'condiciones',
-        'order'
+        'order',
     ];
 
     /**
@@ -90,8 +90,128 @@ class ContestApplicationModel extends Model
 
     public function answers()
     {
-        return $this->belongsToMany(AnswerModel::class, 'answers', 'cpa_id', 'id');
+        return $this->hasMany(AnswerModel::class, 'cap_id', 'id');
+    }
+
+    static function getAnswersById($contest, $id)
+    {
+        $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->with('answers.input');
+        $cpas = $cpas->where('id', $id);
+        $num_id = '';
+        foreach ($cpas->get() as $cpa) {
+            $num_id = str_pad($cpa->order, 3, 0, STR_PAD_LEFT);
+        }
+        return ($num_id);
+    }
+
+    static function getApplications($contest, $rondas, $userId, $currentRonda, $filters, $id = false)
+    {
+        $previousRondaVotes = collect([]);
+        $currentRondaVotes = collect([]);
+        if ($userId > 0) {
+            $previousRondaVotes = VotesModel::getVotes($contest->id, $userId, $currentRonda->order - 1);
+            $currentRondaVotes = VotesModel::getVotes($contest->id, $userId, $currentRonda->order);
+        }
+        $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->with('answers.input');
+        if (array_key_exists('busqueda', $filters)) {
+            $busqueda = $filters['busqueda'];
+            $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->whereHas('answers.input', function ($query) use ($busqueda) {
+                $query->where('answer', 'like', "%{$busqueda}%");
+            });
+        }
+        if (array_key_exists('etiquetas', $filters)) {
+            $etiquetas = explode(";", $filters['etiquetas']);
+            $input = InputModel::where('form_id', $contest->form_id)->where('type', 'select')->first();
+            $answers = AnswerModel::select('id', 'cap_id')->where('input_id', $input->id)->where('contest_id', $contest->id)->whereIn('answer', $etiquetas)->get();
+            $ids = $answers->map(function ($answer) {
+                return $answer->cap_id;
+            });
+            $cpas->whereIn('id', $ids->toArray());
+        }
+        if ($currentRonda->order == 1 && array_key_exists('destrabados', $filters) && $filters['destrabados']) {
+            $ids = $currentRondaVotes->map(function ($vote) {
+                return $vote->cap_id;
+            });
+            $cpas->whereIn('id', $ids->toArray());
+        }
+        if (($currentRonda->order > 1 && !$id)) {
+            $ids = $previousRondaVotes->map(function ($vote) {
+                return $vote->cap_id;
+            });
+            $cpas->whereIn('id', $ids->toArray());
+        }
+        if ($id) {
+            $cpas->where('id', $id);
+        }
+        $apps = $cpas->get();
+        foreach ($apps as $cpa) {
+            $cpa->votesAmount = $cpa->getVotesByUser($userId, $currentRonda->order);
+            if ($currentRondaVotes->contains('cap_id', $cpa->id)) {
+                $cpa->hasBeenVoted = 1;
+            }
+            foreach ($cpa->answers as $answer) {
+                $answer->ronda = [];
+                foreach ($rondas as $ronda) {
+                    $inputs = $ronda->inputs;
+                    if ($inputs->contains(function ($item) use ($answer) {
+                        return $answer->input_id == $item->id;
+                    })) {
+                        $aux = $answer->ronda;
+                        $aux[] = $ronda->order;
+                        $answer->ronda = $aux;
+                    }
+                }
+            }
+        }
+
+        return $apps->sort(function ($cpa) {
+            if ($cpa->hasBeenVoted) {
+                return -1;
+            }
+            return 1;
+        });
+    }
+
+    public function getVotesByUser($userId, $order)
+    {
+        if ($userId == 0) {
+            return 0;
+        }
+
+        return VotesModel::getVotesCount($this->contest_id, $userId, $order, $this->id);
     }
 
 
+    public function getAnswerByRonda($currentRonda, $key)
+    {
+        $answers = $this->answers->filter(function ($item) use ($currentRonda) {
+            return in_array($currentRonda->order, $item->ronda);
+        });
+        $sorteredAnswers = collect([]);
+        $inputs = $currentRonda->inputs;
+        foreach ($inputs as $input) {
+            $sorteredAnswers->push($answers->first(function ($item) use ($input) {
+                return $item->input_id == $input->id;
+            }));
+        }
+
+        $answer = $sorteredAnswers->slice($key, 1)->shift();
+        $selectedInput = $answer ? $answer->input : false;
+        return $selectedInput ? $selectedInput->toUserHtml($answer) : '';
+    }
+
+    static public function getCompleteCpa($capId)
+    {
+        return ContestApplicationModel::where('id', $capId)->with('answers.input')->first();
+    }
+
+    public function getTotalVotes()
+    {
+        return Transaction::where('cap_id', $this->id)->sum('amount');
+    }
+
+    public function getTransactions()
+    {
+        return Transaction::where('cap_id', $this->id)->with('getFromUser')->orderByDesc('id')->get();
+    }
 }

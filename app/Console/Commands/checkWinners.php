@@ -4,10 +4,12 @@ namespace App\Console\Commands;
 
 use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
+use App\Databases\CotizacionModel;
 use App\Databases\Transaction;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class checkWinners extends Command
 {
@@ -48,30 +50,36 @@ class checkWinners extends Command
             switch ($contest->mode) {
                 case 1:
                     $this->info("pozo");
-                    $pozo = User::find($contest->pool_id)->getBalance();
+                    //$pozo = User::find($contest->pool_id)->getBalance();
+                    $cotizacion = CotizacionModel::getCurrentCotizacion();
+                    $pozo = $contest->cantidadFichasEnJuego() * $contest->token_value * $cotizacion->precio;
                     $winnersDistribution = json_decode($contest->per_winner);
-                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->orderBy('votes', 'DESC')->take($contest->cant_winners)->get();
+                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->orderBy('votes', 'DESC')->orderBy('id', 'ASC')->take($contest->cant_winners)->get(); 
+                    //$maxVotesContest = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->max('votes');
+                    //$cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->where('votes', $maxVotesContest)->get();
+                    
+                    $counter = 0;
+                    
                     foreach ($cpas as $cpa) {
-                        $counter = 0;
                         $cpa->is_winner = 1;
-                        $prizeAmount = round($pozo * $winnersDistribution[$counter] / 100, 0);
-                        $cpa->prize_amount = $prizeAmount;
+                        $prizeAmount = $pozo * $winnersDistribution[$counter] / 100;
+                        $cpa->prize_amount = number_format($prizeAmount, 2, ',', '.');
                         $cpa->prize_percentage = $winnersDistribution[$counter];
                         $cpa->save();
                         $data = "Ganador concurso {$contest->name}";
                         $tx = new Transaction(
                             [
-                                "from" => 1,
+                                "from" => $contest->pool_id,
                                 "to" => $cpa->user_id,
                                 "amount" => $prizeAmount,
-                                "type" => "MINT",
+                                "type" => "TRANSFER",
                                 "data" => $data
                             ]
                         );
                         $tx->save();
+                        $this->info("id: {$cpa->id} - pozo: {$pozo} - wD: {$winnersDistribution[$counter]} - user: {$cpa->user_id} - prize: {$prizeAmount}");
                         $counter++;
-                        $this->info("user: {$cpa->user_id} - prize: {$prizeAmount}");
-                    }
+                   }
                     $contest->winner_check = 1;
                     $contest->save();
                     Transaction::createTransaction(1, $contest->pool_id, $pozo, "Finalización concurso {$contest->name}", null, "BURN", ["concurso: {$contest->id}"]);
@@ -79,7 +87,7 @@ class checkWinners extends Command
                 case 2:
                     $this->info("completo");
                     $pozo = User::find($contest->pool_id)->getBalance();
-                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('votes', '>=', $contest->required_amount)->get();
+                    $cpas = ContestApplicationModel::where('contest_id', $contest->id)->where('approved', 1)->where('votes', '>=', $contest->required_amount)->get();
                     foreach ($cpas as $cpa) {
                         $cpa->is_winner = 1;
                         $cpa->prize_amount = $contest->prize_amount;

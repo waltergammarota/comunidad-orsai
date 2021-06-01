@@ -1,5 +1,4 @@
 
-.icon-mail:before { content: '\e800'; } /* '' */
 .icon-left-open:before { content: '\e801'; } /* '' */
 .icon-right-open:before { content: '\e802'; } /* '' */
 .icon-up-open:before { content: '\e803'; } /* '' */
@@ -19,11 +18,11 @@
 .icon-vista:before { content: '\e811'; } /* '' */
 .icon-mensaje:before { content: '\e812'; } /* '' */
 .icon-right_arrow:before { content: '\e813'; } /* '' */
-.icon-mail-alt-1:before { content: '\e814'; } /* '' */
+.icon-mail-alt:before { content: '\e814'; } /* '' */
 .icon-mail-open-regular:before { content: '\e815'; } /* '' */
 .icon-trash-empty:before { content: '\e816'; } /* '' */
 .icon-mail-open:before { content: '\e817'; } /* '' */
-.icon-mail-1:before { content: '\e818'; } /* '' */
+.icon-mail:before { content: '\e818'; } /* '' */
 .icon-search:before { content: '\e819'; } /* '' */
 .icon-right:before { content: '\e81a'; } /* '' */
 .icon-left:before { content: '\e81b'; } /* '' */
@@ -72,5 +71,4 @@
 .icon-angle-down:before { content: '\f107'; } /* '' */
 .icon-angle-circled-left:before { content: '\f137'; } /* '' */
 .icon-angle-circled-right:before { content: '\f138'; } /* '' */
-.icon-angle-circled-up:before { content: '\f139'; } /* '' */
-.icon-angle-circled-down:before { content: '\f13a'; } /* '' */
+.icon-share:before { content: '\f1e0'; } /* '' */
