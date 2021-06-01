@@ -436,7 +436,7 @@ class ContestController extends Controller
         if (!$data['hasWinner'] && !$data['isJuradoVip'] && $contest->end_vote_date >= Carbon::now()) {
             return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1');
         }
-        $data['categories'] = $contest->form()->first()->getCategories();
+        $data['categories'] = $contest->form()->first() ? $contest->form()->first()->getCategories() : [];
         $data['counterRondas'] = VotesModel::getRondasCounter($contest->id, $user->id);
         $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
         $filters = $this->getFilters($request);
