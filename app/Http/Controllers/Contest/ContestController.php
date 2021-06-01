@@ -26,6 +26,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Databases\NotificacionModel;
@@ -475,6 +476,7 @@ class ContestController extends Controller
         $data['avatares'] = function ($capId) use ($apostadores) {
             return array_slice(explode(',', $apostadores->firstWhere('cap_id', $capId)->votantes), 0, 3);
         };
+        Log::info($apostadores);
         $data['apostadores'] = function ($capId) use ($apostadores) {
             return $apostadores->firstWhere('cap_id', $capId)->apostadores;
         };
