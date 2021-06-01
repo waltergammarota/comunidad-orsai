@@ -11,6 +11,7 @@ use App\Databases\ContestsModo;
 use App\Databases\ContestsType;
 use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
+use App\Databases\DolarModel;
 use App\Databases\FormModel;
 use App\Databases\RondaModel;
 use App\Databases\RondaInputModel;
@@ -125,6 +126,7 @@ class ContestController extends Controller
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
         $cotizacion = CotizacionModel::getCurrentCotizacion();
+        DolarModel::getDolarPrice();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
@@ -206,6 +208,7 @@ class ContestController extends Controller
         $logo = $contest->logo();
         $cierreDiff = Carbon::now()->diffInHours($contest->end_vote_date) . ':' . Carbon::now()->diff($contest->end_vote_date)->format('%I:%S');
         $cantidadFichasEnJuego = $this->convertToK($contest->cantidadFichasEnJuego());
+        DolarModel::getDolarPrice();
         $cotizacion = CotizacionModel::getCurrentCotizacion();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $modo = $contest->getMode()->name;
@@ -425,6 +428,7 @@ class ContestController extends Controller
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        DolarModel::getDolarPrice();
         $cotizacion = CotizacionModel::getCurrentCotizacion();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
@@ -506,7 +510,7 @@ class ContestController extends Controller
             return view('concursos.ganador', $data);
         }
         // SACAMOS LA URL DE ESTADISTICAS CUANDO ESTÁS PARADO AHÍ
- 
+
         return view("concursos.ranking", $data);
     }
 
