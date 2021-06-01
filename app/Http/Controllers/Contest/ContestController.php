@@ -476,9 +476,8 @@ class ContestController extends Controller
         $data['avatares'] = function ($capId) use ($apostadores) {
             return array_slice(explode(',', $apostadores->firstWhere('cap_id', $capId)->votantes), 0, 3);
         };
-        Log::info($apostadores);
         $data['apostadores'] = function ($capId) use ($apostadores) {
-            return $apostadores->firstWhere('cap_id', $capId)->apostadores;
+            return $apostadores->firstWhere('cap_id', $capId) ? $apostadores->firstWhere('cap_id', $capId)->apostadores : 0;
         };
 
         $data['hasWinner'] = $contest->hasWinner();
