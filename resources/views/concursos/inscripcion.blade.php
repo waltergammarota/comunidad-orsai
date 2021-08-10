@@ -32,7 +32,23 @@
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav">
-                            <span>Te queda<br/><strong id="countdown_concurso"></strong></span>
+                            <span>
+                              Tiempo restante:
+                              <br/>
+                              <div class="countdown_container">
+                                <strong class="days countdown_concurso" id="countdown_days">{{$diff_days}}</strong>
+                                <strong class="days_text countdown_concurso">
+                                  @if($is_singular)
+                                    día
+                                  @else
+                                    días
+                                  @endif
+                                </strong>
+                                <strong class="countdown_concurso" id="countdown_hours">
+                                  {{$diff_hours}}
+                                </strong>
+                              </div>
+                            </span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
@@ -140,17 +156,15 @@
     @include("fundacion.footer-fundacion")
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
-       
-        $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
-            if(event.offset['days'] != 0){
-                $(this).text(
-                    event.strftime('%-D día%!D %H:%M')
-                ); 
-            }else{
-                $(this).text(
-                    event.strftime('%H:%M:%S')
-                ); 
-            }
+        $("#countdown_hours").countdown("{{$end_date}}", function (event) {
+          $(this).text(
+            event.strftime('%H:%M:%S')
+          ); 
+        });
+        $("#countdown_days").countdown("{{$end_date}}", function (event) {
+          $(this).text(
+            event.strftime('%-D')
+          ); 
         });
         $(".hero-nav-content").owlCarousel({
             responsiveClass: true,

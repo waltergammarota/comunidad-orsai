@@ -118,7 +118,7 @@ class ContestController extends Controller
             return Redirect::to(url('no-encontrado'));
         }
         $data['concurso'] = $contest;
-        $data['diferencia'] = $contest->end_vote_date;
+        //$data['diferencia'] = $contest->end_vote_date;
         $data['postulaciones_abiertas'] = false;
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
@@ -134,6 +134,13 @@ class ContestController extends Controller
         $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->getUrlName());
         $webController = new WebController;
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
+        $end_date = Carbon::parse($contest->end_date);
+        $diff_days = Carbon::now()->diffInDays($end_date);
+        $diff_hours = Carbon::now()->diff($end_date)->format('%H:%I:%S');
+        $data['end_date'] = Carbon::parse($contest->end_date);
+        $data['is_singular'] = (Carbon::now()->diffInDays($data['end_date']) <= 1)?true:false;
+        $data['diff_days'] = $diff_days;
+        $data['diff_hours'] = $diff_hours;
         // CONCURSO POSTULACIONES ABIERTAS
         $data['estado'] = $contest->getStatus();
         $user = Auth::user();

@@ -4716,11 +4716,17 @@ div.tagsinput #tags_tag {
     align-items: center;
     margin-right:10px;
 }
-#countdown_concurso{
+
+.countdown_container {
+  width: 180px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.countdown_concurso{
     font-size:2rem;
     font-family: 'Barlow Condensed';
-    width: 155px; 
-    display:block;
+    margin-right: 5px;
     position: relative;
     top: -5px;
 }
