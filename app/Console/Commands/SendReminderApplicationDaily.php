@@ -55,7 +55,6 @@ class SendReminderApplicationDaily extends Command
 
         foreach ($contests as $contest) {
             $cpas = ContestApplicationModel::where('contest_id', $contest->id)->get();
-
             /* Postulación pública */
             foreach ($cpas as $cpa) {
                 $app = ContestApplicationModel::find($cpa->id);
