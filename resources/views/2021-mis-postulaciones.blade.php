@@ -12,7 +12,7 @@
                     <ul>
                         <li><a href="{{url('panel')}}" rel="noopener noreferrer">Panel de usuario <span
                                     class="icon-right-open"></span></a></li>
-                        <li><a href="#" class="activo" rel="noopener noreferrer">Mis Postulaciones</a></li>
+                        <li><a href="#" class="activo" rel="noopener noreferrer">Mis postulaciones</a></li>
                     </ul>
                     <div class="height_20"></div>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="form_central_3">
                     <div class="border_bt_form">
                         <div class="titulo titulo_sin_mg">
-                            <h1 class="text_regular">Mis Postulaciones</h1>
+                            <h1 class="text_regular">Mis postulaciones</h1>
                         </div>
                         @if(!$postulaciones->isEmpty())
                             <div class="subtitle">

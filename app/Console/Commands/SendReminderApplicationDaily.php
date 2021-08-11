@@ -70,7 +70,7 @@ class SendReminderApplicationDaily extends Command
                     $notification->title = "¡Compartí tu postulación!";
                     $notification->description = "<p>Compartí tu postulación y sumá fichas para ganar el ".$contest->name.".</p><br/><br/>".$href1;
                     $notification->button_url = $href2;
-                    $notification->button_text = 'Ir a Mis Postulaciones';
+                    $notification->button_text = 'Ir a Mis postulaciones';
                     $notification->user_id = 1;
                     $notification->deliver_time = Carbon::now();
                     $notification->id = 0;

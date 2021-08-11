@@ -58,7 +58,11 @@
                         </div>
                         <div class="content-nav column">
                             <span class="big-number">{{$cuentosPostulados}}</span>
-                            <span>Cuentos <br> postulados</span>
+                            @if($cuentosPostulados > 1)
+                              <span>Cuentos <br> postulados</span>
+                            @else
+                              <span>Cuento <br> postulado</span>
+                            @endif
                         </div>
                     </div>
                     <div class="hero-nav-item">
@@ -68,17 +72,25 @@
                         </div>
                         <div class="content-nav column">
                             <span class="big-number">{{$cantidadPostulacionesAprobadas}}</span>
-                            <span>Cuentos<br> aprobados </span>
+                            @if($cantidadPostulacionesAprobadas > 1)
+                              <span>Cuentos <br> postulados</span>
+                            @else
+                              <span>Cuento <br> postulado</span>
+                            @endif
                         </div>
                     </div>
                     <div class="hero-nav-item">
-                        <div class="icon">
+                        <div class="icon" style="margin-top:0">
                             <img src="{{url('estilos/front2021/assets/cuentistas_inscriptos.svg')}}"
                                  alt="insertar SVG con la etiqueta image">
                         </div>
-                        <div class="content-nav column">
+                        <div class="content-nav column" style="position: relative; top: -1px">
                             <span class="big-number">{{$cuentistasInscriptos}}</span>
-                            <span>Cuentistas<br> inscriptos </span>
+                            @if($cantidadPostulacionesAprobadas > 1)
+                              <span>Cuentistas <br> inscriptos</span>
+                            @else
+                              <span>Cuentista <br> inscripto</span>
+                            @endif
                         </div>
                     </div>
                     {{--                    <div class="hero-nav-item">--}}

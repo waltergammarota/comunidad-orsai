@@ -16,7 +16,7 @@
                    
             <div class="input_detail">
                 <span class="content-count-words">
-                    Te quedan <span class="count-words-text"> {{$counter_max}}  </span> {{$palabras}}
+                  Caracteres restantes <span class="count-words-text"> {{$counter_max}}  </span>
                 </span> 
                 @error($inputName) 
                         <span class="error">{{$message}}</span> 

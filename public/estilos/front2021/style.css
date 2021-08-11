@@ -4623,6 +4623,11 @@ div.tagsinput #tags_tag {
     height: 25px;
 }
 
+.inscripcion-cuento .hero-nav .hero-nav-item .icon img {
+    width: 100%;
+    height: 30px;
+}
+
 .inscripcion-cuento .hero-nav .hero-nav-item .content-nav {
     display: flex;
     align-items: flex-start;

@@ -98,7 +98,7 @@
                         @isset($rankingPage)
                             <div class="hero-nav-item">
                                 <div class="content-nav center">
-                                    <a href="{{url('mis-postulaciones')}}" class="btn-postulacion">Mis Postulaciones</a>
+                                    <a href="{{url('mis-postulaciones')}}" class="btn-postulacion">Mis postulaciones</a>
                                 </div>
                             </div>
                         @else
