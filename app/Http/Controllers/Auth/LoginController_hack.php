@@ -1,0 +1,199 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\User;
+use App\Utils\Mailer;
+use App\Notifications\GenericNotification;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Carbon;
+
+
+class LoginController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = 'perfil';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => ['logout']]);
+    }
+
+    protected function guard()
+    {
+        return Auth::guard('web');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $validatedData = $request->validate(
+            [
+                'email' => 'email|required|max:255',
+                'password' => 'required|min:2|max:64',
+            ]
+        );
+        //$status = $this->checkReCaptcha($request);
+
+        //$minScore = env('CAPTCHA_MIN_SCORE', 0.9);
+        //if ($status->success == false || $status->score < $minScore) {
+        /*    return Redirect::back()->withErrors([
+                "login" => "Credenciales no válidas"
+            ])->withInput();*/
+        //}
+
+
+        $credentials = $request->only('email', 'password');
+        if ($this->guard()->attempt($credentials)) {
+            if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
+                $route = session('redirectLink');
+                if ($route) {
+                    session(['redirectLink' => false]);
+                    return Redirect::to($route);
+                }
+
+                if (Auth::user()->phone_verified_at == null) {
+                    $this->sendValidateNotification(Auth::user());
+                }
+
+                return Redirect::to('novedades');
+            }
+            if (Auth::user()->blocked != 0) {
+                session()->forget('last_visited');
+                //Auth::logout();
+                return Redirect::to('ingresar');
+            }
+            session()->forget('last_visited');
+            //Auth::logout();
+            return Redirect::to('reenviar-mail');
+        }
+        /*return Redirect::back()->withErrors(
+            [
+                "login" => "Credenciales no válidas"
+            ]
+        )->withInput();*/
+    }
+
+    public function logout()
+    {
+        session()->forget('last_visited');
+        Auth::logout();
+        return redirect('/ingresar');
+    }
+
+    public function index()
+    {
+        return view('2021-login');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => 'required|email'
+            ]
+        );
+        $token = Str::random(60);
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $user->remember_token = $token;
+            $user->save();
+            $mailer = new Mailer();
+            $mailer->sendResetPasswordMail($request->email, $token);
+            $request->session()->flash('alert', 'reset_password_email');
+            return Redirect::to('restablecer-clave');
+        }
+        return Redirect::to('restablecer-clave')->withErrors(
+            [
+                "email" => "El email no fue encontrado"
+            ]
+        )->withInput();
+    }
+
+    public function resetpasswordform(Request $request)
+    {
+        $token = $request->route('token');
+        if ($token) {
+            $user = User::where('remember_token', $token)->first();
+            if ($user === null) {
+                return Redirect::to('restablecer-clave')->withErrors(['token' => 'Token expirado o inválido']);
+            }
+            $user->password = Str::random(8);
+            $user->save();
+        }
+        $data['token'] = $token;
+        return view('2021-reset-password', $data);
+    }
+
+    public function createNewPassword(Request $request)
+    {
+        $request->validate(
+            [
+                'token' => 'required|max:60|min:60',
+                'password' => 'required|max:64|min:8',
+                'confirmPassword' => 'required|same:password|max:64|min:8',
+            ]
+        );
+        $user = User::where('remember_token', $request->token)->first();
+        if ($user) {
+            $user->password = password_hash($request->password, PASSWORD_DEFAULT);
+            $user->remember_token = "";
+            $user->save();
+            $request->session()->flash('alert', 'password_reset_success');
+            $data['token'] = $request->token;
+            return view('2021-reset-password', $data);
+        }
+        return Redirect::back()->withErrors(
+            [
+                "token" => "Token inválido"
+            ]
+        )->withInput();
+    }
+
+    private function sendValidateNotification($user)
+    {
+        $href = url('validacion-usuario');
+
+        $notification = new \stdClass();
+        $notification->subject = "Validación de perfil";
+        $notification->title = "¿Qué estás esperando?";
+        $notification->description = "<p>Validá tu perfil para acelerar el juego. <a href='" . $href . "'>Hacelo desde acá</a></p>";
+        $notification->button_url = '';
+        $notification->button_text = '';
+        $notification->user_id = 1;
+        $notification->deliver_time = Carbon::now();
+        $notification->id = 0;
+
+        Notification::send($user, new GenericNotification($notification));
+    }
+
+
+}
