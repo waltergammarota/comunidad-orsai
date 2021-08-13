@@ -7154,6 +7154,27 @@ footer .sub_footer .sub_footer_ri ul li a {
     margin-top: 10px;
 }
 
+.modal.modal_alert .title_modal {
+  flex-direction: column;
+}
+
+.modal.modal_alert .content-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.modal.modal_alert .content-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.modal.modal_alert .content-buttons .alert--btn{
+  width: 150px;
+  text-align: center;
+}
+
 .pd_20_prueba {
     padding: 50px;
 }
@@ -11759,7 +11780,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: normal;
     align-content: normal;
 }
@@ -11774,6 +11795,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
     display: block;
     flex-grow: 0;
     flex-shrink: 1;
+    margin-right: 10px;
     flex-basis: auto;
     align-self: auto;
     order: 0;

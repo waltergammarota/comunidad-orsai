@@ -52,7 +52,7 @@
                                 @else
                                     <div>
                                         <span><small>Cierre de votación</small><strong
-                                                id="countdown_concurso"></strong></span>
+                                                id="countdown_concurso" style="display:block"></strong></span>
                                     </div>
                                 @endif
                             </div>

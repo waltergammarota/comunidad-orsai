@@ -170,43 +170,25 @@
 @section('footer')
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
     <script type="text/javascript"
-            src="//cdn.datatables.net/plug-ins/1.10.16/sorting/custom-data-source/dom-checkbox.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css"/>
+            src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/js/dataTables.checkboxes.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/sl-1.2.5/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.16/sl-1.2.5/datatables.min.css"/>
+    <link rel="stylesheet" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.10/css/dataTables.checkboxes.css"/>
     <script>
         let table;
 
         $(function () {
             const aprobarBtn = $('#aprobar');
-            table = $('#myTable').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "responsive": true,
-                "ajax": "{{url('admin/postulaciones-json/'.$concurso->id)}}",
-                "language": {
-                    "paginate": {
-                        "first": "Primera",
-                        "last": "Última",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                    "search": "Buscar:",
-                    "processing": "Procesando...",
-                    "loadingRecords": "Cargando....",
-                    "info": "Mostrando _START_ al _END_ de un total de _TOTAL_ entradas",
-                    "lengthMenu": 'Mostrar <select name="example2_length" aria-controls="example2" class=" custom-select custom-select-sm form-control form-control-sm">' +
-                        '<option value="10">10</option>' +
-                        '<option value="20">20</option>' +
-                        '<option value="30">30</option>' +
-                        '<option value="40">40</option>' +
-                        '<option value="50">50</option>' +
-                        '<option value="-1">Todas</option>' +
-                        '</select> entradas',
-
-                },
+              var table = $('#myTable').DataTable({
+                'ajax': '{{url('admin/postulaciones-json/'.$concurso->id)}}',
+                'columnDefs': [
+                  {
+                      'targets': 0,
+                      'checkboxes': {
+                        'selectRow': true
+                      }
+                  }
+                ],
                 "columns": [
                     {
                         "data": function (data) {
@@ -253,28 +235,30 @@
                         }
                     },
                 ],
-                columnDefs: [{
-                    orderDataType: "dom-checkbox",
-                    targets: 0
-                }],
-                select: {
-                    style: 'multi',
-                    selector: 'td > input'
+                'select': {
+                  'style': 'multi'
                 },
+                'order': [[1, 'asc']]
             });
 
 
             table.on('click', '.aprobar', function () {
               const data = table.row($(this).parents('tr')).data();
-              const id = data.id;
-              axios.post('{{url('admin/application/approve')}}', {
+              var rows_selected = table.column(0).checkboxes.selected();
+
+              // Iterate over all selected checkboxes
+              $.each(rows_selected, function(index, rowId){
+                console.log(index, rowId);
+              });
+              //const id = data.id;
+              /*axios.post('{{url('admin/application/approve')}}', {
                 id: id
               }).then(response => {
                 alert("Postulación aprobada");
                 table.ajax.reload();
               }).catch(error => {
                 alert("Ha ocurrido un error. Intente más tarde");
-              });
+              });*/
             });
 
             table.on('click', '.eliminar', function () {

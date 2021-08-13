@@ -11679,7 +11679,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: normal;
     align-content: normal;
 }
@@ -11697,6 +11697,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
     flex-basis: auto;
     align-self: auto;
     order: 0;
+    margin-right: 10px;
 }
 
 .estado_postulacion span {
