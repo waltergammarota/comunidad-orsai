@@ -3,7 +3,7 @@
         <div id="contenedor_logo_header">
             <div id="logo_header">
                 <a href="{{url('/')}}"><img src="{{url('recursos/front2021/comunidad-orsai.png')}}"
-                                            alt="Comunidad Orsai"></a>
+                                            alt="Comunidad Orsai logo"></a>
             </div>
         </div>
         <div id="desplegable" class="desplegable_cerrado">
