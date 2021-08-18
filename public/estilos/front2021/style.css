@@ -3710,6 +3710,13 @@ div.tagsinput #tags_tag {
     background-size: 9px;
 }
 
+.concursos_nuevos .nav-filter .filter-wrapper select option {
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+
 .concursos_nuevos .nav-filter .filter-wrapper input:checked + label {
     background-color: var(--concurso-color-yellow);
     color: #000;
