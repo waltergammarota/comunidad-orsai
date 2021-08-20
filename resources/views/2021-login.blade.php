@@ -37,13 +37,9 @@
                     </div>
                     <div class="form_ctrl input_  "> 
                         <div class="align_center">
-                        	<button class="boton_redondeado resaltado_amarillo text_bold width_100 g-recaptcha"
-		                        data-sitekey="{{env('CAPTCHA_SITE_KEY')}}"
-		                        data-callback="onSubmit"
-		                        data-action="submit"
+                        	<input class="boton_redondeado resaltado_amarillo text_bold width_100 g-recaptcha"
+		                        type="submit"
 		                        id="boton_susc">
-		                    Entrar
-		                </button>
 		                @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
 		                    <p class="invalid-feedback">
 		                        <strong>Uy, algo salió mal.</strong>

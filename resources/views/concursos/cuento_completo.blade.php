@@ -17,7 +17,7 @@
                     <span class="icon icon-cancel-circle"></span>
                 </div>
                 <div class="titulo">
-                    <p>Recuerda que este concurso permite un máximo de <strong
+                    <p>Recordá que este concurso permite un máximo de <strong
                             class="color_amarillo">{{$currentRonda->cost}} fichas por
                             postulación.</strong></p>
                 </div>

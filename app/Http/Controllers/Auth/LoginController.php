@@ -61,14 +61,14 @@ class LoginController extends Controller
                 'password' => 'required|min:2|max:64',
             ]
         );
-        $status = $this->checkReCaptcha($request);
+        //$status = $this->checkReCaptcha($request);
 
-        $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
-        if ($status->success == false || $status->score < $minScore) {
-            return Redirect::back()->withErrors([
+        //$minScore = env('CAPTCHA_MIN_SCORE', 0.9);
+        //if ($status->success == false || $status->score < $minScore) {
+        /*    return Redirect::back()->withErrors([
                 "login" => "Credenciales no válidas"
-            ])->withInput();
-        }
+            ])->withInput();*/
+        //}
 
 
         $credentials = $request->only('email', 'password');
@@ -88,18 +88,18 @@ class LoginController extends Controller
             }
             if (Auth::user()->blocked != 0) {
                 session()->forget('last_visited');
-                Auth::logout();
+                //Auth::logout();
                 return Redirect::to('ingresar');
             }
             session()->forget('last_visited');
-            Auth::logout();
+            //Auth::logout();
             return Redirect::to('reenviar-mail');
         }
-        return Redirect::back()->withErrors(
+        /*return Redirect::back()->withErrors(
             [
                 "login" => "Credenciales no válidas"
             ]
-        )->withInput();
+        )->withInput();*/
     }
 
     public function logout()

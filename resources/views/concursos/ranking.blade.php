@@ -100,7 +100,6 @@
                                                 </a>
                                             @else
                                                 <p class="color_blanco_gris">
-                                                    ID {{str_pad($row->capId->order,3,0, STR_PAD_LEFT)}} -
                                                     {{$getAnswer($row->capId->id, 0)}}</p>
                                             @endif
                                         </td>
