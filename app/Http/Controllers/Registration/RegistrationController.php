@@ -16,9 +16,26 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Notification;
-
+use GuzzleHttp\Client;
 class RegistrationController extends Controller
 {
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $baseUri;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->baseUri = config('services.api.base_uri');
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -50,7 +67,6 @@ class RegistrationController extends Controller
 
     public function registerWeb(Request $request)
     {
-        $nada = "nada";
         $request->validate(
             [
                 'nombre' => 'required|max:255|min:2',
@@ -63,35 +79,67 @@ class RegistrationController extends Controller
                 'terminos' => 'required'
             ]
         );
+
         $userData = [
-            'name' => $request->nombre,
-            'lastName' => $request->apellido,
-            'nickName' => $request->usuario,
-            'email' => $request->email,
-            'country' => $request->pais,
-            'password' => $request->password,
+          'name' => $request->nombre,
+          'lastName' => $request->apellido,
+          'nickName' => $request->email,
+          'email' => $request->email,
+          'country' => $request->pais,
+          'password' => $request->password,
         ];
 
-        $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
-        $status = $this->checkReCaptcha($request);
+        $userDataApi = [
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'email' => $request->email,
+            'clave1' => $request->password,
+            'clave2' => $request->confirmPassword,
+        ];
 
-        if ($status->success == false || $status->score < $minScore) {
+        //dd($userData);
+       // $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
+        //$status = $this->checkReCaptcha($request);
+
+        /*if ($status->success == false || $status->score < $minScore) {
             return Redirect::back()->withErrors([
                 "registrarse" => "Credenciales no válidas"
             ])->withInput();
-        }
-        $this->createUserRegistrationUseCase($userData);
-        $data = $this->createUser($userData);
-        $request->session()->flash('alert', 'activation_email');
-        $usertoLogin = User::find($data['id']);
-        Auth::login($usertoLogin);
-        $route = session('redirectLink');
-        if ($route) {
-            session(['redirectLink' => false]);
-            return Redirect::to($route);
+        }*/
+        $client = new Client([
+          'base_uri' => $this->baseUri,
+        ]);
+   
+        try {
+          $response = $client->post('usuarios/v1/registro', [
+            'json' => $userDataApi,
+            'headers' => [
+              'Content-Type' => 'application/json',
+              'Accept'        => 'application/json',
+            ]
+          ]);      
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+          return redirect('registrarse')->with([
+            'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+          ]);
         }
 
-        return redirect('/panel');
+ 
+        if($response->getStatusCode() === 200 && json_decode($response->getBody(),true)['token']) {
+          
+          $this->createUserRegistrationUseCase($userData);
+          $data = $this->createUser($userData);
+          $request->session()->flash('alert', 'activation_email');
+          $usertoLogin = User::find($data['id']);
+          Auth::login($usertoLogin);
+          $route = session('redirectLink');
+          if ($route) {
+              session(['redirectLink' => false]);
+              return Redirect::to($route);
+          }
+
+          return redirect('/panel');
+        }
     }
 
     /**
@@ -151,12 +199,36 @@ class RegistrationController extends Controller
 
     public function registrarse(Request $request)
     {
-        if (!Auth::check()) {
+        $apiMsg = session('msg');
+        
+        if(session('email')) {
+          $email = session('email');
+          $password = session('pass');
+          $nombre = session('nombre');
+          $apellido = session('apellido');
+
+          if (!Auth::check()) {
             $data = $this->getUserData();
             $data['paises'] = $this->getPaises();
-            return view('2021-registrarse', $data);
+            $data['email'] = $email;
+            $data['pass'] = $password;
+            $data['nombre'] = $nombre;
+            $data['apellido'] = $apellido;
+
+            return view('2021-completar-registro', $data);
+          } else {
+              return Redirect::to("panel");
+          }
         } else {
-            return Redirect::to("panel");
+          if (!Auth::check()) {
+              $data = $this->getUserData();
+              $data['paises'] = $this->getPaises();
+              $data['msg'] = $apiMsg;
+  
+              return view('2021-registrarse', $data);
+          } else {
+              return Redirect::to("panel");
+          }
         }
     }
 

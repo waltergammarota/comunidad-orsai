@@ -40,11 +40,16 @@
                         	<input class="boton_redondeado resaltado_amarillo text_bold width_100 g-recaptcha"
 		                        type="submit"
 		                        id="boton_susc">
-		                @if ($errors->has('password') || $errors->has('email') || $errors->has('login'))
+		                @if ($errors->has('password') || $errors->has('email') || $errors->has('login') || $msg !== 'Te enviamos un email con instrucciones para recuperar tu contraseña, si no lo encuentras busca en correo no deseado.')
 		                    <p class="invalid-feedback">
 		                        <strong>Uy, algo salió mal.</strong>
 		                        <span>Revisá que tu correo y contraseña estén bien escritos.</span>
 		                        <span>Si no pudiste ingresar, <a href="{{url('preguntas-frecuentes')}}">acá</a> te ayudamos a resolverlo.</span>
+		                    </p>
+		                @endif 
+		                @if ($msg === 'Te enviamos un email con instrucciones para recuperar tu contraseña, si no lo encuentras busca en correo no deseado.')
+		                    <p class="invalid-feedback">
+		                        <span>Te enviamos un email con instrucciones para recuperar tu contraseña, si no lo encuentras busca en correo no deseado.</span>
 		                    </p>
 		                @endif 
                         </div>

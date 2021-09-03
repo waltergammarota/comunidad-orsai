@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Carbon;
-
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -29,171 +30,249 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+  use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = 'perfil';
+  /**
+   * Where to redirect users after login.
+   *
+   * @var string
+   */
+  protected $redirectTo = 'perfil';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest', ['except' => ['logout']]);
-    }
+  /**
+   * Where to redirect users after login.
+   *
+   * @var string
+   */
+  protected $baseUri;
 
-    protected function guard()
-    {
-        return Auth::guard('web');
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('guest', ['except' => ['logout']]);
 
-    public function authenticate(Request $request)
-    {
-        $validatedData = $request->validate(
-            [
-                'email' => 'email|required|max:255',
-                'password' => 'required|min:2|max:64',
-            ]
-        );
-        //$status = $this->checkReCaptcha($request);
+    $this->baseUri = config('services.api.base_uri');
+  }
 
-        //$minScore = env('CAPTCHA_MIN_SCORE', 0.9);
-        //if ($status->success == false || $status->score < $minScore) {
-        /*    return Redirect::back()->withErrors([
+  protected function guard()
+  {
+    return Auth::guard('web');
+  }
+
+  public function authenticate(Request $request)
+  {
+    $validatedData = $request->validate(
+      [
+        'email' => 'email|required|max:255',
+        'password' => 'required|min:2|max:64',
+      ]
+    );
+    //$status = $this->checkReCaptcha($request);
+
+    //$minScore = env('CAPTCHA_MIN_SCORE', 0.9);
+    //if ($status->success == false || $status->score < $minScore) {
+    /*    return Redirect::back()->withErrors([
                 "login" => "Credenciales no válidas"
             ])->withInput();*/
-        //}
+    //}
+    $client = new Client([
+      'base_uri' => $this->baseUri,
+    ]);
+
+    $encodeToken = base64_encode($request->input('email') . ':' . $request->input('password'));
+    $pass = $request->input('password');
+
+    $headers = [
+      'Authorization' => 'Bearer ' . $encodeToken,
+      'Accept'        => 'application/json',
+    ];
+    try {
+      $response = $client->get('usuarios/v1/token', [
+        'headers' => $headers
+      ]);
+    } catch (\GuzzleHttp\Exception\RequestException $e) {
+      return redirect('ingresar')->with([
+        'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+      ]);
+    }
 
 
-        $credentials = $request->only('email', 'password');
-        if ($this->guard()->attempt($credentials)) {
-            if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
-                $route = session('redirectLink');
-                if ($route) {
-                    session(['redirectLink' => false]);
-                    return Redirect::to($route);
-                }
+    if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['token']) {
+      $name = json_decode($response->getBody(), true)['nombre'];
+      $surname = json_decode($response->getBody(), true)['apellido'];
 
-                if (Auth::user()->phone_verified_at == null) {
-                    $this->sendValidateNotification(Auth::user());
-                }
+      $user = User::where('email', '=', $request->input('email'))->first();
 
-                return Redirect::to('novedades');
-            }
-            if (Auth::user()->blocked != 0) {
-                session()->forget('last_visited');
-                //Auth::logout();
-                return Redirect::to('ingresar');
-            }
-            session()->forget('last_visited');
-            //Auth::logout();
-            return Redirect::to('reenviar-mail');
-        }
-        /*return Redirect::back()->withErrors(
+      $credentials = $request->only('email', 'password');
+
+      if ($user === null) {
+        return redirect('registrarse')->with([
+          'email' => $request->input('email'),
+          'pass' => $pass,
+          'nombre' => $name,
+          'apellido' => $surname,
+        ]);
+      } else {
+        Auth::loginUsingId($user->id);
+        return Redirect::to('novedades');
+        // User exits
+
+
+
+      }
+
+      /*if ($this->guard()->attempt($credentials)) {
+
+              if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
+                  $route = session('redirectLink');
+                  if ($route) {
+                      session(['redirectLink' => false]);
+                      return Redirect::to($route);
+                  }
+  
+                  if (Auth::user()->phone_verified_at == null) {
+                      $this->sendValidateNotification(Auth::user());
+                  }
+  
+                  return Redirect::to('novedades');
+              }
+              if (Auth::user()->blocked != 0) {
+                  session()->forget('last_visited');
+                  //Auth::logout();
+                  return Redirect::to('ingresar');
+              }
+              session()->forget('last_visited');
+              //Auth::logout();
+              return Redirect::to('reenviar-mail');
+          }*/
+    }
+
+    /*return Redirect::back()->withErrors(
             [
                 "login" => "Credenciales no válidas"
             ]
         )->withInput();*/
+  }
+
+  public function logout()
+  {
+    session()->forget('last_visited');
+    Auth::logout();
+    return redirect('/ingresar');
+  }
+
+  public function index()
+  {
+    return view('2021-login');
+  }
+
+  public function resetPassword(Request $request)
+  {
+
+    $request->validate(
+      [
+        'email' => 'required|email'
+      ]
+    );
+    $client = new Client([
+      'base_uri' => $this->baseUri,
+    ]);
+
+    try {
+      $response = $client->post('usuarios/v1/emailClave', [
+        'json' => $request->only('email'),
+        'headers' => [
+          'Content-Type' => 'application/json',
+          'Accept'        => 'application/json',
+        ]
+      ]);
+    } catch (\GuzzleHttp\Exception\RequestException $e) {
+      return redirect('registrarse')->with([
+        'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+      ]);
     }
 
-    public function logout()
-    {
-        session()->forget('last_visited');
-        Auth::logout();
-        return redirect('/ingresar');
+    if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['mensaje']) {
+      return redirect('ingresar')->with([
+        'msg' => json_decode($response->getBody(), true)['mensaje'],
+      ]);
     }
 
-    public function index()
-    {
-        return view('2021-login');
+    $token = Str::random(60);
+    $user = User::where('email', $request->email)->first();
+    if ($user) {
+      $user->remember_token = $token;
+      $user->save();
+      $mailer = new Mailer();
+      $mailer->sendResetPasswordMail($request->email, $token);
+      $request->session()->flash('alert', 'reset_password_email');
+      return Redirect::to('restablecer-clave');
     }
+    return Redirect::to('restablecer-clave')->withErrors(
+      [
+        "email" => "El email no fue encontrado"
+      ]
+    )->withInput();
+  }
 
-    public function resetPassword(Request $request)
-    {
-        $request->validate(
-            [
-                'email' => 'required|email'
-            ]
-        );
-        $token = Str::random(60);
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            $user->remember_token = $token;
-            $user->save();
-            $mailer = new Mailer();
-            $mailer->sendResetPasswordMail($request->email, $token);
-            $request->session()->flash('alert', 'reset_password_email');
-            return Redirect::to('restablecer-clave');
-        }
-        return Redirect::to('restablecer-clave')->withErrors(
-            [
-                "email" => "El email no fue encontrado"
-            ]
-        )->withInput();
+  public function resetpasswordform(Request $request)
+  {
+    $token = $request->route('token');
+    if ($token) {
+      $user = User::where('remember_token', $token)->first();
+      if ($user === null) {
+        return Redirect::to('restablecer-clave')->withErrors(['token' => 'Token expirado o inválido']);
+      }
+      $user->password = Str::random(8);
+      $user->save();
     }
+    $data['token'] = $token;
+    return view('2021-reset-password', $data);
+  }
 
-    public function resetpasswordform(Request $request)
-    {
-        $token = $request->route('token');
-        if ($token) {
-            $user = User::where('remember_token', $token)->first();
-            if ($user === null) {
-                return Redirect::to('restablecer-clave')->withErrors(['token' => 'Token expirado o inválido']);
-            }
-            $user->password = Str::random(8);
-            $user->save();
-        }
-        $data['token'] = $token;
-        return view('2021-reset-password', $data);
+  public function createNewPassword(Request $request)
+  {
+    $request->validate(
+      [
+        'token' => 'required|max:60|min:60',
+        'password' => 'required|max:64|min:8',
+        'confirmPassword' => 'required|same:password|max:64|min:8',
+      ]
+    );
+    $user = User::where('remember_token', $request->token)->first();
+    if ($user) {
+      $user->password = password_hash($request->password, PASSWORD_DEFAULT);
+      $user->remember_token = "";
+      $user->save();
+      $request->session()->flash('alert', 'password_reset_success');
+      $data['token'] = $request->token;
+      return view('2021-reset-password', $data);
     }
+    return Redirect::back()->withErrors(
+      [
+        "token" => "Token inválido"
+      ]
+    )->withInput();
+  }
 
-    public function createNewPassword(Request $request)
-    {
-        $request->validate(
-            [
-                'token' => 'required|max:60|min:60',
-                'password' => 'required|max:64|min:8',
-                'confirmPassword' => 'required|same:password|max:64|min:8',
-            ]
-        );
-        $user = User::where('remember_token', $request->token)->first();
-        if ($user) {
-            $user->password = password_hash($request->password, PASSWORD_DEFAULT);
-            $user->remember_token = "";
-            $user->save();
-            $request->session()->flash('alert', 'password_reset_success');
-            $data['token'] = $request->token;
-            return view('2021-reset-password', $data);
-        }
-        return Redirect::back()->withErrors(
-            [
-                "token" => "Token inválido"
-            ]
-        )->withInput();
-    }
+  private function sendValidateNotification($user)
+  {
+    $href = url('validacion-usuario');
 
-    private function sendValidateNotification($user)
-    {
-        $href = url('validacion-usuario');
+    $notification = new \stdClass();
+    $notification->subject = "Validación de perfil";
+    $notification->title = "¿Qué estás esperando?";
+    $notification->description = "<p>Validá tu perfil para acelerar el juego. <a href='" . $href . "'>Hacelo desde acá</a></p>";
+    $notification->button_url = '';
+    $notification->button_text = '';
+    $notification->user_id = 1;
+    $notification->deliver_time = Carbon::now();
+    $notification->id = 0;
 
-        $notification = new \stdClass();
-        $notification->subject = "Validación de perfil";
-        $notification->title = "¿Qué estás esperando?";
-        $notification->description = "<p>Validá tu perfil para acelerar el juego. <a href='" . $href . "'>Hacelo desde acá</a></p>";
-        $notification->button_url = '';
-        $notification->button_text = '';
-        $notification->user_id = 1;
-        $notification->deliver_time = Carbon::now();
-        $notification->id = 0;
-
-        Notification::send($user, new GenericNotification($notification));
-    }
-
-
+    Notification::send($user, new GenericNotification($notification));
+  }
 }

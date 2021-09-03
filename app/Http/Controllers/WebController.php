@@ -59,9 +59,11 @@ class WebController extends Controller
         if (Auth::check()) {
             return Redirect::to('panel');
         }
+        $apiMsg = session('msg');
         $data = $this->getUserData();
         $data['totalusers'] = User::where('email_verified_at', '!=', null)->count();
         $data['sociosPosta'] = User::whereNotNull('email_verified_at')->whereNotNull('phone_verified_at')->count();
+        $data['msg'] = $apiMsg;
 
         return view('2021-login', $data);
     }
