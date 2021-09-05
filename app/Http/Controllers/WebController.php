@@ -51,6 +51,7 @@ class WebController extends Controller
     public function restablecer_clave()
     {
         $data = $this->getUserData();
+        $data['msg'] = session('msg');
         return view('2021-restablecer-clave', $data);
     }
 

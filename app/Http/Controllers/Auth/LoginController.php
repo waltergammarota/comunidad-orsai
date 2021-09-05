@@ -197,7 +197,7 @@ class LoginController extends Controller
     }
 
     if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['mensaje']) {
-      return redirect('ingresar')->with([
+      return redirect('restablecer-clave')->with([
         'msg' => json_decode($response->getBody(), true)['mensaje'],
       ]);
     }
