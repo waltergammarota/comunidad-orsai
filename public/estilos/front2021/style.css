@@ -8227,6 +8227,16 @@ footer .sub_footer .sub_footer_ri ul li a {
     margin-bottom: 50px;
 }
 
+.grilla_asociarse_blanco h2.title-login {
+  width: 100%;
+  text-align: center;
+}
+
+.grilla_asociarse_blanco p.text-login {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
 .grilla_asociarse.sin_padding {
     /* padding:0; */
 }

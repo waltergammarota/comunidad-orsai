@@ -97,7 +97,7 @@ class RegistrationController extends Controller
             'clave2' => $request->confirmPassword,
         ];
 
-        //dd($userData);
+        
        // $minScore = env('CAPTCHA_MIN_SCORE', 0.9);
         //$status = $this->checkReCaptcha($request);
 
@@ -106,40 +106,58 @@ class RegistrationController extends Controller
                 "registrarse" => "Credenciales no válidas"
             ])->withInput();
         }*/
-        $client = new Client([
-          'base_uri' => $this->baseUri,
-        ]);
-   
-        try {
-          $response = $client->post('usuarios/v1/registro', [
-            'json' => $userDataApi,
-            'headers' => [
-              'Content-Type' => 'application/json',
-              'Accept'        => 'application/json',
-            ]
-          ]);      
-        } catch (\GuzzleHttp\Exception\RequestException $e) {
-          return redirect('registrarse')->with([
-            'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
-          ]);
-        }
+        if($request->complete !== null) {
 
- 
-        if($response->getStatusCode() === 200 && json_decode($response->getBody(),true)['token']) {
-          
           $this->createUserRegistrationUseCase($userData);
-          $data = $this->createUser($userData);
-          $request->session()->flash('alert', 'activation_email');
-          $usertoLogin = User::find($data['id']);
-          Auth::login($usertoLogin);
-          $route = session('redirectLink');
-          if ($route) {
-              session(['redirectLink' => false]);
-              return Redirect::to($route);
+            $data = $this->createUser($userData);
+            $request->session()->flash('alert', 'activation_email');
+            $usertoLogin = User::find($data['id']);
+            Auth::login($usertoLogin);
+            $route = session('redirectLink');
+            if ($route) {
+                session(['redirectLink' => false]);
+                return Redirect::to($route);
+            }
+  
+            return redirect('/panel');
+
+        } else {
+
+
+          $client = new Client([
+            'base_uri' => $this->baseUri,
+          ]);
+          try {
+            $response = $client->post('usuarios/v1/registro', [
+              'json' => $userDataApi,
+              'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept'        => 'application/json',
+                ]
+              ]);      
+          } catch (\GuzzleHttp\Exception\RequestException $e) {
+            return redirect('registrarse')->with([
+              'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+            ]);
           }
 
-          return redirect('/panel');
+          if($response->getStatusCode() === 200 && json_decode($response->getBody(),true)['token']) {
+            
+            $this->createUserRegistrationUseCase($userData);
+            $data = $this->createUser($userData);
+            $request->session()->flash('alert', 'activation_email');
+            $usertoLogin = User::find($data['id']);
+            Auth::login($usertoLogin);
+            $route = session('redirectLink');
+            if ($route) {
+                session(['redirectLink' => false]);
+                return Redirect::to($route);
+            }
+  
+            return redirect('/panel');
+          }
         }
+
     }
 
     /**
