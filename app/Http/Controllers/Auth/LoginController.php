@@ -199,6 +199,7 @@ class LoginController extends Controller
     if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['mensaje']) {
       return redirect('restablecer-clave')->with([
         'msg' => json_decode($response->getBody(), true)['mensaje'],
+        //dd(json_decode($response->getBody(), true))
       ]);
     }
 
@@ -223,12 +224,13 @@ class LoginController extends Controller
   {
     $token = $request->route('token');
     if ($token) {
-      $user = User::where('remember_token', $token)->first();
-      if ($user === null) {
+      //$user = User::where('remember_token', $token)->first();
+      /*if ($user === null) {
         return Redirect::to('restablecer-clave')->withErrors(['token' => 'Token expirado o inválido']);
-      }
-      $user->password = Str::random(8);
-      $user->save();
+      }*/
+      
+      /*$user->password = Str::random(8);
+      $user->save();*/
     }
     $data['token'] = $token;
     return view('2021-reset-password', $data);
@@ -238,13 +240,44 @@ class LoginController extends Controller
   {
     $request->validate(
       [
-        'token' => 'required|max:60|min:60',
         'password' => 'required|max:64|min:8',
         'confirmPassword' => 'required|same:password|max:64|min:8',
       ]
     );
-    $user = User::where('remember_token', $request->token)->first();
-    if ($user) {
+
+    $token = $request->only('token')['token'];
+    $clave1 = $request->only('password')['password'];
+    $clave2 = $request->only('confirmPassword')['confirmPassword'];
+
+    $userData = [
+      'token' => $token,
+      'clave1' => $clave1,
+      'clave2' => $clave2,
+    ];
+
+
+    $client = new Client([
+      'base_uri' => $this->baseUri,
+    ]);
+
+    try {
+      $response = $client->put('usuarios/v1/nuevaClave', [
+        'json' => $userData,
+        'headers' => [
+          'Content-Type' => 'application/json',
+          'Accept'        => 'application/json',
+        ]
+      ]);
+    } catch (\GuzzleHttp\Exception\RequestException $e) {
+      return redirect('restablecer-clave')->with([
+        'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+      ]);
+    }
+
+    if ($response->getStatusCode() === 200) {
+      return redirect('ingresar');
+    }
+    /*if ($user) {
       $user->password = password_hash($request->password, PASSWORD_DEFAULT);
       $user->remember_token = "";
       $user->save();
@@ -256,7 +289,7 @@ class LoginController extends Controller
       [
         "token" => "Token inválido"
       ]
-    )->withInput();
+    )->withInput();*/
   }
 
   private function sendValidateNotification($user)

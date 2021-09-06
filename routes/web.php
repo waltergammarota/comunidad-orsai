@@ -31,6 +31,11 @@ Route::get(
     'Auth\LoginController@resetpasswordform'
 )->name('reset-password');
 
+Route::get(
+    '/usuario/clave/nueva/{token}',
+    'Auth\LoginController@resetpasswordform'
+)->name('reset-password');
+
 
 Route::post(
     '/reset-password',
