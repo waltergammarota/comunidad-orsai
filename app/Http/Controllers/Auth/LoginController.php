@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use DB;
 use App\Utils\Mailer;
 use App\Notifications\GenericNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -65,6 +66,18 @@ class LoginController extends Controller
 
   public function authenticate(Request $request)
   {
+
+    $client = new Client([
+      'base_uri' => $this->baseUri,
+    ]);
+
+    $user = User::where('email', '=', $request->input('email'))->first();
+    
+    $userExistInComunidad = ($user !== null)?true:false;
+    
+    $userExistInCine = false;
+
+
     $validatedData = $request->validate(
       [
         'email' => 'email|required|max:255',
@@ -79,9 +92,7 @@ class LoginController extends Controller
                 "login" => "Credenciales no válidas"
             ])->withInput();*/
     //}
-    $client = new Client([
-      'base_uri' => $this->baseUri,
-    ]);
+
 
     $encodeToken = base64_encode($request->input('email') . ':' . $request->input('password'));
     $pass = $request->input('password');
@@ -95,6 +106,52 @@ class LoginController extends Controller
         'headers' => $headers
       ]);
     } catch (\GuzzleHttp\Exception\RequestException $e) {
+      // Si existe en comunidad y no en cine
+      if($userExistInComunidad && !$userExistInCine) {
+
+        $userDataApi = [
+          'nombre' => $user->name,
+          'apellido' => $user->lastName,
+          'email' => $user->email,
+          'clave1' => 'asdawedsfsd223FDsfsadfse4323',
+          'clave2' => 'asdawedsfsd223FDsfsadfse4323',
+        ];
+
+        try {
+          $response = $client->post('usuarios/v1/registro', [
+            'json' => $userDataApi,
+            'headers' => [
+              'Content-Type' => 'application/json',
+              'Accept'        => 'application/json',
+              ]
+            ]);      
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+          return redirect('registrarse')->with([
+            'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+          ]);
+        }
+
+        if($response->getStatusCode() === 200 && json_decode($response->getBody(),true)['token']) {
+          try {
+            $response = $client->post('usuarios/v1/emailClave', [
+              'json' => $request->only('email'),
+              'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept'        => 'application/json',
+              ]
+            ]);
+          } catch (\GuzzleHttp\Exception\RequestException $e) {
+            return redirect('registrarse')->with([
+              'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+            ]);
+          }
+      
+          if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['mensaje']) {
+            return view('2021-reset-password-cine');
+          }
+        }
+      }
+      
       return redirect('ingresar')->with([
         'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
       ]);
@@ -104,25 +161,34 @@ class LoginController extends Controller
     if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['token']) {
       $name = json_decode($response->getBody(), true)['nombre'];
       $surname = json_decode($response->getBody(), true)['apellido'];
-
-      $user = User::where('email', '=', $request->input('email'))->first();
+      $userExistInCine = true;
+      
 
       $credentials = $request->only('email', 'password');
 
-      if ($user === null) {
+      // Si existe en ambos lados pero no esta empalmado
+      if($userExistInComunidad && $userExistInCine && $user->splice === 0) {
+        $user->update(array('splice' => 1));
+        $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('splice'=>1));
+
+        Auth::loginUsingId($user->id);
+        return Redirect::to('novedades');
+      }
+      
+      // Si no existe en comunidad y existe en cine
+      if(!$userExistInComunidad && $userExistInCine) {
         return redirect('registrarse')->with([
           'email' => $request->input('email'),
           'pass' => $pass,
           'nombre' => $name,
           'apellido' => $surname,
         ]);
-      } else {
+      }
+
+      // Si existe en comunidad y existe en cine lo logueo
+      if($userExistInComunidad && $userExistInCine && $user->splice === 1) {
         Auth::loginUsingId($user->id);
         return Redirect::to('novedades');
-        // User exits
-
-
-
       }
 
       /*if ($this->guard()->attempt($credentials)) {

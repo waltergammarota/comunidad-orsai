@@ -13,7 +13,7 @@
             </div>
         </div>
         <article id="registro_js" class="contenedor grilla_asociarse_blanco">
-            <h2 class="title-login">Bienvenida/o a Comunidad Orsar</h2>
+            <h2 class="title-login">Bienvenida/o a Comunidad Orsai</h2>
             <p class="text-login">Como es tu primera vez en la comunidad te vamos a pedir tu país unos datos más.</p>
 
             <div class="form_central_3 form_reg">
@@ -27,7 +27,7 @@
                     <input type="hidden" id="complete" name="complete" value="1">
                     @csrf
                     <div class="grilla_form">
-                        <div class="form_ctrl input_ col_3" style="margin-bottom: 3rem;">
+                        <div class="form_ctrl input_ col_6" style="margin-bottom: 3rem;">
                             <div class="input_err">
                                 <label class="text_medium">País</label>
                                 <div class="select">

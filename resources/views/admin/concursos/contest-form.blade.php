@@ -127,8 +127,9 @@
                                                 <input type="file" class="file" id="exampleInputFile"
                                                        name="images[]" accept="image/*" data-browse-on-zone-click="true"
                                                        data-msg-placeholder="Seleccione imagen...">
-                                                @error('images') <span
-                                                    class="help-block">Este campo es obligatorio</span> @enderror
+                                                @error('images')
+                                                  <span class="help-block">Este campo es obligatorio</span>
+                                                @enderror
                                             </div>
                                             <div id="inputFileError"></div>
                                         </div>

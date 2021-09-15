@@ -83,10 +83,11 @@ class RegistrationController extends Controller
         $userData = [
           'name' => $request->nombre,
           'lastName' => $request->apellido,
-          'nickName' => $request->email,
+          'nickName' => strtolower($request->nombre).random_int(100, 9999),
           'email' => $request->email,
           'country' => $request->pais,
           'password' => $request->password,
+          'splice' => 1,
         ];
 
         $userDataApi = [
