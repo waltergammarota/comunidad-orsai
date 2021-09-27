@@ -8,6 +8,7 @@ use App\UseCases\UserActivation;
 use App\UseCases\UserRegistration;
 use App\Notifications\GenericNotification;
 use App\User;
+use DB;
 use App\Utils\Mailer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -88,6 +89,7 @@ class RegistrationController extends Controller
           'country' => $request->pais,
           'password' => $request->password,
           'splice' => 1,
+          'apiId' => 0,
         ];
 
         $userDataApi = [
@@ -148,6 +150,8 @@ class RegistrationController extends Controller
             $data = $this->createUser($userData);
             $request->session()->flash('alert', 'activation_email');
             $usertoLogin = User::find($data['id']);
+            $user = User::where('email', '=', $data['email'])->first();
+            $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('apiId'=>json_decode($response->getBody(), true)['id']));
             Auth::login($usertoLogin);
             $route = session('redirectLink');
             if ($route) {

@@ -77,6 +77,8 @@ class LoginController extends Controller
     
     $userExistInCine = false;
 
+    $userApiId = null;
+    $userApiToken = null;
 
     $validatedData = $request->validate(
       [
@@ -85,143 +87,182 @@ class LoginController extends Controller
       ]
     );
     //$status = $this->checkReCaptcha($request);
-
+    
     //$minScore = env('CAPTCHA_MIN_SCORE', 0.9);
     //if ($status->success == false || $status->score < $minScore) {
-    /*    return Redirect::back()->withErrors([
-                "login" => "Credenciales no válidas"
-            ])->withInput();*/
-    //}
+      /*    return Redirect::back()->withErrors([
+        "login" => "Credenciales no válidas"
+        ])->withInput();*/
+        //}
+        
+    if(!isset($_COOKIE['_secure_session'])) {
 
+      $encodeToken = base64_encode($request->input('email') . ':' . $request->input('password'));
+      $pass = $request->input('password');
 
-    $encodeToken = base64_encode($request->input('email') . ':' . $request->input('password'));
-    $pass = $request->input('password');
+      $headers = [
+        'Authorization' => 'Bearer ' . $encodeToken,
+        'Accept'        => 'application/json',
+      ];
+      try {
+        $response = $client->get('usuarios/v1/token', [
+          'headers' => $headers
+        ]);
+      } catch (\GuzzleHttp\Exception\RequestException $e) {
+        // Si existe en comunidad y no en cine
+        if($userExistInComunidad && !$userExistInCine) {
 
-    $headers = [
-      'Authorization' => 'Bearer ' . $encodeToken,
-      'Accept'        => 'application/json',
-    ];
-    try {
-      $response = $client->get('usuarios/v1/token', [
-        'headers' => $headers
-      ]);
-    } catch (\GuzzleHttp\Exception\RequestException $e) {
-      // Si existe en comunidad y no en cine
-      if($userExistInComunidad && !$userExistInCine) {
+          $userDataApi = [
+            'nombre' => $user->name,
+            'apellido' => $user->lastName,
+            'email' => $user->email,
+            'clave1' => 'asdawedsfsd223FDsfsadfse4323',
+            'clave2' => 'asdawedsfsd223FDsfsadfse4323',
+          ];
 
-        $userDataApi = [
-          'nombre' => $user->name,
-          'apellido' => $user->lastName,
-          'email' => $user->email,
-          'clave1' => 'asdawedsfsd223FDsfsadfse4323',
-          'clave2' => 'asdawedsfsd223FDsfsadfse4323',
-        ];
-
-        try {
-          $response = $client->post('usuarios/v1/registro', [
-            'json' => $userDataApi,
-            'headers' => [
-              'Content-Type' => 'application/json',
-              'Accept'        => 'application/json',
-              ]
-            ]);      
-        } catch (\GuzzleHttp\Exception\RequestException $e) {
-          return redirect('registrarse')->with([
-            'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
-          ]);
-        }
-
-        if($response->getStatusCode() === 200 && json_decode($response->getBody(),true)['token']) {
           try {
-            $response = $client->post('usuarios/v1/emailClave', [
-              'json' => $request->only('email'),
+            $response = $client->post('usuarios/v1/registro', [
+              'json' => $userDataApi,
               'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept'        => 'application/json',
-              ]
-            ]);
+                ]
+              ]);      
           } catch (\GuzzleHttp\Exception\RequestException $e) {
             return redirect('registrarse')->with([
               'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
             ]);
           }
-      
-          if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['mensaje']) {
-            return view('2021-reset-password-cine');
+
+          if($response->getStatusCode() === 200 && json_decode($response->getBody(),true)['token']) {
+            
+            $userApiId = json_decode($response->getBody(),true)['id'];
+            $userApiToken = json_decode($response->getBody(),true)['token'];
+            
+            try {
+              $response = $client->post('usuarios/v1/emailClave', [
+                'json' => $request->only('email'),
+                'headers' => [
+                  'Content-Type' => 'application/json',
+                  'Accept'        => 'application/json',
+                ]
+              ]);
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
+              return redirect('registrarse')->with([
+                'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+              ]);
+            }
+        
+            if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['mensaje']) {
+              return view('2021-reset-password-cine');
+            }
           }
         }
-      }
-      
-      return redirect('ingresar')->with([
-        'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
-      ]);
-    }
-
-
-    if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['token']) {
-      $name = json_decode($response->getBody(), true)['nombre'];
-      $surname = json_decode($response->getBody(), true)['apellido'];
-      $userExistInCine = true;
-      
-
-      $credentials = $request->only('email', 'password');
-
-      // Si existe en ambos lados pero no esta empalmado
-      if($userExistInComunidad && $userExistInCine && $user->splice === 0) {
-        $user->update(array('splice' => 1));
-        $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('splice'=>1));
-
-        Auth::loginUsingId($user->id);
-        return Redirect::to('novedades');
-      }
-      
-      // Si no existe en comunidad y existe en cine
-      if(!$userExistInComunidad && $userExistInCine) {
-        return redirect('registrarse')->with([
-          'email' => $request->input('email'),
-          'pass' => $pass,
-          'nombre' => $name,
-          'apellido' => $surname,
+        
+        return redirect('ingresar')->with([
+          'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
         ]);
       }
 
-      // Si existe en comunidad y existe en cine lo logueo
-      if($userExistInComunidad && $userExistInCine && $user->splice === 1) {
-        Auth::loginUsingId($user->id);
-        return Redirect::to('novedades');
+
+      if ($response->getStatusCode() === 200 && json_decode($response->getBody(), true)['token']) {
+        $name = json_decode($response->getBody(), true)['nombre'];
+        $surname = json_decode($response->getBody(), true)['apellido'];
+        $userExistInCine = true;
+        
+
+        $credentials = $request->only('email', 'password');
+
+        // Si existe en ambos lados pero no esta empalmado
+        if($userExistInComunidad && $userExistInCine && $user->splice === 0) {
+          $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('splice'=>1));
+          $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('apiId'=>json_decode($response->getBody(), true)['id']));
+
+          Auth::loginUsingId($user->id);
+          $accessToken = base64_encode(json_decode($response->getBody(), true)['id'].':'.json_decode($response->getBody(), true)['token']);
+          setcookie("_secure_session", $accessToken);
+          return Redirect::to('novedades');
+        }
+        
+        // Si no existe en comunidad y existe en cine
+        if(!$userExistInComunidad && $userExistInCine) {
+          return redirect('registrarse')->with([
+            'email' => $request->input('email'),
+            'pass' => $pass,
+            'nombre' => $name,
+            'apellido' => $surname,
+          ]);
+        }
+
+        // Si existe en comunidad y existe en cine lo logueo
+        if($userExistInComunidad && $userExistInCine && $user->splice === 1) {
+          $user->update(array('apiId' => json_decode($response->getBody(), true)['id']));
+          Auth::loginUsingId($user->id);
+          $accessToken = base64_encode(json_decode($response->getBody(), true)['id'].':'.json_decode($response->getBody(), true)['token']);
+          setcookie("_secure_session", $accessToken);
+          return Redirect::to('novedades');
+        }
+
+        /*if ($this->guard()->attempt($credentials)) {
+
+                if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
+                    $route = session('redirectLink');
+                    if ($route) {
+                        session(['redirectLink' => false]);
+                        return Redirect::to($route);
+                    }
+    
+                    if (Auth::user()->phone_verified_at == null) {
+                        $this->sendValidateNotification(Auth::user());
+                    }
+    
+                    return Redirect::to('novedades');
+                }
+                if (Auth::user()->blocked != 0) {
+                    session()->forget('last_visited');
+                    //Auth::logout();
+                    return Redirect::to('ingresar');
+                }
+                session()->forget('last_visited');
+                //Auth::logout();
+                return Redirect::to('reenviar-mail');
+            }*/
       }
 
-      /*if ($this->guard()->attempt($credentials)) {
+      /*return Redirect::back()->withErrors(
+              [
+                  "login" => "Credenciales no válidas"
+              ]
+          )->withInput();*/
+    } else {
 
-              if (Auth::user()->email_verified_at && Auth::user()->blocked == 0) {
-                  $route = session('redirectLink');
-                  if ($route) {
-                      session(['redirectLink' => false]);
-                      return Redirect::to($route);
-                  }
-  
-                  if (Auth::user()->phone_verified_at == null) {
-                      $this->sendValidateNotification(Auth::user());
-                  }
-  
-                  return Redirect::to('novedades');
-              }
-              if (Auth::user()->blocked != 0) {
-                  session()->forget('last_visited');
-                  //Auth::logout();
-                  return Redirect::to('ingresar');
-              }
-              session()->forget('last_visited');
-              //Auth::logout();
-              return Redirect::to('reenviar-mail');
-          }*/
+      $headers = [
+        'Authorization' => 'Bearer ' . $_COOKIE['_secure_session'],
+        'Accept'        => 'application/json',
+      ];
+
+      try {
+        $response = $client->get('usuarios/v1/autorizacion', [
+          'headers' => $headers
+        ]);
+      } catch (\GuzzleHttp\Exception\RequestException $e) {
+      }
+      if($response->getStatusCode() === 200) {
+        if($user->apiId === 0) {
+          $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('apiId'=>json_decode($response->getBody(), true)['id']));
+          Auth::loginUsingId(json_decode($response->getBody(), true)['id']);
+          $accessToken = base64_encode(json_decode($response->getBody(), true)['id'].':'.json_decode($response->getBody(), true)['token']);
+          setcookie("_secure_session", $accessToken);
+          return Redirect::to('novedades');
+        } else {
+          Auth::loginUsingId($user->id);
+          $accessToken = base64_encode(json_decode($response->getBody(), true)['id'].':'.json_decode($response->getBody(), true)['token']);
+          setcookie("_secure_session", $accessToken);
+          return Redirect::to('novedades');
+          
+        }
+      }
     }
-
-    /*return Redirect::back()->withErrors(
-            [
-                "login" => "Credenciales no válidas"
-            ]
-        )->withInput();*/
   }
 
   public function logout()
