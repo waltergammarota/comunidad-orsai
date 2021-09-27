@@ -246,18 +246,21 @@ class LoginController extends Controller
           'headers' => $headers
         ]);
       } catch (\GuzzleHttp\Exception\RequestException $e) {
+        setcookie("_secure_session", "", time()-3600);
+        return redirect('ingresar')->with([
+          'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
+        ]);
       }
+      
       if($response->getStatusCode() === 200) {
         if($user->apiId === 0) {
           $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('apiId'=>json_decode($response->getBody(), true)['id']));
-          Auth::loginUsingId(json_decode($response->getBody(), true)['id']);
+          Auth::loginUsingId(json_decode($response->getBody(), true)['id']);      
           $accessToken = base64_encode(json_decode($response->getBody(), true)['id'].':'.json_decode($response->getBody(), true)['token']);
           setcookie("_secure_session", $accessToken);
           return Redirect::to('novedades');
         } else {
           Auth::loginUsingId($user->id);
-          $accessToken = base64_encode(json_decode($response->getBody(), true)['id'].':'.json_decode($response->getBody(), true)['token']);
-          setcookie("_secure_session", $accessToken);
           return Redirect::to('novedades');
           
         }
