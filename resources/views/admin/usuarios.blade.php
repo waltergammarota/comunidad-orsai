@@ -110,6 +110,18 @@
                 </div>
             </div>
             <div class="row">
+              <div class="col-md-2 offset-md-8">
+                <label for="selectAll">
+                  <input type="checkbox" class="selectAll" name="selectAll" id="selectAll" value="all"> Seleccionar todo
+                </label>
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-sm btn-danger" id="delete-all" data-row="all">
+                  Eliminar Seleccionados
+              </button>
+              </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
@@ -282,6 +294,8 @@
     <script src="{{url('admin/plugins/select2/js/select2.full.js')}}"></script>
     <script src="{{url('admin/plugins/select2/js/i18n/es.js')}}"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.10.21/api/processing().js"></script>
+    <link href="https://nightly.datatables.net/select/css/select.dataTables.css?_=766c9ac11eda67c01f759bab53b4774d.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/select/js/dataTables.select.js?_=766c9ac11eda67c01f759bab53b4774d"></script>
     <script>
         $(function () {
             const comboPais = $('#comboPais');
@@ -337,6 +351,9 @@
             });
 
             const options = {
+                select: {
+                  style: 'multi'
+              },
                 "dom": 'Bfrtip',
                 "buttons": [
                     {
@@ -428,6 +445,41 @@
             };
 
             const table = $('#example2').DataTable(options);
+            
+            $(".selectAll").on( "click", function(e) {
+                if ($(this).is( ":checked" )) {
+                  table.rows({page:'current'}  ).select();        
+                } else {
+                  table.rows({page:'current'}  ).deselect(); 
+                }
+            });
+
+            $("#delete-all").on( "click", function(e) {
+              if($('#example2 tr.selected').length > 0) {
+                if (window.confirm("¿Está seguro que desea eliminar los datos seleccionados?")) {
+                  $('#example2 tr.selected').each(function() {
+                    const row = $(this);
+                    const data = table.row(row).data();
+                    const id = data.id;
+                    axios.post('{{url('admin/usuarios/eliminar')}}', {
+                    id: id,
+                    }).then(response => {
+                        alert("Usuario eliminado");
+                        table.ajax.reload();
+                        $(".usuarioId").val(0);
+                    }).catch(error => {
+                        alert("Ha ocurrido un error. Intente más tarde");
+                        $(".usuarioId").val(0);
+                    });
+                  });
+                }
+              } else {
+                alert('Seleccione al menos 1 item a borrar');
+              }
+              
+                
+            });
+
 
             table.on('click', '.admin', function () {
                 const row = $(this).data('row');
@@ -590,6 +642,9 @@
     <style>
         table#example2 {
             font-size: 12px;
+        }
+        table#example2 tr {
+            cursor: pointer;
         }
     </style>
 @endsection
