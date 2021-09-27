@@ -46,7 +46,6 @@ class LoginController extends Controller
    * @var string
    */
   protected $baseUri;
-
   /**
    * Create a new controller instance.
    *
@@ -271,6 +270,7 @@ class LoginController extends Controller
   public function logout()
   {
     session()->forget('last_visited');
+    setcookie("_secure_session", "", time()-3600);
     Auth::logout();
     return redirect('/ingresar');
   }
