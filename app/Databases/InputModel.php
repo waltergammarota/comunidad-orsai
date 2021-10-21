@@ -87,6 +87,17 @@ class InputModel extends Model
     {
         $counter_type = $this->counter_type;
         $counterClass = "";
+        $palabras = "";
+        switch ($counter_type) {
+            case "word":
+                $counterClass = "count-words";
+                $palabras = "palabras";
+                break;
+            case "char":
+                $counterClass = "count-characters";
+                $palabras = "caracteres";
+                break;
+        }
         $data = [
             "id" => $this->id,
             "tutorial" => $this->tutorial,
@@ -95,6 +106,7 @@ class InputModel extends Model
             "inputName" => $this->getInputName(),
             "value" => $this->getValue($answers),
             "counterClass" => $counterClass,
+            "palabras" => $palabras,
             "placeholder" => $this->placeholder,
             "counter_max" => $this->counter_max
         ];

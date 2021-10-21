@@ -39,11 +39,9 @@
                                                     Acepto las <a href="{{url($bases->slug)}}" target="_blank">bases y
                                                         condiciones del
                                                         concurso</a>
-                                                 @endif
-                                                 <input type="checkbox" name="bases" id="bases" value="1" checked >
-                                                 @if($bases)
-                                                 <span class="checkmark"></span>
-                                                 @endif
+                                                @endif
+                                                <input type="checkbox" name="bases" id="bases" value="1" checked>
+                                                <span class="checkmark"></span>
                                             </label>
                                         </div>
                                     </div>
@@ -101,7 +99,6 @@
                         </div>
                         @endisset
                     </form>
-                    <input type="hidden" name="showPreventModal" id="showPreventModal" value="no">
                 </article>
             </div>
             <div class="form_ctrl input_" style="margin-top:20px;">
@@ -135,17 +132,6 @@
         </div>
     </div>
 
-    <div id="sin_alert" class="modal modal_alert alert_modal">
-      <div class="title_modal">
-        <img src="{{url('estilos/front2021/assets/icon_warning.svg')}}"/>
-        <p>Si hacés click en publicar, tu cuento pasará a otra instancia y ya <strong>no podrás volver a modificarlo. ¿Querés continuar?</strong></p>
-        <div class="content-buttons">
-          <a href="#!" class="boton_redondeado btn_transparente alert--btn" id="alertModalNo">No</a>
-          <a href="#!" class="rounded-save--yellow alert--btn" id="alertModalSi">Si</a>
-        </div>
-      </div>
-    </div>
-
 @endsection
 
 @section('footer')
@@ -166,7 +152,6 @@
         const form = $('#concursos');
         const pricePerCpa = parseInt($("#pricePerCpa").val());
         const modal = $(".modal_sinfichas");
-        const modalAlert = $(".modal_alert");
         const modalSinCompletar = $(".modal_sincompletar");
 
         function userHasCompletedSomething() {
@@ -180,54 +165,31 @@
         }
 
         form.submit(function (event) {
-          event.preventDefault();
-          if (!userHasCompletedSomething()) {
-            showFillSomethingModal();
-            return;
-          }
-          getBalance().then(balance => {
-            const enviar = $(document.activeElement).val();
-            if (enviar == "guardar" || enviar == "") {
-              event.currentTarget.submit();
-              return;
+            event.preventDefault();
+            if (!userHasCompletedSomething()) {
+                showFillSomethingModal();
+                return;
             }
-            if (balance >= pricePerCpa && enviar == "enviar") {
-              console.log("enviando");
-              modal.hide();
-              if (enviar == "enviar") {
-                  const input = $("<input>")
-                      .attr("type", "hidden")
-                      .attr("name", "enviar").val("enviar");
-                  form.append(input);
-              }
-              if($('#showPreventModal').val() == 'no') {
-                console.log("muestro modal", $('#showPreventModal').val());
-                modalAlert.modal();
-              } else {
-                console.log("pasa sin modal", $('#showPreventModal').val());
-                event.currentTarget.submit();
-              }
-            } else {
-              modal.modal();
-            }
-          });
-        });
-
-        $('#alertModalSi').click(function(event) {
-          event.preventDefault();
-          modalAlert.hide();
-          $('.modal_alert .close-modal').click();
-          $('#showPreventModal').val('yes');
-          console.log('acepto el modal', $('#showPreventModal').val());
-          form.submit();
-        });
-        
-        $('#alertModalNo').click(function(event) {
-          event.preventDefault();
-          $('#showPreventModal').val('no');
-          console.log('no acepto el modal', $('#showPreventModal').val());
-          modalAlert.hide();
-          $('.modal_alert .close-modal').click();
+            getBalance().then(balance => {
+                const enviar = $(document.activeElement).val();
+                if (enviar == "guardar" || enviar == "") {
+                    event.currentTarget.submit();
+                    return;
+                }
+                if (balance >= pricePerCpa && enviar == "enviar") {
+                    console.log("enviando");
+                    modal.hide();
+                    if (enviar == "enviar") {
+                        const input = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "enviar").val("enviar");
+                        form.append(input);
+                    }
+                    event.currentTarget.submit();
+                } else {
+                    modal.modal();
+                }
+            });
         });
 
         function getBalance() {

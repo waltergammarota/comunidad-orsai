@@ -282,7 +282,7 @@ class PropuestaController extends Controller
         $notification = new \stdClass();
         $notification->subject = "Postulación Aprobada";
         $notification->title = "¡Bien ahí!";
-        $notification->description = "<p>Comunidad Orsai aprobó tu postulación. Ya estás participando del Concurso.</p>";
+        $notification->description = "<p>Comunidad Orsai aprobó tu postulación. Ya estás participando del Concurso./p>";
         $notification->button_url = '';
         $notification->button_text = '';
         $notification->user_id = 1;

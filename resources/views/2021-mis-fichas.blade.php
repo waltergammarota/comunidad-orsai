@@ -39,7 +39,7 @@
                             </div>
                             <span class="subtitulo">Tenés</span>
                             <p class="titulo"><strong>{{Session::get('balance')}}</strong> Fichas</p>
-                            <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left" style="display:none">Conseguir más</a>
+                            <a href="{{url('donar')}}" class="boton_redondeado resaltado_amarillo align_left">Conseguir más</a>
                         </div>
                         <div class="texto_2">
                             <div>

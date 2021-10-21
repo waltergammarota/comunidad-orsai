@@ -8,7 +8,6 @@ use App\Databases\ContestApplicationModel;
 use App\Databases\ContestModel;
 use App\Databases\Transaction;
 use App\User;
-use GuzzleHttp\Client;
 use App\Utils\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,27 +15,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class WebController extends Controller
 {
-
-  /**
-   * Where to redirect users after login.
-   *
-   * @var string
-   */
-  protected $baseUri;
-
-
-
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-    $this->baseUri = config('services.api.base_uri');
-  }
-
-
     public function index()
     {
         $data = $this->getUserData();
@@ -73,61 +51,17 @@ class WebController extends Controller
     public function restablecer_clave()
     {
         $data = $this->getUserData();
-        $data['msg'] = session('msg');
         return view('2021-restablecer-clave', $data);
     }
 
     public function ingresar()
     {
-        $client = new Client([
-          'base_uri' => $this->baseUri,
-        ]);
-
-        if(isset($_COOKIE['_secure_session'])) {
-
-          $decodeToken = base64_decode($_COOKIE['_secure_session']);
-          $explodeId = explode(':',$decodeToken);
-          $userId = $explodeId[0];
-          $user = User::where('apiId', $userId)->first();
-
-          $headers = [
-            'Authorization' => 'Bearer ' . $_COOKIE['_secure_session'],
-            'Accept'        => 'application/json',
-          ];
-          
-          try {
-            $response = $client->get('usuarios/v1/autorizacion', [
-              'headers' => $headers
-            ]);
-          } catch (\GuzzleHttp\Exception\RequestException $e) {
-            setcookie("_secure_session", "", time()-3600);
-            return redirect('ingresar')->with([
-              'msg' => json_decode($e->getResponse()->getBody()->getContents(), true)['error'],
-            ]);
-          }
-          
-          if($response->getStatusCode() === 200) {
-            if($user->apiId === 0) {
-              $affectedRows = DB::table('users')->where(['id'=>$user->id])->update(array('apiId'=>json_decode($response->getBody(), true)['id']));
-              Auth::loginUsingId(json_decode($response->getBody(), true)['id']);      
-              $accessToken = base64_encode(json_decode($response->getBody(), true)['id'].':'.json_decode($response->getBody(), true)['token']);
-              setcookie("_secure_session", $accessToken);
-              return Redirect::to('novedades');
-            } else {
-              Auth::loginUsingId($user->id);
-              return Redirect::to('novedades');
-              
-            }
-          }
-        }
         if (Auth::check()) {
             return Redirect::to('panel');
         }
-        $apiMsg = session('msg');
         $data = $this->getUserData();
         $data['totalusers'] = User::where('email_verified_at', '!=', null)->count();
         $data['sociosPosta'] = User::whereNotNull('email_verified_at')->whereNotNull('phone_verified_at')->count();
-        $data['msg'] = $apiMsg;
 
         return view('2021-login', $data);
     }

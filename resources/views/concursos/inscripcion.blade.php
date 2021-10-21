@@ -32,23 +32,7 @@
                                  alt="insertar SVG con la etiqueta image">
                         </div>
                         <div class="content-nav">
-                            <span>
-                              Tiempo restante:
-                              <br/>
-                              <div class="countdown_container">
-                                <strong class="days countdown_concurso" id="countdown_days">{{$diff_days}}</strong>
-                                <strong class="days_text countdown_concurso">
-                                  @if($is_singular)
-                                    día
-                                  @else
-                                    días
-                                  @endif
-                                </strong>
-                                <strong class="countdown_concurso" id="countdown_hours">
-                                  {{$diff_hours}}
-                                </strong>
-                              </div>
-                            </span>
+                            <span>Te queda<br/><strong id="countdown_concurso"></strong></span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
@@ -58,11 +42,7 @@
                         </div>
                         <div class="content-nav column">
                             <span class="big-number">{{$cuentosPostulados}}</span>
-                            @if($cuentosPostulados > 1)
-                              <span>Cuentos <br> postulados</span>
-                            @else
-                              <span>Cuento <br> postulado</span>
-                            @endif
+                            <span>Cuentos <br> postulados</span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
@@ -72,25 +52,17 @@
                         </div>
                         <div class="content-nav column">
                             <span class="big-number">{{$cantidadPostulacionesAprobadas}}</span>
-                            @if($cantidadPostulacionesAprobadas > 1)
-                              <span>Cuentos <br> postulados</span>
-                            @else
-                              <span>Cuento <br> postulado</span>
-                            @endif
+                            <span>Cuentos<br> aprobados </span>
                         </div>
                     </div>
                     <div class="hero-nav-item">
-                        <div class="icon" style="margin-top:0">
+                        <div class="icon">
                             <img src="{{url('estilos/front2021/assets/cuentistas_inscriptos.svg')}}"
                                  alt="insertar SVG con la etiqueta image">
                         </div>
-                        <div class="content-nav column" style="position: relative; top: -1px">
+                        <div class="content-nav column">
                             <span class="big-number">{{$cuentistasInscriptos}}</span>
-                            @if($cantidadPostulacionesAprobadas > 1)
-                              <span>Cuentistas <br> inscriptos</span>
-                            @else
-                              <span>Cuentista <br> inscripto</span>
-                            @endif
+                            <span>Cuentistas<br> inscriptos </span>
                         </div>
                     </div>
                     {{--                    <div class="hero-nav-item">--}}
@@ -168,15 +140,17 @@
     @include("fundacion.footer-fundacion")
     <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script type="text/javascript">
-        $("#countdown_hours").countdown("{{$end_date}}", function (event) {
-          $(this).text(
-            event.strftime('%H:%M:%S')
-          ); 
-        });
-        $("#countdown_days").countdown("{{$end_date}}", function (event) {
-          $(this).text(
-            event.strftime('%-D')
-          ); 
+       
+        $("#countdown_concurso").countdown("{{$diferencia}}", function (event) {
+            if(event.offset['days'] != 0){
+                $(this).text(
+                    event.strftime('%-D día%!D %H:%M')
+                ); 
+            }else{
+                $(this).text(
+                    event.strftime('%H:%M:%S')
+                ); 
+            }
         });
         $(".hero-nav-content").owlCarousel({
             responsiveClass: true,

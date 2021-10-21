@@ -52,7 +52,7 @@
                                 @else
                                     <div>
                                         <span><small>Cierre de votación</small><strong
-                                                id="countdown_concurso" style="display:block"></strong></span>
+                                                id="countdown_concurso"></strong></span>
                                     </div>
                                 @endif
                             </div>
@@ -98,7 +98,7 @@
                         @isset($rankingPage)
                             <div class="hero-nav-item">
                                 <div class="content-nav center">
-                                    <a href="{{url('mis-postulaciones')}}" class="btn-postulacion">Mis postulaciones</a>
+                                    <a href="{{url('mis-postulaciones')}}" class="btn-postulacion">Mis Postulaciones</a>
                                 </div>
                             </div>
                         @else

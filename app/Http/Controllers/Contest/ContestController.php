@@ -11,6 +11,7 @@ use App\Databases\ContestsModo;
 use App\Databases\ContestsType;
 use App\Databases\CpaChapterModel;
 use App\Databases\CpaLog;
+use App\Databases\DolarModel;
 use App\Databases\FormModel;
 use App\Databases\RondaModel;
 use App\Databases\RondaInputModel;
@@ -25,6 +26,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Databases\NotificacionModel;
@@ -118,13 +120,14 @@ class ContestController extends Controller
             return Redirect::to(url('no-encontrado'));
         }
         $data['concurso'] = $contest;
-        //$data['diferencia'] = $contest->end_vote_date;
+        $data['diferencia'] = $contest->end_vote_date;
         $data['postulaciones_abiertas'] = false;
         $data['logo'] = $contest->logo();
         $data['cantidadPostulacionesAprobadas'] = $this->convertToK($contest->cantidadPostulaciones());
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
         $cotizacion = CotizacionModel::getCurrentCotizacion();
+        DolarModel::getDolarPrice();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
@@ -134,13 +137,6 @@ class ContestController extends Controller
         $data['contest_url'] = "concursos/{$contest->id}/" . urlencode($contest->getUrlName());
         $webController = new WebController;
         $data['participantes'] = $webController->getParticipantes($request, $contest->id);
-        $end_date = Carbon::parse($contest->end_date);
-        $diff_days = Carbon::now()->diffInDays($end_date);
-        $diff_hours = Carbon::now()->diff($end_date)->format('%H:%I:%S');
-        $data['end_date'] = Carbon::parse($contest->end_date);
-        $data['is_singular'] = (Carbon::now()->diffInDays($data['end_date']) <= 1)?true:false;
-        $data['diff_days'] = $diff_days;
-        $data['diff_hours'] = $diff_hours;
         // CONCURSO POSTULACIONES ABIERTAS
         $data['estado'] = $contest->getStatus();
         $user = Auth::user();
@@ -213,6 +209,7 @@ class ContestController extends Controller
         $logo = $contest->logo();
         $cierreDiff = Carbon::now()->diffInHours($contest->end_vote_date) . ':' . Carbon::now()->diff($contest->end_vote_date)->format('%I:%S');
         $cantidadFichasEnJuego = $this->convertToK($contest->cantidadFichasEnJuego());
+        DolarModel::getDolarPrice();
         $cotizacion = CotizacionModel::getCurrentCotizacion();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $modo = $contest->getMode()->name;
@@ -432,6 +429,7 @@ class ContestController extends Controller
         $data['cantidadFichasEnJuego'] = $this->convertToK($contest->cantidadFichasEnJuego());
         $data['cuentosPostulados'] = $this->convertToK($contest->cantidadPostulacionesEnTotal());
         $data['cuentistasInscriptos'] = $this->convertToK($contest->cantidadCuentistasInscriptos());
+        DolarModel::getDolarPrice();
         $cotizacion = CotizacionModel::getCurrentCotizacion();
         $data['cantidadDineroEnJuego'] = number_format(($this->convertToK($contest->cantidadFichasEnJuego()) * $contest->token_value * $cotizacion->precio), 2, ',', '.');
         $data['usuariosqueVotaron'] = $this->convertToK($contest->cantidadUsuariosqueVotaron());
@@ -439,7 +437,7 @@ class ContestController extends Controller
         if (!$data['hasWinner'] && !$data['isJuradoVip'] && $contest->end_vote_date >= Carbon::now()) {
             return Redirect::to('concursos/' . $contest->id . '/' . $contest->getUrlName() . '/ronda/1');
         }
-        $data['categories'] = $contest->form()->first()->getCategories();
+        $data['categories'] = $contest->form()->first() ? $contest->form()->first()->getCategories() : [];
         $data['counterRondas'] = VotesModel::getRondasCounter($contest->id, $user->id);
         $data['queryParams'] = count($request->query()) ? '?' . http_build_query($request->query()) : '';
         $filters = $this->getFilters($request);
@@ -479,7 +477,7 @@ class ContestController extends Controller
             return array_slice(explode(',', $apostadores->firstWhere('cap_id', $capId)->votantes), 0, 3);
         };
         $data['apostadores'] = function ($capId) use ($apostadores) {
-            return $apostadores->firstWhere('cap_id', $capId)->apostadores;
+            return $apostadores->firstWhere('cap_id', $capId) ? $apostadores->firstWhere('cap_id', $capId)->apostadores : 0;
         };
 
         $data['hasWinner'] = $contest->hasWinner();
@@ -513,7 +511,7 @@ class ContestController extends Controller
             return view('concursos.ganador', $data);
         }
         // SACAMOS LA URL DE ESTADISTICAS CUANDO ESTÁS PARADO AHÍ
- 
+
         return view("concursos.ranking", $data);
     }
 

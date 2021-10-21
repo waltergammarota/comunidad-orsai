@@ -55,6 +55,7 @@ class SendReminderApplicationDaily extends Command
 
         foreach ($contests as $contest) {
             $cpas = ContestApplicationModel::where('contest_id', $contest->id)->get();
+
             /* Postulación pública */
             foreach ($cpas as $cpa) {
                 $app = ContestApplicationModel::find($cpa->id);
@@ -69,7 +70,7 @@ class SendReminderApplicationDaily extends Command
                     $notification->title = "¡Compartí tu postulación!";
                     $notification->description = "<p>Compartí tu postulación y sumá fichas para ganar el ".$contest->name.".</p><br/><br/>".$href1;
                     $notification->button_url = $href2;
-                    $notification->button_text = 'Ir a Mis postulaciones';
+                    $notification->button_text = 'Ir a Mis Postulaciones';
                     $notification->user_id = 1;
                     $notification->deliver_time = Carbon::now();
                     $notification->id = 0;

@@ -265,130 +265,131 @@
 
 
             table.on('click', '.aprobar', function () {
-              const data = table.row($(this).parents('tr')).data();
-              const id = data.id;
-              axios.post('{{url('admin/application/approve')}}', {
-                id: id
-              }).then(response => {
-                alert("Postulación aprobada");
-                table.ajax.reload();
-              }).catch(error => {
-                alert("Ha ocurrido un error. Intente más tarde");
-              });
+                const data = table.row($(this).parents('tr')).data();
+                const id = data.id;
+                axios.post('{{url('admin/application/approve')}}', {
+                    id: id
+                }).then(response => {
+                    alert("Postulación aprobada");
+                    table.ajax.reload();
+                }).catch(error => {
+                    alert("Ha ocurrido un error. Intente más tarde");
+                });
             });
 
             table.on('click', '.eliminar', function () {
-              const data = table.row($(this).parents('tr')).data();
-              const id = data.id;
-              $("#cap_id").val(id);
-              $("#capTitle").empty().append(`Titulo: ${data.title}`);
-              $('#modal-eliminar').modal('show');
+                const data = table.row($(this).parents('tr')).data();
+                const id = data.id;
+                $("#cap_id").val(id);
+                $("#capTitle").empty().append(`Titulo: ${data.title}`);
+                $('#modal-eliminar').modal('show');
+
             });
 
             table.on('click', '.rechazar', function () {
-              const data = table.row($(this).parents('tr')).data();
-              const id = data.id;
-              $("#postulacion").val(id);
-              $('#modal-default').modal('show');
+                const data = table.row($(this).parents('tr')).data();
+                const id = data.id;
+                $("#postulacion").val(id);
+                $('#modal-default').modal('show');
             });
 
             table.on('click', '.ganador', function () {
-              const data = table.row($(this).parents('tr')).data();
-              const id = data.id;
-              $("#postulacion").val(id);
-              $('#modal-ganador').modal('show');
+                const data = table.row($(this).parents('tr')).data();
+                const id = data.id;
+                $("#postulacion").val(id);
+                $('#modal-ganador').modal('show');
             });
 
             table
-              .on('select', function (e, dt, type, indexes) {
-                const rowData = table.rows(indexes).data().toArray();
-                aprobarBtn.removeAttr('disabled');
-              })
-              .on('deselect', function (e, dt, type, indexes) {
-                var rowData = table.rows(indexes).data().toArray();
-                const qty = table.rows({selected: true}).count();
-                if (qty == 0) {
-                  aprobarBtn.attr('disabled', 'disabled');
-                }
-            });
+                .on('select', function (e, dt, type, indexes) {
+                    const rowData = table.rows(indexes).data().toArray();
+                    aprobarBtn.removeAttr('disabled');
+                })
+                .on('deselect', function (e, dt, type, indexes) {
+                    var rowData = table.rows(indexes).data().toArray();
+                    const qty = table.rows({selected: true}).count();
+                    if (qty == 0) {
+                        aprobarBtn.attr('disabled', 'disabled');
+                    }
+                });
 
 
             $("#enviarRechazo").click((event) => {
-              event.preventDefault();
-              const text = $("#comentario").val();
-              const id = $("#postulacion").val();
-              $('#modal-default').modal('hide');
-              axios.post('{{url('admin/application/reject')}}', {
-                id: id,
-                comment: text
-              }).then(response => {
-                alert("Postulación rechazada");
-                table.ajax.reload();
-                $("#postulacion").val(0);
-              }).catch(error => {
-                alert("Ha ocurrido un error. Intente más tarde");
-                $("#postulacion").val(0);
-              });
+                event.preventDefault();
+                const text = $("#comentario").val();
+                const id = $("#postulacion").val();
+                $('#modal-default').modal('hide');
+                axios.post('{{url('admin/application/reject')}}', {
+                    id: id,
+                    comment: text
+                }).then(response => {
+                    alert("Postulación rechazada");
+                    table.ajax.reload();
+                    $("#postulacion").val(0);
+                }).catch(error => {
+                    alert("Ha ocurrido un error. Intente más tarde");
+                    $("#postulacion").val(0);
+                });
             });
 
             $("#ganador-button").click((event) => {
-              event.preventDefault();
-              const id = $("#postulacion").val();
-              $('#modal-ganador').modal('hide');
-              axios.post('{{url('admin/application/winner')}}', {
-                id: id,
-              }).then(response => {
-                alert("Habemus logo");
-                table.ajax.reload();
-                $("#postulacion").val(0);
-              }).catch(error => {
-                alert("Ha ocurrido un error. Intente más tarde");
-                $("#postulacion").val(0);
-              });
+                event.preventDefault();
+                const id = $("#postulacion").val();
+                $('#modal-ganador').modal('hide');
+                axios.post('{{url('admin/application/winner')}}', {
+                    id: id,
+                }).then(response => {
+                    alert("Habemus logo");
+                    table.ajax.reload();
+                    $("#postulacion").val(0);
+                }).catch(error => {
+                    alert("Ha ocurrido un error. Intente más tarde");
+                    $("#postulacion").val(0);
+                });
             });
 
             $("#eliminar-button").click((event) => {
-              event.preventDefault();
-              const id = $("#cap_id").val();
-              axios.post('{{url('admin/application/eliminar')}}', {
-                id: id
-              }).then(response => {
-                alert("Postulación eliminada");
-                table.ajax.reload();
-                $('#modal-eliminar').modal('hide');
-              }).catch(error => {
-                alert("Ha ocurrido un error. Intente más tarde");
-                $('#modal-eliminar').modal('hide');
-              });
+                event.preventDefault();
+                const id = $("#cap_id").val();
+                axios.post('{{url('admin/application/eliminar')}}', {
+                    id: id
+                }).then(response => {
+                    alert("Postulación eliminada");
+                    table.ajax.reload();
+                    $('#modal-eliminar').modal('hide');
+                }).catch(error => {
+                    alert("Ha ocurrido un error. Intente más tarde");
+                    $('#modal-eliminar').modal('hide');
+                });
             });
         });
 
         function showConfirmModal() {
-          $('#modal-approve').modal('show');
-          const qty = table.rows({selected: true}).count();
-          $('#approveQty').empty().append(qty);
+            $('#modal-approve').modal('show');
+            const qty = table.rows({selected: true}).count();
+            $('#approveQty').empty().append(qty);
         }
 
         function approveMultiple() {
-          const indexes = table.rows({selected: true});
-          const rows = indexes.map(function (item) {
-            return table.rows(item).data().toArray();
-          });
-          const responses = rows[0].map(function (item) {
-            console.log(item.id);
-            return axios.post('{{url('admin/application/approve')}}', {
-                id: item.id,
+            const indexes = table.rows({selected: true});
+            const rows = indexes.map(function (item) {
+                return table.rows(item).data().toArray();
             });
-          });
-          Promise.all(responses).then(function (values) {
-            $('#modal-approve').modal('hide');
-            alert("Todas las postulaciones seleccionadas fueron aprobadas");
-            table.ajax.reload();
-            $('#aprobar').attr('disabled', 'disabled');
-          }).catch(function (error) {
-            console.log(error);
-            alert("Ha occurido un error, las postulaciones no se han podido aprobar");
-          });
+            const responses = rows[0].map(function (item) {
+                console.log(item.id);
+                return axios.post('{{url('admin/application/approve')}}', {
+                    id: item.id,
+                });
+            });
+            Promise.all(responses).then(function (values) {
+                $('#modal-approve').modal('hide');
+                alert("Todas las postulaciones seleccionadas fueron aprobadas");
+                table.ajax.reload();
+                $('#aprobar').attr('disabled', 'disabled');
+            }).catch(function (error) {
+                console.log(error);
+                alert("Ha occurido un error, las postulaciones no se han podido aprobar");
+            });
         }
     </script>
 @endsection

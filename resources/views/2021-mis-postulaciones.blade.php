@@ -12,7 +12,7 @@
                     <ul>
                         <li><a href="{{url('panel')}}" rel="noopener noreferrer">Panel de usuario <span
                                     class="icon-right-open"></span></a></li>
-                        <li><a href="#" class="activo" rel="noopener noreferrer">Mis postulaciones</a></li>
+                        <li><a href="#" class="activo" rel="noopener noreferrer">Mis Postulaciones</a></li>
                     </ul>
                     <div class="height_20"></div>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="form_central_3">
                     <div class="border_bt_form">
                         <div class="titulo titulo_sin_mg">
-                            <h1 class="text_regular">Mis postulaciones</h1>
+                            <h1 class="text_regular">Mis Postulaciones</h1>
                         </div>
                         @if(!$postulaciones->isEmpty())
                             <div class="subtitle">
@@ -73,7 +73,8 @@
                                                             class="icon-times-solid"></span></a></td>
                                             @elseif($status && $status->status== "draft")
                                                 <td><a href="{{url('postulacion/'.$postulacion->id)}}"
-                                                       class="estado_postulacion"><p>Borrador</p><svg width="16" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 viewBox="0 0 383.947 383.947" style="enable-background:new 0 0 383.947 383.947;" xml:space="preserve"><g>	<g>		<g>			<polygon points="0,303.947 0,383.947 80,383.947 316.053,147.893 236.053,67.893 			"/>			<path d="M377.707,56.053L327.893,6.24c-8.32-8.32-21.867-8.32-30.187,0l-39.04,39.04l80,80l39.04-39.04				C386.027,77.92,386.027,64.373,377.707,56.053z"/>		</g>	</g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg></a></td>
+                                                       class="estado_postulacion"><p>Borrador</p><span
+                                                            class="icon-pencil-alt-solid"></span></a></td>
                                             @elseif($status && $status->status== "sent")
                                                 <td><a href="{{url('postulacion/'.$postulacion->id)}}"
                                                        class="estado_postulacion"><p>En revisión</p><span

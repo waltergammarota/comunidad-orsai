@@ -16,7 +16,7 @@
                           placeholder="{{$placeholder}}">{{old($inputName)? old($inputName) : $value}}</textarea>
             <div class="input_detail">
                 <span class="content-count-words">
-                  Palabras restantes: <span class="count-words-text"> {{$counter_max}} </span>
+                    Te quedan <span class="count-words-text"> {{$counter_max}} </span> {{$palabras}}
                 </span> 
                 @error($inputName) 
                         <span class="error">{{$message}}</span> 

@@ -3721,12 +3721,6 @@ div.tagsinput #tags_tag {
     background-size: 9px;
 }
 
-.concursos_nuevos .nav-filter .filter-wrapper select option {
-  text-transform: uppercase;
-  font-size: 1rem;
-  font-family: 'Barlow Condensed', sans-serif;
-}
-
 .concursos_nuevos .nav-filter .filter-wrapper input:checked + label {
     background-color: var(--concurso-color-yellow);
     color: #000;
@@ -11685,7 +11679,7 @@ input.check_round:checked + .rounded_toggle_checkbox {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: normal;
     align-content: normal;
 }
@@ -11703,7 +11697,6 @@ input.check_round:checked + .rounded_toggle_checkbox {
     flex-basis: auto;
     align-self: auto;
     order: 0;
-    margin-right: 10px;
 }
 
 .estado_postulacion span {
@@ -13764,6 +13757,7 @@ Main Components
     align-items: center;
     color: white;
     font-size:12px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
     cursor: default;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;

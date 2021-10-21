@@ -30,8 +30,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'api' => [
-      'base_uri' => env('ENDPOINT_URI'),
-    ],
-
 ];
